@@ -2,7 +2,7 @@ import * as z from 'zod/mini';
 
 import { billingBaseSchema } from '#/schemas/billing-base';
 import { creditNoteLineSchema } from '#/schemas/fields/credit-note-line-schema';
-import { creditNoteTypeCodeSchema } from '#/schemas/values/credit-note-type-codes';
+import { creditNoteTypeCodeSchema } from '#/schemas/values/credit-note-type-code-schema';
 
 /**
  * @description Main UBL Credit Note schema (camelCase properties)

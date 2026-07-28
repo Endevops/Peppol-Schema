@@ -5,17 +5,23 @@ import * as z from 'zod/mini';
 import type { PeppolCreditNote, PeppolInvoiceResponse, PeppolMessageLevelResponse } from '#/schemas';
 import type { PeppolInvoice } from '#/schemas/invoice';
 
-import { INVOICE_RESPONSE_PROFILE_ID, MESSAGE_LEVEL_RESPONSE_PROFILE_ID } from '#/constants';
-import { decodeCreditNote, encodeCreditNote } from '#/decoders/credit-note';
-import { decodeInvoice, encodeInvoice } from '#/decoders/invoice';
-import { decodeInvoiceResponse, encodeInvoiceResponse } from '#/decoders/invoice-response';
-import { decodeMessageLevelResponse, encodeMessageLevelResponse } from '#/decoders/message-level-response';
-import { strOrUnd } from '#/helpers';
+import { INVOICE_RESPONSE_PROFILE_ID } from '#/constants/invoice-response-profile-id';
+import { MESSAGE_LEVEL_RESPONSE_PROFILE_ID } from '#/constants/message-level-response-profile-id';
+import { decodeCreditNote } from '#/decoders/decode-credit-note';
+import { decodeInvoice } from '#/decoders/decode-invoice';
+import { decodeInvoiceResponse } from '#/decoders/decode-invoice-response';
+import { decodeMessageLevelResponse } from '#/decoders/decode-message-level-response';
+import { encodeCreditNote } from '#/decoders/encode-credit-note';
+import { encodeInvoice } from '#/decoders/encode-invoice';
+import { encodeInvoiceResponse } from '#/decoders/encode-invoice-response';
+import { encodeMessageLevelResponse } from '#/decoders/encode-message-level-response';
+import { strOrUnd } from '#/helpers/str-or-und';
 import { creditNoteSchema } from '#/index';
 import { invoiceSchema } from '#/schemas/invoice';
-import { invoiceResponseSchema } from '#/schemas/invoice-response';
-import { messageLevelResponse } from '#/schemas/message-level-response';
-import { builderOptions, parserOptions } from '#/xml-options';
+import { invoiceResponseSchema } from '#/schemas/invoice-response-schema';
+import { messageLevelResponse } from '#/schemas/message-level-response-schema';
+import { builderOptions } from '#/xml/builder-options';
+import { parserOptions } from '#/xml/parser-options';
 
 export const documentParser = z.codec(
   z.string(),

@@ -2,7 +2,7 @@ import * as z from 'zod/mini';
 
 import { billingBaseSchema } from '#/schemas/billing-base';
 import { invoiceLineSchema } from '#/schemas/fields/invoice-line-schema';
-import { invoiceTypeCodeSchema } from '#/schemas/values/invoice-type-codes';
+import { invoiceTypeCodeSchema } from '#/schemas/values/invoice-type-code-schema';
 
 /**
  * @description Main UBL Invoice schema (camelCase properties)

@@ -1,7 +1,7 @@
 import { XMLParser } from 'fast-xml-parser';
 import { expect } from 'vitest';
 
-import { parserOptions } from '#/xml-options';
+import { parserOptions } from '#/xml/parser-options';
 
 function parseXML(content: string | Buffer) {
   const parser = new XMLParser(parserOptions);

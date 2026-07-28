@@ -1,6 +1,6 @@
 import * as z from 'zod/mini';
 
-import { quantityUnitCodesSchema } from '#/schemas/values/quantity-unit-code-schema';
+import { quantityUnitCodesSchema } from '#/schemas/values/quantity-unit-codes-schema';
 
 /**
  * @summary Quantity with optional unit code

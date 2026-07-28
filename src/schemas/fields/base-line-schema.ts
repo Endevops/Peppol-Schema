@@ -1,9 +1,9 @@
 import * as z from 'zod/mini';
 
-import { lineAllowanceChargeSchema } from '#/schemas/fields/allowance-charge-schema';
+import { lineAllowanceChargeSchema } from '#/schemas/fields/line-allowance-charge-schema';
 import { amountSchema } from '#/schemas/fields/amount-schema';
 import { identifierSchema } from '#/schemas/fields/identifier-schema';
-import { invoiceLinePeriodSchema } from '#/schemas/fields/invoice-period';
+import { invoiceLinePeriodSchema } from '#/schemas/fields/invoice-line-period-schema';
 import { lineItemSchema } from '#/schemas/fields/line-item-schema';
 import { linePriceSchema } from '#/schemas/fields/price-schema';
 

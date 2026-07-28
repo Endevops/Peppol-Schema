@@ -4,8 +4,9 @@ import { additionalDocumentReferenceSchema } from '#/schemas/fields/additional-d
 import { allowanceChargeSchema } from '#/schemas/fields/allowance-charge-schema';
 import { billingReferenceSchema } from '#/schemas/fields/billing-references-schema';
 import { deliverySchema } from '#/schemas/fields/delivery-schema';
-import { DEFAULT_CUSTOMIZATION_ID, DEFAULT_PROFILE_ID } from '#/schemas/fields/entities';
-import { invoicePeriodSchema } from '#/schemas/fields/invoice-period';
+import { DEFAULT_CUSTOMIZATION_ID } from '#/schemas/fields/default-customization-id';
+import { DEFAULT_PROFILE_ID } from '#/schemas/fields/default-profile-id';
+import { invoicePeriodSchema } from '#/schemas/fields/invoice-period-schema';
 import { legalMonetaryTotalSchema } from '#/schemas/fields/legal-monetary-total-schema';
 import { orderReferenceSchema } from '#/schemas/fields/order-reference-schema';
 import { partyBaseSchema } from '#/schemas/fields/party-base-schema';
