@@ -1,0 +1,3486 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`document-parser > for file './../test/files/v3/credit-note/base-c…' > should match the defined xml base-creditnote-correction 1`] = `"<?xml version="1.0" encoding="UTF-8"?><CreditNote xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2 https://docs.oasis-open.org/ubl/os-UBL-2.4/xsd/maindoc/UBL-CreditNote-2.4.xsd urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2 https://docs.oasis-open.org/ubl/os-UBL-2.4/xsd/common/UBL-CommonAggregateComponents-2.4.xsd urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2 https://docs.oasis-open.org/ubl/os-UBL-2.4/xsd/common/UBL-CommonBasicComponents-2.4.xsd" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" xmlns="urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2"><cbc:CustomizationID>urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0</cbc:CustomizationID><cbc:ProfileID>urn:fdc:peppol.eu:2017:poacc:billing:01:1.0</cbc:ProfileID><cbc:ID>Snippet1</cbc:ID><cbc:IssueDate>2017-11-13</cbc:IssueDate><cbc:CreditNoteTypeCode>381</cbc:CreditNoteTypeCode><cbc:Note>Please note we have a new phone number: 22 22 22 22</cbc:Note><cbc:DocumentCurrencyCode>EUR</cbc:DocumentCurrencyCode><cbc:AccountingCost>4025:123:4343</cbc:AccountingCost><cbc:BuyerReference>0150abc</cbc:BuyerReference><cac:BillingReference><cac:InvoiceDocumentReference><cbc:ID>Snippet0</cbc:ID></cac:InvoiceDocumentReference></cac:BillingReference><cac:AccountingSupplierParty><cac:Party><cbc:EndpointID schemeID="0088">9482348239847239874</cbc:EndpointID><cac:PartyIdentification><cbc:ID>99887766</cbc:ID></cac:PartyIdentification><cac:PartyName><cbc:Name>SupplierTradingName Ltd.</cbc:Name></cac:PartyName><cac:PostalAddress><cbc:StreetName>Main street 1</cbc:StreetName><cbc:AdditionalStreetName>Postbox 123</cbc:AdditionalStreetName><cbc:CityName>London</cbc:CityName><cbc:PostalZone>GB 123 EW</cbc:PostalZone><cac:Country><cbc:IdentificationCode>GB</cbc:IdentificationCode></cac:Country></cac:PostalAddress><cac:PartyTaxScheme><cbc:CompanyID>GB1232434</cbc:CompanyID><cac:TaxScheme><cbc:ID>VAT</cbc:ID></cac:TaxScheme></cac:PartyTaxScheme><cac:PartyLegalEntity><cbc:RegistrationName>SupplierOfficialName Ltd</cbc:RegistrationName><cbc:CompanyID>GB983294</cbc:CompanyID></cac:PartyLegalEntity></cac:Party></cac:AccountingSupplierParty><cac:AccountingCustomerParty><cac:Party><cbc:EndpointID schemeID="0002">FR23342</cbc:EndpointID><cac:PartyIdentification><cbc:ID schemeID="0002">FR23342</cbc:ID></cac:PartyIdentification><cac:PartyName><cbc:Name>BuyerTradingName AS</cbc:Name></cac:PartyName><cac:PostalAddress><cbc:StreetName>Hovedgatan 32</cbc:StreetName><cbc:AdditionalStreetName>Po box 878</cbc:AdditionalStreetName><cbc:CityName>Stockholm</cbc:CityName><cbc:PostalZone>456 34</cbc:PostalZone><cac:Country><cbc:IdentificationCode>SE</cbc:IdentificationCode></cac:Country></cac:PostalAddress><cac:PartyTaxScheme><cbc:CompanyID>SE4598375937</cbc:CompanyID><cac:TaxScheme><cbc:ID>VAT</cbc:ID></cac:TaxScheme></cac:PartyTaxScheme><cac:PartyLegalEntity><cbc:RegistrationName>Buyer Official Name</cbc:RegistrationName><cbc:CompanyID schemeID="0183">39937423947</cbc:CompanyID></cac:PartyLegalEntity><cac:Contact><cbc:Name>Lisa Johnson</cbc:Name><cbc:Telephone>23434234</cbc:Telephone><cbc:ElectronicMail>lj@buyer.se</cbc:ElectronicMail></cac:Contact></cac:Party></cac:AccountingCustomerParty><cac:Delivery><cbc:ActualDeliveryDate>2017-11-01</cbc:ActualDeliveryDate><cac:DeliveryLocation><cbc:ID schemeID="0088">9483759475923478</cbc:ID><cac:Address><cbc:StreetName>Delivery street 2</cbc:StreetName><cbc:AdditionalStreetName>Building 56</cbc:AdditionalStreetName><cbc:CityName>Stockholm</cbc:CityName><cbc:PostalZone>21234</cbc:PostalZone><cac:Country><cbc:IdentificationCode>SE</cbc:IdentificationCode></cac:Country></cac:Address></cac:DeliveryLocation><cac:DeliveryParty><cac:PartyName><cbc:Name>Delivery party Name</cbc:Name></cac:PartyName></cac:DeliveryParty></cac:Delivery><cac:PaymentMeans><cbc:PaymentMeansCode name="Credit transfer">30</cbc:PaymentMeansCode><cbc:PaymentID>Snippet1</cbc:PaymentID><cac:PayeeFinancialAccount><cbc:ID>IBAN32423940</cbc:ID><cbc:Name>AccountName</cbc:Name><cac:FinancialInstitutionBranch><cbc:ID>BIC324098</cbc:ID></cac:FinancialInstitutionBranch></cac:PayeeFinancialAccount></cac:PaymentMeans><cac:PaymentTerms><cbc:Note>Payment within 10 days, 2% discount</cbc:Note></cac:PaymentTerms><cac:AllowanceCharge><cbc:ChargeIndicator>true</cbc:ChargeIndicator><cbc:AllowanceChargeReason>Insurance</cbc:AllowanceChargeReason><cbc:Amount currencyID="EUR">25</cbc:Amount><cac:TaxCategory><cbc:ID>S</cbc:ID><cbc:Percent>25</cbc:Percent><cac:TaxScheme><cbc:ID>VAT</cbc:ID></cac:TaxScheme></cac:TaxCategory></cac:AllowanceCharge><cac:TaxTotal><cbc:TaxAmount currencyID="EUR">331.25</cbc:TaxAmount><cac:TaxSubtotal><cbc:TaxableAmount currencyID="EUR">1325</cbc:TaxableAmount><cbc:TaxAmount currencyID="EUR">331.25</cbc:TaxAmount><cac:TaxCategory><cbc:ID>S</cbc:ID><cbc:Percent>25</cbc:Percent><cac:TaxScheme><cbc:ID>VAT</cbc:ID></cac:TaxScheme></cac:TaxCategory></cac:TaxSubtotal></cac:TaxTotal><cac:LegalMonetaryTotal><cbc:LineExtensionAmount currencyID="EUR">1300</cbc:LineExtensionAmount><cbc:TaxExclusiveAmount currencyID="EUR">1325</cbc:TaxExclusiveAmount><cbc:TaxInclusiveAmount currencyID="EUR">1656.25</cbc:TaxInclusiveAmount><cbc:ChargeTotalAmount currencyID="EUR">25</cbc:ChargeTotalAmount><cbc:PayableAmount currencyID="EUR">1656.25</cbc:PayableAmount></cac:LegalMonetaryTotal><cac:CreditNoteLine><cbc:ID>1</cbc:ID><cbc:CreditedQuantity unitCode="DAY">7</cbc:CreditedQuantity><cbc:LineExtensionAmount currencyID="EUR">2800</cbc:LineExtensionAmount><cbc:AccountingCost>Konteringsstreng</cbc:AccountingCost><cac:OrderLineReference><cbc:LineID>123</cbc:LineID></cac:OrderLineReference><cac:Item><cbc:Description>Description of item</cbc:Description><cbc:Name>item name</cbc:Name><cac:StandardItemIdentification><cbc:ID schemeID="0088">21382183120983</cbc:ID></cac:StandardItemIdentification><cac:OriginCountry><cbc:IdentificationCode>NO</cbc:IdentificationCode></cac:OriginCountry><cac:CommodityClassification><cbc:ItemClassificationCode listID="SRV">09348023</cbc:ItemClassificationCode></cac:CommodityClassification><cac:ClassifiedTaxCategory><cbc:ID>S</cbc:ID><cbc:Percent>25</cbc:Percent><cac:TaxScheme><cbc:ID>VAT</cbc:ID></cac:TaxScheme></cac:ClassifiedTaxCategory></cac:Item><cac:Price><cbc:PriceAmount currencyID="EUR">400</cbc:PriceAmount></cac:Price></cac:CreditNoteLine><cac:CreditNoteLine><cbc:ID>2</cbc:ID><cbc:CreditedQuantity unitCode="DAY">-3</cbc:CreditedQuantity><cbc:LineExtensionAmount currencyID="EUR">-1500</cbc:LineExtensionAmount><cac:OrderLineReference><cbc:LineID>123</cbc:LineID></cac:OrderLineReference><cac:Item><cbc:Description>Description 2</cbc:Description><cbc:Name>item name 2</cbc:Name><cac:StandardItemIdentification><cbc:ID schemeID="0088">21382183120983</cbc:ID></cac:StandardItemIdentification><cac:OriginCountry><cbc:IdentificationCode>NO</cbc:IdentificationCode></cac:OriginCountry><cac:CommodityClassification><cbc:ItemClassificationCode listID="SRV">09348023</cbc:ItemClassificationCode></cac:CommodityClassification><cac:ClassifiedTaxCategory><cbc:ID>S</cbc:ID><cbc:Percent>25</cbc:Percent><cac:TaxScheme><cbc:ID>VAT</cbc:ID></cac:TaxScheme></cac:ClassifiedTaxCategory></cac:Item><cac:Price><cbc:PriceAmount currencyID="EUR">500</cbc:PriceAmount></cac:Price></cac:CreditNoteLine></CreditNote>"`;
+
+exports[`document-parser > for file './../test/files/v3/credit-note/base-c…' > should parse the document from the filesystem 1`] = `
+{
+  "accountingCost": "4025:123:4343",
+  "accountingCustomerParty": {
+    "contact": {
+      "electronicMail": "lj@buyer.se",
+      "name": "Lisa Johnson",
+      "telephone": "23434234",
+    },
+    "endpointId": {
+      "id": "FR23342",
+      "schemeId": "0002",
+    },
+    "partyIdentification": {
+      "id": {
+        "id": "FR23342",
+        "schemeId": "0002",
+      },
+    },
+    "partyLegalEntity": {
+      "companyId": {
+        "id": "39937423947",
+        "schemeId": "0183",
+      },
+      "registrationName": "Buyer Official Name",
+    },
+    "partyName": {
+      "name": "BuyerTradingName AS",
+    },
+    "partyTaxSchemes": [
+      {
+        "companyId": "SE4598375937",
+        "taxSchemeId": {
+          "id": "VAT",
+        },
+      },
+    ],
+    "postalAddress": {
+      "additionalStreetName": "Po box 878",
+      "cityName": "Stockholm",
+      "countryCode": {
+        "identificationCode": "SE",
+      },
+      "postalZone": "456 34",
+      "streetName": "Hovedgatan 32",
+    },
+  },
+  "accountingSupplierParty": {
+    "endpointId": {
+      "id": "9482348239847239874",
+      "schemeId": "0088",
+    },
+    "partyIdentification": {
+      "id": {
+        "id": "99887766",
+      },
+    },
+    "partyLegalEntity": {
+      "companyId": {
+        "id": "GB983294",
+      },
+      "registrationName": "SupplierOfficialName Ltd",
+    },
+    "partyName": {
+      "name": "SupplierTradingName Ltd.",
+    },
+    "partyTaxSchemes": [
+      {
+        "companyId": "GB1232434",
+        "taxSchemeId": {
+          "id": "VAT",
+        },
+      },
+    ],
+    "postalAddress": {
+      "additionalStreetName": "Postbox 123",
+      "cityName": "London",
+      "countryCode": {
+        "identificationCode": "GB",
+      },
+      "postalZone": "GB 123 EW",
+      "streetName": "Main street 1",
+    },
+  },
+  "allowanceCharges": [
+    {
+      "allowanceChargeReason": "Insurance",
+      "amount": {
+        "currencyId": "EUR",
+        "value": 25,
+      },
+      "chargeIndicator": true,
+      "taxCategory": {
+        "id": "S",
+        "percent": 25,
+        "taxSchemeId": {
+          "id": "VAT",
+        },
+      },
+    },
+  ],
+  "billingReferences": [
+    {
+      "invoiceDocumentReference": {
+        "id": "Snippet0",
+      },
+    },
+  ],
+  "buyerReference": "0150abc",
+  "creditNoteLines": [
+    {
+      "accountingCost": "Konteringsstreng",
+      "creditedQuantity": {
+        "unitCode": "DAY",
+        "value": 7,
+      },
+      "documentReference": [],
+      "id": "1",
+      "item": {
+        "additionalItemProperties": [],
+        "classifiedTaxCategory": {
+          "id": "S",
+          "percent": 25,
+          "taxSchemeId": {
+            "id": "VAT",
+          },
+        },
+        "commodityClassifications": [
+          {
+            "itemClassification": {
+              "id": "09348023",
+              "listId": "SRV",
+            },
+          },
+        ],
+        "description": "Description of item",
+        "name": "item name",
+        "originCountryCode": {
+          "identificationCode": "NO",
+        },
+        "standardItemIdentification": {
+          "id": {
+            "id": "21382183120983",
+            "schemeId": "0088",
+          },
+        },
+      },
+      "lineExtensionAmount": {
+        "currencyId": "EUR",
+        "value": 2800,
+      },
+      "orderLineReference": {
+        "lineId": "123",
+      },
+      "price": {
+        "priceAmount": {
+          "currencyId": "EUR",
+          "value": 400,
+        },
+      },
+    },
+    {
+      "creditedQuantity": {
+        "unitCode": "DAY",
+        "value": -3,
+      },
+      "documentReference": [],
+      "id": "2",
+      "item": {
+        "additionalItemProperties": [],
+        "classifiedTaxCategory": {
+          "id": "S",
+          "percent": 25,
+          "taxSchemeId": {
+            "id": "VAT",
+          },
+        },
+        "commodityClassifications": [
+          {
+            "itemClassification": {
+              "id": "09348023",
+              "listId": "SRV",
+            },
+          },
+        ],
+        "description": "Description 2",
+        "name": "item name 2",
+        "originCountryCode": {
+          "identificationCode": "NO",
+        },
+        "standardItemIdentification": {
+          "id": {
+            "id": "21382183120983",
+            "schemeId": "0088",
+          },
+        },
+      },
+      "lineExtensionAmount": {
+        "currencyId": "EUR",
+        "value": -1500,
+      },
+      "orderLineReference": {
+        "lineId": "123",
+      },
+      "price": {
+        "priceAmount": {
+          "currencyId": "EUR",
+          "value": 500,
+        },
+      },
+    },
+  ],
+  "creditNoteTypeCode": "381",
+  "customizationId": "urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0",
+  "delivery": {
+    "actualDeliveryDate": "2017-11-01",
+    "deliveryLocation": {
+      "address": {
+        "additionalStreetName": "Building 56",
+        "cityName": "Stockholm",
+        "countryCode": {
+          "identificationCode": "SE",
+        },
+        "postalZone": "21234",
+        "streetName": "Delivery street 2",
+      },
+      "id": {
+        "id": "9483759475923478",
+        "schemeId": "0088",
+      },
+    },
+    "deliveryParty": {
+      "partyName": {
+        "name": "Delivery party Name",
+      },
+    },
+  },
+  "documentCurrencyCode": "EUR",
+  "id": "Snippet1",
+  "issueDate": "2017-11-13",
+  "legalMonetaryTotal": {
+    "chargeTotalAmount": {
+      "currencyId": "EUR",
+      "value": 25,
+    },
+    "lineExtensionAmount": {
+      "currencyId": "EUR",
+      "value": 1300,
+    },
+    "payableAmount": {
+      "currencyId": "EUR",
+      "value": 1656.25,
+    },
+    "taxExclusiveAmount": {
+      "currencyId": "EUR",
+      "value": 1325,
+    },
+    "taxInclusiveAmount": {
+      "currencyId": "EUR",
+      "value": 1656.25,
+    },
+  },
+  "note": "Please note we have a new phone number: 22 22 22 22",
+  "paymentMeans": [
+    {
+      "payeeFinancialAccount": {
+        "financialInstitutionBranch": {
+          "id": "BIC324098",
+        },
+        "id": "IBAN32423940",
+        "name": "AccountName",
+      },
+      "paymentId": "Snippet1",
+      "paymentMeansCode": {
+        "code": "30",
+        "name": "Credit transfer",
+      },
+    },
+  ],
+  "paymentTerms": {
+    "note": "Payment within 10 days, 2% discount",
+  },
+  "profileId": "urn:fdc:peppol.eu:2017:poacc:billing:01:1.0",
+  "taxTotals": [
+    {
+      "taxAmount": {
+        "currencyId": "EUR",
+        "value": 331.25,
+      },
+      "taxSubtotals": [
+        {
+          "taxAmount": {
+            "currencyId": "EUR",
+            "value": 331.25,
+          },
+          "taxCategory": {
+            "id": "S",
+            "percent": 25,
+            "taxSchemeId": {
+              "id": "VAT",
+            },
+          },
+          "taxableAmount": {
+            "currencyId": "EUR",
+            "value": 1325,
+          },
+        },
+      ],
+    },
+  ],
+}
+`;
+
+exports[`document-parser > for file './../test/files/v3/invoice/Allowance-…' > should match the defined xml Allowance-example 1`] = `"<?xml version="1.0" encoding="UTF-8"?><Invoice xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2"><cbc:CustomizationID>urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0</cbc:CustomizationID><cbc:ProfileID>urn:fdc:peppol.eu:2017:poacc:billing:01:1.0</cbc:ProfileID><cbc:ID>Snippet1</cbc:ID><cbc:IssueDate>2017-11-13</cbc:IssueDate><cbc:DueDate>2017-12-01</cbc:DueDate><cbc:InvoiceTypeCode>380</cbc:InvoiceTypeCode><cbc:Note>Please note we have a new phone number: 22 22 22 22</cbc:Note><cbc:TaxPointDate>2017-12-01</cbc:TaxPointDate><cbc:DocumentCurrencyCode>EUR</cbc:DocumentCurrencyCode><cbc:TaxCurrencyCode>SEK</cbc:TaxCurrencyCode><cbc:AccountingCost>4025:123:4343</cbc:AccountingCost><cbc:BuyerReference>0150abc</cbc:BuyerReference><cac:InvoicePeriod><cbc:StartDate>2017-12-01</cbc:StartDate><cbc:EndDate>2017-12-31</cbc:EndDate></cac:InvoicePeriod><cac:ContractDocumentReference><cbc:ID>framework no 1</cbc:ID></cac:ContractDocumentReference><cac:AdditionalDocumentReference><cbc:ID schemeID="ABT">DR35141</cbc:ID><cbc:DocumentTypeCode>130</cbc:DocumentTypeCode></cac:AdditionalDocumentReference><cac:AdditionalDocumentReference><cbc:ID>ts12345</cbc:ID><cbc:DocumentTypeCode>130</cbc:DocumentTypeCode><cbc:DocumentDescription>Technical specification</cbc:DocumentDescription><cac:Attachment><cac:ExternalReference><cbc:URI>http://www.techspec.no</cbc:URI></cac:ExternalReference></cac:Attachment></cac:AdditionalDocumentReference><cac:AccountingSupplierParty><cac:Party><cbc:EndpointID schemeID="0088">7300010000001</cbc:EndpointID><cac:PartyIdentification><cbc:ID>99887766</cbc:ID></cac:PartyIdentification><cac:PartyName><cbc:Name>SupplierTradingName Ltd.</cbc:Name></cac:PartyName><cac:PostalAddress><cbc:StreetName>Main street 1</cbc:StreetName><cbc:AdditionalStreetName>Postbox 123</cbc:AdditionalStreetName><cbc:CityName>London</cbc:CityName><cbc:PostalZone>GB 123 EW</cbc:PostalZone><cac:Country><cbc:IdentificationCode>GB</cbc:IdentificationCode></cac:Country></cac:PostalAddress><cac:PartyTaxScheme><cbc:CompanyID>GB1232434</cbc:CompanyID><cac:TaxScheme><cbc:ID>VAT</cbc:ID></cac:TaxScheme></cac:PartyTaxScheme><cac:PartyLegalEntity><cbc:RegistrationName>SupplierOfficialName Ltd</cbc:RegistrationName><cbc:CompanyID>GB983294</cbc:CompanyID><cbc:CompanyLegalForm>AdditionalLegalInformation</cbc:CompanyLegalForm></cac:PartyLegalEntity></cac:Party></cac:AccountingSupplierParty><cac:AccountingCustomerParty><cac:Party><cbc:EndpointID schemeID="0002">4598375937</cbc:EndpointID><cac:PartyIdentification><cbc:ID schemeID="0002">4598375937</cbc:ID></cac:PartyIdentification><cac:PartyName><cbc:Name>BuyerTradingName AS</cbc:Name></cac:PartyName><cac:PostalAddress><cbc:StreetName>Hovedgatan 32</cbc:StreetName><cbc:AdditionalStreetName>Po box 878</cbc:AdditionalStreetName><cbc:CityName>Stockholm</cbc:CityName><cbc:PostalZone>456 34</cbc:PostalZone><cbc:CountrySubentity>Södermalm</cbc:CountrySubentity><cac:Country><cbc:IdentificationCode>SE</cbc:IdentificationCode></cac:Country></cac:PostalAddress><cac:PartyTaxScheme><cbc:CompanyID>SE4598375937</cbc:CompanyID><cac:TaxScheme><cbc:ID>VAT</cbc:ID></cac:TaxScheme></cac:PartyTaxScheme><cac:PartyLegalEntity><cbc:RegistrationName>Buyer Official Name</cbc:RegistrationName><cbc:CompanyID schemeID="0183">39937423947</cbc:CompanyID></cac:PartyLegalEntity><cac:Contact><cbc:Name>Lisa Johnson</cbc:Name><cbc:Telephone>23434234</cbc:Telephone><cbc:ElectronicMail>lj@buyer.se</cbc:ElectronicMail></cac:Contact></cac:Party></cac:AccountingCustomerParty><cac:Delivery><cbc:ActualDeliveryDate>2017-11-01</cbc:ActualDeliveryDate><cac:DeliveryLocation><cbc:ID schemeID="0088">7300010000001</cbc:ID><cac:Address><cbc:StreetName>Delivery street 2</cbc:StreetName><cbc:AdditionalStreetName>Building 56</cbc:AdditionalStreetName><cbc:CityName>Stockholm</cbc:CityName><cbc:PostalZone>21234</cbc:PostalZone><cbc:CountrySubentity>Södermalm</cbc:CountrySubentity><cac:AddressLine><cbc:Line>Gate 15</cbc:Line></cac:AddressLine><cac:Country><cbc:IdentificationCode>SE</cbc:IdentificationCode></cac:Country></cac:Address></cac:DeliveryLocation><cac:DeliveryParty><cac:PartyName><cbc:Name>Delivery party Name</cbc:Name></cac:PartyName></cac:DeliveryParty></cac:Delivery><cac:PaymentMeans><cbc:PaymentMeansCode name="Credit transfer">30</cbc:PaymentMeansCode><cbc:PaymentID>Snippet1</cbc:PaymentID><cac:PayeeFinancialAccount><cbc:ID>IBAN32423940</cbc:ID><cbc:Name>AccountName</cbc:Name><cac:FinancialInstitutionBranch><cbc:ID>BIC324098</cbc:ID></cac:FinancialInstitutionBranch></cac:PayeeFinancialAccount></cac:PaymentMeans><cac:PaymentTerms><cbc:Note>Payment within 10 days, 2% discount</cbc:Note></cac:PaymentTerms><cac:AllowanceCharge><cbc:ChargeIndicator>true</cbc:ChargeIndicator><cbc:AllowanceChargeReasonCode>CG</cbc:AllowanceChargeReasonCode><cbc:AllowanceChargeReason>Cleaning</cbc:AllowanceChargeReason><cbc:MultiplierFactorNumeric>20</cbc:MultiplierFactorNumeric><cbc:Amount currencyID="EUR">200</cbc:Amount><cbc:BaseAmount currencyID="EUR">1000</cbc:BaseAmount><cac:TaxCategory><cbc:ID>S</cbc:ID><cbc:Percent>25</cbc:Percent><cac:TaxScheme><cbc:ID>VAT</cbc:ID></cac:TaxScheme></cac:TaxCategory></cac:AllowanceCharge><cac:AllowanceCharge><cbc:ChargeIndicator>false</cbc:ChargeIndicator><cbc:AllowanceChargeReasonCode>95</cbc:AllowanceChargeReasonCode><cbc:AllowanceChargeReason>Discount</cbc:AllowanceChargeReason><cbc:Amount currencyID="EUR">200</cbc:Amount><cac:TaxCategory><cbc:ID>S</cbc:ID><cbc:Percent>25</cbc:Percent><cac:TaxScheme><cbc:ID>VAT</cbc:ID></cac:TaxScheme></cac:TaxCategory></cac:AllowanceCharge><cac:TaxTotal><cbc:TaxAmount currencyID="EUR">1225</cbc:TaxAmount><cac:TaxSubtotal><cbc:TaxableAmount currencyID="EUR">4900</cbc:TaxableAmount><cbc:TaxAmount currencyID="EUR">1225</cbc:TaxAmount><cac:TaxCategory><cbc:ID>S</cbc:ID><cbc:Percent>25</cbc:Percent><cac:TaxScheme><cbc:ID>VAT</cbc:ID></cac:TaxScheme></cac:TaxCategory></cac:TaxSubtotal><cac:TaxSubtotal><cbc:TaxableAmount currencyID="EUR">1000</cbc:TaxableAmount><cbc:TaxAmount currencyID="EUR">0</cbc:TaxAmount><cac:TaxCategory><cbc:ID>E</cbc:ID><cbc:Percent>0</cbc:Percent><cbc:TaxExemptionReason>Reason for tax exempt</cbc:TaxExemptionReason><cac:TaxScheme><cbc:ID>VAT</cbc:ID></cac:TaxScheme></cac:TaxCategory></cac:TaxSubtotal></cac:TaxTotal><cac:TaxTotal><cbc:TaxAmount currencyID="SEK">9324</cbc:TaxAmount></cac:TaxTotal><cac:LegalMonetaryTotal><cbc:LineExtensionAmount currencyID="EUR">5900</cbc:LineExtensionAmount><cbc:TaxExclusiveAmount currencyID="EUR">5900</cbc:TaxExclusiveAmount><cbc:TaxInclusiveAmount currencyID="EUR">7125</cbc:TaxInclusiveAmount><cbc:AllowanceTotalAmount currencyID="EUR">200</cbc:AllowanceTotalAmount><cbc:ChargeTotalAmount currencyID="EUR">200</cbc:ChargeTotalAmount><cbc:PrepaidAmount currencyID="EUR">1000</cbc:PrepaidAmount><cbc:PayableAmount currencyID="EUR">6125</cbc:PayableAmount></cac:LegalMonetaryTotal><cac:InvoiceLine><cbc:ID>1</cbc:ID><cbc:Note>Testing note on line level</cbc:Note><cbc:InvoicedQuantity unitCode="C62">10</cbc:InvoicedQuantity><cbc:LineExtensionAmount currencyID="EUR">4000</cbc:LineExtensionAmount><cbc:AccountingCost>Konteringsstreng</cbc:AccountingCost><cac:AllowanceCharge><cbc:ChargeIndicator>true</cbc:ChargeIndicator><cbc:AllowanceChargeReasonCode>CG</cbc:AllowanceChargeReasonCode><cbc:AllowanceChargeReason>Cleaning</cbc:AllowanceChargeReason><cbc:MultiplierFactorNumeric>1</cbc:MultiplierFactorNumeric><cbc:Amount currencyID="EUR">1</cbc:Amount><cbc:BaseAmount currencyID="EUR">100</cbc:BaseAmount></cac:AllowanceCharge><cac:AllowanceCharge><cbc:ChargeIndicator>false</cbc:ChargeIndicator><cbc:AllowanceChargeReasonCode>95</cbc:AllowanceChargeReasonCode><cbc:AllowanceChargeReason>Discount</cbc:AllowanceChargeReason><cbc:Amount currencyID="EUR">101</cbc:Amount></cac:AllowanceCharge><cac:Item><cbc:Description>Description of item</cbc:Description><cbc:Name>item name</cbc:Name><cac:SellersItemIdentification><cbc:ID>97iugug876</cbc:ID></cac:SellersItemIdentification><cac:OriginCountry><cbc:IdentificationCode>NO</cbc:IdentificationCode></cac:OriginCountry><cac:CommodityClassification><cbc:ItemClassificationCode listID="SRV">09348023</cbc:ItemClassificationCode></cac:CommodityClassification><cac:ClassifiedTaxCategory><cbc:ID>S</cbc:ID><cbc:Percent>25</cbc:Percent><cac:TaxScheme><cbc:ID>VAT</cbc:ID></cac:TaxScheme></cac:ClassifiedTaxCategory></cac:Item><cac:Price><cbc:PriceAmount currencyID="EUR">410</cbc:PriceAmount><cbc:BaseQuantity unitCode="C62">1</cbc:BaseQuantity><cac:AllowanceCharge><cbc:ChargeIndicator>false</cbc:ChargeIndicator><cbc:Amount currencyID="EUR">40</cbc:Amount><cbc:BaseAmount currencyID="EUR">450</cbc:BaseAmount></cac:AllowanceCharge></cac:Price></cac:InvoiceLine><cac:InvoiceLine><cbc:ID>2</cbc:ID><cbc:Note>Testing note on line level</cbc:Note><cbc:InvoicedQuantity unitCode="C62">10</cbc:InvoicedQuantity><cbc:LineExtensionAmount currencyID="EUR">1000</cbc:LineExtensionAmount><cbc:AccountingCost>Konteringsstreng</cbc:AccountingCost><cac:InvoicePeriod><cbc:StartDate>2017-12-01</cbc:StartDate><cbc:EndDate>2017-12-05</cbc:EndDate></cac:InvoicePeriod><cac:OrderLineReference><cbc:LineID>124</cbc:LineID></cac:OrderLineReference><cac:Item><cbc:Description>Description of item</cbc:Description><cbc:Name>item name</cbc:Name><cac:SellersItemIdentification><cbc:ID>97iugug876</cbc:ID></cac:SellersItemIdentification><cac:CommodityClassification><cbc:ItemClassificationCode listID="SRV">86776</cbc:ItemClassificationCode></cac:CommodityClassification><cac:ClassifiedTaxCategory><cbc:ID>E</cbc:ID><cbc:Percent>0</cbc:Percent><cac:TaxScheme><cbc:ID>VAT</cbc:ID></cac:TaxScheme></cac:ClassifiedTaxCategory><cac:AdditionalItemProperty><cbc:Name>AdditionalItemName</cbc:Name><cbc:Value>AdditionalItemValue</cbc:Value></cac:AdditionalItemProperty></cac:Item><cac:Price><cbc:PriceAmount currencyID="EUR">200</cbc:PriceAmount><cbc:BaseQuantity unitCode="C62">2</cbc:BaseQuantity></cac:Price></cac:InvoiceLine><cac:InvoiceLine><cbc:ID>3</cbc:ID><cbc:Note>Testing note on line level</cbc:Note><cbc:InvoicedQuantity unitCode="C62">10</cbc:InvoicedQuantity><cbc:LineExtensionAmount currencyID="EUR">900</cbc:LineExtensionAmount><cbc:AccountingCost>Konteringsstreng</cbc:AccountingCost><cac:InvoicePeriod><cbc:StartDate>2017-12-01</cbc:StartDate><cbc:EndDate>2017-12-05</cbc:EndDate></cac:InvoicePeriod><cac:OrderLineReference><cbc:LineID>124</cbc:LineID></cac:OrderLineReference><cac:AllowanceCharge><cbc:ChargeIndicator>true</cbc:ChargeIndicator><cbc:AllowanceChargeReasonCode>CG</cbc:AllowanceChargeReasonCode><cbc:AllowanceChargeReason>Charge</cbc:AllowanceChargeReason><cbc:MultiplierFactorNumeric>1</cbc:MultiplierFactorNumeric><cbc:Amount currencyID="EUR">1</cbc:Amount><cbc:BaseAmount currencyID="EUR">100</cbc:BaseAmount></cac:AllowanceCharge><cac:AllowanceCharge><cbc:ChargeIndicator>false</cbc:ChargeIndicator><cbc:AllowanceChargeReasonCode>95</cbc:AllowanceChargeReasonCode><cbc:AllowanceChargeReason>Discount</cbc:AllowanceChargeReason><cbc:Amount currencyID="EUR">101</cbc:Amount></cac:AllowanceCharge><cac:Item><cbc:Description>Description of item</cbc:Description><cbc:Name>item name</cbc:Name><cac:SellersItemIdentification><cbc:ID>97iugug876</cbc:ID></cac:SellersItemIdentification><cac:CommodityClassification><cbc:ItemClassificationCode listID="SRV">86776</cbc:ItemClassificationCode></cac:CommodityClassification><cac:ClassifiedTaxCategory><cbc:ID>S</cbc:ID><cbc:Percent>25</cbc:Percent><cac:TaxScheme><cbc:ID>VAT</cbc:ID></cac:TaxScheme></cac:ClassifiedTaxCategory><cac:AdditionalItemProperty><cbc:Name>AdditionalItemName</cbc:Name><cbc:Value>AdditionalItemValue</cbc:Value></cac:AdditionalItemProperty></cac:Item><cac:Price><cbc:PriceAmount currencyID="EUR">100</cbc:PriceAmount></cac:Price></cac:InvoiceLine></Invoice>"`;
+
+exports[`document-parser > for file './../test/files/v3/invoice/Allowance-…' > should parse the document from the filesystem 1`] = `
+{
+  "accountingCost": "4025:123:4343",
+  "accountingCustomerParty": {
+    "contact": {
+      "electronicMail": "lj@buyer.se",
+      "name": "Lisa Johnson",
+      "telephone": "23434234",
+    },
+    "endpointId": {
+      "id": "4598375937",
+      "schemeId": "0002",
+    },
+    "partyIdentification": {
+      "id": {
+        "id": "4598375937",
+        "schemeId": "0002",
+      },
+    },
+    "partyLegalEntity": {
+      "companyId": {
+        "id": "39937423947",
+        "schemeId": "0183",
+      },
+      "registrationName": "Buyer Official Name",
+    },
+    "partyName": {
+      "name": "BuyerTradingName AS",
+    },
+    "partyTaxSchemes": [
+      {
+        "companyId": "SE4598375937",
+        "taxSchemeId": {
+          "id": "VAT",
+        },
+      },
+    ],
+    "postalAddress": {
+      "additionalStreetName": "Po box 878",
+      "cityName": "Stockholm",
+      "countryCode": {
+        "identificationCode": "SE",
+      },
+      "countrySubentity": "Södermalm",
+      "postalZone": "456 34",
+      "streetName": "Hovedgatan 32",
+    },
+  },
+  "accountingSupplierParty": {
+    "endpointId": {
+      "id": "7300010000001",
+      "schemeId": "0088",
+    },
+    "partyIdentification": {
+      "id": {
+        "id": "99887766",
+      },
+    },
+    "partyLegalEntity": {
+      "companyId": {
+        "id": "GB983294",
+      },
+      "companyLegalForm": "AdditionalLegalInformation",
+      "registrationName": "SupplierOfficialName Ltd",
+    },
+    "partyName": {
+      "name": "SupplierTradingName Ltd.",
+    },
+    "partyTaxSchemes": [
+      {
+        "companyId": "GB1232434",
+        "taxSchemeId": {
+          "id": "VAT",
+        },
+      },
+    ],
+    "postalAddress": {
+      "additionalStreetName": "Postbox 123",
+      "cityName": "London",
+      "countryCode": {
+        "identificationCode": "GB",
+      },
+      "postalZone": "GB 123 EW",
+      "streetName": "Main street 1",
+    },
+  },
+  "additionalDocumentReferences": [
+    {
+      "documentTypeCode": "130",
+      "id": {
+        "id": "DR35141",
+        "schemeId": "ABT",
+      },
+    },
+    {
+      "attachment": {
+        "externalReference": {
+          "uri": "http://www.techspec.no",
+        },
+      },
+      "documentDescription": "Technical specification",
+      "documentTypeCode": "130",
+      "id": {
+        "id": "ts12345",
+      },
+    },
+  ],
+  "allowanceCharges": [
+    {
+      "allowanceChargeReason": "Cleaning",
+      "allowanceChargeReasonCode": "CG",
+      "amount": {
+        "currencyId": "EUR",
+        "value": 200,
+      },
+      "baseAmount": {
+        "currencyId": "EUR",
+        "value": 1000,
+      },
+      "chargeIndicator": true,
+      "multiplierFactorNumeric": 20,
+      "taxCategory": {
+        "id": "S",
+        "percent": 25,
+        "taxSchemeId": {
+          "id": "VAT",
+        },
+      },
+    },
+    {
+      "allowanceChargeReason": "Discount",
+      "allowanceChargeReasonCode": "95",
+      "amount": {
+        "currencyId": "EUR",
+        "value": 200,
+      },
+      "chargeIndicator": false,
+      "taxCategory": {
+        "id": "S",
+        "percent": 25,
+        "taxSchemeId": {
+          "id": "VAT",
+        },
+      },
+    },
+  ],
+  "buyerReference": "0150abc",
+  "contractDocumentReference": {
+    "id": "framework no 1",
+  },
+  "customizationId": "urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0",
+  "delivery": {
+    "actualDeliveryDate": "2017-11-01",
+    "deliveryLocation": {
+      "address": {
+        "additionalStreetName": "Building 56",
+        "addressLine": {
+          "line": "Gate 15",
+        },
+        "cityName": "Stockholm",
+        "countryCode": {
+          "identificationCode": "SE",
+        },
+        "countrySubentity": "Södermalm",
+        "postalZone": "21234",
+        "streetName": "Delivery street 2",
+      },
+      "id": {
+        "id": "7300010000001",
+        "schemeId": "0088",
+      },
+    },
+    "deliveryParty": {
+      "partyName": {
+        "name": "Delivery party Name",
+      },
+    },
+  },
+  "documentCurrencyCode": "EUR",
+  "dueDate": "2017-12-01",
+  "id": "Snippet1",
+  "invoiceLines": [
+    {
+      "accountingCost": "Konteringsstreng",
+      "allowanceCharges": [
+        {
+          "allowanceChargeReason": "Cleaning",
+          "allowanceChargeReasonCode": "CG",
+          "amount": {
+            "currencyId": "EUR",
+            "value": 1,
+          },
+          "baseAmount": {
+            "currencyId": "EUR",
+            "value": 100,
+          },
+          "chargeIndicator": true,
+          "multiplierFactorNumeric": 1,
+        },
+        {
+          "allowanceChargeReason": "Discount",
+          "allowanceChargeReasonCode": "95",
+          "amount": {
+            "currencyId": "EUR",
+            "value": 101,
+          },
+          "chargeIndicator": false,
+        },
+      ],
+      "documentReference": [],
+      "id": "1",
+      "invoicedQuantity": {
+        "unitCode": "C62",
+        "value": 10,
+      },
+      "item": {
+        "additionalItemProperties": [],
+        "classifiedTaxCategory": {
+          "id": "S",
+          "percent": 25,
+          "taxSchemeId": {
+            "id": "VAT",
+          },
+        },
+        "commodityClassifications": [
+          {
+            "itemClassification": {
+              "id": "09348023",
+              "listId": "SRV",
+            },
+          },
+        ],
+        "description": "Description of item",
+        "name": "item name",
+        "originCountryCode": {
+          "identificationCode": "NO",
+        },
+        "sellersItemIdentification": {
+          "id": "97iugug876",
+        },
+      },
+      "lineExtensionAmount": {
+        "currencyId": "EUR",
+        "value": 4000,
+      },
+      "note": "Testing note on line level",
+      "price": {
+        "allowanceCharge": {
+          "amount": {
+            "currencyId": "EUR",
+            "value": 40,
+          },
+          "baseAmount": {
+            "currencyId": "EUR",
+            "value": 450,
+          },
+          "chargeIndicator": false,
+        },
+        "baseQuantity": {
+          "unitCode": "C62",
+          "value": 1,
+        },
+        "priceAmount": {
+          "currencyId": "EUR",
+          "value": 410,
+        },
+      },
+    },
+    {
+      "accountingCost": "Konteringsstreng",
+      "documentReference": [],
+      "id": "2",
+      "invoicePeriod": {
+        "endDate": "2017-12-05",
+        "startDate": "2017-12-01",
+      },
+      "invoicedQuantity": {
+        "unitCode": "C62",
+        "value": 10,
+      },
+      "item": {
+        "additionalItemProperties": [
+          {
+            "name": "AdditionalItemName",
+            "value": "AdditionalItemValue",
+          },
+        ],
+        "classifiedTaxCategory": {
+          "id": "E",
+          "percent": 0,
+          "taxSchemeId": {
+            "id": "VAT",
+          },
+        },
+        "commodityClassifications": [
+          {
+            "itemClassification": {
+              "id": "86776",
+              "listId": "SRV",
+            },
+          },
+        ],
+        "description": "Description of item",
+        "name": "item name",
+        "sellersItemIdentification": {
+          "id": "97iugug876",
+        },
+      },
+      "lineExtensionAmount": {
+        "currencyId": "EUR",
+        "value": 1000,
+      },
+      "note": "Testing note on line level",
+      "orderLineReference": {
+        "lineId": "124",
+      },
+      "price": {
+        "baseQuantity": {
+          "unitCode": "C62",
+          "value": 2,
+        },
+        "priceAmount": {
+          "currencyId": "EUR",
+          "value": 200,
+        },
+      },
+    },
+    {
+      "accountingCost": "Konteringsstreng",
+      "allowanceCharges": [
+        {
+          "allowanceChargeReason": "Charge",
+          "allowanceChargeReasonCode": "CG",
+          "amount": {
+            "currencyId": "EUR",
+            "value": 1,
+          },
+          "baseAmount": {
+            "currencyId": "EUR",
+            "value": 100,
+          },
+          "chargeIndicator": true,
+          "multiplierFactorNumeric": 1,
+        },
+        {
+          "allowanceChargeReason": "Discount",
+          "allowanceChargeReasonCode": "95",
+          "amount": {
+            "currencyId": "EUR",
+            "value": 101,
+          },
+          "chargeIndicator": false,
+        },
+      ],
+      "documentReference": [],
+      "id": "3",
+      "invoicePeriod": {
+        "endDate": "2017-12-05",
+        "startDate": "2017-12-01",
+      },
+      "invoicedQuantity": {
+        "unitCode": "C62",
+        "value": 10,
+      },
+      "item": {
+        "additionalItemProperties": [
+          {
+            "name": "AdditionalItemName",
+            "value": "AdditionalItemValue",
+          },
+        ],
+        "classifiedTaxCategory": {
+          "id": "S",
+          "percent": 25,
+          "taxSchemeId": {
+            "id": "VAT",
+          },
+        },
+        "commodityClassifications": [
+          {
+            "itemClassification": {
+              "id": "86776",
+              "listId": "SRV",
+            },
+          },
+        ],
+        "description": "Description of item",
+        "name": "item name",
+        "sellersItemIdentification": {
+          "id": "97iugug876",
+        },
+      },
+      "lineExtensionAmount": {
+        "currencyId": "EUR",
+        "value": 900,
+      },
+      "note": "Testing note on line level",
+      "orderLineReference": {
+        "lineId": "124",
+      },
+      "price": {
+        "priceAmount": {
+          "currencyId": "EUR",
+          "value": 100,
+        },
+      },
+    },
+  ],
+  "invoicePeriod": {
+    "endDate": "2017-12-31",
+    "startDate": "2017-12-01",
+  },
+  "invoiceTypeCode": "380",
+  "issueDate": "2017-11-13",
+  "legalMonetaryTotal": {
+    "allowanceTotalAmount": {
+      "currencyId": "EUR",
+      "value": 200,
+    },
+    "chargeTotalAmount": {
+      "currencyId": "EUR",
+      "value": 200,
+    },
+    "lineExtensionAmount": {
+      "currencyId": "EUR",
+      "value": 5900,
+    },
+    "payableAmount": {
+      "currencyId": "EUR",
+      "value": 6125,
+    },
+    "prepaidAmount": {
+      "currencyId": "EUR",
+      "value": 1000,
+    },
+    "taxExclusiveAmount": {
+      "currencyId": "EUR",
+      "value": 5900,
+    },
+    "taxInclusiveAmount": {
+      "currencyId": "EUR",
+      "value": 7125,
+    },
+  },
+  "note": "Please note we have a new phone number: 22 22 22 22",
+  "paymentMeans": [
+    {
+      "payeeFinancialAccount": {
+        "financialInstitutionBranch": {
+          "id": "BIC324098",
+        },
+        "id": "IBAN32423940",
+        "name": "AccountName",
+      },
+      "paymentId": "Snippet1",
+      "paymentMeansCode": {
+        "code": "30",
+        "name": "Credit transfer",
+      },
+    },
+  ],
+  "paymentTerms": {
+    "note": "Payment within 10 days, 2% discount",
+  },
+  "profileId": "urn:fdc:peppol.eu:2017:poacc:billing:01:1.0",
+  "taxCurrencyCode": "SEK",
+  "taxPointDate": "2017-12-01",
+  "taxTotals": [
+    {
+      "taxAmount": {
+        "currencyId": "EUR",
+        "value": 1225,
+      },
+      "taxSubtotals": [
+        {
+          "taxAmount": {
+            "currencyId": "EUR",
+            "value": 1225,
+          },
+          "taxCategory": {
+            "id": "S",
+            "percent": 25,
+            "taxSchemeId": {
+              "id": "VAT",
+            },
+          },
+          "taxableAmount": {
+            "currencyId": "EUR",
+            "value": 4900,
+          },
+        },
+        {
+          "taxAmount": {
+            "currencyId": "EUR",
+            "value": 0,
+          },
+          "taxCategory": {
+            "id": "E",
+            "percent": 0,
+            "taxExemptionReason": "Reason for tax exempt",
+            "taxSchemeId": {
+              "id": "VAT",
+            },
+          },
+          "taxableAmount": {
+            "currencyId": "EUR",
+            "value": 1000,
+          },
+        },
+      ],
+    },
+    {
+      "taxAmount": {
+        "currencyId": "SEK",
+        "value": 9324,
+      },
+    },
+  ],
+}
+`;
+
+exports[`document-parser > for file './../test/files/v3/invoice/Vat-catego…' > should match the defined xml Vat-category-S 1`] = `"<?xml version="1.0" encoding="UTF-8"?><Invoice xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2"><cbc:CustomizationID>urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0</cbc:CustomizationID><cbc:ProfileID>urn:fdc:peppol.eu:2017:poacc:billing:01:1.0</cbc:ProfileID><cbc:ID>Snippet1</cbc:ID><cbc:IssueDate>2017-11-13</cbc:IssueDate><cbc:DueDate>2017-12-01</cbc:DueDate><cbc:InvoiceTypeCode>380</cbc:InvoiceTypeCode><cbc:DocumentCurrencyCode>EUR</cbc:DocumentCurrencyCode><cbc:AccountingCost>4025:123:4343</cbc:AccountingCost><cbc:BuyerReference>0150abc</cbc:BuyerReference><cac:AccountingSupplierParty><cac:Party><cbc:EndpointID schemeID="0088">7300010000001</cbc:EndpointID><cac:PartyIdentification><cbc:ID>99887766</cbc:ID></cac:PartyIdentification><cac:PartyName><cbc:Name>SupplierTradingName Ltd.</cbc:Name></cac:PartyName><cac:PostalAddress><cbc:StreetName>Main street 1</cbc:StreetName><cbc:AdditionalStreetName>Postbox 123</cbc:AdditionalStreetName><cbc:CityName>London</cbc:CityName><cbc:PostalZone>GB 123 EW</cbc:PostalZone><cac:Country><cbc:IdentificationCode>GB</cbc:IdentificationCode></cac:Country></cac:PostalAddress><cac:PartyTaxScheme><cbc:CompanyID>GB1232434</cbc:CompanyID><cac:TaxScheme><cbc:ID>VAT</cbc:ID></cac:TaxScheme></cac:PartyTaxScheme><cac:PartyLegalEntity><cbc:RegistrationName>SupplierOfficialName Ltd</cbc:RegistrationName><cbc:CompanyID>GB983294</cbc:CompanyID><cbc:CompanyLegalForm>AdditionalLegalInformation</cbc:CompanyLegalForm></cac:PartyLegalEntity><cac:Contact><cbc:Name>John Doe</cbc:Name><cbc:Telephone>9384203984</cbc:Telephone><cbc:ElectronicMail>john.doe@foo.bar</cbc:ElectronicMail></cac:Contact></cac:Party></cac:AccountingSupplierParty><cac:AccountingCustomerParty><cac:Party><cbc:EndpointID schemeID="0002">FR23342</cbc:EndpointID><cac:PartyIdentification><cbc:ID schemeID="0002">FR23342</cbc:ID></cac:PartyIdentification><cac:PartyName><cbc:Name>BuyerTradingName AS</cbc:Name></cac:PartyName><cac:PostalAddress><cbc:StreetName>Hovedgatan 32</cbc:StreetName><cbc:AdditionalStreetName>Po box 878</cbc:AdditionalStreetName><cbc:CityName>Stockholm</cbc:CityName><cbc:PostalZone>456 34</cbc:PostalZone><cac:Country><cbc:IdentificationCode>SE</cbc:IdentificationCode></cac:Country></cac:PostalAddress><cac:PartyTaxScheme><cbc:CompanyID>SE4598375937</cbc:CompanyID><cac:TaxScheme><cbc:ID>VAT</cbc:ID></cac:TaxScheme></cac:PartyTaxScheme><cac:PartyLegalEntity><cbc:RegistrationName>Buyer Official Name</cbc:RegistrationName><cbc:CompanyID schemeID="0183">39937423947</cbc:CompanyID></cac:PartyLegalEntity></cac:Party></cac:AccountingCustomerParty><cac:Delivery><cbc:ActualDeliveryDate>2017-11-01</cbc:ActualDeliveryDate><cac:DeliveryLocation><cbc:ID schemeID="0088">7300010000001</cbc:ID><cac:Address><cbc:StreetName>Delivery street 2</cbc:StreetName><cbc:AdditionalStreetName>Building 56</cbc:AdditionalStreetName><cbc:CityName>Stockholm</cbc:CityName><cbc:PostalZone>21234</cbc:PostalZone><cbc:CountrySubentity>Södermalm</cbc:CountrySubentity><cac:AddressLine><cbc:Line>Gate 15</cbc:Line></cac:AddressLine><cac:Country><cbc:IdentificationCode>SE</cbc:IdentificationCode></cac:Country></cac:Address></cac:DeliveryLocation><cac:DeliveryParty><cac:PartyName><cbc:Name>Delivery party Name</cbc:Name></cac:PartyName></cac:DeliveryParty></cac:Delivery><cac:PaymentMeans><cbc:PaymentMeansCode name="Credit transfer">30</cbc:PaymentMeansCode><cbc:PaymentID>Snippet1</cbc:PaymentID><cac:PayeeFinancialAccount><cbc:ID>IBAN32423940</cbc:ID><cbc:Name>AccountName</cbc:Name><cac:FinancialInstitutionBranch><cbc:ID>BIC324098</cbc:ID></cac:FinancialInstitutionBranch></cac:PayeeFinancialAccount></cac:PaymentMeans><cac:PaymentTerms><cbc:Note>Payment within 10 days, 2% discount</cbc:Note></cac:PaymentTerms><cac:AllowanceCharge><cbc:ChargeIndicator>true</cbc:ChargeIndicator><cbc:AllowanceChargeReason>Cleaning</cbc:AllowanceChargeReason><cbc:Amount currencyID="EUR">200</cbc:Amount><cac:TaxCategory><cbc:ID>S</cbc:ID><cbc:Percent>25</cbc:Percent><cac:TaxScheme><cbc:ID>VAT</cbc:ID></cac:TaxScheme></cac:TaxCategory></cac:AllowanceCharge><cac:AllowanceCharge><cbc:ChargeIndicator>false</cbc:ChargeIndicator><cbc:AllowanceChargeReason>Discount</cbc:AllowanceChargeReason><cbc:Amount currencyID="EUR">100</cbc:Amount><cac:TaxCategory><cbc:ID>S</cbc:ID><cbc:Percent>25</cbc:Percent><cac:TaxScheme><cbc:ID>VAT</cbc:ID></cac:TaxScheme></cac:TaxCategory></cac:AllowanceCharge><cac:TaxTotal><cbc:TaxAmount currencyID="EUR">1550</cbc:TaxAmount><cac:TaxSubtotal><cbc:TaxableAmount currencyID="EUR">5000</cbc:TaxableAmount><cbc:TaxAmount currencyID="EUR">1250</cbc:TaxAmount><cac:TaxCategory><cbc:ID>S</cbc:ID><cbc:Percent>25</cbc:Percent><cac:TaxScheme><cbc:ID>VAT</cbc:ID></cac:TaxScheme></cac:TaxCategory></cac:TaxSubtotal><cac:TaxSubtotal><cbc:TaxableAmount currencyID="EUR">2000</cbc:TaxableAmount><cbc:TaxAmount currencyID="EUR">300</cbc:TaxAmount><cac:TaxCategory><cbc:ID>S</cbc:ID><cbc:Percent>15</cbc:Percent><cac:TaxScheme><cbc:ID>VAT</cbc:ID></cac:TaxScheme></cac:TaxCategory></cac:TaxSubtotal></cac:TaxTotal><cac:LegalMonetaryTotal><cbc:LineExtensionAmount currencyID="EUR">6900</cbc:LineExtensionAmount><cbc:TaxExclusiveAmount currencyID="EUR">7000</cbc:TaxExclusiveAmount><cbc:TaxInclusiveAmount currencyID="EUR">8550</cbc:TaxInclusiveAmount><cbc:AllowanceTotalAmount currencyID="EUR">100</cbc:AllowanceTotalAmount><cbc:ChargeTotalAmount currencyID="EUR">200</cbc:ChargeTotalAmount><cbc:PayableAmount currencyID="EUR">8550</cbc:PayableAmount></cac:LegalMonetaryTotal><cac:InvoiceLine><cbc:ID>1</cbc:ID><cbc:Note>Testing note on line level</cbc:Note><cbc:InvoicedQuantity unitCode="C62">10</cbc:InvoicedQuantity><cbc:LineExtensionAmount currencyID="EUR">4000</cbc:LineExtensionAmount><cbc:AccountingCost>Konteringsstreng</cbc:AccountingCost><cac:InvoicePeriod><cbc:StartDate>2017-12-01</cbc:StartDate><cbc:EndDate>2017-12-05</cbc:EndDate></cac:InvoicePeriod><cac:OrderLineReference><cbc:LineID>123</cbc:LineID></cac:OrderLineReference><cac:Item><cbc:Description>Description of item</cbc:Description><cbc:Name>item name</cbc:Name><cac:SellersItemIdentification><cbc:ID>97iugug876</cbc:ID></cac:SellersItemIdentification><cac:StandardItemIdentification><cbc:ID schemeID="0088">7300010000001</cbc:ID></cac:StandardItemIdentification><cac:OriginCountry><cbc:IdentificationCode>NO</cbc:IdentificationCode></cac:OriginCountry><cac:CommodityClassification><cbc:ItemClassificationCode listID="SRV">09348023</cbc:ItemClassificationCode></cac:CommodityClassification><cac:ClassifiedTaxCategory><cbc:ID>S</cbc:ID><cbc:Percent>25</cbc:Percent><cac:TaxScheme><cbc:ID>VAT</cbc:ID></cac:TaxScheme></cac:ClassifiedTaxCategory></cac:Item><cac:Price><cbc:PriceAmount currencyID="EUR">400</cbc:PriceAmount></cac:Price></cac:InvoiceLine><cac:InvoiceLine><cbc:ID>2</cbc:ID><cbc:InvoicedQuantity unitCode="C62">10</cbc:InvoicedQuantity><cbc:LineExtensionAmount currencyID="EUR">2000</cbc:LineExtensionAmount><cbc:AccountingCost>Konteringsstreng</cbc:AccountingCost><cac:Item><cbc:Description>Description of item</cbc:Description><cbc:Name>item name</cbc:Name><cac:SellersItemIdentification><cbc:ID>97iugug876</cbc:ID></cac:SellersItemIdentification><cac:StandardItemIdentification><cbc:ID schemeID="0088">7300010000001</cbc:ID></cac:StandardItemIdentification><cac:CommodityClassification><cbc:ItemClassificationCode listID="SRV">86776</cbc:ItemClassificationCode></cac:CommodityClassification><cac:ClassifiedTaxCategory><cbc:ID>S</cbc:ID><cbc:Percent>15</cbc:Percent><cac:TaxScheme><cbc:ID>VAT</cbc:ID></cac:TaxScheme></cac:ClassifiedTaxCategory></cac:Item><cac:Price><cbc:PriceAmount currencyID="EUR">200</cbc:PriceAmount></cac:Price></cac:InvoiceLine><cac:InvoiceLine><cbc:ID>3</cbc:ID><cbc:InvoicedQuantity unitCode="C62">10</cbc:InvoicedQuantity><cbc:LineExtensionAmount currencyID="EUR">900</cbc:LineExtensionAmount><cbc:AccountingCost>Konteringsstreng</cbc:AccountingCost><cac:Item><cbc:Description>Description of item</cbc:Description><cbc:Name>item name</cbc:Name><cac:SellersItemIdentification><cbc:ID>97iugug876</cbc:ID></cac:SellersItemIdentification><cac:StandardItemIdentification><cbc:ID schemeID="0160">873649827489</cbc:ID></cac:StandardItemIdentification><cac:CommodityClassification><cbc:ItemClassificationCode listID="SRV">86776</cbc:ItemClassificationCode></cac:CommodityClassification><cac:ClassifiedTaxCategory><cbc:ID>S</cbc:ID><cbc:Percent>25</cbc:Percent><cac:TaxScheme><cbc:ID>VAT</cbc:ID></cac:TaxScheme></cac:ClassifiedTaxCategory><cac:AdditionalItemProperty><cbc:Name>AdditionalItemName</cbc:Name><cbc:Value>AdditionalItemValue</cbc:Value></cac:AdditionalItemProperty></cac:Item><cac:Price><cbc:PriceAmount currencyID="EUR">90</cbc:PriceAmount></cac:Price></cac:InvoiceLine></Invoice>"`;
+
+exports[`document-parser > for file './../test/files/v3/invoice/Vat-catego…' > should parse the document from the filesystem 1`] = `
+{
+  "accountingCost": "4025:123:4343",
+  "accountingCustomerParty": {
+    "endpointId": {
+      "id": "FR23342",
+      "schemeId": "0002",
+    },
+    "partyIdentification": {
+      "id": {
+        "id": "FR23342",
+        "schemeId": "0002",
+      },
+    },
+    "partyLegalEntity": {
+      "companyId": {
+        "id": "39937423947",
+        "schemeId": "0183",
+      },
+      "registrationName": "Buyer Official Name",
+    },
+    "partyName": {
+      "name": "BuyerTradingName AS",
+    },
+    "partyTaxSchemes": [
+      {
+        "companyId": "SE4598375937",
+        "taxSchemeId": {
+          "id": "VAT",
+        },
+      },
+    ],
+    "postalAddress": {
+      "additionalStreetName": "Po box 878",
+      "cityName": "Stockholm",
+      "countryCode": {
+        "identificationCode": "SE",
+      },
+      "postalZone": "456 34",
+      "streetName": "Hovedgatan 32",
+    },
+  },
+  "accountingSupplierParty": {
+    "contact": {
+      "electronicMail": "john.doe@foo.bar",
+      "name": "John Doe",
+      "telephone": "9384203984",
+    },
+    "endpointId": {
+      "id": "7300010000001",
+      "schemeId": "0088",
+    },
+    "partyIdentification": {
+      "id": {
+        "id": "99887766",
+      },
+    },
+    "partyLegalEntity": {
+      "companyId": {
+        "id": "GB983294",
+      },
+      "companyLegalForm": "AdditionalLegalInformation",
+      "registrationName": "SupplierOfficialName Ltd",
+    },
+    "partyName": {
+      "name": "SupplierTradingName Ltd.",
+    },
+    "partyTaxSchemes": [
+      {
+        "companyId": "GB1232434",
+        "taxSchemeId": {
+          "id": "VAT",
+        },
+      },
+    ],
+    "postalAddress": {
+      "additionalStreetName": "Postbox 123",
+      "cityName": "London",
+      "countryCode": {
+        "identificationCode": "GB",
+      },
+      "postalZone": "GB 123 EW",
+      "streetName": "Main street 1",
+    },
+  },
+  "allowanceCharges": [
+    {
+      "allowanceChargeReason": "Cleaning",
+      "amount": {
+        "currencyId": "EUR",
+        "value": 200,
+      },
+      "chargeIndicator": true,
+      "taxCategory": {
+        "id": "S",
+        "percent": 25,
+        "taxSchemeId": {
+          "id": "VAT",
+        },
+      },
+    },
+    {
+      "allowanceChargeReason": "Discount",
+      "amount": {
+        "currencyId": "EUR",
+        "value": 100,
+      },
+      "chargeIndicator": false,
+      "taxCategory": {
+        "id": "S",
+        "percent": 25,
+        "taxSchemeId": {
+          "id": "VAT",
+        },
+      },
+    },
+  ],
+  "buyerReference": "0150abc",
+  "customizationId": "urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0",
+  "delivery": {
+    "actualDeliveryDate": "2017-11-01",
+    "deliveryLocation": {
+      "address": {
+        "additionalStreetName": "Building 56",
+        "addressLine": {
+          "line": "Gate 15",
+        },
+        "cityName": "Stockholm",
+        "countryCode": {
+          "identificationCode": "SE",
+        },
+        "countrySubentity": "Södermalm",
+        "postalZone": "21234",
+        "streetName": "Delivery street 2",
+      },
+      "id": {
+        "id": "7300010000001",
+        "schemeId": "0088",
+      },
+    },
+    "deliveryParty": {
+      "partyName": {
+        "name": "Delivery party Name",
+      },
+    },
+  },
+  "documentCurrencyCode": "EUR",
+  "dueDate": "2017-12-01",
+  "id": "Snippet1",
+  "invoiceLines": [
+    {
+      "accountingCost": "Konteringsstreng",
+      "documentReference": [],
+      "id": "1",
+      "invoicePeriod": {
+        "endDate": "2017-12-05",
+        "startDate": "2017-12-01",
+      },
+      "invoicedQuantity": {
+        "unitCode": "C62",
+        "value": 10,
+      },
+      "item": {
+        "additionalItemProperties": [],
+        "classifiedTaxCategory": {
+          "id": "S",
+          "percent": 25,
+          "taxSchemeId": {
+            "id": "VAT",
+          },
+        },
+        "commodityClassifications": [
+          {
+            "itemClassification": {
+              "id": "09348023",
+              "listId": "SRV",
+            },
+          },
+        ],
+        "description": "Description of item",
+        "name": "item name",
+        "originCountryCode": {
+          "identificationCode": "NO",
+        },
+        "sellersItemIdentification": {
+          "id": "97iugug876",
+        },
+        "standardItemIdentification": {
+          "id": {
+            "id": "7300010000001",
+            "schemeId": "0088",
+          },
+        },
+      },
+      "lineExtensionAmount": {
+        "currencyId": "EUR",
+        "value": 4000,
+      },
+      "note": "Testing note on line level",
+      "orderLineReference": {
+        "lineId": "123",
+      },
+      "price": {
+        "priceAmount": {
+          "currencyId": "EUR",
+          "value": 400,
+        },
+      },
+    },
+    {
+      "accountingCost": "Konteringsstreng",
+      "documentReference": [],
+      "id": "2",
+      "invoicedQuantity": {
+        "unitCode": "C62",
+        "value": 10,
+      },
+      "item": {
+        "additionalItemProperties": [],
+        "classifiedTaxCategory": {
+          "id": "S",
+          "percent": 15,
+          "taxSchemeId": {
+            "id": "VAT",
+          },
+        },
+        "commodityClassifications": [
+          {
+            "itemClassification": {
+              "id": "86776",
+              "listId": "SRV",
+            },
+          },
+        ],
+        "description": "Description of item",
+        "name": "item name",
+        "sellersItemIdentification": {
+          "id": "97iugug876",
+        },
+        "standardItemIdentification": {
+          "id": {
+            "id": "7300010000001",
+            "schemeId": "0088",
+          },
+        },
+      },
+      "lineExtensionAmount": {
+        "currencyId": "EUR",
+        "value": 2000,
+      },
+      "price": {
+        "priceAmount": {
+          "currencyId": "EUR",
+          "value": 200,
+        },
+      },
+    },
+    {
+      "accountingCost": "Konteringsstreng",
+      "documentReference": [],
+      "id": "3",
+      "invoicedQuantity": {
+        "unitCode": "C62",
+        "value": 10,
+      },
+      "item": {
+        "additionalItemProperties": [
+          {
+            "name": "AdditionalItemName",
+            "value": "AdditionalItemValue",
+          },
+        ],
+        "classifiedTaxCategory": {
+          "id": "S",
+          "percent": 25,
+          "taxSchemeId": {
+            "id": "VAT",
+          },
+        },
+        "commodityClassifications": [
+          {
+            "itemClassification": {
+              "id": "86776",
+              "listId": "SRV",
+            },
+          },
+        ],
+        "description": "Description of item",
+        "name": "item name",
+        "sellersItemIdentification": {
+          "id": "97iugug876",
+        },
+        "standardItemIdentification": {
+          "id": {
+            "id": "873649827489",
+            "schemeId": "0160",
+          },
+        },
+      },
+      "lineExtensionAmount": {
+        "currencyId": "EUR",
+        "value": 900,
+      },
+      "price": {
+        "priceAmount": {
+          "currencyId": "EUR",
+          "value": 90,
+        },
+      },
+    },
+  ],
+  "invoiceTypeCode": "380",
+  "issueDate": "2017-11-13",
+  "legalMonetaryTotal": {
+    "allowanceTotalAmount": {
+      "currencyId": "EUR",
+      "value": 100,
+    },
+    "chargeTotalAmount": {
+      "currencyId": "EUR",
+      "value": 200,
+    },
+    "lineExtensionAmount": {
+      "currencyId": "EUR",
+      "value": 6900,
+    },
+    "payableAmount": {
+      "currencyId": "EUR",
+      "value": 8550,
+    },
+    "taxExclusiveAmount": {
+      "currencyId": "EUR",
+      "value": 7000,
+    },
+    "taxInclusiveAmount": {
+      "currencyId": "EUR",
+      "value": 8550,
+    },
+  },
+  "paymentMeans": [
+    {
+      "payeeFinancialAccount": {
+        "financialInstitutionBranch": {
+          "id": "BIC324098",
+        },
+        "id": "IBAN32423940",
+        "name": "AccountName",
+      },
+      "paymentId": "Snippet1",
+      "paymentMeansCode": {
+        "code": "30",
+        "name": "Credit transfer",
+      },
+    },
+  ],
+  "paymentTerms": {
+    "note": "Payment within 10 days, 2% discount",
+  },
+  "profileId": "urn:fdc:peppol.eu:2017:poacc:billing:01:1.0",
+  "taxTotals": [
+    {
+      "taxAmount": {
+        "currencyId": "EUR",
+        "value": 1550,
+      },
+      "taxSubtotals": [
+        {
+          "taxAmount": {
+            "currencyId": "EUR",
+            "value": 1250,
+          },
+          "taxCategory": {
+            "id": "S",
+            "percent": 25,
+            "taxSchemeId": {
+              "id": "VAT",
+            },
+          },
+          "taxableAmount": {
+            "currencyId": "EUR",
+            "value": 5000,
+          },
+        },
+        {
+          "taxAmount": {
+            "currencyId": "EUR",
+            "value": 300,
+          },
+          "taxCategory": {
+            "id": "S",
+            "percent": 15,
+            "taxSchemeId": {
+              "id": "VAT",
+            },
+          },
+          "taxableAmount": {
+            "currencyId": "EUR",
+            "value": 2000,
+          },
+        },
+      ],
+    },
+  ],
+}
+`;
+
+exports[`document-parser > for file './../test/files/v3/invoice/base-examp…' > should match the defined xml base-example 1`] = `"<?xml version="1.0" encoding="UTF-8"?><Invoice xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2"><cbc:CustomizationID>urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0</cbc:CustomizationID><cbc:ProfileID>urn:fdc:peppol.eu:2017:poacc:billing:01:1.0</cbc:ProfileID><cbc:ID>Snippet1</cbc:ID><cbc:IssueDate>2017-11-13</cbc:IssueDate><cbc:DueDate>2017-12-01</cbc:DueDate><cbc:InvoiceTypeCode>380</cbc:InvoiceTypeCode><cbc:DocumentCurrencyCode>EUR</cbc:DocumentCurrencyCode><cbc:AccountingCost>4025:123:4343</cbc:AccountingCost><cbc:BuyerReference>0150abc</cbc:BuyerReference><cac:AccountingSupplierParty><cac:Party><cbc:EndpointID schemeID="0088">9482348239847239874</cbc:EndpointID><cac:PartyIdentification><cbc:ID>99887766</cbc:ID></cac:PartyIdentification><cac:PartyName><cbc:Name>SupplierTradingName Ltd.</cbc:Name></cac:PartyName><cac:PostalAddress><cbc:StreetName>Main street 1</cbc:StreetName><cbc:AdditionalStreetName>Postbox 123</cbc:AdditionalStreetName><cbc:CityName>London</cbc:CityName><cbc:PostalZone>GB 123 EW</cbc:PostalZone><cac:Country><cbc:IdentificationCode>GB</cbc:IdentificationCode></cac:Country></cac:PostalAddress><cac:PartyTaxScheme><cbc:CompanyID>GB1232434</cbc:CompanyID><cac:TaxScheme><cbc:ID>VAT</cbc:ID></cac:TaxScheme></cac:PartyTaxScheme><cac:PartyLegalEntity><cbc:RegistrationName>SupplierOfficialName Ltd</cbc:RegistrationName><cbc:CompanyID>GB983294</cbc:CompanyID></cac:PartyLegalEntity></cac:Party></cac:AccountingSupplierParty><cac:AccountingCustomerParty><cac:Party><cbc:EndpointID schemeID="0002">FR23342</cbc:EndpointID><cac:PartyIdentification><cbc:ID schemeID="0002">FR23342</cbc:ID></cac:PartyIdentification><cac:PartyName><cbc:Name>BuyerTradingName AS</cbc:Name></cac:PartyName><cac:PostalAddress><cbc:StreetName>Hovedgatan 32</cbc:StreetName><cbc:AdditionalStreetName>Po box 878</cbc:AdditionalStreetName><cbc:CityName>Stockholm</cbc:CityName><cbc:PostalZone>456 34</cbc:PostalZone><cac:Country><cbc:IdentificationCode>SE</cbc:IdentificationCode></cac:Country></cac:PostalAddress><cac:PartyTaxScheme><cbc:CompanyID>SE4598375937</cbc:CompanyID><cac:TaxScheme><cbc:ID>VAT</cbc:ID></cac:TaxScheme></cac:PartyTaxScheme><cac:PartyLegalEntity><cbc:RegistrationName>Buyer Official Name</cbc:RegistrationName><cbc:CompanyID schemeID="0183">39937423947</cbc:CompanyID></cac:PartyLegalEntity><cac:Contact><cbc:Name>Lisa Johnson</cbc:Name><cbc:Telephone>23434234</cbc:Telephone><cbc:ElectronicMail>lj@buyer.se</cbc:ElectronicMail></cac:Contact></cac:Party></cac:AccountingCustomerParty><cac:Delivery><cbc:ActualDeliveryDate>2017-11-01</cbc:ActualDeliveryDate><cac:DeliveryLocation><cbc:ID schemeID="0088">9483759475923478</cbc:ID><cac:Address><cbc:StreetName>Delivery street 2</cbc:StreetName><cbc:AdditionalStreetName>Building 56</cbc:AdditionalStreetName><cbc:CityName>Stockholm</cbc:CityName><cbc:PostalZone>21234</cbc:PostalZone><cac:Country><cbc:IdentificationCode>SE</cbc:IdentificationCode></cac:Country></cac:Address></cac:DeliveryLocation><cac:DeliveryParty><cac:PartyName><cbc:Name>Delivery party Name</cbc:Name></cac:PartyName></cac:DeliveryParty></cac:Delivery><cac:PaymentMeans><cbc:PaymentMeansCode name="Credit transfer">30</cbc:PaymentMeansCode><cbc:PaymentID>Snippet1</cbc:PaymentID><cac:PayeeFinancialAccount><cbc:ID>IBAN32423940</cbc:ID><cbc:Name>AccountName</cbc:Name><cac:FinancialInstitutionBranch><cbc:ID>BIC324098</cbc:ID></cac:FinancialInstitutionBranch></cac:PayeeFinancialAccount></cac:PaymentMeans><cac:PaymentTerms><cbc:Note>Payment within 10 days, 2% discount</cbc:Note></cac:PaymentTerms><cac:AllowanceCharge><cbc:ChargeIndicator>true</cbc:ChargeIndicator><cbc:AllowanceChargeReason>Insurance</cbc:AllowanceChargeReason><cbc:Amount currencyID="EUR">25</cbc:Amount><cac:TaxCategory><cbc:ID>S</cbc:ID><cbc:Percent>25</cbc:Percent><cac:TaxScheme><cbc:ID>VAT</cbc:ID></cac:TaxScheme></cac:TaxCategory></cac:AllowanceCharge><cac:TaxTotal><cbc:TaxAmount currencyID="EUR">331.25</cbc:TaxAmount><cac:TaxSubtotal><cbc:TaxableAmount currencyID="EUR">1325</cbc:TaxableAmount><cbc:TaxAmount currencyID="EUR">331.25</cbc:TaxAmount><cac:TaxCategory><cbc:ID>S</cbc:ID><cbc:Percent>25</cbc:Percent><cac:TaxScheme><cbc:ID>VAT</cbc:ID></cac:TaxScheme></cac:TaxCategory></cac:TaxSubtotal></cac:TaxTotal><cac:LegalMonetaryTotal><cbc:LineExtensionAmount currencyID="EUR">1300</cbc:LineExtensionAmount><cbc:TaxExclusiveAmount currencyID="EUR">1325</cbc:TaxExclusiveAmount><cbc:TaxInclusiveAmount currencyID="EUR">1656.25</cbc:TaxInclusiveAmount><cbc:ChargeTotalAmount currencyID="EUR">25</cbc:ChargeTotalAmount><cbc:PayableAmount currencyID="EUR">1656.25</cbc:PayableAmount></cac:LegalMonetaryTotal><cac:InvoiceLine><cbc:ID>1</cbc:ID><cbc:InvoicedQuantity unitCode="DAY">7</cbc:InvoicedQuantity><cbc:LineExtensionAmount currencyID="EUR">2800</cbc:LineExtensionAmount><cbc:AccountingCost>Konteringsstreng</cbc:AccountingCost><cac:OrderLineReference><cbc:LineID>123</cbc:LineID></cac:OrderLineReference><cac:Item><cbc:Description>Description of item</cbc:Description><cbc:Name>item name</cbc:Name><cac:StandardItemIdentification><cbc:ID schemeID="0088">21382183120983</cbc:ID></cac:StandardItemIdentification><cac:OriginCountry><cbc:IdentificationCode>NO</cbc:IdentificationCode></cac:OriginCountry><cac:CommodityClassification><cbc:ItemClassificationCode listID="SRV">09348023</cbc:ItemClassificationCode></cac:CommodityClassification><cac:ClassifiedTaxCategory><cbc:ID>S</cbc:ID><cbc:Percent>25</cbc:Percent><cac:TaxScheme><cbc:ID>VAT</cbc:ID></cac:TaxScheme></cac:ClassifiedTaxCategory></cac:Item><cac:Price><cbc:PriceAmount currencyID="EUR">400</cbc:PriceAmount></cac:Price></cac:InvoiceLine><cac:InvoiceLine><cbc:ID>2</cbc:ID><cbc:InvoicedQuantity unitCode="DAY">-3</cbc:InvoicedQuantity><cbc:LineExtensionAmount currencyID="EUR">-1500</cbc:LineExtensionAmount><cac:OrderLineReference><cbc:LineID>123</cbc:LineID></cac:OrderLineReference><cac:Item><cbc:Description>Description 2</cbc:Description><cbc:Name>item name 2</cbc:Name><cac:StandardItemIdentification><cbc:ID schemeID="0088">21382183120983</cbc:ID></cac:StandardItemIdentification><cac:OriginCountry><cbc:IdentificationCode>NO</cbc:IdentificationCode></cac:OriginCountry><cac:CommodityClassification><cbc:ItemClassificationCode listID="SRV">09348023</cbc:ItemClassificationCode></cac:CommodityClassification><cac:ClassifiedTaxCategory><cbc:ID>S</cbc:ID><cbc:Percent>25</cbc:Percent><cac:TaxScheme><cbc:ID>VAT</cbc:ID></cac:TaxScheme></cac:ClassifiedTaxCategory></cac:Item><cac:Price><cbc:PriceAmount currencyID="EUR">500</cbc:PriceAmount></cac:Price></cac:InvoiceLine></Invoice>"`;
+
+exports[`document-parser > for file './../test/files/v3/invoice/base-examp…' > should parse the document from the filesystem 1`] = `
+{
+  "accountingCost": "4025:123:4343",
+  "accountingCustomerParty": {
+    "contact": {
+      "electronicMail": "lj@buyer.se",
+      "name": "Lisa Johnson",
+      "telephone": "23434234",
+    },
+    "endpointId": {
+      "id": "FR23342",
+      "schemeId": "0002",
+    },
+    "partyIdentification": {
+      "id": {
+        "id": "FR23342",
+        "schemeId": "0002",
+      },
+    },
+    "partyLegalEntity": {
+      "companyId": {
+        "id": "39937423947",
+        "schemeId": "0183",
+      },
+      "registrationName": "Buyer Official Name",
+    },
+    "partyName": {
+      "name": "BuyerTradingName AS",
+    },
+    "partyTaxSchemes": [
+      {
+        "companyId": "SE4598375937",
+        "taxSchemeId": {
+          "id": "VAT",
+        },
+      },
+    ],
+    "postalAddress": {
+      "additionalStreetName": "Po box 878",
+      "cityName": "Stockholm",
+      "countryCode": {
+        "identificationCode": "SE",
+      },
+      "postalZone": "456 34",
+      "streetName": "Hovedgatan 32",
+    },
+  },
+  "accountingSupplierParty": {
+    "endpointId": {
+      "id": "9482348239847239874",
+      "schemeId": "0088",
+    },
+    "partyIdentification": {
+      "id": {
+        "id": "99887766",
+      },
+    },
+    "partyLegalEntity": {
+      "companyId": {
+        "id": "GB983294",
+      },
+      "registrationName": "SupplierOfficialName Ltd",
+    },
+    "partyName": {
+      "name": "SupplierTradingName Ltd.",
+    },
+    "partyTaxSchemes": [
+      {
+        "companyId": "GB1232434",
+        "taxSchemeId": {
+          "id": "VAT",
+        },
+      },
+    ],
+    "postalAddress": {
+      "additionalStreetName": "Postbox 123",
+      "cityName": "London",
+      "countryCode": {
+        "identificationCode": "GB",
+      },
+      "postalZone": "GB 123 EW",
+      "streetName": "Main street 1",
+    },
+  },
+  "allowanceCharges": [
+    {
+      "allowanceChargeReason": "Insurance",
+      "amount": {
+        "currencyId": "EUR",
+        "value": 25,
+      },
+      "chargeIndicator": true,
+      "taxCategory": {
+        "id": "S",
+        "percent": 25,
+        "taxSchemeId": {
+          "id": "VAT",
+        },
+      },
+    },
+  ],
+  "buyerReference": "0150abc",
+  "customizationId": "urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0",
+  "delivery": {
+    "actualDeliveryDate": "2017-11-01",
+    "deliveryLocation": {
+      "address": {
+        "additionalStreetName": "Building 56",
+        "cityName": "Stockholm",
+        "countryCode": {
+          "identificationCode": "SE",
+        },
+        "postalZone": "21234",
+        "streetName": "Delivery street 2",
+      },
+      "id": {
+        "id": "9483759475923478",
+        "schemeId": "0088",
+      },
+    },
+    "deliveryParty": {
+      "partyName": {
+        "name": "Delivery party Name",
+      },
+    },
+  },
+  "documentCurrencyCode": "EUR",
+  "dueDate": "2017-12-01",
+  "id": "Snippet1",
+  "invoiceLines": [
+    {
+      "accountingCost": "Konteringsstreng",
+      "documentReference": [],
+      "id": "1",
+      "invoicedQuantity": {
+        "unitCode": "DAY",
+        "value": 7,
+      },
+      "item": {
+        "additionalItemProperties": [],
+        "classifiedTaxCategory": {
+          "id": "S",
+          "percent": 25,
+          "taxSchemeId": {
+            "id": "VAT",
+          },
+        },
+        "commodityClassifications": [
+          {
+            "itemClassification": {
+              "id": "09348023",
+              "listId": "SRV",
+            },
+          },
+        ],
+        "description": "Description of item",
+        "name": "item name",
+        "originCountryCode": {
+          "identificationCode": "NO",
+        },
+        "standardItemIdentification": {
+          "id": {
+            "id": "21382183120983",
+            "schemeId": "0088",
+          },
+        },
+      },
+      "lineExtensionAmount": {
+        "currencyId": "EUR",
+        "value": 2800,
+      },
+      "orderLineReference": {
+        "lineId": "123",
+      },
+      "price": {
+        "priceAmount": {
+          "currencyId": "EUR",
+          "value": 400,
+        },
+      },
+    },
+    {
+      "documentReference": [],
+      "id": "2",
+      "invoicedQuantity": {
+        "unitCode": "DAY",
+        "value": -3,
+      },
+      "item": {
+        "additionalItemProperties": [],
+        "classifiedTaxCategory": {
+          "id": "S",
+          "percent": 25,
+          "taxSchemeId": {
+            "id": "VAT",
+          },
+        },
+        "commodityClassifications": [
+          {
+            "itemClassification": {
+              "id": "09348023",
+              "listId": "SRV",
+            },
+          },
+        ],
+        "description": "Description 2",
+        "name": "item name 2",
+        "originCountryCode": {
+          "identificationCode": "NO",
+        },
+        "standardItemIdentification": {
+          "id": {
+            "id": "21382183120983",
+            "schemeId": "0088",
+          },
+        },
+      },
+      "lineExtensionAmount": {
+        "currencyId": "EUR",
+        "value": -1500,
+      },
+      "orderLineReference": {
+        "lineId": "123",
+      },
+      "price": {
+        "priceAmount": {
+          "currencyId": "EUR",
+          "value": 500,
+        },
+      },
+    },
+  ],
+  "invoiceTypeCode": "380",
+  "issueDate": "2017-11-13",
+  "legalMonetaryTotal": {
+    "chargeTotalAmount": {
+      "currencyId": "EUR",
+      "value": 25,
+    },
+    "lineExtensionAmount": {
+      "currencyId": "EUR",
+      "value": 1300,
+    },
+    "payableAmount": {
+      "currencyId": "EUR",
+      "value": 1656.25,
+    },
+    "taxExclusiveAmount": {
+      "currencyId": "EUR",
+      "value": 1325,
+    },
+    "taxInclusiveAmount": {
+      "currencyId": "EUR",
+      "value": 1656.25,
+    },
+  },
+  "paymentMeans": [
+    {
+      "payeeFinancialAccount": {
+        "financialInstitutionBranch": {
+          "id": "BIC324098",
+        },
+        "id": "IBAN32423940",
+        "name": "AccountName",
+      },
+      "paymentId": "Snippet1",
+      "paymentMeansCode": {
+        "code": "30",
+        "name": "Credit transfer",
+      },
+    },
+  ],
+  "paymentTerms": {
+    "note": "Payment within 10 days, 2% discount",
+  },
+  "profileId": "urn:fdc:peppol.eu:2017:poacc:billing:01:1.0",
+  "taxTotals": [
+    {
+      "taxAmount": {
+        "currencyId": "EUR",
+        "value": 331.25,
+      },
+      "taxSubtotals": [
+        {
+          "taxAmount": {
+            "currencyId": "EUR",
+            "value": 331.25,
+          },
+          "taxCategory": {
+            "id": "S",
+            "percent": 25,
+            "taxSchemeId": {
+              "id": "VAT",
+            },
+          },
+          "taxableAmount": {
+            "currencyId": "EUR",
+            "value": 1325,
+          },
+        },
+      ],
+    },
+  ],
+}
+`;
+
+exports[`document-parser > for file './../test/files/v3/invoice/base-negat…' > should match the defined xml base-negative-inv-correction 1`] = `"<?xml version="1.0" encoding="UTF-8"?><Invoice xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2"><cbc:CustomizationID>urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0</cbc:CustomizationID><cbc:ProfileID>urn:fdc:peppol.eu:2017:poacc:billing:01:1.0</cbc:ProfileID><cbc:ID>Correction1</cbc:ID><cbc:IssueDate>2017-11-13</cbc:IssueDate><cbc:DueDate>2017-12-01</cbc:DueDate><cbc:InvoiceTypeCode>380</cbc:InvoiceTypeCode><cbc:DocumentCurrencyCode>EUR</cbc:DocumentCurrencyCode><cbc:AccountingCost>4025:123:4343</cbc:AccountingCost><cbc:BuyerReference>0150abc</cbc:BuyerReference><cac:BillingReference><cac:InvoiceDocumentReference><cbc:ID>Snippet1</cbc:ID></cac:InvoiceDocumentReference></cac:BillingReference><cac:AccountingSupplierParty><cac:Party><cbc:EndpointID schemeID="0088">9482348239847239874</cbc:EndpointID><cac:PartyIdentification><cbc:ID>99887766</cbc:ID></cac:PartyIdentification><cac:PartyName><cbc:Name>SupplierTradingName Ltd.</cbc:Name></cac:PartyName><cac:PostalAddress><cbc:StreetName>Main street 1</cbc:StreetName><cbc:AdditionalStreetName>Postbox 123</cbc:AdditionalStreetName><cbc:CityName>London</cbc:CityName><cbc:PostalZone>GB 123 EW</cbc:PostalZone><cac:Country><cbc:IdentificationCode>GB</cbc:IdentificationCode></cac:Country></cac:PostalAddress><cac:PartyTaxScheme><cbc:CompanyID>GB1232434</cbc:CompanyID><cac:TaxScheme><cbc:ID>VAT</cbc:ID></cac:TaxScheme></cac:PartyTaxScheme><cac:PartyLegalEntity><cbc:RegistrationName>SupplierOfficialName Ltd</cbc:RegistrationName><cbc:CompanyID>GB983294</cbc:CompanyID></cac:PartyLegalEntity></cac:Party></cac:AccountingSupplierParty><cac:AccountingCustomerParty><cac:Party><cbc:EndpointID schemeID="0002">FR23342</cbc:EndpointID><cac:PartyIdentification><cbc:ID schemeID="0002">FR23342</cbc:ID></cac:PartyIdentification><cac:PartyName><cbc:Name>BuyerTradingName AS</cbc:Name></cac:PartyName><cac:PostalAddress><cbc:StreetName>Hovedgatan 32</cbc:StreetName><cbc:AdditionalStreetName>Po box 878</cbc:AdditionalStreetName><cbc:CityName>Stockholm</cbc:CityName><cbc:PostalZone>456 34</cbc:PostalZone><cac:Country><cbc:IdentificationCode>SE</cbc:IdentificationCode></cac:Country></cac:PostalAddress><cac:PartyTaxScheme><cbc:CompanyID>SE4598375937</cbc:CompanyID><cac:TaxScheme><cbc:ID>VAT</cbc:ID></cac:TaxScheme></cac:PartyTaxScheme><cac:PartyLegalEntity><cbc:RegistrationName>Buyer Official Name</cbc:RegistrationName><cbc:CompanyID schemeID="0183">39937423947</cbc:CompanyID></cac:PartyLegalEntity><cac:Contact><cbc:Name>Lisa Johnson</cbc:Name><cbc:Telephone>23434234</cbc:Telephone><cbc:ElectronicMail>lj@buyer.se</cbc:ElectronicMail></cac:Contact></cac:Party></cac:AccountingCustomerParty><cac:Delivery><cbc:ActualDeliveryDate>2017-11-01</cbc:ActualDeliveryDate><cac:DeliveryLocation><cbc:ID schemeID="0088">9483759475923478</cbc:ID><cac:Address><cbc:StreetName>Delivery street 2</cbc:StreetName><cbc:AdditionalStreetName>Building 56</cbc:AdditionalStreetName><cbc:CityName>Stockholm</cbc:CityName><cbc:PostalZone>21234</cbc:PostalZone><cac:Country><cbc:IdentificationCode>SE</cbc:IdentificationCode></cac:Country></cac:Address></cac:DeliveryLocation><cac:DeliveryParty><cac:PartyName><cbc:Name>Delivery party Name</cbc:Name></cac:PartyName></cac:DeliveryParty></cac:Delivery><cac:PaymentMeans><cbc:PaymentMeansCode name="Credit transfer">30</cbc:PaymentMeansCode><cbc:PaymentID>Snippet1</cbc:PaymentID><cac:PayeeFinancialAccount><cbc:ID>IBAN32423940</cbc:ID><cbc:Name>AccountName</cbc:Name><cac:FinancialInstitutionBranch><cbc:ID>BIC324098</cbc:ID></cac:FinancialInstitutionBranch></cac:PayeeFinancialAccount></cac:PaymentMeans><cac:PaymentTerms><cbc:Note>Payment within 10 days, 2% discount</cbc:Note></cac:PaymentTerms><cac:AllowanceCharge><cbc:ChargeIndicator>true</cbc:ChargeIndicator><cbc:AllowanceChargeReason>Insurance</cbc:AllowanceChargeReason><cbc:Amount currencyID="EUR">-25</cbc:Amount><cac:TaxCategory><cbc:ID>S</cbc:ID><cbc:Percent>25</cbc:Percent><cac:TaxScheme><cbc:ID>VAT</cbc:ID></cac:TaxScheme></cac:TaxCategory></cac:AllowanceCharge><cac:TaxTotal><cbc:TaxAmount currencyID="EUR">-331.25</cbc:TaxAmount><cac:TaxSubtotal><cbc:TaxableAmount currencyID="EUR">-1325</cbc:TaxableAmount><cbc:TaxAmount currencyID="EUR">-331.25</cbc:TaxAmount><cac:TaxCategory><cbc:ID>S</cbc:ID><cbc:Percent>25</cbc:Percent><cac:TaxScheme><cbc:ID>VAT</cbc:ID></cac:TaxScheme></cac:TaxCategory></cac:TaxSubtotal></cac:TaxTotal><cac:LegalMonetaryTotal><cbc:LineExtensionAmount currencyID="EUR">-1300</cbc:LineExtensionAmount><cbc:TaxExclusiveAmount currencyID="EUR">-1325</cbc:TaxExclusiveAmount><cbc:TaxInclusiveAmount currencyID="EUR">-1656.25</cbc:TaxInclusiveAmount><cbc:ChargeTotalAmount currencyID="EUR">-25</cbc:ChargeTotalAmount><cbc:PayableAmount currencyID="EUR">-1656.25</cbc:PayableAmount></cac:LegalMonetaryTotal><cac:InvoiceLine><cbc:ID>1</cbc:ID><cbc:InvoicedQuantity unitCode="DAY">-7</cbc:InvoicedQuantity><cbc:LineExtensionAmount currencyID="EUR">-2800</cbc:LineExtensionAmount><cbc:AccountingCost>Konteringsstreng</cbc:AccountingCost><cac:OrderLineReference><cbc:LineID>123</cbc:LineID></cac:OrderLineReference><cac:Item><cbc:Description>Description of item</cbc:Description><cbc:Name>item name</cbc:Name><cac:StandardItemIdentification><cbc:ID schemeID="0088">21382183120983</cbc:ID></cac:StandardItemIdentification><cac:OriginCountry><cbc:IdentificationCode>NO</cbc:IdentificationCode></cac:OriginCountry><cac:CommodityClassification><cbc:ItemClassificationCode listID="SRV">09348023</cbc:ItemClassificationCode></cac:CommodityClassification><cac:ClassifiedTaxCategory><cbc:ID>S</cbc:ID><cbc:Percent>25</cbc:Percent><cac:TaxScheme><cbc:ID>VAT</cbc:ID></cac:TaxScheme></cac:ClassifiedTaxCategory></cac:Item><cac:Price><cbc:PriceAmount currencyID="EUR">400</cbc:PriceAmount></cac:Price></cac:InvoiceLine><cac:InvoiceLine><cbc:ID>2</cbc:ID><cbc:InvoicedQuantity unitCode="DAY">3</cbc:InvoicedQuantity><cbc:LineExtensionAmount currencyID="EUR">1500</cbc:LineExtensionAmount><cac:OrderLineReference><cbc:LineID>123</cbc:LineID></cac:OrderLineReference><cac:Item><cbc:Description>Description 2</cbc:Description><cbc:Name>item name 2</cbc:Name><cac:StandardItemIdentification><cbc:ID schemeID="0088">21382183120983</cbc:ID></cac:StandardItemIdentification><cac:OriginCountry><cbc:IdentificationCode>NO</cbc:IdentificationCode></cac:OriginCountry><cac:CommodityClassification><cbc:ItemClassificationCode listID="SRV">09348023</cbc:ItemClassificationCode></cac:CommodityClassification><cac:ClassifiedTaxCategory><cbc:ID>S</cbc:ID><cbc:Percent>25</cbc:Percent><cac:TaxScheme><cbc:ID>VAT</cbc:ID></cac:TaxScheme></cac:ClassifiedTaxCategory></cac:Item><cac:Price><cbc:PriceAmount currencyID="EUR">500</cbc:PriceAmount></cac:Price></cac:InvoiceLine></Invoice>"`;
+
+exports[`document-parser > for file './../test/files/v3/invoice/base-negat…' > should parse the document from the filesystem 1`] = `
+{
+  "accountingCost": "4025:123:4343",
+  "accountingCustomerParty": {
+    "contact": {
+      "electronicMail": "lj@buyer.se",
+      "name": "Lisa Johnson",
+      "telephone": "23434234",
+    },
+    "endpointId": {
+      "id": "FR23342",
+      "schemeId": "0002",
+    },
+    "partyIdentification": {
+      "id": {
+        "id": "FR23342",
+        "schemeId": "0002",
+      },
+    },
+    "partyLegalEntity": {
+      "companyId": {
+        "id": "39937423947",
+        "schemeId": "0183",
+      },
+      "registrationName": "Buyer Official Name",
+    },
+    "partyName": {
+      "name": "BuyerTradingName AS",
+    },
+    "partyTaxSchemes": [
+      {
+        "companyId": "SE4598375937",
+        "taxSchemeId": {
+          "id": "VAT",
+        },
+      },
+    ],
+    "postalAddress": {
+      "additionalStreetName": "Po box 878",
+      "cityName": "Stockholm",
+      "countryCode": {
+        "identificationCode": "SE",
+      },
+      "postalZone": "456 34",
+      "streetName": "Hovedgatan 32",
+    },
+  },
+  "accountingSupplierParty": {
+    "endpointId": {
+      "id": "9482348239847239874",
+      "schemeId": "0088",
+    },
+    "partyIdentification": {
+      "id": {
+        "id": "99887766",
+      },
+    },
+    "partyLegalEntity": {
+      "companyId": {
+        "id": "GB983294",
+      },
+      "registrationName": "SupplierOfficialName Ltd",
+    },
+    "partyName": {
+      "name": "SupplierTradingName Ltd.",
+    },
+    "partyTaxSchemes": [
+      {
+        "companyId": "GB1232434",
+        "taxSchemeId": {
+          "id": "VAT",
+        },
+      },
+    ],
+    "postalAddress": {
+      "additionalStreetName": "Postbox 123",
+      "cityName": "London",
+      "countryCode": {
+        "identificationCode": "GB",
+      },
+      "postalZone": "GB 123 EW",
+      "streetName": "Main street 1",
+    },
+  },
+  "allowanceCharges": [
+    {
+      "allowanceChargeReason": "Insurance",
+      "amount": {
+        "currencyId": "EUR",
+        "value": -25,
+      },
+      "chargeIndicator": true,
+      "taxCategory": {
+        "id": "S",
+        "percent": 25,
+        "taxSchemeId": {
+          "id": "VAT",
+        },
+      },
+    },
+  ],
+  "billingReferences": [
+    {
+      "invoiceDocumentReference": {
+        "id": "Snippet1",
+      },
+    },
+  ],
+  "buyerReference": "0150abc",
+  "customizationId": "urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0",
+  "delivery": {
+    "actualDeliveryDate": "2017-11-01",
+    "deliveryLocation": {
+      "address": {
+        "additionalStreetName": "Building 56",
+        "cityName": "Stockholm",
+        "countryCode": {
+          "identificationCode": "SE",
+        },
+        "postalZone": "21234",
+        "streetName": "Delivery street 2",
+      },
+      "id": {
+        "id": "9483759475923478",
+        "schemeId": "0088",
+      },
+    },
+    "deliveryParty": {
+      "partyName": {
+        "name": "Delivery party Name",
+      },
+    },
+  },
+  "documentCurrencyCode": "EUR",
+  "dueDate": "2017-12-01",
+  "id": "Correction1",
+  "invoiceLines": [
+    {
+      "accountingCost": "Konteringsstreng",
+      "documentReference": [],
+      "id": "1",
+      "invoicedQuantity": {
+        "unitCode": "DAY",
+        "value": -7,
+      },
+      "item": {
+        "additionalItemProperties": [],
+        "classifiedTaxCategory": {
+          "id": "S",
+          "percent": 25,
+          "taxSchemeId": {
+            "id": "VAT",
+          },
+        },
+        "commodityClassifications": [
+          {
+            "itemClassification": {
+              "id": "09348023",
+              "listId": "SRV",
+            },
+          },
+        ],
+        "description": "Description of item",
+        "name": "item name",
+        "originCountryCode": {
+          "identificationCode": "NO",
+        },
+        "standardItemIdentification": {
+          "id": {
+            "id": "21382183120983",
+            "schemeId": "0088",
+          },
+        },
+      },
+      "lineExtensionAmount": {
+        "currencyId": "EUR",
+        "value": -2800,
+      },
+      "orderLineReference": {
+        "lineId": "123",
+      },
+      "price": {
+        "priceAmount": {
+          "currencyId": "EUR",
+          "value": 400,
+        },
+      },
+    },
+    {
+      "documentReference": [],
+      "id": "2",
+      "invoicedQuantity": {
+        "unitCode": "DAY",
+        "value": 3,
+      },
+      "item": {
+        "additionalItemProperties": [],
+        "classifiedTaxCategory": {
+          "id": "S",
+          "percent": 25,
+          "taxSchemeId": {
+            "id": "VAT",
+          },
+        },
+        "commodityClassifications": [
+          {
+            "itemClassification": {
+              "id": "09348023",
+              "listId": "SRV",
+            },
+          },
+        ],
+        "description": "Description 2",
+        "name": "item name 2",
+        "originCountryCode": {
+          "identificationCode": "NO",
+        },
+        "standardItemIdentification": {
+          "id": {
+            "id": "21382183120983",
+            "schemeId": "0088",
+          },
+        },
+      },
+      "lineExtensionAmount": {
+        "currencyId": "EUR",
+        "value": 1500,
+      },
+      "orderLineReference": {
+        "lineId": "123",
+      },
+      "price": {
+        "priceAmount": {
+          "currencyId": "EUR",
+          "value": 500,
+        },
+      },
+    },
+  ],
+  "invoiceTypeCode": "380",
+  "issueDate": "2017-11-13",
+  "legalMonetaryTotal": {
+    "chargeTotalAmount": {
+      "currencyId": "EUR",
+      "value": -25,
+    },
+    "lineExtensionAmount": {
+      "currencyId": "EUR",
+      "value": -1300,
+    },
+    "payableAmount": {
+      "currencyId": "EUR",
+      "value": -1656.25,
+    },
+    "taxExclusiveAmount": {
+      "currencyId": "EUR",
+      "value": -1325,
+    },
+    "taxInclusiveAmount": {
+      "currencyId": "EUR",
+      "value": -1656.25,
+    },
+  },
+  "paymentMeans": [
+    {
+      "payeeFinancialAccount": {
+        "financialInstitutionBranch": {
+          "id": "BIC324098",
+        },
+        "id": "IBAN32423940",
+        "name": "AccountName",
+      },
+      "paymentId": "Snippet1",
+      "paymentMeansCode": {
+        "code": "30",
+        "name": "Credit transfer",
+      },
+    },
+  ],
+  "paymentTerms": {
+    "note": "Payment within 10 days, 2% discount",
+  },
+  "profileId": "urn:fdc:peppol.eu:2017:poacc:billing:01:1.0",
+  "taxTotals": [
+    {
+      "taxAmount": {
+        "currencyId": "EUR",
+        "value": -331.25,
+      },
+      "taxSubtotals": [
+        {
+          "taxAmount": {
+            "currencyId": "EUR",
+            "value": -331.25,
+          },
+          "taxCategory": {
+            "id": "S",
+            "percent": 25,
+            "taxSchemeId": {
+              "id": "VAT",
+            },
+          },
+          "taxableAmount": {
+            "currencyId": "EUR",
+            "value": -1325,
+          },
+        },
+      ],
+    },
+  ],
+}
+`;
+
+exports[`document-parser > for file './../test/files/v3/invoice/vat-catego…' > should match the defined xml vat-category-E 1`] = `"<?xml version="1.0" encoding="UTF-8"?><Invoice xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2"><cbc:CustomizationID>urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0</cbc:CustomizationID><cbc:ProfileID>urn:fdc:peppol.eu:2017:poacc:billing:01:1.0</cbc:ProfileID><cbc:ID>Vat-Z</cbc:ID><cbc:IssueDate>2018-08-30</cbc:IssueDate><cbc:InvoiceTypeCode>380</cbc:InvoiceTypeCode><cbc:DocumentCurrencyCode>GBP</cbc:DocumentCurrencyCode><cbc:BuyerReference>test reference</cbc:BuyerReference><cac:AccountingSupplierParty><cac:Party><cbc:EndpointID schemeID="0088">7300010000001</cbc:EndpointID><cac:PartyIdentification><cbc:ID>7300010000001</cbc:ID></cac:PartyIdentification><cac:PostalAddress><cbc:StreetName>Main street 2, Building 4</cbc:StreetName><cbc:CityName>Big city</cbc:CityName><cbc:PostalZone>54321</cbc:PostalZone><cac:Country><cbc:IdentificationCode>GB</cbc:IdentificationCode></cac:Country></cac:PostalAddress><cac:PartyTaxScheme><cbc:CompanyID>GB928741974</cbc:CompanyID><cac:TaxScheme><cbc:ID>VAT</cbc:ID></cac:TaxScheme></cac:PartyTaxScheme><cac:PartyLegalEntity><cbc:RegistrationName>The Sellercompany Incorporated</cbc:RegistrationName></cac:PartyLegalEntity></cac:Party></cac:AccountingSupplierParty><cac:AccountingCustomerParty><cac:Party><cbc:EndpointID schemeID="0184">DK12345678</cbc:EndpointID><cac:PostalAddress><cbc:StreetName>Anystreet 8</cbc:StreetName><cbc:AdditionalStreetName>Back door</cbc:AdditionalStreetName><cbc:CityName>Anytown</cbc:CityName><cbc:PostalZone>101</cbc:PostalZone><cbc:CountrySubentity>RegionB</cbc:CountrySubentity><cac:Country><cbc:IdentificationCode>DK</cbc:IdentificationCode></cac:Country></cac:PostalAddress><cac:PartyLegalEntity><cbc:RegistrationName>The Buyercompany</cbc:RegistrationName></cac:PartyLegalEntity></cac:Party></cac:AccountingCustomerParty><cac:PaymentMeans><cbc:PaymentMeansCode>30</cbc:PaymentMeansCode><cac:PayeeFinancialAccount><cbc:ID>SE1212341234123412</cbc:ID><cac:FinancialInstitutionBranch><cbc:ID>SEXDABCD</cbc:ID></cac:FinancialInstitutionBranch></cac:PayeeFinancialAccount></cac:PaymentMeans><cac:PaymentTerms><cbc:Note>Payment within 30 days</cbc:Note></cac:PaymentTerms><cac:TaxTotal><cbc:TaxAmount currencyID="GBP">0</cbc:TaxAmount><cac:TaxSubtotal><cbc:TaxableAmount currencyID="GBP">1200</cbc:TaxableAmount><cbc:TaxAmount currencyID="GBP">0</cbc:TaxAmount><cac:TaxCategory><cbc:ID>E</cbc:ID><cbc:Percent>0</cbc:Percent><cbc:TaxExemptionReasonCode>VATEX-EU-F</cbc:TaxExemptionReasonCode><cac:TaxScheme><cbc:ID>VAT</cbc:ID></cac:TaxScheme></cac:TaxCategory></cac:TaxSubtotal></cac:TaxTotal><cac:LegalMonetaryTotal><cbc:LineExtensionAmount currencyID="GBP">1200</cbc:LineExtensionAmount><cbc:TaxExclusiveAmount currencyID="GBP">1200</cbc:TaxExclusiveAmount><cbc:TaxInclusiveAmount currencyID="GBP">1200</cbc:TaxInclusiveAmount><cbc:PayableAmount currencyID="GBP">1200</cbc:PayableAmount></cac:LegalMonetaryTotal><cac:InvoiceLine><cbc:ID>1</cbc:ID><cbc:InvoicedQuantity unitCode="EA">10</cbc:InvoicedQuantity><cbc:LineExtensionAmount currencyID="GBP">1200</cbc:LineExtensionAmount><cac:OrderLineReference><cbc:LineID>1</cbc:LineID></cac:OrderLineReference><cac:Item><cbc:Name>Test item, category Z</cbc:Name><cac:StandardItemIdentification><cbc:ID schemeID="0160">192387129837129873</cbc:ID></cac:StandardItemIdentification><cac:ClassifiedTaxCategory><cbc:ID>E</cbc:ID><cbc:Percent>0</cbc:Percent><cac:TaxScheme><cbc:ID>VAT</cbc:ID></cac:TaxScheme></cac:ClassifiedTaxCategory></cac:Item><cac:Price><cbc:PriceAmount currencyID="GBP">120</cbc:PriceAmount></cac:Price></cac:InvoiceLine></Invoice>"`;
+
+exports[`document-parser > for file './../test/files/v3/invoice/vat-catego…' > should match the defined xml vat-category-O 1`] = `"<?xml version="1.0" encoding="UTF-8"?><Invoice xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2"><cbc:CustomizationID>urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0</cbc:CustomizationID><cbc:ProfileID>urn:fdc:peppol.eu:2017:poacc:billing:01:1.0</cbc:ProfileID><cbc:ID>Vat-O</cbc:ID><cbc:IssueDate>2018-08-30</cbc:IssueDate><cbc:InvoiceTypeCode>380</cbc:InvoiceTypeCode><cbc:DocumentCurrencyCode>SEK</cbc:DocumentCurrencyCode><cbc:BuyerReference>test reference</cbc:BuyerReference><cac:AccountingSupplierParty><cac:Party><cbc:EndpointID schemeID="0088">7300010000001</cbc:EndpointID><cac:PartyIdentification><cbc:ID>7300010000001</cbc:ID></cac:PartyIdentification><cac:PostalAddress><cbc:StreetName>Main street 2, Building 4</cbc:StreetName><cbc:CityName>Big city</cbc:CityName><cbc:PostalZone>54321</cbc:PostalZone><cac:Country><cbc:IdentificationCode>SE</cbc:IdentificationCode></cac:Country></cac:PostalAddress><cac:PartyLegalEntity><cbc:RegistrationName>The Sellercompany Incorporated</cbc:RegistrationName></cac:PartyLegalEntity></cac:Party></cac:AccountingSupplierParty><cac:AccountingCustomerParty><cac:Party><cbc:EndpointID schemeID="0192">987654325</cbc:EndpointID><cac:PostalAddress><cbc:StreetName>Anystreet 8</cbc:StreetName><cbc:AdditionalStreetName>Back door</cbc:AdditionalStreetName><cbc:CityName>Anytown</cbc:CityName><cbc:PostalZone>101</cbc:PostalZone><cbc:CountrySubentity>RegionB</cbc:CountrySubentity><cac:Country><cbc:IdentificationCode>NO</cbc:IdentificationCode></cac:Country></cac:PostalAddress><cac:PartyLegalEntity><cbc:RegistrationName>The Buyercompany</cbc:RegistrationName></cac:PartyLegalEntity></cac:Party></cac:AccountingCustomerParty><cac:PaymentMeans><cbc:PaymentMeansCode>30</cbc:PaymentMeansCode><cac:PayeeFinancialAccount><cbc:ID>SE1212341234123412</cbc:ID><cac:FinancialInstitutionBranch><cbc:ID>SEXDABCD</cbc:ID></cac:FinancialInstitutionBranch></cac:PayeeFinancialAccount></cac:PaymentMeans><cac:PaymentTerms><cbc:Note>Payment within 30 days</cbc:Note></cac:PaymentTerms><cac:TaxTotal><cbc:TaxAmount currencyID="SEK">0</cbc:TaxAmount><cac:TaxSubtotal><cbc:TaxableAmount currencyID="SEK">3200</cbc:TaxableAmount><cbc:TaxAmount currencyID="SEK">0</cbc:TaxAmount><cac:TaxCategory><cbc:ID>O</cbc:ID><cbc:TaxExemptionReason>Not subject to VAT</cbc:TaxExemptionReason><cac:TaxScheme><cbc:ID>VAT</cbc:ID></cac:TaxScheme></cac:TaxCategory></cac:TaxSubtotal></cac:TaxTotal><cac:LegalMonetaryTotal><cbc:LineExtensionAmount currencyID="SEK">3200</cbc:LineExtensionAmount><cbc:TaxExclusiveAmount currencyID="SEK">3200</cbc:TaxExclusiveAmount><cbc:TaxInclusiveAmount currencyID="SEK">3200</cbc:TaxInclusiveAmount><cbc:PayableAmount currencyID="SEK">3200</cbc:PayableAmount></cac:LegalMonetaryTotal><cac:InvoiceLine><cbc:ID>1</cbc:ID><cbc:InvoicedQuantity unitCode="EA">1</cbc:InvoicedQuantity><cbc:LineExtensionAmount currencyID="SEK">3200</cbc:LineExtensionAmount><cac:OrderLineReference><cbc:LineID>1</cbc:LineID></cac:OrderLineReference><cac:Item><cbc:Description>Weight-based tax, vehicles &gt;3000 KGM</cbc:Description><cbc:Name>Road tax</cbc:Name><cac:SellersItemIdentification><cbc:ID>RT3000</cbc:ID></cac:SellersItemIdentification><cac:ClassifiedTaxCategory><cbc:ID>O</cbc:ID><cac:TaxScheme><cbc:ID>VAT</cbc:ID></cac:TaxScheme></cac:ClassifiedTaxCategory></cac:Item><cac:Price><cbc:PriceAmount currencyID="SEK">3200</cbc:PriceAmount></cac:Price></cac:InvoiceLine></Invoice>"`;
+
+exports[`document-parser > for file './../test/files/v3/invoice/vat-catego…' > should match the defined xml vat-category-Z 1`] = `"<?xml version="1.0" encoding="UTF-8"?><Invoice xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2"><cbc:CustomizationID>urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0</cbc:CustomizationID><cbc:ProfileID>urn:fdc:peppol.eu:2017:poacc:billing:01:1.0</cbc:ProfileID><cbc:ID>Vat-Z</cbc:ID><cbc:IssueDate>2018-08-30</cbc:IssueDate><cbc:InvoiceTypeCode>380</cbc:InvoiceTypeCode><cbc:DocumentCurrencyCode>GBP</cbc:DocumentCurrencyCode><cbc:BuyerReference>test reference</cbc:BuyerReference><cac:AccountingSupplierParty><cac:Party><cbc:EndpointID schemeID="0088">7300010000001</cbc:EndpointID><cac:PartyIdentification><cbc:ID>7300010000001</cbc:ID></cac:PartyIdentification><cac:PostalAddress><cbc:StreetName>Main street 2, Building 4</cbc:StreetName><cbc:CityName>Big city</cbc:CityName><cbc:PostalZone>54321</cbc:PostalZone><cac:Country><cbc:IdentificationCode>GB</cbc:IdentificationCode></cac:Country></cac:PostalAddress><cac:PartyTaxScheme><cbc:CompanyID>GB928741974</cbc:CompanyID><cac:TaxScheme><cbc:ID>VAT</cbc:ID></cac:TaxScheme></cac:PartyTaxScheme><cac:PartyLegalEntity><cbc:RegistrationName>The Sellercompany Incorporated</cbc:RegistrationName></cac:PartyLegalEntity></cac:Party></cac:AccountingSupplierParty><cac:AccountingCustomerParty><cac:Party><cbc:EndpointID schemeID="0184">DK12345678</cbc:EndpointID><cac:PostalAddress><cbc:StreetName>Anystreet 8</cbc:StreetName><cbc:AdditionalStreetName>Back door</cbc:AdditionalStreetName><cbc:CityName>Anytown</cbc:CityName><cbc:PostalZone>101</cbc:PostalZone><cbc:CountrySubentity>RegionB</cbc:CountrySubentity><cac:Country><cbc:IdentificationCode>DK</cbc:IdentificationCode></cac:Country></cac:PostalAddress><cac:PartyLegalEntity><cbc:RegistrationName>The Buyercompany</cbc:RegistrationName></cac:PartyLegalEntity></cac:Party></cac:AccountingCustomerParty><cac:PaymentMeans><cbc:PaymentMeansCode>30</cbc:PaymentMeansCode><cac:PayeeFinancialAccount><cbc:ID>SE1212341234123412</cbc:ID><cac:FinancialInstitutionBranch><cbc:ID>SEXDABCD</cbc:ID></cac:FinancialInstitutionBranch></cac:PayeeFinancialAccount></cac:PaymentMeans><cac:PaymentTerms><cbc:Note>Payment within 30 days</cbc:Note></cac:PaymentTerms><cac:TaxTotal><cbc:TaxAmount currencyID="GBP">0</cbc:TaxAmount><cac:TaxSubtotal><cbc:TaxableAmount currencyID="GBP">1200</cbc:TaxableAmount><cbc:TaxAmount currencyID="GBP">0</cbc:TaxAmount><cac:TaxCategory><cbc:ID>Z</cbc:ID><cbc:Percent>0</cbc:Percent><cac:TaxScheme><cbc:ID>VAT</cbc:ID></cac:TaxScheme></cac:TaxCategory></cac:TaxSubtotal></cac:TaxTotal><cac:LegalMonetaryTotal><cbc:LineExtensionAmount currencyID="GBP">1200</cbc:LineExtensionAmount><cbc:TaxExclusiveAmount currencyID="GBP">1200</cbc:TaxExclusiveAmount><cbc:TaxInclusiveAmount currencyID="GBP">1200</cbc:TaxInclusiveAmount><cbc:PayableAmount currencyID="GBP">1200</cbc:PayableAmount></cac:LegalMonetaryTotal><cac:InvoiceLine><cbc:ID>1</cbc:ID><cbc:InvoicedQuantity unitCode="EA">10</cbc:InvoicedQuantity><cbc:LineExtensionAmount currencyID="GBP">1200</cbc:LineExtensionAmount><cac:OrderLineReference><cbc:LineID>1</cbc:LineID></cac:OrderLineReference><cac:Item><cbc:Name>Test item, category Z</cbc:Name><cac:StandardItemIdentification><cbc:ID schemeID="0160">192387129837129873</cbc:ID></cac:StandardItemIdentification><cac:ClassifiedTaxCategory><cbc:ID>Z</cbc:ID><cbc:Percent>0</cbc:Percent><cac:TaxScheme><cbc:ID>VAT</cbc:ID></cac:TaxScheme></cac:ClassifiedTaxCategory></cac:Item><cac:Price><cbc:PriceAmount currencyID="GBP">120</cbc:PriceAmount></cac:Price></cac:InvoiceLine></Invoice>"`;
+
+exports[`document-parser > for file './../test/files/v3/invoice/vat-catego…' > should parse the document from the filesystem 1`] = `
+{
+  "accountingCustomerParty": {
+    "endpointId": {
+      "id": "DK12345678",
+      "schemeId": "0184",
+    },
+    "partyLegalEntity": {
+      "registrationName": "The Buyercompany",
+    },
+    "postalAddress": {
+      "additionalStreetName": "Back door",
+      "cityName": "Anytown",
+      "countryCode": {
+        "identificationCode": "DK",
+      },
+      "countrySubentity": "RegionB",
+      "postalZone": "101",
+      "streetName": "Anystreet 8",
+    },
+  },
+  "accountingSupplierParty": {
+    "endpointId": {
+      "id": "7300010000001",
+      "schemeId": "0088",
+    },
+    "partyIdentification": {
+      "id": {
+        "id": "7300010000001",
+      },
+    },
+    "partyLegalEntity": {
+      "registrationName": "The Sellercompany Incorporated",
+    },
+    "partyTaxSchemes": [
+      {
+        "companyId": "GB928741974",
+        "taxSchemeId": {
+          "id": "VAT",
+        },
+      },
+    ],
+    "postalAddress": {
+      "cityName": "Big city",
+      "countryCode": {
+        "identificationCode": "GB",
+      },
+      "postalZone": "54321",
+      "streetName": "Main street 2, Building 4",
+    },
+  },
+  "buyerReference": "test reference",
+  "customizationId": "urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0",
+  "documentCurrencyCode": "GBP",
+  "id": "Vat-Z",
+  "invoiceLines": [
+    {
+      "documentReference": [],
+      "id": "1",
+      "invoicedQuantity": {
+        "unitCode": "EA",
+        "value": 10,
+      },
+      "item": {
+        "additionalItemProperties": [],
+        "classifiedTaxCategory": {
+          "id": "E",
+          "percent": 0,
+          "taxSchemeId": {
+            "id": "VAT",
+          },
+        },
+        "commodityClassifications": [],
+        "name": "Test item, category Z",
+        "standardItemIdentification": {
+          "id": {
+            "id": "192387129837129873",
+            "schemeId": "0160",
+          },
+        },
+      },
+      "lineExtensionAmount": {
+        "currencyId": "GBP",
+        "value": 1200,
+      },
+      "orderLineReference": {
+        "lineId": "1",
+      },
+      "price": {
+        "priceAmount": {
+          "currencyId": "GBP",
+          "value": 120,
+        },
+      },
+    },
+  ],
+  "invoiceTypeCode": "380",
+  "issueDate": "2018-08-30",
+  "legalMonetaryTotal": {
+    "lineExtensionAmount": {
+      "currencyId": "GBP",
+      "value": 1200,
+    },
+    "payableAmount": {
+      "currencyId": "GBP",
+      "value": 1200,
+    },
+    "taxExclusiveAmount": {
+      "currencyId": "GBP",
+      "value": 1200,
+    },
+    "taxInclusiveAmount": {
+      "currencyId": "GBP",
+      "value": 1200,
+    },
+  },
+  "paymentMeans": [
+    {
+      "payeeFinancialAccount": {
+        "financialInstitutionBranch": {
+          "id": "SEXDABCD",
+        },
+        "id": "SE1212341234123412",
+      },
+      "paymentMeansCode": {
+        "code": "30",
+      },
+    },
+  ],
+  "paymentTerms": {
+    "note": "Payment within 30 days",
+  },
+  "profileId": "urn:fdc:peppol.eu:2017:poacc:billing:01:1.0",
+  "taxTotals": [
+    {
+      "taxAmount": {
+        "currencyId": "GBP",
+        "value": 0,
+      },
+      "taxSubtotals": [
+        {
+          "taxAmount": {
+            "currencyId": "GBP",
+            "value": 0,
+          },
+          "taxCategory": {
+            "id": "E",
+            "percent": 0,
+            "taxExemptionReasonCode": "VATEX-EU-F",
+            "taxSchemeId": {
+              "id": "VAT",
+            },
+          },
+          "taxableAmount": {
+            "currencyId": "GBP",
+            "value": 1200,
+          },
+        },
+      ],
+    },
+  ],
+}
+`;
+
+exports[`document-parser > for file './../test/files/v3/invoice/vat-catego…' > should parse the document from the filesystem 2`] = `
+{
+  "accountingCustomerParty": {
+    "endpointId": {
+      "id": "987654325",
+      "schemeId": "0192",
+    },
+    "partyLegalEntity": {
+      "registrationName": "The Buyercompany",
+    },
+    "postalAddress": {
+      "additionalStreetName": "Back door",
+      "cityName": "Anytown",
+      "countryCode": {
+        "identificationCode": "NO",
+      },
+      "countrySubentity": "RegionB",
+      "postalZone": "101",
+      "streetName": "Anystreet 8",
+    },
+  },
+  "accountingSupplierParty": {
+    "endpointId": {
+      "id": "7300010000001",
+      "schemeId": "0088",
+    },
+    "partyIdentification": {
+      "id": {
+        "id": "7300010000001",
+      },
+    },
+    "partyLegalEntity": {
+      "registrationName": "The Sellercompany Incorporated",
+    },
+    "postalAddress": {
+      "cityName": "Big city",
+      "countryCode": {
+        "identificationCode": "SE",
+      },
+      "postalZone": "54321",
+      "streetName": "Main street 2, Building 4",
+    },
+  },
+  "buyerReference": "test reference",
+  "customizationId": "urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0",
+  "documentCurrencyCode": "SEK",
+  "id": "Vat-O",
+  "invoiceLines": [
+    {
+      "documentReference": [],
+      "id": "1",
+      "invoicedQuantity": {
+        "unitCode": "EA",
+        "value": 1,
+      },
+      "item": {
+        "additionalItemProperties": [],
+        "classifiedTaxCategory": {
+          "id": "O",
+          "taxSchemeId": {
+            "id": "VAT",
+          },
+        },
+        "commodityClassifications": [],
+        "description": "Weight-based tax, vehicles >3000 KGM",
+        "name": "Road tax",
+        "sellersItemIdentification": {
+          "id": "RT3000",
+        },
+      },
+      "lineExtensionAmount": {
+        "currencyId": "SEK",
+        "value": 3200,
+      },
+      "orderLineReference": {
+        "lineId": "1",
+      },
+      "price": {
+        "priceAmount": {
+          "currencyId": "SEK",
+          "value": 3200,
+        },
+      },
+    },
+  ],
+  "invoiceTypeCode": "380",
+  "issueDate": "2018-08-30",
+  "legalMonetaryTotal": {
+    "lineExtensionAmount": {
+      "currencyId": "SEK",
+      "value": 3200,
+    },
+    "payableAmount": {
+      "currencyId": "SEK",
+      "value": 3200,
+    },
+    "taxExclusiveAmount": {
+      "currencyId": "SEK",
+      "value": 3200,
+    },
+    "taxInclusiveAmount": {
+      "currencyId": "SEK",
+      "value": 3200,
+    },
+  },
+  "paymentMeans": [
+    {
+      "payeeFinancialAccount": {
+        "financialInstitutionBranch": {
+          "id": "SEXDABCD",
+        },
+        "id": "SE1212341234123412",
+      },
+      "paymentMeansCode": {
+        "code": "30",
+      },
+    },
+  ],
+  "paymentTerms": {
+    "note": "Payment within 30 days",
+  },
+  "profileId": "urn:fdc:peppol.eu:2017:poacc:billing:01:1.0",
+  "taxTotals": [
+    {
+      "taxAmount": {
+        "currencyId": "SEK",
+        "value": 0,
+      },
+      "taxSubtotals": [
+        {
+          "taxAmount": {
+            "currencyId": "SEK",
+            "value": 0,
+          },
+          "taxCategory": {
+            "id": "O",
+            "taxExemptionReason": "Not subject to VAT",
+            "taxSchemeId": {
+              "id": "VAT",
+            },
+          },
+          "taxableAmount": {
+            "currencyId": "SEK",
+            "value": 3200,
+          },
+        },
+      ],
+    },
+  ],
+}
+`;
+
+exports[`document-parser > for file './../test/files/v3/invoice/vat-catego…' > should parse the document from the filesystem 3`] = `
+{
+  "accountingCustomerParty": {
+    "endpointId": {
+      "id": "DK12345678",
+      "schemeId": "0184",
+    },
+    "partyLegalEntity": {
+      "registrationName": "The Buyercompany",
+    },
+    "postalAddress": {
+      "additionalStreetName": "Back door",
+      "cityName": "Anytown",
+      "countryCode": {
+        "identificationCode": "DK",
+      },
+      "countrySubentity": "RegionB",
+      "postalZone": "101",
+      "streetName": "Anystreet 8",
+    },
+  },
+  "accountingSupplierParty": {
+    "endpointId": {
+      "id": "7300010000001",
+      "schemeId": "0088",
+    },
+    "partyIdentification": {
+      "id": {
+        "id": "7300010000001",
+      },
+    },
+    "partyLegalEntity": {
+      "registrationName": "The Sellercompany Incorporated",
+    },
+    "partyTaxSchemes": [
+      {
+        "companyId": "GB928741974",
+        "taxSchemeId": {
+          "id": "VAT",
+        },
+      },
+    ],
+    "postalAddress": {
+      "cityName": "Big city",
+      "countryCode": {
+        "identificationCode": "GB",
+      },
+      "postalZone": "54321",
+      "streetName": "Main street 2, Building 4",
+    },
+  },
+  "buyerReference": "test reference",
+  "customizationId": "urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0",
+  "documentCurrencyCode": "GBP",
+  "id": "Vat-Z",
+  "invoiceLines": [
+    {
+      "documentReference": [],
+      "id": "1",
+      "invoicedQuantity": {
+        "unitCode": "EA",
+        "value": 10,
+      },
+      "item": {
+        "additionalItemProperties": [],
+        "classifiedTaxCategory": {
+          "id": "Z",
+          "percent": 0,
+          "taxSchemeId": {
+            "id": "VAT",
+          },
+        },
+        "commodityClassifications": [],
+        "name": "Test item, category Z",
+        "standardItemIdentification": {
+          "id": {
+            "id": "192387129837129873",
+            "schemeId": "0160",
+          },
+        },
+      },
+      "lineExtensionAmount": {
+        "currencyId": "GBP",
+        "value": 1200,
+      },
+      "orderLineReference": {
+        "lineId": "1",
+      },
+      "price": {
+        "priceAmount": {
+          "currencyId": "GBP",
+          "value": 120,
+        },
+      },
+    },
+  ],
+  "invoiceTypeCode": "380",
+  "issueDate": "2018-08-30",
+  "legalMonetaryTotal": {
+    "lineExtensionAmount": {
+      "currencyId": "GBP",
+      "value": 1200,
+    },
+    "payableAmount": {
+      "currencyId": "GBP",
+      "value": 1200,
+    },
+    "taxExclusiveAmount": {
+      "currencyId": "GBP",
+      "value": 1200,
+    },
+    "taxInclusiveAmount": {
+      "currencyId": "GBP",
+      "value": 1200,
+    },
+  },
+  "paymentMeans": [
+    {
+      "payeeFinancialAccount": {
+        "financialInstitutionBranch": {
+          "id": "SEXDABCD",
+        },
+        "id": "SE1212341234123412",
+      },
+      "paymentMeansCode": {
+        "code": "30",
+      },
+    },
+  ],
+  "paymentTerms": {
+    "note": "Payment within 30 days",
+  },
+  "profileId": "urn:fdc:peppol.eu:2017:poacc:billing:01:1.0",
+  "taxTotals": [
+    {
+      "taxAmount": {
+        "currencyId": "GBP",
+        "value": 0,
+      },
+      "taxSubtotals": [
+        {
+          "taxAmount": {
+            "currencyId": "GBP",
+            "value": 0,
+          },
+          "taxCategory": {
+            "id": "Z",
+            "percent": 0,
+            "taxSchemeId": {
+              "id": "VAT",
+            },
+          },
+          "taxableAmount": {
+            "currencyId": "GBP",
+            "value": 1200,
+          },
+        },
+      ],
+    },
+  ],
+}
+`;
+
+exports[`document-parser > for file './../test/files/v3/invoice-response/I…' > should match the defined xml InvoiceResponseExample 1`] = `"<?xml version="1.0" encoding="UTF-8"?><ApplicationResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:oasis:names:specification:ubl:schema:xsd:ApplicationResponse-2 https://docs.oasis-open.org/ubl/os-UBL-2.4/xsd/maindoc/UBL-ApplicationResponse-2.4.xsd urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2 https://docs.oasis-open.org/ubl/os-UBL-2.4/xsd/common/UBL-CommonAggregateComponents-2.4.xsd urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2 https://docs.oasis-open.org/ubl/os-UBL-2.4/xsd/common/UBL-CommonBasicComponents-2.4.xsd" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" xmlns="urn:oasis:names:specification:ubl:schema:xsd:ApplicationResponse-2"><cbc:CustomizationID>urn:fdc:peppol.eu:poacc:trns:invoice_response:3</cbc:CustomizationID><cbc:ProfileID>urn:fdc:peppol.eu:poacc:bis:invoice_response:3</cbc:ProfileID><cbc:ID>imrid001</cbc:ID><cbc:IssueDate>2017-12-01</cbc:IssueDate><cbc:IssueTime>12:00:00</cbc:IssueTime><cbc:Note>text</cbc:Note><cac:SenderParty><cbc:EndpointID schemeID="0088">5798000012349</cbc:EndpointID><cac:PartyIdentification><cbc:ID schemeID="0184">DK88776655</cbc:ID></cac:PartyIdentification><cac:PartyLegalEntity><cbc:RegistrationName>Buyer organization</cbc:RegistrationName></cac:PartyLegalEntity><cac:Contact><cbc:Name>Jens Jensen</cbc:Name><cbc:Telephone>23232323</cbc:Telephone><cbc:ElectronicMail>jj@test-company.dk</cbc:ElectronicMail></cac:Contact></cac:SenderParty><cac:ReceiverParty><cbc:EndpointID schemeID="0088">7330001000000</cbc:EndpointID><cac:PartyIdentification><cbc:ID schemeID="0192">987654325</cbc:ID></cac:PartyIdentification><cac:PartyLegalEntity><cbc:RegistrationName>Seller company</cbc:RegistrationName></cac:PartyLegalEntity></cac:ReceiverParty><cac:DocumentResponse><cac:Response><cbc:ResponseCode>RE</cbc:ResponseCode><cbc:EffectiveDate>2018-09-24</cbc:EffectiveDate><cac:Status><cbc:StatusReasonCode listID="OPStatusAction">NOA</cbc:StatusReasonCode><cbc:StatusReason>VAT Reference not found</cbc:StatusReason><cac:Condition><cbc:AttributeID>BT-48</cbc:AttributeID><cbc:Description>EU123456789</cbc:Description></cac:Condition></cac:Status></cac:Response><cac:DocumentReference><cbc:ID>inv021</cbc:ID><cbc:IssueDate>2018-09-22</cbc:IssueDate><cbc:DocumentTypeCode>380</cbc:DocumentTypeCode></cac:DocumentReference><cac:IssuerParty><cac:PartyIdentification><cbc:ID schemeID="0192">123456785</cbc:ID></cac:PartyIdentification><cac:PartyName><cbc:Name>Test Company AS</cbc:Name></cac:PartyName></cac:IssuerParty></cac:DocumentResponse></ApplicationResponse>"`;
+
+exports[`document-parser > for file './../test/files/v3/invoice-response/I…' > should parse the document from the filesystem 1`] = `
+{
+  "customizationId": "urn:fdc:peppol.eu:poacc:trns:invoice_response:3",
+  "documentResponse": {
+    "documentReference": {
+      "documentTypeCode": "380",
+      "id": "inv021",
+      "issueDate": "2018-09-22",
+    },
+    "issuerParty": {
+      "partyIdentification": {
+        "id": "123456785",
+        "schemeId": "0192",
+      },
+      "partyName": {
+        "name": "Test Company AS",
+      },
+    },
+    "response": {
+      "effectiveDate": "2018-09-24",
+      "responseCode": "RE",
+      "status": [
+        {
+          "condition": [
+            {
+              "attributeId": "BT-48",
+              "description": "EU123456789",
+            },
+          ],
+          "statusReason": "VAT Reference not found",
+          "statusReasonCode": {
+            "listId": "OPStatusAction",
+            "value": "NOA",
+          },
+        },
+      ],
+    },
+  },
+  "id": "imrid001",
+  "issueDate": "2017-12-01",
+  "issueTime": "12:00:00",
+  "note": "text",
+  "profileId": "urn:fdc:peppol.eu:poacc:bis:invoice_response:3",
+  "receiverParty": {
+    "endpointId": {
+      "id": "7330001000000",
+      "schemeId": "0088",
+    },
+    "partyIdentification": {
+      "id": "987654325",
+      "schemeId": "0192",
+    },
+    "partyLegalEntity": {
+      "registrationName": "Seller company",
+    },
+  },
+  "senderParty": {
+    "contact": {
+      "electronicMail": "jj@test-company.dk",
+      "name": "Jens Jensen",
+      "telephone": "23232323",
+    },
+    "endpointId": {
+      "id": "5798000012349",
+      "schemeId": "0088",
+    },
+    "partyIdentification": {
+      "id": "DK88776655",
+      "schemeId": "0184",
+    },
+    "partyLegalEntity": {
+      "registrationName": "Buyer organization",
+    },
+  },
+}
+`;
+
+exports[`document-parser > for file './../test/files/v3/invoice-response/T…' > should match the defined xml T111-uc001-Invoice in process 1`] = `"<?xml version="1.0" encoding="UTF-8"?><ApplicationResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:oasis:names:specification:ubl:schema:xsd:ApplicationResponse-2 https://docs.oasis-open.org/ubl/os-UBL-2.4/xsd/maindoc/UBL-ApplicationResponse-2.4.xsd urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2 https://docs.oasis-open.org/ubl/os-UBL-2.4/xsd/common/UBL-CommonAggregateComponents-2.4.xsd urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2 https://docs.oasis-open.org/ubl/os-UBL-2.4/xsd/common/UBL-CommonBasicComponents-2.4.xsd" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" xmlns="urn:oasis:names:specification:ubl:schema:xsd:ApplicationResponse-2"><cbc:CustomizationID>urn:fdc:peppol.eu:poacc:trns:invoice_response:3</cbc:CustomizationID><cbc:ProfileID>urn:fdc:peppol.eu:poacc:bis:invoice_response:3</cbc:ProfileID><cbc:ID>imrid001</cbc:ID><cbc:IssueDate>2017-12-01</cbc:IssueDate><cac:SenderParty><cbc:EndpointID schemeID="0196">6963495890</cbc:EndpointID><cac:PartyLegalEntity><cbc:RegistrationName>Buyer organization</cbc:RegistrationName></cac:PartyLegalEntity></cac:SenderParty><cac:ReceiverParty><cbc:EndpointID schemeID="0196">6841569459</cbc:EndpointID><cac:PartyLegalEntity><cbc:RegistrationName>Seller company</cbc:RegistrationName></cac:PartyLegalEntity></cac:ReceiverParty><cac:DocumentResponse><cac:Response><cbc:ResponseCode>IP</cbc:ResponseCode></cac:Response><cac:DocumentReference><cbc:ID>inv021</cbc:ID><cbc:DocumentTypeCode>380</cbc:DocumentTypeCode></cac:DocumentReference></cac:DocumentResponse></ApplicationResponse>"`;
+
+exports[`document-parser > for file './../test/files/v3/invoice-response/T…' > should match the defined xml T111-uc002a-Additional reference data 1`] = `"<?xml version="1.0" encoding="UTF-8"?><ApplicationResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:oasis:names:specification:ubl:schema:xsd:ApplicationResponse-2 https://docs.oasis-open.org/ubl/os-UBL-2.4/xsd/maindoc/UBL-ApplicationResponse-2.4.xsd urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2 https://docs.oasis-open.org/ubl/os-UBL-2.4/xsd/common/UBL-CommonAggregateComponents-2.4.xsd urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2 https://docs.oasis-open.org/ubl/os-UBL-2.4/xsd/common/UBL-CommonBasicComponents-2.4.xsd" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" xmlns="urn:oasis:names:specification:ubl:schema:xsd:ApplicationResponse-2"><cbc:CustomizationID>urn:fdc:peppol.eu:poacc:trns:invoice_response:3</cbc:CustomizationID><cbc:ProfileID>urn:fdc:peppol.eu:poacc:bis:invoice_response:3</cbc:ProfileID><cbc:ID>imrid001</cbc:ID><cbc:IssueDate>2017-12-02</cbc:IssueDate><cac:SenderParty><cbc:EndpointID schemeID="0196">6963495890</cbc:EndpointID><cac:PartyLegalEntity><cbc:RegistrationName>Buyer organization</cbc:RegistrationName></cac:PartyLegalEntity></cac:SenderParty><cac:ReceiverParty><cbc:EndpointID schemeID="0196">6841569459</cbc:EndpointID><cac:PartyLegalEntity><cbc:RegistrationName>Seller company</cbc:RegistrationName></cac:PartyLegalEntity></cac:ReceiverParty><cac:DocumentResponse><cac:Response><cbc:ResponseCode>IP</cbc:ResponseCode><cbc:EffectiveDate>2017-12-01</cbc:EffectiveDate><cac:Status><cbc:StatusReasonCode listID="OPStatusAction">NOA</cbc:StatusReasonCode><cac:Condition><cbc:AttributeID>Buyer process reference</cbc:AttributeID><cbc:Description>X001</cbc:Description></cac:Condition></cac:Status></cac:Response><cac:DocumentReference><cbc:ID>inv021</cbc:ID><cbc:DocumentTypeCode>380</cbc:DocumentTypeCode></cac:DocumentReference></cac:DocumentResponse></ApplicationResponse>"`;
+
+exports[`document-parser > for file './../test/files/v3/invoice-response/T…' > should match the defined xml T111-uc002b-In process but postponed 1`] = `
+"<?xml version="1.0" encoding="UTF-8"?><ApplicationResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:oasis:names:specification:ubl:schema:xsd:ApplicationResponse-2 https://docs.oasis-open.org/ubl/os-UBL-2.4/xsd/maindoc/UBL-ApplicationResponse-2.4.xsd urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2 https://docs.oasis-open.org/ubl/os-UBL-2.4/xsd/common/UBL-CommonAggregateComponents-2.4.xsd urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2 https://docs.oasis-open.org/ubl/os-UBL-2.4/xsd/common/UBL-CommonBasicComponents-2.4.xsd" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" xmlns="urn:oasis:names:specification:ubl:schema:xsd:ApplicationResponse-2"><cbc:CustomizationID>urn:fdc:peppol.eu:poacc:trns:invoice_response:3</cbc:CustomizationID><cbc:ProfileID>urn:fdc:peppol.eu:poacc:bis:invoice_response:3</cbc:ProfileID><cbc:ID>imrid001</cbc:ID><cbc:IssueDate>2017-12-02</cbc:IssueDate><cac:SenderParty><cbc:EndpointID schemeID="0196">6963495890</cbc:EndpointID><cac:PartyLegalEntity><cbc:RegistrationName>Buyer organization</cbc:RegistrationName></cac:PartyLegalEntity></cac:SenderParty><cac:ReceiverParty><cbc:EndpointID schemeID="0196">6841569459</cbc:EndpointID><cac:PartyLegalEntity><cbc:RegistrationName>Seller company</cbc:RegistrationName></cac:PartyLegalEntity></cac:ReceiverParty><cac:DocumentResponse><cac:Response><cbc:ResponseCode>IP</cbc:ResponseCode><cbc:EffectiveDate>2017-12-15</cbc:EffectiveDate><cac:Status><cbc:StatusReason>Shipment has not yet been received. Invoice processing will be attempted
+          later.</cbc:StatusReason></cac:Status></cac:Response><cac:DocumentReference><cbc:ID>inv021</cbc:ID><cbc:DocumentTypeCode>380</cbc:DocumentTypeCode></cac:DocumentReference></cac:DocumentResponse></ApplicationResponse>"
+`;
+
+exports[`document-parser > for file './../test/files/v3/invoice-response/T…' > should match the defined xml T111-uc003-Invoice is accepted 1`] = `"<?xml version="1.0" encoding="UTF-8"?><ApplicationResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:oasis:names:specification:ubl:schema:xsd:ApplicationResponse-2 https://docs.oasis-open.org/ubl/os-UBL-2.4/xsd/maindoc/UBL-ApplicationResponse-2.4.xsd urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2 https://docs.oasis-open.org/ubl/os-UBL-2.4/xsd/common/UBL-CommonAggregateComponents-2.4.xsd urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2 https://docs.oasis-open.org/ubl/os-UBL-2.4/xsd/common/UBL-CommonBasicComponents-2.4.xsd" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" xmlns="urn:oasis:names:specification:ubl:schema:xsd:ApplicationResponse-2"><cbc:CustomizationID>urn:fdc:peppol.eu:poacc:trns:invoice_response:3</cbc:CustomizationID><cbc:ProfileID>urn:fdc:peppol.eu:poacc:bis:invoice_response:3</cbc:ProfileID><cbc:ID>imrid001</cbc:ID><cbc:IssueDate>2017-12-01</cbc:IssueDate><cac:SenderParty><cbc:EndpointID schemeID="0196">6963495890</cbc:EndpointID><cac:PartyLegalEntity><cbc:RegistrationName>Buyer organization</cbc:RegistrationName></cac:PartyLegalEntity></cac:SenderParty><cac:ReceiverParty><cbc:EndpointID schemeID="0196">6841569459</cbc:EndpointID><cac:PartyLegalEntity><cbc:RegistrationName>Seller company</cbc:RegistrationName></cac:PartyLegalEntity></cac:ReceiverParty><cac:DocumentResponse><cac:Response><cbc:ResponseCode>AP</cbc:ResponseCode></cac:Response><cac:DocumentReference><cbc:ID>inv021</cbc:ID><cbc:DocumentTypeCode>380</cbc:DocumentTypeCode></cac:DocumentReference></cac:DocumentResponse></ApplicationResponse>"`;
+
+exports[`document-parser > for file './../test/files/v3/invoice-response/T…' > should match the defined xml T111-uc004a-Invoice is rejected 1`] = `
+"<?xml version="1.0" encoding="UTF-8"?><ApplicationResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:oasis:names:specification:ubl:schema:xsd:ApplicationResponse-2 https://docs.oasis-open.org/ubl/os-UBL-2.4/xsd/maindoc/UBL-ApplicationResponse-2.4.xsd urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2 https://docs.oasis-open.org/ubl/os-UBL-2.4/xsd/common/UBL-CommonAggregateComponents-2.4.xsd urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2 https://docs.oasis-open.org/ubl/os-UBL-2.4/xsd/common/UBL-CommonBasicComponents-2.4.xsd" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" xmlns="urn:oasis:names:specification:ubl:schema:xsd:ApplicationResponse-2"><cbc:CustomizationID>urn:fdc:peppol.eu:poacc:trns:invoice_response:3</cbc:CustomizationID><cbc:ProfileID>urn:fdc:peppol.eu:poacc:bis:invoice_response:3</cbc:ProfileID><cbc:ID>imrid001</cbc:ID><cbc:IssueDate>2017-12-01</cbc:IssueDate><cac:SenderParty><cbc:EndpointID schemeID="0196">6963495890</cbc:EndpointID><cac:PartyLegalEntity><cbc:RegistrationName>Buyer organization</cbc:RegistrationName></cac:PartyLegalEntity></cac:SenderParty><cac:ReceiverParty><cbc:EndpointID schemeID="0196">6841569459</cbc:EndpointID><cac:PartyLegalEntity><cbc:RegistrationName>Seller company</cbc:RegistrationName></cac:PartyLegalEntity></cac:ReceiverParty><cac:DocumentResponse><cac:Response><cbc:ResponseCode>RE</cbc:ResponseCode><cac:Status><cbc:StatusReasonCode listID="OPStatusReason">REF</cbc:StatusReasonCode><cbc:StatusReason>A textual explanation for why the invoice is being rejected. E.g. PO
+          reference is missing.</cbc:StatusReason></cac:Status></cac:Response><cac:DocumentReference><cbc:ID>inv021</cbc:ID><cbc:DocumentTypeCode>380</cbc:DocumentTypeCode></cac:DocumentReference></cac:DocumentResponse></ApplicationResponse>"
+`;
+
+exports[`document-parser > for file './../test/files/v3/invoice-response/T…' > should match the defined xml T111-uc004b-Rejected requesting reissue 1`] = `"<?xml version="1.0" encoding="UTF-8"?><ApplicationResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:oasis:names:specification:ubl:schema:xsd:ApplicationResponse-2 https://docs.oasis-open.org/ubl/os-UBL-2.4/xsd/maindoc/UBL-ApplicationResponse-2.4.xsd urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2 https://docs.oasis-open.org/ubl/os-UBL-2.4/xsd/common/UBL-CommonAggregateComponents-2.4.xsd urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2 https://docs.oasis-open.org/ubl/os-UBL-2.4/xsd/common/UBL-CommonBasicComponents-2.4.xsd" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" xmlns="urn:oasis:names:specification:ubl:schema:xsd:ApplicationResponse-2"><cbc:CustomizationID>urn:fdc:peppol.eu:poacc:trns:invoice_response:3</cbc:CustomizationID><cbc:ProfileID>urn:fdc:peppol.eu:poacc:bis:invoice_response:3</cbc:ProfileID><cbc:ID>imrid001</cbc:ID><cbc:IssueDate>2017-12-01</cbc:IssueDate><cac:SenderParty><cbc:EndpointID schemeID="0196">6963495890</cbc:EndpointID><cac:PartyLegalEntity><cbc:RegistrationName>Buyer organization</cbc:RegistrationName></cac:PartyLegalEntity></cac:SenderParty><cac:ReceiverParty><cbc:EndpointID schemeID="0196">6841569459</cbc:EndpointID><cac:PartyLegalEntity><cbc:RegistrationName>Seller company</cbc:RegistrationName></cac:PartyLegalEntity></cac:ReceiverParty><cac:DocumentResponse><cac:Response><cbc:ResponseCode>RE</cbc:ResponseCode><cac:Status><cbc:StatusReasonCode listID="OPStatusReason">REF</cbc:StatusReasonCode></cac:Status><cac:Status><cbc:StatusReasonCode listID="OPStatusAction">NIN</cbc:StatusReasonCode></cac:Status></cac:Response><cac:DocumentReference><cbc:ID>inv021</cbc:ID><cbc:DocumentTypeCode>380</cbc:DocumentTypeCode></cac:DocumentReference></cac:DocumentResponse></ApplicationResponse>"`;
+
+exports[`document-parser > for file './../test/files/v3/invoice-response/T…' > should match the defined xml T111-uc004c-Rejected requesting replacement 1`] = `"<?xml version="1.0" encoding="UTF-8"?><ApplicationResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:oasis:names:specification:ubl:schema:xsd:ApplicationResponse-2 https://docs.oasis-open.org/ubl/os-UBL-2.4/xsd/maindoc/UBL-ApplicationResponse-2.4.xsd urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2 https://docs.oasis-open.org/ubl/os-UBL-2.4/xsd/common/UBL-CommonAggregateComponents-2.4.xsd urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2 https://docs.oasis-open.org/ubl/os-UBL-2.4/xsd/common/UBL-CommonBasicComponents-2.4.xsd" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" xmlns="urn:oasis:names:specification:ubl:schema:xsd:ApplicationResponse-2"><cbc:CustomizationID>urn:fdc:peppol.eu:poacc:trns:invoice_response:3</cbc:CustomizationID><cbc:ProfileID>urn:fdc:peppol.eu:poacc:bis:invoice_response:3</cbc:ProfileID><cbc:ID>imrid001</cbc:ID><cbc:IssueDate>2017-12-01</cbc:IssueDate><cac:SenderParty><cbc:EndpointID schemeID="0196">6963495890</cbc:EndpointID><cac:PartyLegalEntity><cbc:RegistrationName>Buyer organization</cbc:RegistrationName></cac:PartyLegalEntity></cac:SenderParty><cac:ReceiverParty><cbc:EndpointID schemeID="0196">6841569459</cbc:EndpointID><cac:PartyLegalEntity><cbc:RegistrationName>Seller company</cbc:RegistrationName></cac:PartyLegalEntity></cac:ReceiverParty><cac:DocumentResponse><cac:Response><cbc:ResponseCode>RE</cbc:ResponseCode><cac:Status><cbc:StatusReasonCode listID="OPStatusReason">REF</cbc:StatusReasonCode></cac:Status><cac:Status><cbc:StatusReasonCode listID="OPStatusAction">CNF</cbc:StatusReasonCode></cac:Status><cac:Status><cbc:StatusReasonCode listID="OPStatusAction">NIN</cbc:StatusReasonCode></cac:Status></cac:Response><cac:DocumentReference><cbc:ID>inv021</cbc:ID><cbc:DocumentTypeCode>380</cbc:DocumentTypeCode></cac:DocumentReference></cac:DocumentResponse></ApplicationResponse>"`;
+
+exports[`document-parser > for file './../test/files/v3/invoice-response/T…' > should match the defined xml T111-uc005-Invoice is conditionally accepted 1`] = `"<?xml version="1.0" encoding="UTF-8"?><ApplicationResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:oasis:names:specification:ubl:schema:xsd:ApplicationResponse-2 https://docs.oasis-open.org/ubl/os-UBL-2.4/xsd/maindoc/UBL-ApplicationResponse-2.4.xsd urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2 https://docs.oasis-open.org/ubl/os-UBL-2.4/xsd/common/UBL-CommonAggregateComponents-2.4.xsd urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2 https://docs.oasis-open.org/ubl/os-UBL-2.4/xsd/common/UBL-CommonBasicComponents-2.4.xsd" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" xmlns="urn:oasis:names:specification:ubl:schema:xsd:ApplicationResponse-2"><cbc:CustomizationID>urn:fdc:peppol.eu:poacc:trns:invoice_response:3</cbc:CustomizationID><cbc:ProfileID>urn:fdc:peppol.eu:poacc:bis:invoice_response:3</cbc:ProfileID><cbc:ID>imrid001</cbc:ID><cbc:IssueDate>2017-12-01</cbc:IssueDate><cac:SenderParty><cbc:EndpointID schemeID="0196">6963495890</cbc:EndpointID><cac:PartyLegalEntity><cbc:RegistrationName>Buyer organization</cbc:RegistrationName></cac:PartyLegalEntity></cac:SenderParty><cac:ReceiverParty><cbc:EndpointID schemeID="0196">6841569459</cbc:EndpointID><cac:PartyLegalEntity><cbc:RegistrationName>Seller company</cbc:RegistrationName></cac:PartyLegalEntity></cac:ReceiverParty><cac:DocumentResponse><cac:Response><cbc:ResponseCode>CA</cbc:ResponseCode><cac:Status><cbc:StatusReasonCode listID="OPStatusReason">PAY</cbc:StatusReasonCode><cac:Condition><cbc:AttributeID>BT-9</cbc:AttributeID><cbc:Description>2018-01-15</cbc:Description></cac:Condition></cac:Status></cac:Response><cac:DocumentReference><cbc:ID>inv021</cbc:ID><cbc:DocumentTypeCode>380</cbc:DocumentTypeCode></cac:DocumentReference></cac:DocumentResponse></ApplicationResponse>"`;
+
+exports[`document-parser > for file './../test/files/v3/invoice-response/T…' > should match the defined xml T111-uc006a-Under query missing information 1`] = `"<?xml version="1.0" encoding="UTF-8"?><ApplicationResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:oasis:names:specification:ubl:schema:xsd:ApplicationResponse-2 https://docs.oasis-open.org/ubl/os-UBL-2.4/xsd/maindoc/UBL-ApplicationResponse-2.4.xsd urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2 https://docs.oasis-open.org/ubl/os-UBL-2.4/xsd/common/UBL-CommonAggregateComponents-2.4.xsd urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2 https://docs.oasis-open.org/ubl/os-UBL-2.4/xsd/common/UBL-CommonBasicComponents-2.4.xsd" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" xmlns="urn:oasis:names:specification:ubl:schema:xsd:ApplicationResponse-2"><cbc:CustomizationID>urn:fdc:peppol.eu:poacc:trns:invoice_response:3</cbc:CustomizationID><cbc:ProfileID>urn:fdc:peppol.eu:poacc:bis:invoice_response:3</cbc:ProfileID><cbc:ID>imrid001</cbc:ID><cbc:IssueDate>2017-12-01</cbc:IssueDate><cac:SenderParty><cbc:EndpointID schemeID="0196">6963495890</cbc:EndpointID><cac:PartyLegalEntity><cbc:RegistrationName>Buyer organization</cbc:RegistrationName></cac:PartyLegalEntity></cac:SenderParty><cac:ReceiverParty><cbc:EndpointID schemeID="0196">6841569459</cbc:EndpointID><cac:PartyLegalEntity><cbc:RegistrationName>Seller company</cbc:RegistrationName></cac:PartyLegalEntity></cac:ReceiverParty><cac:DocumentResponse><cac:Response><cbc:ResponseCode>UQ</cbc:ResponseCode><cbc:EffectiveDate>2017-12-02</cbc:EffectiveDate><cac:Status><cbc:StatusReasonCode listID="OPStatusReason">REF</cbc:StatusReasonCode><cac:Condition><cbc:AttributeID>BT-13</cbc:AttributeID><cbc:Description>PO0001</cbc:Description></cac:Condition></cac:Status><cac:Status><cbc:StatusReasonCode listID="OPStatusAction">PIN</cbc:StatusReasonCode></cac:Status></cac:Response><cac:DocumentReference><cbc:ID>inv021</cbc:ID><cbc:DocumentTypeCode>380</cbc:DocumentTypeCode></cac:DocumentReference></cac:DocumentResponse></ApplicationResponse>"`;
+
+exports[`document-parser > for file './../test/files/v3/invoice-response/T…' > should match the defined xml T111-uc006b-Missing PO 1`] = `"<?xml version="1.0" encoding="UTF-8"?><ApplicationResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:oasis:names:specification:ubl:schema:xsd:ApplicationResponse-2 https://docs.oasis-open.org/ubl/os-UBL-2.4/xsd/maindoc/UBL-ApplicationResponse-2.4.xsd urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2 https://docs.oasis-open.org/ubl/os-UBL-2.4/xsd/common/UBL-CommonAggregateComponents-2.4.xsd urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2 https://docs.oasis-open.org/ubl/os-UBL-2.4/xsd/common/UBL-CommonBasicComponents-2.4.xsd" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" xmlns="urn:oasis:names:specification:ubl:schema:xsd:ApplicationResponse-2"><cbc:CustomizationID>urn:fdc:peppol.eu:poacc:trns:invoice_response:3</cbc:CustomizationID><cbc:ProfileID>urn:fdc:peppol.eu:poacc:bis:invoice_response:3</cbc:ProfileID><cbc:ID>imrid001</cbc:ID><cbc:IssueDate>2017-12-01</cbc:IssueDate><cac:SenderParty><cbc:EndpointID schemeID="0196">6963495890</cbc:EndpointID><cac:PartyLegalEntity><cbc:RegistrationName>Buyer organization</cbc:RegistrationName></cac:PartyLegalEntity></cac:SenderParty><cac:ReceiverParty><cbc:EndpointID schemeID="0196">6841569459</cbc:EndpointID><cac:PartyLegalEntity><cbc:RegistrationName>Seller company</cbc:RegistrationName></cac:PartyLegalEntity></cac:ReceiverParty><cac:DocumentResponse><cac:Response><cbc:ResponseCode>UQ</cbc:ResponseCode><cbc:EffectiveDate>2017-12-02</cbc:EffectiveDate><cac:Status><cbc:StatusReasonCode listID="OPStatusReason">REF</cbc:StatusReasonCode><cac:Condition><cbc:AttributeID>BT-13</cbc:AttributeID><cbc:Description>PO0001</cbc:Description></cac:Condition></cac:Status><cac:Status><cbc:StatusReasonCode listID="OPStatusAction">PIN</cbc:StatusReasonCode></cac:Status></cac:Response><cac:DocumentReference><cbc:ID>inv021</cbc:ID><cbc:DocumentTypeCode>380</cbc:DocumentTypeCode></cac:DocumentReference></cac:DocumentResponse></ApplicationResponse>"`;
+
+exports[`document-parser > for file './../test/files/v3/invoice-response/T…' > should match the defined xml T111-uc006c-Wrong detail partial credit 1`] = `
+"<?xml version="1.0" encoding="UTF-8"?><ApplicationResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:oasis:names:specification:ubl:schema:xsd:ApplicationResponse-2 https://docs.oasis-open.org/ubl/os-UBL-2.4/xsd/maindoc/UBL-ApplicationResponse-2.4.xsd urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2 https://docs.oasis-open.org/ubl/os-UBL-2.4/xsd/common/UBL-CommonAggregateComponents-2.4.xsd urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2 https://docs.oasis-open.org/ubl/os-UBL-2.4/xsd/common/UBL-CommonBasicComponents-2.4.xsd" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" xmlns="urn:oasis:names:specification:ubl:schema:xsd:ApplicationResponse-2"><cbc:CustomizationID>urn:fdc:peppol.eu:poacc:trns:invoice_response:3</cbc:CustomizationID><cbc:ProfileID>urn:fdc:peppol.eu:poacc:bis:invoice_response:3</cbc:ProfileID><cbc:ID>imrid001</cbc:ID><cbc:IssueDate>2017-12-01</cbc:IssueDate><cac:SenderParty><cbc:EndpointID schemeID="0196">6963495890</cbc:EndpointID><cac:PartyLegalEntity><cbc:RegistrationName>Buyer organization</cbc:RegistrationName></cac:PartyLegalEntity></cac:SenderParty><cac:ReceiverParty><cbc:EndpointID schemeID="0196">6841569459</cbc:EndpointID><cac:PartyLegalEntity><cbc:RegistrationName>Seller company</cbc:RegistrationName></cac:PartyLegalEntity></cac:ReceiverParty><cac:DocumentResponse><cac:Response><cbc:ResponseCode>UQ</cbc:ResponseCode><cac:Status><cbc:StatusReasonCode listID="OPStatusReason">DEL</cbc:StatusReasonCode><cbc:StatusReason>Delivered quantity for line number 1 was 2 units but invoiced quantity is
+          5 units. Send credit note for 3 unit.</cbc:StatusReason></cac:Status><cac:Status><cbc:StatusReasonCode listID="OPStatusAction">CNP</cbc:StatusReasonCode></cac:Status></cac:Response><cac:DocumentReference><cbc:ID>inv021</cbc:ID><cbc:DocumentTypeCode>380</cbc:DocumentTypeCode></cac:DocumentReference></cac:DocumentResponse></ApplicationResponse>"
+`;
+
+exports[`document-parser > for file './../test/files/v3/invoice-response/T…' > should match the defined xml T111-uc007-Payment has been initiated 1`] = `"<?xml version="1.0" encoding="UTF-8"?><ApplicationResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:oasis:names:specification:ubl:schema:xsd:ApplicationResponse-2 https://docs.oasis-open.org/ubl/os-UBL-2.4/xsd/maindoc/UBL-ApplicationResponse-2.4.xsd urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2 https://docs.oasis-open.org/ubl/os-UBL-2.4/xsd/common/UBL-CommonAggregateComponents-2.4.xsd urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2 https://docs.oasis-open.org/ubl/os-UBL-2.4/xsd/common/UBL-CommonBasicComponents-2.4.xsd" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" xmlns="urn:oasis:names:specification:ubl:schema:xsd:ApplicationResponse-2"><cbc:CustomizationID>urn:fdc:peppol.eu:poacc:trns:invoice_response:3</cbc:CustomizationID><cbc:ProfileID>urn:fdc:peppol.eu:poacc:bis:invoice_response:3</cbc:ProfileID><cbc:ID>imrid001</cbc:ID><cbc:IssueDate>2017-12-31</cbc:IssueDate><cac:SenderParty><cbc:EndpointID schemeID="0196">6963495890</cbc:EndpointID><cac:PartyLegalEntity><cbc:RegistrationName>Buyer organization</cbc:RegistrationName></cac:PartyLegalEntity></cac:SenderParty><cac:ReceiverParty><cbc:EndpointID schemeID="0196">6841569459</cbc:EndpointID><cac:PartyLegalEntity><cbc:RegistrationName>Seller company</cbc:RegistrationName></cac:PartyLegalEntity></cac:ReceiverParty><cac:DocumentResponse><cac:Response><cbc:ResponseCode>PD</cbc:ResponseCode><cbc:EffectiveDate>2017-12-30</cbc:EffectiveDate></cac:Response><cac:DocumentReference><cbc:ID>inv021</cbc:ID><cbc:DocumentTypeCode>380</cbc:DocumentTypeCode></cac:DocumentReference></cac:DocumentResponse></ApplicationResponse>"`;
+
+exports[`document-parser > for file './../test/files/v3/invoice-response/T…' > should match the defined xml T111-uc008-Invoice is accepted by third party 1`] = `"<?xml version="1.0" encoding="UTF-8"?><ApplicationResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:oasis:names:specification:ubl:schema:xsd:ApplicationResponse-2 https://docs.oasis-open.org/ubl/os-UBL-2.4/xsd/maindoc/UBL-ApplicationResponse-2.4.xsd urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2 https://docs.oasis-open.org/ubl/os-UBL-2.4/xsd/common/UBL-CommonAggregateComponents-2.4.xsd urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2 https://docs.oasis-open.org/ubl/os-UBL-2.4/xsd/common/UBL-CommonBasicComponents-2.4.xsd" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" xmlns="urn:oasis:names:specification:ubl:schema:xsd:ApplicationResponse-2"><cbc:CustomizationID>urn:fdc:peppol.eu:poacc:trns:invoice_response:3</cbc:CustomizationID><cbc:ProfileID>urn:fdc:peppol.eu:poacc:bis:invoice_response:3</cbc:ProfileID><cbc:ID>imrid001</cbc:ID><cbc:IssueDate>2017-12-01</cbc:IssueDate><cac:SenderParty><cbc:EndpointID schemeID="0196">6963495890</cbc:EndpointID><cac:PartyLegalEntity><cbc:RegistrationName>Invoice processing service</cbc:RegistrationName></cac:PartyLegalEntity></cac:SenderParty><cac:ReceiverParty><cbc:EndpointID schemeID="0196">6841569459</cbc:EndpointID><cac:PartyLegalEntity><cbc:RegistrationName>Seller company</cbc:RegistrationName></cac:PartyLegalEntity></cac:ReceiverParty><cac:DocumentResponse><cac:Response><cbc:ResponseCode>AP</cbc:ResponseCode></cac:Response><cac:DocumentReference><cbc:ID>inv021</cbc:ID><cbc:DocumentTypeCode>380</cbc:DocumentTypeCode></cac:DocumentReference><cac:RecipientParty><cac:PartyIdentification><cbc:ID schemeID="0088">9876549873211</cbc:ID></cac:PartyIdentification><cac:PartyName><cbc:Name>Buyer A</cbc:Name></cac:PartyName></cac:RecipientParty></cac:DocumentResponse></ApplicationResponse>"`;
+
+exports[`document-parser > for file './../test/files/v3/invoice-response/T…' > should parse the document from the filesystem 1`] = `
+{
+  "customizationId": "urn:fdc:peppol.eu:poacc:trns:invoice_response:3",
+  "documentResponse": {
+    "documentReference": {
+      "documentTypeCode": "380",
+      "id": "inv021",
+    },
+    "response": {
+      "responseCode": "IP",
+      "status": [],
+    },
+  },
+  "id": "imrid001",
+  "issueDate": "2017-12-01",
+  "profileId": "urn:fdc:peppol.eu:poacc:bis:invoice_response:3",
+  "receiverParty": {
+    "endpointId": {
+      "id": "6841569459",
+      "schemeId": "0196",
+    },
+    "partyLegalEntity": {
+      "registrationName": "Seller company",
+    },
+  },
+  "senderParty": {
+    "endpointId": {
+      "id": "6963495890",
+      "schemeId": "0196",
+    },
+    "partyLegalEntity": {
+      "registrationName": "Buyer organization",
+    },
+  },
+}
+`;
+
+exports[`document-parser > for file './../test/files/v3/invoice-response/T…' > should parse the document from the filesystem 2`] = `
+{
+  "customizationId": "urn:fdc:peppol.eu:poacc:trns:invoice_response:3",
+  "documentResponse": {
+    "documentReference": {
+      "documentTypeCode": "380",
+      "id": "inv021",
+    },
+    "response": {
+      "effectiveDate": "2017-12-01",
+      "responseCode": "IP",
+      "status": [
+        {
+          "condition": [
+            {
+              "attributeId": "Buyer process reference",
+              "description": "X001",
+            },
+          ],
+          "statusReasonCode": {
+            "listId": "OPStatusAction",
+            "value": "NOA",
+          },
+        },
+      ],
+    },
+  },
+  "id": "imrid001",
+  "issueDate": "2017-12-02",
+  "profileId": "urn:fdc:peppol.eu:poacc:bis:invoice_response:3",
+  "receiverParty": {
+    "endpointId": {
+      "id": "6841569459",
+      "schemeId": "0196",
+    },
+    "partyLegalEntity": {
+      "registrationName": "Seller company",
+    },
+  },
+  "senderParty": {
+    "endpointId": {
+      "id": "6963495890",
+      "schemeId": "0196",
+    },
+    "partyLegalEntity": {
+      "registrationName": "Buyer organization",
+    },
+  },
+}
+`;
+
+exports[`document-parser > for file './../test/files/v3/invoice-response/T…' > should parse the document from the filesystem 3`] = `
+{
+  "customizationId": "urn:fdc:peppol.eu:poacc:trns:invoice_response:3",
+  "documentResponse": {
+    "documentReference": {
+      "documentTypeCode": "380",
+      "id": "inv021",
+    },
+    "response": {
+      "effectiveDate": "2017-12-15",
+      "responseCode": "IP",
+      "status": [
+        {
+          "condition": [],
+          "statusReason": "Shipment has not yet been received. Invoice processing will be attempted
+          later.",
+        },
+      ],
+    },
+  },
+  "id": "imrid001",
+  "issueDate": "2017-12-02",
+  "profileId": "urn:fdc:peppol.eu:poacc:bis:invoice_response:3",
+  "receiverParty": {
+    "endpointId": {
+      "id": "6841569459",
+      "schemeId": "0196",
+    },
+    "partyLegalEntity": {
+      "registrationName": "Seller company",
+    },
+  },
+  "senderParty": {
+    "endpointId": {
+      "id": "6963495890",
+      "schemeId": "0196",
+    },
+    "partyLegalEntity": {
+      "registrationName": "Buyer organization",
+    },
+  },
+}
+`;
+
+exports[`document-parser > for file './../test/files/v3/invoice-response/T…' > should parse the document from the filesystem 4`] = `
+{
+  "customizationId": "urn:fdc:peppol.eu:poacc:trns:invoice_response:3",
+  "documentResponse": {
+    "documentReference": {
+      "documentTypeCode": "380",
+      "id": "inv021",
+    },
+    "response": {
+      "responseCode": "AP",
+      "status": [],
+    },
+  },
+  "id": "imrid001",
+  "issueDate": "2017-12-01",
+  "profileId": "urn:fdc:peppol.eu:poacc:bis:invoice_response:3",
+  "receiverParty": {
+    "endpointId": {
+      "id": "6841569459",
+      "schemeId": "0196",
+    },
+    "partyLegalEntity": {
+      "registrationName": "Seller company",
+    },
+  },
+  "senderParty": {
+    "endpointId": {
+      "id": "6963495890",
+      "schemeId": "0196",
+    },
+    "partyLegalEntity": {
+      "registrationName": "Buyer organization",
+    },
+  },
+}
+`;
+
+exports[`document-parser > for file './../test/files/v3/invoice-response/T…' > should parse the document from the filesystem 5`] = `
+{
+  "customizationId": "urn:fdc:peppol.eu:poacc:trns:invoice_response:3",
+  "documentResponse": {
+    "documentReference": {
+      "documentTypeCode": "380",
+      "id": "inv021",
+    },
+    "response": {
+      "responseCode": "RE",
+      "status": [
+        {
+          "condition": [],
+          "statusReason": "A textual explanation for why the invoice is being rejected. E.g. PO
+          reference is missing.",
+          "statusReasonCode": {
+            "listId": "OPStatusReason",
+            "value": "REF",
+          },
+        },
+      ],
+    },
+  },
+  "id": "imrid001",
+  "issueDate": "2017-12-01",
+  "profileId": "urn:fdc:peppol.eu:poacc:bis:invoice_response:3",
+  "receiverParty": {
+    "endpointId": {
+      "id": "6841569459",
+      "schemeId": "0196",
+    },
+    "partyLegalEntity": {
+      "registrationName": "Seller company",
+    },
+  },
+  "senderParty": {
+    "endpointId": {
+      "id": "6963495890",
+      "schemeId": "0196",
+    },
+    "partyLegalEntity": {
+      "registrationName": "Buyer organization",
+    },
+  },
+}
+`;
+
+exports[`document-parser > for file './../test/files/v3/invoice-response/T…' > should parse the document from the filesystem 6`] = `
+{
+  "customizationId": "urn:fdc:peppol.eu:poacc:trns:invoice_response:3",
+  "documentResponse": {
+    "documentReference": {
+      "documentTypeCode": "380",
+      "id": "inv021",
+    },
+    "response": {
+      "responseCode": "RE",
+      "status": [
+        {
+          "condition": [],
+          "statusReasonCode": {
+            "listId": "OPStatusReason",
+            "value": "REF",
+          },
+        },
+        {
+          "condition": [],
+          "statusReasonCode": {
+            "listId": "OPStatusAction",
+            "value": "NIN",
+          },
+        },
+      ],
+    },
+  },
+  "id": "imrid001",
+  "issueDate": "2017-12-01",
+  "profileId": "urn:fdc:peppol.eu:poacc:bis:invoice_response:3",
+  "receiverParty": {
+    "endpointId": {
+      "id": "6841569459",
+      "schemeId": "0196",
+    },
+    "partyLegalEntity": {
+      "registrationName": "Seller company",
+    },
+  },
+  "senderParty": {
+    "endpointId": {
+      "id": "6963495890",
+      "schemeId": "0196",
+    },
+    "partyLegalEntity": {
+      "registrationName": "Buyer organization",
+    },
+  },
+}
+`;
+
+exports[`document-parser > for file './../test/files/v3/invoice-response/T…' > should parse the document from the filesystem 7`] = `
+{
+  "customizationId": "urn:fdc:peppol.eu:poacc:trns:invoice_response:3",
+  "documentResponse": {
+    "documentReference": {
+      "documentTypeCode": "380",
+      "id": "inv021",
+    },
+    "response": {
+      "responseCode": "RE",
+      "status": [
+        {
+          "condition": [],
+          "statusReasonCode": {
+            "listId": "OPStatusReason",
+            "value": "REF",
+          },
+        },
+        {
+          "condition": [],
+          "statusReasonCode": {
+            "listId": "OPStatusAction",
+            "value": "CNF",
+          },
+        },
+        {
+          "condition": [],
+          "statusReasonCode": {
+            "listId": "OPStatusAction",
+            "value": "NIN",
+          },
+        },
+      ],
+    },
+  },
+  "id": "imrid001",
+  "issueDate": "2017-12-01",
+  "profileId": "urn:fdc:peppol.eu:poacc:bis:invoice_response:3",
+  "receiverParty": {
+    "endpointId": {
+      "id": "6841569459",
+      "schemeId": "0196",
+    },
+    "partyLegalEntity": {
+      "registrationName": "Seller company",
+    },
+  },
+  "senderParty": {
+    "endpointId": {
+      "id": "6963495890",
+      "schemeId": "0196",
+    },
+    "partyLegalEntity": {
+      "registrationName": "Buyer organization",
+    },
+  },
+}
+`;
+
+exports[`document-parser > for file './../test/files/v3/invoice-response/T…' > should parse the document from the filesystem 8`] = `
+{
+  "customizationId": "urn:fdc:peppol.eu:poacc:trns:invoice_response:3",
+  "documentResponse": {
+    "documentReference": {
+      "documentTypeCode": "380",
+      "id": "inv021",
+    },
+    "response": {
+      "responseCode": "CA",
+      "status": [
+        {
+          "condition": [
+            {
+              "attributeId": "BT-9",
+              "description": "2018-01-15",
+            },
+          ],
+          "statusReasonCode": {
+            "listId": "OPStatusReason",
+            "value": "PAY",
+          },
+        },
+      ],
+    },
+  },
+  "id": "imrid001",
+  "issueDate": "2017-12-01",
+  "profileId": "urn:fdc:peppol.eu:poacc:bis:invoice_response:3",
+  "receiverParty": {
+    "endpointId": {
+      "id": "6841569459",
+      "schemeId": "0196",
+    },
+    "partyLegalEntity": {
+      "registrationName": "Seller company",
+    },
+  },
+  "senderParty": {
+    "endpointId": {
+      "id": "6963495890",
+      "schemeId": "0196",
+    },
+    "partyLegalEntity": {
+      "registrationName": "Buyer organization",
+    },
+  },
+}
+`;
+
+exports[`document-parser > for file './../test/files/v3/invoice-response/T…' > should parse the document from the filesystem 9`] = `
+{
+  "customizationId": "urn:fdc:peppol.eu:poacc:trns:invoice_response:3",
+  "documentResponse": {
+    "documentReference": {
+      "documentTypeCode": "380",
+      "id": "inv021",
+    },
+    "response": {
+      "effectiveDate": "2017-12-02",
+      "responseCode": "UQ",
+      "status": [
+        {
+          "condition": [
+            {
+              "attributeId": "BT-13",
+              "description": "PO0001",
+            },
+          ],
+          "statusReasonCode": {
+            "listId": "OPStatusReason",
+            "value": "REF",
+          },
+        },
+        {
+          "condition": [],
+          "statusReasonCode": {
+            "listId": "OPStatusAction",
+            "value": "PIN",
+          },
+        },
+      ],
+    },
+  },
+  "id": "imrid001",
+  "issueDate": "2017-12-01",
+  "profileId": "urn:fdc:peppol.eu:poacc:bis:invoice_response:3",
+  "receiverParty": {
+    "endpointId": {
+      "id": "6841569459",
+      "schemeId": "0196",
+    },
+    "partyLegalEntity": {
+      "registrationName": "Seller company",
+    },
+  },
+  "senderParty": {
+    "endpointId": {
+      "id": "6963495890",
+      "schemeId": "0196",
+    },
+    "partyLegalEntity": {
+      "registrationName": "Buyer organization",
+    },
+  },
+}
+`;
+
+exports[`document-parser > for file './../test/files/v3/invoice-response/T…' > should parse the document from the filesystem 10`] = `
+{
+  "customizationId": "urn:fdc:peppol.eu:poacc:trns:invoice_response:3",
+  "documentResponse": {
+    "documentReference": {
+      "documentTypeCode": "380",
+      "id": "inv021",
+    },
+    "response": {
+      "effectiveDate": "2017-12-02",
+      "responseCode": "UQ",
+      "status": [
+        {
+          "condition": [
+            {
+              "attributeId": "BT-13",
+              "description": "PO0001",
+            },
+          ],
+          "statusReasonCode": {
+            "listId": "OPStatusReason",
+            "value": "REF",
+          },
+        },
+        {
+          "condition": [],
+          "statusReasonCode": {
+            "listId": "OPStatusAction",
+            "value": "PIN",
+          },
+        },
+      ],
+    },
+  },
+  "id": "imrid001",
+  "issueDate": "2017-12-01",
+  "profileId": "urn:fdc:peppol.eu:poacc:bis:invoice_response:3",
+  "receiverParty": {
+    "endpointId": {
+      "id": "6841569459",
+      "schemeId": "0196",
+    },
+    "partyLegalEntity": {
+      "registrationName": "Seller company",
+    },
+  },
+  "senderParty": {
+    "endpointId": {
+      "id": "6963495890",
+      "schemeId": "0196",
+    },
+    "partyLegalEntity": {
+      "registrationName": "Buyer organization",
+    },
+  },
+}
+`;
+
+exports[`document-parser > for file './../test/files/v3/invoice-response/T…' > should parse the document from the filesystem 11`] = `
+{
+  "customizationId": "urn:fdc:peppol.eu:poacc:trns:invoice_response:3",
+  "documentResponse": {
+    "documentReference": {
+      "documentTypeCode": "380",
+      "id": "inv021",
+    },
+    "response": {
+      "responseCode": "UQ",
+      "status": [
+        {
+          "condition": [],
+          "statusReason": "Delivered quantity for line number 1 was 2 units but invoiced quantity is
+          5 units. Send credit note for 3 unit.",
+          "statusReasonCode": {
+            "listId": "OPStatusReason",
+            "value": "DEL",
+          },
+        },
+        {
+          "condition": [],
+          "statusReasonCode": {
+            "listId": "OPStatusAction",
+            "value": "CNP",
+          },
+        },
+      ],
+    },
+  },
+  "id": "imrid001",
+  "issueDate": "2017-12-01",
+  "profileId": "urn:fdc:peppol.eu:poacc:bis:invoice_response:3",
+  "receiverParty": {
+    "endpointId": {
+      "id": "6841569459",
+      "schemeId": "0196",
+    },
+    "partyLegalEntity": {
+      "registrationName": "Seller company",
+    },
+  },
+  "senderParty": {
+    "endpointId": {
+      "id": "6963495890",
+      "schemeId": "0196",
+    },
+    "partyLegalEntity": {
+      "registrationName": "Buyer organization",
+    },
+  },
+}
+`;
+
+exports[`document-parser > for file './../test/files/v3/invoice-response/T…' > should parse the document from the filesystem 12`] = `
+{
+  "customizationId": "urn:fdc:peppol.eu:poacc:trns:invoice_response:3",
+  "documentResponse": {
+    "documentReference": {
+      "documentTypeCode": "380",
+      "id": "inv021",
+    },
+    "response": {
+      "effectiveDate": "2017-12-30",
+      "responseCode": "PD",
+      "status": [],
+    },
+  },
+  "id": "imrid001",
+  "issueDate": "2017-12-31",
+  "profileId": "urn:fdc:peppol.eu:poacc:bis:invoice_response:3",
+  "receiverParty": {
+    "endpointId": {
+      "id": "6841569459",
+      "schemeId": "0196",
+    },
+    "partyLegalEntity": {
+      "registrationName": "Seller company",
+    },
+  },
+  "senderParty": {
+    "endpointId": {
+      "id": "6963495890",
+      "schemeId": "0196",
+    },
+    "partyLegalEntity": {
+      "registrationName": "Buyer organization",
+    },
+  },
+}
+`;
+
+exports[`document-parser > for file './../test/files/v3/invoice-response/T…' > should parse the document from the filesystem 13`] = `
+{
+  "customizationId": "urn:fdc:peppol.eu:poacc:trns:invoice_response:3",
+  "documentResponse": {
+    "documentReference": {
+      "documentTypeCode": "380",
+      "id": "inv021",
+    },
+    "recipientParty": {
+      "partyIdentification": {
+        "id": "9876549873211",
+        "schemeId": "0088",
+      },
+      "partyName": {
+        "name": "Buyer A",
+      },
+    },
+    "response": {
+      "responseCode": "AP",
+      "status": [],
+    },
+  },
+  "id": "imrid001",
+  "issueDate": "2017-12-01",
+  "profileId": "urn:fdc:peppol.eu:poacc:bis:invoice_response:3",
+  "receiverParty": {
+    "endpointId": {
+      "id": "6841569459",
+      "schemeId": "0196",
+    },
+    "partyLegalEntity": {
+      "registrationName": "Seller company",
+    },
+  },
+  "senderParty": {
+    "endpointId": {
+      "id": "6963495890",
+      "schemeId": "0196",
+    },
+    "partyLegalEntity": {
+      "registrationName": "Invoice processing service",
+    },
+  },
+}
+`;
+
+exports[`document-parser > for file './../test/files/v3/message-level-resp…' > should match the defined xml MessageLevelResponseExample 1`] = `
+"<?xml version="1.0" encoding="UTF-8"?><ApplicationResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:oasis:names:specification:ubl:schema:xsd:ApplicationResponse-2 https://docs.oasis-open.org/ubl/os-UBL-2.4/xsd/maindoc/UBL-ApplicationResponse-2.4.xsd urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2 https://docs.oasis-open.org/ubl/os-UBL-2.4/xsd/common/UBL-CommonAggregateComponents-2.4.xsd urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2 https://docs.oasis-open.org/ubl/os-UBL-2.4/xsd/common/UBL-CommonBasicComponents-2.4.xsd" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" xmlns="urn:oasis:names:specification:ubl:schema:xsd:ApplicationResponse-2"><cbc:CustomizationID>urn:fdc:peppol.eu:poacc:trns:mlr:3</cbc:CustomizationID><cbc:ProfileID>urn:fdc:peppol.eu:poacc:bis:mlr:3</cbc:ProfileID><cbc:ID>MLR-ID123</cbc:ID><cbc:IssueDate>2016-08-15</cbc:IssueDate><cbc:IssueTime>12:00:00</cbc:IssueTime><cac:SenderParty><cbc:EndpointID schemeID="0088">7300010000001</cbc:EndpointID></cac:SenderParty><cac:ReceiverParty><cbc:EndpointID schemeID="0088">7315458756328</cbc:EndpointID></cac:ReceiverParty><cac:DocumentResponse><cac:Response><cbc:ResponseCode>RE</cbc:ResponseCode><cbc:Description>Rejected due to validation errore</cbc:Description></cac:Response><cac:DocumentReference><cbc:ID>EnvelopeID-12456789</cbc:ID><cbc:DocumentTypeCode>9</cbc:DocumentTypeCode><cbc:VersionID>2</cbc:VersionID></cac:DocumentReference><cac:LineResponse><cac:LineReference><cbc:LineID>/Catalogue/cac:CatalogueLine[3]/cac:Item[1]/cac:ClassifiedTaxCategory[1]/cbc:ID[1]</cbc:LineID></cac:LineReference><cac:Response><cbc:ResponseCode>RE</cbc:ResponseCode><cbc:Description>Validation gives error [CL-T77-R002]- Tax categories MUST be coded using
+          UN/ECE 5305 code list</cbc:Description><cac:Status><cbc:StatusReasonCode>BV</cbc:StatusReasonCode></cac:Status></cac:Response></cac:LineResponse></cac:DocumentResponse></ApplicationResponse>"
+`;
+
+exports[`document-parser > for file './../test/files/v3/message-level-resp…' > should parse the document from the filesystem 1`] = `
+{
+  "customizationId": "urn:fdc:peppol.eu:poacc:trns:mlr:3",
+  "documentResponse": {
+    "documentReference": {
+      "documentTypeCode": "9",
+      "id": "EnvelopeID-12456789",
+      "versionId": "2",
+    },
+    "lineResponse": [
+      {
+        "lineReference": {
+          "lineId": "/Catalogue/cac:CatalogueLine[3]/cac:Item[1]/cac:ClassifiedTaxCategory[1]/cbc:ID[1]",
+        },
+        "response": {
+          "description": "Validation gives error [CL-T77-R002]- Tax categories MUST be coded using
+          UN/ECE 5305 code list",
+          "responseCode": "RE",
+          "status": {
+            "statusReasonCode": "BV",
+          },
+        },
+      },
+    ],
+    "response": {
+      "description": "Rejected due to validation errore",
+      "responseCode": "RE",
+    },
+  },
+  "id": "MLR-ID123",
+  "issueDate": "2016-08-15",
+  "issueTime": "12:00:00",
+  "profileId": "urn:fdc:peppol.eu:poacc:bis:mlr:3",
+  "receiverParty": {
+    "endpointId": {
+      "id": "7315458756328",
+      "schemeId": "0088",
+    },
+  },
+  "senderParty": {
+    "endpointId": {
+      "id": "7300010000001",
+      "schemeId": "0088",
+    },
+  },
+}
+`;
+
+exports[`document-parser > for file from as4 endpoint > should match the defined xml from-as4 1`] = `
+"<?xml version="1.0" encoding="UTF-8"?><Invoice xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2"><cbc:CustomizationID>urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0</cbc:CustomizationID><cbc:ProfileID>urn:fdc:peppol.eu:2017:poacc:billing:01:1.0</cbc:ProfileID><cbc:ID>test-invoice-phase4</cbc:ID><cbc:IssueDate>2021-10-13</cbc:IssueDate><cbc:DueDate>2021-12-01</cbc:DueDate><cbc:InvoiceTypeCode>380</cbc:InvoiceTypeCode><cbc:DocumentCurrencyCode>EUR</cbc:DocumentCurrencyCode><cbc:AccountingCost>4025:123:4343</cbc:AccountingCost><cbc:BuyerReference>0150abc</cbc:BuyerReference><cac:AccountingSupplierParty><cac:Party><cbc:EndpointID schemeID="9915">phase4-test-sender</cbc:EndpointID><cac:PartyName><cbc:Name>SupplierTradingName
+          Ltd.</cbc:Name></cac:PartyName><cac:PostalAddress><cbc:StreetName>Main
+          street 1</cbc:StreetName><cbc:AdditionalStreetName>Postbox
+          123</cbc:AdditionalStreetName><cbc:CityName>London</cbc:CityName><cbc:PostalZone>GB 123 EW</cbc:PostalZone><cac:Country><cbc:IdentificationCode>GB</cbc:IdentificationCode></cac:Country></cac:PostalAddress><cac:PartyTaxScheme><cbc:CompanyID>GB1232434</cbc:CompanyID><cac:TaxScheme><cbc:ID>VAT</cbc:ID></cac:TaxScheme></cac:PartyTaxScheme><cac:PartyLegalEntity><cbc:RegistrationName>SupplierOfficialName
+          Ltd</cbc:RegistrationName><cbc:CompanyID>GB983294</cbc:CompanyID></cac:PartyLegalEntity></cac:Party></cac:AccountingSupplierParty><cac:AccountingCustomerParty><cac:Party><cbc:EndpointID schemeID="9915">helger</cbc:EndpointID><cac:PartyName><cbc:Name>BuyerTradingName
+          AS</cbc:Name></cac:PartyName><cac:PostalAddress><cbc:StreetName>Hovedgatan
+          32</cbc:StreetName><cbc:AdditionalStreetName>Po box
+          878</cbc:AdditionalStreetName><cbc:CityName>Stockholm</cbc:CityName><cbc:PostalZone>456 34</cbc:PostalZone><cac:Country><cbc:IdentificationCode>SE</cbc:IdentificationCode></cac:Country></cac:PostalAddress><cac:PartyTaxScheme><cbc:CompanyID>SE4598375937</cbc:CompanyID><cac:TaxScheme><cbc:ID>VAT</cbc:ID></cac:TaxScheme></cac:PartyTaxScheme><cac:PartyLegalEntity><cbc:RegistrationName>Buyer
+          Official Name</cbc:RegistrationName><cbc:CompanyID schemeID="0183">39937423947</cbc:CompanyID></cac:PartyLegalEntity><cac:Contact><cbc:Name>Lisa
+          Johnson</cbc:Name><cbc:Telephone>23434234</cbc:Telephone><cbc:ElectronicMail>lj@buyer.se</cbc:ElectronicMail></cac:Contact></cac:Party></cac:AccountingCustomerParty><cac:Delivery><cbc:ActualDeliveryDate>2021-10-01</cbc:ActualDeliveryDate><cac:DeliveryLocation><cbc:ID schemeID="0088">9483759475923478</cbc:ID><cac:Address><cbc:StreetName>Delivery
+          street 2</cbc:StreetName><cbc:AdditionalStreetName>Building
+          56</cbc:AdditionalStreetName><cbc:CityName>Stockholm</cbc:CityName><cbc:PostalZone>21234</cbc:PostalZone><cac:Country><cbc:IdentificationCode>SE</cbc:IdentificationCode></cac:Country></cac:Address></cac:DeliveryLocation><cac:DeliveryParty><cac:PartyName><cbc:Name>Delivery
+          party Name</cbc:Name></cac:PartyName></cac:DeliveryParty></cac:Delivery><cac:PaymentMeans><cbc:PaymentMeansCode name="Credit transfer">30</cbc:PaymentMeansCode><cbc:PaymentID>Snippet1</cbc:PaymentID><cac:PayeeFinancialAccount><cbc:ID>IBAN32423940</cbc:ID><cbc:Name>AccountName</cbc:Name><cac:FinancialInstitutionBranch><cbc:ID>BIC324098</cbc:ID></cac:FinancialInstitutionBranch></cac:PayeeFinancialAccount></cac:PaymentMeans><cac:PaymentTerms><cbc:Note>Payment
+      within 10 days, 2% discount</cbc:Note></cac:PaymentTerms><cac:AllowanceCharge><cbc:ChargeIndicator>true</cbc:ChargeIndicator><cbc:AllowanceChargeReason>Insurance</cbc:AllowanceChargeReason><cbc:Amount currencyID="EUR">25</cbc:Amount><cac:TaxCategory><cbc:ID>S</cbc:ID><cbc:Percent>25</cbc:Percent><cac:TaxScheme><cbc:ID>VAT</cbc:ID></cac:TaxScheme></cac:TaxCategory></cac:AllowanceCharge><cac:TaxTotal><cbc:TaxAmount currencyID="EUR">331.25</cbc:TaxAmount><cac:TaxSubtotal><cbc:TaxableAmount currencyID="EUR">1325</cbc:TaxableAmount><cbc:TaxAmount currencyID="EUR">331.25</cbc:TaxAmount><cac:TaxCategory><cbc:ID>S</cbc:ID><cbc:Percent>25</cbc:Percent><cac:TaxScheme><cbc:ID>VAT</cbc:ID></cac:TaxScheme></cac:TaxCategory></cac:TaxSubtotal></cac:TaxTotal><cac:LegalMonetaryTotal><cbc:LineExtensionAmount currencyID="EUR">1300</cbc:LineExtensionAmount><cbc:TaxExclusiveAmount currencyID="EUR">1325</cbc:TaxExclusiveAmount><cbc:TaxInclusiveAmount currencyID="EUR">1656.25</cbc:TaxInclusiveAmount><cbc:ChargeTotalAmount currencyID="EUR">25</cbc:ChargeTotalAmount><cbc:PayableAmount currencyID="EUR">1656.25</cbc:PayableAmount></cac:LegalMonetaryTotal><cac:InvoiceLine><cbc:ID>1</cbc:ID><cbc:InvoicedQuantity unitCode="DAY">7</cbc:InvoicedQuantity><cbc:LineExtensionAmount currencyID="EUR">2800</cbc:LineExtensionAmount><cbc:AccountingCost>Konteringsstreng</cbc:AccountingCost><cac:OrderLineReference><cbc:LineID>123</cbc:LineID></cac:OrderLineReference><cac:Item><cbc:Description>Description
+        of item</cbc:Description><cbc:Name>item
+        name</cbc:Name><cac:StandardItemIdentification><cbc:ID schemeID="0088">21382183120983</cbc:ID></cac:StandardItemIdentification><cac:OriginCountry><cbc:IdentificationCode>NO</cbc:IdentificationCode></cac:OriginCountry><cac:CommodityClassification><cbc:ItemClassificationCode listID="SRV">09348023</cbc:ItemClassificationCode></cac:CommodityClassification><cac:ClassifiedTaxCategory><cbc:ID>S</cbc:ID><cbc:Percent>25</cbc:Percent><cac:TaxScheme><cbc:ID>VAT</cbc:ID></cac:TaxScheme></cac:ClassifiedTaxCategory></cac:Item><cac:Price><cbc:PriceAmount currencyID="EUR">400</cbc:PriceAmount></cac:Price></cac:InvoiceLine><cac:InvoiceLine><cbc:ID>2</cbc:ID><cbc:InvoicedQuantity unitCode="DAY">-3</cbc:InvoicedQuantity><cbc:LineExtensionAmount currencyID="EUR">-1500</cbc:LineExtensionAmount><cac:OrderLineReference><cbc:LineID>123</cbc:LineID></cac:OrderLineReference><cac:Item><cbc:Description>Description
+        2</cbc:Description><cbc:Name>item
+        name 2</cbc:Name><cac:StandardItemIdentification><cbc:ID schemeID="0088">21382183120983</cbc:ID></cac:StandardItemIdentification><cac:OriginCountry><cbc:IdentificationCode>NO</cbc:IdentificationCode></cac:OriginCountry><cac:CommodityClassification><cbc:ItemClassificationCode listID="SRV">09348023</cbc:ItemClassificationCode></cac:CommodityClassification><cac:ClassifiedTaxCategory><cbc:ID>S</cbc:ID><cbc:Percent>25</cbc:Percent><cac:TaxScheme><cbc:ID>VAT</cbc:ID></cac:TaxScheme></cac:ClassifiedTaxCategory></cac:Item><cac:Price><cbc:PriceAmount currencyID="EUR">500</cbc:PriceAmount></cac:Price></cac:InvoiceLine></Invoice>"
+`;
+
+exports[`document-parser > for file from as4 endpoint > should parse the document from the filesystem 1`] = `
+{
+  "accountingCost": "4025:123:4343",
+  "accountingCustomerParty": {
+    "contact": {
+      "electronicMail": "lj@buyer.se",
+      "name": "Lisa
+          Johnson",
+      "telephone": "23434234",
+    },
+    "endpointId": {
+      "id": "helger",
+      "schemeId": "9915",
+    },
+    "partyLegalEntity": {
+      "companyId": {
+        "id": "39937423947",
+        "schemeId": "0183",
+      },
+      "registrationName": "Buyer
+          Official Name",
+    },
+    "partyName": {
+      "name": "BuyerTradingName
+          AS",
+    },
+    "partyTaxSchemes": [
+      {
+        "companyId": "SE4598375937",
+        "taxSchemeId": {
+          "id": "VAT",
+        },
+      },
+    ],
+    "postalAddress": {
+      "additionalStreetName": "Po box
+          878",
+      "cityName": "Stockholm",
+      "countryCode": {
+        "identificationCode": "SE",
+      },
+      "postalZone": "456 34",
+      "streetName": "Hovedgatan
+          32",
+    },
+  },
+  "accountingSupplierParty": {
+    "endpointId": {
+      "id": "phase4-test-sender",
+      "schemeId": "9915",
+    },
+    "partyLegalEntity": {
+      "companyId": {
+        "id": "GB983294",
+      },
+      "registrationName": "SupplierOfficialName
+          Ltd",
+    },
+    "partyName": {
+      "name": "SupplierTradingName
+          Ltd.",
+    },
+    "partyTaxSchemes": [
+      {
+        "companyId": "GB1232434",
+        "taxSchemeId": {
+          "id": "VAT",
+        },
+      },
+    ],
+    "postalAddress": {
+      "additionalStreetName": "Postbox
+          123",
+      "cityName": "London",
+      "countryCode": {
+        "identificationCode": "GB",
+      },
+      "postalZone": "GB 123 EW",
+      "streetName": "Main
+          street 1",
+    },
+  },
+  "allowanceCharges": [
+    {
+      "allowanceChargeReason": "Insurance",
+      "amount": {
+        "currencyId": "EUR",
+        "value": 25,
+      },
+      "chargeIndicator": true,
+      "taxCategory": {
+        "id": "S",
+        "percent": 25,
+        "taxSchemeId": {
+          "id": "VAT",
+        },
+      },
+    },
+  ],
+  "buyerReference": "0150abc",
+  "customizationId": "urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0",
+  "delivery": {
+    "actualDeliveryDate": "2021-10-01",
+    "deliveryLocation": {
+      "address": {
+        "additionalStreetName": "Building
+          56",
+        "cityName": "Stockholm",
+        "countryCode": {
+          "identificationCode": "SE",
+        },
+        "postalZone": "21234",
+        "streetName": "Delivery
+          street 2",
+      },
+      "id": {
+        "id": "9483759475923478",
+        "schemeId": "0088",
+      },
+    },
+    "deliveryParty": {
+      "partyName": {
+        "name": "Delivery
+          party Name",
+      },
+    },
+  },
+  "documentCurrencyCode": "EUR",
+  "dueDate": "2021-12-01",
+  "id": "test-invoice-phase4",
+  "invoiceLines": [
+    {
+      "accountingCost": "Konteringsstreng",
+      "documentReference": [],
+      "id": "1",
+      "invoicedQuantity": {
+        "unitCode": "DAY",
+        "value": 7,
+      },
+      "item": {
+        "additionalItemProperties": [],
+        "classifiedTaxCategory": {
+          "id": "S",
+          "percent": 25,
+          "taxSchemeId": {
+            "id": "VAT",
+          },
+        },
+        "commodityClassifications": [
+          {
+            "itemClassification": {
+              "id": "09348023",
+              "listId": "SRV",
+            },
+          },
+        ],
+        "description": "Description
+        of item",
+        "name": "item
+        name",
+        "originCountryCode": {
+          "identificationCode": "NO",
+        },
+        "standardItemIdentification": {
+          "id": {
+            "id": "21382183120983",
+            "schemeId": "0088",
+          },
+        },
+      },
+      "lineExtensionAmount": {
+        "currencyId": "EUR",
+        "value": 2800,
+      },
+      "orderLineReference": {
+        "lineId": "123",
+      },
+      "price": {
+        "priceAmount": {
+          "currencyId": "EUR",
+          "value": 400,
+        },
+      },
+    },
+    {
+      "documentReference": [],
+      "id": "2",
+      "invoicedQuantity": {
+        "unitCode": "DAY",
+        "value": -3,
+      },
+      "item": {
+        "additionalItemProperties": [],
+        "classifiedTaxCategory": {
+          "id": "S",
+          "percent": 25,
+          "taxSchemeId": {
+            "id": "VAT",
+          },
+        },
+        "commodityClassifications": [
+          {
+            "itemClassification": {
+              "id": "09348023",
+              "listId": "SRV",
+            },
+          },
+        ],
+        "description": "Description
+        2",
+        "name": "item
+        name 2",
+        "originCountryCode": {
+          "identificationCode": "NO",
+        },
+        "standardItemIdentification": {
+          "id": {
+            "id": "21382183120983",
+            "schemeId": "0088",
+          },
+        },
+      },
+      "lineExtensionAmount": {
+        "currencyId": "EUR",
+        "value": -1500,
+      },
+      "orderLineReference": {
+        "lineId": "123",
+      },
+      "price": {
+        "priceAmount": {
+          "currencyId": "EUR",
+          "value": 500,
+        },
+      },
+    },
+  ],
+  "invoiceTypeCode": "380",
+  "issueDate": "2021-10-13",
+  "legalMonetaryTotal": {
+    "chargeTotalAmount": {
+      "currencyId": "EUR",
+      "value": 25,
+    },
+    "lineExtensionAmount": {
+      "currencyId": "EUR",
+      "value": 1300,
+    },
+    "payableAmount": {
+      "currencyId": "EUR",
+      "value": 1656.25,
+    },
+    "taxExclusiveAmount": {
+      "currencyId": "EUR",
+      "value": 1325,
+    },
+    "taxInclusiveAmount": {
+      "currencyId": "EUR",
+      "value": 1656.25,
+    },
+  },
+  "paymentMeans": [
+    {
+      "payeeFinancialAccount": {
+        "financialInstitutionBranch": {
+          "id": "BIC324098",
+        },
+        "id": "IBAN32423940",
+        "name": "AccountName",
+      },
+      "paymentId": "Snippet1",
+      "paymentMeansCode": {
+        "code": "30",
+        "name": "Credit transfer",
+      },
+    },
+  ],
+  "paymentTerms": {
+    "note": "Payment
+      within 10 days, 2% discount",
+  },
+  "profileId": "urn:fdc:peppol.eu:2017:poacc:billing:01:1.0",
+  "taxTotals": [
+    {
+      "taxAmount": {
+        "currencyId": "EUR",
+        "value": 331.25,
+      },
+      "taxSubtotals": [
+        {
+          "taxAmount": {
+            "currencyId": "EUR",
+            "value": 331.25,
+          },
+          "taxCategory": {
+            "id": "S",
+            "percent": 25,
+            "taxSchemeId": {
+              "id": "VAT",
+            },
+          },
+          "taxableAmount": {
+            "currencyId": "EUR",
+            "value": 1325,
+          },
+        },
+      ],
+    },
+  ],
+}
+`;

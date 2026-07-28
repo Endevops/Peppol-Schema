@@ -1,0 +1,25 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": ["oxc", "typescript", "unicorn", "import", "vitest", "node"],
+  "categories": { "correctness": "error" },
+  "overrides": [{ "files": ["**/{schemas,decoders}/**/*.ts"], "rules": { "typescript/no-redundant-type-constituents": "off", "sort-keys": "off" } }],
+  "rules": {
+    "import/newline-after-import": "warn",
+    "arrow-body-style": ["error", "as-needed", { "requireReturnForObjectLiteral": false }],
+    "yoda": "warn",
+    "sort-keys": ["warn", "asc", { "minKeys": 5, "natural": true }],
+    "sort-imports": "off",
+    "prefer-template": "warn",
+    "import/consistent-type-specifier-style": "error",
+    "typescript/array-type": ["error", { "default": "generic", "readonly": "generic" }],
+    "typescript/restrict-template-expressions": ["warn", { "allowNever": true }],
+    "typescript/prefer-nullish-coalescing": "off",
+    "typescript/adjacent-overload-signatures": "error",
+    "typescript/consistent-type-imports": ["error", { "fixStyle": "separate-type-imports", "disallowTypeAnnotations": false }],
+    "typescript/consistent-type-exports": "error",
+    "typescript/no-unnecessary-boolean-literal-compare": "warn",
+    "typescript/no-unnecessary-type-arguments": "warn",
+    "typescript/no-unnecessary-type-constraint": "warn",
+    "typescript/no-unnecessary-type-conversion": "warn"
+  }
+}

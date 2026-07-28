@@ -1,0 +1,21 @@
+import * as z from 'zod/mini';
+import { type mimeCodesKey, mimeCodesKeys } from '#/values/mime-codes.generated';
+
+export type MimeCode = mimeCodesKey;
+
+/**
+ * @validations
+ * - PEPPOL-EN16931-CL001: Electronic address identifier scheme must be from the codelist "Electronic Address Identifier Scheme"
+ */
+export function mimeCodesSchema(error?: string) {
+  return z.string().check(z.refine(val => mimeCodesKeys.includes(val), error));
+}
+
+if (import.meta.vitest) {
+  const { describe, it, expect } = import.meta.vitest;
+  describe('mime-codes', () => {
+    it.each(mimeCodesKeys.map(k => [k, k]) as [[string, string]])('should parse %s as %s', (value, expected) => {
+      expect(mimeCodesSchema().parse(value)).toEqual(expected);
+    });
+  });
+}

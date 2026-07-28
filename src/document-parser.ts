@@ -1,0 +1,57 @@
+import XMLBuilder from 'fast-xml-builder';
+import { XMLParser } from 'fast-xml-parser';
+import * as z from 'zod/mini';
+import { INVOICE_RESPONSE_PROFILE_ID, MESSAGE_LEVEL_RESPONSE_PROFILE_ID } from '#/constants';
+import { decodeCreditNote, encodeCreditNote } from '#/decoders/credit-note';
+import { decodeInvoice, encodeInvoice } from '#/decoders/invoice';
+import { decodeInvoiceResponse, encodeInvoiceResponse } from '#/decoders/invoice-response';
+import { decodeMessageLevelResponse, encodeMessageLevelResponse } from '#/decoders/message-level-response';
+import { strOrUnd } from '#/helpers';
+import { creditNoteSchema } from '#/index';
+import type { PeppolCreditNote, PeppolInvoiceResponse, PeppolMessageLevelResponse } from '#/schemas';
+import { invoiceSchema } from '#/schemas/invoice';
+import type { PeppolInvoice } from '#/schemas/invoice';
+import { invoiceResponseSchema } from '#/schemas/invoice-response';
+import { messageLevelResponse } from '#/schemas/message-level-response';
+import { builderOptions, parserOptions } from '#/xml-options';
+
+export const documentParser = z.codec(
+  z.string(),
+  z.xor([invoiceSchema, creditNoteSchema, messageLevelResponse, invoiceResponseSchema], 'invalid document'),
+  {
+    decode(value) {
+      const parser = new XMLParser({ ...parserOptions, removeNSPrefix: true });
+      const parsed = parser.parse(value);
+      if (parsed.Invoice) {
+        return decodeInvoice(parsed);
+      } else if (parsed.CreditNote) {
+        return decodeCreditNote(parsed);
+      } else if (parsed.ApplicationResponse) {
+        const profile = strOrUnd(parsed.ApplicationResponse, 'cbc:ProfileID');
+        if (profile === MESSAGE_LEVEL_RESPONSE_PROFILE_ID) {
+          return decodeMessageLevelResponse(parsed);
+        } else if (profile === INVOICE_RESPONSE_PROFILE_ID) {
+          return decodeInvoiceResponse(parsed);
+        }
+      }
+      throw new Error(`Unsupported document type: ${Object.keys(parsed).join(',')}`);
+    },
+    encode(value) {
+      let content: unknown;
+      if ('invoiceLines' in value) {
+        content = encodeInvoice(value as PeppolInvoice);
+      } else if ('creditNoteLines' in value) {
+        content = encodeCreditNote(value as PeppolCreditNote);
+      } else if ('documentResponse' in value) {
+        if (value.profileId === MESSAGE_LEVEL_RESPONSE_PROFILE_ID) {
+          content = encodeMessageLevelResponse(value as PeppolMessageLevelResponse);
+        } else if (value.profileId === INVOICE_RESPONSE_PROFILE_ID) {
+          content = encodeInvoiceResponse(value as PeppolInvoiceResponse);
+        }
+      }
+
+      const builder = new XMLBuilder(builderOptions);
+      return builder.build(content);
+    },
+  }
+);

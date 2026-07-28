@@ -1,0 +1,71 @@
+{
+  "name": "@endevops/peppol-schema",
+  "version": "0.0.0",
+  "private": false,
+  "description": "A simple example library built by tsdown",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "type": "module",
+  "exports": {
+    ".": {
+      "development": "./src/index.ts",
+      "default": "./dist/index.js"
+    },
+    "./schemas": {
+      "development": "./src/schemas.ts",
+      "default": "./dist/schemas.js"
+    },
+    "./validations": {
+      "development": "./src/peppol-validations/index.ts",
+      "default": "./dist/validations.js"
+    },
+    "./values": {
+      "development": "./src/values.ts",
+      "default": "./dist/values.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "publishConfig": {
+    "exports": {
+      ".": "./dist/index.js",
+      "./schemas": "./dist/schemas.js",
+      "./validations": "./dist/validations.js",
+      "./values": "./dist/values.js",
+      "./package.json": "./package.json"
+    }
+  },
+  "scripts": {
+    "build": "tsdown",
+    "dev": "tsdown --watch"
+  },
+  "devDependencies": {
+    "@date-fns/tz": "^1.5.0",
+    "@types/bun": "^1.3.14",
+    "@types/node": "^26.1.1",
+    "date-fns": "^4.4.0",
+    "effect": "4.0.0-beta.97",
+    "fast-xml-builder": "^1.3.0",
+    "fast-xml-parser": "^5.10.0",
+    "oxfmt": "^0.58.0",
+    "oxlint": "^1.73.0",
+    "oxlint-tsgolint": "^0.24.0",
+    "ts-extras": "^1.2.0",
+    "tsdown": "^0.22.5",
+    "type-fest": "5.8.0",
+    "typescript": "^7.0.2",
+    "vitest": "^4.1.10",
+    "zod": "^4.4.3"
+  },
+  "peerDependencies": {
+    "@date-fns/tz": "^1",
+    "date-fns": "^4",
+    "fast-xml-builder": "^1",
+    "fast-xml-parser": "^5",
+    "zod": "^4"
+  },
+  "inlinedDependencies": {
+    "type-fest": "5.8.0"
+  }
+}

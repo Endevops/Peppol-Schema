@@ -1,0 +1,28 @@
+{
+  "$schema": "./node_modules/oxfmt/configuration_schema.json",
+  "arrowParens": "avoid",
+  "bracketSameLine": true,
+  "bracketSpacing": true,
+  "jsxSingleQuote": true,
+  "printWidth": 150,
+  "quoteProps": "as-needed",
+  "semi": true,
+  "singleQuote": true,
+  "tabWidth": 2,
+  "trailingComma": "es5",
+  "importOrderCaseSensitive": false,
+  "jsdoc": {
+    "commentLineStrategy": "multiline",
+    "descriptionTag": true,
+    "preferCodeFences": true,
+    "separateReturnsFromParam": true,
+    "separateTagGroups": true,
+    "descriptionWithDot": true,
+    "keepUnparsableExampleIndent": false,
+    "capitalizeDescriptions": true
+  },
+  "htmlWhitespaceSensitivity": "css",
+  "objectWrap": "collapse",
+  "sortPackageJson": { "sortScripts": true },
+  "sortImports": { "newlinesBetween": false }
+}
