@@ -1,9 +1,10 @@
-import { decodeSimpleIdentifer, encodeSimpleIdentifier } from '#/decoders/fields/id';
-import { getArray, getProp, strOrUnd } from '#/helpers';
 import type { XmlNode } from '#/helpers';
 import type { PeppolIdentifier } from '#/schemas/fields/identifier-schema';
 import type { PeppolPaymentMeans } from '#/schemas/fields/payment-means-schema';
 import type { RecursivePartial } from '#/types';
+
+import { decodeSimpleIdentifer, encodeSimpleIdentifier } from '#/decoders/fields/id';
+import { getArray, getProp, strOrUnd } from '#/helpers';
 
 export function decodePaymentMeans(doc: XmlNode, ...path: Array<string>): Array<RecursivePartial<PeppolPaymentMeans>> | undefined {
   const arr = getArray(doc, ...path);

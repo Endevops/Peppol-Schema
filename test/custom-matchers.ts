@@ -1,5 +1,6 @@
 import { XMLParser } from 'fast-xml-parser';
 import { expect } from 'vitest';
+
 import { parserOptions } from '#/xml-options';
 
 function parseXML(content: string | Buffer) {

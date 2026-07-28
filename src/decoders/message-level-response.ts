@@ -1,5 +1,3 @@
-import { decodeMessageLevelParty, encodeMessageParty } from '#/decoders/fields/party';
-import { getArray, getProp, strOrUnd } from '#/helpers';
 import type { XmlNode } from '#/helpers';
 import type {
   DocumentResponseLineResponseContent,
@@ -10,6 +8,9 @@ import type {
   PeppolMessageLevelResponseDocumentResponseDocument,
 } from '#/schemas/message-level-response';
 import type { RecursivePartial } from '#/types';
+
+import { decodeMessageLevelParty, encodeMessageParty } from '#/decoders/fields/party';
+import { getArray, getProp, strOrUnd } from '#/helpers';
 
 function decodeDocumentResponse(
   doc: XmlNode,

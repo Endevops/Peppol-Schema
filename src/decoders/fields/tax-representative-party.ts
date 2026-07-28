@@ -1,9 +1,10 @@
-import { decodeAddress, encodeAddress } from '#/decoders/fields/address';
-import { decodePartyTaxScheme, encodePartyTaxScheme } from '#/decoders/fields/party-tax-scheme';
-import { getProp, strOrUnd } from '#/helpers';
 import type { XmlNode } from '#/helpers';
 import type { PeppolTaxRepresentativeParty } from '#/schemas/fields/tax-representative-party-schema';
 import type { RecursivePartial } from '#/types';
+
+import { decodeAddress, encodeAddress } from '#/decoders/fields/address';
+import { decodePartyTaxScheme, encodePartyTaxScheme } from '#/decoders/fields/party-tax-scheme';
+import { getProp, strOrUnd } from '#/helpers';
 
 export function decodeTaxRepresentativeParty(doc: XmlNode, ...path: Array<string>): RecursivePartial<PeppolTaxRepresentativeParty> | undefined {
   const taxRepresentative = getProp(doc, ...path);

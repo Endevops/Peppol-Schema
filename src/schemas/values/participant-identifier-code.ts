@@ -1,4 +1,5 @@
 import * as z from 'zod/mini';
+
 import { type participantIdentifierSchemesKey, participantIdentifierSchemesKeys } from '#/values/participant-identifier-schemes.generated';
 
 export type ParticipantIdentifierCode = participantIdentifierSchemesKey;

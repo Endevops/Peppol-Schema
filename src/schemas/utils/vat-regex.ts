@@ -1,4 +1,5 @@
 import * as z from 'zod/mini';
+
 import { isValidMod97_0208 } from '#/peppol-validations';
 
 export const vatRegexSchema = z.union([

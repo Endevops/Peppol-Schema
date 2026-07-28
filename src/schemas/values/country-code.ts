@@ -7,6 +7,7 @@
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/ISO3166/
  */
 import * as z from 'zod/mini';
+
 import { type countryCodesKey, countryCodesKeys } from '#/values/country-code.generated';
 
 export type PeppolCountryCode = countryCodesKey;

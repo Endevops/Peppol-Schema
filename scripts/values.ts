@@ -1,9 +1,9 @@
+import { $ } from 'bun';
 /**
  * @effect-diagnostics nodeBuiltinImport:off
  */
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
-import { $ } from 'bun';
 
 function formatStringLiteral(value: string): string {
   return JSON.stringify(value);

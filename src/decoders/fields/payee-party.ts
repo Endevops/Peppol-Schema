@@ -1,8 +1,9 @@
-import { decodeIdentifier, encodeIdentifier } from '#/decoders/fields/identifier';
-import { getProp, strOrUnd } from '#/helpers';
 import type { XmlNode } from '#/helpers';
 import type { PeppolPayeeParty } from '#/schemas/fields/payee-party';
 import type { RecursivePartial } from '#/types';
+
+import { decodeIdentifier, encodeIdentifier } from '#/decoders/fields/identifier';
+import { getProp, strOrUnd } from '#/helpers';
 
 export function decodePayeeParty(payee: XmlNode | undefined, ...path: Array<string>): RecursivePartial<PeppolPayeeParty> | undefined {
   const node = getProp(payee, ...path);

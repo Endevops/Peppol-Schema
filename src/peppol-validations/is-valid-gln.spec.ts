@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+
 import { isValidGLN } from './is-valid-gln';
 
 describe(`${isValidGLN.name}()`, () => {

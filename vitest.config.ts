@@ -1,6 +1,8 @@
-import process from 'node:process';
 import type { ViteUserConfig } from 'vitest/config';
+
+import process from 'node:process';
 import { defineConfig } from 'vitest/config';
+
 import pkg from './package.json' with { type: 'json' };
 
 const name = pkg.name;

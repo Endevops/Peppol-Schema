@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+
 import { normalizeSpace } from './normalize-space';
 
 describe('normalizeSpace', () => {

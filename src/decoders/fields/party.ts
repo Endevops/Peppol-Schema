@@ -1,7 +1,3 @@
-import { decodeAddress, encodeAddress } from '#/decoders/fields/address';
-import { decodeElectronicAddress, decodeIdentifier, encodeIdentifier } from '#/decoders/fields/identifier';
-import { decodePartiesTaxScheme, encodePartiesTaxScheme } from '#/decoders/fields/party-tax-scheme';
-import { getProp, strOrUnd } from '#/helpers';
 import type { XmlNode } from '#/helpers';
 import type { PeppolContact } from '#/schemas/fields/contact-schema';
 import type { PeppolPartySchema } from '#/schemas/fields/party-base-schema';
@@ -9,6 +5,11 @@ import type { PeppolPartyLegalEntitySchema } from '#/schemas/fields/party-legal-
 import type { InvoiceDocumentResponseParty, InvoiceResponseParty } from '#/schemas/invoice-response';
 import type { PeppolMessageLevelResponseParty } from '#/schemas/message-level-response';
 import type { RecursivePartial } from '#/types';
+
+import { decodeAddress, encodeAddress } from '#/decoders/fields/address';
+import { decodeElectronicAddress, decodeIdentifier, encodeIdentifier } from '#/decoders/fields/identifier';
+import { decodePartiesTaxScheme, encodePartiesTaxScheme } from '#/decoders/fields/party-tax-scheme';
+import { getProp, strOrUnd } from '#/helpers';
 
 export function decodeParty(party: XmlNode | undefined): RecursivePartial<PeppolPartySchema> | undefined;
 export function decodeParty(party: XmlNode | undefined, ...path: Array<string>): RecursivePartial<PeppolPartySchema> | undefined;

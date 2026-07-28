@@ -1,7 +1,8 @@
-import { getArray, strOrUnd } from '#/helpers';
 import type { XmlNode } from '#/helpers';
 import type { PeppolBillingReference } from '#/schemas/fields/billing-references-schema';
 import type { RecursivePartial } from '#/types';
+
+import { getArray, strOrUnd } from '#/helpers';
 
 export function decodeBillingReferences(doc: XmlNode, ...path: Array<string>): Array<RecursivePartial<PeppolBillingReference>> | undefined {
   const arr = getArray(doc, ...path);

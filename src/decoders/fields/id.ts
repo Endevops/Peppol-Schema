@@ -1,6 +1,7 @@
-import { getProp, strOrUnd } from '#/helpers';
 import type { XmlNode } from '#/helpers';
 import type { RecursivePartial } from '#/types';
+
+import { getProp, strOrUnd } from '#/helpers';
 
 export function decodeSimpleIdentifer(doc: XmlNode, ...path: Array<string>): RecursivePartial<{ id: string }> | undefined {
   const node = getProp(doc, ...path);

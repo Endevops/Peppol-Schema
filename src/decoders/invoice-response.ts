@@ -1,5 +1,3 @@
-import { decodeInvoiceMessageDocumentParty, decodeInvoiceMessageParty, encodeMessageParty } from '#/decoders/fields/party';
-import { getArray, getProp, strOrUnd } from '#/helpers';
 import type { XmlNode } from '#/helpers';
 import type {
   InvoiceReponseDocumentActualResponseStatus,
@@ -11,6 +9,9 @@ import type {
   PeppolInvoiceResponse,
 } from '#/schemas/invoice-response';
 import type { RecursivePartial } from '#/types';
+
+import { decodeInvoiceMessageDocumentParty, decodeInvoiceMessageParty, encodeMessageParty } from '#/decoders/fields/party';
+import { getArray, getProp, strOrUnd } from '#/helpers';
 
 function decodeStatusReasonCode(doc: XmlNode, ...path: Array<string>): RecursivePartial<InvoiceResponseStatusReasonCode> | undefined {
   const val = getProp(doc, ...path);

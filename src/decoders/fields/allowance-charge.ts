@@ -1,9 +1,10 @@
-import { decodeAmount, encodeAmount } from '#/decoders/fields/amount';
-import { decodeSimpleIdentifer, encodeSimpleIdentifier } from '#/decoders/fields/id';
-import { bool, getArray, getProp, numOrUnd, strOrUnd } from '#/helpers';
 import type { XmlNode } from '#/helpers';
 import type { PeppolAllowanceCharge, PeppolLineAllowanceCharge, PeppolLinePriceAllowanceCharge } from '#/schemas/fields/allowance-charge-schema';
 import type { RecursivePartial } from '#/types';
+
+import { decodeAmount, encodeAmount } from '#/decoders/fields/amount';
+import { decodeSimpleIdentifer, encodeSimpleIdentifier } from '#/decoders/fields/id';
+import { bool, getArray, getProp, numOrUnd, strOrUnd } from '#/helpers';
 
 export function decodeAllowanceCharges(
   allowanceCharges: XmlNode,

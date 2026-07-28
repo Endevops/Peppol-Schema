@@ -1,4 +1,5 @@
 import * as z from 'zod/mini';
+
 /**
  * @module schemas/values/eas-codes
  * Electronic Address Scheme (EAS) codes as used in PEPPOL networks

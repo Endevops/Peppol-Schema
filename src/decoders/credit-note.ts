@@ -1,3 +1,7 @@
+import type { XmlNode } from '#/helpers';
+import type { PeppolCreditNote } from '#/schemas/credit-note';
+import type { RecursivePartial } from '#/types';
+
 import { decodeAdditionalDocumentReferences, encodeAdditionalDocumentReferences } from '#/decoders/fields/additional-document-reference';
 import { decodeAllowanceCharges, encodeAllowanceCharges } from '#/decoders/fields/allowance-charge';
 import { decodeBillingReferences, encodeBillingReferences } from '#/decoders/fields/billing-references';
@@ -14,9 +18,6 @@ import { decodePaymentTerms, encodePaymentTerms } from '#/decoders/fields/paymen
 import { decodeTaxRepresentativeParty, encodeTaxRepresentativeParty } from '#/decoders/fields/tax-representative-party';
 import { decodeTaxTotals, encodeTaxTotals } from '#/decoders/fields/tax-totals';
 import { getProp, strOrUnd } from '#/helpers';
-import type { XmlNode } from '#/helpers';
-import type { PeppolCreditNote } from '#/schemas/credit-note';
-import type { RecursivePartial } from '#/types';
 
 export function decodeCreditNote(value: XmlNode): PeppolCreditNote {
   const root = value || {};

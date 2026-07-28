@@ -1,8 +1,9 @@
-import { decodeSimpleIdentifer, encodeSimpleIdentifier } from '#/decoders/fields/id';
-import { getArray, getProp, strOrUnd } from '#/helpers';
 import type { XmlNode } from '#/helpers';
 import type { PeppolPartyTaxSchema } from '#/schemas/fields/party-tax-schema';
 import type { RecursivePartial } from '#/types';
+
+import { decodeSimpleIdentifer, encodeSimpleIdentifier } from '#/decoders/fields/id';
+import { getArray, getProp, strOrUnd } from '#/helpers';
 
 export function decodePartiesTaxScheme(doc: XmlNode, ...path: Array<string>): RecursivePartial<Array<PeppolPartyTaxSchema>> | undefined {
   const node = getArray(doc, ...path);

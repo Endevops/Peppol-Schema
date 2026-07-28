@@ -10,10 +10,4 @@ _.path = ["{{config_root}}/node_modules/.bin"]
 description = "Sort messages files"
 dir = "{{cwd}}/messages"
 sources = ['{{cwd}}/messages/*.json']
-run = [
-  "jq -S '.' fr.json > fr_temp.json",
-  "mv fr_temp.json fr.json",
-  "jq -S '.' en.json > en_temp.json",
-  "mv en_temp.json en.json",
-  "oxfmt .",
-]
+run = ["jq -S '.' fr.json > fr_temp.json", "mv fr_temp.json fr.json", "jq -S '.' en.json > en_temp.json", "mv en_temp.json en.json", "oxfmt ."]

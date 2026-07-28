@@ -1,8 +1,9 @@
-import { decodeAmount, encodeAmount } from '#/decoders/fields/amount';
-import { getProp } from '#/helpers';
 import type { XmlNode } from '#/helpers';
 import type { PeppolLegalMonetaryTotal } from '#/schemas/fields/legal-monetary-total-schema';
 import type { RecursivePartial } from '#/types';
+
+import { decodeAmount, encodeAmount } from '#/decoders/fields/amount';
+import { getProp } from '#/helpers';
 
 export function decodeLegalMonetaryTotal(node: XmlNode | undefined, ...path: Array<string>): RecursivePartial<PeppolLegalMonetaryTotal> | undefined {
   const val = getProp(node, ...path);

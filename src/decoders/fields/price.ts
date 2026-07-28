@@ -1,10 +1,11 @@
+import type { XmlNode } from '#/helpers';
+import type { PeppolLinePrice } from '#/schemas/fields/price-schema';
+import type { RecursivePartial } from '#/types';
+
 import { decodePriceAllowanceCharge, encodePriceAllowanceCharges } from '#/decoders/fields/allowance-charge';
 import { decodeAmount, encodeAmount } from '#/decoders/fields/amount';
 import { decodeQuantity, encodeQuantity } from '#/decoders/fields/quantity';
 import { getProp } from '#/helpers';
-import type { XmlNode } from '#/helpers';
-import type { PeppolLinePrice } from '#/schemas/fields/price-schema';
-import type { RecursivePartial } from '#/types';
 
 export function decodeLinePrice(price: XmlNode, ...path: Array<string>): RecursivePartial<PeppolLinePrice> | undefined {
   const node = getProp(price, ...path);

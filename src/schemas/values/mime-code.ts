@@ -1,4 +1,5 @@
 import * as z from 'zod/mini';
+
 import { type mimeCodesKey, mimeCodesKeys } from '#/values/mime-codes.generated';
 
 export type MimeCode = mimeCodesKey;

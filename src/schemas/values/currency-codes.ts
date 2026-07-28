@@ -5,6 +5,7 @@
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/ISO4217/
  */
 import * as z from 'zod/mini';
+
 import { type currencyCodesKey, currencyCodesKeys } from '#/values/currency-code.generated';
 
 export type PeppolCurrencyCode = currencyCodesKey | ({} & string);

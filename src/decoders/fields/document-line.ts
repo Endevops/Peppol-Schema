@@ -1,3 +1,10 @@
+import type { PeppolDocumentLine } from '#/document';
+import type { XmlNode } from '#/helpers';
+import type { PeppolBaseLine } from '#/schemas/fields/base-line-schema';
+import type { PeppolCreditNoteLine } from '#/schemas/fields/credit-note-line-schema';
+import type { PeppolInvoiceLine } from '#/schemas/fields/invoice-line-schema';
+import type { RecursivePartial } from '#/types';
+
 import { decodeLineAllowanceCharges, decodeTaxCategory, encodeLineAllowanceCharges, encodeTaxCategory } from '#/decoders/fields/allowance-charge';
 import { decodeAmount, encodeAmount } from '#/decoders/fields/amount';
 import { decodeSimpleIdentifer, encodeSimpleIdentifier } from '#/decoders/fields/id';
@@ -5,13 +12,7 @@ import { decodeIdentifier, encodeIdentifier } from '#/decoders/fields/identifier
 import { decodeInvoiceLinePeriod, encodeInvoiceLinePeriod } from '#/decoders/fields/invoice-period';
 import { decodeLinePrice, encodeLinePrice } from '#/decoders/fields/price';
 import { decodeQuantity, encodeQuantity } from '#/decoders/fields/quantity';
-import type { PeppolDocumentLine } from '#/document';
 import { getArray, getProp, strOrUnd } from '#/helpers';
-import type { XmlNode } from '#/helpers';
-import type { PeppolBaseLine } from '#/schemas/fields/base-line-schema';
-import type { PeppolCreditNoteLine } from '#/schemas/fields/credit-note-line-schema';
-import type { PeppolInvoiceLine } from '#/schemas/fields/invoice-line-schema';
-import type { RecursivePartial } from '#/types';
 
 type PeppolDocumentLineItem = PeppolDocumentLine['item'];
 

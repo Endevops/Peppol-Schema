@@ -1,7 +1,8 @@
-import { getProp, strOrUnd } from '#/helpers';
 import type { XmlNode } from '#/helpers';
 import type { PeppolIdentifier } from '#/schemas/fields/identifier-schema';
 import type { RecursivePartial } from '#/types';
+
+import { getProp, strOrUnd } from '#/helpers';
 
 interface Identifier<T extends PeppolIdentifier['schemeId'] = string> extends PeppolIdentifier {
   schemeId?: T;

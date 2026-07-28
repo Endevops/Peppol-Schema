@@ -1,9 +1,10 @@
-import { decodeAddress, encodeAddress } from '#/decoders/fields/address';
-import { decodeIdentifier, encodeIdentifier } from '#/decoders/fields/identifier';
-import { getProp, strOrUnd } from '#/helpers';
 import type { XmlNode } from '#/helpers';
 import type { PeppolDelivery } from '#/schemas/fields/delivery-schema';
 import type { RecursivePartial } from '#/types';
+
+import { decodeAddress, encodeAddress } from '#/decoders/fields/address';
+import { decodeIdentifier, encodeIdentifier } from '#/decoders/fields/identifier';
+import { getProp, strOrUnd } from '#/helpers';
 
 export function decodeDelivery(node: XmlNode, ...path: Array<string>): RecursivePartial<PeppolDelivery> | undefined {
   const val = getProp(node, ...path);

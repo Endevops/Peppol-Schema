@@ -1,7 +1,8 @@
-import { getProp, strOrUnd } from '#/helpers';
 import type { XmlNode } from '#/helpers';
 import type { PeppolInvoiceLinePeriod, PeppolInvoicePeriod } from '#/schemas/fields/invoice-period';
 import type { RecursivePartial } from '#/types';
+
+import { getProp, strOrUnd } from '#/helpers';
 
 export function decodeInvoicePeriod(doc: XmlNode): RecursivePartial<PeppolInvoicePeriod> | undefined;
 export function decodeInvoicePeriod(doc: XmlNode, ...path: Array<string>): RecursivePartial<PeppolInvoicePeriod> | undefined;

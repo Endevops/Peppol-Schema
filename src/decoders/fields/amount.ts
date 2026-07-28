@@ -1,8 +1,9 @@
-import { getProp } from '#/helpers';
 import type { XmlNode } from '#/helpers';
 import type { PeppolAmount } from '#/schemas/fields/amount-schema';
 import type { PeppolCurrencyCode } from '#/schemas/values/currency-codes';
 import type { RecursivePartial } from '#/types';
+
+import { getProp } from '#/helpers';
 
 export function decodeAmount(amount: XmlNode | undefined): RecursivePartial<PeppolAmount> | undefined;
 export function decodeAmount(amount: XmlNode | undefined, ...path: Array<string>): RecursivePartial<PeppolAmount> | undefined;

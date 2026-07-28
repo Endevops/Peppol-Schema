@@ -1,4 +1,5 @@
 import * as z from 'zod/mini';
+
 import { type vatexCodesKey, vatexCodesKeys } from '#/values/vatex-codes.generated';
 
 export type PeppolVatexCode = vatexCodesKey;

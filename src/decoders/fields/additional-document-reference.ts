@@ -1,8 +1,9 @@
-import { decodeIdentifier, encodeIdentifier } from '#/decoders/fields/identifier';
-import { getArray, getProp, strOrUnd } from '#/helpers';
 import type { XmlNode } from '#/helpers';
 import type { PeppolAdditionalDocumentReference } from '#/schemas/fields/additional-document-reference-schema';
 import type { RecursivePartial } from '#/types';
+
+import { decodeIdentifier, encodeIdentifier } from '#/decoders/fields/identifier';
+import { getArray, getProp, strOrUnd } from '#/helpers';
 
 export function decodeAdditionalDocumentReferences(doc: XmlNode): Array<RecursivePartial<PeppolAdditionalDocumentReference>> | undefined {
   const arr = getArray(doc, 'cac:AdditionalDocumentReference');

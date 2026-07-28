@@ -1,4 +1,5 @@
 import type { AllUnionFields } from 'type-fest';
+
 import type { PeppolCreditNote } from '#/index';
 import type { PeppolCreditNoteLine } from '#/schemas/fields/credit-note-line-schema';
 import type { PeppolInvoiceLine } from '#/schemas/fields/invoice-line-schema';

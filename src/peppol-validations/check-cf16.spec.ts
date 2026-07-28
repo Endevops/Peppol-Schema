@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+
 import { checkCF16 } from './check-cf16';
 
 describe('checkCF16', () => {

@@ -1,4 +1,5 @@
 import * as z from 'zod/mini';
+
 import { identifierSchema } from '#/schemas/fields/identifier-schema';
 
 export const partyLegalEntitySchema = z.object({

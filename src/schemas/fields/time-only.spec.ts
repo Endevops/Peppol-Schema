@@ -1,8 +1,10 @@
-import { tz } from '@date-fns/tz';
 import type { FormatOptions, ParseOptions } from 'date-fns';
+
+import { tz } from '@date-fns/tz';
 import { parse } from 'date-fns';
 import { it, expect, describe } from 'vitest';
 import * as z from 'zod/mini';
+
 import { timeOnlyParser } from './time-only';
 
 const dateFnsOptions = { in: tz('UTC') } as const satisfies ParseOptions & FormatOptions;

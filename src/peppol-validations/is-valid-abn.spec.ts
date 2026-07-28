@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+
 import { isValidABN } from './is-valid-abn';
 
 describe('isValidABN', () => {

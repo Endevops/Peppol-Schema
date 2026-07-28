@@ -24,5 +24,20 @@
   "htmlWhitespaceSensitivity": "css",
   "objectWrap": "collapse",
   "sortPackageJson": { "sortScripts": true },
-  "sortImports": { "newlinesBetween": false }
+  "sortImports": {
+    "newlinesBetween": true,
+    "sortSideEffects": true,
+    "customGroups": [{ "groupName": "first", "elementNamePattern": ["instrument.server"] }],
+    "groups": [
+      "side_effect_style",
+      "side_effect",
+      "type-import",
+      ["value-builtin", "value-external"],
+      "type-internal",
+      "value-internal",
+      ["type-parent", "type-sibling", "type-index"],
+      ["value-parent", "value-sibling", "value-index"],
+      "unknown"
+    ]
+  }
 }

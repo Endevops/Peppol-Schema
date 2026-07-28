@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+
 import { isValidMod11 } from './is-valid-mod11';
 
 describe('isValidMod11', () => {

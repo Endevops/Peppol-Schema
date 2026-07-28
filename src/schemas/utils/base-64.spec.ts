@@ -1,4 +1,5 @@
 import { describe, it, expect } from 'vitest';
+
 import { base64Schema } from './base-64';
 
 describe('base64', () => {

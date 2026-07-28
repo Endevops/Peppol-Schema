@@ -1,4 +1,5 @@
 import * as z from 'zod/mini';
+
 import { documentTypeCodesKeys, type documentTypeCodesKey } from '#/values/document-type-codes.generated';
 export type DocumentTypeCode = documentTypeCodesKey;
 

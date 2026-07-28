@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+
 import { checkSEOrgnr } from './check-se-orgnr';
 
 describe('checkSEOrgnr', () => {

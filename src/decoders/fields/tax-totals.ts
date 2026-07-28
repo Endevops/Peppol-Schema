@@ -1,10 +1,11 @@
-import { decodeAmount, encodeAmount } from '#/decoders/fields/amount';
-import { decodeSimpleIdentifer, encodeSimpleIdentifier } from '#/decoders/fields/id';
-import { getArray, getProp, numOrUnd, strOrUnd } from '#/helpers';
 import type { XmlNode } from '#/helpers';
 import type { PeppolTaxSubTotal } from '#/schemas/fields/tax-subtotal-schema';
 import type { PeppolTaxTotal } from '#/schemas/fields/tax-totals';
 import type { RecursivePartial } from '#/types';
+
+import { decodeAmount, encodeAmount } from '#/decoders/fields/amount';
+import { decodeSimpleIdentifer, encodeSimpleIdentifier } from '#/decoders/fields/id';
+import { getArray, getProp, numOrUnd, strOrUnd } from '#/helpers';
 
 export function decodeTaxTotals(doc: XmlNode, ...path: Array<string>): Array<RecursivePartial<PeppolTaxTotal>> | undefined {
   const arr = getArray(doc, ...path);

@@ -1,7 +1,8 @@
-import { getProp, strOrUnd } from '#/helpers';
 import type { XmlNode } from '#/helpers';
 import type { PeppolPaymentTerms } from '#/schemas/fields/payment-terms-schema';
 import type { RecursivePartial } from '#/types';
+
+import { getProp, strOrUnd } from '#/helpers';
 
 export function decodePaymentTerms(doc: XmlNode, ...path: Array<string>): RecursivePartial<PeppolPaymentTerms> | undefined {
   const terms = getProp(doc, ...path);

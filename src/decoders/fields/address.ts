@@ -1,7 +1,8 @@
-import { getProp, strOrUnd } from '#/helpers';
 import type { XmlNode } from '#/helpers';
 import type { PeppolAddress } from '#/schemas/fields/address-schema';
 import type { RecursivePartial } from '#/types';
+
+import { getProp, strOrUnd } from '#/helpers';
 
 export function encodeAddress(address?: PeppolAddress): XmlNode {
   if (!address) return undefined;

@@ -1,4 +1,5 @@
 import * as z from 'zod/mini';
+
 import { type applicationResponseTypeCodesKey, applicationResponseTypeCodesKeys } from '#/values/application-response-type-codes.generated';
 
 export type ApplicationResponseTypeCodes = applicationResponseTypeCodesKey;

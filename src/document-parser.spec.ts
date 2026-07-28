@@ -5,8 +5,10 @@
 import path from 'node:path';
 import { describe, expect, it } from 'vitest';
 import * as z from 'zod/mini';
-import { documentParser } from './document-parser';
+
 import type { PeppolInvoice } from './schemas/invoice';
+
+import { documentParser } from './document-parser';
 
 describe('document-parser', () => {
   const files = [

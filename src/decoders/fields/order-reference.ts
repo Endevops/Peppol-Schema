@@ -1,7 +1,8 @@
-import { getProp, strOrUnd } from '#/helpers';
 import type { XmlNode } from '#/helpers';
 import type { PeppolOrderReference } from '#/schemas/fields/order-reference-schema';
 import type { RecursivePartial } from '#/types';
+
+import { getProp, strOrUnd } from '#/helpers';
 
 export function decodeOrderReference(node: XmlNode, ...path: Array<string>): RecursivePartial<PeppolOrderReference> | undefined {
   const val = getProp(node, ...path);
