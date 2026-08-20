@@ -13,7 +13,7 @@ describe('isValidMod11', () => {
       ['12345678a', 'non-numeric character'],
       ['1', 'too short'],
       ['', 'empty string'],
-    ])('should reject %s (%s)', (value, description) => {
+    ])('should reject %s (%s)', value => {
       expect(isValidMod11(value)).toEqual(false);
     });
   });

@@ -3,9 +3,8 @@ import type { PeppolCreditNote } from '#/schemas/credit-note';
 import { encodeAdditionalDocumentReferences } from '#/decoders/fields/encode-additional-document-references';
 import { encodeAllowanceCharges } from '#/decoders/fields/encode-allowance-charges';
 import { encodeBillingReferences } from '#/decoders/fields/encode-billing-references';
-import { encodeDelivery } from '#/decoders/fields/encode-delivery';
 import { encodeCreditNoteLines } from '#/decoders/fields/encode-credit-note-lines';
-import { encodeSimpleIdentifier } from '#/decoders/fields/encode-simple-identifier';
+import { encodeDelivery } from '#/decoders/fields/encode-delivery';
 import { encodeInvoicePeriod } from '#/decoders/fields/encode-invoice-period';
 import { encodeLegalMonetaryTotal } from '#/decoders/fields/encode-legal-monetary-total';
 import { encodeOrderReference } from '#/decoders/fields/encode-order-reference';
@@ -13,6 +12,7 @@ import { encodeParty } from '#/decoders/fields/encode-party';
 import { encodePayeeParty } from '#/decoders/fields/encode-payee-party';
 import { encodePaymentMeans } from '#/decoders/fields/encode-payment-means';
 import { encodePaymentTerms } from '#/decoders/fields/encode-payment-terms';
+import { encodeSimpleIdentifier } from '#/decoders/fields/encode-simple-identifier';
 import { encodeTaxRepresentativeParty } from '#/decoders/fields/encode-tax-representative-party';
 import { encodeTaxTotals } from '#/decoders/fields/encode-tax-totals';
 

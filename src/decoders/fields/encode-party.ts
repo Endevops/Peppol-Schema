@@ -1,4 +1,3 @@
-import type { XmlNode } from '#/helpers/get-prop';
 import type { PeppolContact } from '#/schemas/fields/contact-schema';
 import type { PeppolPartySchema } from '#/schemas/fields/party-base-schema';
 import type { PeppolPartyLegalEntitySchema } from '#/schemas/fields/party-legal-entity-schema';

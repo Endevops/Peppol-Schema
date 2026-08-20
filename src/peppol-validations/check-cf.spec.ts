@@ -7,7 +7,7 @@ describe('checkCF', () => {
     it.each([
       ['RSSMRA85T10A562S', '16 character code'],
       ['12345678901', '11 character numeric code'],
-    ])('should validate %s (%s)', (value, description) => {
+    ])('should validate %s (%s)', value => {
       expect(checkCF(value)).toEqual(true);
     });
   });
@@ -16,7 +16,7 @@ describe('checkCF', () => {
     it.each([
       ['123456789', 'wrong length'],
       ['', 'empty string'],
-    ])('should reject %s (%s)', (value, description) => {
+    ])('should reject %s (%s)', value => {
       expect(checkCF(value)).toEqual(false);
     });
   });

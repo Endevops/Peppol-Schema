@@ -5,8 +5,8 @@ import { contactSchema } from '#/schemas/fields/contact-schema';
 import { identifierSchema } from '#/schemas/fields/identifier-schema';
 import { partyLegalEntitySchema } from '#/schemas/fields/party-legal-entity-schema';
 import { invoiceResponseDocumentActualResponse } from '#/schemas/invoice-response-document-actual-response';
-import { messageLevelResponse } from '#/schemas/message-level-response-schema';
 import { messageLevelResponsePartySchema } from '#/schemas/message-level-response-party-schema';
+import { messageLevelResponse } from '#/schemas/message-level-response-schema';
 import { documentTypeCodeSchema } from '#/schemas/values/document-type-codes';
 
 const invoiceResponsePartySchema = z.extend(messageLevelResponsePartySchema, {

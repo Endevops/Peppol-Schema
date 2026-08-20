@@ -2,7 +2,8 @@ import { objectEntries } from 'ts-extras';
 import * as z from 'zod/mini';
 
 import { INVOICE_DOCTYPE_ID } from '#/constants/invoice-doctype-id';
-import { type deprecateddocumentTypes, documentTypesProcessIds, documentTypesScheme, documentTypesTable } from '#/values/document-type.generated';
+import { documentTypesTable } from '#/values/document-type.generated';
+import type { deprecateddocumentTypes , documentTypesProcessIds, documentTypesScheme} from '#/values/document-type.generated';
 
 export type PeppolDocumentType = Exclude<z.infer<ReturnType<typeof documentTypeSchema>>, (typeof deprecateddocumentTypes)[number]>;
 export type PeppolDocumentTypeSchema = (typeof documentTypesScheme)[number];

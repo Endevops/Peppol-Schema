@@ -22,8 +22,8 @@ export const invoiceTypeCodes = {
    */
   '80': 'Debit note related to goods or services',
   /**
-   * @description Document/message claiming payment for the supply of metered services (e.g., gas, electricity, etc.) supplied to a fixed meter whose consumption
-   * is measured over a period of time.
+   * @description Document/message claiming payment for the supply of metered services (e.g., gas, electricity, etc.) supplied to a fixed meter whose consumption is
+   * measured over a period of time.
    */
   '82': 'Metered services invoice',
   /**
@@ -100,8 +100,8 @@ export const invoiceTypeCodes = {
    */
   '623': "Forwarder's invoice",
   /**
-   * @description Document/message issued by a transport operation specifying freight costs and charges incurred for a transport operation and stating conditions
-   * of payment.
+   * @description Document/message issued by a transport operation specifying freight costs and charges incurred for a transport operation and stating conditions of
+   * payment.
    */
   '780': 'Freight invoice',
   /**
@@ -109,8 +109,8 @@ export const invoiceTypeCodes = {
    */
   '817': 'Claim notification',
   /**
-   * @description Document/message to be prepared by an exporter in his country and presented to a diplomatic representation of the importing country for
-   * endorsement and subsequently to be presented by the importer in connection with the import of the goods described therein.
+   * @description Document/message to be prepared by an exporter in his country and presented to a diplomatic representation of the importing country for endorsement
+   * and subsequently to be presented by the importer in connection with the import of the goods described therein.
    */
   '870': 'Consular invoice',
   /**
@@ -187,4 +187,4 @@ export const invoiceTypeCodesKeys = [
   '875',
   '876',
   '877',
-] as const satisfies readonly [invoiceTypeCodesKey, ...invoiceTypeCodesKey[]];
+] as const satisfies readonly [invoiceTypeCodesKey, ...Array<invoiceTypeCodesKey>];

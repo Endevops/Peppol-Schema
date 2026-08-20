@@ -7,7 +7,7 @@ describe('checkCF16', () => {
     it.each([
       ['RSSMRA85T10A562S', 'valid format 1'],
       ['BNCGRL75A01F205B', 'valid format 2'],
-    ])('should validate %s (%s)', (value, description) => {
+    ])('should validate %s (%s)', value => {
       expect(checkCF16(value)).toEqual(true);
     });
   });
@@ -17,7 +17,7 @@ describe('checkCF16', () => {
       ['RSSMRA85T10A56', 'too short'],
       ['1234567890123456', 'wrong format'],
       ['', 'empty string'],
-    ])('should reject %s (%s)', (value, description) => {
+    ])('should reject %s (%s)', value => {
       expect(checkCF16(value)).toEqual(false);
     });
   });

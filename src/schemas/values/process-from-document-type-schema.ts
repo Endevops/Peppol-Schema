@@ -1,9 +1,9 @@
 import * as z from 'zod/mini';
 
-import { documentTypesProcessIds } from '#/values/document-type.generated';
+import type { PeppolDocumentType } from '#/schemas/values/document-type-schema';
 
 import { processSchema } from '#/schemas/values/process-schema';
-import type { PeppolDocumentType } from '#/schemas/values/document-type-schema';
+import { documentTypesProcessIds } from '#/values/document-type.generated';
 
 export function processFromDocumentTypeSchema(documentType: PeppolDocumentType, error = 'invalid process type for document type') {
   const processes = documentTypesProcessIds[documentType as keyof typeof documentTypesProcessIds];

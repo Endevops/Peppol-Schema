@@ -5,7 +5,6 @@ import { encodeAllowanceCharges } from '#/decoders/fields/encode-allowance-charg
 import { encodeBillingReferences } from '#/decoders/fields/encode-billing-references';
 import { encodeDelivery } from '#/decoders/fields/encode-delivery';
 import { encodeInvoiceLines } from '#/decoders/fields/encode-invoice-lines';
-import { encodeSimpleIdentifier } from '#/decoders/fields/encode-simple-identifier';
 import { encodeInvoicePeriod } from '#/decoders/fields/encode-invoice-period';
 import { encodeLegalMonetaryTotal } from '#/decoders/fields/encode-legal-monetary-total';
 import { encodeOrderReference } from '#/decoders/fields/encode-order-reference';
@@ -13,6 +12,7 @@ import { encodeParty } from '#/decoders/fields/encode-party';
 import { encodePayeeParty } from '#/decoders/fields/encode-payee-party';
 import { encodePaymentMeans } from '#/decoders/fields/encode-payment-means';
 import { encodePaymentTerms } from '#/decoders/fields/encode-payment-terms';
+import { encodeSimpleIdentifier } from '#/decoders/fields/encode-simple-identifier';
 import { encodeTaxRepresentativeParty } from '#/decoders/fields/encode-tax-representative-party';
 import { encodeTaxTotals } from '#/decoders/fields/encode-tax-totals';
 

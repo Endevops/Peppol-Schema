@@ -27,7 +27,6 @@
   "sortImports": {
     "newlinesBetween": true,
     "sortSideEffects": true,
-    "customGroups": [{ "groupName": "first", "elementNamePattern": ["instrument.server"] }],
     "groups": [
       "side_effect_style",
       "side_effect",

@@ -16,7 +16,7 @@ import { encodeInvoice } from '#/decoders/encode-invoice';
 import { encodeInvoiceResponse } from '#/decoders/encode-invoice-response';
 import { encodeMessageLevelResponse } from '#/decoders/encode-message-level-response';
 import { strOrUnd } from '#/helpers/str-or-und';
-import { creditNoteSchema } from '#/index';
+import { creditNoteSchema } from '#/schemas/credit-note';
 import { invoiceSchema } from '#/schemas/invoice';
 import { invoiceResponseSchema } from '#/schemas/invoice-response-schema';
 import { messageLevelResponse } from '#/schemas/message-level-response-schema';

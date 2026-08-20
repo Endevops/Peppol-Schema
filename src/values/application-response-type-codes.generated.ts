@@ -20,5 +20,5 @@ export const applicationResponseTypeCodes = { AB: 'Message acknowledgement', AP:
 export type applicationResponseTypeCodesKey = 'AB' | 'AP' | 'RE';
 export const applicationResponseTypeCodesKeys = ['AB', 'AP', 'RE'] as const satisfies readonly [
   applicationResponseTypeCodesKey,
-  ...applicationResponseTypeCodesKey[],
+  ...Array<applicationResponseTypeCodesKey>,
 ];

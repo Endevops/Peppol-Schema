@@ -18,4 +18,4 @@ export const vatDateCodes = { '3': 'Invoice document issue date time', '35': 'De
  * @description Keys of {@link vatDateCodes}.
  */
 export type vatDateCodesKey = '3' | '35' | '432';
-export const vatDateCodesKeys = ['3', '35', '432'] as const satisfies readonly [vatDateCodesKey, ...vatDateCodesKey[]];
+export const vatDateCodesKeys = ['3', '35', '432'] as const satisfies readonly [vatDateCodesKey, ...Array<vatDateCodesKey>];

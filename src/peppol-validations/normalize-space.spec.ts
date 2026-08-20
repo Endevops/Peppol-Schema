@@ -21,9 +21,8 @@ describe('normalizeSpace', () => {
       [undefined, '', 'undefined input'],
       [123, '123', 'numeric input'],
       [true, 'true', 'boolean input'],
-    ])('should handle %s and return "%s" (%s)', (input, expected, description) => {
-      // @ts-expect-error
-      expect(normalizeSpace(input)).toEqual(expected);
+    ])('should handle %s and return "%s" (%s)', (input, expected, _description) => {
+      expect(normalizeSpace(input as unknown as string)).toEqual(expected);
     });
   });
 });

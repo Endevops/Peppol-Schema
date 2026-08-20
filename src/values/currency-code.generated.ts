@@ -557,4 +557,4 @@ export const currencyCodesKeys = [
   'ZWG',
   'XXX',
   'CNH',
-] as const satisfies readonly [currencyCodesKey, ...currencyCodesKey[]];
+] as const satisfies readonly [currencyCodesKey, ...Array<currencyCodesKey>];

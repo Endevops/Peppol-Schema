@@ -7,7 +7,7 @@ describe('isValidIBAN', () => {
     it.each([
       ['GB82 WEST 1234 5698 7654 32', 'UK IBAN'],
       ['DE89370400440532013000', 'German IBAN'],
-    ])('should validate %s (%s)', (value, description) => {
+    ])('should validate %s (%s)', value => {
       expect(isValidIBAN(value)).toEqual(true);
     });
   });
@@ -17,7 +17,7 @@ describe('isValidIBAN', () => {
       ['GB82 WEST 1234 5698 7654 33', 'wrong check digits'],
       ['XX82 WEST 1234 5698 7654 32', 'invalid country code'],
       ['', 'empty string'],
-    ])('should reject %s (%s)', (value, description) => {
+    ])('should reject %s (%s)', value => {
       expect(isValidIBAN(value)).toEqual(false);
     });
   });

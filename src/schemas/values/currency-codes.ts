@@ -6,7 +6,8 @@
  */
 import * as z from 'zod/mini';
 
-import { type currencyCodesKey, currencyCodesKeys } from '#/values/currency-code.generated';
+import { currencyCodesKeys } from '#/values/currency-code.generated';
+import type { currencyCodesKey } from '#/values/currency-code.generated';
 
 export type PeppolCurrencyCode = currencyCodesKey | ({} & string);
 

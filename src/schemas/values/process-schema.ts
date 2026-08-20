@@ -1,7 +1,8 @@
 import { objectEntries } from 'ts-extras';
 import * as z from 'zod/mini';
 
-import { type deprecatedprocesses, processes, type processesKey, processesList } from '#/values/processes.generated';
+import { processes, processesList } from '#/values/processes.generated';
+import type { deprecatedprocesses, processesKey } from '#/values/processes.generated';
 
 export type PeppolProcesses = Exclude<z.infer<ReturnType<typeof processSchema>>, (typeof deprecatedprocesses)[number]>;
 export type PeppolProcessesSchema = processesKey;

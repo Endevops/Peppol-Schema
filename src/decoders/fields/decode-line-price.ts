@@ -2,8 +2,8 @@ import type { XmlNode } from '#/helpers/get-prop';
 import type { PeppolLinePrice } from '#/schemas/fields/price-schema';
 import type { RecursivePartial } from '#/types';
 
-import { decodePriceAllowanceCharge } from '#/decoders/fields/decode-price-allowance-charge';
 import { decodeAmount } from '#/decoders/fields/decode-amount';
+import { decodePriceAllowanceCharge } from '#/decoders/fields/decode-price-allowance-charge';
 import { decodeQuantity } from '#/decoders/fields/decode-quantity';
 import { getProp } from '#/helpers/get-prop';
 

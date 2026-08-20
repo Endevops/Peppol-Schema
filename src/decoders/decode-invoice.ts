@@ -7,7 +7,6 @@ import { decodeAllowanceCharges } from '#/decoders/fields/decode-allowance-charg
 import { decodeBillingReferences } from '#/decoders/fields/decode-billing-references';
 import { decodeDelivery } from '#/decoders/fields/decode-delivery';
 import { decodeInvoiceLines } from '#/decoders/fields/decode-invoice-lines';
-import { decodeSimpleIdentifer } from '#/decoders/fields/decode-simple-identifier';
 import { decodeInvoicePeriod } from '#/decoders/fields/decode-invoice-period';
 import { decodeLegalMonetaryTotal } from '#/decoders/fields/decode-legal-monetary-total';
 import { decodeOrderReference } from '#/decoders/fields/decode-order-reference';
@@ -15,6 +14,7 @@ import { decodeParty } from '#/decoders/fields/decode-party';
 import { decodePayeeParty } from '#/decoders/fields/decode-payee-party';
 import { decodePaymentMeans } from '#/decoders/fields/decode-payment-means';
 import { decodePaymentTerms } from '#/decoders/fields/decode-payment-terms';
+import { decodeSimpleIdentifer } from '#/decoders/fields/decode-simple-identifier';
 import { decodeTaxRepresentativeParty } from '#/decoders/fields/decode-tax-representative-party';
 import { decodeTaxTotals } from '#/decoders/fields/decode-tax-totals';
 import { getProp } from '#/helpers/get-prop';

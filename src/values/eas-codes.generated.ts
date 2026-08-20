@@ -303,4 +303,4 @@ export const electronicAddressCodesKeys = [
   '0240',
   '0244',
   '0245',
-] as const satisfies readonly [electronicAddressCodesKey, ...electronicAddressCodesKey[]];
+] as const satisfies readonly [electronicAddressCodesKey, ...Array<electronicAddressCodesKey>];

@@ -49,5 +49,5 @@ export const opStatusAction = {
 export type opStatusActionKey = 'NOA' | 'PIN' | 'NIN' | 'CNF' | 'CNP' | 'CNA' | 'OTH';
 export const opStatusActionKeys = ['NOA', 'PIN', 'NIN', 'CNF', 'CNP', 'CNA', 'OTH'] as const satisfies readonly [
   opStatusActionKey,
-  ...opStatusActionKey[],
+  ...Array<opStatusActionKey>,
 ];

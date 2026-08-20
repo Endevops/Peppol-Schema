@@ -238,8 +238,8 @@ export const quantityUnitCodes = {
   A73: 'foot per second squared',
   A74: 'foot pound-force per second',
   /**
-   * @description A unit of information typically used for billing purposes, defined as either the number of metric tons or the number of cubic metres, whichever
-   * is the larger.
+   * @description A unit of information typically used for billing purposes, defined as either the number of metric tons or the number of cubic metres, whichever is
+   * the larger.
    */
   A75: 'freight ton',
   A76: 'gal',
@@ -796,8 +796,7 @@ export const quantityUnitCodes = {
   DMA: 'cubic decametre',
   DMK: 'square decimetre',
   /**
-   * @description A unit of volume defining the number of kilolitres of a product at a temperature of 15 degrees Celsius, especially in relation to hydrocarbon
-   * oils.
+   * @description A unit of volume defining the number of kilolitres of a product at a temperature of 15 degrees Celsius, especially in relation to hydrocarbon oils.
    */
   DMO: 'standard kilolitre',
   DMQ: 'cubic decimetre',
@@ -905,8 +904,8 @@ export const quantityUnitCodes = {
    */
   E22: 'TEU',
   /**
-   * @description A unit of count defining the number of tyres (a solid or air-filled covering placed around a wheel rim to form a soft contact with the road,
-   * absorb shock and provide traction).
+   * @description A unit of count defining the number of tyres (a solid or air-filled covering placed around a wheel rim to form a soft contact with the road, absorb
+   * shock and provide traction).
    */
   E23: 'tyre',
   /**
@@ -1315,8 +1314,8 @@ export const quantityUnitCodes = {
   FF: 'hundred cubic metre',
   FH: 'micromole',
   /**
-   * @description A unit of count defining the number of failures that can be expected over a specified time interval. Failure rates of semiconductor components
-   * are often specified as FIT (failures in time unit) where 1 FIT = 10⁻⁹ /h.
+   * @description A unit of count defining the number of failures that can be expected over a specified time interval. Failure rates of semiconductor components are
+   * often specified as FIT (failures in time unit) where 1 FIT = 10⁻⁹ /h.
    */
   FIT: 'failures in time',
   /**
@@ -2232,8 +2231,8 @@ export const quantityUnitCodes = {
   M17: 'kilohertz metre',
   M18: 'gigahertz metre',
   /**
-   * @description An empirical measure for describing wind speed based mainly on observed sea conditions. The Beaufort scale indicates the wind speed by numbers
-   * that typically range from 0 for calm, to 12 for hurricane.
+   * @description An empirical measure for describing wind speed based mainly on observed sea conditions. The Beaufort scale indicates the wind speed by numbers that
+   * typically range from 0 for calm, to 12 for hurricane.
    */
   M19: 'Beaufort',
   M20: 'reciprocal megakelvin or megakelvin to the power minus one',
@@ -2425,8 +2424,8 @@ export const quantityUnitCodes = {
    */
   M77: 'kilogram metre per second squared',
   /**
-   * @description 0,001-fold of the unit of the weight, defined as a mass of 1 kg which finds out about a weight strength from 1 kp by the gravitational force at
-   * sea level which corresponds to a strength of 9,806 65 newton.
+   * @description 0,001-fold of the unit of the weight, defined as a mass of 1 kg which finds out about a weight strength from 1 kp by the gravitational force at sea
+   * level which corresponds to a strength of 9,806 65 newton.
    */
   M78: 'pond',
   /**
@@ -2485,8 +2484,8 @@ export const quantityUnitCodes = {
    */
   M91: 'pound per pound',
   /**
-   * @description Product of the unit pound-force according to the Anglo-American system of units and the unit foot according to the Anglo-American and the
-   * Imperial system of units.
+   * @description Product of the unit pound-force according to the Anglo-American system of units and the unit foot according to the Anglo-American and the Imperial
+   * system of units.
    */
   M92: 'pound-force foot',
   /**
@@ -2524,13 +2523,13 @@ export const quantityUnitCodes = {
   MAL: 'megalitre',
   MAM: 'megametre',
   /**
-   * @description A unit of electrical reactive power represented by a current of one thousand amperes flowing due a potential difference of one thousand volts
-   * where the sine of the phase angle between them is 1.
+   * @description A unit of electrical reactive power represented by a current of one thousand amperes flowing due a potential difference of one thousand volts where
+   * the sine of the phase angle between them is 1.
    */
   MAR: 'megavar',
   /**
-   * @description A unit of power defining the rate of energy transferred or consumed when a current of 1000 amperes flows due to a potential of 1000 volts at
-   * unity power factor.
+   * @description A unit of power defining the rate of energy transferred or consumed when a current of 1000 amperes flows due to a potential of 1000 volts at unity
+   * power factor.
    */
   MAW: 'megawatt',
   /**
@@ -2606,13 +2605,13 @@ export const quantityUnitCodes = {
    */
   N1: 'pen calorie',
   /**
-   * @description Product of the avoirdupois pound according to the avoirdupois unit system and the unit foot according to the Anglo-American and Imperial system
-   * of units divided by the SI base unit second.
+   * @description Product of the avoirdupois pound according to the avoirdupois unit system and the unit foot according to the Anglo-American and Imperial system of
+   * units divided by the SI base unit second.
    */
   N10: 'pound foot per second',
   /**
-   * @description Product of the avoirdupois pound according to the avoirdupois unit system and the unit inch according to the Anglo-American and Imperial system
-   * of units divided by the SI base unit second.
+   * @description Product of the avoirdupois pound according to the avoirdupois unit system and the unit inch according to the Anglo-American and Imperial system of
+   * units divided by the SI base unit second.
    */
   N11: 'pound inch per second',
   /**
@@ -2620,8 +2619,8 @@ export const quantityUnitCodes = {
    */
   N12: 'Pferdestaerke',
   /**
-   * @description Non SI-conforming unit of pressure, at which a value of 1 cmHg meets the static pressure, which is generated by a mercury at a temperature of 0
-   * °C with a height of 1 centimetre .
+   * @description Non SI-conforming unit of pressure, at which a value of 1 cmHg meets the static pressure, which is generated by a mercury at a temperature of 0 °C
+   * with a height of 1 centimetre .
    */
   N13: 'centimetre of mercury (0 ºC)',
   /**
@@ -2630,8 +2629,8 @@ export const quantityUnitCodes = {
    */
   N14: 'centimetre of water (4 ºC)',
   /**
-   * @description Non SI-conforming unit of pressure according to the Anglo-American and Imperial system for units, whereas the value of 1 ftH2O is equivalent to
-   * the static pressure, which is generated by a head of water at a temperature 39,2°F with a height of 1 foot .
+   * @description Non SI-conforming unit of pressure according to the Anglo-American and Imperial system for units, whereas the value of 1 ftH2O is equivalent to the
+   * static pressure, which is generated by a head of water at a temperature 39,2°F with a height of 1 foot .
    */
   N15: 'foot of water (39.2 ºF)',
   /**
@@ -2664,8 +2663,8 @@ export const quantityUnitCodes = {
    */
   N21: 'poundal per square foot',
   /**
-   * @description Unit of the surface specific mass (avoirdupois ounce according to the avoirdupois system of units according to the surface square inch according
-   * to the Anglo-American and Imperial system of units).
+   * @description Unit of the surface specific mass (avoirdupois ounce according to the avoirdupois system of units according to the surface square inch according to
+   * the Anglo-American and Imperial system of units).
    */
   N22: 'ounce (avoirdupois) per square inch',
   /**
@@ -2701,8 +2700,8 @@ export const quantityUnitCodes = {
   N29: 'cubic foot per pound',
   N3: 'print point',
   /**
-   * @description Power of the unit inch according to the Anglo-American and Imperial system of units by exponent 3 divided by the avoirdupois pound according to
-   * the avoirdupois unit system .
+   * @description Power of the unit inch according to the Anglo-American and Imperial system of units by exponent 3 divided by the avoirdupois pound according to the
+   * avoirdupois unit system .
    */
   N30: 'cubic inch per pound',
   /**
@@ -2879,8 +2878,7 @@ export const quantityUnitCodes = {
    */
   N72: 'therm (U.S.)',
   /**
-   * @description Unit of the heat energy according to the Imperial system of units divided the unit avoirdupois pound according to the avoirdupois system of
-   * units.
+   * @description Unit of the heat energy according to the Imperial system of units divided the unit avoirdupois pound according to the avoirdupois system of units.
    */
   N73: 'British thermal unit (thermochemical) per pound',
   /**
@@ -2978,8 +2976,8 @@ export const quantityUnitCodes = {
    */
   N96: 'biot',
   /**
-   * @description CGS (Centimetre-Gram-Second system) unit of the magnetomotive force, which is defined by the work to increase the magnetic potential of a
-   * positive common pol with 1 erg.
+   * @description CGS (Centimetre-Gram-Second system) unit of the magnetomotive force, which is defined by the work to increase the magnetic potential of a positive
+   * common pol with 1 erg.
    */
   N97: 'gilbert',
   /**
@@ -3191,8 +3189,8 @@ export const quantityUnitCodes = {
    */
   P39: 'calorie (thermochemical) per square centimetre',
   /**
-   * @description CGS (Centimetre-Gram-Second system) unit of the areal-related energy transmission (as a measure of the incident quantity of heat of solar
-   * radiation on the earth's surface).
+   * @description CGS (Centimetre-Gram-Second system) unit of the areal-related energy transmission (as a measure of the incident quantity of heat of solar radiation
+   * on the earth's surface).
    */
   P40: 'langley',
   /**
@@ -3407,8 +3405,8 @@ export const quantityUnitCodes = {
    */
   P90: 'pound-force inch per inch',
   /**
-   * @description Traditional unit for the ability of a material to allow the transition of the steam, defined at a temperature of 0 °C as steam transmittance,
-   * where the mass of one grain steam penetrates an area of one foot squared at a pressure from one inch mercury per hour.
+   * @description Traditional unit for the ability of a material to allow the transition of the steam, defined at a temperature of 0 °C as steam transmittance, where
+   * the mass of one grain steam penetrates an area of one foot squared at a pressure from one inch mercury per hour.
    */
   P91: 'perm (0 ºC)',
   /**
@@ -3501,13 +3499,13 @@ export const quantityUnitCodes = {
    */
   Q13: 'octet per second',
   /**
-   * @description Logarithmic unit for information equal to the content of decision of a sentence of two mutually exclusive events, expressed as a logarithm to
-   * base 2.
+   * @description Logarithmic unit for information equal to the content of decision of a sentence of two mutually exclusive events, expressed as a logarithm to base
+   * 2.
    */
   Q14: 'shannon',
   /**
-   * @description Logarithmic unit for information equal to the content of decision of a sentence of ten mutually exclusive events, expressed as a logarithm to
-   * base 10.
+   * @description Logarithmic unit for information equal to the content of decision of a sentence of ten mutually exclusive events, expressed as a logarithm to base
+   * 10.
    */
   Q15: 'hartley',
   /**
@@ -3536,13 +3534,13 @@ export const quantityUnitCodes = {
    */
   Q20: 'second per kilogramm',
   /**
-   * @description Unit of the first radiation constants c1 = 2·p·h·c0², the value of which is 3,741 771 18·10?¹6-fold that of the comparative value of the product
-   * of the derived SI unit watt multiplied with the power of the SI base unit metre with the exponent 2.
+   * @description Unit of the first radiation constants c1 = 2·p·h·c0², the value of which is 3,741 771 18·10?¹6-fold that of the comparative value of the product of
+   * the derived SI unit watt multiplied with the power of the SI base unit metre with the exponent 2.
    */
   Q21: 'watt square metre',
   /**
-   * @description Unit of the density of states as an expression of angular frequency as complement of the product of hertz and radiant and the power of SI base
-   * unit metre by exponent 3 .
+   * @description Unit of the density of states as an expression of angular frequency as complement of the product of hertz and radiant and the power of SI base unit
+   * metre by exponent 3 .
    */
   Q22: 'second per radian cubic metre',
   /**
@@ -3555,8 +3553,7 @@ export const quantityUnitCodes = {
    */
   Q24: 'reciprocal inch',
   /**
-   * @description Unit used at the statement of relative refractive indexes of optical systems as complement of the focal length with correspondence to: 1 dpt =
-   * 1/m.
+   * @description Unit used at the statement of relative refractive indexes of optical systems as complement of the focal length with correspondence to: 1 dpt = 1/m.
    */
   Q25: 'dioptre',
   /**
@@ -3748,8 +3745,7 @@ export const quantityUnitCodes = {
    */
   SX: 'shipment',
   /**
-   * @description A unit of count defining the number of syringes (syringe: a small device for pumping, spraying and/or injecting liquids through a small
-   * aperture).
+   * @description A unit of count defining the number of syringes (syringe: a small device for pumping, spraying and/or injecting liquids through a small aperture).
    */
   SYR: 'syringe',
   /**
@@ -3762,8 +3758,8 @@ export const quantityUnitCodes = {
   T3: 'thousand piece',
   TAH: 'kiloampere hour (thousand ampere hour)',
   /**
-   * @description A unit of chemistry defining the amount of potassium hydroxide (KOH) in milligrams that is needed to neutralize the acids in one gram of oil. It
-   * is an important quality measurement of crude oil.
+   * @description A unit of chemistry defining the amount of potassium hydroxide (KOH) in milligrams that is needed to neutralize the acids in one gram of oil. It is
+   * an important quality measurement of crude oil.
    */
   TAN: 'total acid number',
   TI: 'thousand square inch',
@@ -3776,8 +3772,7 @@ export const quantityUnitCodes = {
    */
   TIP: 'metric ton, including inner packaging',
   /**
-   * @description A unit of information typically used for billing purposes, expressed as the number of tonnes (metric tons) moved over a distance of one
-   * kilometre.
+   * @description A unit of information typically used for billing purposes, expressed as the number of tonnes (metric tons) moved over a distance of one kilometre.
    */
   TKM: 'tonne kilometre',
   /**
@@ -4161,8 +4156,8 @@ export const quantityUnitCodes = {
   XIN: 'Ingot',
   XIZ: 'Ingots, in bundle/bunch/truss',
   /**
-   * @description A flexible containment bag, widely used for storage, transportation and handling of powder, flake or granular materials. Typically constructed
-   * from woven polypropylene (PP) fabric in the form of cubic bags.
+   * @description A flexible containment bag, widely used for storage, transportation and handling of powder, flake or granular materials. Typically constructed from
+   * woven polypropylene (PP) fabric in the form of cubic bags.
    */
   XJB: 'Bag, jumbo',
   XJC: 'Jerrican, rectangular',
@@ -4375,8 +4370,8 @@ export const quantityUnitCodes = {
   XSI: 'Skid',
   XSK: 'Case, skeleton',
   /**
-   * @description Hard plastic sheeting primarily used as the base on which to stack goods to optimise the space within a container. May be used as an alternative
-   * to a palletized packaging.
+   * @description Hard plastic sheeting primarily used as the base on which to stack goods to optimise the space within a container. May be used as an alternative to
+   * a palletized packaging.
    */
   XSL: 'Slipsheet',
   XSM: 'Sheetmetal',
@@ -8871,4 +8866,4 @@ export const quantityUnitCodesKeys = [
   'XZX',
   'XZY',
   'XZZ',
-] as const satisfies readonly [quantityUnitCodesKey, ...quantityUnitCodesKey[]];
+] as const satisfies readonly [quantityUnitCodesKey, ...Array<quantityUnitCodesKey>];

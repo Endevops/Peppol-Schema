@@ -1,7 +1,7 @@
 import type { XmlNode } from '#/helpers/get-prop';
 
-import { isDefined } from '#/helpers/is-defined';
 import { getProp } from '#/helpers/get-prop';
+import { isDefined } from '#/helpers/is-defined';
 
 export function bool<const T extends boolean = boolean>(node: XmlNode, ...path: Array<string>): T {
   const val = getProp(node, ...path);

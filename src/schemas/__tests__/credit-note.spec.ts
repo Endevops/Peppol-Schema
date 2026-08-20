@@ -1,6 +1,7 @@
-import { describe, it, expect } from 'vitest'
-import * as z from 'zod/mini'
-import { creditNoteSchema } from '#/schemas/credit-note'
+import { describe, it, expect } from 'vitest';
+import * as z from 'zod/mini';
+
+import { creditNoteSchema } from '#/schemas/credit-note';
 
 const validCreditNote = {
   customizationId: 'urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0',
@@ -10,20 +11,12 @@ const validCreditNote = {
   documentCurrencyCode: 'EUR',
   accountingSupplierParty: {
     endpointId: { id: '1234567890', schemeId: '01' },
-    postalAddress: {
-      streetName: 'Main Street 1',
-      cityName: 'London',
-      postalZone: 'W1G 8LZ',
-      countryCode: { identificationCode: 'GB' },
-    },
+    postalAddress: { streetName: 'Main Street 1', cityName: 'London', postalZone: 'W1G 8LZ', countryCode: { identificationCode: 'GB' } },
     partyLegalEntity: { registrationName: 'Seller Company Ltd' },
   },
   accountingCustomerParty: {
     endpointId: { id: '9876543210', schemeId: '01' },
-    postalAddress: {
-      cityName: 'Paris',
-      countryCode: { identificationCode: 'FR' },
-    },
+    postalAddress: { cityName: 'Paris', countryCode: { identificationCode: 'FR' } },
     partyLegalEntity: { registrationName: 'Buyer Company SA' },
   },
   taxTotals: [
@@ -33,11 +26,7 @@ const validCreditNote = {
         {
           taxAmount: { currencyId: 'EUR', value: 20 },
           taxableAmount: { currencyId: 'EUR', value: 100 },
-          taxCategory: {
-            id: 'S',
-            percent: 20,
-            taxSchemeId: { id: 'VAT' },
-          },
+          taxCategory: { id: 'S', percent: 20, taxSchemeId: { id: 'VAT' } },
         },
       ],
     },
@@ -53,48 +42,39 @@ const validCreditNote = {
       id: '1',
       creditedQuantity: { value: 2, unitCode: 'C62' },
       lineExtensionAmount: { currencyId: 'EUR', value: 100 },
-      item: {
-        name: 'Widget',
-        classifiedTaxCategory: {
-          id: 'S',
-          percent: 20,
-          taxSchemeId: { id: 'VAT' },
-        },
-      },
-      price: {
-        priceAmount: { currencyId: 'EUR', value: 50 },
-      },
+      item: { name: 'Widget', classifiedTaxCategory: { id: 'S', percent: 20, taxSchemeId: { id: 'VAT' } } },
+      price: { priceAmount: { currencyId: 'EUR', value: 50 } },
     },
   ],
   creditNoteTypeCode: '381',
-}
+};
 
 describe('creditNoteSchema', () => {
   it('should parse valid credit note', () => {
-    const result = z.safeParse(creditNoteSchema, validCreditNote)
-    expect(result.success).toBe(true)
-  })
+    const result = z.safeParse(creditNoteSchema, validCreditNote);
+    expect(result.success).toBe(true);
+  });
 
   it('should reject credit note without required id', () => {
-    const { id: _id, ...noId } = validCreditNote
-    const result = z.safeParse(creditNoteSchema, noId)
-    expect(result.success).toBe(false)
-  })
+    const { id: _id, ...noId } = validCreditNote;
+    const result = z.safeParse(creditNoteSchema, noId);
+    expect(result.success).toBe(false);
+  });
 
   it('should reject credit note without credit note lines', () => {
-    const result = z.safeParse(creditNoteSchema, { ...validCreditNote, creditNoteLines: [] })
-    expect(result.success).toBe(false)
-  })
+    const result = z.safeParse(creditNoteSchema, { ...validCreditNote, creditNoteLines: [] });
+    expect(result.success).toBe(false);
+  });
 
   it('should reject credit note with invalid credit note type code', () => {
-    const result = z.safeParse(creditNoteSchema, { ...validCreditNote, creditNoteTypeCode: '999' })
-    expect(result.success).toBe(false)
-  })
+    const result = z.safeParse(creditNoteSchema, { ...validCreditNote, creditNoteTypeCode: '999' });
+    expect(result.success).toBe(false);
+  });
 
   it('should reject credit note with invalid issue date', () => {
-    const result = z.safeParse(creditNoteSchema, { ...validCreditNote, issueDate: 'not-a-date' })
-    expect(result.success).toBe(false)
-  })
+    const result = z.safeParse(creditNoteSchema, { ...validCreditNote, issueDate: 'not-a-date' });
+    expect(result.success).toBe(false);
+  });
 
   it('should parse credit note with optional fields', () => {
     const result = z.safeParse(creditNoteSchema, {
@@ -102,18 +82,16 @@ describe('creditNoteSchema', () => {
       note: 'Credit note for returned goods',
       buyerReference: 'ref-001',
       orderReference: { id: 'PO-001' },
-    })
-    expect(result.success).toBe(true)
-  })
+    });
+    expect(result.success).toBe(true);
+  });
 
   it('should apply default customizationId when omitted', () => {
-    const { customizationId: _cid, ...noCustomization } = validCreditNote
-    const result = z.safeParse(creditNoteSchema, noCustomization)
-    expect(result.success).toBe(true)
+    const { customizationId: _cid, ...noCustomization } = validCreditNote;
+    const result = z.safeParse(creditNoteSchema, noCustomization);
+    expect(result.success).toBe(true);
     if (result.success) {
-      expect(result.data.customizationId).toBe(
-        'urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0'
-      )
+      expect(result.data.customizationId).toBe('urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0');
     }
-  })
-})
+  });
+});

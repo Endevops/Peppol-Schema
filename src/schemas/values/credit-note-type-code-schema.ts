@@ -1,6 +1,8 @@
 import * as z from 'zod/mini';
 
-import { creditNoteTypeCodes, type creditNoteTypeCodesKey, creditNoteTypeCodesKeys } from '#/values/credit-notes-type-codes.generated';
+import type { creditNoteTypeCodesKey } from '#/values/credit-notes-type-codes.generated';
+
+import { creditNoteTypeCodesKeys } from '#/values/credit-notes-type-codes.generated';
 
 export type CreditNoteTypeCodes = creditNoteTypeCodesKey;
 

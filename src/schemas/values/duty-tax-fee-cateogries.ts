@@ -1,6 +1,7 @@
 import * as z from 'zod/mini';
 
-import { dutyTaxFeeCategoriesKeys, type dutyTaxFeeCategoriesKey } from '#/values/duty-tax-fee-categories.generated';
+import { dutyTaxFeeCategoriesKeys } from '#/values/duty-tax-fee-categories.generated';
+import type { dutyTaxFeeCategoriesKey } from '#/values/duty-tax-fee-categories.generated';
 
 export type DutyTaxFeeCategoryCode = dutyTaxFeeCategoriesKey;
 

@@ -1482,7 +1482,7 @@ export const participantIdentifierSchemesKeys = [
   '9957',
   '9958',
   '9959',
-] as const satisfies readonly [participantIdentifierSchemesKey, ...participantIdentifierSchemesKey[]];
+] as const satisfies readonly [participantIdentifierSchemesKey, ...Array<participantIdentifierSchemesKey>];
 
 /**
  * @description The list of elements that are deprecated.

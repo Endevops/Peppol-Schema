@@ -8,7 +8,8 @@
  */
 import * as z from 'zod/mini';
 
-import { type countryCodesKey, countryCodesKeys } from '#/values/country-code.generated';
+import { countryCodesKeys } from '#/values/country-code.generated';
+import type { countryCodesKey } from '#/values/country-code.generated';
 
 export type PeppolCountryCode = countryCodesKey;
 

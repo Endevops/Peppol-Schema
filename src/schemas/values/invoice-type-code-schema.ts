@@ -1,6 +1,8 @@
 import * as z from 'zod/mini';
 
-import { invoiceTypeCodes, type invoiceTypeCodesKey, invoiceTypeCodesKeys } from '#/values/invoice-type-codes.generated';
+import type { invoiceTypeCodesKey } from '#/values/invoice-type-codes.generated';
+
+import { invoiceTypeCodesKeys } from '#/values/invoice-type-codes.generated';
 
 export type InvoiceTypeCode = invoiceTypeCodesKey;
 

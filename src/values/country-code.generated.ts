@@ -773,4 +773,4 @@ export const countryCodesKeys = [
   'ZW',
   '1A',
   'XI',
-] as const satisfies readonly [countryCodesKey, ...countryCodesKey[]];
+] as const satisfies readonly [countryCodesKey, ...Array<countryCodesKey>];

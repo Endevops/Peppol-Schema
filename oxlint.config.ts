@@ -7,7 +7,7 @@ export default defineConfig({
   overrides: [
     { files: ['**/{schemas,decoders}/**/*.ts'], rules: { 'typescript/no-redundant-type-constituents': 'off', 'sort-keys': 'off' } },
     {
-      files: ['./src/index.ts', './src/schemas.ts', './src/peppol-validations/index.ts', './src/values.ts'],
+      files: ['./src/index.ts', './src/schemas.ts', './src/peppol-validations/index.ts', './src/values.ts', './src/constants/index.ts'],
       rules: { 'oxc/no-barrel-file': 'off', 'typescript/consistent-type-exports': 'off' },
     },
   ],
@@ -33,7 +33,9 @@ export default defineConfig({
     'typescript/no-unnecessary-type-conversion': 'warn',
     'typescript/prefer-nullish-coalescing': 'off',
     'typescript/restrict-template-expressions': ['warn', { allowNever: true }],
+    'vitest/no-conditional-expect': 'off',
     'vitest/no-standalone-expect': 'off',
+    'vitest/require-to-throw-message': 'off',
     yoda: 'warn',
   },
 });

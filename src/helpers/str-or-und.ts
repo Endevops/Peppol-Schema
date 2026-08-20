@@ -1,7 +1,7 @@
 import type { XmlNode } from '#/helpers/get-prop';
 
-import { isDefined } from '#/helpers/is-defined';
 import { getProp } from '#/helpers/get-prop';
+import { isDefined } from '#/helpers/is-defined';
 
 export function strOrUnd<const T extends string = string>(node: XmlNode): T | undefined;
 export function strOrUnd<const T extends string = string>(node: XmlNode, ...path: Array<string>): T | undefined;

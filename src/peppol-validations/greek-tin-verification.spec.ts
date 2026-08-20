@@ -12,7 +12,7 @@ describe('greekTinVerification', () => {
       ['12345678', 'wrong length'],
       ['12345678a', 'non-numeric character'],
       ['', 'empty string'],
-    ])('should reject %s (%s)', (value, description) => {
+    ])('should reject %s (%s)', value => {
       expect(greekTinVerification(value)).toEqual(false);
     });
   });

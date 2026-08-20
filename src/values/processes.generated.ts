@@ -127,7 +127,7 @@ export const processes = {
  * @description Keys of {@link processes}.
  */
 export type processesKey = 'cenbii-procid-ubl' | 'oioubl-procid-ubl';
-export const processesKeys = ['cenbii-procid-ubl', 'oioubl-procid-ubl'] as const satisfies readonly [processesKey, ...processesKey[]];
+export const processesKeys = ['cenbii-procid-ubl', 'oioubl-procid-ubl'] as const satisfies readonly [processesKey, ...Array<processesKey>];
 
 export const processesScheme = ['cenbii-procid-ubl', 'oioubl-procid-ubl'] as const;
 

@@ -1,9 +1,7 @@
-import { quantityUnitCodes } from '#/values/quantity-unit-codes.generated';
-
 import type { QuantityUnitCode } from '#/schemas/values/quantity-unit-codes-schema';
-import type { IntlUnit } from '#/schemas/values/quantity-unit-code-to-intl-unit';
 
 import { quantityToIntlUnitMap } from '#/schemas/values/quantity-unit-code-to-intl-unit';
+import { quantityUnitCodes } from '#/values/quantity-unit-codes.generated';
 
 export function formatQuantityWithUnit(
   value: number,
@@ -16,8 +14,7 @@ export function formatQuantityWithUnit(
   if (intlUnit) {
     try {
       return new Intl.NumberFormat(locale, { style: 'unit', unit: intlUnit, unitDisplay }).format(value);
-    } catch {
-    }
+    } catch {}
   }
 
   const formattedNumber = new Intl.NumberFormat(locale).format(value);

@@ -1,6 +1,7 @@
 import * as z from 'zod/mini';
 
-import { type opStatusActionKey, opStatusActionKeys } from '#/values/op-status-action.generated';
+import { opStatusActionKeys } from '#/values/op-status-action.generated';
+import type { opStatusActionKey } from '#/values/op-status-action.generated';
 
 export type OpStatusAction = opStatusActionKey;
 

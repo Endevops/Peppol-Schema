@@ -3,14 +3,13 @@ import type { XmlNode } from '#/helpers/get-prop';
 import type { PeppolBaseLine } from '#/schemas/fields/base-line-schema';
 import type { RecursivePartial } from '#/types';
 
-import { decodeLineAllowanceCharges } from '#/decoders/fields/decode-line-allowance-charges';
-import { decodeTaxCategory } from '#/decoders/fields/decode-tax-category';
 import { decodeAmount } from '#/decoders/fields/decode-amount';
-import { decodeSimpleIdentifer } from '#/decoders/fields/decode-simple-identifier';
 import { decodeIdentifier } from '#/decoders/fields/decode-identifier';
 import { decodeInvoiceLinePeriod } from '#/decoders/fields/decode-invoice-line-period';
+import { decodeLineAllowanceCharges } from '#/decoders/fields/decode-line-allowance-charges';
 import { decodeLinePrice } from '#/decoders/fields/decode-line-price';
-import { decodeQuantity } from '#/decoders/fields/decode-quantity';
+import { decodeSimpleIdentifer } from '#/decoders/fields/decode-simple-identifier';
+import { decodeTaxCategory } from '#/decoders/fields/decode-tax-category';
 import { getArray } from '#/helpers/get-array';
 import { getProp } from '#/helpers/get-prop';
 import { strOrUnd } from '#/helpers/str-or-und';

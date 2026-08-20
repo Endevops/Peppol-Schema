@@ -1,7 +1,7 @@
 import type { PeppolLinePrice } from '#/schemas/fields/price-schema';
 
-import { encodePriceAllowanceCharges } from '#/decoders/fields/encode-price-allowance-charges';
 import { encodeAmount } from '#/decoders/fields/encode-amount';
+import { encodePriceAllowanceCharges } from '#/decoders/fields/encode-price-allowance-charges';
 import { encodeQuantity } from '#/decoders/fields/encode-quantity';
 
 export function encodeLinePrice(price: PeppolLinePrice | undefined) {

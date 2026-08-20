@@ -91,4 +91,4 @@ export const opStatusReasonKeys = [
   'FIN',
   'PPD',
   'OTH',
-] as const satisfies readonly [opStatusReasonKey, ...opStatusReasonKey[]];
+] as const satisfies readonly [opStatusReasonKey, ...Array<opStatusReasonKey>];

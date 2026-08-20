@@ -2,8 +2,8 @@ import type { XmlNode } from '#/helpers/get-prop';
 import type { InvoiceReponseDocumentActualResponseStatus, InvoiceResponseCondition } from '#/schemas/invoice-reponse-document-actual-response-status';
 import type { InvoiceResponseDocumentActualResponse } from '#/schemas/invoice-response-document-actual-response';
 import type { InvoiceResponseDocumentReference, InvoiceResponseDocumentResponse } from '#/schemas/invoice-response-schema';
-import type { InvoiceResponseStatusReasonCode } from '#/schemas/invoice-response-status-reason-code';
 import type { PeppolInvoiceResponse } from '#/schemas/invoice-response-schema';
+import type { InvoiceResponseStatusReasonCode } from '#/schemas/invoice-response-status-reason-code';
 import type { RecursivePartial } from '#/types';
 
 import { decodeInvoiceMessageDocumentParty } from '#/decoders/fields/decode-invoice-message-document-party';

@@ -14,8 +14,8 @@
  */
 export const vatexCodes = {
   /**
-   * @description Exemptions relating to repayment of expenditures. Remark, Repayment of expenditure is not an exemption in the sense of the VAT Directive but may
-   * be handled as such in the context of the EN16931.
+   * @description Exemptions relating to repayment of expenditures. Remark, Repayment of expenditure is not an exemption in the sense of the VAT Directive but may be
+   * handled as such in the context of the EN16931.
    */
   'VATEX-EU-79-C': 'Exempt based on article 79, point c of Council Directive 2006/112/EC',
   /**
@@ -42,15 +42,14 @@ export const vatexCodes = {
    */
   'VATEX-EU-132-1D': 'Exempt based on article 132, section 1 (d) of Council Directive 2006/112/EC',
   /**
-   * @description The supply of services by dental technicians in their professional capacity and the supply of dental prostheses by dentists and dental
-   * technicians.
+   * @description The supply of services by dental technicians in their professional capacity and the supply of dental prostheses by dentists and dental technicians.
    */
   'VATEX-EU-132-1E': 'Exempt based on article 132, section 1 (e) of Council Directive 2006/112/EC',
   /**
-   * @description The supply of services by independent groups of persons, who are carrying on an activity which is exempt from VAT or in relation to which they
-   * are not taxable persons, for the purpose of rendering their members the services directly necessary for the exercise of that activity, where
-   * those groups merely claim from their members exact reimbursement of their share of the joint expenses, provided that such exemption is not likely
-   * to cause distortion of competition.
+   * @description The supply of services by independent groups of persons, who are carrying on an activity which is exempt from VAT or in relation to which they are
+   * not taxable persons, for the purpose of rendering their members the services directly necessary for the exercise of that activity, where those
+   * groups merely claim from their members exact reimbursement of their share of the joint expenses, provided that such exemption is not likely to
+   * cause distortion of competition.
    */
   'VATEX-EU-132-1F': 'Exempt based on article 132, section 1 (f) of Council Directive 2006/112/EC',
   /**
@@ -64,9 +63,9 @@ export const vatexCodes = {
    */
   'VATEX-EU-132-1H': 'Exempt based on article 132, section 1 (h) of Council Directive 2006/112/EC',
   /**
-   * @description " The provision of children's or young people's education, school or university education, vocational training or retraining, including the
-   * supply of services and of goods closely related thereto, by bodies governed by public law having such as their aim or by other organisations
-   * recognised by the Member State concerned as having similar objects."
+   * @description " The provision of children's or young people's education, school or university education, vocational training or retraining, including the supply
+   * of services and of goods closely related thereto, by bodies governed by public law having such as their aim or by other organisations recognised by
+   * the Member State concerned as having similar objects."
    */
   'VATEX-EU-132-1I': 'Exempt based on article 132, section 1 (i) of Council Directive 2006/112/EC',
   /**
@@ -80,13 +79,13 @@ export const vatexCodes = {
   'VATEX-EU-132-1K': 'Exempt based on article 132, section 1 (k) of Council Directive 2006/112/EC',
   /**
    * @description The supply of services, and the supply of goods closely linked thereto, to their members in their common interest in return for a subscription
-   * fixed in accordance with their rules by non-profitmaking organisations with aims of a political, trade-union, religious, patriotic,
-   * philosophical, philanthropic or civic nature, provided that this exemption is not likely to cause distortion of competition.
+   * fixed in accordance with their rules by non-profitmaking organisations with aims of a political, trade-union, religious, patriotic, philosophical,
+   * philanthropic or civic nature, provided that this exemption is not likely to cause distortion of competition.
    */
   'VATEX-EU-132-1L': 'Exempt based on article 132, section 1 (l) of Council Directive 2006/112/EC',
   /**
-   * @description The supply of certain services closely linked to sport or physical education by non-profit-making organisations to persons taking part in sport
-   * or physical education.
+   * @description The supply of certain services closely linked to sport or physical education by non-profit-making organisations to persons taking part in sport or
+   * physical education.
    */
   'VATEX-EU-132-1M': 'Exempt based on article 132, section 1 (m) of Council Directive 2006/112/EC',
   /**
@@ -121,8 +120,8 @@ export const vatexCodes = {
    */
   'VATEX-EU-143-1B': 'Exempt based on article 143, section 1 (b) of Council Directive 2006/112/EC',
   /**
-   * @description The final importation of goods, in free circulation from a third territory forming part of the Community customs territory, which would be
-   * entitled to exemption under point (b) if they had been imported within the meaning of the first paragraph of Article 30.
+   * @description The final importation of goods, in free circulation from a third territory forming part of the Community customs territory, which would be entitled
+   * to exemption under point (b) if they had been imported within the meaning of the first paragraph of Article 30.
    */
   'VATEX-EU-143-1C': 'Exempt based on article 143, section 1 (c) of Council Directive 2006/112/EC',
   /**
@@ -142,15 +141,15 @@ export const vatexCodes = {
   'VATEX-EU-143-1F': 'Exempt based on article 143, section 1 (f) of Council Directive 2006/112/EC',
   /**
    * @description "The importation of goods by the European Community, the European Atomic Energy Community, the European Central Bank or the European Investment
-   * Bank, or by the bodies set up by the Communities to which the Protocol of 8 April 1965 on the privileges and immunities of the European
-   * Communities applies, within the limits and under the conditions of that Protocol and the agreements for its implementation or the headquarters
-   * agreements, in so far as it does not lead to distortion of competition"
+   * Bank, or by the bodies set up by the Communities to which the Protocol of 8 April 1965 on the privileges and immunities of the European Communities
+   * applies, within the limits and under the conditions of that Protocol and the agreements for its implementation or the headquarters agreements, in
+   * so far as it does not lead to distortion of competition"
    */
   'VATEX-EU-143-1FA': 'Exempt based on article 143, section 1 (fa) of Council Directive 2006/112/EC',
   /**
-   * @description " The importation of goods by international bodies, other than those referred to in point (fa), recognised as such by the public authorities of
-   * the host Member State, or by members of such bodies, within the limits and under the conditions laid down by the international conventions
-   * establishing the bodies or by headquarters agreements"
+   * @description " The importation of goods by international bodies, other than those referred to in point (fa), recognised as such by the public authorities of the
+   * host Member State, or by members of such bodies, within the limits and under the conditions laid down by the international conventions establishing
+   * the bodies or by headquarters agreements"
    */
   'VATEX-EU-143-1G': 'Exempt based on article 143, section 1 (g) of Council Directive 2006/112/EC',
   /**
@@ -229,9 +228,9 @@ export const vatexCodes = {
   'VATEX-EU-151-1A': 'Exempt based on article 151, section 1 (a) of Council Directive 2006/112/EC',
   /**
    * @description The supply of goods or services to the European Community, the European Atomic Energy Community, the European Central Bank or the European
-   * Investment Bank, or to the bodies set up by the Communities to which the Protocol of 8 April 1965 on the privileges and immunities of the
-   * European Communities applies, within the limits and under the conditions of that Protocol and the agreements for its implementation or the
-   * headquarters agreements, in so far as it does not lead to distortion of competition.
+   * Investment Bank, or to the bodies set up by the Communities to which the Protocol of 8 April 1965 on the privileges and immunities of the European
+   * Communities applies, within the limits and under the conditions of that Protocol and the agreements for its implementation or the headquarters
+   * agreements, in so far as it does not lead to distortion of competition.
    */
   'VATEX-EU-151-1AA': 'Exempt based on article 151, section 1 (aa) of Council Directive 2006/112/EC',
   /**
@@ -241,21 +240,21 @@ export const vatexCodes = {
    */
   'VATEX-EU-151-1B': 'Exempt based on article 151, section 1 (b) of Council Directive 2006/112/EC',
   /**
-   * @description The supply of goods or services within a Member State which is a party to the North Atlantic Treaty, intended either for the armed forces of
-   * other States party to that Treaty for the use of those forces, or of the civilian staff accompanying them, or for supplying their messes or
-   * canteens when such forces take part in the common defence effort.
+   * @description The supply of goods or services within a Member State which is a party to the North Atlantic Treaty, intended either for the armed forces of other
+   * States party to that Treaty for the use of those forces, or of the civilian staff accompanying them, or for supplying their messes or canteens when
+   * such forces take part in the common defence effort.
    */
   'VATEX-EU-151-1C': 'Exempt based on article 151, section 1 (c) of Council Directive 2006/112/EC',
   /**
-   * @description The supply of goods or services to another Member State, intended for the armed forces of any State which is a party to the North Atlantic
-   * Treaty, other than the Member State of destination itself, for the use of those forces, or of the civilian staff accompanying them, or for
-   * supplying their messes or canteens when such forces take part in the common defence effort.
+   * @description The supply of goods or services to another Member State, intended for the armed forces of any State which is a party to the North Atlantic Treaty,
+   * other than the Member State of destination itself, for the use of those forces, or of the civilian staff accompanying them, or for supplying their
+   * messes or canteens when such forces take part in the common defence effort.
    */
   'VATEX-EU-151-1D': 'Exempt based on article 151, section 1 (d) of Council Directive 2006/112/EC',
   /**
-   * @description The supply of goods or services to the armed forces of the United Kingdom stationed in the island of Cyprus pursuant to the Treaty of
-   * Establishment concerning the Republic of Cyprus, dated 16 August 1960, which are for the use of those forces, or of the civilian staff
-   * accompanying them, or for supplying their messes or canteens.
+   * @description The supply of goods or services to the armed forces of the United Kingdom stationed in the island of Cyprus pursuant to the Treaty of Establishment
+   * concerning the Republic of Cyprus, dated 16 August 1960, which are for the use of those forces, or of the civilian staff accompanying them, or for
+   * supplying their messes or canteens.
    */
   'VATEX-EU-151-1E': 'Exempt based on article 151, section 1 (e) of Council Directive 2006/112/EC',
   /**
@@ -272,8 +271,8 @@ export const vatexCodes = {
    */
   'VATEX-EU-AE': 'Reverse charge',
   /**
-   * @description Second-hand means of transport - Indication that VAT has been paid according to the relevant transitional arrangements - Only use with VAT
-   * category code E.
+   * @description Second-hand means of transport - Indication that VAT has been paid according to the relevant transitional arrangements - Only use with VAT category
+   * code E.
    */
   'VATEX-EU-D': 'Intra-Community acquisition from second hand means of transport',
   /**
@@ -519,4 +518,4 @@ export const vatexCodesKeys = [
   'VATEX-FR-CGI295',
   'VATEX-FR-AE',
   'VATEX-EU-135-1',
-] as const satisfies readonly [vatexCodesKey, ...vatexCodesKey[]];
+] as const satisfies readonly [vatexCodesKey, ...Array<vatexCodesKey>];

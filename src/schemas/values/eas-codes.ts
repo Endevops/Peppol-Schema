@@ -7,7 +7,8 @@ import * as z from 'zod/mini';
  *
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/eas/
  */
-import { type electronicAddressCodesKey, electronicAddressCodesKeys } from '#/values/eas-codes.generated';
+import { electronicAddressCodesKeys } from '#/values/eas-codes.generated';
+import type { electronicAddressCodesKey } from '#/values/eas-codes.generated';
 
 export type ElectronicAddressCode = electronicAddressCodesKey;
 

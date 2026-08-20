@@ -7,7 +7,7 @@ describe('isValidABN', () => {
     it.each([
       ['51824753556', 'first valid ABN'],
       ['53004085616', 'second valid ABN'],
-    ])('should validate %s (%s)', (value, description) => {
+    ])('should validate %s (%s)', value => {
       expect(isValidABN(value)).toEqual(true);
     });
   });
@@ -18,7 +18,7 @@ describe('isValidABN', () => {
       ['5182475355', 'wrong length'],
       ['5182475355a', 'non-numeric character'],
       ['', 'empty string'],
-    ])('should reject %s (%s)', (value, description) => {
+    ])('should reject %s (%s)', value => {
       expect(isValidABN(value)).toEqual(false);
     });
   });

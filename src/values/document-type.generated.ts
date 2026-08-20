@@ -335,7 +335,7 @@ export const documentTypesTable = {
 export type documentTypesTableKey = 'busdox-docid-qns' | 'peppol-doctype-wildcard';
 export const documentTypesTableKeys = ['busdox-docid-qns', 'peppol-doctype-wildcard'] as const satisfies readonly [
   documentTypesTableKey,
-  ...documentTypesTableKey[],
+  ...Array<documentTypesTableKey>,
 ];
 
 export const documentTypesScheme = ['busdox-docid-qns', 'peppol-doctype-wildcard'] as const;

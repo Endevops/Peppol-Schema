@@ -46,8 +46,8 @@ export const documentTypeCodes = {
    */
   '8': 'First sample test report',
   /**
-   * @description A document/message to enable the transmission of information regarding pricing and catalogue details for goods and services offered by a seller
-   * to a buyer.
+   * @description A document/message to enable the transmission of information regarding pricing and catalogue details for goods and services offered by a seller to
+   * a buyer.
    */
   '9': 'Price/sales catalogue',
   /**
@@ -161,8 +161,8 @@ export const documentTypeCodes = {
    */
   '36': 'Identity card',
   /**
-   * @description Document/message in which the competent national authorities provide a declarant with an acceptance or a rejection about a received declaration
-   * for European statistical purposes.
+   * @description Document/message in which the competent national authorities provide a declarant with an acceptance or a rejection about a received declaration for
+   * European statistical purposes.
    */
   '37': 'Response to a trade statistics message',
   /**
@@ -202,8 +202,8 @@ export const documentTypeCodes = {
    */
   '46': 'Banking status',
   /**
-   * @description Document/message in which a declarant provides information about extra-Community trade of goods required by the body responsible for the
-   * collection of trade statistics. Trade by a country in the European Union with a country outside the European Union.
+   * @description Document/message in which a declarant provides information about extra-Community trade of goods required by the body responsible for the collection
+   * of trade statistics. Trade by a country in the European Union with a country outside the European Union.
    */
   '47': 'Extra-Community trade statistical declaration',
   /**
@@ -228,8 +228,8 @@ export const documentTypeCodes = {
    */
   '52': 'Price negotiation result',
   /**
-   * @description Document or message to supply advice on a dangerous or hazardous material to industrial customers so as to enable them to take measures to
-   * protect their employees and the environment from any potential harmful effects from these material.
+   * @description Document or message to supply advice on a dangerous or hazardous material to industrial customers so as to enable them to take measures to protect
+   * their employees and the environment from any potential harmful effects from these material.
    */
   '53': 'Safety and hazard data sheet',
   /**
@@ -288,13 +288,12 @@ export const documentTypeCodes = {
    */
   '66': 'Current account',
   /**
-   * @description Document/message issued by a party (usually the buyer) to indicate that one or more invoices or one or more credit notes are disputed for
-   * payment.
+   * @description Document/message issued by a party (usually the buyer) to indicate that one or more invoices or one or more credit notes are disputed for payment.
    */
   '67': 'Commercial dispute',
   /**
-   * @description Document/message issued by a factor to a seller or to another factor to indicate that the rest of the amounts of one or more invoices
-   * uncollectable from buyers are charged back to clear the invoice(s) off the ledger.
+   * @description Document/message issued by a factor to a seller or to another factor to indicate that the rest of the amounts of one or more invoices uncollectable
+   * from buyers are charged back to clear the invoice(s) off the ledger.
    */
   '68': 'Chargeback',
   /**
@@ -350,8 +349,8 @@ export const documentTypeCodes = {
    */
   '81': 'Credit note related to goods or services',
   /**
-   * @description Document/message claiming payment for the supply of metered services (e.g., gas, electricity, etc.) supplied to a fixed meter whose consumption
-   * is measured over a period of time.
+   * @description Document/message claiming payment for the supply of metered services (e.g., gas, electricity, etc.) supplied to a fixed meter whose consumption is
+   * measured over a period of time.
    */
   '82': 'Metered services invoice',
   /**
@@ -386,28 +385,28 @@ export const documentTypeCodes = {
    */
   '89': 'Meat and meat by-products sanitary certificate',
   /**
-   * @description Document or message issued by the competent authority in the exporting country evidencing that meat food products comply with the requirements
-   * set by the importing country.
+   * @description Document or message issued by the competent authority in the exporting country evidencing that meat food products comply with the requirements set
+   * by the importing country.
    */
   '90': 'Meat food products sanitary certificate',
   /**
-   * @description Document or message issued by the competent authority in the exporting country evidencing that poultry products comply with the requirements set
-   * by the importing country.
+   * @description Document or message issued by the competent authority in the exporting country evidencing that poultry products comply with the requirements set by
+   * the importing country.
    */
   '91': 'Poultry sanitary certificate',
   /**
-   * @description Document or message issued by the competent authority in the exporting country evidencing that horsemeat products comply with the requirements
-   * set by the importing country.
+   * @description Document or message issued by the competent authority in the exporting country evidencing that horsemeat products comply with the requirements set
+   * by the importing country.
    */
   '92': 'Horsemeat sanitary certificate',
   /**
-   * @description Document or message issued by the competent authority in the exporting country evidencing that casing products comply with the requirements set
-   * by the importing country.
+   * @description Document or message issued by the competent authority in the exporting country evidencing that casing products comply with the requirements set by
+   * the importing country.
    */
   '93': 'Casing sanitary certificate',
   /**
-   * @description Document or message issued by the competent authority in the exporting country evidencing that pharmaceutical products comply with the
-   * requirements set by the importing country.
+   * @description Document or message issued by the competent authority in the exporting country evidencing that pharmaceutical products comply with the requirements
+   * set by the importing country.
    */
   '94': 'Pharmaceutical sanitary certificate',
   /**
@@ -453,8 +452,8 @@ export const documentTypeCodes = {
    */
   '104': 'Transport equipment impending arrival advice',
   /**
-   * @description Document/message issued within an enterprise to initiate the purchase of articles, materials or services required for the production or
-   * manufacture of goods to be offered for sale or otherwise supplied to customers.
+   * @description Document/message issued within an enterprise to initiate the purchase of articles, materials or services required for the production or manufacture
+   * of goods to be offered for sale or otherwise supplied to customers.
    */
   '105': 'Purchase order',
   /**
@@ -737,8 +736,7 @@ export const documentTypeCodes = {
    */
   '174': 'Drawing',
   /**
-   * @description A report identifying the cost performance on a contract at specified levels of the work breakdown structure (format 2 - organizational
-   * categories).
+   * @description A report identifying the cost performance on a contract at specified levels of the work breakdown structure (format 2 - organizational categories).
    */
   '175': 'Cost Performance Report (CPR) format 2',
   /**
@@ -761,13 +759,12 @@ export const documentTypeCodes = {
    */
   '179': 'Cost Performance Report (CPR) format 4',
   /**
-   * @description A report identifying the cost performance on a contract that summarizes cost or schedule variances (format 5 - explanations and problem
-   * analysis).
+   * @description A report identifying the cost performance on a contract that summarizes cost or schedule variances (format 5 - explanations and problem analysis).
    */
   '180': 'Cost Performance Report (CPR) format 5',
   /**
-   * @description Document or message progressively issued by the container terminal operator in charge of discharging a vessel identifying containers that have
-   * been discharged from a specific vessel at that point in time.
+   * @description Document or message progressively issued by the container terminal operator in charge of discharging a vessel identifying containers that have been
+   * discharged from a specific vessel at that point in time.
    */
   '181': 'Progressive discharge report',
   /**
@@ -886,8 +883,8 @@ export const documentTypeCodes = {
    */
   '209': 'Priced tender BOQ',
   /**
-   * @description Document/message issued by a party interested in the purchase of goods specified therein and indicating particular, desirable conditions
-   * regarding delivery terms, etc., addressed to a prospective supplier with a view to obtaining an offer.
+   * @description Document/message issued by a party interested in the purchase of goods specified therein and indicating particular, desirable conditions regarding
+   * delivery terms, etc., addressed to a prospective supplier with a view to obtaining an offer.
    */
   '210': 'Enquiry',
   /**
@@ -927,8 +924,8 @@ export const documentTypeCodes = {
    */
   '219': 'Payment request for completed units',
   /**
-   * @description Document/message by means of which a buyer initiates a transaction with a seller involving the supply of goods or services as specified,
-   * according to conditions set out in an offer, or otherwise known to the buyer.
+   * @description Document/message by means of which a buyer initiates a transaction with a seller involving the supply of goods or services as specified, according
+   * to conditions set out in an offer, or otherwise known to the buyer.
    */
   '220': 'Order',
   /**
@@ -1313,8 +1310,8 @@ export const documentTypeCodes = {
    */
   '314': 'Cargo movement voyage summary',
   /**
-   * @description (1296) Document/message evidencing an agreement between the seller and the buyer for the supply of goods or services; its effects are equivalent
-   * to those of an order followed by an acknowledgement of order.
+   * @description (1296) Document/message evidencing an agreement between the seller and the buyer for the supply of goods or services; its effects are equivalent to
+   * those of an order followed by an acknowledgement of order.
    */
   '315': 'Contract',
   /**
@@ -1355,8 +1352,8 @@ export const documentTypeCodes = {
    */
   '324': 'Transport emergency card',
   /**
-   * @description Document/message serving as a preliminary invoice, containing - on the whole - the same information as the final invoice, but not actually
-   * claiming payment.
+   * @description Document/message serving as a preliminary invoice, containing - on the whole - the same information as the final invoice, but not actually claiming
+   * payment.
    */
   '325': 'Proforma invoice',
   /**
@@ -1430,8 +1427,8 @@ export const documentTypeCodes = {
    */
   '342': 'Report of transactions for information only',
   /**
-   * @description Document/message giving instructions regarding local transport of goods, e.g. from the premises of an enterprise to those of a carrier
-   * undertaking further transport.
+   * @description Document/message giving instructions regarding local transport of goods, e.g. from the premises of an enterprise to those of a carrier undertaking
+   * further transport.
    */
   '343': 'Cartage order (local transport)',
   /**
@@ -1523,13 +1520,12 @@ export const documentTypeCodes = {
    */
   '365': 'Contract price and delivery quote',
   /**
-   * @description Document/message confirming price conditions under which goods are offered, provided that they are sold to the end-customer specified on the
-   * quote.
+   * @description Document/message confirming price conditions under which goods are offered, provided that they are sold to the end-customer specified on the quote.
    */
   '366': 'Price quote, specified end-customer',
   /**
-   * @description Document/message confirming price conditions and delivery conditions under which goods are offered, provided that they are sold to the
-   * end-customer specified on the quote.
+   * @description Document/message confirming price conditions and delivery conditions under which goods are offered, provided that they are sold to the end-customer
+   * specified on the quote.
    */
   '367': 'Price and delivery quote, specified end-customer',
   /**
@@ -1543,8 +1539,8 @@ export const documentTypeCodes = {
    */
   '369': 'Price and delivery quote, ship and debit',
   /**
-   * @description Document/message in which the party responsible for the issue of a set of trade documents specifies the various recipients of originals and
-   * copies of these documents, with an indication of the number of copies distributed to each of them.
+   * @description Document/message in which the party responsible for the issue of a set of trade documents specifies the various recipients of originals and copies
+   * of these documents, with an indication of the number of copies distributed to each of them.
    */
   '370': 'Advice of distribution of documents',
   /**
@@ -1657,8 +1653,8 @@ export const documentTypeCodes = {
    */
   '397': 'Commercial account summary response',
   /**
-   * @description Document by means of which the supplier or consignor informs the buyer, consignee or the distribution centre about the despatch of goods for
-   * cross docking.
+   * @description Document by means of which the supplier or consignor informs the buyer, consignee or the distribution centre about the despatch of goods for cross
+   * docking.
    */
   '398': 'Cross docking despatch advice',
   /**
@@ -1671,8 +1667,8 @@ export const documentTypeCodes = {
    */
   '400': 'Exceptional order',
   /**
-   * @description An order requesting the supply of products packed according to the final delivery point which will be moved across a dock in a distribution
-   * centre without further handling.
+   * @description An order requesting the supply of products packed according to the final delivery point which will be moved across a dock in a distribution centre
+   * without further handling.
    */
   '401': 'Pre-packed cross docking order',
   /**
@@ -1744,13 +1740,13 @@ export const documentTypeCodes = {
    */
   '417': 'Farmyard manure analysis',
   /**
-   * @description Declaration, in accordance with the WCO Customs Data Model, to Customs concerning the export of cargo carried by commercial means of transport
-   * over land, e.g. truck or train.
+   * @description Declaration, in accordance with the WCO Customs Data Model, to Customs concerning the export of cargo carried by commercial means of transport over
+   * land, e.g. truck or train.
    */
   '418': 'WCO Cargo Report Export, Rail or Road',
   /**
-   * @description Declaration, in accordance with the WCO Customs Data Model, to Customs concerning the export of cargo carried by commercial means of transport
-   * over water or through the air, e.g. vessel or aircraft.
+   * @description Declaration, in accordance with the WCO Customs Data Model, to Customs concerning the export of cargo carried by commercial means of transport over
+   * water or through the air, e.g. vessel or aircraft.
    */
   '419': 'WCO Cargo Report Export, Air or Maritime',
   /**
@@ -1758,18 +1754,18 @@ export const documentTypeCodes = {
    */
   '420': 'Optical Character Reading (OCR) payment credit note',
   /**
-   * @description Declaration, in accordance with the WCO Customs Data Model, to Customs concerning the import of cargo carried by commercial means of transport
-   * over land, e.g. truck or train.
+   * @description Declaration, in accordance with the WCO Customs Data Model, to Customs concerning the import of cargo carried by commercial means of transport over
+   * land, e.g. truck or train.
    */
   '421': 'WCO Cargo Report Import, Rail or Road',
   /**
-   * @description Declaration, in accordance with the WCO Customs Data Model, to Customs concerning the import of cargo carried by commercial means of transport
-   * over water or through the air, e.g. vessel or aircraft.
+   * @description Declaration, in accordance with the WCO Customs Data Model, to Customs concerning the import of cargo carried by commercial means of transport over
+   * water or through the air, e.g. vessel or aircraft.
    */
   '422': 'WCO Cargo Report Import, Air or Maritime',
   /**
-   * @description Single step declaration, in accordance with the WCO Customs Data Model, to Customs by which goods are declared for a Customs export procedure
-   * based on the.
+   * @description Single step declaration, in accordance with the WCO Customs Data Model, to Customs by which goods are declared for a Customs export procedure based
+   * on the.
    */
   '423': 'WCO one-step export declaration',
   '1999': 'Kyoto Convention.',
@@ -1830,13 +1826,13 @@ export const documentTypeCodes = {
    */
   '436': 'Transport equipment profile report',
   /**
-   * @description Document/message requesting price conditions and delivery conditions under which goods are offered, provided that they are sold to the
-   * end-customer specified on the request for quote.
+   * @description Document/message requesting price conditions and delivery conditions under which goods are offered, provided that they are sold to the end-customer
+   * specified on the request for quote.
    */
   '437': 'Request for price and delivery quote, specified end-user',
   /**
-   * @description Document/message from a distributor to a supplier requesting price conditions under which goods can be sold by the distributor to the
-   * end-customer specified on the request for quote with compensation for loss of inventory value.
+   * @description Document/message from a distributor to a supplier requesting price conditions under which goods can be sold by the distributor to the end-customer
+   * specified on the request for quote with compensation for loss of inventory value.
    */
   '438': 'Request for price quote, ship and debit',
   /**
@@ -2021,9 +2017,9 @@ export const documentTypeCodes = {
    */
   '489': 'Reefer connection order',
   /**
-   * @description Document/message, issued and signed in conformity with the applicable legislation, which contains an unconditional order whereby the drawer
-   * directs the drawee to pay a definite sum of money to the payee or to his order, on demand or at a definite time, against the surrender of the
-   * document itself.
+   * @description Document/message, issued and signed in conformity with the applicable legislation, which contains an unconditional order whereby the drawer directs
+   * the drawee to pay a definite sum of money to the payee or to his order, on demand or at a definite time, against the surrender of the document
+   * itself.
    */
   '490': 'Bill of exchange',
   /**
@@ -2149,8 +2145,8 @@ export const documentTypeCodes = {
    */
   '539': 'Framework Agreement',
   /**
-   * @description A document/message used when an insured reports to his insurer details of individual shipments which are covered by an insurance contract - an
-   * open cover or a floating policy - between the parties.
+   * @description A document/message used when an insured reports to his insurer details of individual shipments which are covered by an insurance contract - an open
+   * cover or a floating policy - between the parties.
    */
   '550': 'Insurance declaration sheet (bordereau)',
   /**
@@ -2158,8 +2154,8 @@ export const documentTypeCodes = {
    */
   '551': 'Transport capacity offer',
   /**
-   * @description Ship Security Plan (SSP) is a document prepared in terms of the ISPS Code to contribute to the prevention of illegal acts against the ship and
-   * its crew.
+   * @description Ship Security Plan (SSP) is a document prepared in terms of the ISPS Code to contribute to the prevention of illegal acts against the ship and its
+   * crew.
    */
   '552': 'Ship Security Plan',
   /**
@@ -2197,9 +2193,9 @@ export const documentTypeCodes = {
    */
   '580': 'Cover note',
   /**
-   * @description Community Transit (T2F) Declaration for goods under the internal Community transit procedure in the context of trade between the "VAT" territory
-   * of EU Member States and EU territories where the VAT rules do not apply, such as Canary islands, some French overseas territories, the Channel
-   * islands and the Aaland islands, and between those territories. ("T2F" under EU Legislation).
+   * @description Community Transit (T2F) Declaration for goods under the internal Community transit procedure in the context of trade between the "VAT" territory of
+   * EU Member States and EU territories where the VAT rules do not apply, such as Canary islands, some French overseas territories, the Channel islands
+   * and the Aaland islands, and between those territories. ("T2F" under EU Legislation).
    */
   '581': 'EU Customs declaration for non-fiscal area internal',
   /**
@@ -2217,9 +2213,9 @@ export const documentTypeCodes = {
    */
   '584': 'EU Document for establishing the Community status of goods',
   /**
-   * @description For certain fiscal purposes (T2LF) Form establishing the Community status of goods in the context of trade between the "VAT" territory of EU
-   * Member States and EU territories where the VAT rules do not apply, such as Canary islands, some French overseas territories, the Channel islands
-   * and the Aaland islands, and between those territories ("T2LF" under EU Legislation).
+   * @description For certain fiscal purposes (T2LF) Form establishing the Community status of goods in the context of trade between the "VAT" territory of EU Member
+   * States and EU territories where the VAT rules do not apply, such as Canary islands, some French overseas territories, the Channel islands and the
+   * Aaland islands, and between those territories ("T2LF" under EU Legislation).
    */
   '585': 'EU Document for establishing the Community status of goods',
   /**
@@ -2263,9 +2259,9 @@ export const documentTypeCodes = {
    */
   '624': "Forwarder's certificate of receipt",
   /**
-   * @description A certificate verifying the heat treatment of the product is in conformance with international standards to ensure the product�s healthiness
-   * and/or shows the mode of heat treatment indicating the temperature and the amount of time the product or raw material used in the product was
-   * treated (such as milk).
+   * @description A certificate verifying the heat treatment of the product is in conformance with international standards to ensure the product�s healthiness and/or
+   * shows the mode of heat treatment indicating the temperature and the amount of time the product or raw material used in the product was treated
+   * (such as milk).
    */
   '625': 'Heat Treatment Certificate',
   /**
@@ -2277,8 +2273,8 @@ export const documentTypeCodes = {
    */
   '627': 'Free Sale Certificate in the Country of Origin',
   /**
-   * @description Document/message issued by the competent body in accordance with transit regulations in force, by which authorization is granted to a party to
-   * move articles under customs procedure.
+   * @description Document/message issued by the competent body in accordance with transit regulations in force, by which authorization is granted to a party to move
+   * articles under customs procedure.
    */
   '628': 'Transit license',
   /**
@@ -2287,14 +2283,14 @@ export const documentTypeCodes = {
    */
   '629': 'Veterinary quarantine certificate',
   /**
-   * @description (1123) Document/message provided by the shipper or his agent to the carrier, multimodal transport operator, terminal or other receiving
-   * authority, giving information about export consignments offered for transport, and providing for the necessary receipts and declarations of
-   * liability. Sometimes a multipurpose cargo handling document also fulfilling the functions of document 632, 633, 650 and 655.
+   * @description (1123) Document/message provided by the shipper or his agent to the carrier, multimodal transport operator, terminal or other receiving authority,
+   * giving information about export consignments offered for transport, and providing for the necessary receipts and declarations of liability.
+   * Sometimes a multipurpose cargo handling document also fulfilling the functions of document 632, 633, 650 and 655.
    */
   '630': 'Shipping note',
   /**
-   * @description Document/message issued by a forwarder acting as Warehouse Keeper acknowledging receipt of goods placed in a warehouse, and stating or referring
-   * to the conditions which govern the warehousing and the release of goods. The document contains detailed provisions regarding the rights of
+   * @description Document/message issued by a forwarder acting as Warehouse Keeper acknowledging receipt of goods placed in a warehouse, and stating or referring to
+   * the conditions which govern the warehousing and the release of goods. The document contains detailed provisions regarding the rights of
    * holders-by-endorsement, transfer of ownership, etc. E.g. FIATA-FWR.
    */
   '631': "Forwarder's warehouse receipt",
@@ -2376,8 +2372,8 @@ export const documentTypeCodes = {
    */
   '649': 'Production facility license',
   /**
-   * @description Document/message issued by a cargo handling organization (port administration, terminal operator, etc.) for the removal or other handling of
-   * goods under their care.
+   * @description Document/message issued by a cargo handling organization (port administration, terminal operator, etc.) for the removal or other handling of goods
+   * under their care.
    */
   '650': 'Handling order',
   /**
@@ -2443,9 +2439,9 @@ export const documentTypeCodes = {
    */
   '704': 'Master bill of lading',
   /**
-   * @description Negotiable document/message which evidences a contract of carriage by sea and the taking over or loading of goods by carrier, and by which
-   * carrier undertakes to deliver goods against surrender of the document. A provision in the document that goods are to be delivered to the order of
-   * a named person, or to order, or to bearer, constitutes such an undertaking.
+   * @description Negotiable document/message which evidences a contract of carriage by sea and the taking over or loading of goods by carrier, and by which carrier
+   * undertakes to deliver goods against surrender of the document. A provision in the document that goods are to be delivered to the order of a named
+   * person, or to order, or to bearer, constitutes such an undertaking.
    */
   '705': 'Bill of lading',
   /**
@@ -2475,9 +2471,9 @@ export const documentTypeCodes = {
    */
   '711': 'Inland waterway bill of lading',
   /**
-   * @description Non-negotiable document which evidences a contract for the carriage of goods by sea and the taking over or loading of the goods by the carrier,
-   * and by which the carrier undertakes to deliver the goods to the consignee named in the document. E.g. Sea waybill. Remark: Synonymous with
-   * "straight" or "non-negotiable Bill of lading" used in certain countries, e.g. Canada.
+   * @description Non-negotiable document which evidences a contract for the carriage of goods by sea and the taking over or loading of the goods by the carrier, and
+   * by which the carrier undertakes to deliver the goods to the consignee named in the document. E.g. Sea waybill. Remark: Synonymous with "straight"
+   * or "non-negotiable Bill of lading" used in certain countries, e.g. Canada.
    */
   '712': 'Non-negotiable maritime transport document (generic)',
   /**
@@ -2495,8 +2491,8 @@ export const documentTypeCodes = {
    */
   '715': 'Letter of indemnity for non-surrender of bill of lading',
   /**
-   * @description Non-negotiable document issued by a freight forwarder evidencing a contract for the carriage of goods by sea and the taking over or loading of
-   * the goods by the freight forwarder, and by which the freight forwarder undertakes to deliver the goods to the consignee named in the document.
+   * @description Non-negotiable document issued by a freight forwarder evidencing a contract for the carriage of goods by sea and the taking over or loading of the
+   * goods by the freight forwarder, and by which the freight forwarder undertakes to deliver the goods to the consignee named in the document.
    */
   '716': "Forwarder's bill of lading",
   /**
@@ -2527,8 +2523,8 @@ export const documentTypeCodes = {
    */
   '722': 'Road list-SMGS',
   /**
-   * @description Document/message which gives right to the owner to exert all functions normally transferred to a guard in a train by which an escorted
-   * consignment is transported.
+   * @description Document/message which gives right to the owner to exert all functions normally transferred to a guard in a train by which an escorted consignment
+   * is transported.
    */
   '723': 'Escort official recognition',
   /**
@@ -2557,9 +2553,9 @@ export const documentTypeCodes = {
    */
   '729': 'Returns advice',
   /**
-   * @description Transport document/message which evidences a contract between a carrier and a sender for the carriage of goods by road (generic term). Remark:
-   * For international road traffic, this document must contain at least the particulars prescribed by the convention on the contract for the
-   * international carriage of goods by road (CMR).
+   * @description Transport document/message which evidences a contract between a carrier and a sender for the carriage of goods by road (generic term). Remark: For
+   * international road traffic, this document must contain at least the particulars prescribed by the convention on the contract for the international
+   * carriage of goods by road (CMR).
    */
   '730': 'Road consignment note',
   /**
@@ -2586,8 +2582,8 @@ export const documentTypeCodes = {
    */
   '735': 'Sales data report',
   /**
-   * @description A product inquiry which stands until it is cancelled. It requests not only the updates since last time, but always the complete product
-   * information of a data supplier. This means that within the standing request every time a complete download of the respe.
+   * @description A product inquiry which stands until it is cancelled. It requests not only the updates since last time, but always the complete product information
+   * of a data supplier. This means that within the standing request every time a complete download of the respe.
    */
   '736': 'Standing inquiry on complete product information',
   /**
@@ -2595,8 +2591,8 @@ export const documentTypeCodes = {
    */
   '737': 'Proof of delivery',
   /**
-   * @description A message from a party to a warehouse, distribution centre, or logistics service provider identifying the handling services and where required
-   * the movement of specified goods, limited to warehouses within the jurisdiction of the distribution centre or log.
+   * @description A message from a party to a warehouse, distribution centre, or logistics service provider identifying the handling services and where required the
+   * movement of specified goods, limited to warehouses within the jurisdiction of the distribution centre or log.
    */
   '738': 'Cargo/goods handling and movement message',
   /**
@@ -2604,13 +2600,13 @@ export const documentTypeCodes = {
    */
   '739': 'Metered services consumption report supporting an invoice',
   /**
-   * @description Document/message made out by or on behalf of the shipper which evidences the contract between the shipper and carrier(s) for carriage of goods
-   * over routes of the carrier(s) and which is identified by the airline prefix issuing the document plus a serial (IATA).
+   * @description Document/message made out by or on behalf of the shipper which evidences the contract between the shipper and carrier(s) for carriage of goods over
+   * routes of the carrier(s) and which is identified by the airline prefix issuing the document plus a serial (IATA).
    */
   '740': 'Air waybill',
   /**
-   * @description Document/message made out by or on behalf of the agent/consolidator which evidences the contract between the agent/consolidator and carrier(s)
-   * for carriage of goods over routes of the carrier(s) for a consignment consisting of goods originated by more than one shipper (IATA).
+   * @description Document/message made out by or on behalf of the agent/consolidator which evidences the contract between the agent/consolidator and carrier(s) for
+   * carriage of goods over routes of the carrier(s) for a consignment consisting of goods originated by more than one shipper (IATA).
    */
   '741': 'Master air waybill',
   /**
@@ -2630,8 +2626,8 @@ export const documentTypeCodes = {
    */
   '745': 'Passenger list',
   /**
-   * @description Document/message created by the consignor or by the departure station, joined to the transport or sent to the consignee, giving the possibility
-   * to the consignee or the arrival station to attest the delivery of the goods. The document must be returned to the consignor or to the departure
+   * @description Document/message created by the consignor or by the departure station, joined to the transport or sent to the consignee, giving the possibility to
+   * the consignee or the arrival station to attest the delivery of the goods. The document must be returned to the consignor or to the departure
    * station.
    */
   '746': 'Delivery notice (rail transport)',
@@ -2660,9 +2656,9 @@ export const documentTypeCodes = {
    */
   '751': 'Invoice information for accounting purposes',
   /**
-   * @description A transport document used when more than one mode of transportation is involved in the movement of cargo. It is a contract of carriage and
-   * receipt of the cargo for a multimodal transport. It indicates the place where the responsible transport company in the move takes responsibility
-   * for the cargo, the place where the responsibility of this transport company in the move ends and the conveyances involved.
+   * @description A transport document used when more than one mode of transportation is involved in the movement of cargo. It is a contract of carriage and receipt
+   * of the cargo for a multimodal transport. It indicates the place where the responsible transport company in the move takes responsibility for the
+   * cargo, the place where the responsibility of this transport company in the move ends and the conveyances involved.
    */
   '760': 'Multimodal/combined transport document (generic)',
   /**
@@ -2685,8 +2681,7 @@ export const documentTypeCodes = {
   '764': 'Combined transport document (generic)',
   /**
    * @description Document/message which evidences a multimodal transport contract, the taking in charge of the goods by the multimodal transport operator, and an
-   * undertaking by him to deliver the goods in accordance with the terms of the contract. (International Convention on Multimodal Transport of
-   * Goods).
+   * undertaking by him to deliver the goods in accordance with the terms of the contract. (International Convention on Multimodal Transport of Goods).
    */
   '765': 'Multimodal transport document (generic)',
   /**
@@ -2703,8 +2698,8 @@ export const documentTypeCodes = {
    */
   '775': 'Calling forward notice',
   /**
-   * @description Document/message issued by a transport operation specifying freight costs and charges incurred for a transport operation and stating conditions
-   * of payment.
+   * @description Document/message issued by a transport operation specifying freight costs and charges incurred for a transport operation and stating conditions of
+   * payment.
    */
   '780': 'Freight invoice',
   /**
@@ -2737,8 +2732,7 @@ export const documentTypeCodes = {
    */
   '786': 'Freight manifest',
   /**
-   * @description Document/message used in road transport, listing the cargo carried on a road vehicle, often referring to appended copies of Road consignment
-   * note.
+   * @description Document/message used in road transport, listing the cargo carried on a road vehicle, often referring to appended copies of Road consignment note.
    */
   '787': 'Bordereau',
   /**
@@ -2790,9 +2784,9 @@ export const documentTypeCodes = {
    */
   '798': 'Certificate of registry',
   /**
-   * @description Declaration to Customs regarding the contents of the ship's stores (equivalent to IMO FAL 3) i.e. goods intended for consumption by
-   * passengers/crew on board vessels, aircraft or trains, whether or not sold or landed; goods necessary for operation/maintenance of conveyance,
-   * including fuel/lubricants, excluding spare parts/equipment (IMO).
+   * @description Declaration to Customs regarding the contents of the ship's stores (equivalent to IMO FAL 3) i.e. goods intended for consumption by passengers/crew
+   * on board vessels, aircraft or trains, whether or not sold or landed; goods necessary for operation/maintenance of conveyance, including
+   * fuel/lubricants, excluding spare parts/equipment (IMO).
    */
   '799': "Ship's stores declaration",
   /**
@@ -2806,8 +2800,8 @@ export const documentTypeCodes = {
    */
   '811': 'Export licence',
   /**
-   * @description Document/message completed by an exporter/seller as a means whereby the competent body may control that the amount of foreign exchange accrued
-   * from a trade transaction is repatriated in accordance with the conditions of payment and exchange control regulations in force.
+   * @description Document/message completed by an exporter/seller as a means whereby the competent body may control that the amount of foreign exchange accrued from
+   * a trade transaction is repatriated in accordance with the conditions of payment and exchange control regulations in force.
    */
   '812': 'Exchange control declaration, export',
   /**
@@ -2832,8 +2826,8 @@ export const documentTypeCodes = {
    */
   '824': 'Re-sending consignment note',
   /**
-   * @description Ascertainment that the declared goods were originally produced in an European Union (EU) country. May only be used for goods that are loaded on
-   * one single means of transport in one single departure point for one single delivery point.
+   * @description Ascertainment that the declared goods were originally produced in an European Union (EU) country. May only be used for goods that are loaded on one
+   * single means of transport in one single departure point for one single delivery point.
    */
   '825': 'Despatch note model T2L',
   /**
@@ -2866,13 +2860,13 @@ export const documentTypeCodes = {
    */
   '851': 'Phytosanitary certificate',
   /**
-   * @description Document/message issued by the competent authority in the exporting country evidencing that alimentary and animal products, including dead
-   * animals, are fit for human consumption, and giving details, when relevant, of controls undertaken.
+   * @description Document/message issued by the competent authority in the exporting country evidencing that alimentary and animal products, including dead animals,
+   * are fit for human consumption, and giving details, when relevant, of controls undertaken.
    */
   '852': 'Sanitary certificate',
   /**
-   * @description Document/message issued by the competent authority in the exporting country evidencing that live animals or birds are not infested or infected
-   * with disease, and giving details regarding their provenance, and of vaccinations and other treatment to which they have been subjected.
+   * @description Document/message issued by the competent authority in the exporting country evidencing that live animals or birds are not infested or infected with
+   * disease, and giving details regarding their provenance, and of vaccinations and other treatment to which they have been subjected.
    */
   '853': 'Veterinary certificate',
   /**
@@ -2897,8 +2891,8 @@ export const documentTypeCodes = {
    */
   '861': 'Certificate of origin',
   /**
-   * @description Appropriate statement as to the origin of the goods, made in connection with their exportation by the manufacturer, producer, supplier, exporter
-   * or other competent person on the Commercial invoice or any other document relating to the goods (CCC).
+   * @description Appropriate statement as to the origin of the goods, made in connection with their exportation by the manufacturer, producer, supplier, exporter or
+   * other competent person on the Commercial invoice or any other document relating to the goods (CCC).
    */
   '862': 'Declaration of origin',
   /**
@@ -2916,14 +2910,14 @@ export const documentTypeCodes = {
    */
   '865': 'Certificate of origin form GSP',
   /**
-   * @description Document/message to be prepared by an exporter in his country and presented to a diplomatic representation of the importing country for
-   * endorsement and subsequently to be presented by the importer in connection with the import of the goods described therein.
+   * @description Document/message to be prepared by an exporter in his country and presented to a diplomatic representation of the importing country for endorsement
+   * and subsequently to be presented by the importer in connection with the import of the goods described therein.
    */
   '870': 'Consular invoice',
   /**
-   * @description (1115) Document/message issued by a consignor in accordance with applicable conventions or regulations, describing hazardous goods or materials
-   * for transport purposes, and stating that the latter have been packed and labelled in accordance with the provisions of the relevant conventions
-   * or regulations.
+   * @description (1115) Document/message issued by a consignor in accordance with applicable conventions or regulations, describing hazardous goods or materials for
+   * transport purposes, and stating that the latter have been packed and labelled in accordance with the provisions of the relevant conventions or
+   * regulations.
    */
   '890': 'Dangerous goods declaration',
   /**
@@ -2941,13 +2935,13 @@ export const documentTypeCodes = {
   '901': 'Delivery verification certificate',
   /**
    * @description Document/message in which an interested party applies to the competent body for authorization to import either a limited quantity of articles
-   * subject to import restrictions, or an unlimited quantity of such articles during a limited period, and specifies the kind of articles, their
-   * origin and value, etc.
+   * subject to import restrictions, or an unlimited quantity of such articles during a limited period, and specifies the kind of articles, their origin
+   * and value, etc.
    */
   '910': 'Import licence, application for',
   /**
-   * @description Document/message issued by the competent body in accordance with import regulations in force, by which authorization is granted to a named party
-   * to import either a limited quantity of designated articles or an unlimited quantity of such articles during a limited period, under conditions
+   * @description Document/message issued by the competent body in accordance with import regulations in force, by which authorization is granted to a named party to
+   * import either a limited quantity of designated articles or an unlimited quantity of such articles during a limited period, under conditions
    * specified in the document.
    */
   '911': 'Import licence',
@@ -3002,8 +2996,8 @@ export const documentTypeCodes = {
    */
   '931': 'Customs immediate release declaration',
   /**
-   * @description Document/message whereby a Customs authority releases goods under its control to be placed at the disposal of the party concerned. Synonym:
-   * Customs release note.
+   * @description Document/message whereby a Customs authority releases goods under its control to be placed at the disposal of the party concerned. Synonym: Customs
+   * release note.
    */
   '932': 'Customs delivery note',
   /**
@@ -3013,19 +3007,19 @@ export const documentTypeCodes = {
   '933': 'Cargo declaration (arrival)',
   /**
    * @description Document/message in which a declarant (importer) states the invoice or other price (e.g. selling price, price of identical goods), and specifies
-   * costs for freight, insurance and packing, etc., terms of delivery and payment, any relationship with the trading partner, etc., for the purpose
-   * of determining the Customs value of goods imported.
+   * costs for freight, insurance and packing, etc., terms of delivery and payment, any relationship with the trading partner, etc., for the purpose of
+   * determining the Customs value of goods imported.
    */
   '934': 'Value declaration',
   /**
-   * @description Document/message required by the Customs in an importing country in which an exporter states the invoice or other price (e.g. selling price,
-   * price of identical goods), and specifies costs for freight, insurance and packing, etc., terms of delivery and payment, for the purpose of
-   * determining the Customs value in the importing country of goods consigned to that country.
+   * @description Document/message required by the Customs in an importing country in which an exporter states the invoice or other price (e.g. selling price, price
+   * of identical goods), and specifies costs for freight, insurance and packing, etc., terms of delivery and payment, for the purpose of determining
+   * the Customs value in the importing country of goods consigned to that country.
    */
   '935': 'Customs invoice',
   /**
-   * @description Document/message which, according to Article 106 of the "Agreement concerning Postal Parcels" under the UPU Convention, must accompany post
-   * parcels and in which the contents of such parcels are specified.
+   * @description Document/message which, according to Article 106 of the "Agreement concerning Postal Parcels" under the UPU Convention, must accompany post parcels
+   * and in which the contents of such parcels are specified.
    */
   '936': 'Customs declaration (post parcels)',
   /**
@@ -3045,8 +3039,8 @@ export const documentTypeCodes = {
    */
   '941': 'Embargo permit',
   /**
-   * @description Document/message by which the sender declares goods for Customs transit according to Annex E.1 (concerning Customs transit) to the Kyoto
-   * convention (CCC).
+   * @description Document/message by which the sender declares goods for Customs transit according to Annex E.1 (concerning Customs transit) to the Kyoto convention
+   * (CCC).
    */
   '950': 'Goods declaration for Customs transit',
   /**
@@ -3055,9 +3049,9 @@ export const documentTypeCodes = {
    */
   '951': 'TIF form',
   /**
-   * @description International Customs document (International Transit by Road), issued by a guaranteeing association approved by the Customs authorities, under
-   * the cover of which goods are carried, in most cases under Customs seal, in road vehicles and/or containers in compliance with the requirements of
-   * the Customs TIR Convention of the International Transport of Goods under cover of TIR Carnets (UN/ECE).
+   * @description International Customs document (International Transit by Road), issued by a guaranteeing association approved by the Customs authorities, under the
+   * cover of which goods are carried, in most cases under Customs seal, in road vehicles and/or containers in compliance with the requirements of the
+   * Customs TIR Convention of the International Transport of Goods under cover of TIR Carnets (UN/ECE).
    */
   '952': 'TIR carnet',
   /**
@@ -3070,9 +3064,9 @@ export const documentTypeCodes = {
   '954': 'EUR 1 certificate of origin',
   /**
    * @description International Customs document (Admission Temporaire / Temporary Admission) which, issued under the terms of the ATA Convention (1961),
-   * incorporates an internationally valid guarantee and may be used, in lieu of national Customs documents and as security for import duties and
-   * taxes, to cover the temporary admission of goods and, where appropriate, the transit of goods. If accepted for controlling the temporary export
-   * and reimport of goods, international guarantee does not apply (CCC).
+   * incorporates an internationally valid guarantee and may be used, in lieu of national Customs documents and as security for import duties and taxes,
+   * to cover the temporary admission of goods and, where appropriate, the transit of goods. If accepted for controlling the temporary export and
+   * reimport of goods, international guarantee does not apply (CCC).
    */
   '955': 'ATA carnet',
   /**
@@ -4624,4 +4618,4 @@ export const documentTypeCodesKeys = [
   '995',
   '996',
   '998',
-] as const satisfies readonly [documentTypeCodesKey, ...documentTypeCodesKey[]];
+] as const satisfies readonly [documentTypeCodesKey, ...Array<documentTypeCodesKey>];

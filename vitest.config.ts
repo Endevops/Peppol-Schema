@@ -11,8 +11,9 @@ const hookTimeout = process.env.CI ? undefined : 2000;
 const testTimeout = process.env.CI ? undefined : 3000;
 
 const coverage = {
-  exclude: ['src/values/**/*.ts'],
+  exclude: ['src/values/**/*.ts', 'src/paraglide/**/*', 'src/**/*.spec.ts*'],
   provider: 'v8',
+  include: ['src/**/*'],
   reportOnFailure: true,
 } as const satisfies (ViteUserConfig['test'] & {})['coverage'];
 

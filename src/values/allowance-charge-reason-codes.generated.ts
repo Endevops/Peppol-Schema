@@ -77,4 +77,4 @@ export const allowanceChargeReasonCodesKeys = [
   '103',
   '104',
   '105',
-] as const satisfies readonly [allowanceChargeReasonCodesKey, ...allowanceChargeReasonCodesKey[]];
+] as const satisfies readonly [allowanceChargeReasonCodesKey, ...Array<allowanceChargeReasonCodesKey>];

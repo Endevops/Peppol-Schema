@@ -5,7 +5,8 @@
  */
 import * as z from 'zod/mini';
 
-import { type paymentMeansCodesKey, paymentMeansCodesKeys } from '#/values/payment-means-codes.generated';
+import { paymentMeansCodesKeys } from '#/values/payment-means-codes.generated';
+import type { paymentMeansCodesKey } from '#/values/payment-means-codes.generated';
 
 export type PaymentMeansCode = paymentMeansCodesKey;
 

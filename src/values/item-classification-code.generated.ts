@@ -1137,4 +1137,4 @@ export const itemClassificationCodesKeys = [
   'VX',
   'ZZZ',
   'PPI',
-] as const satisfies readonly [itemClassificationCodesKey, ...itemClassificationCodesKey[]];
+] as const satisfies readonly [itemClassificationCodesKey, ...Array<itemClassificationCodesKey>];

@@ -65,5 +65,5 @@ export const dutyTaxFeeCategories = {
 export type dutyTaxFeeCategoriesKey = 'AE' | 'E' | 'S' | 'Z' | 'G' | 'O' | 'K' | 'L' | 'M' | 'B';
 export const dutyTaxFeeCategoriesKeys = ['AE', 'E', 'S', 'Z', 'G', 'O', 'K', 'L', 'M', 'B'] as const satisfies readonly [
   dutyTaxFeeCategoriesKey,
-  ...dutyTaxFeeCategoriesKey[],
+  ...Array<dutyTaxFeeCategoriesKey>,
 ];

@@ -38,4 +38,4 @@ export const mimeCodesKeys = [
   'image/jpeg',
   'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
   'application/vnd.oasis.opendocument.spreadsheet',
-] as const satisfies readonly [mimeCodesKey, ...mimeCodesKey[]];
+] as const satisfies readonly [mimeCodesKey, ...Array<mimeCodesKey>];

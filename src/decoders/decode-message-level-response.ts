@@ -1,10 +1,10 @@
 import type { XmlNode } from '#/helpers/get-prop';
-import type { DocumentResponseLineResponseContent } from '#/schemas/document-response-line-response-content';
 import type { PeppolMessageLevelDocumentResponseDocumentReference } from '#/schemas/document-response-document-reference-schema';
+import type { PeppolMessageLevelResponseDocumentResponseDocument } from '#/schemas/document-response-document-schema';
+import type { DocumentResponseLineResponseContent } from '#/schemas/document-response-line-response-content';
 import type { PeppolMessageLevelDocumentResponseLineResponse } from '#/schemas/document-response-line-response-schema';
 import type { PeppolMessageLevelMessageLevelResponseDocumentResponse } from '#/schemas/message-level-response-document-response-schema';
 import type { PeppolMessageLevelResponse } from '#/schemas/message-level-response-schema';
-import type { PeppolMessageLevelResponseDocumentResponseDocument } from '#/schemas/document-response-document-schema';
 import type { RecursivePartial } from '#/types';
 
 import { decodeMessageLevelParty } from '#/decoders/fields/decode-message-level-party';

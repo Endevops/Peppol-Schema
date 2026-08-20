@@ -29,7 +29,7 @@ function generateKeyDeclarations({
 export type ${typeName} = ${union};
 export const ${keysName} = [
 ${tuple}
-] as const satisfies readonly [${typeName}, ...${typeName}[]];`;
+] as const satisfies readonly [${typeName}, ...Array<${typeName}>];`;
 }
 
 /**

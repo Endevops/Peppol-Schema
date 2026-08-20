@@ -41,5 +41,5 @@ export const creditNoteTypeCodes = {
 export type creditNoteTypeCodesKey = '81' | '83' | '381' | '396' | '532';
 export const creditNoteTypeCodesKeys = ['81', '83', '381', '396', '532'] as const satisfies readonly [
   creditNoteTypeCodesKey,
-  ...creditNoteTypeCodesKey[],
+  ...Array<creditNoteTypeCodesKey>,
 ];

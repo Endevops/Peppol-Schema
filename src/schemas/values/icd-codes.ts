@@ -1,6 +1,7 @@
 import * as z from 'zod/mini';
 
-import { icdCodesKeys, type icdCodesKey } from '#/values/icd-codes.generated';
+import { icdCodesKeys } from '#/values/icd-codes.generated';
+import type { icdCodesKey } from '#/values/icd-codes.generated';
 
 export type IcdCode = icdCodesKey;
 

@@ -1,6 +1,7 @@
 import * as z from 'zod/mini';
 
-import { itemClassificationCodesKeys, type itemClassificationCodesKey } from '#/values/item-classification-code.generated';
+import { itemClassificationCodesKeys } from '#/values/item-classification-code.generated';
+import type { itemClassificationCodesKey } from '#/values/item-classification-code.generated';
 
 export type ItemClassificationCodes = itemClassificationCodesKey;
 

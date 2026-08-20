@@ -13,6 +13,10 @@
       "development": "./src/index.ts",
       "default": "./dist/index.js"
     },
+    "./constants": {
+      "development": "./src/constants/index.ts",
+      "default": "./dist/constants.js"
+    },
     "./schemas": {
       "development": "./src/schemas.ts",
       "default": "./dist/schemas.js"
@@ -30,6 +34,7 @@
   "publishConfig": {
     "exports": {
       ".": "./dist/index.js",
+      "./constants": "./dist/constants.js",
       "./schemas": "./dist/schemas.js",
       "./validations": "./dist/validations.js",
       "./values": "./dist/values.js",
@@ -40,6 +45,7 @@
     "build": "tsdown",
     "dev": "tsdown --watch",
     "format": "oxfmt",
+    "generate": "bun scripts/values.ts",
     "lint": "oxlint . --type-aware"
   },
   "devDependencies": {
