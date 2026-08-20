@@ -22,7 +22,7 @@ export function encodeCreditNote(creditNote: PeppolCreditNote) {
     CreditNote: {
       '@xmlns:xsi': 'http://www.w3.org/2001/XMLSchema-instance',
       '@xsi:schemaLocation':
-        import.meta.env.MODE === 'test'
+        import.meta.env['MODE'] === 'test'
           ? 'urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2 https://docs.oasis-open.org/ubl/os-UBL-2.4/xsd/maindoc/UBL-CreditNote-2.4.xsd urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2 https://docs.oasis-open.org/ubl/os-UBL-2.4/xsd/common/UBL-CommonAggregateComponents-2.4.xsd urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2 https://docs.oasis-open.org/ubl/os-UBL-2.4/xsd/common/UBL-CommonBasicComponents-2.4.xsd'
           : undefined,
       '@xmlns:cac': 'urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2',
@@ -46,7 +46,7 @@ export function encodeCreditNote(creditNote: PeppolCreditNote) {
       'cac:ReceiptDocumentReference': encodeSimpleIdentifier(creditNote.receiptDocumentReference),
       'cac:OriginatorDocumentReference': encodeSimpleIdentifier(creditNote.originatorDocumentReference),
       'cac:ContractDocumentReference': encodeSimpleIdentifier(creditNote.contractDocumentReference),
-      'cac:AdditionalDocumentReference': encodeAdditionalDocumentReferences(creditNote.additionalDocumentReferences as any),
+      'cac:AdditionalDocumentReference': encodeAdditionalDocumentReferences(creditNote.additionalDocumentReferences),
       'cac:AccountingSupplierParty': encodeParty(creditNote.accountingSupplierParty),
       'cac:AccountingCustomerParty': encodeParty(creditNote.accountingCustomerParty),
       'cac:PayeeParty': encodePayeeParty(creditNote.payeeParty),

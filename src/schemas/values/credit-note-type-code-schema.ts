@@ -7,7 +7,7 @@ import { creditNoteTypeCodesKeys } from '#/values/credit-notes-type-codes.genera
 export type CreditNoteTypeCodes = creditNoteTypeCodesKey;
 
 export function creditNoteTypeCodeSchema(error?: string) {
-  return z.string().check(z.refine(val => creditNoteTypeCodesKeys.includes(val), error));
+  return z.string().check(z.refine(val => creditNoteTypeCodesKeys.includes(val as CreditNoteTypeCodes), error));
 }
 
 if (import.meta.vitest) {

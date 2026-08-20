@@ -114,8 +114,8 @@ export const additionalDocumentReferenceCodes = {
    */
   AAY: "Carrier's agent reference number",
   /**
-   * @description For maritime shipments, this code qualifies a Standard Alpha Carrier Code (SCAC) as issued by the United Stated National Motor Traffic Association
-   * Inc.
+   * @description For maritime shipments, this code qualifies a Standard Alpha Carrier Code (SCAC) as issued by the United Stated National Motor Traffic
+   * Association Inc.
    */
   AAZ: 'Standard Carrier Alpha Code (SCAC) number',
   /**
@@ -123,7 +123,8 @@ export const additionalDocumentReferenceCodes = {
    */
   ABA: 'Customs valuation decision number',
   /**
-   * @description Reference issued by a Customs administration authorizing a preferential rate of duty if a product is used for a specified purpose, see: 1001 = 990.
+   * @description Reference issued by a Customs administration authorizing a preferential rate of duty if a product is used for a specified purpose, see: 1001 =
+   * 990.
    */
   ABB: 'End use authorization number',
   /**
@@ -180,8 +181,8 @@ export const additionalDocumentReferenceCodes = {
    */
   ABO: "Originator's reference",
   /**
-   * @description Reference to the party whose posted bond or security is being declared in order to accept responsibility for a goods declaration and the applicable
-   * duties and taxes.
+   * @description Reference to the party whose posted bond or security is being declared in order to accept responsibility for a goods declaration and the
+   * applicable duties and taxes.
    */
   ABP: "Declarant's Customs identity number",
   /**
@@ -1733,7 +1734,8 @@ export const additionalDocumentReferenceCodes = {
    */
   AQO: "Sender's clause number",
   /**
-   * @description Classification (SIC) code Dun and Bradstreet Canada's 8 digit Standard Industrial Classification (SIC) code identifying activities of the company.
+   * @description Classification (SIC) code Dun and Bradstreet Canada's 8 digit Standard Industrial Classification (SIC) code identifying activities of the
+   * company.
    */
   AQP: "Dun and Bradstreet Canada's 8 digit Standard Industrial",
   /**
@@ -1991,7 +1993,8 @@ export const additionalDocumentReferenceCodes = {
    */
   ATA: 'Financial cancellation reference number',
   /**
-   * @description A number assigned by a Customs authority allowing the purchase of goods free of tax because they are to be exported immediately after the purchase.
+   * @description A number assigned by a Customs authority allowing the purchase of goods free of tax because they are to be exported immediately after the
+   * purchase.
    */
   ATB: 'Purchase for export Customs agreement number',
   /**
@@ -2443,8 +2446,8 @@ export const additionalDocumentReferenceCodes = {
    */
   AXG: 'Split delivery number',
   /**
-   * @description A reference number identifying the relationship between a service provider and a service client, e.g., treatment of a patient in a hospital, usage
-   * by a member of a library facility, etc.
+   * @description A reference number identifying the relationship between a service provider and a service client, e.g., treatment of a patient in a hospital,
+   * usage by a member of a library facility, etc.
    */
   AXH: 'Service relation number',
   /**
@@ -2791,8 +2794,8 @@ export const additionalDocumentReferenceCodes = {
    */
   FS: 'Final sequence number',
   /**
-   * @description Identifier to specify the territory of a State where any goods introduced are generally regarded, insofar as import duties and taxes are concerned,
-   * as being outside the Customs territory and are not subject to usual Customs control (CCC).
+   * @description Identifier to specify the territory of a State where any goods introduced are generally regarded, insofar as import duties and taxes are
+   * concerned, as being outside the Customs territory and are not subject to usual Customs control (CCC).
    */
   FT: 'Free zone identifier',
   /**
@@ -2824,7 +2827,8 @@ export const additionalDocumentReferenceCodes = {
    */
   GN: 'Government reference number',
   /**
-   * @description Number specifying the goods classification under the Harmonised Commodity Description and Coding System of the Customs Co-operation Council (CCC).
+   * @description Number specifying the goods classification under the Harmonised Commodity Description and Coding System of the Customs Co-operation Council
+   * (CCC).
    */
   HS: 'Harmonised system number',
   /**
@@ -2900,8 +2904,8 @@ export const additionalDocumentReferenceCodes = {
    */
   LA: 'Shipping label serial number',
   /**
-   * @description [4092] Identifier assigned to the loading authorisation granted by the forwarding location e.g. railway or airport, when the consignment is subject
-   * to traffic limitations.
+   * @description [4092] Identifier assigned to the loading authorisation granted by the forwarding location e.g. railway or airport, when the consignment is
+   * subject to traffic limitations.
    */
   LAN: 'Loading authorisation identifier',
   /**
@@ -2977,7 +2981,8 @@ export const additionalDocumentReferenceCodes = {
    */
   NA: 'North American hazardous goods classification number',
   /**
-   * @description Nota Fiscal is a registration number for shipments / deliveries within Brazil, issued by the local tax authorities and mandated for each shipment.
+   * @description Nota Fiscal is a registration number for shipments / deliveries within Brazil, issued by the local tax authorities and mandated for each
+   * shipment.
    */
   NF: 'Nota Fiscal',
   /**
@@ -3174,8 +3179,8 @@ export const additionalDocumentReferenceCodes = {
    */
   TE: 'Telex message number',
   /**
-   * @description An extra number assigned to goods or a container which functions as a reference number or as an authorization number to get the goods or container
-   * released from a certain party.
+   * @description An extra number assigned to goods or a container which functions as a reference number or as an authorization number to get the goods or
+   * container released from a certain party.
    */
   TF: 'Transfer number',
   /**

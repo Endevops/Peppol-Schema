@@ -8,7 +8,10 @@ const entries = objectEntries(processes);
 export function processXmlIdentifierSchema(error?: string) {
   return z.union(
     entries.map(([key, values]) =>
-      z.object({ '#text': z.string().check(z.refine(val => values.includes(val))), '@scheme': z.string().check(z.refine(val => val === key)) })
+      z.object({
+        '#text': z.string().check(z.refine(val => values.includes(val as never))),
+        '@scheme': z.string().check(z.refine(val => val === key)),
+      })
     ),
     error ?? 'invalid Peppol document identifier'
   );

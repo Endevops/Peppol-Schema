@@ -99,13 +99,13 @@ export const paymentMeansCodes = {
    */
   '21': "Banker's draft",
   /**
-   * @description Cheque drawn by a bank on itself or its agent. A person who owes money to another buys the draft from a bank for cash and hands it to the creditor
-   * who need have no fear that it might be dishonoured.
+   * @description Cheque drawn by a bank on itself or its agent. A person who owes money to another buys the draft from a bank for cash and hands it to the
+   * creditor who need have no fear that it might be dishonoured.
    */
   '22': "Certified banker's draft",
   /**
-   * @description Payment by a pre-printed form, which has been completed by a financial institution, on which instructions are given to an account holder (a bank or
-   * building society) to pay a stated sum to a named recipient.
+   * @description Payment by a pre-printed form, which has been completed by a financial institution, on which instructions are given to an account holder (a bank
+   * or building society) to pay a stated sum to a named recipient.
    */
   '23': 'Bank cheque (issued by a banking or similar establishment)',
   /**
@@ -113,8 +113,8 @@ export const paymentMeansCodes = {
    */
   '24': 'Bill of exchange awaiting acceptance',
   /**
-   * @description Payment by a pre-printed form stamped with the paying bank's certification on which instructions are given to an account holder (a bank or building
-   * society) to pay a stated sum to a named recipient .
+   * @description Payment by a pre-printed form stamped with the paying bank's certification on which instructions are given to an account holder (a bank or
+   * building society) to pay a stated sum to a named recipient .
    */
   '25': 'Certified cheque',
   /**
@@ -218,13 +218,13 @@ export const paymentMeansCodes = {
    */
   '50': 'Payment by postgiro',
   /**
-   * @description Banking Standards) - Option A A French standard procedure that allows a debtor to pay an amount due to a creditor. The creditor will forward it to
-   * its bank, which will collect the money on the bank account of the debtor.
+   * @description Banking Standards) - Option A A French standard procedure that allows a debtor to pay an amount due to a creditor. The creditor will forward it
+   * to its bank, which will collect the money on the bank account of the debtor.
    */
   '51': 'FR, norme 6 97-Telereglement CFONB (French Organisation for',
   /**
-   * @description Payment order which requires guaranteed processing by the most appropriate means to ensure it occurs on the requested execution date, provided that
-   * it is issued to the ordered bank before the agreed cut-off time.
+   * @description Payment order which requires guaranteed processing by the most appropriate means to ensure it occurs on the requested execution date, provided
+   * that it is issued to the ordered bank before the agreed cut-off time.
    */
   '52': 'Urgent commercial payment',
   /**
@@ -261,8 +261,8 @@ export const paymentMeansCodes = {
    */
   '60': 'Promissory note',
   /**
-   * @description Payment by an unconditional promise in writing made by the debtor to another person, signed by the debtor, engaging to pay on demand or at a fixed
-   * or determinable future time a sum certain in money, to order or to bearer.
+   * @description Payment by an unconditional promise in writing made by the debtor to another person, signed by the debtor, engaging to pay on demand or at a
+   * fixed or determinable future time a sum certain in money, to order or to bearer.
    */
   '61': 'Promissory note signed by the debtor',
   /**
@@ -281,18 +281,18 @@ export const paymentMeansCodes = {
    */
   '64': 'Promissory note signed by a bank',
   /**
-   * @description Payment by an unconditional promise in writing made by the bank to another person, signed by the bank and endorsed by another bank, engaging to pay
-   * on demand or at a fixed or determinable future time a sum certain in money, to order or to bearer.
+   * @description Payment by an unconditional promise in writing made by the bank to another person, signed by the bank and endorsed by another bank, engaging to
+   * pay on demand or at a fixed or determinable future time a sum certain in money, to order or to bearer.
    */
   '65': 'Promissory note signed by a bank and endorsed by another bank',
   /**
-   * @description Payment by an unconditional promise in writing made by a third party to another person, signed by the third party, engaging to pay on demand or at
-   * a fixed or determinable future time a sum certain in money, to order or to bearer.
+   * @description Payment by an unconditional promise in writing made by a third party to another person, signed by the third party, engaging to pay on demand or
+   * at a fixed or determinable future time a sum certain in money, to order or to bearer.
    */
   '66': 'Promissory note signed by a third party',
   /**
-   * @description Payment by an unconditional promise in writing made by a third party to another person, signed by the third party and endorsed by a bank, engaging
-   * to pay on demand or at a fixed or determinable future time a sum certain in money, to order or to bearer.
+   * @description Payment by an unconditional promise in writing made by a third party to another person, signed by the third party and endorsed by a bank,
+   * engaging to pay on demand or at a fixed or determinable future time a sum certain in money, to order or to bearer.
    */
   '67': 'Promissory note signed by a third party and endorsed by a bank',
   /**
@@ -353,14 +353,14 @@ export const paymentMeansCodes = {
    */
   '97': 'Clearing between partners',
   /**
-   * @description An electronically recorded monetary claim is a claim that is separate from the underlying debt that gave rise to its accrual.Therefore, even if an
-   * electronically recorded monetary claim is accrued as a means of payment of the underlying debt, the underlying debt will not be extinguished as a
-   * matter of course.
+   * @description An electronically recorded monetary claim is a claim that is separate from the underlying debt that gave rise to its accrual.Therefore, even if
+   * an electronically recorded monetary claim is accrued as a means of payment of the underlying debt, the underlying debt will not be extinguished
+   * as a matter of course.
    */
   '98': 'JP, Electronically Recorded Monetary Claims',
   /**
-   * @description A code assigned within a code list to be used on an interim basis and as defined among trading partners until a precise code can be assigned to the
-   * code list.
+   * @description A code assigned within a code list to be used on an interim basis and as defined among trading partners until a precise code can be assigned to
+   * the code list.
    */
   ZZZ: 'Mutually defined',
   '69': 'Transfer Advice',

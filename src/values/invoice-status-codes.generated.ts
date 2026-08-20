@@ -24,9 +24,9 @@ export const invoiceStatusCodes = {
    */
   AP: 'Accepted',
   /**
-   * @description Indication that the referenced offer or transaction (e.g., cargo booking or quotation request) is not accepted. Status is used only when the Buyer
-   * will not process the referenced Invoice any further. Buyer is rejecting this invoice but not necessarily the commercial transaction. Although it
-   * can be used also for rejection for commercial reasons (invoice not corresponding to delivery).
+   * @description Indication that the referenced offer or transaction (e.g., cargo booking or quotation request) is not accepted. Status is used only when the
+   * Buyer will not process the referenced Invoice any further. Buyer is rejecting this invoice but not necessarily the commercial transaction.
+   * Although it can be used also for rejection for commercial reasons (invoice not corresponding to delivery).
    */
   RE: 'Rejected',
   /**
@@ -35,13 +35,13 @@ export const invoiceStatusCodes = {
    */
   IP: 'In process',
   /**
-   * @description Indicates that the processing of the referenced message has been halted pending response to a query. Status is used when Buyer will not proceed to
-   * accept the Invoice without receiving additional information from the Seller.
+   * @description Indicates that the processing of the referenced message has been halted pending response to a query. Status is used when Buyer will not proceed
+   * to accept the Invoice without receiving additional information from the Seller.
    */
   UQ: 'Under query',
   /**
-   * @description Indication that the referenced offer or transaction (e.g., cargo booking or quotation request) has been accepted under conditions indicated in this
-   * message. Status is used when Buyer is accepting the Invoice under conditions stated in ‘Status Reason’ and proceed to pay accordingly unless
+   * @description Indication that the referenced offer or transaction (e.g., cargo booking or quotation request) has been accepted under conditions indicated in
+   * this message. Status is used when Buyer is accepting the Invoice under conditions stated in ‘Status Reason’ and proceed to pay accordingly unless
    * disputed by Seller.
    */
   CA: 'Conditionally accepted',

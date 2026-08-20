@@ -7,7 +7,7 @@ import { invoiceTypeCodesKeys } from '#/values/invoice-type-codes.generated';
 export type InvoiceTypeCode = invoiceTypeCodesKey;
 
 export function invoiceTypeCodeSchema(error?: string) {
-  return z.string(error).check(z.refine(val => invoiceTypeCodesKeys.includes(val), error));
+  return z.string(error).check(z.refine(val => invoiceTypeCodesKeys.includes(val as InvoiceTypeCode), error));
 }
 
 if (import.meta.vitest) {

@@ -18,6 +18,7 @@ function decodeDocumentResponse(
 ): RecursivePartial<PeppolMessageLevelMessageLevelResponseDocumentResponse> | undefined {
   const val = getProp(doc, ...path);
   if (!val) return undefined;
+
   return {
     documentReference: decodeDocumentReference(val, 'cac:DocumentReference'),
     lineResponse: decodeLineResponse(val, 'cac:LineResponse'),
@@ -31,6 +32,7 @@ function decodeLineResponse(
 ): Array<RecursivePartial<PeppolMessageLevelDocumentResponseLineResponse>> | undefined {
   const val = getArray(doc, ...path);
   if (!val) return undefined;
+
   return val.map(val => ({
     lineReference: { lineId: strOrUnd(val, 'cac:LineReference', 'cbc:LineID') },
     response: decodeLineResponseContent(val, 'cac:Response'),

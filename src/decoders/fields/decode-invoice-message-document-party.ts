@@ -1,5 +1,5 @@
 import type { XmlNode } from '#/helpers/get-prop';
-import type { InvoiceDocumentResponseParty } from '#/schemas/invoice-response';
+import type { InvoiceDocumentResponseParty } from '#/schemas/invoice-response-schema';
 import type { RecursivePartial } from '#/types';
 
 import { decodeIdentifier } from '#/decoders/fields/decode-identifier';

@@ -2,7 +2,7 @@ import * as z from 'zod/mini';
 
 import { binaryObjectSchema } from '#/schemas/fields/binary-object-schema';
 import { identifierSchema } from '#/schemas/fields/identifier-schema';
-import { additionalDocumentReferenceCodeSchema } from '#/schemas/values/additional-doucment-reference-code';
+import { additionalDocumentReferenceCodeSchema } from '#/schemas/values/additional-document-reference-code';
 
 /**
  * @description A group of business terms providing information about additional supporting documents substantiating the claims made in the Invoice. The additional

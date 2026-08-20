@@ -6,13 +6,14 @@
  */
 import * as z from 'zod/mini';
 
-import { currencyCodesKeys } from '#/values/currency-code.generated';
 import type { currencyCodesKey } from '#/values/currency-code.generated';
+
+import { currencyCodesKeys } from '#/values/currency-code.generated';
 
 export type PeppolCurrencyCode = currencyCodesKey | ({} & string);
 
 export function currencyCodeSchema(error?: string) {
-  return z.string().check(z.refine(val => currencyCodesKeys.includes(val), error));
+  return z.string().check(z.refine(val => currencyCodesKeys.includes(val as (typeof currencyCodesKeys)[number]), error));
 }
 
 if (import.meta.vitest) {

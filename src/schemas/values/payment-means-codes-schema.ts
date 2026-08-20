@@ -5,13 +5,14 @@
  */
 import * as z from 'zod/mini';
 
-import { paymentMeansCodesKeys } from '#/values/payment-means-codes.generated';
 import type { paymentMeansCodesKey } from '#/values/payment-means-codes.generated';
+
+import { paymentMeansCodesKeys } from '#/values/payment-means-codes.generated';
 
 export type PaymentMeansCode = paymentMeansCodesKey;
 
 export function paymentMeansCodeSchema(error?: string) {
-  return z.string().check(z.refine(val => paymentMeansCodesKeys.includes(val), error));
+  return z.string().check(z.refine(val => paymentMeansCodesKeys.includes(val as PaymentMeansCode), error));
 }
 
 if (import.meta.vitest) {

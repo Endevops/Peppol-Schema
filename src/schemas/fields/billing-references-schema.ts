@@ -10,7 +10,7 @@ export const billingReferenceSchema = z.object({
    * @example
    *   inv123;
    *
-   * @summary INVOICE DOUCMENT REFERENCE
+   * @summary INVOICE DOCUMENT REFERENCE
    *
    * @name `cac:InvoiceDocumentReference`
    */

@@ -1,7 +1,8 @@
 import * as z from 'zod/mini';
 
-import { allowanceChargeReasonCodesKeys } from '#/values/allowance-charge-reason-codes.generated';
 import type { allowanceChargeReasonCodesKey } from '#/values/allowance-charge-reason-codes.generated';
+
+import { allowanceChargeReasonCodesKeys } from '#/values/allowance-charge-reason-codes.generated';
 
 export type AllowanceChargeReasonCode = allowanceChargeReasonCodesKey;
 

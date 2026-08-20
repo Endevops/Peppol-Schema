@@ -1,7 +1,7 @@
 import type { XmlNode } from '#/helpers/get-prop';
 import type { PeppolContact } from '#/schemas/fields/contact-schema';
 import type { PeppolPartyLegalEntitySchema } from '#/schemas/fields/party-legal-entity-schema';
-import type { InvoiceResponseParty } from '#/schemas/invoice-response';
+import type { InvoiceResponseParty } from '#/schemas/invoice-response-schema';
 import type { RecursivePartial } from '#/types';
 
 import { decodeElectronicAddress } from '#/decoders/fields/decode-electronic-address';

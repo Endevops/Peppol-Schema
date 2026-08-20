@@ -1,7 +1,7 @@
 import type { PeppolContact } from '#/schemas/fields/contact-schema';
 import type { PeppolPartyLegalEntitySchema } from '#/schemas/fields/party-legal-entity-schema';
-import type { InvoiceDocumentResponseParty, InvoiceResponseParty } from '#/schemas/invoice-response';
-import type { PeppolMessageLevelResponseParty } from '#/schemas/message-level-response';
+import type { InvoiceDocumentResponseParty, InvoiceResponseParty } from '#/schemas/invoice-response-schema';
+import type { PeppolMessageLevelResponseParty } from '#/schemas/message-level-response-party-schema';
 
 import { encodeIdentifier } from '#/decoders/fields/encode-identifier';
 

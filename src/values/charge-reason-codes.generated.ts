@@ -722,8 +722,8 @@ export const chargeReasonCodes = {
    */
   YY: 'Split pick-up',
   /**
-   * @description A code assigned within a code list to be used on an interim basis and as defined among trading partners until a precise code can be assigned to the
-   * code list.
+   * @description A code assigned within a code list to be used on an interim basis and as defined among trading partners until a precise code can be assigned to
+   * the code list.
    */
   ZZZ: 'Mutually defined',
 } as const;

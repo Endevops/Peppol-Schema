@@ -1,5 +1,3 @@
-import * as z from 'zod/mini';
-
 /**
  * @module schemas/values/eas-codes
  * Electronic Address Scheme (EAS) codes as used in PEPPOL networks
@@ -7,8 +5,11 @@ import * as z from 'zod/mini';
  *
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/eas/
  */
-import { electronicAddressCodesKeys } from '#/values/eas-codes.generated';
+import * as z from 'zod/mini';
+
 import type { electronicAddressCodesKey } from '#/values/eas-codes.generated';
+
+import { electronicAddressCodesKeys } from '#/values/eas-codes.generated';
 
 export type ElectronicAddressCode = electronicAddressCodesKey;
 
@@ -17,7 +18,7 @@ export type ElectronicAddressCode = electronicAddressCodesKey;
  * - PEPPOL-EN16931-CL008: Electronic address identifier scheme must be from the codelist "Electronic Address Identifier Scheme"
  */
 export function electronicCodesSchema(error?: string) {
-  return z.string().check(z.refine(val => electronicAddressCodesKeys.includes(val), error));
+  return z.string().check(z.refine(val => electronicAddressCodesKeys.includes(val as ElectronicAddressCode), error));
 }
 
 if (import.meta.vitest) {

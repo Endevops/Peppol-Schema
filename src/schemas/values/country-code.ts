@@ -8,14 +8,15 @@
  */
 import * as z from 'zod/mini';
 
-import { countryCodesKeys } from '#/values/country-code.generated';
 import type { countryCodesKey } from '#/values/country-code.generated';
+
+import { countryCodesKeys } from '#/values/country-code.generated';
 
 export type PeppolCountryCode = countryCodesKey;
 
 export const countryCodeSchema = z.string().check(
   z.length(2),
-  z.refine(val => countryCodesKeys.includes(val))
+  z.refine(val => countryCodesKeys.includes(val as PeppolCountryCode))
 );
 
 if (import.meta.vitest) {

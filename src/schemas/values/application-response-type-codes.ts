@@ -1,14 +1,13 @@
 import * as z from 'zod/mini';
 
-import { applicationResponseTypeCodesKeys } from '#/values/application-response-type-codes.generated';
 import type { applicationResponseTypeCodesKey } from '#/values/application-response-type-codes.generated';
+
+import { applicationResponseTypeCodesKeys } from '#/values/application-response-type-codes.generated';
 
 export type ApplicationResponseTypeCodes = applicationResponseTypeCodesKey;
 
-export { applicationResponseTypeCodesKeys as applicationResponseTypeKeys };
-
 export function applicationResponseTypeCodeSchema(error?: string) {
-  return z.string(error).check(z.refine(val => applicationResponseTypeCodesKeys.includes(val), error));
+  return z.string(error).check(z.refine(val => applicationResponseTypeCodesKeys.includes(val as ApplicationResponseTypeCodes), error));
 }
 
 if (import.meta.vitest) {
