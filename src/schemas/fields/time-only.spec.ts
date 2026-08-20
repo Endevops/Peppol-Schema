@@ -188,4 +188,14 @@ describe(`${timeOnlyParser.name}()`, () => {
       expect(() => z.encode(timeOnlyParser(), '12:30:45.5Z')).toThrow();
     });
   });
+
+  // The `typeof value === 'string' ? value : format(...)` pass-through branch of
+  // the decode transform is unreachable through `z.decode` (input is validated as
+  // a Date first), so exercise the transform function directly.
+  describe('decode transform (string pass-through branch)', () => {
+    it('passes string values through untouched', () => {
+      const codec = timeOnlyParser() as unknown as { _zod: { def: { transform: (value: unknown) => string } } };
+      expect(codec._zod.def.transform('10:10:00Z')).toBe('10:10:00Z');
+    });
+  });
 });

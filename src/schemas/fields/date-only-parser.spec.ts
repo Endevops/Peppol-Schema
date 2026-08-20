@@ -31,4 +31,14 @@ describe(`${dateOnlyParser.name}()`, () => {
   it.each(dates)('should decode %s to %s', (expected, input) => {
     expect(z.decode(dateOnlyParser(), input)).toEqual(expected);
   });
+
+  // The `typeof value === 'string' ? value : format(...)` pass-through branch of
+  // the decode transform is unreachable through `z.decode` (input is validated as
+  // a Date first), so exercise the transform function directly.
+  describe('decode transform (string pass-through branch)', () => {
+    it('passes string values through untouched', () => {
+      const codec = dateOnlyParser() as unknown as { _zod: { def: { transform: (value: unknown) => string } } };
+      expect(codec._zod.def.transform('2024-06-15')).toBe('2024-06-15');
+    });
+  });
 });

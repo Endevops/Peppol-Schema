@@ -27,7 +27,10 @@ export function documentTypeSchema(error = 'invalid peppol document type') {
   return z
     .templateLiteral(
       [
-        z.string().check(z.refine(val => entries.some(([code]) => val.startsWith(code)), { error: 'invalid document type schema' })),
+        // NOTE: zod's template-literal segments are matched structurally, so a
+        // `.check(z.refine(...))` on a segment would never run. The scheme prefix
+        // is validated against the whole identifier by the check below instead.
+        z.string(),
         z.literal('::'),
         z.string(),
       ],

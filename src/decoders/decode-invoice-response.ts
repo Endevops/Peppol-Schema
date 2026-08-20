@@ -25,6 +25,7 @@ function decodeStatusReasonCode(doc: XmlNode, ...path: Array<string>): Recursive
 
 function decodeCondition(doc: XmlNode, ...path: Array<string>): Array<RecursivePartial<InvoiceResponseCondition>> | undefined {
   const val = getArray(doc, ...path);
+  /* istanbul ignore next -- getArray never returns a falsy value */
   if (!val) return undefined;
   return val.map(item => ({ attributeId: strOrUnd(item, 'cbc:AttributeID'), description: strOrUnd(item, 'cbc:Description') }));
 }
@@ -34,6 +35,7 @@ function decodeDocumentResponseStatus(
   ...path: Array<string>
 ): Array<RecursivePartial<InvoiceReponseDocumentActualResponseStatus>> | undefined {
   const val = getArray(doc, ...path);
+  /* istanbul ignore next -- getArray never returns a falsy value */
   if (!val) return undefined;
   return val.map(item => ({
     condition: decodeCondition(item, 'cac:Condition'),

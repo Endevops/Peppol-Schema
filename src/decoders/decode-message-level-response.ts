@@ -31,6 +31,7 @@ function decodeLineResponse(
   ...path: Array<string>
 ): Array<RecursivePartial<PeppolMessageLevelDocumentResponseLineResponse>> | undefined {
   const val = getArray(doc, ...path);
+  /* istanbul ignore next -- getArray never returns a falsy value */
   if (!val) return undefined;
 
   return val.map(val => ({
