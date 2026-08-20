@@ -1,5 +1,6 @@
 import { isDefined } from '#/helpers/is-defined';
 
+// oxlint-disable-next-line typescript/no-explicit-any
 export type XmlNode = any;
 
 export function getProp(node: XmlNode, ...path: Array<string>): XmlNode {

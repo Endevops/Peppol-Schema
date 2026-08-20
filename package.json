@@ -1,11 +1,14 @@
 {
+  "$schema": "https://raw.githubusercontent.com/SchemaStore/schemastore/refs/heads/master/src/schemas/json/package.json",
   "name": "@endevops/peppol-schema",
   "version": "0.0.0",
   "private": false,
   "description": "A simple example library built by tsdown",
+  "license": "MIT",
   "files": [
     "dist",
-    "src"
+    "src/**/*.ts",
+    "!src/**/*.{spec,test}.ts"
   ],
   "type": "module",
   "exports": {
@@ -47,6 +50,7 @@
     "format": "oxfmt",
     "generate": "bun scripts/values.ts",
     "lint": "oxlint . --type-aware",
+    "prepack": "tsdown",
     "prepare": "pnpm dlx husky",
     "test": "vitest run",
     "test:coverage": "vitest run --coverage"
