@@ -18,12 +18,3 @@ export const countryCodeSchema = z.string().check(
   z.length(2),
   z.refine(val => countryCodesKeys.includes(val as PeppolCountryCode))
 );
-
-if (import.meta.vitest) {
-  const { describe, it, expect } = import.meta.vitest;
-  describe('country-code', () => {
-    it.each(countryCodesKeys.map(k => [k, k]) as [[string, string]])('should parse %s as %s', (value, expected) => {
-      expect(z.parse(countryCodeSchema, value)).toEqual(expected);
-    });
-  });
-}

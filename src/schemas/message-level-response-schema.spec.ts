@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import * as z from 'zod/mini';
 
-import { messageLevelResponse } from '#/schemas/message-level-response-schema';
+import { messageLevelResponse } from './message-level-response-schema';
 
 const validMlr = {
   customizationId: 'urn:fdc:peppol.eu:poacc:trns:mlr:3',

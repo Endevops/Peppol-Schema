@@ -22,7 +22,7 @@ export default defineConfig({
   test: {
     coverage,
     hookTimeout,
-    include: [`${import.meta.dirname}/{src}/**/*.{test,spec}.{ts,tsx}`],
+    include: [`${import.meta.dirname}/src/**/*.{test,spec}.{ts,tsx}`],
     includeSource: [`${import.meta.dirname}/{src,scripts}/**/*.{ts,tsx}`],
     name: `${name} - unit`,
     setupFiles: [`${import.meta.dirname}/test/custom-matchers.ts`],

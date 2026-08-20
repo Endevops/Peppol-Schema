@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import * as z from 'zod/mini';
 
-import { invoiceResponseSchema } from '#/schemas/invoice-response-schema';
+import { invoiceResponseSchema } from './invoice-response-schema';
 
 const validInvoiceResponse = {
   customizationId: 'urn:fdc:peppol.eu:poacc:trns:mlr:3',

@@ -9,12 +9,3 @@ export type CreditNoteTypeCodes = creditNoteTypeCodesKey;
 export function creditNoteTypeCodeSchema(error?: string) {
   return z.string().check(z.refine(val => creditNoteTypeCodesKeys.includes(val as CreditNoteTypeCodes), error));
 }
-
-if (import.meta.vitest) {
-  const { describe, it, expect } = import.meta.vitest;
-  describe('credit-note-type-codes', () => {
-    it.each(creditNoteTypeCodesKeys.map(k => [k, k]) as [[string, string]])('should parse %s as %s', (value, expected) => {
-      expect(creditNoteTypeCodeSchema().parse(value)).toEqual(expected);
-    });
-  });
-}

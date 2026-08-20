@@ -47,7 +47,9 @@
     "format": "oxfmt",
     "generate": "bun scripts/values.ts",
     "lint": "oxlint . --type-aware",
-    "prepare": "pnpm dlx husky"
+    "prepare": "pnpm dlx husky",
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage"
   },
   "devDependencies": {
     "@date-fns/tz": "^1.5.0",

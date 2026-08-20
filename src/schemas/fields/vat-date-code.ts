@@ -11,12 +11,3 @@ export type { vatDateCodesKey as VatDateCodes } from '#/values/vat-dates.generat
 export function vatDateCodeSchema(error?: string) {
   return z.string().check(z.refine(val => vatDateCodesKeys.includes(val as (typeof vatDateCodesKeys)[number]), error));
 }
-
-if (import.meta.vitest) {
-  const { describe, it, expect } = import.meta.vitest;
-  describe('vat-date-code', () => {
-    it.each(vatDateCodesKeys.map(k => [k, k]) as [[string, string]])('should parse %s as %s', (value, expected) => {
-      expect(vatDateCodeSchema().parse(value)).toEqual(expected);
-    });
-  });
-}

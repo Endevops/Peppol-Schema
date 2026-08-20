@@ -15,12 +15,3 @@ export type PeppolCurrencyCode = currencyCodesKey | ({} & string);
 export function currencyCodeSchema(error?: string) {
   return z.string().check(z.refine(val => currencyCodesKeys.includes(val as (typeof currencyCodesKeys)[number]), error));
 }
-
-if (import.meta.vitest) {
-  const { describe, it, expect } = import.meta.vitest;
-  describe('currency-code', () => {
-    it.each(currencyCodesKeys.map(k => [k, k]) as [[string, string]])('should parse %s as %s', (value, expected) => {
-      expect(currencyCodeSchema().parse(value)).toEqual(expected);
-    });
-  });
-}

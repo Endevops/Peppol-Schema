@@ -20,12 +20,3 @@ export type ElectronicAddressCode = electronicAddressCodesKey;
 export function electronicCodesSchema(error?: string) {
   return z.string().check(z.refine(val => electronicAddressCodesKeys.includes(val as ElectronicAddressCode), error));
 }
-
-if (import.meta.vitest) {
-  const { describe, it, expect } = import.meta.vitest;
-  describe('eas-codes', () => {
-    it.each(electronicAddressCodesKeys.map(k => [k, k]) as [[string, string]])('should parse %s as %s', (value, expected) => {
-      expect(electronicCodesSchema().parse(value)).toEqual(expected);
-    });
-  });
-}

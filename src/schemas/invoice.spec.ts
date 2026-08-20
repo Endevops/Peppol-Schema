@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import * as z from 'zod/mini';
 
-import { invoiceSchema } from '#/schemas/invoice';
+import { invoiceSchema } from './invoice';
 
 const validInvoice = {
   customizationId: 'urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0',
@@ -10,12 +10,12 @@ const validInvoice = {
   issueDate: '2024-01-15',
   documentCurrencyCode: 'EUR',
   accountingSupplierParty: {
-    endpointId: { id: '1234567890', schemeId: '01' },
+    endpointId: { id: '1234567890', schemeId: '0088' },
     postalAddress: { streetName: 'Main Street 1', cityName: 'London', postalZone: 'W1G 8LZ', countryCode: { identificationCode: 'GB' } },
     partyLegalEntity: { registrationName: 'Seller Company Ltd' },
   },
   accountingCustomerParty: {
-    endpointId: { id: '9876543210', schemeId: '01' },
+    endpointId: { id: '9876543210', schemeId: '0088' },
     postalAddress: { cityName: 'Paris', countryCode: { identificationCode: 'FR' } },
     partyLegalEntity: { registrationName: 'Buyer Company SA' },
   },

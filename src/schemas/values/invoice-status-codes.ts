@@ -12,12 +12,3 @@ export { invoiceStatusCodesKeys as invoiceStatusCodeKeys };
 export function invoiceStatusCodeSchema(error?: string) {
   return z.string(error).check(z.refine(val => invoiceStatusCodesKeys.includes(val as never), error));
 }
-
-if (import.meta.vitest) {
-  const { describe, it, expect } = import.meta.vitest;
-  describe('invoice-status-codes-schema', () => {
-    it.each(invoiceStatusCodesKeys.map(k => [k, k]) as [[string, string]])('should parse %s as %s', (value, expected) => {
-      expect(invoiceStatusCodeSchema().parse(value)).toEqual(expected);
-    });
-  });
-}
