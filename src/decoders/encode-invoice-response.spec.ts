@@ -24,7 +24,7 @@ describe('encodeInvoiceResponse', () => {
       },
       documentReference: { id: 'D', issueDate: 'd', documentTypeCode: 'X' },
     },
-  } as never;
+  } as any;
 
   it('includes the schema location when MODE is test', () => {
     const out = encodeInvoiceResponse(full) as { ApplicationResponse: Record<string, unknown> };
@@ -38,7 +38,7 @@ describe('encodeInvoiceResponse', () => {
   });
 
   it('returns undefined for a missing documentResponse', () => {
-    const out = encodeInvoiceResponse({ customizationId: 'c' } as never) as { ApplicationResponse: { 'cac:DocumentResponse': unknown } };
+    const out = encodeInvoiceResponse({ customizationId: 'c' } as any) as { ApplicationResponse: { 'cac:DocumentResponse': unknown } };
     expect(out.ApplicationResponse['cac:DocumentResponse']).toBeUndefined();
   });
 

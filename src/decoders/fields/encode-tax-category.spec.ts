@@ -10,9 +10,9 @@ describe('encodeTaxCategory', () => {
 
   it('encodes a fully present tax category', () => {
     // ✅ Positive: id, percent and tax scheme id are encoded.
-    expect(encodeTaxCategory({ id: 'VAT', percent: '20', taxSchemeId: { id: 'VAT' } })).toEqual({
+    expect(encodeTaxCategory({ id: 'VAT', percent: 20, taxSchemeId: { id: 'VAT' } })).toEqual({
       'cbc:ID': 'VAT',
-      'cbc:Percent': '20',
+      'cbc:Percent': 20,
       'cac:TaxScheme': { 'cbc:ID': 'VAT' },
     });
   });

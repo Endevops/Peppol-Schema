@@ -1,0 +1,15 @@
+{
+  "js/ts.preferences.autoImportFileExcludePatterns": [
+    "node:test",
+    "effect/*",
+    "better-auth/*",
+    "#/index",
+    "#/schema",
+    "#/schematron",
+    "#/values",
+    "#/peppol-validations",
+    "#/constants"
+  ],
+  "js/ts.preferences.importModuleSpecifier": "non-relative",
+  "js/ts.preferences.preferTypeOnlyAutoImports": true
+}

@@ -32,7 +32,7 @@ describe('encodePaymentMeans', () => {
 
   it('omits every optional sub-block when only paymentId is present', () => {
     // ❌ Negative: cardAccount, paymentMeansCode, mandate and financial account all absent.
-    const result = encodePaymentMeans([{ paymentId: 'PAY-2' }]);
+    const result = encodePaymentMeans([{ paymentId: 'PAY-2' }] as any);
     expect(result?.[0]).toEqual({
       'cbc:PaymentMeansCode': undefined,
       'cbc:PaymentID': 'PAY-2',

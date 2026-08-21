@@ -26,7 +26,7 @@ describe('encodeInvoiceLines', () => {
 
   it('maps each line of a non-empty array', () => {
     // ✅ Positive: a present line is encoded through the shared line encoder.
-    const result = encodeInvoiceLines([invoiceLine]);
+    const result = encodeInvoiceLines([invoiceLine] as any);
     expect(result).toHaveLength(1);
     expect(result?.[0]?.['cbc:ID']).toBe('1');
     expect(result?.[0]?.['cbc:InvoicedQuantity']).toEqual({ '#text': 2, '@unitCode': 'C62' });

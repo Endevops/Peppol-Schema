@@ -34,7 +34,7 @@
     "erasableSyntaxOnly": true,
     "allowJs": true,
 
-    "paths": { "#/*": ["./src/*"], "~/*": ["./src/*"] }
+    "paths": { "#/*": ["./src/*"], "#/test/*": ["./test/*"] }
   },
   "include": ["src/**/*.ts", "scripts/**/*.ts", "test/**/*.ts"]
 }

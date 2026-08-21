@@ -1,2 +1,5 @@
 allowBuilds:
+  cpu-features: true
   msgpackr-extract: true
+  protobufjs: true
+  ssh2: true

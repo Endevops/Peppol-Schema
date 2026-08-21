@@ -60,7 +60,7 @@ src/
 ### TypeScript
 
 - Strict mode with `exactOptionalPropertyTypes`, `noUncheckedIndexedAccess`, `erasableSyntaxOnly`
-- Path aliases: `#/*` and `~/*` → `./src/*`
+- Path aliases: `#/*` → `./src/*`
 - `verbatimModuleSyntax`, `isolatedModules`, `moduleDetection: force`
 
 ### Testing (Vitest)

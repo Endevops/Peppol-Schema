@@ -1,0 +1,44 @@
+/**
+ * @description Unit tests for NO-R-002 (Foretaksregisteret).
+ */
+import { describe, expect, it } from 'vitest';
+
+import type { PeppolDocument } from '#/document';
+
+import { decodeBaseExample } from '#/test/test-utils';
+
+import { validateNoR002 } from './no-r-002';
+
+async function withSupplierCountry(document: PeppolDocument, country: string, vatPrefix?: string): Promise<PeppolDocument> {
+  const vat = vatPrefix ?? `${country}VAT123456789`;
+  return {
+    ...document,
+    accountingSupplierParty: {
+      ...document.accountingSupplierParty,
+      postalAddress: { ...document.accountingSupplierParty.postalAddress, countryCode: { identificationCode: country } },
+      partyTaxSchemes: [{ companyId: vat, taxSchemeId: { id: 'VAT' } }],
+    },
+  } as unknown as PeppolDocument;
+}
+
+describe('NO-R-002 (Foretaksregisteret)', () => {
+  it('passes when not applicable', async () => {
+    const document = await decodeBaseExample();
+    expect(validateNoR002(document).passed).toEqual(true);
+  });
+
+  it('fails when a Norwegian supplier does not state Foretaksregisteret', async () => {
+    const document = await withSupplierCountry(await decodeBaseExample(), 'NO');
+    const altered = {
+      ...document,
+      accountingSupplierParty: {
+        ...document.accountingSupplierParty,
+        partyTaxSchemes: [
+          { companyId: 'Foretaksregisteret', taxSchemeId: { id: 'TAX' } },
+          { companyId: 'NO123456789MVA', taxSchemeId: { id: 'VAT' } },
+        ],
+      },
+    } as unknown as PeppolDocument;
+    expect(validateNoR002(altered).passed).toEqual(true);
+  });
+});

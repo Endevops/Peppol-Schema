@@ -42,7 +42,7 @@ describe('encodeParty', () => {
 
   it('omits optional party sub-blocks when they are absent', () => {
     // ❌ Negative: no partyName, no partyIdentification, no contact.
-    const result = encodeParty({ partyLegalEntity: { registrationName: 'Full Formal Seller Name LTD.' } });
+    const result = encodeParty({ partyLegalEntity: { registrationName: 'Full Formal Seller Name LTD.' } } as any);
     expect(result?.['cac:Party']?.['cac:PartyName']).toBeUndefined();
     expect(result?.['cac:Party']?.['cac:PartyIdentification']).toBeUndefined();
     expect(result?.['cac:Party']?.['cac:Contact']).toBeUndefined();

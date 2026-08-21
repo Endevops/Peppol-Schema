@@ -5,6 +5,7 @@ export default defineConfig({
   env: { browser: true, builtin: true, node: true, vitest: true },
   ignorePatterns: ['**/dist', '**/node_modules', '**/coverage'],
   overrides: [
+    { files: ['**/*.spec.ts'], rules: { 'typescript/no-explicit-any': 'off' } },
     { files: ['**/{schemas,decoders}/**/*.ts'], rules: { 'typescript/no-redundant-type-constituents': 'off', 'sort-keys': 'off' } },
     {
       files: ['./src/index.ts', './src/schemas.ts', './src/peppol-validations/index.ts', './src/values.ts', './src/constants/index.ts'],
@@ -23,8 +24,9 @@ export default defineConfig({
       { allowTypeImports: false, name: '#/index', message: 'Please import the specific file instead of the application module export' },
       { allowTypeImports: false, name: '#/schema', message: 'Please import the specific file instead of the application module export' },
       { allowTypeImports: false, name: '#/values', message: 'Please import the specific file instead of the application module export' },
-      { allowTypeImports: false, name: '#/peppol-validation', message: 'Please import the specific file instead of the application module export' },
+      { allowTypeImports: false, name: '#/peppol-validations', message: 'Please import the specific file instead of the application module export' },
       { allowTypeImports: false, name: '#/constants', message: 'Please import the specific file instead of the application module export' },
+      { allowTypeImports: false, name: '#/schematron', message: 'Please import the specific file instead of the application module export' },
     ],
     'oxc/no-barrel-file': 'warn',
     'prefer-template': 'warn',
