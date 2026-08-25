@@ -10,7 +10,7 @@ import { additionalDocumentReferenceCodesKeys } from '#/values/additional-docume
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/UNCL1153/
  * @see {@link additionalDocumentReferenceCodesKeys}
  */
-export type PeppolAdditionalDocumentReference = AdditionalDocumentReferenceCodesKeys;
+export type PeppolAdditionalDocumentReferenceCode = AdditionalDocumentReferenceCodesKeys;
 
 /**
  * @description Validates an additional document reference code against the PEPPOL subset of UNCL 1153 (reference qualifiers).

@@ -9,7 +9,7 @@ import { documentTypeCodesKeys } from '#/values/document-type-codes.generated';
  *
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/UNCL1001/
  */
-export type DocumentTypeCode = DocumentTypeCodesKeys;
+export type PeppolDocumentTypeCode = DocumentTypeCodesKeys;
 
 /**
  * @description Validates a document type code against the PEPPOL subset of UNCL 1001.

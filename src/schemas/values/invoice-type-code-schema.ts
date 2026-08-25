@@ -9,7 +9,7 @@ import { invoiceTypeCodesKeys } from '#/values/invoice-type-codes.generated';
  *
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/UNCL1001-inv/
  */
-export type PeppolInvoiceType = InvoiceTypeCodesKeys;
+export type PeppolInvoiceTypeCode = InvoiceTypeCodesKeys;
 
 /**
  * @description Validates an invoice type code against the PEPPOL subset of UNCL 1001 (invoice).

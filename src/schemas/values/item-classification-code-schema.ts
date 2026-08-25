@@ -9,7 +9,7 @@ import { itemClassificationCodesKeys } from '#/values/item-classification-code.g
  *
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/UNCL7143/
  */
-export type PeppolItemClassificationCodes = ItemClassificationCodesKeys;
+export type PeppolItemClassificationCode = ItemClassificationCodesKeys;
 
 /**
  * @description Validates an item classification code against the PEPPOL subset of UNCL 7143.

@@ -9,7 +9,7 @@ import { allowanceChargeReasonCodesKeys } from '#/values/allowance-charge-reason
  *
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/UNCL5189/
  */
-export type PeppolAllowanceChargeReason = AllowanceChargeReasonCodesKeys;
+export type PeppolAllowanceChargeReasonCode = AllowanceChargeReasonCodesKeys;
 
 /**
  * @description Validates an allowance or charge reason code against the PEPPOL subset of UNCL 5189 (D.16B).

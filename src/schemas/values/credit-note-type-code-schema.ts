@@ -9,7 +9,7 @@ import { creditNoteTypeCodesKeys } from '#/values/credit-notes-type-codes.genera
  *
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/UNCL1001-cn/
  */
-export type CreditNoteType = CreditNoteTypeCodesKeys;
+export type PeppolCreditNoteTypeCode = CreditNoteTypeCodesKeys;
 
 /**
  * @description Validates a credit note type code against the PEPPOL subset of UNCL 1001 (credit note).

@@ -10,9 +10,9 @@ import { processes } from '#/values/processes.generated';
  *
  * @see {@link processes}
  */
-export type PeppolProcesses = ProcessesKeys;
+export type PeppolProcesses = `${ProcessesKeys}::${string}`;
 
-const entries = objectEntries(processes);
+const entries = /* @__PURE__ */ objectEntries(processes);
 
 /**
  * @description Validates a full PEPPOL business process identifier (`<scheme>::<value>`) against the known processes.

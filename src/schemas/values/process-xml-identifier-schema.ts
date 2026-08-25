@@ -3,7 +3,7 @@ import * as z from 'zod/mini';
 
 import { processes } from '#/values/processes.generated';
 
-const entries = objectEntries(processes);
+const entries = /* @__PURE__ */ objectEntries(processes);
 
 /**
  * @description Validates a raw XML process identifier object with `#text` and `@scheme` fields against the known processes.

@@ -1,24 +1,16 @@
-import type { Brand } from 'effect';
-
 import { objectEntries } from 'ts-extras';
 import * as z from 'zod/mini';
 
-import type { documentTypesScheme } from '#/values/document-type.generated';
+import type { DocumentTypesTableKeys } from '#/values/document-type.generated';
 
 import { documentTypesTable } from '#/values/document-type.generated';
 
 /**
- * @description A branded string representing a full PEPPOL document type identifier, e.g. `busdox-docid-qns::…`.
- *
- * @see {@link documentTypeSchema}
- */
-export type PeppolDocumentType = Brand.Branded<string, 'PeppolDocumentType'>;
-/**
  * @description One of the PEPPOL document type schemes (e.g. `busdox-docid-qns`, `peppol-doctype-wildcard`).
  *
- * @see {@link documentTypesScheme}
+ * @see {@link documentTypesTable}
  */
-export type PeppolDocumentTypeSchema = (typeof documentTypesScheme)[number];
+export type PeppolDocumentType = `${DocumentTypesTableKeys}::${string}`;
 
 const entries = /* @__PURE__ */ objectEntries(documentTypesTable);
 

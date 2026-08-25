@@ -9,7 +9,7 @@ import { chargeReasonCodesKeys } from '#/values/charge-reason-codes.generated';
  *
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/UNCL7161/
  */
-export type PeppolChargeReason = ChargeReasonCodesKeys;
+export type PeppolChargeReasonCode = ChargeReasonCodesKeys;
 
 /**
  * @description Validates a charge reason code against the PEPPOL subset of UNCL 7161 (D.16B).
