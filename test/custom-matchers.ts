@@ -1,3 +1,4 @@
+// oxlint-disable typescript/no-explicit-any
 import { XMLParser } from 'fast-xml-parser';
 import { expect } from 'vitest';
 
@@ -18,13 +19,11 @@ interface CustomMatchers<R = string> {
 }
 
 declare module 'vitest' {
-  //
   interface Matchers<T = any> extends CustomMatchers<T> {}
 }
 
 function removeUncesessaryAttributes(obj: any) {
   for (const key of Object.keys(obj).filter(key => key.startsWith('@'))) {
-    //
     delete obj[key];
   }
 }

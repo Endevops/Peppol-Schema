@@ -1,7 +1,5 @@
 import { describe, expect, it } from 'vitest';
 
-import type { QuantityUnitCode } from '#/schemas/values/quantity-unit-codes-schema';
-
 import type { IntlUnit } from './quantity-unit-code-to-intl-unit';
 
 import { quantityUnitCodeToIntlUnit } from './quantity-unit-code-to-intl-unit';
@@ -221,7 +219,7 @@ describe('quantityUnitCodeToIntlUnit', () => {
 
   describe('type safety', () => {
     it('should accept valid QuantityUnitCode types', () => {
-      const code: QuantityUnitCode = 'KGM';
+      const code = 'KGM';
       const unit = quantityUnitCodeToIntlUnit(code);
       expect(unit).toBe('kilogram');
     });

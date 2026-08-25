@@ -51,7 +51,7 @@ function decodeDocumentActualResponse(doc: XmlNode, ...path: Array<string>): Rec
     effectiveDate: strOrUnd(val, 'cbc:EffectiveDate'),
     responseCode: strOrUnd(val, 'cbc:ResponseCode'),
     status: decodeDocumentResponseStatus(val, 'cac:Status'),
-  };
+  } as RecursivePartial<InvoiceResponseDocumentActualResponse>;
 }
 
 function decodeDocumentResponse(doc: XmlNode, ...path: Array<string>): RecursivePartial<InvoiceResponseDocumentResponse> | undefined {

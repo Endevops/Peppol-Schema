@@ -1,11 +1,9 @@
-import type { QuantityUnitCode } from '#/schemas/values/quantity-unit-codes-schema';
-
 import { quantityToIntlUnitMap } from '#/schemas/values/quantity-unit-code-to-intl-unit';
 import { quantityUnitCodes } from '#/values/quantity-unit-codes.generated';
 
 export function formatQuantityWithUnit(
   value: number,
-  code: QuantityUnitCode,
+  code: string,
   locale: string = 'en-US',
   unitDisplay: 'short' | 'narrow' | 'long' = 'short'
 ): string {
@@ -18,6 +16,6 @@ export function formatQuantityWithUnit(
   }
 
   const formattedNumber = new Intl.NumberFormat(locale).format(value);
-  const unitName = quantityUnitCodes[code];
+  const unitName = (quantityUnitCodes as Record<string, string>)[code];
   return `${formattedNumber} ${unitName}`;
 }

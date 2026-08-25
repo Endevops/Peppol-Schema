@@ -18,7 +18,7 @@ const base = {
         'cac:Status': [
           {
             'cbc:StatusReason': 'reason',
-            'cbc:StatusReasonCode': { '#text': '3', '@listID': 'list' },
+            'cbc:StatusReasonCode': { '#text': '3', '@listID': 'list' } as { '#text': string; '@listID'?: string } | string | number,
             'cac:Condition': [{ 'cbc:AttributeID': 'a', 'cbc:Description': 'cond' }],
           },
         ],

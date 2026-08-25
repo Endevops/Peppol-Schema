@@ -1,6 +1,5 @@
 import type { XmlNode } from '#/helpers/get-prop';
 import type { PeppolInvoice } from '#/schemas/invoice';
-import type { RecursivePartial } from '#/types';
 
 import { decodeAdditionalDocumentReferences } from '#/decoders/fields/decode-additional-document-references';
 import { decodeAllowanceCharges } from '#/decoders/fields/decode-allowance-charges';
@@ -20,11 +19,11 @@ import { decodeTaxTotals } from '#/decoders/fields/decode-tax-totals';
 import { getProp } from '#/helpers/get-prop';
 import { strOrUnd } from '#/helpers/str-or-und';
 
-export function decodeInvoice(value: any): PeppolInvoice {
+export function decodeInvoice(value: XmlNode): PeppolInvoice {
   const root = value || {};
   const doc: XmlNode = getProp(root, 'ubl:Invoice') ?? root;
 
-  const invoice: RecursivePartial<PeppolInvoice> = {
+  return {
     accountingCost: strOrUnd(doc, 'cbc:AccountingCost'),
     accountingCustomerParty: decodeParty(doc, 'cac:AccountingCustomerParty', 'cac:Party'),
     accountingSupplierParty: decodeParty(doc, 'cac:AccountingSupplierParty', 'cac:Party'),
@@ -57,7 +56,5 @@ export function decodeInvoice(value: any): PeppolInvoice {
     taxPointDate: strOrUnd(doc, 'cbc:TaxPointDate'),
     taxRepresentativeParty: decodeTaxRepresentativeParty(doc, 'cac:TaxRepresentativeParty'),
     taxTotals: decodeTaxTotals(doc, 'cac:TaxTotal'),
-  };
-
-  return invoice as PeppolInvoice;
+  } as PeppolInvoice;
 }

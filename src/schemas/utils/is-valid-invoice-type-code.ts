@@ -2,6 +2,6 @@ import type { InvoiceType } from '#/schemas/values/invoice-type-code-schema';
 
 import { invoiceTypeCodes } from '#/values/invoice-type-codes.generated';
 
-export function getInvoiceTypeCodeDescription(code: InvoiceType): string {
-  return (invoiceTypeCodes as Record<string, string>)[code] as string;
+export function isValidInvoiceTypeCode(code: string): code is InvoiceType {
+  return code in invoiceTypeCodes;
 }

@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import type { QuantityUnitCode } from '#/schemas/values/quantity-unit-codes-schema';
+import type { PeppolQuantityUnitCode } from '#/schemas/values/quantity-unit-codes-schema';
 
 import { formatQuantityWithUnit } from './format-quantity-with-unit';
 
@@ -66,7 +66,7 @@ describe('formatQuantityWithUnit', () => {
     });
 
     it('should fallback to unit name for piece', () => {
-      const result = formatQuantityWithUnit(5, 'PCE' as QuantityUnitCode, 'en-US');
+      const result = formatQuantityWithUnit(5, 'PCE' as PeppolQuantityUnitCode, 'en-US');
       expect(result).toMatch(/^5\s/);
     });
   });

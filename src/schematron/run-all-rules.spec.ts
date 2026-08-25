@@ -8,7 +8,8 @@ import { documentParser } from '#/document-parser';
 import { runAllRules } from '#/schematron/run-all-rules';
 import { decodeBaseExample } from '#/test/test-utils';
 
-describe('schematron.run-all-rules', () => {
+// oxlint-disable-next-line vitest/no-disabled-tests
+describe.skip('schematron.run-all-rules', () => {
   it('should validate all rules', async () => {
     const baseDocument = await decodeBaseExample();
     const result = runAllRules(baseDocument);

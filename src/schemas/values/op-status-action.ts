@@ -1,11 +1,11 @@
-import * as z from 'zod/mini';
+import type { Brand } from 'effect';
 
-import type { opStatusActionKey } from '#/values/op-status-action.generated';
+import * as z from 'zod/mini';
 
 import { opStatusActionKeys } from '#/values/op-status-action.generated';
 
-export type OpStatusAction = opStatusActionKey;
+export type OpStatusAction = Brand.Branded<string, 'OpStatusAction'>;
 
 export function opStatusActionSchema(error?: string) {
-  return z.string().check(z.refine(val => opStatusActionKeys.includes(val as OpStatusAction), error));
+  return z.string().check(z.refine(val => opStatusActionKeys.includes(val as (typeof opStatusActionKeys)[number]), error));
 }

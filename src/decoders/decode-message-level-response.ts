@@ -23,7 +23,7 @@ function decodeDocumentResponse(
     documentReference: decodeDocumentReference(val, 'cac:DocumentReference'),
     lineResponse: decodeLineResponse(val, 'cac:LineResponse'),
     response: decodeResponse(val, 'cac:Response'),
-  };
+  } as RecursivePartial<PeppolMessageLevelMessageLevelResponseDocumentResponse>;
 }
 
 function decodeLineResponse(

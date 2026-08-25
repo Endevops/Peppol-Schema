@@ -1,11 +1,13 @@
-import * as z from 'zod/mini';
+import type { Brand } from 'effect';
 
-import type { applicationResponseTypeCodesKey } from '#/values/application-response-type-codes.generated';
+import * as z from 'zod/mini';
 
 import { applicationResponseTypeCodesKeys } from '#/values/application-response-type-codes.generated';
 
-export type ApplicationResponseTypeCodes = applicationResponseTypeCodesKey;
+export type ApplicationResponseType = Brand.Branded<string, 'ApplicationResponseType'>;
 
 export function applicationResponseTypeCodeSchema(error?: string) {
-  return z.string(error).check(z.refine(val => applicationResponseTypeCodesKeys.includes(val as ApplicationResponseTypeCodes), error));
+  return z
+    .string(error)
+    .check(z.refine(val => applicationResponseTypeCodesKeys.includes(val as (typeof applicationResponseTypeCodesKeys)[number]), error));
 }

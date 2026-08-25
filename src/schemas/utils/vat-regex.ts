@@ -1,6 +1,6 @@
 import * as z from 'zod/mini';
 
-import { isValidMod97_0208 } from '#/peppol-validations';
+import { isValidMod97_0208 } from '#/peppol-validations/is-valid-mod97-0208';
 
 export const vatRegexSchema = z.union([
   z.string().check(

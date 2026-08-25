@@ -1,8 +1,5 @@
-import type * as z from 'zod/mini';
-
 import type { XmlNode } from '#/helpers/get-prop';
-import type { creditNoteSchema, PeppolCreditNote } from '#/schemas/credit-note';
-import type { RecursivePartial } from '#/types';
+import type { PeppolCreditNote } from '#/schemas/credit-note';
 
 import { decodeAdditionalDocumentReferences } from '#/decoders/fields/decode-additional-document-references';
 import { decodeAllowanceCharges } from '#/decoders/fields/decode-allowance-charges';
@@ -57,5 +54,5 @@ export function decodeCreditNote(value: XmlNode): PeppolCreditNote {
     taxPointDate: strOrUnd(doc, 'cbc:TaxPointDate'),
     taxRepresentativeParty: decodeTaxRepresentativeParty(doc, 'cac:TaxRepresentativeParty'),
     taxTotals: decodeTaxTotals(doc, 'cac:TaxTotal'),
-  } satisfies RecursivePartial<z.input<typeof creditNoteSchema>> as PeppolCreditNote;
+  } as PeppolCreditNote;
 }

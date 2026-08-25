@@ -16,5 +16,5 @@ export default defineConfig({
   exports: { devExports: 'development', packageJson: true },
   platform: 'neutral',
   sourcemap: true,
-  unbundle: true,
+  // unbundle: true,
 });

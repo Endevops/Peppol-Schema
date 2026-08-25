@@ -4,13 +4,13 @@
  * @see https://www.iso.org/iso-4217-currency-codes.html
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/ISO4217/
  */
-import * as z from 'zod/mini';
+import type { Brand } from 'effect';
 
-import type { currencyCodesKey } from '#/values/currency-code.generated';
+import * as z from 'zod/mini';
 
 import { currencyCodesKeys } from '#/values/currency-code.generated';
 
-export type PeppolCurrencyCode = currencyCodesKey | ({} & string);
+export type PeppolCurrencyCode = Brand.Branded<string, 'CurrencyCode'>;
 
 export function currencyCodeSchema(error?: string) {
   return z.string().check(z.refine(val => currencyCodesKeys.includes(val as (typeof currencyCodesKeys)[number]), error));

@@ -1,4 +1,4 @@
-import type { QuantityUnitCode } from '#/schemas/values/quantity-unit-codes-schema';
+import type { PeppolQuantityUnitCode } from '#/schemas/values/quantity-unit-codes-schema';
 
 export type IntlUnit =
   | 'acre'
@@ -112,8 +112,8 @@ export const quantityToIntlUnitMap = {
   B57: 'kilometer',
   '4U': 'pound-per-hour',
   '4M': 'gram-per-hour' as IntlUnit,
-} satisfies Partial<Record<QuantityUnitCode, IntlUnit>>;
+} satisfies Partial<Record<string, IntlUnit>>;
 
-export function quantityUnitCodeToIntlUnit(code: QuantityUnitCode | (string & {})): IntlUnit | undefined {
-  return quantityToIntlUnitMap[code as keyof typeof quantityToIntlUnitMap];
+export function quantityUnitCodeToIntlUnit(code: PeppolQuantityUnitCode | (string & {})): IntlUnit | undefined {
+  return (quantityToIntlUnitMap as Record<string, IntlUnit>)[code];
 }

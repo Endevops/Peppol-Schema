@@ -85,6 +85,7 @@
   "peerDependencies": {
     "@date-fns/tz": "^1",
     "date-fns": "^4",
+    "effect": "4.0.0-rc.110",
     "fast-xml-builder": "^1",
     "fast-xml-parser": "^5",
     "zod": "^4"

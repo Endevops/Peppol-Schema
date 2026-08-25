@@ -6,15 +6,15 @@
  * @see https://www.iso.org/iso-3166-country-codes.html
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/ISO3166/
  */
-import * as z from 'zod/mini';
+import type { Brand } from 'effect';
 
-import type { countryCodesKey } from '#/values/country-code.generated';
+import * as z from 'zod/mini';
 
 import { countryCodesKeys } from '#/values/country-code.generated';
 
-export type PeppolCountryCode = countryCodesKey;
+export type PeppolCountryCode = Brand.Branded<string, 'CountryCode'>;
 
 export const countryCodeSchema = z.string().check(
   z.length(2),
-  z.refine(val => countryCodesKeys.includes(val as PeppolCountryCode))
+  z.refine(val => countryCodesKeys.includes(val as (typeof countryCodesKeys)[number]))
 );

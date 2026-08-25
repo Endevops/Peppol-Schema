@@ -2,7 +2,7 @@ import * as z from 'zod/mini';
 
 import { vatDateCodesKeys } from '#/values/vat-dates.generated';
 
-export type { vatDateCodesKey as VatDateCodes } from '#/values/vat-dates.generated';
+export type VatDateCodes = (typeof vatDateCodesKeys)[number];
 
 /**
  * @validations

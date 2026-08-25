@@ -1,11 +1,11 @@
-import * as z from 'zod/mini';
+import type { Brand } from 'effect';
 
-import type { invoiceTypeCodesKey } from '#/values/invoice-type-codes.generated';
+import * as z from 'zod/mini';
 
 import { invoiceTypeCodesKeys } from '#/values/invoice-type-codes.generated';
 
-export type InvoiceTypeCode = invoiceTypeCodesKey;
+export type InvoiceType = Brand.Branded<string, 'InvoiceType'>;
 
 export function invoiceTypeCodeSchema(error?: string) {
-  return z.string(error).check(z.refine(val => invoiceTypeCodesKeys.includes(val as InvoiceTypeCode), error));
+  return z.string(error).check(z.refine(val => invoiceTypeCodesKeys.includes(val as (typeof invoiceTypeCodesKeys)[number]), error));
 }
