@@ -108,7 +108,7 @@ export async function generateFromPeppol(valuePath: string) {
       [`${peppolTempDirPoAcc.path}/structure/codelist/OPStatusReason.xml`, 'op-status-reason.generated.ts', 'opStatusReason'],
     ] as const;
 
-    let translationsKeys: Record<string, Array<{ text: string; description: string }>> = {};
+    let translationsKeys: Record<string, Record<string, { text: string; description: string }>> = {};
     for (const [peppolFileName, outputFileName, variableName, groupName] of generationList) {
       console.log('Processing', pc.yellow(pc.italic(peppolFileName)), '->', pc.yellow(pc.italic(outputFileName)));
       const peppolFileContent: {
@@ -134,11 +134,15 @@ export async function generateFromPeppol(valuePath: string) {
 
       translationsKeys[groupName ?? variableName] = {
         ...translationsKeys[groupName ?? variableName],
-        ...keys.map(key => {
-          const keyLower = String.snakeCase(String.toLowerCase(`${key}`));
-          const group = String.snakeCase(groupName ?? variableName);
-          return { text: `peppol_${group}_${keyLower}_text`, description: `peppol_${group}_${keyLower}_description` };
-        }),
+        ...keys.reduce(
+          (prev, key) => {
+            const keyLower = String.snakeCase(String.toLowerCase(`${key}`));
+            const group = String.snakeCase(groupName ?? variableName);
+            prev[key] = { text: `peppol_${group}_${keyLower}_text`, description: `peppol_${group}_${keyLower}_description` };
+            return prev;
+          },
+          {} as Record<string | number, { text: string; description: string }>
+        ),
       };
 
       console.log('Writing to', pc.yellow(outputFileName));

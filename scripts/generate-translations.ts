@@ -12,6 +12,7 @@ if (argv.length === 0) {
   console.log('No arguments provided');
   process.exit(1);
 }
+
 if (argv.length > 1) {
   console.log('Too many arguments provided');
   process.exit(1);
@@ -22,13 +23,23 @@ if (String.isEmpty(destinationPath)) {
   console.log('No destination path provided');
   process.exit(1);
 }
+await fs.mkdir(destinationPath, { recursive: true });
 
 console.debug(pc.dim(`Generating translations into ${pc.yellow(destinationPath)}`));
 // oxlint-disable-next-line import/no-relative-parent-imports
 const translations = await import('../assets/translations.json', { with: { type: 'json' } });
 
+const ignored: Array<string> = [
+  'countryCodes',
+  'currencyCodes',
+  'additionalDocumentReferenceCodes',
+  'quantityUnitCodes',
+  'electronicAddressCodes',
+  'icdCodes',
+  'documentTypeCodes',
+];
 for (const entry of Object.values(translations)) {
-  for (const [file, value] of Object.entries(entry)) {
+  for (const [file, value] of Object.entries(entry).filter(([file]) => !ignored.includes(file))) {
     const filename = String.kebabCase(String.capitalize(file));
     const translationVariable = `${file}Translations`;
 
@@ -52,8 +63,8 @@ ${Object.entries(value)
   })
   .join(',\n')}
 };`;
-    console.log('Writing', pc.yellow(destination));
+    console.log('Writing', pc.yellow(path.relative(destinationPath, destination)));
     await fs.writeFile(destination, content);
-    console.log('Wrote', pc.yellow(destination));
+    console.log('Wrote  ', pc.yellow(path.relative(destinationPath, destination)));
   }
 }
