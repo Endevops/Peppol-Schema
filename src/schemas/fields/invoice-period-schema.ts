@@ -1,7 +1,7 @@
 import * as z from 'zod/mini';
 
 import { invoiceLinePeriodSchema } from '#/schemas/fields/invoice-line-period-schema';
-import { vatDateCodeSchema } from '#/schemas/fields/vat-date-code';
+import { vatDateCodeSchema } from '#/schemas/values/vat-date-code';
 
 /**
  * @description A group of business terms providing information on the invoice period. Also called delivery period. If the group is used, the invoiceing period

@@ -3,7 +3,7 @@ import * as z from 'zod/mini';
 import { invoiceResponseCodeNeedsSchema } from '#/invoice-response-codes/invoice-response-code-needs-schema';
 import { invoiceResponseCodeNotNeedsSchema } from '#/invoice-response-codes/invoice-response-code-not-needs-schema';
 import { dateOnlyParser } from '#/schemas/fields/date-only-parser';
-import { invoiceReponseDocumentActualResponseStatus } from '#/schemas/invoice-reponse-document-actual-response-status';
+import { invoiceReponseDocumentActualResponseStatus } from '#/schemas/invoice-response-document-actual-response-status';
 
 const withStatusCodes = z.enum(invoiceResponseCodeNeedsSchema);
 const withoutStatusCodes = z.enum(invoiceResponseCodeNotNeedsSchema);

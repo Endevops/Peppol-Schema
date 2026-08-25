@@ -1,6 +1,9 @@
 import type { XmlNode } from '#/helpers/get-prop';
-import type { InvoiceReponseDocumentActualResponseStatus, InvoiceResponseCondition } from '#/schemas/invoice-reponse-document-actual-response-status';
 import type { InvoiceResponseDocumentActualResponse } from '#/schemas/invoice-response-document-actual-response';
+import type {
+  InvoiceReponseDocumentActualResponseStatus,
+  InvoiceResponseCondition,
+} from '#/schemas/invoice-response-document-actual-response-status';
 import type { InvoiceResponseDocumentReference, InvoiceResponseDocumentResponse } from '#/schemas/invoice-response-schema';
 import type { PeppolInvoiceResponse } from '#/schemas/invoice-response-schema';
 import type { InvoiceResponseStatusReasonCode } from '#/schemas/invoice-response-status-reason-code';
