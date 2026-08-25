@@ -38,6 +38,7 @@ export default defineConfig({
     'typescript/consistent-type-exports': 'error',
     'typescript/consistent-type-imports': ['error', { fixStyle: 'separate-type-imports', disallowTypeAnnotations: false }],
     'typescript/no-explicit-any': 'error',
+    'typescript/no-misused-spread': 'off',
     'typescript/no-unnecessary-boolean-literal-compare': 'warn',
     'typescript/no-unnecessary-type-arguments': 'warn',
     'typescript/no-unnecessary-type-constraint': 'warn',

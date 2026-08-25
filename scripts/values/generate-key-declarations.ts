@@ -1,6 +1,6 @@
 import { String } from 'effect';
 
-function formatStringLiteral(value: string): string {
+function formatStringLiteral(value: string | number): string {
   return JSON.stringify(value);
 }
 
@@ -11,11 +11,11 @@ export function generateKeyDeclarations({
 }: {
   variableName: string;
   keysName: string;
-  keys: ReadonlyArray<string>;
+  keys: ReadonlyArray<string | number>;
 }): string {
   const union = keys.map(formatStringLiteral).join(' | ');
   const tuple = keys.map(key => `  ${formatStringLiteral(key)},`).join('\n');
-  const asConst = keys.length <= 10 ? 'as const' : '';
+  const asConst = keys.length <= 10 ? 'as const' : 'as [string, ...string[]]';
 
   return `/**
  * Keys of {@link ${variableName}}.
