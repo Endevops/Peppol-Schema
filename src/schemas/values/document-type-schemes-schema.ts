@@ -3,9 +3,11 @@ import * as z from 'zod/mini';
 import { documentTypesScheme } from '#/values/document-type.generated';
 
 /**
- * @param error - The error message to use.
+ * @description Validates a PEPPOL document type scheme (e.g. `busdox-docid-qns`, `peppol-doctype-wildcard`).
  *
- * @returns
+ * @param error - The error message to use when validation fails. Defaults to `'invalid Peppol document type scheme'`.
+ *
+ * @returns A Zod string schema that accepts only valid document type schemes.
  *
  * @see {@link documentTypesScheme}
  */
