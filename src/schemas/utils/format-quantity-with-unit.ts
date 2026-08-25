@@ -1,4 +1,4 @@
-import { quantityToIntlUnitMap } from '#/schemas/values/quantity-unit-code-to-intl-unit';
+import { quantityToIntlUnitMap } from '#/schemas/utils/quantity-unit-code-to-intl-unit';
 import { quantityUnitCodes } from '#/values/quantity-unit-codes.generated';
 
 export function formatQuantityWithUnit(

@@ -1,11 +1,11 @@
-import type { Branded } from 'effect/Brand';
-
 import * as z from 'zod/mini';
+
+import type { DutyTaxFeeCategoriesKeys } from '#/values/duty-tax-fee-categories.generated';
 
 import { dutyTaxFeeCategoriesKeys } from '#/values/duty-tax-fee-categories.generated';
 
-export type DutyTaxFeeCategory = Branded<string, 'DutyTaxFeeCategory'>;
+export type PeppolDutyTaxFeeCategory = DutyTaxFeeCategoriesKeys;
 
 export function dutyTaxFeeCategorySchema(error?: string) {
-  return z.string().check(z.refine(val => dutyTaxFeeCategoriesKeys.includes(val as (typeof dutyTaxFeeCategoriesKeys)[number]), error));
+  return z.string().check(z.refine(val => dutyTaxFeeCategoriesKeys.includes(val as never), error));
 }

@@ -1,11 +1,11 @@
-import type { Brand } from 'effect';
-
 import { objectEntries } from 'ts-extras';
 import * as z from 'zod/mini';
 
+import type { ProcessesKeys } from '#/values/processes.generated';
+
 import { processes } from '#/values/processes.generated';
 
-export type PeppolProcesses = Brand.Branded<string, 'PeppolProcesses'>;
+export type PeppolProcesses = ProcessesKeys;
 
 const entries = objectEntries(processes);
 

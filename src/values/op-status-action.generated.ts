@@ -46,4 +46,9 @@ export const opStatusAction = {
 /**
  * @description Keys of {@link opStatusAction}.
  */
+export type OpStatusActionKeys = 'NOA' | 'PIN' | 'NIN' | 'CNF' | 'CNP' | 'CNA' | 'OTH';
+
+/**
+ * @description Keys of {@link opStatusAction}.
+ */
 export const opStatusActionKeys = ['NOA', 'PIN', 'NIN', 'CNF', 'CNP', 'CNA', 'OTH'] as const;

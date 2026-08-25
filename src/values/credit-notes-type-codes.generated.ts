@@ -38,4 +38,9 @@ export const creditNoteTypeCodes = {
 /**
  * @description Keys of {@link creditNoteTypeCodes}.
  */
+export type CreditNoteTypeCodesKeys = '81' | '83' | '381' | '396' | '532';
+
+/**
+ * @description Keys of {@link creditNoteTypeCodes}.
+ */
 export const creditNoteTypeCodesKeys = ['81', '83', '381', '396', '532'] as const;

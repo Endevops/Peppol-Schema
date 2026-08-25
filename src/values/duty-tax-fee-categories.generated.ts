@@ -62,4 +62,9 @@ export const dutyTaxFeeCategories = {
 /**
  * @description Keys of {@link dutyTaxFeeCategories}.
  */
+export type DutyTaxFeeCategoriesKeys = 'AE' | 'E' | 'S' | 'Z' | 'G' | 'O' | 'K' | 'L' | 'M' | 'B';
+
+/**
+ * @description Keys of {@link dutyTaxFeeCategories}.
+ */
 export const dutyTaxFeeCategoriesKeys = ['AE', 'E', 'S', 'Z', 'G', 'O', 'K', 'L', 'M', 'B'] as const;

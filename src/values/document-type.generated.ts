@@ -332,6 +332,11 @@ export const documentTypesTable = {
 /**
  * @description Keys of {@link documentTypesTable}.
  */
+export type DocumentTypesTableKeys = 'busdox-docid-qns' | 'peppol-doctype-wildcard';
+
+/**
+ * @description Keys of {@link documentTypesTable}.
+ */
 export const documentTypesTableKeys = ['busdox-docid-qns', 'peppol-doctype-wildcard'] as const;
 
 export const documentTypesScheme = ['busdox-docid-qns', 'peppol-doctype-wildcard'];

@@ -24,6 +24,17 @@ export const mimeCodes = {
 /**
  * @description Keys of {@link mimeCodes}.
  */
+export type MimeCodesKeys =
+  | 'text/csv'
+  | 'application/pdf'
+  | 'image/png'
+  | 'image/jpeg'
+  | 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+  | 'application/vnd.oasis.opendocument.spreadsheet';
+
+/**
+ * @description Keys of {@link mimeCodes}.
+ */
 export const mimeCodesKeys = [
   'text/csv',
   'application/pdf',

@@ -17,4 +17,9 @@ export const applicationResponseTypeCodes = { AB: 'Message acknowledgement', AP:
 /**
  * @description Keys of {@link applicationResponseTypeCodes}.
  */
+export type ApplicationResponseTypeCodesKeys = 'AB' | 'AP' | 'RE';
+
+/**
+ * @description Keys of {@link applicationResponseTypeCodes}.
+ */
 export const applicationResponseTypeCodesKeys = ['AB', 'AP', 'RE'] as const;

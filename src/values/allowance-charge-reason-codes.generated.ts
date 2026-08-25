@@ -37,6 +37,30 @@ export const allowanceChargeReasonCodes = {
 /**
  * @description Keys of {@link allowanceChargeReasonCodes}.
  */
+export type AllowanceChargeReasonCodesKeys =
+  | '41'
+  | '42'
+  | '60'
+  | '62'
+  | '63'
+  | '64'
+  | '65'
+  | '66'
+  | '67'
+  | '68'
+  | '70'
+  | '71'
+  | '88'
+  | '95'
+  | '100'
+  | '102'
+  | '103'
+  | '104'
+  | '105';
+
+/**
+ * @description Keys of {@link allowanceChargeReasonCodes}.
+ */
 export const allowanceChargeReasonCodesKeys = [
   '41',
   '42',
@@ -57,4 +81,4 @@ export const allowanceChargeReasonCodesKeys = [
   '103',
   '104',
   '105',
-] as const;
+];

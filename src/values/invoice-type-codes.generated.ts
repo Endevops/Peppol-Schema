@@ -131,6 +131,38 @@ export const invoiceTypeCodes = {
 /**
  * @description Keys of {@link invoiceTypeCodes}.
  */
+export type InvoiceTypeCodesKeys =
+  | '71'
+  | '80'
+  | '82'
+  | '84'
+  | '102'
+  | '218'
+  | '219'
+  | '326'
+  | '331'
+  | '380'
+  | '382'
+  | '383'
+  | '384'
+  | '386'
+  | '388'
+  | '389'
+  | '393'
+  | '395'
+  | '553'
+  | '575'
+  | '623'
+  | '780'
+  | '817'
+  | '870'
+  | '875'
+  | '876'
+  | '877';
+
+/**
+ * @description Keys of {@link invoiceTypeCodes}.
+ */
 export const invoiceTypeCodesKeys = [
   '71',
   '80',
@@ -159,4 +191,4 @@ export const invoiceTypeCodesKeys = [
   '875',
   '876',
   '877',
-] as const;
+];

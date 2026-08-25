@@ -1,10 +1,10 @@
-import type { Brand } from 'effect';
-
 import * as z from 'zod/mini';
+
+import type { MimeCodesKeys } from '#/values/mime-codes.generated';
 
 import { mimeCodesKeys } from '#/values/mime-codes.generated';
 
-export type MimeCode = Brand.Branded<string, 'MimeCode'>;
+export type PeppolMimeCode = MimeCodesKeys;
 
 /**
  * @validations

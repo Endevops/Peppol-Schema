@@ -126,6 +126,11 @@ export const processes = {
 /**
  * @description Keys of {@link processes}.
  */
+export type ProcessesKeys = 'cenbii-procid-ubl' | 'oioubl-procid-ubl';
+
+/**
+ * @description Keys of {@link processes}.
+ */
 export const processesKeys = ['cenbii-procid-ubl', 'oioubl-procid-ubl'] as const;
 
 export const processesScheme = ['cenbii-procid-ubl', 'oioubl-procid-ubl'];

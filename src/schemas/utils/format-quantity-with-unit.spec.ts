@@ -46,7 +46,6 @@ describe('formatQuantityWithUnit', () => {
       expect(result).toBe('500 GB');
     });
   });
-
   describe('with different locales', () => {
     it('should format using German locale', () => {
       const result = formatQuantityWithUnit(1000, 'MTR', 'de-DE', 'short');

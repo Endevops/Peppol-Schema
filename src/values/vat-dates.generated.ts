@@ -17,4 +17,9 @@ export const vatDateCodes = { '3': 'Invoice document issue date time', '35': 'De
 /**
  * @description Keys of {@link vatDateCodes}.
  */
+export type VatDateCodesKeys = '3' | '35' | '432';
+
+/**
+ * @description Keys of {@link vatDateCodes}.
+ */
 export const vatDateCodesKeys = ['3', '35', '432'] as const;

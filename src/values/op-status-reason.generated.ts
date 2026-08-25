@@ -75,4 +75,9 @@ export const opStatusReason = {
 /**
  * @description Keys of {@link opStatusReason}.
  */
-export const opStatusReasonKeys = ['NON', 'REF', 'LEG', 'REC', 'QUA', 'DEL', 'PRI', 'QTY', 'ITM', 'PAY', 'UNR', 'FIN', 'PPD', 'OTH'] as const;
+export type OpStatusReasonKeys = 'NON' | 'REF' | 'LEG' | 'REC' | 'QUA' | 'DEL' | 'PRI' | 'QTY' | 'ITM' | 'PAY' | 'UNR' | 'FIN' | 'PPD' | 'OTH';
+
+/**
+ * @description Keys of {@link opStatusReason}.
+ */
+export const opStatusReasonKeys = ['NON', 'REF', 'LEG', 'REC', 'QUA', 'DEL', 'PRI', 'QTY', 'ITM', 'PAY', 'UNR', 'FIN', 'PPD', 'OTH'];

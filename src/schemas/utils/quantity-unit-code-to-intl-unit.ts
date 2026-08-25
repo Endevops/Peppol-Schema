@@ -1,12 +1,11 @@
 import type { PeppolQuantityUnitCode } from '#/schemas/values/quantity-unit-codes-schema';
 
-export type IntlUnit =
+type BaseIntlUnit =
   | 'acre'
   | 'bit'
   | 'byte'
   | 'celsius'
   | 'centimeter'
-  | 'day'
   | 'degree'
   | 'fahrenheit'
   | 'fluid-ounce'
@@ -16,7 +15,6 @@ export type IntlUnit =
   | 'gigabyte'
   | 'gram'
   | 'hectare'
-  | 'hour'
   | 'inch'
   | 'kilobit'
   | 'kilobyte'
@@ -26,27 +24,21 @@ export type IntlUnit =
   | 'megabit'
   | 'megabyte'
   | 'meter'
-  | 'microsecond'
   | 'mile'
   | 'mile-scandinavian'
   | 'milliliter'
   | 'millimeter'
-  | 'millisecond'
-  | 'minute'
-  | 'month'
-  | 'nanosecond'
   | 'ounce'
   | 'percent'
   | 'petabyte'
   | 'pound'
-  | 'second'
   | 'stone'
   | 'terabit'
   | 'terabyte'
-  | 'week'
-  | 'yard'
-  | 'year'
-  | `${string}-per-${string}`;
+  | 'yard';
+type TimeIntlUnit = 'nanosecond' | 'microsecond' | 'millisecond' | 'second' | 'minute' | 'hour' | 'day' | 'week' | 'month' | 'year';
+
+export type IntlUnit = BaseIntlUnit | TimeIntlUnit | `${BaseIntlUnit}-per-${TimeIntlUnit}`;
 
 export const quantityToIntlUnitMap = {
   CMT: 'centimeter',

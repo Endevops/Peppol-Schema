@@ -54,4 +54,9 @@ export const invoiceStatusCodes = {
 /**
  * @description Keys of {@link invoiceStatusCodes}.
  */
+export type InvoiceStatusCodesKeys = 'AB' | 'AP' | 'RE' | 'IP' | 'UQ' | 'CA' | 'PD';
+
+/**
+ * @description Keys of {@link invoiceStatusCodes}.
+ */
 export const invoiceStatusCodesKeys = ['AB', 'AP', 'RE', 'IP', 'UQ', 'CA', 'PD'] as const;

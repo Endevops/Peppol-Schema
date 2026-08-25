@@ -1,10 +1,10 @@
-import type { Brand } from 'effect';
-
 import * as z from 'zod/mini';
+
+import type { ParticipantIdentifierSchemesKeys } from '#/values/participant-identifier-schemes.generated';
 
 import { participantIdentifierSchemesKeys } from '#/values/participant-identifier-schemes.generated';
 
-export type ParticipantIdentifierCode = Brand.Branded<string, 'ParticipantIdentifierCode'>;
+export type PeppolParticipantIdentifierCode = ParticipantIdentifierSchemesKeys;
 
 export function participantIdentifierCodeSchema(error?: string) {
   return z

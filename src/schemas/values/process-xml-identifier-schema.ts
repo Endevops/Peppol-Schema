@@ -5,7 +5,7 @@ import { processes } from '#/values/processes.generated';
 
 const entries = objectEntries(processes);
 
-export function processXmlIdentifierSchema(error?: string) {
+export function processXmlIdentifierSchema(error: string = 'invalid Peppol document identifier') {
   return z.union(
     entries.map(([key, values]) =>
       z.object({
@@ -13,6 +13,6 @@ export function processXmlIdentifierSchema(error?: string) {
         '@scheme': z.string().check(z.refine(val => val === key)),
       })
     ),
-    error ?? 'invalid Peppol document identifier'
+    error
   );
 }
