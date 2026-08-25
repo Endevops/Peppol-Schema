@@ -129,6 +129,25 @@ ${documentTypesContent.values
 
 ${generateKeyDeclarations({ keys, keysName: `${variableName}Keys`, variableName: variableName })}
 
+export const ${variableName}Validations = {
+${documentTypesContent.values
+  .map(value => {
+    const validations = value['validation-rules']
+      ? value['validation-rules']
+          .split('\n')
+          .filter(rule => rule.trim().startsWith('RegEx: '))
+          .map(rule => {
+            const r = rule.trim();
+            return `/${r.slice(7)}/g`;
+          })
+          .join(', ')
+      : '';
+
+    return `"${value['iso6523']}": ${String.isEmpty(validations) ? 'undefined' : `[${validations}]`},`;
+  })
+  .join('\n')}
+}
+
 /**
  * The list of elements that are deprecated.
  */

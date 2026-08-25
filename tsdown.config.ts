@@ -37,6 +37,7 @@ export default defineConfig([
     entry: './scripts/generate-translations.ts',
     exports,
     minify: true,
+    outDir: './dist/bin',
     platform: 'node',
     sourcemap: false,
   },

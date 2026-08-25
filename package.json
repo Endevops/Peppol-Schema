@@ -21,7 +21,7 @@
     },
     "./generate-translations": {
       "development": "./scripts/generate-translations.ts",
-      "default": "./dist/generate-translations.mjs"
+      "default": "./dist/bin/generate-translations.mjs"
     },
     "./schematron": {
       "development": "./src/schematron/index.ts",
@@ -39,11 +39,11 @@
   },
   "publishConfig": {
     "bin": {
-      "generate-translations": "./dist/generate-translations.mjs"
+      "generate-translations": "./dist/bin/generate-translations.mjs"
     },
     "exports": {
       ".": "./dist/index.js",
-      "./generate-translations": "./dist/generate-translations.mjs",
+      "./generate-translations": "./dist/bin/generate-translations.mjs",
       "./schematron": "./dist/schematron.js",
       "./validations": "./dist/validations.js",
       "./xml": "./dist/xml.js",

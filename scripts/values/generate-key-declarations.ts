@@ -13,8 +13,8 @@ export function generateKeyDeclarations({
   keysName: string;
   keys: ReadonlyArray<string | number>;
 }): string {
-  const union = keys.map(formatStringLiteral).join(' | ');
-  const tuple = keys.map(key => `  ${formatStringLiteral(key)},`).join('\n');
+  const union = keys.map(key => formatStringLiteral(String.String(key))).join(' | ');
+  const tuple = keys.map(key => `  ${formatStringLiteral(String.String(key))},`).join('\n');
   const asConst = keys.length <= 10 ? 'as const' : 'as [string, ...string[]]';
 
   return `/**

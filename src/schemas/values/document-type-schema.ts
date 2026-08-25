@@ -3,7 +3,7 @@ import * as z from 'zod/mini';
 
 import type { DocumentTypesTableKeys } from '#/values/document-type.generated';
 
-import { documentTypesTable } from '#/values/document-type.generated';
+import { documentTypesTable, documentTypesTableKeys } from '#/values/document-type.generated';
 
 /**
  * @description One of the PEPPOL document type schemes (e.g. `busdox-docid-qns`, `peppol-doctype-wildcard`).
@@ -27,10 +27,10 @@ export function documentTypeSchema(error = 'invalid peppol document type') {
   return z
     .templateLiteral(
       [
-        // NOTE: zod's template-literal segments are matched structurally, so a
-        // `.check(z.refine(...))` on a segment would never run. The scheme prefix
-        // is validated against the whole identifier by the check below instead.
-        z.string(),
+        // NOTE: segment matching is structural, so the scheme prefix is narrowed
+        // to the known keys while the full identifier is still checked against
+        // the document type table by the `.check` below.
+        z.enum(documentTypesTableKeys),
         z.literal('::'),
         z.string(),
       ],

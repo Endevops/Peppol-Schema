@@ -23,9 +23,9 @@ export const vatDateCodes = {
 /**
  * @description Keys of {@link vatDateCodes}.
  */
-export type VatDateCodesKeys = 3 | 35 | 432;
+export type VatDateCodesKeys = '3' | '35' | '432';
 
 /**
  * @description Keys of {@link vatDateCodes}.
  */
-export const vatDateCodesKeys = [3, 35, 432] as const;
+export const vatDateCodesKeys = ['3', '35', '432'] as const;
