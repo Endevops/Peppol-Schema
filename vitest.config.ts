@@ -1,4 +1,4 @@
-import type { ViteUserConfig } from 'vitest/config';
+import type { TestProjectConfiguration, ViteUserConfig } from 'vitest/config';
 
 import process from 'node:process';
 import { defineConfig } from 'vitest/config';
@@ -17,16 +17,30 @@ const coverage = {
   reportOnFailure: true,
 } as const satisfies (ViteUserConfig['test'] & {})['coverage'];
 
-export default defineConfig({
-  resolve: { tsconfigPaths: true },
-  test: {
-    coverage,
-    hookTimeout,
-    include: [`${import.meta.dirname}/src/**/*.{test,spec}.{ts,tsx}`],
-    includeSource: [`${import.meta.dirname}/{src,scripts}/**/*.{ts,tsx}`],
-    name: `${name} - unit`,
-    setupFiles: [`${import.meta.dirname}/test/custom-matchers.ts`],
-    tags: [{ description: 'All the unit test', name: 'unit' }],
-    testTimeout,
+const projects = [
+  {
+    resolve: { tsconfigPaths: true },
+    test: {
+      exclude: [`${import.meta.dirname}/src/**/*.*.{test,spec}.{ts,tsx}`],
+      hookTimeout,
+      include: [`${import.meta.dirname}/src/**/*.{test,spec}.{ts,tsx}`],
+      includeSource: [`${import.meta.dirname}/{src,scripts}/**/*.{ts,tsx}`],
+      name: `${name} - unit`,
+      setupFiles: [`${import.meta.dirname}/test/custom-matchers.ts`],
+      tags: [{ description: 'All the unit test', name: 'unit' }],
+      testTimeout,
+    },
   },
-});
+  {
+    resolve: { tsconfigPaths: true },
+    test: {
+      hookTimeout: 10_000,
+      include: [`${import.meta.dirname}/src/**/*.int.{test,spec}.{ts,tsx}`],
+      name: `${name} - integration`,
+      setupFiles: [`${import.meta.dirname}/test/custom-matchers.ts`],
+      testTimeout: 30_000,
+    },
+  },
+] as const satisfies Array<TestProjectConfiguration>;
+
+export default defineConfig({ resolve: { tsconfigPaths: true }, test: { coverage, projects } });
