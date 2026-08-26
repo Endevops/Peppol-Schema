@@ -61,12 +61,15 @@
     "test": "vitest run",
     "test:coverage": "vitest run --coverage"
   },
+  "dependencies": {
+    "@nodable/compact-builder": "^2.0.0",
+    "@nodable/flexible-xml-parser": "^1.11.3"
+  },
   "devDependencies": {
     "@date-fns/tz": "^1.5.0",
     "@types/bun": "^1.3.14",
     "@types/node": "^26.2.0",
     "@vitest/coverage-v8": "^4.1.10",
-    "citty": "^0.2.2",
     "date-fns": "^4.4.0",
     "effect": "4.0.0-rc.110",
     "fast-xml-builder": "^1.3.1",

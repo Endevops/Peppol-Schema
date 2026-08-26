@@ -1,7 +1,8 @@
 // fallow-ignore-file security-sink
 // Offline codegen script: paths are repo-relative constants, no untrusted input.
+import { CompactBuilderFactory } from '@nodable/compact-builder';
+import { XMLParser } from '@nodable/flexible-xml-parser';
 import { String } from 'effect';
-import { XMLParser } from 'fast-xml-parser';
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
 import pc from 'picocolors';
@@ -10,7 +11,9 @@ import { generateKeyDeclarations } from './generate-key-declarations';
 import { Git } from './git';
 
 const typescript = String.String.raw;
-const xmlParser = new XMLParser({ removeNSPrefix: true, trimValues: true });
+const xmlParser = new XMLParser({
+  OutputBuilder: new CompactBuilderFactory({ tags: { valueParsers: ['entity'] }, attributes: { valueParsers: ['entity'] } }),
+});
 const assetsPath = path.join(import.meta.dirname, '..', '..', 'assets');
 
 function normalizeString(str: string): string {
@@ -114,12 +117,7 @@ export async function generateFromPeppol(valuePath: string) {
     for (const [peppolFileName, outputFileName, variableName, groupName] of generationList) {
       console.log('Processing', pc.yellow(pc.italic(peppolFileName)), '->', pc.yellow(pc.italic(outputFileName)));
       const peppolFileContent: {
-        CodeList: {
-          Title: string;
-          Identifier: string;
-          Version: string | number | undefined;
-          Code: Array<{ Id: string | number; Name: string; Description?: string }>;
-        };
+        CodeList: { Title: string; Identifier: string; Version: string | undefined; Code: Array<{ Id: string; Name: string; Description?: string }> };
       } = xmlParser.parse(await fs.readFile(peppolFileName, { encoding: 'utf-8' }));
 
       const title = peppolFileContent['CodeList']['Title'];

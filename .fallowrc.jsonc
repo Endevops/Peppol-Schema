@@ -1,16 +1,7 @@
 {
   // This file is JSONC: fallow reads these comments; generic JSON tools may not.
   "$schema": "https://raw.githubusercontent.com/fallow-rs/fallow/main/schema.json",
-  "entry": [
-    "**/scripts/**/*.ts",
-    "**/nitro/*.ts",
-    "**/src/client.tsx",
-    "**/src/server.ts",
-    "**/src/router.tsx",
-    "**/src/__root.tsx",
-    "**/src/routeTree.gen.ts",
-    "**/src/routes/**/*.tsx",
-  ],
+  "entry": ["**/scripts/**/*.ts", "test/custom-matchers.ts"],
   "duplicates": {
     // Hide pair-only clones; focus on widespread copy-paste
     // worth refactoring. Lower to 2 to report every duplicate pair.

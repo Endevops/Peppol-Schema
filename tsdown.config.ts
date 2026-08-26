@@ -36,7 +36,7 @@ export default defineConfig([
     dts: { enabled: false },
     entry: './scripts/generate-translations.ts',
     exports,
-    minify: true,
+    minify: 'dce-only',
     outDir: './dist/bin',
     platform: 'node',
     sourcemap: false,

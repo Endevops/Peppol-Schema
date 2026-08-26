@@ -11,88 +11,88 @@
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/eas/
  */
 export const electronicAddressCodes = {
-  '2': 'System Information et Repertoire des Entreprise et des Etablissements: SIRENE',
+  '0002': 'System Information et Repertoire des Entreprise et des Etablissements: SIRENE',
 
-  '7': 'Organisationsnummer (Swedish legal entities)',
+  '0007': 'Organisationsnummer (Swedish legal entities)',
 
-  '9': 'SIRET-CODE',
+  '0009': 'SIRET-CODE',
 
-  '37': 'LY-tunnus',
+  '0037': 'LY-tunnus',
 
-  '60': 'Data Universal Numbering System (D-U-N-S Number)',
+  '0060': 'Data Universal Numbering System (D-U-N-S Number)',
 
-  '88': 'EAN Location Code',
+  '0088': 'EAN Location Code',
 
-  '96': 'DANISH CHAMBER OF COMMERCE Scheme (EDIRA compliant)',
+  '0096': 'DANISH CHAMBER OF COMMERCE Scheme (EDIRA compliant)',
 
-  '97': 'FTI - Ediforum Italia, (EDIRA compliant)',
+  '0097': 'FTI - Ediforum Italia, (EDIRA compliant)',
 
-  '106':
+  '0106':
     '"Vereniging van Kamers van Koophandel en Fabrieken in Nederland (Association of Chambers of Commerce and Industry in the Netherlands), Scheme (EDIRA compliant)"',
 
-  '130': 'Directorates of the European Commission',
+  '0130': 'Directorates of the European Commission',
 
-  '135': 'SIA Object Identifiers',
+  '0135': 'SIA Object Identifiers',
 
-  '142': 'SECETI Object Identifiers',
+  '0142': 'SECETI Object Identifiers',
 
-  '151': 'Australian Business Number (ABN) Scheme',
+  '0151': 'Australian Business Number (ABN) Scheme',
 
-  '177': 'Odette International Limited',
+  '0177': 'Odette International Limited',
 
-  '183': "Numéro d'identification suisse des enterprises (IDE), Swiss Unique Business Identification Number (UIDB)",
+  '0183': "Numéro d'identification suisse des enterprises (IDE), Swiss Unique Business Identification Number (UIDB)",
 
-  '184': 'DIGSTORG',
+  '0184': 'DIGSTORG',
 
-  '188': 'Corporate Number of The Social Security and Tax Number System',
+  '0188': 'Corporate Number of The Social Security and Tax Number System',
 
-  '190': "Dutch Originator's Identification Number",
+  '0190': "Dutch Originator's Identification Number",
 
-  '191': 'Centre of Registers and Information Systems of the Ministry of Justice',
+  '0191': 'Centre of Registers and Information Systems of the Ministry of Justice',
 
-  '192': 'Enhetsregisteret ved Bronnoysundregisterne',
+  '0192': 'Enhetsregisteret ved Bronnoysundregisterne',
 
-  '193': 'UBL.BE party identifier',
+  '0193': 'UBL.BE party identifier',
 
-  '195': 'Singapore UEN identifier',
+  '0195': 'Singapore UEN identifier',
 
-  '196': 'Kennitala - Iceland legal id for individuals and legal entities',
+  '0196': 'Kennitala - Iceland legal id for individuals and legal entities',
 
-  '198': 'ERSTORG',
+  '0198': 'ERSTORG',
 
-  '199': 'Legal Entity Identifier (LEI)',
+  '0199': 'Legal Entity Identifier (LEI)',
 
-  '200': 'Legal entity code (Lithuania)',
+  '0200': 'Legal entity code (Lithuania)',
 
-  '201': 'Codice Univoco Unità Organizzativa iPA',
+  '0201': 'Codice Univoco Unità Organizzativa iPA',
 
-  '202': 'Indirizzo di Posta Elettronica Certificata',
+  '0202': 'Indirizzo di Posta Elettronica Certificata',
 
-  '204': 'Leitweg-ID',
+  '0204': 'Leitweg-ID',
 
-  '208': "Numero d'entreprise / ondernemingsnummer / Unternehmensnummer",
+  '0208': "Numero d'entreprise / ondernemingsnummer / Unternehmensnummer",
 
-  '209': 'GS1 identification keys',
+  '0209': 'GS1 identification keys',
 
-  '210': 'CODICE FISCALE',
+  '0210': 'CODICE FISCALE',
 
-  '211': 'PARTITA IVA',
+  '0211': 'PARTITA IVA',
 
-  '212': 'Finnish Organization Identifier',
+  '0212': 'Finnish Organization Identifier',
 
-  '213': 'Finnish Organization Value Add Tax Identifier',
+  '0213': 'Finnish Organization Value Add Tax Identifier',
 
-  '215': 'Net service ID',
+  '0215': 'Net service ID',
 
-  '216': 'OVTcode',
+  '0216': 'OVTcode',
 
-  '218': 'Unified registration number (Latvia)',
+  '0218': 'Unified registration number (Latvia)',
 
-  '221': 'The registered number of the qualified invoice issuer (Japan)',
+  '0221': 'The registered number of the qualified invoice issuer (Japan)',
 
-  '230': 'National e-Invoicing Framework (Malaysia)',
+  '0230': 'National e-Invoicing Framework (Malaysia)',
 
-  '235': 'UAE Tax Identification Number (TIN)',
+  '0235': 'UAE Tax Identification Number (TIN)',
 
   '9910': 'Hungary VAT number',
 
@@ -176,76 +176,76 @@ export const electronicAddressCodes = {
 
   '9959': 'Employer Identification Number (EIN, USA)',
 
-  '147': 'Standard Company Code',
+  '0147': 'Standard Company Code',
 
-  '154': 'Identification number of economic subjects: (ICO)',
+  '0154': 'Identification number of economic subjects: (ICO)',
 
-  '158': 'Identification number of economic subject (ICO) Act on State Statistics of 29 November 2001, § 27',
+  '0158': 'Identification number of economic subject (ICO) Act on State Statistics of 29 November 2001, § 27',
 
-  '170': 'Teikoku Company Code',
+  '0170': 'Teikoku Company Code',
 
-  '194': 'KOIOS Open Technical Dictionary',
+  '0194': 'KOIOS Open Technical Dictionary',
 
-  '203': 'eDelivery Network Participant identifier',
+  '0203': 'eDelivery Network Participant identifier',
 
-  '205': 'CODDEST',
+  '0205': 'CODDEST',
 
-  '217': 'The Netherlands Chamber of Commerce and Industry establishment number',
+  '0217': 'The Netherlands Chamber of Commerce and Industry establishment number',
 
-  '225': 'FRCTC ELECTRONIC ADDRESS',
+  '0225': 'FRCTC ELECTRONIC ADDRESS',
 
-  '240': 'Register of legal persons (in French : Répertoire des personnes morales)',
+  '0240': 'Register of legal persons (in French : Répertoire des personnes morales)',
 
-  '244': 'Tax Identification (Tax ID), Nigeria',
+  '0244': 'Tax Identification (Tax ID), Nigeria',
 
-  '245': 'Tax identification number (DIČ), Slovakia',
+  '0245': 'Tax identification number (DIČ), Slovakia',
 };
 
 /**
  * @description Keys of {@link electronicAddressCodes}.
  */
 export type ElectronicAddressCodesKeys =
-  | '2'
-  | '7'
-  | '9'
-  | '37'
-  | '60'
-  | '88'
-  | '96'
-  | '97'
-  | '106'
-  | '130'
-  | '135'
-  | '142'
-  | '151'
-  | '177'
-  | '183'
-  | '184'
-  | '188'
-  | '190'
-  | '191'
-  | '192'
-  | '193'
-  | '195'
-  | '196'
-  | '198'
-  | '199'
-  | '200'
-  | '201'
-  | '202'
-  | '204'
-  | '208'
-  | '209'
-  | '210'
-  | '211'
-  | '212'
-  | '213'
-  | '215'
-  | '216'
-  | '218'
-  | '221'
-  | '230'
-  | '235'
+  | '0002'
+  | '0007'
+  | '0009'
+  | '0037'
+  | '0060'
+  | '0088'
+  | '0096'
+  | '0097'
+  | '0106'
+  | '0130'
+  | '0135'
+  | '0142'
+  | '0151'
+  | '0177'
+  | '0183'
+  | '0184'
+  | '0188'
+  | '0190'
+  | '0191'
+  | '0192'
+  | '0193'
+  | '0195'
+  | '0196'
+  | '0198'
+  | '0199'
+  | '0200'
+  | '0201'
+  | '0202'
+  | '0204'
+  | '0208'
+  | '0209'
+  | '0210'
+  | '0211'
+  | '0212'
+  | '0213'
+  | '0215'
+  | '0216'
+  | '0218'
+  | '0221'
+  | '0230'
+  | '0235'
   | '9910'
   | '9913'
   | '9914'
@@ -287,64 +287,64 @@ export type ElectronicAddressCodesKeys =
   | '9953'
   | '9957'
   | '9959'
-  | '147'
-  | '154'
-  | '158'
-  | '170'
-  | '194'
-  | '203'
-  | '205'
-  | '217'
-  | '225'
-  | '240'
-  | '244'
-  | '245';
+  | '0147'
+  | '0154'
+  | '0158'
+  | '0170'
+  | '0194'
+  | '0203'
+  | '0205'
+  | '0217'
+  | '0225'
+  | '0240'
+  | '0244'
+  | '0245';
 
 /**
  * @description Keys of {@link electronicAddressCodes}.
  */
 export const electronicAddressCodesKeys = [
-  '2',
-  '7',
-  '9',
-  '37',
-  '60',
-  '88',
-  '96',
-  '97',
-  '106',
-  '130',
-  '135',
-  '142',
-  '151',
-  '177',
-  '183',
-  '184',
-  '188',
-  '190',
-  '191',
-  '192',
-  '193',
-  '195',
-  '196',
-  '198',
-  '199',
-  '200',
-  '201',
-  '202',
-  '204',
-  '208',
-  '209',
-  '210',
-  '211',
-  '212',
-  '213',
-  '215',
-  '216',
-  '218',
-  '221',
-  '230',
-  '235',
+  '0002',
+  '0007',
+  '0009',
+  '0037',
+  '0060',
+  '0088',
+  '0096',
+  '0097',
+  '0106',
+  '0130',
+  '0135',
+  '0142',
+  '0151',
+  '0177',
+  '0183',
+  '0184',
+  '0188',
+  '0190',
+  '0191',
+  '0192',
+  '0193',
+  '0195',
+  '0196',
+  '0198',
+  '0199',
+  '0200',
+  '0201',
+  '0202',
+  '0204',
+  '0208',
+  '0209',
+  '0210',
+  '0211',
+  '0212',
+  '0213',
+  '0215',
+  '0216',
+  '0218',
+  '0221',
+  '0230',
+  '0235',
   '9910',
   '9913',
   '9914',
@@ -386,16 +386,16 @@ export const electronicAddressCodesKeys = [
   '9953',
   '9957',
   '9959',
-  '147',
-  '154',
-  '158',
-  '170',
-  '194',
-  '203',
-  '205',
-  '217',
-  '225',
-  '240',
-  '244',
-  '245',
+  '0147',
+  '0154',
+  '0158',
+  '0170',
+  '0194',
+  '0203',
+  '0205',
+  '0217',
+  '0225',
+  '0240',
+  '0244',
+  '0245',
 ] as [string, ...string[]];

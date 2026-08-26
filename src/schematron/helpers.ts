@@ -227,7 +227,7 @@ export function countVatBreakdownCode(document: PeppolDocument, code: string): n
 /**
  * @description Counts the occurrences of a VAT category code (BT-151, BT-95 or BT-102) on invoice lines and document level allowance/charges.
  */
-export function countVatCategoryCode(document: PeppolDocument, code: string): number {
+function countVatCategoryCode(document: PeppolDocument, code: string): number {
   const lines = getLines(document).filter(line => line.item.classifiedTaxCategory.id === code).length;
   const allowanceCharges = (document.allowanceCharges ?? []).filter(ac => ac.taxCategory?.id === code).length;
   return lines + allowanceCharges;
@@ -372,7 +372,7 @@ export function getTaxSubtotalsWithCode(
  * @description Sum of invoice line net amounts (BT-131) plus document level charge amounts (BT-99) minus document level allowance amounts (BT-92) where the VAT
  * category codes (BT-151, BT-102, BT-95) equal `code` and the VAT rates (BT-152, BT-103, BT-96) equal `rate`.
  */
-export function categoryTaxableSumAtRate(document: PeppolDocument, code: string, rate: number): number {
+function categoryTaxableSumAtRate(document: PeppolDocument, code: string, rate: number): number {
   const lineSum = getLines(document)
     .filter(line => line.item.classifiedTaxCategory.id === code && line.item.classifiedTaxCategory.percent === rate)
     .reduce((sum, line) => sum + line.lineExtensionAmount.value, 0);
