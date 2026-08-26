@@ -1,3 +1,5 @@
+// fallow-ignore-file security-sink
+// Offline codegen script: paths are repo-relative constants, no untrusted input.
 import { String } from 'effect';
 import { promises as fs } from 'node:fs';
 import path from 'node:path';

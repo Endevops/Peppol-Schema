@@ -1,4 +1,7 @@
 #!/usr/bin/env node
+// fallow-ignore-file security-sink
+// Offline CLI script: destination path is provided by the developer invoking it,
+// so path.join()/fs.writeFile() targets are operator-controlled, not untrusted input.
 import { String } from 'effect';
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
