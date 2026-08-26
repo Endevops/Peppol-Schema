@@ -38,6 +38,17 @@ pnpm vitest run     # Test
 tsc --noEmit        # Typecheck
 ```
 
+## Versioning
+
+Versioning is fully automated via **semantic-release** and Conventional Commits:
+
+- `master` → stable releases (`v1.2.3`)
+- `develop` → beta prereleases
+- `feature/*` → alpha prereleases
+- `hotfix/*` → release-candidate prereleases
+
+See [docs/versioning.md](docs/versioning.md) for the full strategy.
+
 ## Tech Stack
 
 - [Effect](https://effect.website/) - Typed effects & Schema decoders

@@ -2,8 +2,7 @@ name: CI
 
 on:
   push:
-    branches: [main]
-    tags: ['v*']
+    branches: [master, develop, 'feature/*', 'hotfix/*']
   pull_request:
 
 permissions:
@@ -39,16 +38,20 @@ jobs:
       - name: Build
         run: pnpm build
 
-  publish:
-    name: Publish to npm (signed)
+  release:
+    name: Version, tag, and publish
     needs: build-test
-    if: startsWith(github.ref, 'refs/tags/v')
+    if: github.event_name == 'push'
     runs-on: ubuntu-latest
     permissions:
-      contents: read
-      id-token: write
+      contents: write # create git tags and GitHub releases
+      issues: write # comment on issues closed by a release
+      pull-requests: write # comment on PRs closed by a release
+      id-token: write # OIDC trusted publishing / npm provenance
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # full history for version analysis
 
       - uses: pnpm/action-setup@v4
         with:
@@ -67,5 +70,7 @@ jobs:
       - name: Build
         run: pnpm build
 
-      - name: Publish via trusted publishing
-        run: npm publish --access public --provenance --ignore-scripts
+      - name: Semantic release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: pnpm exec semantic-release
