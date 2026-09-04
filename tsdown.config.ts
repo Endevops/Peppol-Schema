@@ -20,6 +20,7 @@ export default defineConfig([
     deps: { onlyBundle: false },
     dts: { sourcemap: true },
     entry: {
+      effect: './src/effect/index.ts',
       index: './src/index.ts',
       schematron: './src/schematron/index.ts',
       validations: './src/peppol-validations/index.ts',

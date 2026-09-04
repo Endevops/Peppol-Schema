@@ -18,6 +18,10 @@
       "development": "./src/index.ts",
       "default": "./dist/index.js"
     },
+    "./effect": {
+      "development": "./src/effect/index.ts",
+      "default": "./dist/effect.js"
+    },
     "./generate-translations": {
       "development": "./scripts/generate-translations.ts",
       "default": "./dist/bin/generate-translations.mjs"
@@ -42,6 +46,7 @@
     },
     "exports": {
       ".": "./dist/index.js",
+      "./effect": "./dist/effect.js",
       "./generate-translations": "./dist/bin/generate-translations.mjs",
       "./schematron": "./dist/schematron.js",
       "./validations": "./dist/validations.js",
