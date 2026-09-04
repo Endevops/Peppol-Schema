@@ -24,7 +24,7 @@ const invoiceResponseCondition = Schema.Struct({
    *
    * @name `cbc:Description`
    */
-  description: Schema.optionalKey(Schema.String),
+  description: Schema.optional(Schema.String),
 });
 
 export type InvoiceResponseCondition = typeof invoiceResponseCondition.Type;
@@ -37,7 +37,7 @@ export const invoiceReponseDocumentActualResponseStatus = Schema.Struct({
    *
    * @name `cbc:StatusReasonCode`
    */
-  statusReasonCode: Schema.optionalKey(invoiceResponseStatusReasonCode),
+  statusReasonCode: Schema.optional(invoiceResponseStatusReasonCode),
   /**
    * @description The description of the clarification given for the invoice status.
    *
@@ -48,13 +48,13 @@ export const invoiceReponseDocumentActualResponseStatus = Schema.Struct({
    *
    * @name `cbc:StatusReason
    */
-  statusReason: Schema.optionalKey(Schema.String),
+  statusReason: Schema.optional(Schema.String),
   /**
    * @summary Condition
    *
    * @name `cac:Condition`
    */
-  condition: Schema.optionalKey(Schema.Array(invoiceResponseCondition)),
+  condition: Schema.optional(Schema.Array(invoiceResponseCondition)),
 });
 
 export type InvoiceReponseDocumentActualResponseStatus = typeof invoiceReponseDocumentActualResponseStatus.Type;

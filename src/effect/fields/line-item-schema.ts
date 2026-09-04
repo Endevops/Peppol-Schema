@@ -20,7 +20,7 @@ export const lineItemSchema = Schema.Struct({
    *
    * @name cbc:Description
    */
-  description: Schema.optionalKey(Schema.String),
+  description: Schema.optional(Schema.String),
   /**
    * @description A name for an item.
    *
@@ -34,7 +34,7 @@ export const lineItemSchema = Schema.Struct({
    *
    * @name cac:BuyersItemIdentification
    */
-  buyersItemIdentification: Schema.optionalKey(
+  buyersItemIdentification: Schema.optional(
     Schema.Struct({
       /**
        * @description An identifier, assigned by the Buyer, for the item.
@@ -54,7 +54,7 @@ export const lineItemSchema = Schema.Struct({
    *
    * @name cac:SellersItemIdentification
    */
-  sellersItemIdentification: Schema.optionalKey(
+  sellersItemIdentification: Schema.optional(
     Schema.Struct({
       /**
        * @description An identifier, assigned by the Seller, for the item.
@@ -74,7 +74,7 @@ export const lineItemSchema = Schema.Struct({
    *
    * @name cac:StandardItemIdentification
    */
-  standardItemIdentification: Schema.optionalKey(
+  standardItemIdentification: Schema.optional(
     Schema.Struct({
       /**
        * @description An item identifier based on a registered scheme.
@@ -110,7 +110,7 @@ export const lineItemSchema = Schema.Struct({
    *
    * @name `cac:OriginCountry`
    */
-  originCountryCode: Schema.optionalKey(
+  originCountryCode: Schema.optional(
     Schema.Struct({
       /**
        * @description The code identifying the country from which the item originates.
@@ -127,7 +127,7 @@ export const lineItemSchema = Schema.Struct({
    *
    * @name cac:CommodityClassification (0..n)
    */
-  commodityClassifications: Schema.optionalKey(
+  commodityClassifications: Schema.optional(
     Schema.Array(
       Schema.Struct({
         /**
@@ -159,7 +159,7 @@ export const lineItemSchema = Schema.Struct({
    *
    * @name cac:AdditionalItemProperty
    */
-  additionalItemProperties: Schema.optionalKey(
+  additionalItemProperties: Schema.optional(
     Schema.Array(
       Schema.Struct({
         /**

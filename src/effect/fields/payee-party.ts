@@ -18,7 +18,7 @@ export const payeePartySchema = Schema.Struct({
    *
    * @name `cac:PartyIdentification`
    */
-  partyIdentification: Schema.optionalKey(
+  partyIdentification: Schema.optional(
     Schema.Struct({
       /**
        * @description This element is used for both the identification of the Payee, or the unique banking reference identifier of Payee (assigned by the Payee
@@ -28,7 +28,7 @@ export const payeePartySchema = Schema.Struct({
        *
        * @name `cbc:ID`
        */
-      id: Schema.optionalKey(
+      id: Schema.optional(
         identifierSchema().pipe(
           Schema.fieldsAssign({
             /**
@@ -47,7 +47,7 @@ export const payeePartySchema = Schema.Struct({
              *
              * @name `@schemeID`
              */
-            schemeId: Schema.optionalKey(Schema.String),
+            schemeId: Schema.optional(Schema.String),
           })
         )
       ),
@@ -58,7 +58,7 @@ export const payeePartySchema = Schema.Struct({
    *
    * @name `cac:PartyLegalEntity`
    */
-  partyLegalEntity: Schema.optionalKey(
+  partyLegalEntity: Schema.optional(
     Schema.Struct({
       /**
        * @description An identifier issued by an official registrar that identifies the payee as a legal entity or person.
@@ -70,7 +70,7 @@ export const payeePartySchema = Schema.Struct({
        *
        * @name `cbc:CompanyID`
        */
-      companyId: Schema.optionalKey(
+      companyId: Schema.optional(
         identifierSchema().pipe(
           Schema.fieldsAssign({
             /**
@@ -91,7 +91,7 @@ export const payeePartySchema = Schema.Struct({
              *
              * @name `@schemeID`
              */
-            schemeId: Schema.optionalKey(icdCodesSchema()),
+            schemeId: Schema.optional(icdCodesSchema()),
           })
         )
       ),

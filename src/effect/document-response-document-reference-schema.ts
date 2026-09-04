@@ -21,7 +21,7 @@ export const documentResponseDocumentReferenceSchema = Schema.Struct({
    *
    * @name `cbc:DocumentTypeCode`
    */
-  documentTypeCode: Schema.optionalKey(documentTypeCodeSchema()),
+  documentTypeCode: Schema.optional(documentTypeCodeSchema()),
   /**
    * @description The version of the document that has been identifier with the document identifier.
    *
@@ -32,7 +32,7 @@ export const documentResponseDocumentReferenceSchema = Schema.Struct({
    *
    * @name `cbc:VersionID`
    */
-  versionId: Schema.optionalKey(Schema.String),
+  versionId: Schema.optional(Schema.String),
 });
 
 export type PeppolMessageLevelDocumentResponseDocumentReference = typeof documentResponseDocumentReferenceSchema.Type;

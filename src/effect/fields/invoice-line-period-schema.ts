@@ -15,7 +15,7 @@ export const invoiceLinePeriodSchema = Schema.Struct({
    *
    * @name `cbc:EndDate`
    */
-  endDate: Schema.optionalKey(IsoDateString),
+  endDate: Schema.optional(IsoDateString),
   /**
    * @description The date when the Invoice period for this Invoice line starts.
    *
@@ -28,7 +28,7 @@ export const invoiceLinePeriodSchema = Schema.Struct({
    *
    * @name `cbc:StartDate`
    */
-  startDate: Schema.optionalKey(IsoDateString),
+  startDate: Schema.optional(IsoDateString),
 });
 
 export type PeppolInvoiceLinePeriod = typeof invoiceLinePeriodSchema.Type;

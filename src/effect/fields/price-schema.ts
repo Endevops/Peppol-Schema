@@ -15,13 +15,13 @@ export const linePriceSchema = Schema.Struct({
    *
    * @cardinality 0..1
    */
-  allowanceCharge: Schema.optionalKey(linePriceAllowanceChargeSchema),
+  allowanceCharge: Schema.optional(linePriceAllowanceChargeSchema),
   /**
    * @name cbc:BaseQuantity (+ @unitCode)
    *
    * @cardinality 0..1
    */
-  baseQuantity: Schema.optionalKey(quantitySchema),
+  baseQuantity: Schema.optional(quantitySchema),
   /**
    * @name cbc:PriceAmount (+ @currencyID)
    */

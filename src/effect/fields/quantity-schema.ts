@@ -11,7 +11,7 @@ export const quantitySchema = Schema.Struct({
   /**
    * @name `@unitCode`
    */
-  unitCode: Schema.optionalKey(quantityUnitCodesSchema()),
+  unitCode: Schema.optional(quantityUnitCodesSchema()),
   /**
    * @name `#text (value)`
    */

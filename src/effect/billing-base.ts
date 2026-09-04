@@ -20,7 +20,7 @@ import { currencyCodeSchema } from './values/currency-codes';
 
 /**
  * @description Base schema for a billing document. Effect port of `billingBaseSchema` (`z.object(...)`): same keys and optionality (`z.optional` →
- * `Schema.optionalKey`), ISO dates stay plain strings via `IsoDateString` (never `Date` objects), and `z._default` becomes
+ * `Schema.optional`), ISO dates stay plain strings via `IsoDateString` (never `Date` objects), and `z._default` becomes
  * `Schema.withDecodingDefaultType`.
  *
  * @see {@link creditNoteSchema} - the credit note schema
@@ -93,7 +93,7 @@ export const billingBaseSchema = Schema.Struct({
    *
    * @name `cbc:Note`
    */
-  note: Schema.optionalKey(Schema.String),
+  note: Schema.optional(Schema.String),
   /**
    * @description The date when the VAT becomes accountable for the Seller and for the Buyer in so far as that date can be determined and differs from the date of
    * issue of the invoice, according to the VAT directive.This element is required if the Value added tax point date is different from the Invoice
@@ -106,7 +106,7 @@ export const billingBaseSchema = Schema.Struct({
    *
    * @name `cbc:TaxPointDate`
    */
-  taxPointDate: Schema.optionalKey(IsoDateString),
+  taxPointDate: Schema.optional(IsoDateString),
   /**
    * @description The currency in which all Invoice amounts are given, except for the Total VAT amount in accounting currency. Only one currency shall be used in
    * the Invoice, except for the VAT accounting currency code (BT-6) and the invoice total VAT amount in accounting currency (BT-111).
@@ -130,7 +130,7 @@ export const billingBaseSchema = Schema.Struct({
    *
    * @name `cbc:TaxCurrencyCode`
    */
-  taxCurrencyCode: Schema.optionalKey(currencyCodeSchema()),
+  taxCurrencyCode: Schema.optional(currencyCodeSchema()),
   /**
    * @description A textual value that specifies where to book the relevant data into the Buyer's financial accounts.
    *
@@ -141,7 +141,7 @@ export const billingBaseSchema = Schema.Struct({
    *
    * @name `cbc:AccountingCost`
    */
-  accountingCost: Schema.optionalKey(Schema.String),
+  accountingCost: Schema.optional(Schema.String),
   /**
    * @description An identifier assigned by the Buyer used for internal routing purposes. An invoice must have buyer reference or purchase order reference (BT-13).
    *
@@ -152,7 +152,7 @@ export const billingBaseSchema = Schema.Struct({
    *
    * @name `cbc:BuyerReference`
    */
-  buyerReference: Schema.optionalKey(Schema.String),
+  buyerReference: Schema.optional(Schema.String),
   /**
    * @description A group of business terms providing information on the invoice period. Also called delivery period. If the group is used, the invoiceing period
    * start date and/or end date must be used.
@@ -161,25 +161,25 @@ export const billingBaseSchema = Schema.Struct({
    *
    * @name `cac:InvoicePeriod`
    */
-  invoicePeriod: Schema.optionalKey(invoicePeriodSchema),
+  invoicePeriod: Schema.optional(invoicePeriodSchema),
   /**
    * @summary ORDER AND SALES ORDER REFERENCE
    *
    * @name `cac:OrderReference`
    */
-  orderReference: Schema.optionalKey(orderReferenceSchema),
+  orderReference: Schema.optional(orderReferenceSchema),
   /**
    * @summary PRECEDING INVOICE REFERENCE (0..n)
    *
    * @name `cac:BillingReference`
    */
-  billingReferences: Schema.optionalKey(Schema.Array(billingReferenceSchema)),
+  billingReferences: Schema.optional(Schema.Array(billingReferenceSchema)),
   /**
    * @summary DESPATCH ADVICE REFERENCE
    *
    * @name `cac:DespatchDocumentReference`
    */
-  despatchDocumentReference: Schema.optionalKey(
+  despatchDocumentReference: Schema.optional(
     Schema.Struct({
       /**
        * @description An identifier of a referenced despatch advice.
@@ -199,7 +199,7 @@ export const billingBaseSchema = Schema.Struct({
    *
    * @name `cac:ReceiptDocumentReference`
    */
-  receiptDocumentReference: Schema.optionalKey(
+  receiptDocumentReference: Schema.optional(
     Schema.Struct({
       /**
        * @description An identifier of a referenced receiving advice.
@@ -219,7 +219,7 @@ export const billingBaseSchema = Schema.Struct({
    *
    * @name `cac:OriginatorDocumentReference`
    */
-  originatorDocumentReference: Schema.optionalKey(
+  originatorDocumentReference: Schema.optional(
     Schema.Struct({
       /**
        * @description The identification of the call for tender or lot the invoice relates to.
@@ -240,7 +240,7 @@ export const billingBaseSchema = Schema.Struct({
    *
    * @name `cac:ContractDocumentReference`
    */
-  contractDocumentReference: Schema.optionalKey(
+  contractDocumentReference: Schema.optional(
     Schema.Struct({
       /**
        * @description An identifier of a referenced contract.
@@ -265,7 +265,7 @@ export const billingBaseSchema = Schema.Struct({
    *
    * @name `cac:AdditionalDocumentReference`
    */
-  additionalDocumentReferences: Schema.optionalKey(Schema.Array(additionalDocumentReferenceSchema)),
+  additionalDocumentReferences: Schema.optional(Schema.Array(additionalDocumentReferenceSchema)),
 
   /**
    * @description A group of business terms providing information about the seller.
@@ -293,21 +293,21 @@ export const billingBaseSchema = Schema.Struct({
    *
    * @name cac:PayeeParty
    */
-  payeeParty: Schema.optionalKey(payeePartySchema),
+  payeeParty: Schema.optional(payeePartySchema),
 
   /**
    * @description SELLER TAX REPRESENTATIVE PARTY.
    *
    * @name cac:TaxRepresentativeParty
    */
-  taxRepresentativeParty: Schema.optionalKey(taxRepresentativeSchema),
+  taxRepresentativeParty: Schema.optional(taxRepresentativeSchema),
 
   /**
    * @description DELIVERY INFORMATION.
    *
    * @name cac:Delivery
    */
-  delivery: Schema.optionalKey(deliverySchema),
+  delivery: Schema.optional(deliverySchema),
 
   /**
    * @summary PAYMENT INSTRUCTIONS
@@ -315,7 +315,7 @@ export const billingBaseSchema = Schema.Struct({
    *
    * @name cac:PaymentMeans
    */
-  paymentMeans: Schema.optionalKey(Schema.Array(paymentMeansSchema)),
+  paymentMeans: Schema.optional(Schema.Array(paymentMeansSchema)),
 
   /**
    * @example
@@ -325,7 +325,7 @@ export const billingBaseSchema = Schema.Struct({
    *
    * @name cac:PaymentTerms
    */
-  paymentTerms: Schema.optionalKey(paymentTermsSchema),
+  paymentTerms: Schema.optional(paymentTermsSchema),
 
   /**
    * @description A group of business terms providing information about allowances applicable to the Invoice as a whole. A group of business terms providing
@@ -335,7 +335,7 @@ export const billingBaseSchema = Schema.Struct({
    *
    * @name cac:AllowanceCharge
    */
-  allowanceCharges: Schema.optionalKey(Schema.Array(allowanceChargeSchema)),
+  allowanceCharges: Schema.optional(Schema.Array(allowanceChargeSchema)),
 
   /**
    * @description When tax currency code is provided, two instances of the tax total must be present, but only one with tax subtotal.

@@ -16,13 +16,13 @@ export const taxSubtotalCategorySchema = taxCategorySchema.pipe(
      *
      * @name cbc:TaxExemptionReason
      */
-    taxExemptionReason: Schema.optionalKey(Schema.String),
+    taxExemptionReason: Schema.optional(Schema.String),
     /**
      * @description The code for the reason of the tax exemption.
      *
      * @name cbc:TaxExemptionReasonCode
      */
-    taxExemptionReasonCode: Schema.optionalKey(Schema.String),
+    taxExemptionReasonCode: Schema.optional(Schema.String),
   })
 );
 

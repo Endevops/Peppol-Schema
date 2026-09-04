@@ -56,7 +56,7 @@ export const partyBaseSchema = Schema.Struct({
    *
    * @name `cac:PartyIdentification`
    */
-  partyIdentification: Schema.optionalKey(
+  partyIdentification: Schema.optional(
     Schema.Struct({
       /**
        * @description An identifier of the Buyer/seller.
@@ -85,7 +85,7 @@ export const partyBaseSchema = Schema.Struct({
            *
            * @name `@schemeID`
            */
-          schemeId: Schema.optionalKey(icdCodesSchema()),
+          schemeId: Schema.optional(icdCodesSchema()),
         })
       ),
     })
@@ -98,7 +98,7 @@ export const partyBaseSchema = Schema.Struct({
    *
    * @name cac:PartyName
    */
-  partyName: Schema.optionalKey(
+  partyName: Schema.optional(
     Schema.Struct({
       /**
        * @description A name by which the Buyer/Seller is known, other than Buyer/Seller name (also known as Business name).
@@ -123,7 +123,7 @@ export const partyBaseSchema = Schema.Struct({
    *
    * @cardinality (0..2)
    */
-  partyTaxSchemes: Schema.optionalKey(Schema.Array(partyTaxSchemeSchema).check(Schema.isMaxLength(2))),
+  partyTaxSchemes: Schema.optional(Schema.Array(partyTaxSchemeSchema).check(Schema.isMaxLength(2))),
   /**
    * @name cac:PartyLegalEntity
    */
@@ -131,7 +131,7 @@ export const partyBaseSchema = Schema.Struct({
   /**
    * @name cac:Contact
    */
-  contact: Schema.optionalKey(contactSchema),
+  contact: Schema.optional(contactSchema),
 });
 
 export type PeppolPartySchema = typeof partyBaseSchema.Type;

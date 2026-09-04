@@ -8,7 +8,7 @@ const identifierBase = Schema.Struct({
   /**
    * @name `@schemeID`
    */
-  schemeId: Schema.optionalKey(Schema.String),
+  schemeId: Schema.optional(Schema.String),
 });
 
 /**

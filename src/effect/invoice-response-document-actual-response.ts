@@ -30,7 +30,7 @@ export const invoiceResponseDocumentActualResponse = Schema.Union([
      *
      * @name `cbc:EffectiveDate`
      */
-    effectiveDate: Schema.optionalKey(IsoDateString),
+    effectiveDate: Schema.optional(IsoDateString),
     /**
      * @description Clarification is mendatory when the status is UQ-`under query`,RE-`rejected` and `CA`-Conditionally accepted. Clarification may be given as a
      * code, a description or both. If both are used, they must indicate the same clarification.
@@ -58,7 +58,7 @@ export const invoiceResponseDocumentActualResponse = Schema.Union([
      *
      * @name `cbc:EffectiveDate`
      */
-    effectiveDate: Schema.optionalKey(IsoDateString),
+    effectiveDate: Schema.optional(IsoDateString),
     /**
      * @description Clarification is mendatory when the status is UQ-`under query`,RE-`rejected` and `CA`-Conditionally accepted. Clarification may be given as a
      * code, a description or both. If both are used, they must indicate the same clarification.
@@ -67,7 +67,7 @@ export const invoiceResponseDocumentActualResponse = Schema.Union([
      *
      * @name `cac:Status`
      */
-    status: Schema.optionalKey(Schema.Array(invoiceReponseDocumentActualResponseStatus)),
+    status: Schema.optional(Schema.Array(invoiceReponseDocumentActualResponseStatus)),
   }),
 ]);
 

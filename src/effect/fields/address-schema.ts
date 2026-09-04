@@ -18,7 +18,7 @@ export const addressSchema = Schema.Struct({
    *
    * @name `cbc:StreetName`
    */
-  streetName: Schema.optionalKey(Schema.String),
+  streetName: Schema.optional(Schema.String),
   /**
    * @description An additional address line in an address that can be used to give further details supplementing the main line.
    *
@@ -29,7 +29,7 @@ export const addressSchema = Schema.Struct({
    *
    * @name `cbc:AdditionalStreetName`
    */
-  additionalStreetName: Schema.optionalKey(Schema.String),
+  additionalStreetName: Schema.optional(Schema.String),
   /**
    * @description The common name of the city, town or village, where the address is located.
    *
@@ -40,7 +40,7 @@ export const addressSchema = Schema.Struct({
    *
    * @name `cbc:CityName`
    */
-  cityName: Schema.optionalKey(Schema.String),
+  cityName: Schema.optional(Schema.String),
   /**
    * @description The identifier for an addressable group of properties according to the relevant postal service.
    *
@@ -51,7 +51,7 @@ export const addressSchema = Schema.Struct({
    *
    * @name `cbc:PostalZone`
    */
-  postalZone: Schema.optionalKey(Schema.String),
+  postalZone: Schema.optional(Schema.String),
   /**
    * @description The subdivision of a country.
    *
@@ -62,7 +62,7 @@ export const addressSchema = Schema.Struct({
    *
    * @name `cbc:CountrySubentity`
    */
-  countrySubentity: Schema.optionalKey(Schema.String),
+  countrySubentity: Schema.optional(Schema.String),
   /**
    * @example
    *   GB;
@@ -88,7 +88,7 @@ export const addressSchema = Schema.Struct({
    *
    * @name `cac:AddressLine`
    */
-  addressLine: Schema.optionalKey(
+  addressLine: Schema.optional(
     Schema.Struct({
       /**
        * @description An additional address line in an address that can be used to give further details supplementing the main line.

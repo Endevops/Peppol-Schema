@@ -30,7 +30,7 @@ export const orderReferenceSchema = Schema.Struct({
    *
    * @name `cbc:SalesOrderID`
    */
-  salesOrderId: Schema.optionalKey(Schema.String),
+  salesOrderId: Schema.optional(Schema.String),
 });
 
 export type PeppolOrderReference = typeof orderReferenceSchema.Type;

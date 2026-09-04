@@ -39,7 +39,7 @@ export const itemClassificationSchema = Schema.Struct({
    *
    * @name `@listVersionID`
    */
-  listVersionId: Schema.optionalKey(Schema.String),
+  listVersionId: Schema.optional(Schema.String),
 });
 
 export type PeppolItemClassification = typeof itemClassificationSchema.Type;

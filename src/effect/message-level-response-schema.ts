@@ -70,7 +70,7 @@ export const messageLevelResponse = Schema.Struct({
    *
    * @name cbc:IssueDate
    */
-  issueTime: Schema.optionalKey(xsdTime),
+  issueTime: Schema.optional(xsdTime),
   /**
    * @description The party sending an electronic message level response message back to the sending party of the business document.
    *

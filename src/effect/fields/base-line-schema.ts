@@ -23,7 +23,7 @@ export const baseLineSchema = Schema.Struct({
    *
    * @cardinality 0..1
    */
-  accountingCost: Schema.optionalKey(Schema.String),
+  accountingCost: Schema.optional(Schema.String),
   /**
    * @description A group of business terms providing information about allowances or charges applicable to the individual Invoice line.
    *
@@ -33,7 +33,7 @@ export const baseLineSchema = Schema.Struct({
    *
    * @cardinality 0..n
    */
-  allowanceCharges: Schema.optionalKey(Schema.Array(lineAllowanceChargeSchema)),
+  allowanceCharges: Schema.optional(Schema.Array(lineAllowanceChargeSchema)),
   /**
    * @summary Line object identifier
    *
@@ -41,7 +41,7 @@ export const baseLineSchema = Schema.Struct({
    *
    * @cardinality 0..1
    */
-  documentReference: Schema.optionalKey(
+  documentReference: Schema.optional(
     Schema.Array(
       identifierSchema().pipe(
         Schema.fieldsAssign({
@@ -77,7 +77,7 @@ export const baseLineSchema = Schema.Struct({
    *
    * @cardinality 0..1
    */
-  invoicePeriod: Schema.optionalKey(invoiceLinePeriodSchema),
+  invoicePeriod: Schema.optional(invoiceLinePeriodSchema),
   /**
    * @description A group of business terms providing information about the goods and services invoiced.
    *
@@ -114,7 +114,7 @@ export const baseLineSchema = Schema.Struct({
    *
    * @cardinality 0..1
    */
-  note: Schema.optionalKey(Schema.String),
+  note: Schema.optional(Schema.String),
   /**
    * @summary Order line reference
    *
@@ -122,7 +122,7 @@ export const baseLineSchema = Schema.Struct({
    *
    * @cardinality 0..1
    */
-  orderLineReference: Schema.optionalKey(Schema.Struct({ lineId: Schema.String })),
+  orderLineReference: Schema.optional(Schema.Struct({ lineId: Schema.String })),
   /**
    * @description A group of business terms providing information about the price applied for the goods and services invoices on the Invoice line.
    *

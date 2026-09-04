@@ -19,7 +19,7 @@ export const taxTotalsBaseSchema = Schema.Struct({
   /**
    * @name cac:TaxSubtotal (0..n)
    */
-  taxSubtotals: Schema.optionalKey(Schema.Array(taxSubtotalSchema)),
+  taxSubtotals: Schema.optional(Schema.Array(taxSubtotalSchema)),
 });
 
 export type PeppolTaxTotal = typeof taxTotalsBaseSchema.Type;

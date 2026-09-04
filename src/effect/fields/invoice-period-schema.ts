@@ -24,7 +24,7 @@ export const invoicePeriodSchema = invoiceLinePeriodSchema.pipe(
      *
      * @name `cbc:DescriptionCode`
      */
-    descriptionCode: Schema.optionalKey(vatDateCodeSchema()),
+    descriptionCode: Schema.optional(vatDateCodeSchema()),
   })
 );
 

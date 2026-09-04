@@ -14,7 +14,7 @@ const baseAllowanceChargeSchema = baseLineAllowanceChargeSchema.pipe(
      *
      * @name cac:TaxCategory
      */
-    taxCategory: Schema.optionalKey(
+    taxCategory: Schema.optional(
       taxCategorySchema.pipe(
         Schema.fieldsAssign({
           /**
@@ -32,7 +32,7 @@ const baseAllowanceChargeSchema = baseLineAllowanceChargeSchema.pipe(
            *
            * @name `cbc:Percent`
            */
-          percent: Schema.optionalKey(Schema.Number),
+          percent: Schema.optional(Schema.Number),
           /**
            * @default VAT
            *
@@ -63,7 +63,7 @@ export const allowanceChargeSchema = Schema.Union([
       /**
        * @name cbc:AllowanceChargeReasonCode
        */
-      allowanceChargeReasonCode: Schema.optionalKey(
+      allowanceChargeReasonCode: Schema.optional(
         allowanceChargeReasonCodeSchema('PEPPOL-EN16931-CL002: Reason code MUST be according to subset of UNCL 5189 D.16B.')
       ),
       /**
@@ -81,9 +81,7 @@ export const allowanceChargeSchema = Schema.Union([
       /**
        * @name cbc:AllowanceChargeReasonCode
        */
-      allowanceChargeReasonCode: Schema.optionalKey(
-        chargeReasonCodeSchema('PEPPOL-EN16931-CL003: Reason code MUST be according to UNCL 7161 D.16B.')
-      ),
+      allowanceChargeReasonCode: Schema.optional(chargeReasonCodeSchema('PEPPOL-EN16931-CL003: Reason code MUST be according to UNCL 7161 D.16B.')),
       /**
        * @name cbc:ChargeIndicator
        *

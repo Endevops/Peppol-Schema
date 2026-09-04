@@ -8,7 +8,7 @@ import { invoiceTypeCodeSchema } from './values/invoice-type-code-schema';
 /**
  * @description Main UBL Invoice schema (camelCase properties) Effect port of `invoiceSchema` (`z.extend(billingBaseSchema, ...)` →
  * `billingBaseSchema.pipe(Schema.fieldsAssign(...))`). `dueDate` stays a validated plain string via `IsoDateString` (no `Date` conversion);
- * `z.optional` maps to `Schema.optionalKey` under `exactOptionalPropertyTypes`.
+ * `z.optional` maps to `Schema.optional` (accepts explicit `undefined`, matching decoder output).
  */
 export const invoiceSchema = billingBaseSchema.pipe(
   Schema.fieldsAssign({
@@ -20,7 +20,7 @@ export const invoiceSchema = billingBaseSchema.pipe(
      *
      * @name cbc:DueDate
      */
-    dueDate: Schema.optionalKey(IsoDateString),
+    dueDate: Schema.optional(IsoDateString),
     /**
      * @summary INVOICE LINE
      *
@@ -41,7 +41,7 @@ export const invoiceSchema = billingBaseSchema.pipe(
      *
      * @name cac:ProjectReference
      */
-    projectReference: Schema.optionalKey(Schema.Struct({ id: Schema.String })),
+    projectReference: Schema.optional(Schema.Struct({ id: Schema.String })),
   })
 );
 

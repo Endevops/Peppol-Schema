@@ -13,14 +13,14 @@ const baseLineAllowanceChargeSchema = priceAllowanceChargeSchema.pipe(
      *
      * @name cbc:AllowanceChargeReason
      */
-    allowanceChargeReason: Schema.optionalKey(Schema.String),
+    allowanceChargeReason: Schema.optional(Schema.String),
     /**
      * @example
      *   20;
      *
      * @name cbc:MultiplierFactorNumeric
      */
-    multiplierFactorNumeric: Schema.optionalKey(Schema.Number),
+    multiplierFactorNumeric: Schema.optional(Schema.Number),
   })
 );
 
@@ -30,7 +30,7 @@ export const lineAllowanceChargeSchema = Schema.Union([
       /**
        * @name cbc:AllowanceChargeReasonCode
        */
-      allowanceChargeReasonCode: Schema.optionalKey(
+      allowanceChargeReasonCode: Schema.optional(
         allowanceChargeReasonCodeSchema('PEPPOL-EN16931-CL002: Reason code MUST be according to subset of UNCL 5189 D.16B.')
       ),
       /**
@@ -48,9 +48,7 @@ export const lineAllowanceChargeSchema = Schema.Union([
       /**
        * @name cbc:AllowanceChargeReasonCode
        */
-      allowanceChargeReasonCode: Schema.optionalKey(
-        chargeReasonCodeSchema('PEPPOL-EN16931-CL003: Reason code MUST be according to UNCL 7161 D.16B.')
-      ),
+      allowanceChargeReasonCode: Schema.optional(chargeReasonCodeSchema('PEPPOL-EN16931-CL003: Reason code MUST be according to UNCL 7161 D.16B.')),
       /**
        * @name cbc:ChargeIndicator
        *

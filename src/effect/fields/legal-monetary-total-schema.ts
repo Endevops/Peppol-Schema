@@ -23,7 +23,7 @@ export const legalMonetaryTotalSchema = Schema.Struct({
    *
    * @name `cbc:AllowanceTotalAmount (+ @currencyID)`
    */
-  allowanceTotalAmount: Schema.optionalKey(amountSchema),
+  allowanceTotalAmount: Schema.optional(amountSchema),
   /**
    * @description Sum of all charges on document level in the Invoice.
    *
@@ -37,7 +37,7 @@ export const legalMonetaryTotalSchema = Schema.Struct({
    *
    * @name `cbc:ChargeTotalAmount (+ @currencyID)`
    */
-  chargeTotalAmount: Schema.optionalKey(amountSchema),
+  chargeTotalAmount: Schema.optional(amountSchema),
   /**
    * @description Sum of all Invoice line net amounts in the Invoice.
    *
@@ -79,7 +79,7 @@ export const legalMonetaryTotalSchema = Schema.Struct({
    *
    * @name `cbc:PayableRoundingAmount (+ @currencyID)`
    */
-  payableRoundingAmount: Schema.optionalKey(amountSchema),
+  payableRoundingAmount: Schema.optional(amountSchema),
   /**
    * @description The sum of amounts which have been paid in advances.
    *
@@ -93,7 +93,7 @@ export const legalMonetaryTotalSchema = Schema.Struct({
    *
    * @name `cbc:PrepaidAmount (+ @currencyID)`
    */
-  prepaidAmount: Schema.optionalKey(amountSchema),
+  prepaidAmount: Schema.optional(amountSchema),
   /**
    * @description The total amount of the Invoice without VAT.
    *

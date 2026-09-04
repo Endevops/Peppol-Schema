@@ -43,7 +43,7 @@ export const paymentMeansSchema = Schema.Struct({
      *
      * @name `@name`
      */
-    name: Schema.optionalKey(Schema.String),
+    name: Schema.optional(Schema.String),
   }),
   /**
    * @description The date when the payment is due.Format "YYYY-MM-DD". In case the Amount due for payment (BT-115) is positive, either the Payment due date (BT-9)
@@ -56,7 +56,7 @@ export const paymentMeansSchema = Schema.Struct({
    *
    * @name `cbc:PaymentDueDate`
    */
-  paymentDueDate: Schema.optionalKey(IsoDateString),
+  paymentDueDate: Schema.optional(IsoDateString),
   /**
    * @description A textual value used to establish a link between the payment and the Invoice, issued by the Seller. Used for creditor's critical reconciliation
    * information. This information element helps the Seller to assign an incoming payment to the relevant payment process.
@@ -68,7 +68,7 @@ export const paymentMeansSchema = Schema.Struct({
    *
    * @name cbc:PaymentID
    */
-  paymentId: Schema.optionalKey(Schema.String),
+  paymentId: Schema.optional(Schema.String),
   /**
    * @description A group of business terms providing information about card used for payment contemporaneous with invoice issuance.
    *
@@ -76,7 +76,7 @@ export const paymentMeansSchema = Schema.Struct({
    *
    * @name cac:CardAccount
    */
-  cardAccount: Schema.optionalKey(
+  cardAccount: Schema.optional(
     Schema.Struct({
       /**
        * @description The name of the payment card holder.
@@ -85,7 +85,7 @@ export const paymentMeansSchema = Schema.Struct({
        *
        * @name cbc:HolderName
        */
-      holderName: Schema.optionalKey(Schema.String),
+      holderName: Schema.optional(Schema.String),
       /**
        * @summary Syntax required element not related to a business term.
        *
@@ -113,7 +113,7 @@ export const paymentMeansSchema = Schema.Struct({
    *
    * @name cac:PayeeFinancialAccount
    */
-  payeeFinancialAccount: Schema.optionalKey(
+  payeeFinancialAccount: Schema.optional(
     Schema.Struct({
       /**
        * @description An identifier for the payment service provider where a payment account is located. Such as a BIC or a national clearing code where required.
@@ -126,7 +126,7 @@ export const paymentMeansSchema = Schema.Struct({
        *
        * @name `cac:FinancialInstitutionBranch`
        */
-      financialInstitutionBranch: Schema.optionalKey(
+      financialInstitutionBranch: Schema.optional(
         Schema.Struct({
           /**
            * @description An identifier for the payment service provider where a payment account is located. Such as a BIC or a national clearing code where
@@ -157,7 +157,7 @@ export const paymentMeansSchema = Schema.Struct({
        *
        * @name cbc:Name
        */
-      name: Schema.optionalKey(Schema.String),
+      name: Schema.optional(Schema.String),
     })
   ),
   /**
@@ -167,7 +167,7 @@ export const paymentMeansSchema = Schema.Struct({
    *
    * @name cac:PaymentMandate
    */
-  paymentMandate: Schema.optionalKey(
+  paymentMandate: Schema.optional(
     Schema.Struct({
       /**
        * @description Unique identifier assigned by the Payee for referencing the direct debit mandate. Used in order to pre-notify the Buyer of a SEPA direct
@@ -177,7 +177,7 @@ export const paymentMeansSchema = Schema.Struct({
        *
        * @name cbc:ID
        */
-      id: Schema.optionalKey(Schema.String),
+      id: Schema.optional(Schema.String),
       /**
        * @description The account to be debited by the direct debit.
        *
@@ -188,7 +188,7 @@ export const paymentMeansSchema = Schema.Struct({
        *
        * @name `cac:PayerFinancialAccount`
        */
-      payerFinancialAccountId: Schema.optionalKey(
+      payerFinancialAccountId: Schema.optional(
         Schema.Struct({
           /**
            * @description The account to be debited by the direct debit.

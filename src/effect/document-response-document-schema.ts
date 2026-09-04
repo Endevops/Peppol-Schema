@@ -29,7 +29,7 @@ export const documentResponseDocumentSchema = Schema.Struct({
    *
    * @summary Response textual notes
    */
-  description: Schema.optionalKey(Schema.String),
+  description: Schema.optional(Schema.String),
 });
 
 export type PeppolMessageLevelResponseDocumentResponseDocument = typeof documentResponseDocumentSchema.Type;

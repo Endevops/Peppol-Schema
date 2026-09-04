@@ -9,14 +9,14 @@ export const partyLegalEntitySchema = Schema.Struct({
    *
    * @name cbc:CompanyID (+ @schemeID)
    */
-  companyId: Schema.optionalKey(identifierSchema()),
+  companyId: Schema.optional(identifierSchema()),
   /**
    * @example
    *   Share capital
    *
    * @name cbc:CompanyLegalForm
    */
-  companyLegalForm: Schema.optionalKey(Schema.String),
+  companyLegalForm: Schema.optional(Schema.String),
   /**
    * @example
    *   Full Formal Seller Name LTD.

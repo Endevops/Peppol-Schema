@@ -41,7 +41,7 @@ export const additionalDocumentReferenceSchema = identifierSchema().pipe(
        *
        * @name `@schemeID`
        */
-      schemeId: Schema.optionalKey(additionalDocumentReferenceCodeSchema()),
+      schemeId: Schema.optional(additionalDocumentReferenceCodeSchema()),
     }),
     /**
      * @remarks
@@ -54,7 +54,7 @@ export const additionalDocumentReferenceSchema = identifierSchema().pipe(
      *
      * @name `cbc:DocumentTypeCode`
      */
-    documentTypeCode: Schema.optionalKey(Schema.String),
+    documentTypeCode: Schema.optional(Schema.String),
     /**
      * @description A description of the supporting document, such as timesheet, usage report, etc.
      *
@@ -65,13 +65,13 @@ export const additionalDocumentReferenceSchema = identifierSchema().pipe(
      *
      * @name `cbc:DocumentDescription`
      */
-    documentDescription: Schema.optionalKey(Schema.String),
+    documentDescription: Schema.optional(Schema.String),
     /**
      * @summary Attachment
      *
      * @name `cac:Attachment`
      */
-    attachment: Schema.optionalKey(
+    attachment: Schema.optional(
       Schema.Struct({
         /**
          * @description An attached document embedded as binary object (Base64) or sent together with the invoice.
@@ -85,13 +85,13 @@ export const additionalDocumentReferenceSchema = identifierSchema().pipe(
          *
          * @name `cbc:EmbeddedDocumentBinaryObject`
          */
-        embeddedDocumentBinaryObject: Schema.optionalKey(binaryObjectSchema),
+        embeddedDocumentBinaryObject: Schema.optional(binaryObjectSchema),
         /**
          * @summary EXTERNAL REFERENCE
          *
          * @name `cac:ExternalReference`
          */
-        externalReference: Schema.optionalKey(
+        externalReference: Schema.optional(
           Schema.Struct({
             /**
              * @description The URL (Uniform Resource Locator) that identifies where the external document is located. A means of locating the resource, including

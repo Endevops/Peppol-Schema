@@ -16,7 +16,7 @@ const invoiceResponsePartySchema = messageLevelResponsePartySchema.pipe(
     /**
      * @summary Party partyIdentification
      */
-    partyIdentification: Schema.optionalKey(identifierSchema()),
+    partyIdentification: Schema.optional(identifierSchema()),
     partyLegalEntity: partyLegalEntitySchema.mapFields(Struct.pick(['registrationName'])),
   })
 );
@@ -28,7 +28,7 @@ const invoiceResponseSenderPartySchema = invoiceResponsePartySchema.pipe(
      *
      * @name `cac:Contact`
      */
-    contact: Schema.optionalKey(contactSchema),
+    contact: Schema.optional(contactSchema),
   })
 );
 
@@ -41,7 +41,7 @@ const invoiceResponseDocumentResponseParty = Schema.Struct({
   /**
    * @summary Party partyIdentification
    */
-  partyIdentification: Schema.optionalKey(identifierSchema()),
+  partyIdentification: Schema.optional(identifierSchema()),
   /**
    * @example
    *   Seller Business Name AS
@@ -86,7 +86,7 @@ const invoiceResponseDocumentReferenceSchema = Schema.Struct({
    *
    * @name `cbc:IssueDate`
    */
-  issueDate: Schema.optionalKey(IsoDateString),
+  issueDate: Schema.optional(IsoDateString),
   /**
    * @example
    *   `380`;
@@ -118,13 +118,13 @@ const invoiceResponseDocumentResponseSchema = Schema.Struct({
    *
    * @name `cac:IssuerParty`
    */
-  issuerParty: Schema.optionalKey(invoiceResponseDocumentResponseParty),
+  issuerParty: Schema.optional(invoiceResponseDocumentResponseParty),
   /**
    * @summary Buyer party information
    *
    * @name `cac:RecipientParty`
    */
-  recipientParty: Schema.optionalKey(invoiceResponseDocumentResponseParty),
+  recipientParty: Schema.optional(invoiceResponseDocumentResponseParty),
 });
 
 export type InvoiceResponseDocumentResponse = typeof invoiceResponseDocumentResponseSchema.Type;
@@ -167,7 +167,7 @@ export const invoiceResponseSchema = messageLevelResponse.pipe(
      *
      * @summary Invoice response note
      */
-    note: Schema.optionalKey(Schema.String),
+    note: Schema.optional(Schema.String),
     /**
      * @summary Document response
      */

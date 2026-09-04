@@ -16,7 +16,7 @@ const priceAllowanceChargeSchema = Schema.Struct({
    *
    * @name cbc:BaseAmount (+ @currencyID)
    */
-  baseAmount: Schema.optionalKey(amountSchema),
+  baseAmount: Schema.optional(amountSchema),
   /**
    * @name cbc:ChargeIndicator
    *

@@ -25,7 +25,7 @@ export const taxCategorySchema = Schema.Struct({
    *
    * @name `cbc:Percent`
    */
-  percent: Schema.optionalKey(Schema.Number),
+  percent: Schema.optional(Schema.Number),
   /**
    * @default VAT
    *

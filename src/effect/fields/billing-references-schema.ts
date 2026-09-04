@@ -40,7 +40,7 @@ export const billingReferenceSchema = Schema.Struct({
      *
      * @name `cbc:IssueDate`
      */
-    issueDate: Schema.optionalKey(IsoDateString),
+    issueDate: Schema.optional(IsoDateString),
   }),
 });
 

@@ -19,11 +19,11 @@ export const deliverySchema = Schema.Struct({
    *
    * @name cbc:ActualDeliveryDate
    */
-  actualDeliveryDate: Schema.optionalKey(IsoDateString),
+  actualDeliveryDate: Schema.optional(IsoDateString),
   /**
    * @name `cac:DeliveryLocation`
    */
-  deliveryLocation: Schema.optionalKey(
+  deliveryLocation: Schema.optional(
     Schema.Struct({
       /**
        * @description An identifier for the location at which the goods and services are delivered.
@@ -35,7 +35,7 @@ export const deliverySchema = Schema.Struct({
        *
        * @name `cbc:ID`
        */
-      id: Schema.optionalKey(
+      id: Schema.optional(
         identifierSchema().pipe(
           Schema.fieldsAssign({
             /**
@@ -56,7 +56,7 @@ export const deliverySchema = Schema.Struct({
              *
              * @name `@schemeID`
              */
-            schemeId: Schema.optionalKey(icdCodesSchema()),
+            schemeId: Schema.optional(icdCodesSchema()),
           })
         )
       ),
@@ -67,7 +67,7 @@ export const deliverySchema = Schema.Struct({
        *
        * @name `cac:Address`
        */
-      address: Schema.optionalKey(addressSchema),
+      address: Schema.optional(addressSchema),
     })
   ),
 
@@ -76,7 +76,7 @@ export const deliverySchema = Schema.Struct({
    *
    * @name `cac:DeliveryParty`
    */
-  deliveryParty: Schema.optionalKey(
+  deliveryParty: Schema.optional(
     Schema.Struct({
       /**
        * @summary PARTY NAME
