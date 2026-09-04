@@ -1,0 +1,98 @@
+import { Schema } from 'effect';
+
+import { MESSAGE_LEVEL_RESPONSE_PROFILE_ID } from '#/constants/message-level-response-profile-id';
+
+import { IsoDateString } from './iso-date-string';
+import { messageLevelResponseDocumentResponseSchema } from './message-level-response-document-response-schema';
+import { messageLevelResponsePartySchema } from './message-level-response-party-schema';
+import { xsdTime } from './utils/xsd-time';
+
+export const messageLevelResponse = Schema.Struct({
+  /**
+   * @description Identifies the specification of content and rules that apply to the transaction.
+   *
+   * @default `urn:fdc:peppol.eu:poacc:trns:mlr:3`
+   *
+   * @summary Specification identification
+   *
+   * @name `cbc:CustomizationID`
+   *
+   * @cardinality 1..1
+   */
+  customizationId: Schema.String,
+  /**
+   * @description Identifies the BII profile or business process context in which the transaction appears.
+   *
+   * @remarks
+   *   Fixed value to `urn:fdc:peppol.eu:poacc:bis:mlr:3`
+   *
+   * @default `urn:fdc:peppol.eu:poacc:bis:mlr:3`
+   *
+   * @summary Business process type identifier
+   *
+   * @name `cbc:ProfileID`
+   */
+  profileId: Schema.Literal(MESSAGE_LEVEL_RESPONSE_PROFILE_ID),
+  /**
+   * @description A transaction instance must contain an identifier. The identifier enables positive referencing the transaction instance for various puropses
+   * including referencing between transactions that are part of the same process.
+   *
+   * @example
+   *   23;
+   *
+   * @summary Response identifier
+   *
+   * @name cbc:ID
+   */
+  id: Schema.String,
+  /**
+   * @description The date on which the transaction instance was issued.
+   *
+   * @example
+   *   2017 - 11 - 01;
+   *
+   * @summary Response issue date
+   *
+   * @format `YYYY-MM-DD`
+   *
+   * @name cbc:IssueDate
+   */
+  issueDate: IsoDateString,
+  /**
+   * @description The time at which the transaction instance was issued.
+   *
+   * @example
+   *   12:01:34
+   *
+   * @summary Response issue time
+   *
+   * @format `hh:mm:ss`
+   *
+   * @name cbc:IssueDate
+   */
+  issueTime: Schema.optionalKey(xsdTime),
+  /**
+   * @description The party sending an electronic message level response message back to the sending party of the business document.
+   *
+   * @summary Sender information
+   */
+  senderParty: messageLevelResponsePartySchema,
+  /**
+   * @description The party, an electronic message level response was addressed to, and who is supposed to process the message level response. This is the same
+   * party as the sender of the business document.
+   *
+   * @summary Receiver information
+   */
+  receiverParty: messageLevelResponsePartySchema,
+  /**
+   * @description The document response is used to indicate the result of business document validation. The element
+   * `cac:DocumentResponse/cac:Response/cbc:ResponseCode` MUST contain the overall result code.
+   *
+   * @summary Document response
+   *
+   * @name `cac:DocumentResponse`
+   */
+  documentResponse: messageLevelResponseDocumentResponseSchema,
+});
+
+export type PeppolMessageLevelResponse = typeof messageLevelResponse.Type;
