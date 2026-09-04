@@ -1,9 +1,9 @@
-import type { PeppolContact } from '#/schemas/fields/contact-schema';
-import type { PeppolPartyLegalEntitySchema } from '#/schemas/fields/party-legal-entity-schema';
 import type { InvoiceDocumentResponseParty, InvoiceResponseParty } from '#/schemas/invoice-response-schema';
 import type { PeppolMessageLevelResponseParty } from '#/schemas/message-level-response-party-schema';
 
+import { encodeContact } from '#/decoders/fields/encode-contact';
 import { encodeIdentifier } from '#/decoders/fields/encode-identifier';
+import { encodePartyLegalEntity } from '#/decoders/fields/encode-party-legal-entity';
 
 export function encodeMessageParty(party?: PeppolMessageLevelResponseParty | InvoiceResponseParty | InvoiceDocumentResponseParty) {
   if (!party) return undefined;
@@ -15,18 +15,4 @@ export function encodeMessageParty(party?: PeppolMessageLevelResponseParty | Inv
     'cac:PartyLegalEntity': 'partyLegalEntity' in party ? encodePartyLegalEntity(party.partyLegalEntity) : undefined,
     'cac:Contact': 'contact' in party ? encodeContact(party.contact) : undefined,
   };
-}
-
-function encodePartyLegalEntity(legalEntity: PeppolPartyLegalEntitySchema) {
-  return {
-    'cbc:RegistrationName': legalEntity.registrationName,
-    'cbc:CompanyID': encodeIdentifier(legalEntity.companyId),
-    'cbc:CompanyLegalForm': legalEntity.companyLegalForm,
-  };
-}
-
-function encodeContact(contact: PeppolContact | undefined) {
-  if (!contact) return undefined;
-
-  return { 'cbc:Name': contact.name, 'cbc:Telephone': contact.telephone, 'cbc:ElectronicMail': contact.electronicMail };
 }
