@@ -6,7 +6,7 @@ export default defineConfig({
   ignorePatterns: ['**/dist', '**/node_modules', '**/coverage'],
   overrides: [
     { files: ['**/*.spec.ts'], rules: { 'typescript/no-explicit-any': 'off' } },
-    { files: ['**/{schemas,decoders}/**/*.ts'], rules: { 'typescript/no-redundant-type-constituents': 'off', 'sort-keys': 'off' } },
+    { files: ['**/{effect,schemas,decoders}/**/*.ts'], rules: { 'typescript/no-redundant-type-constituents': 'off', 'sort-keys': 'off' } },
     {
       files: ['./src/index.ts', './src/schemas.ts', './src/peppol-validations/index.ts', './src/values.ts', './src/constants/index.ts'],
       rules: { 'oxc/no-barrel-file': 'off', 'typescript/consistent-type-exports': 'off' },
