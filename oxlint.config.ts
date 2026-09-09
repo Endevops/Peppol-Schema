@@ -8,7 +8,16 @@ export default defineConfig({
     { files: ['**/*.spec.ts'], rules: { 'typescript/no-explicit-any': 'off' } },
     { files: ['**/{effect,schemas,decoders}/**/*.ts'], rules: { 'typescript/no-redundant-type-constituents': 'off', 'sort-keys': 'off' } },
     {
-      files: ['./src/index.ts', './src/schemas.ts', './src/peppol-validations/index.ts', './src/values.ts', './src/constants/index.ts'],
+      files: [
+        './src/index.ts',
+        './src/schemas.ts',
+        './src/peppol-validations/index.ts',
+        './src/values.ts',
+        './src/constants/index.ts',
+        './src/effect/index.ts',
+        './src/effect/values/index.ts',
+        './src/effect/utils/index.ts',
+      ],
       rules: { 'oxc/no-barrel-file': 'off', 'typescript/consistent-type-exports': 'off' },
     },
   ],
