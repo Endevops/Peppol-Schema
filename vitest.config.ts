@@ -22,6 +22,7 @@ const projects = [
     resolve: { tsconfigPaths: true },
     test: {
       exclude: [`${import.meta.dirname}/src/**/*.*.{test,spec}.{ts,tsx}`],
+      fsModuleCache: true,
       hookTimeout,
       include: [`${import.meta.dirname}/src/**/*.{test,spec}.{ts,tsx}`],
       isolate: false,
@@ -34,6 +35,7 @@ const projects = [
   {
     resolve: { tsconfigPaths: true },
     test: {
+      fsModuleCache: true,
       hookTimeout: 10_000,
       include: [`${import.meta.dirname}/src/**/*.int.{test,spec}.{ts,tsx}`],
       isolate: false,

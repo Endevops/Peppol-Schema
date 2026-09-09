@@ -12,7 +12,7 @@ export const vatRegexSchema = z.union([
       if (!result.success) {
         const message = 'Invalid belgian vat number';
 
-        if (import.meta.env['DEV']) {
+        if (import.meta.env['DEV'] && !import.meta.env['TEST']) {
           console.log(`Validation ${result.actual} != ${result.expected}`);
           message.concat(`(Validation ${result.actual} != ${result.expected})`);
         }

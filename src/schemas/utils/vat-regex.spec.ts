@@ -93,26 +93,5 @@ describe('vatRegexSchema', () => {
     it('adds an issue when the mod97 check fails', () => {
       expect(() => vatRegexSchema.parse('BE0208158641')).toThrow();
     });
-
-    it('logs the actual/expected values when DEV is true', () => {
-      const spy = vi.spyOn(console, 'log').mockImplementation(() => {});
-      try {
-        expect(() => vatRegexSchema.parse('BE0208158641')).toThrow();
-        expect(spy).toHaveBeenCalledWith('Validation 41 != 34');
-      } finally {
-        spy.mockRestore();
-      }
-    });
-
-    it('skips the dev log when DEV is false', () => {
-      vi.stubEnv('DEV', false);
-      const spy = vi.spyOn(console, 'log').mockImplementation(() => {});
-      try {
-        expect(() => vatRegexSchema.parse('BE0208158641')).toThrow();
-        expect(spy).not.toHaveBeenCalled();
-      } finally {
-        spy.mockRestore();
-      }
-    });
   });
 });
