@@ -52,7 +52,10 @@
       "./validations": "./dist/validations.js",
       "./xml": "./dist/xml.js",
       "./package.json": "./package.json"
-    }
+    },
+    "access": "public",
+    "provenance": true,
+    "registry": "https://registry.npmjs.org/"
   },
   "scripts": {
     "build": "tsdown",
