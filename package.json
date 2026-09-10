@@ -4,6 +4,10 @@
   "version": "0.0.1",
   "description": "A simple example library built by tsdown",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Endevops/Peppol-Schema.git"
+  },
   "bin": {
     "generate-translations": "./scripts/generate-translations.ts"
   },
