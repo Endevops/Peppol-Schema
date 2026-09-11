@@ -20,7 +20,4 @@ export type PeppolInvoiceStatusCodes = InvoiceStatusCodesKeys;
  *
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/UNCL4343-T111/
  */
-export function invoiceStatusCodeSchema(error?: string) {
-  const schema = Schema.Literals(invoiceStatusCodesKeys);
-  return error === undefined ? schema : schema.annotate({ message: error });
-}
+export const invoiceStatusCodeSchema = Schema.Literals(invoiceStatusCodesKeys);

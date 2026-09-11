@@ -8,7 +8,11 @@ const define: Record<string, string> = {
   'import.meta.vitest': 'undefined',
 };
 
-const exports: ExportsOptions = { devExports: true, packageJson: true, bin: { 'generate-translations': './scripts/generate-translations.ts' } };
+const exports: ExportsOptions = {
+  devExports: 'development',
+  packageJson: true,
+  bin: { 'generate-translations': './scripts/generate-translations.ts' },
+};
 const attw: WithEnabled<AttwOptions> = { profile: 'esm-only', enabled: true };
 const publint: WithEnabled<PublintOptions> = { enabled: true };
 

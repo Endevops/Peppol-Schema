@@ -18,12 +18,30 @@
   ],
   "type": "module",
   "exports": {
-    ".": "./src/index.ts",
-    "./effect": "./src/effect/index.ts",
-    "./generate-translations": "./scripts/generate-translations.ts",
-    "./schematron": "./src/schematron/index.ts",
-    "./validations": "./src/peppol-validations/index.ts",
-    "./xml": "./src/xml.ts",
+    ".": {
+      "development": "./src/index.ts",
+      "default": "./dist/index.js"
+    },
+    "./effect": {
+      "development": "./src/effect/index.ts",
+      "default": "./dist/effect.js"
+    },
+    "./generate-translations": {
+      "development": "./scripts/generate-translations.ts",
+      "default": "./dist/bin/generate-translations.mjs"
+    },
+    "./schematron": {
+      "development": "./src/schematron/index.ts",
+      "default": "./dist/schematron.js"
+    },
+    "./validations": {
+      "development": "./src/peppol-validations/index.ts",
+      "default": "./dist/validations.js"
+    },
+    "./xml": {
+      "development": "./src/xml.ts",
+      "default": "./dist/xml.js"
+    },
     "./package.json": "./package.json"
   },
   "publishConfig": {
