@@ -1,8 +1,8 @@
 import { Schema } from 'effect';
 
-import { documentTypeCodeSchema } from './values/document-type-codes';
+import { peppolDocumentTypeCodeSchema } from './values/document-type-codes';
 
-export const documentResponseDocumentReferenceSchema = Schema.Struct({
+export const peppolDocumentResponseDocumentReferenceSchema = Schema.Struct({
   /**
    * @description Identifies the document on which the message level response is based.
    *
@@ -21,7 +21,7 @@ export const documentResponseDocumentReferenceSchema = Schema.Struct({
    *
    * @name `cbc:DocumentTypeCode`
    */
-  documentTypeCode: Schema.optional(documentTypeCodeSchema()),
+  documentTypeCode: Schema.optional(peppolDocumentTypeCodeSchema()),
   /**
    * @description The version of the document that has been identifier with the document identifier.
    *
@@ -35,4 +35,4 @@ export const documentResponseDocumentReferenceSchema = Schema.Struct({
   versionId: Schema.optional(Schema.String),
 });
 
-export type PeppolMessageLevelDocumentResponseDocumentReference = typeof documentResponseDocumentReferenceSchema.Type;
+export type PeppolMessageLevelDocumentResponseDocumentReference = typeof peppolDocumentResponseDocumentReferenceSchema.Type;

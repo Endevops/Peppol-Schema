@@ -1,4 +1,4 @@
-import { Schema } from 'effect';
+import { Predicate, Schema } from 'effect';
 
 import type { DocumentTypesTableKeys } from '#/values/document-type.generated';
 
@@ -9,7 +9,7 @@ import { documentTypesTable, documentTypesTableKeys } from '#/values/document-ty
  *
  * @see {@link documentTypesTable}
  */
-export type PeppolDocumentType = `${DocumentTypesTableKeys}::${string}`;
+export type PeppolDocumentType = typeof documentTypeSchema.Type;
 
 /**
  * @description Validates a full PEPPOL document type identifier (`<scheme>::<value>`) against the known document type table. The scheme prefix must be a known key
@@ -21,13 +21,11 @@ export type PeppolDocumentType = `${DocumentTypesTableKeys}::${string}`;
  *
  * @see {@link documentTypesTable}
  */
-export function documentTypeSchema(error = 'invalid peppol document type') {
-  return Schema.String.check(
-    Schema.makeFilter((val: string) => {
-      const [prefix, ...suffix] = val.split('::');
-      if (prefix === undefined || !documentTypesTableKeys.includes(prefix as never)) return false;
-      const info = documentTypesTable[prefix as DocumentTypesTableKeys];
-      return info !== undefined && info.some(v => v === suffix.join('::'));
-    })
-  ).annotate({ message: error });
-}
+export const documentTypeSchema = Schema.TemplateLiteral([Schema.Literals(documentTypesTableKeys), Schema.Literal('::'), Schema.String]).check(
+  Schema.makeFilter((val: string) => {
+    const [prefix, ...suffix] = val.split('::');
+    if (Predicate.isNullish(prefix) || !documentTypesTableKeys.includes(prefix as never)) return false;
+    const info = documentTypesTable[prefix as DocumentTypesTableKeys];
+    return Predicate.isNotNullish(info) && info.some(v => v === suffix.join('::'));
+  })
+);

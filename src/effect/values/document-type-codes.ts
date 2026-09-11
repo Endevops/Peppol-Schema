@@ -20,7 +20,7 @@ export type PeppolDocumentTypeCode = DocumentTypeCodesKeys;
  *
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/UNCL1001/
  */
-export function documentTypeCodeSchema(error?: string) {
+export function peppolDocumentTypeCodeSchema(error?: string) {
   const schema = Schema.Literals(documentTypeCodesKeys);
   return error === undefined ? schema : schema.annotate({ message: error });
 }

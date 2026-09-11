@@ -5,13 +5,13 @@ import { INVOICE_RESPONSE_PROFILE_ID } from '#/constants/invoice-response-profil
 import { contactSchema } from './fields/contact-schema';
 import { identifierSchema } from './fields/identifier-schema';
 import { partyLegalEntitySchema } from './fields/party-legal-entity-schema';
-import { invoiceResponseDocumentActualResponse } from './invoice-response-document-actual-response';
+import { peppolInvoiceResponseDocumentActualResponse } from './invoice-response-document-actual-response';
 import { IsoDateString } from './iso-date-string';
 import { messageLevelResponsePartySchema } from './message-level-response-party-schema';
-import { messageLevelResponse } from './message-level-response-schema';
-import { documentTypeCodeSchema } from './values/document-type-codes';
+import { peppolMessageLevelResponseSchema } from './message-level-response-schema';
+import { peppolDocumentTypeCodeSchema } from './values/document-type-codes';
 
-const invoiceResponsePartySchema = messageLevelResponsePartySchema.pipe(
+export const peppolInvoiceResponsePartySchema = messageLevelResponsePartySchema.pipe(
   Schema.fieldsAssign({
     /**
      * @summary Party partyIdentification
@@ -21,7 +21,7 @@ const invoiceResponsePartySchema = messageLevelResponsePartySchema.pipe(
   })
 );
 
-const invoiceResponseSenderPartySchema = invoiceResponsePartySchema.pipe(
+export const peppolInvoiceResponseSenderPartySchema = peppolInvoiceResponsePartySchema.pipe(
   Schema.fieldsAssign({
     /**
      * @summary Contact information
@@ -32,12 +32,12 @@ const invoiceResponseSenderPartySchema = invoiceResponsePartySchema.pipe(
   })
 );
 
-export type InvoiceResponseParty = typeof invoiceResponsePartySchema.Type | typeof invoiceResponseSenderPartySchema.Type;
+export type PeppolInvoiceResponseParty = typeof peppolInvoiceResponsePartySchema.Type | typeof peppolInvoiceResponseSenderPartySchema.Type;
 
 /**
  * @description Party schema used under `cac:DocumentReference/(cac:IssuerParty|cac:RecipientParty)`
  */
-const invoiceResponseDocumentResponseParty = Schema.Struct({
+export const peppolInvoiceResponseDocumentResponseParty = Schema.Struct({
   /**
    * @summary Party partyIdentification
    */
@@ -61,9 +61,9 @@ const invoiceResponseDocumentResponseParty = Schema.Struct({
   }),
 });
 
-export type InvoiceDocumentResponseParty = typeof invoiceResponseDocumentResponseParty.Type;
+export type PeppolInvoiceDocumentResponseParty = typeof peppolInvoiceResponseDocumentResponseParty.Type;
 
-const invoiceResponseDocumentReferenceSchema = Schema.Struct({
+export const peppolInvoiceResponseDocumentReferenceSchema = Schema.Struct({
   /**
    * @description An identifier for the invoice that the status applies to. The invoice identifier must be of the main invoice number that appears in the invoice
    * itself.
@@ -93,12 +93,12 @@ const invoiceResponseDocumentReferenceSchema = Schema.Struct({
    *
    * @summary Identifier type code
    */
-  documentTypeCode: documentTypeCodeSchema(),
+  documentTypeCode: peppolDocumentTypeCodeSchema(),
 });
 
-export type InvoiceResponseDocumentReference = typeof invoiceResponseDocumentReferenceSchema.Type;
+export type PeppolInvoiceResponseDocumentReference = typeof peppolInvoiceResponseDocumentReferenceSchema.Type;
 
-const invoiceResponseDocumentResponseSchema = Schema.Struct({
+export const peppolInvoiceResponseDocumentResponseSchema = Schema.Struct({
   /**
    * @summary Response information
    *
@@ -106,44 +106,35 @@ const invoiceResponseDocumentResponseSchema = Schema.Struct({
    *
    * @cardinality (1..1)
    */
-  response: invoiceResponseDocumentActualResponse,
+  response: peppolInvoiceResponseDocumentActualResponse,
   /**
    * @summary Document reference
    *
    * @name `cac:DocumentReference`
    */
-  documentReference: invoiceResponseDocumentReferenceSchema,
+  documentReference: peppolInvoiceResponseDocumentReferenceSchema,
   /**
    * @summary Seller party information
    *
    * @name `cac:IssuerParty`
    */
-  issuerParty: Schema.optional(invoiceResponseDocumentResponseParty),
+  issuerParty: Schema.optional(peppolInvoiceResponseDocumentResponseParty),
   /**
    * @summary Buyer party information
    *
    * @name `cac:RecipientParty`
    */
-  recipientParty: Schema.optional(invoiceResponseDocumentResponseParty),
+  recipientParty: Schema.optional(peppolInvoiceResponseDocumentResponseParty),
 });
 
-export type InvoiceResponseDocumentResponse = typeof invoiceResponseDocumentResponseSchema.Type;
-
-// Export nested party/reference/response schemas for reuse and barrel parity with zod module.
-export {
-  invoiceResponseDocumentReferenceSchema,
-  invoiceResponseDocumentResponseParty,
-  invoiceResponseDocumentResponseSchema,
-  invoiceResponsePartySchema,
-  invoiceResponseSenderPartySchema,
-};
+export type PeppolInvoiceResponseDocumentResponse = typeof peppolInvoiceResponseDocumentResponseSchema.Type;
 
 /**
  * @description The invoice response is a descendant of the message level response with more fields. Effect port of `invoiceResponseSchema`
  * (`z.extend(messageLevelResponse, ...)` → `messageLevelResponse.pipe(Schema.fieldsAssign(...))`), overriding `profileId` with
  * `Schema.Literal(INVOICE_RESPONSE_PROFILE_ID)` plus sender/receiver/documentResponse.
  */
-export const invoiceResponseSchema = messageLevelResponse.pipe(
+export const peppolInvoiceResponseSchema = peppolMessageLevelResponseSchema.pipe(
   Schema.fieldsAssign({
     profileId: Schema.Literal(INVOICE_RESPONSE_PROFILE_ID),
     /**
@@ -151,14 +142,14 @@ export const invoiceResponseSchema = messageLevelResponse.pipe(
      *
      * @summary Sender information
      */
-    senderParty: invoiceResponseSenderPartySchema,
+    senderParty: peppolInvoiceResponseSenderPartySchema,
     /**
      * @description The party, an electronic message level response was addressed to, and who is supposed to process the message level response. This is the same
      * party as the sender of the business document.
      *
      * @summary Receiver information
      */
-    receiverParty: invoiceResponsePartySchema,
+    receiverParty: peppolInvoiceResponsePartySchema,
     /**
      * @description General comments or instructions that are revelant to the response as a whole.
      *
@@ -171,8 +162,8 @@ export const invoiceResponseSchema = messageLevelResponse.pipe(
     /**
      * @summary Document response
      */
-    documentResponse: invoiceResponseDocumentResponseSchema,
+    documentResponse: peppolInvoiceResponseDocumentResponseSchema,
   })
 );
 
-export type PeppolInvoiceResponse = typeof invoiceResponseSchema.Type;
+export type PeppolInvoiceResponse = typeof peppolInvoiceResponseSchema.Type;

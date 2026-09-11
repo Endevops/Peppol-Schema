@@ -9,7 +9,7 @@ import { IsoDateString } from './iso-date-string';
 const withStatusCodes = Schema.Literals(invoiceResponseCodeNeedsSchema);
 const withoutStatusCodes = Schema.Literals(invoiceResponseCodeNotNeedsSchema);
 
-export const invoiceResponseDocumentActualResponse = Schema.Union([
+export const peppolInvoiceResponseDocumentActualResponse = Schema.Union([
   Schema.Struct({
     /**
      * @remarks
@@ -71,4 +71,4 @@ export const invoiceResponseDocumentActualResponse = Schema.Union([
   }),
 ]);
 
-export type InvoiceResponseDocumentActualResponse = typeof invoiceResponseDocumentActualResponse.Type;
+export type InvoiceResponseDocumentActualResponse = typeof peppolInvoiceResponseDocumentActualResponse.Type;

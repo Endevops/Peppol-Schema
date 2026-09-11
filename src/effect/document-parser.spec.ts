@@ -1,7 +1,7 @@
-import { Effect } from 'effect';
+import { Schema } from 'effect';
 import { describe, expect, it } from 'vitest';
 
-import { decodeDocumentEffect, decodeDocumentSync, encodeDocumentEffect, encodeDocumentSync } from './document-parser';
+import { PeppolDocumentSchema } from './document-parser';
 
 describe('effect/document-parser', () => {
   it.each([
@@ -11,16 +11,16 @@ describe('effect/document-parser', () => {
     ['#/test/files/v3/invoice-response/InvoiceResponseExample.xml', 'documentResponse'],
   ])('decodes %s', async (file, key) => {
     const xml = await import(`${file}?raw`).then(i => i.default);
-    expect(decodeDocumentSync(xml)).toMatchObject({ [key]: expect.anything() });
+    expect(Schema.decodeSync(PeppolDocumentSchema)(xml)).toMatchObject({ [key]: expect.anything() });
   });
 
   it('throws for an unknown root', () => {
-    expect(() => decodeDocumentSync('<Unknown><x/></Unknown>')).toThrow('Unsupported document type: Unknown');
+    expect(() => Schema.decodeSync(PeppolDocumentSchema)('<Unknown><x/></Unknown>')).toThrow('Unsupported document type: Unknown');
   });
 
   it('throws for an ApplicationResponse with an unrecognized profile', () => {
     const xml = '<ApplicationResponse><cbc:ProfileID>urn:not:profile</cbc:ProfileID></ApplicationResponse>';
-    expect(() => decodeDocumentSync(xml)).toThrow('Unsupported document type: ApplicationResponse');
+    expect(() => Schema.decodeSync(PeppolDocumentSchema)(xml)).toThrow('Unsupported document type: ApplicationResponse');
   });
 
   it.each([
@@ -30,14 +30,6 @@ describe('effect/document-parser', () => {
     '#/test/files/v3/invoice-response/InvoiceResponseExample.xml',
   ])('round-trips %s through encode', async file => {
     const xml = await import(`${file}?raw`).then(i => i.default);
-    expect(encodeDocumentSync(decodeDocumentSync(xml))).toMatchXML(xml);
-  });
-
-  it('exposes Effect variants for decode and encode', async () => {
-    const xml = await import('#/test/files/v3/message-level-response/MessageLevelResponseExample.xml?raw').then(i => i.default);
-    const document = await Effect.runPromise(decodeDocumentEffect(xml));
-    expect('documentResponse' in document).toBe(true);
-    expect(await Effect.runPromise(encodeDocumentEffect(document))).toMatchXML(xml);
-    await expect(Effect.runPromise(decodeDocumentEffect('<Unknown/>'))).rejects.toThrow();
+    expect(Schema.encodeSync(PeppolDocumentSchema)(Schema.decodeSync(PeppolDocumentSchema)(xml))).toMatchXML(xml);
   });
 });

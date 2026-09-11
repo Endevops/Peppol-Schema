@@ -1,10 +1,10 @@
 import { Schema } from 'effect';
 
-import { documentResponseDocumentReferenceSchema } from './document-response-document-reference-schema';
+import { peppolDocumentResponseDocumentReferenceSchema } from './document-response-document-reference-schema';
 import { documentResponseDocumentSchema } from './document-response-document-schema';
 import { documentResponseLineResponseSchema } from './document-response-line-response-schema';
 
-export const messageLevelResponseDocumentResponseSchema = Schema.Struct({
+export const peppolMessageLevelResponseDocumentResponseSchema = Schema.Struct({
   /**
    * @summary Response information
    *
@@ -20,7 +20,7 @@ export const messageLevelResponseDocumentResponseSchema = Schema.Struct({
    *
    * @summary Document reference
    */
-  documentReference: documentResponseDocumentReferenceSchema,
+  documentReference: peppolDocumentResponseDocumentReferenceSchema,
   /**
    * @description A response to a particular line in the document. If the document response is negative (code='RE'), the line response element is used to specify
    * the errors in the business document.
@@ -30,4 +30,4 @@ export const messageLevelResponseDocumentResponseSchema = Schema.Struct({
   lineResponse: Schema.Array(documentResponseLineResponseSchema),
 });
 
-export type PeppolMessageLevelMessageLevelResponseDocumentResponse = typeof messageLevelResponseDocumentResponseSchema.Type;
+export type PeppolMessageLevelMessageLevelResponseDocumentResponse = typeof peppolMessageLevelResponseDocumentResponseSchema.Type;

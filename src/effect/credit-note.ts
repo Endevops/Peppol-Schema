@@ -8,7 +8,7 @@ import { creditNoteTypeCodeSchema } from './values/credit-note-type-code-schema'
  * @description Main UBL Credit Note schema (camelCase properties) Effect port of `creditNoteSchema` (`z.extend(billingBaseSchema, ...)` →
  * `billingBaseSchema.pipe(Schema.fieldsAssign(...))`).
  */
-export const creditNoteSchema = billingBaseSchema.pipe(
+export const peppolCreditNoteSchema = billingBaseSchema.pipe(
   Schema.fieldsAssign({
     /**
      * @description CREDIT NOTE LINE.
@@ -28,4 +28,4 @@ export const creditNoteSchema = billingBaseSchema.pipe(
   })
 );
 
-export type PeppolCreditNote = typeof creditNoteSchema.Type;
+export type PeppolCreditNote = typeof peppolCreditNoteSchema.Type;

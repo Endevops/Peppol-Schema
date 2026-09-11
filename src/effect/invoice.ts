@@ -10,7 +10,7 @@ import { invoiceTypeCodeSchema } from './values/invoice-type-code-schema';
  * `billingBaseSchema.pipe(Schema.fieldsAssign(...))`). `dueDate` stays a validated plain string via `IsoDateString` (no `Date` conversion);
  * `z.optional` maps to `Schema.optional` (accepts explicit `undefined`, matching decoder output).
  */
-export const invoiceSchema = billingBaseSchema.pipe(
+export const peppolInvoiceSchema = billingBaseSchema.pipe(
   Schema.fieldsAssign({
     /**
      * @example
@@ -45,4 +45,4 @@ export const invoiceSchema = billingBaseSchema.pipe(
   })
 );
 
-export type PeppolInvoice = typeof invoiceSchema.Type;
+export type PeppolInvoice = typeof peppolInvoiceSchema.Type;

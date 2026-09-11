@@ -3,11 +3,11 @@ import { Schema } from 'effect';
 import { MESSAGE_LEVEL_RESPONSE_PROFILE_ID } from '#/constants/message-level-response-profile-id';
 
 import { IsoDateString } from './iso-date-string';
-import { messageLevelResponseDocumentResponseSchema } from './message-level-response-document-response-schema';
+import { peppolMessageLevelResponseDocumentResponseSchema } from './message-level-response-document-response-schema';
 import { messageLevelResponsePartySchema } from './message-level-response-party-schema';
 import { xsdTime } from './utils/xsd-time';
 
-export const messageLevelResponse = Schema.Struct({
+export const peppolMessageLevelResponseSchema = Schema.Struct({
   /**
    * @description Identifies the specification of content and rules that apply to the transaction.
    *
@@ -92,7 +92,7 @@ export const messageLevelResponse = Schema.Struct({
    *
    * @name `cac:DocumentResponse`
    */
-  documentResponse: messageLevelResponseDocumentResponseSchema,
+  documentResponse: peppolMessageLevelResponseDocumentResponseSchema,
 });
 
-export type PeppolMessageLevelResponse = typeof messageLevelResponse.Type;
+export type PeppolMessageLevelResponse = typeof peppolMessageLevelResponseSchema.Type;

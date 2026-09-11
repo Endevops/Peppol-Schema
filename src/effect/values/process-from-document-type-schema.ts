@@ -19,7 +19,7 @@ import { documentTypesProcessIds } from '#/values/document-type.generated';
 export function processFromDocumentTypeSchema(documentType: PeppolDocumentType, error = 'invalid process type for document type') {
   const allowed = documentTypesProcessIds[documentType as keyof typeof documentTypesProcessIds];
   if (allowed === undefined) {
-    return processSchema(error);
+    return processSchema;
   }
   const values = allowed.map(p => `${p.scheme}::${p.value}`);
   return Schema.String.check(Schema.makeFilter((val: string) => values.includes(val as never))).annotate({ message: error });
