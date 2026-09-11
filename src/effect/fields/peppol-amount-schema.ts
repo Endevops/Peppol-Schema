@@ -1,0 +1,21 @@
+import { Schema } from 'effect';
+
+import { currencyCodeSchema } from '#/effect/values/currency-code-schema';
+
+/**
+ * @summary Monetary amount with mandatory currency
+ *
+ * @name cbc:* (+ @currencyID)
+ */
+export const peppolAmountSchema = Schema.Struct({
+  /**
+   * @name \@currencyID
+   */
+  currencyId: currencyCodeSchema(),
+  /**
+   * @name #text (value)
+   */
+  value: Schema.Number,
+});
+
+export type PeppolAmount = typeof peppolAmountSchema.Type;

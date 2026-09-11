@@ -1,4 +1,4 @@
-export * from './base-64';
+export * from './peppol-base-64-schema';
 export * from './format-quantity-with-unit';
 export * from './get-credit-note-type-code-description';
 export * from './get-invoice-type-code-description';
@@ -6,5 +6,5 @@ export * from './is-valid-credit-note-type-code';
 export * from './is-valid-invoice-type-code';
 export * from './is-valid-process';
 export * from './quantity-unit-code-to-intl-unit';
-export * from './vat-regex';
-export * from './xsd-time';
+export * from './peppol-vat-regex-schema';
+export * from './peppol-xsd-time-schema';

@@ -1,8 +1,8 @@
 import { Schema } from 'effect';
 
-import type { PeppolDocumentType } from '#/effect/values/document-type-schema';
+import type { PeppolDocumentType } from '#/effect/values/peppol-document-type-schema';
 
-import { processSchema } from '#/effect/values/process-schema';
+import { peppolProcessSchema } from '#/effect/values/peppol-process-schema';
 import { documentTypesProcessIds } from '#/values/document-type.generated';
 
 /**
@@ -13,13 +13,13 @@ import { documentTypesProcessIds } from '#/values/document-type.generated';
  *
  * @returns An Effect schema that matches only processes allowed for the given document type.
  *
- * @see {@link processSchema}
+ * @see {@link peppolProcessSchema}
  * @see {@link documentTypesProcessIds}
  */
 export function processFromDocumentTypeSchema(documentType: PeppolDocumentType, error = 'invalid process type for document type') {
   const allowed = documentTypesProcessIds[documentType as keyof typeof documentTypesProcessIds];
   if (allowed === undefined) {
-    return processSchema;
+    return peppolProcessSchema;
   }
   const values = allowed.map(p => `${p.scheme}::${p.value}`);
   return Schema.String.check(Schema.makeFilter((val: string) => values.includes(val as never))).annotate({ message: error });
