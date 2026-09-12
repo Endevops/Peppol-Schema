@@ -22,14 +22,13 @@ import { encodeCreditNote } from '#/decoders/encode-credit-note';
 import { encodeInvoice } from '#/decoders/encode-invoice';
 import { encodeInvoiceResponse } from '#/decoders/encode-invoice-response';
 import { encodeMessageLevelResponse } from '#/decoders/encode-message-level-response';
+import { peppolCreditNoteSchema } from '#/effect/peppol-credit-note-schema';
+import { peppolInvoiceResponseSchema } from '#/effect/peppol-invoice-response-schema';
+import { peppolInvoiceSchema } from '#/effect/peppol-invoice-schema';
+import { peppolMessageLevelResponseSchema } from '#/effect/peppol-message-level-response-schema';
 import { strOrUnd } from '#/helpers/str-or-und';
 import { builderOptions } from '#/xml/builder-options';
 import { parserOptions } from '#/xml/parser-options';
-
-import { peppolCreditNoteSchema } from './peppol-credit-note-schema';
-import { peppolInvoiceResponseSchema } from './peppol-invoice-response-schema';
-import { peppolInvoiceSchema } from './peppol-invoice-schema';
-import { peppolMessageLevelResponseSchema } from './peppol-message-level-response-schema';
 
 export class PeppolInvalidDocumentType extends Schema.TaggedError<PeppolInvalidDocumentType>()('PeppolInvalidDocumentType', {
   message: Schema.String,

@@ -1,7 +1,7 @@
 import { Schema } from 'effect';
 
-import { peppolAmountSchema } from './peppol-amount-schema';
-import { peppolTaxSubtotalSchema } from './peppol-tax-subtotal-schema';
+import { peppolAmountSchema } from '#/effect/fields/peppol-amount-schema';
+import { peppolTaxSubtotalSchema } from '#/effect/fields/peppol-tax-subtotal-schema';
 
 /**
  * @summary TAX TOTAL

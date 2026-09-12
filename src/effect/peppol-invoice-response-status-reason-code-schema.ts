@@ -1,7 +1,7 @@
 import { Schema } from 'effect';
 
-import { opStatusActionSchema } from './values/op-status-action-schema';
-import { opStatusReasonSchema } from './values/op-status-reason-schema';
+import { opStatusActionSchema } from '#/effect/values/op-status-action-schema';
+import { opStatusReasonSchema } from '#/effect/values/op-status-reason-schema';
 
 export const peppolInvoiceResponseStatusReasonCodeSchema = Schema.Union([
   Schema.Struct({

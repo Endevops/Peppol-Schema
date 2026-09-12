@@ -1,6 +1,6 @@
 import { Schema } from 'effect';
 
-import { peppolDocumentTypeCodeSchema } from './values/peppol-document-type-code-schema';
+import { peppolDocumentTypeCodeSchema } from '#/effect/values/peppol-document-type-code-schema';
 
 export const peppolDocumentResponseDocumentReferenceSchema = Schema.Struct({
   /**

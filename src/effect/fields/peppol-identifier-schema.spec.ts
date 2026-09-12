@@ -2,10 +2,10 @@
 import { TestSchema } from 'effect/testing';
 import { describe, it } from 'vitest';
 
-import { identifierSchema } from './identifier-schema';
+import { peppolIdentifierSchema } from './peppol-identifier-schema';
 
 describe('identifierSchema', () => {
-  const testSchema = new TestSchema.Asserts(identifierSchema());
+  const testSchema = new TestSchema.Asserts(peppolIdentifierSchema());
   const decode = testSchema.decoding();
 
   it('should parse an identifier with a scheme', async () => {
@@ -25,7 +25,7 @@ describe('identifierSchema', () => {
   });
 
   it('should apply a custom error message', async () => {
-    const custom = new TestSchema.Asserts(identifierSchema('custom identifier error'));
+    const custom = new TestSchema.Asserts(peppolIdentifierSchema('custom identifier error'));
     await custom.decoding().fail(null, 'custom identifier error');
   });
 });

@@ -1,9 +1,8 @@
 import { Schema } from 'effect';
 
+import { peppolBinaryObjectSchema } from '#/effect/fields/peppol-binary-object-schema';
+import { peppolIdentifierSchema } from '#/effect/fields/peppol-identifier-schema';
 import { additionalDocumentReferenceCodeSchema } from '#/effect/values/additional-document-reference-code-schema';
-
-import { identifierSchema } from './identifier-schema';
-import { peppolBinaryObjectSchema } from './peppol-binary-object-schema';
 
 /**
  * @description A group of business terms providing information about additional supporting documents substantiating the claims made in the Invoice. The additional
@@ -14,7 +13,7 @@ import { peppolBinaryObjectSchema } from './peppol-binary-object-schema';
  *
  * @name `cac:AdditionalDocumentReference`
  */
-export const peppolAdditionalDocumentReferenceSchema = identifierSchema().pipe(
+export const peppolAdditionalDocumentReferenceSchema = peppolIdentifierSchema().pipe(
   Schema.fieldsAssign({
     /**
      * @description An identifier for an object on which the invoice is based (with DocumentTypeCode=130), given by the Seller, the identifier for the supporting

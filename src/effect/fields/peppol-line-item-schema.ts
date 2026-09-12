@@ -1,11 +1,10 @@
 import { Schema } from 'effect';
 
+import { peppolIdentifierSchema } from '#/effect/fields/peppol-identifier-schema';
+import { peppolItemClassificationSchema } from '#/effect/fields/peppol-item-classification-schema';
+import { peppolTaxCategorySchema } from '#/effect/fields/peppol-tax-category-schema';
 import { icdCodesSchema } from '#/effect/values/icd-codes-schema';
 import { peppolCountryCodeSchema } from '#/effect/values/peppol-country-code-schema';
-
-import { identifierSchema } from './identifier-schema';
-import { peppolItemClassificationSchema } from './peppol-item-classification-schema';
-import { peppolTaxCategorySchema } from './peppol-tax-category-schema';
 
 /**
  * @summary Item details on invoice/credit-note line
@@ -83,7 +82,7 @@ export const peppolLineItemSchema = Schema.Struct({
        *
        * @name `cbc:ID`
        */
-      id: identifierSchema().pipe(
+      id: peppolIdentifierSchema().pipe(
         Schema.fieldsAssign({
           /**
            * @description An item identifier based on a registered scheme.

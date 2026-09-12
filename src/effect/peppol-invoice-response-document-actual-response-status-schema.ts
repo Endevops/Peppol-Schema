@@ -1,6 +1,6 @@
 import { Schema } from 'effect';
 
-import { peppolInvoiceResponseStatusReasonCodeSchema } from './peppol-invoice-response-status-reason-code-schema';
+import { peppolInvoiceResponseStatusReasonCodeSchema } from '#/effect/peppol-invoice-response-status-reason-code-schema';
 
 const invoiceResponseCondition = Schema.Struct({
   /**

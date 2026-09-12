@@ -1,8 +1,8 @@
 import { Schema } from 'effect';
 
-import { peppolAmountSchema } from './peppol-amount-schema';
-import { peppolLinePriceAllowanceChargeSchema } from './peppol-line-price-allowance-charge-schema';
-import { peppolQuantitySchema } from './peppol-quantity-schema';
+import { peppolAmountSchema } from '#/effect/fields/peppol-amount-schema';
+import { peppolLinePriceAllowanceChargeSchema } from '#/effect/fields/peppol-line-price-allowance-charge-schema';
+import { peppolQuantitySchema } from '#/effect/fields/peppol-quantity-schema';
 
 /**
  * @summary Price details on invoice line

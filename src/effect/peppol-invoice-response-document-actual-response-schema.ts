@@ -1,10 +1,9 @@
 import { Schema } from 'effect';
 
+import { peppolInvoiceResponseDocumentActualResponseStatusSchema } from '#/effect/peppol-invoice-response-document-actual-response-status-schema';
+import { peppolIsoDateStringSchema } from '#/effect/peppol-iso-date-string-schema';
 import { invoiceResponseCodeNeedsSchema } from '#/invoice-response-codes/invoice-response-code-needs-schema';
 import { invoiceResponseCodeNotNeedsSchema } from '#/invoice-response-codes/invoice-response-code-not-needs-schema';
-
-import { peppolInvoiceResponseDocumentActualResponseStatusSchema } from './peppol-invoice-response-document-actual-response-status-schema';
-import { peppolIsoDateStringSchema } from './peppol-iso-date-string-schema';
 
 const withStatusCodes = Schema.Literals(invoiceResponseCodeNeedsSchema);
 const withoutStatusCodes = Schema.Literals(invoiceResponseCodeNotNeedsSchema);

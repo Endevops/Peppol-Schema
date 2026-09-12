@@ -1,6 +1,6 @@
 import { Schema } from 'effect';
 
-import { peppolAmountSchema } from './peppol-amount-schema';
+import { peppolAmountSchema } from '#/effect/fields/peppol-amount-schema';
 
 /**
  * @description A group of business terms providing the monetary totals for the Invoice.

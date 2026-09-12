@@ -1,6 +1,6 @@
 import { Schema } from 'effect';
 
-import { applicationResponseTypeCodeSchema } from './values/application-response-type-code-schema';
+import { applicationResponseTypeCodeSchema } from '#/effect/values/application-response-type-code-schema';
 
 /**
  * @summary Response information

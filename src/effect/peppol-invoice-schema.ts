@@ -1,9 +1,9 @@
 import { Schema } from 'effect';
 
-import { peppolInvoiceLineSchema } from './fields/peppol-invoice-line-schema';
-import { peppolBillingBaseSchema } from './peppol-billing-base-schema';
-import { peppolIsoDateStringSchema } from './peppol-iso-date-string-schema';
-import { invoiceTypeCodeSchema } from './values/invoice-type-code-schema';
+import { peppolInvoiceLineSchema } from '#/effect/fields/peppol-invoice-line-schema';
+import { peppolBillingBaseSchema } from '#/effect/peppol-billing-base-schema';
+import { peppolIsoDateStringSchema } from '#/effect/peppol-iso-date-string-schema';
+import { invoiceTypeCodeSchema } from '#/effect/values/invoice-type-code-schema';
 
 /**
  * @description Main UBL Invoice schema (camelCase properties) Effect port of `invoiceSchema` (`z.extend(billingBaseSchema, ...)` →

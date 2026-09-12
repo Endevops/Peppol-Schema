@@ -1,6 +1,6 @@
 import { Schema } from 'effect';
 
-import { identifierSchema } from './identifier-schema';
+import { peppolIdentifierSchema } from '#/effect/fields/peppol-identifier-schema';
 
 export const peppolPartyLegalEntitySchema = Schema.Struct({
   /**
@@ -9,7 +9,7 @@ export const peppolPartyLegalEntitySchema = Schema.Struct({
    *
    * @name cbc:CompanyID (+ @schemeID)
    */
-  companyId: Schema.optional(identifierSchema()),
+  companyId: Schema.optional(peppolIdentifierSchema()),
   /**
    * @example
    *   Share capital

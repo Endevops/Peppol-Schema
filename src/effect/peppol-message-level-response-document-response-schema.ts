@@ -1,8 +1,8 @@
 import { Schema } from 'effect';
 
-import { peppolDocumentResponseDocumentReferenceSchema } from './peppol-document-response-document-reference-schema';
-import { peppolDocumentResponseDocumentSchema } from './peppol-document-response-document-schema';
-import { peppolDocumentResponseLineResponseSchema } from './peppol-document-response-line-response-schema';
+import { peppolDocumentResponseDocumentReferenceSchema } from '#/effect/peppol-document-response-document-reference-schema';
+import { peppolDocumentResponseDocumentSchema } from '#/effect/peppol-document-response-document-schema';
+import { peppolDocumentResponseLineResponseSchema } from '#/effect/peppol-document-response-line-response-schema';
 
 export const peppolMessageLevelResponseDocumentResponseSchema = Schema.Struct({
   /**

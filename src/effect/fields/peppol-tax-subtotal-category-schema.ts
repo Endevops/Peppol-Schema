@@ -1,6 +1,6 @@
 import { Schema } from 'effect';
 
-import { peppolTaxCategorySchema } from './peppol-tax-category-schema';
+import { peppolTaxCategorySchema } from '#/effect/fields/peppol-tax-category-schema';
 
 /**
  * @description This one is specific for TaxSubtotal since it includes more fields.

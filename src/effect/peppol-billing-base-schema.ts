@@ -1,22 +1,22 @@
 import { Effect, Schema } from 'effect';
 
-import { DEFAULT_CUSTOMIZATION_ID } from './fields/default-customization-id';
-import { DEFAULT_PROFILE_ID } from './fields/default-profile-id';
-import { peppolAdditionalDocumentReferenceSchema } from './fields/peppol-additional-document-reference-schema';
-import { peppolAllowanceChargeSchema } from './fields/peppol-allowance-charge-schema';
-import { peppolBillingReferenceSchema } from './fields/peppol-billing-reference-schema';
-import { peppolDeliverySchema } from './fields/peppol-delivery-schema';
-import { peppolInvoicePeriodSchema } from './fields/peppol-invoice-period-schema';
-import { peppolLegalMonetaryTotalSchema } from './fields/peppol-legal-monetary-total-schema';
-import { peppolOrderReferenceSchema } from './fields/peppol-order-reference-schema';
-import { peppolPartyBaseSchema } from './fields/peppol-party-base-schema';
-import { peppolPayeePartySchema } from './fields/peppol-payee-party-schema';
-import { peppolPaymentMeansSchema } from './fields/peppol-payment-means-schema';
-import { peppolPaymentTermsSchema } from './fields/peppol-payment-terms-schema';
-import { peppolTaxRepresentativeSchema } from './fields/peppol-tax-representative-schema';
-import { peppolTaxTotalsBaseSchema } from './fields/peppol-tax-totals-base-schema';
-import { peppolIsoDateStringSchema } from './peppol-iso-date-string-schema';
-import { currencyCodeSchema } from './values/currency-code-schema';
+import { DEFAULT_CUSTOMIZATION_ID } from '#/effect/fields/default-customization-id';
+import { DEFAULT_PROFILE_ID } from '#/effect/fields/default-profile-id';
+import { peppolAdditionalDocumentReferenceSchema } from '#/effect/fields/peppol-additional-document-reference-schema';
+import { peppolAllowanceChargeSchema } from '#/effect/fields/peppol-allowance-charge-schema';
+import { peppolBillingReferenceSchema } from '#/effect/fields/peppol-billing-reference-schema';
+import { peppolDeliverySchema } from '#/effect/fields/peppol-delivery-schema';
+import { peppolInvoicePeriodSchema } from '#/effect/fields/peppol-invoice-period-schema';
+import { peppolLegalMonetaryTotalSchema } from '#/effect/fields/peppol-legal-monetary-total-schema';
+import { peppolOrderReferenceSchema } from '#/effect/fields/peppol-order-reference-schema';
+import { peppolPartyBaseSchema } from '#/effect/fields/peppol-party-base-schema';
+import { peppolPayeePartySchema } from '#/effect/fields/peppol-payee-party-schema';
+import { peppolPaymentMeansSchema } from '#/effect/fields/peppol-payment-means-schema';
+import { peppolPaymentTermsSchema } from '#/effect/fields/peppol-payment-terms-schema';
+import { peppolTaxRepresentativeSchema } from '#/effect/fields/peppol-tax-representative-schema';
+import { peppolTaxTotalsBaseSchema } from '#/effect/fields/peppol-tax-totals-base-schema';
+import { peppolIsoDateStringSchema } from '#/effect/peppol-iso-date-string-schema';
+import { currencyCodeSchema } from '#/effect/values/currency-code-schema';
 
 /**
  * @description Base schema for a billing document. Effect port of `billingBaseSchema` (`z.object(...)`): same keys and optionality (`z.optional` →

@@ -27,7 +27,7 @@ export * from './fields/peppol-credit-note-line-schema';
 export * from './fields/default-customization-id';
 export * from './fields/default-profile-id';
 export * from './fields/peppol-delivery-schema';
-export * from './fields/identifier-schema';
+export * from './fields/peppol-identifier-schema';
 export * from './fields/peppol-invoice-line-period-schema';
 export * from './fields/peppol-invoice-line-schema';
 export * from './fields/peppol-invoice-period-schema';

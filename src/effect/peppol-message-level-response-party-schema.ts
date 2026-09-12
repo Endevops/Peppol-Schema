@@ -1,6 +1,6 @@
 import { Schema } from 'effect';
 
-import { identifierSchema } from './fields/identifier-schema';
+import { peppolIdentifierSchema } from '#/effect/fields/peppol-identifier-schema';
 
 export const peppolMessageLevelResponsePartySchema = Schema.Struct({
   /**
@@ -13,7 +13,7 @@ export const peppolMessageLevelResponsePartySchema = Schema.Struct({
    *
    * @name `cbc:EndpointID (+ @schemeID)`
    */
-  endpointId: Schema.optional(identifierSchema()),
+  endpointId: Schema.optional(peppolIdentifierSchema()),
 });
 
 export type PeppolMessageLevelResponseParty = typeof peppolMessageLevelResponsePartySchema.Type;

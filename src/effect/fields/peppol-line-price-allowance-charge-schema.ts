@@ -1,6 +1,6 @@
 import { Schema } from 'effect';
 
-import { peppolAmountSchema } from './peppol-amount-schema';
+import { peppolAmountSchema } from '#/effect/fields/peppol-amount-schema';
 
 const priceAllowanceChargeSchema = Schema.Struct({
   /**

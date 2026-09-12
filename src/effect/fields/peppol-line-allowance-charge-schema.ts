@@ -1,9 +1,8 @@
 import { Schema } from 'effect';
 
+import { priceAllowanceChargeSchema } from '#/effect/fields/peppol-line-price-allowance-charge-schema';
 import { allowanceChargeReasonCodeSchema } from '#/effect/values/allowance-charge-reason-code-schema';
 import { chargeReasonCodeSchema } from '#/effect/values/charge-reason-code-schema';
-
-import { priceAllowanceChargeSchema } from './peppol-line-price-allowance-charge-schema';
 
 const baseLineAllowanceChargeSchema = priceAllowanceChargeSchema.pipe(
   Schema.fieldsAssign({

@@ -1,8 +1,8 @@
 import { Schema } from 'effect';
 
-import { peppolCreditNoteLineSchema } from './fields/peppol-credit-note-line-schema';
-import { peppolBillingBaseSchema } from './peppol-billing-base-schema';
-import { creditNoteTypeCodeSchema } from './values/credit-note-type-code-schema';
+import { peppolCreditNoteLineSchema } from '#/effect/fields/peppol-credit-note-line-schema';
+import { peppolBillingBaseSchema } from '#/effect/peppol-billing-base-schema';
+import { creditNoteTypeCodeSchema } from '#/effect/values/credit-note-type-code-schema';
 
 /**
  * @description Main UBL Credit Note schema (camelCase properties) Effect port of `creditNoteSchema` (`z.extend(billingBaseSchema, ...)` →

@@ -1,7 +1,7 @@
 import { Schema } from 'effect';
 
-import { peppolAddressSchema } from './peppol-address-schema';
-import { peppolPartyTaxSchemeSchema } from './peppol-party-tax-scheme-schema';
+import { peppolAddressSchema } from '#/effect/fields/peppol-address-schema';
+import { peppolPartyTaxSchemeSchema } from '#/effect/fields/peppol-party-tax-scheme-schema';
 
 /**
  * @summary SELLER TAX REPRESENTATIVE PARTY

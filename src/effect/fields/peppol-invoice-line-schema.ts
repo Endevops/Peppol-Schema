@@ -1,9 +1,8 @@
 import { Schema } from 'effect';
 
+import { peppolBaseLineSchema } from '#/effect/fields/peppol-base-line-schema';
+import { peppolQuantitySchema } from '#/effect/fields/peppol-quantity-schema';
 import { quantityUnitCodesSchema } from '#/effect/values/quantity-unit-codes-schema';
-
-import { peppolBaseLineSchema } from './peppol-base-line-schema';
-import { peppolQuantitySchema } from './peppol-quantity-schema';
 
 /**
  * @summary Invoice line

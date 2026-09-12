@@ -1,11 +1,10 @@
 import { Effect, Schema } from 'effect';
 
+import { baseLineAllowanceChargeSchema } from '#/effect/fields/peppol-line-allowance-charge-schema';
+import { peppolTaxCategorySchema } from '#/effect/fields/peppol-tax-category-schema';
 import { allowanceChargeReasonCodeSchema } from '#/effect/values/allowance-charge-reason-code-schema';
 import { chargeReasonCodeSchema } from '#/effect/values/charge-reason-code-schema';
 import { dutyTaxFeeCategorySchema } from '#/effect/values/duty-tax-fee-category-schema';
-
-import { baseLineAllowanceChargeSchema } from './peppol-line-allowance-charge-schema';
-import { peppolTaxCategorySchema } from './peppol-tax-category-schema';
 
 const baseAllowanceChargeSchema = baseLineAllowanceChargeSchema.pipe(
   Schema.fieldsAssign({

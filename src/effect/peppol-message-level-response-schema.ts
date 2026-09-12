@@ -1,11 +1,10 @@
 import { Schema } from 'effect';
 
 import { MESSAGE_LEVEL_RESPONSE_PROFILE_ID } from '#/constants/message-level-response-profile-id';
-
-import { peppolIsoDateStringSchema } from './peppol-iso-date-string-schema';
-import { peppolMessageLevelResponseDocumentResponseSchema } from './peppol-message-level-response-document-response-schema';
-import { peppolMessageLevelResponsePartySchema } from './peppol-message-level-response-party-schema';
-import { peppolXsdTimeSchema } from './utils/peppol-xsd-time-schema';
+import { peppolIsoDateStringSchema } from '#/effect/peppol-iso-date-string-schema';
+import { peppolMessageLevelResponseDocumentResponseSchema } from '#/effect/peppol-message-level-response-document-response-schema';
+import { peppolMessageLevelResponsePartySchema } from '#/effect/peppol-message-level-response-party-schema';
+import { peppolXsdTimeSchema } from '#/effect/utils/peppol-xsd-time-schema';
 
 export const peppolMessageLevelResponseSchema = Schema.Struct({
   /**

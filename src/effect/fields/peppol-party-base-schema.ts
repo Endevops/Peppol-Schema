@@ -1,13 +1,12 @@
 import { Schema } from 'effect';
 
+import { peppolAddressSchema } from '#/effect/fields/peppol-address-schema';
+import { peppolContactSchema } from '#/effect/fields/peppol-contact-schema';
+import { peppolIdentifierSchema } from '#/effect/fields/peppol-identifier-schema';
+import { peppolPartyLegalEntitySchema } from '#/effect/fields/peppol-party-legal-entity-schema';
+import { peppolPartyTaxSchemeSchema } from '#/effect/fields/peppol-party-tax-scheme-schema';
 import { electronicCodesSchema } from '#/effect/values/electronic-codes-schema';
 import { icdCodesSchema } from '#/effect/values/icd-codes-schema';
-
-import { identifierSchema } from './identifier-schema';
-import { peppolAddressSchema } from './peppol-address-schema';
-import { peppolContactSchema } from './peppol-contact-schema';
-import { peppolPartyLegalEntitySchema } from './peppol-party-legal-entity-schema';
-import { peppolPartyTaxSchemeSchema } from './peppol-party-tax-scheme-schema';
 
 /**
  * @summary Party common substructure
@@ -25,7 +24,7 @@ export const peppolPartyBaseSchema = Schema.Struct({
    *
    * @name `cbc:EndpointID`
    */
-  endpointId: identifierSchema().pipe(
+  endpointId: peppolIdentifierSchema().pipe(
     Schema.fieldsAssign({
       /**
        * @description Identifies the Seller/buyer's electronic address to which the application level response to the invoice may be delivered.
@@ -65,7 +64,7 @@ export const peppolPartyBaseSchema = Schema.Struct({
        *
        * @name `cbc:ID`
        */
-      id: identifierSchema().pipe(
+      id: peppolIdentifierSchema().pipe(
         Schema.fieldsAssign({
           /**
            * @description Identifies the Seller/buyer's electronic address to which the application level response to the invoice may be delivered.

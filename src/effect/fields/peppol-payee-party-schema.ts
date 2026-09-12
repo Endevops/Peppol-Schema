@@ -1,8 +1,7 @@
 import { Schema } from 'effect';
 
+import { peppolIdentifierSchema } from '#/effect/fields/peppol-identifier-schema';
 import { icdCodesSchema } from '#/effect/values/icd-codes-schema';
-
-import { identifierSchema } from './identifier-schema';
 
 /**
  * @description A group of business terms providing information about the Payee, i.e. the role that received the payment. Shall be used wwhen the payee is
@@ -29,7 +28,7 @@ export const peppolPayeePartySchema = Schema.Struct({
        * @name `cbc:ID`
        */
       id: Schema.optional(
-        identifierSchema().pipe(
+        peppolIdentifierSchema().pipe(
           Schema.fieldsAssign({
             /**
              * @description This element is used for both the identification of the Payee, or the unique banking reference identifier of Payee (assigned by the
@@ -71,7 +70,7 @@ export const peppolPayeePartySchema = Schema.Struct({
        * @name `cbc:CompanyID`
        */
       companyId: Schema.optional(
-        identifierSchema().pipe(
+        peppolIdentifierSchema().pipe(
           Schema.fieldsAssign({
             /**
              * @description An identifier issued by an official registrar that identifies the payee as a legal entity or person.

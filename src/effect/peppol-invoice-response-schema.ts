@@ -1,22 +1,21 @@
 import { Schema, Struct } from 'effect';
 
 import { INVOICE_RESPONSE_PROFILE_ID } from '#/constants/invoice-response-profile-id';
-
-import { identifierSchema } from './fields/identifier-schema';
-import { peppolContactSchema } from './fields/peppol-contact-schema';
-import { peppolPartyLegalEntitySchema } from './fields/peppol-party-legal-entity-schema';
-import { peppolInvoiceResponseDocumentActualResponseSchema } from './peppol-invoice-response-document-actual-response-schema';
-import { peppolIsoDateStringSchema } from './peppol-iso-date-string-schema';
-import { peppolMessageLevelResponsePartySchema } from './peppol-message-level-response-party-schema';
-import { peppolMessageLevelResponseSchema } from './peppol-message-level-response-schema';
-import { peppolDocumentTypeCodeSchema } from './values/peppol-document-type-code-schema';
+import { peppolContactSchema } from '#/effect/fields/peppol-contact-schema';
+import { peppolIdentifierSchema } from '#/effect/fields/peppol-identifier-schema';
+import { peppolPartyLegalEntitySchema } from '#/effect/fields/peppol-party-legal-entity-schema';
+import { peppolInvoiceResponseDocumentActualResponseSchema } from '#/effect/peppol-invoice-response-document-actual-response-schema';
+import { peppolIsoDateStringSchema } from '#/effect/peppol-iso-date-string-schema';
+import { peppolMessageLevelResponsePartySchema } from '#/effect/peppol-message-level-response-party-schema';
+import { peppolMessageLevelResponseSchema } from '#/effect/peppol-message-level-response-schema';
+import { peppolDocumentTypeCodeSchema } from '#/effect/values/peppol-document-type-code-schema';
 
 export const peppolInvoiceResponsePartySchema = peppolMessageLevelResponsePartySchema.pipe(
   Schema.fieldsAssign({
     /**
      * @summary Party partyIdentification
      */
-    partyIdentification: Schema.optional(identifierSchema()),
+    partyIdentification: Schema.optional(peppolIdentifierSchema()),
     partyLegalEntity: peppolPartyLegalEntitySchema.mapFields(Struct.pick(['registrationName'])),
   })
 );
@@ -41,7 +40,7 @@ export const peppolInvoiceResponseDocumentResponsePartySchema = Schema.Struct({
   /**
    * @summary Party partyIdentification
    */
-  partyIdentification: Schema.optional(identifierSchema()),
+  partyIdentification: Schema.optional(peppolIdentifierSchema()),
   /**
    * @example
    *   Seller Business Name AS

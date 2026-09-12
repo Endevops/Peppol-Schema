@@ -1,11 +1,11 @@
 import { Effect, Schema } from 'effect';
 
-import { identifierSchema } from './identifier-schema';
-import { peppolAmountSchema } from './peppol-amount-schema';
-import { peppolInvoiceLinePeriodSchema } from './peppol-invoice-line-period-schema';
-import { peppolLineAllowanceChargeSchema } from './peppol-line-allowance-charge-schema';
-import { peppolLineItemSchema } from './peppol-line-item-schema';
-import { peppolLinePriceSchema } from './peppol-line-price-schema';
+import { peppolAmountSchema } from '#/effect/fields/peppol-amount-schema';
+import { peppolIdentifierSchema } from '#/effect/fields/peppol-identifier-schema';
+import { peppolInvoiceLinePeriodSchema } from '#/effect/fields/peppol-invoice-line-period-schema';
+import { peppolLineAllowanceChargeSchema } from '#/effect/fields/peppol-line-allowance-charge-schema';
+import { peppolLineItemSchema } from '#/effect/fields/peppol-line-item-schema';
+import { peppolLinePriceSchema } from '#/effect/fields/peppol-line-price-schema';
 
 /**
  * @description Base of the invoice line and credit note line schemas.
@@ -43,7 +43,7 @@ export const peppolBaseLineSchema = Schema.Struct({
    */
   documentReference: Schema.optional(
     Schema.Array(
-      identifierSchema().pipe(
+      peppolIdentifierSchema().pipe(
         Schema.fieldsAssign({
           /**
            * @default 130

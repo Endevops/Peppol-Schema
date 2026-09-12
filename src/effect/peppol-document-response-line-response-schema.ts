@@ -1,6 +1,6 @@
 import { Schema } from 'effect';
 
-import { peppolDocumentResponseLineResponseContentSchema } from './peppol-document-response-line-response-content-schema';
+import { peppolDocumentResponseLineResponseContentSchema } from '#/effect/peppol-document-response-line-response-content-schema';
 
 export const peppolDocumentResponseLineResponseSchema = Schema.Struct({
   /**

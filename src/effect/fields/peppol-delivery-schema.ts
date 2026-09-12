@@ -3,8 +3,8 @@ import { Schema } from 'effect';
 import { peppolIsoDateStringSchema } from '#/effect/peppol-iso-date-string-schema';
 import { icdCodesSchema } from '#/effect/values/icd-codes-schema';
 
-import { identifierSchema } from './identifier-schema';
 import { peppolAddressSchema } from './peppol-address-schema';
+import { peppolIdentifierSchema } from './peppol-identifier-schema';
 
 export const peppolDeliverySchema = Schema.Struct({
   /**
@@ -36,7 +36,7 @@ export const peppolDeliverySchema = Schema.Struct({
        * @name `cbc:ID`
        */
       id: Schema.optional(
-        identifierSchema().pipe(
+        peppolIdentifierSchema().pipe(
           Schema.fieldsAssign({
             /**
              * @description An identifier for the location at which the goods and services are delivered.
