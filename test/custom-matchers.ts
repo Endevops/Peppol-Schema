@@ -9,17 +9,17 @@ function parseXML(content: string | Buffer) {
   return parser.parse(content);
 }
 
-interface CustomMatchers<R = string> {
+interface CustomMatchers<T = string> {
   /**
    * @description Check if the actual XML matches the expected XML.
    *
    * @param expected
    */
-  toMatchXML(expected: string): R;
+  toMatchXML(expected: string): T;
 }
 
 declare module 'vitest' {
-  interface Matchers<T = any> extends CustomMatchers<T> {}
+  interface Matchers<R extends void | Promise<void> = void | Promise<void>, T = unknown> extends CustomMatchers<T> {}
 }
 
 function removeUncesessaryAttributes(obj: any) {

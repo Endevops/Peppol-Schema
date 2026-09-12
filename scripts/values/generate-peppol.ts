@@ -12,6 +12,7 @@ import { Git } from './git';
 
 const typescript = String.String.raw;
 const xmlParser = new XMLParser({
+  // @ts-ignore-error idk
   OutputBuilder: new CompactBuilderFactory({ tags: { valueParsers: ['entity'] }, attributes: { valueParsers: ['entity'] } }),
 });
 const assetsPath = path.join(import.meta.dirname, '..', '..', 'assets');

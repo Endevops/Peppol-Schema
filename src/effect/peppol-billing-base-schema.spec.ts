@@ -38,7 +38,7 @@ const validBillingBase = {
     taxInclusiveAmount: { currencyId: 'EUR', value: 120 },
     payableAmount: { currencyId: 'EUR', value: 120 },
   },
-};
+} as const;
 
 describe('peppolBillingBaseSchema', () => {
   const testSchema = new TestSchema.Asserts(peppolBillingBaseSchema);

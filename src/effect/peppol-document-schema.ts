@@ -47,7 +47,7 @@ export const peppolDocumentSchema = Schema.Union([
   peppolInvoiceResponseSchema,
 ]).pipe(
   Schema.encodeTo(Schema.String, {
-    encode: SchemaGetter.transformOrFail(
+    encode: SchemaGetter.transformEffect(
       Effect.fn(function* (document) {
         let content: unknown;
         if (Predicate.hasProperty(document, 'invoiceLines')) {
@@ -66,7 +66,7 @@ export const peppolDocumentSchema = Schema.Union([
         return builder.build(content);
       })
     ),
-    decode: SchemaGetter.transformOrFail(
+    decode: SchemaGetter.transformEffect(
       Effect.fn(function* (value, options) {
         const parser = new XMLParser({ ...parserOptions, removeNSPrefix: true });
         const parsed: XmlNode = parser.parse(value);

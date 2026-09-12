@@ -3,7 +3,7 @@ import { encodeIdentifier } from '#/decoders/fields/encode-identifier';
 export function encodePartyLegalEntity(legalEntity: {
   registrationName?: string;
   companyId?: Parameters<typeof encodeIdentifier>[0];
-  companyLegalForm?: string;
+  companyLegalForm?: string | undefined;
 }) {
   return {
     'cbc:RegistrationName': legalEntity.registrationName,

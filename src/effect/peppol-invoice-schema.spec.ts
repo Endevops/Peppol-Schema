@@ -10,7 +10,7 @@ const invoiceLine = {
   lineExtensionAmount: { currencyId: 'EUR', value: 100 },
   item: { name: 'Widget', classifiedTaxCategory: { id: 'S', percent: 20, taxSchemeId: { id: 'VAT' } } },
   price: { priceAmount: { currencyId: 'EUR', value: 50 } },
-};
+} as const;
 
 const validInvoice = {
   customizationId: 'urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0',
@@ -48,7 +48,7 @@ const validInvoice = {
   },
   invoiceLines: [invoiceLine],
   invoiceTypeCode: '380',
-};
+} as const;
 
 describe('peppolInvoiceSchema', () => {
   const testSchema = new TestSchema.Asserts(peppolInvoiceSchema);
