@@ -15,4 +15,5 @@ export const peppolIsoDateStringSchema = Schema.String.check(Schema.isPattern(/^
   })
 );
 
-export type IsoDateString = typeof peppolIsoDateStringSchema.Type;
+export type PeppolIsoDateString = typeof peppolIsoDateStringSchema.Type;
+export type PeppolIsoDateEncoded = typeof peppolIsoDateStringSchema.Encoded;
