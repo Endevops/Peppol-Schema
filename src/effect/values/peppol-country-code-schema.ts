@@ -9,8 +9,6 @@
 
 import { Schema } from 'effect';
 
-import type { CountryCodesKeys } from '#/values/country-code.generated';
-
 import { countryCodesKeys } from '#/values/country-code.generated';
 
 /**
@@ -18,7 +16,7 @@ import { countryCodesKeys } from '#/values/country-code.generated';
  *
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/ISO3166/
  */
-export type PeppolCountryCode = CountryCodesKeys;
+export type PeppolCountryCode = typeof peppolCountryCodeSchema.Type;
 
 /**
  * @description Validates a two character ISO 3166-1 alpha-2 country code against the PEPPOL codelist. All codes in the codelist are exactly 2 characters, so the
@@ -29,4 +27,4 @@ export type PeppolCountryCode = CountryCodesKeys;
  *
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/ISO3166/
  */
-export const peppolCountryCodeSchema = Schema.Literals(countryCodesKeys);
+export const peppolCountryCodeSchema = Schema.Literals(countryCodesKeys).pipe(Schema.brand('PeppolCountryCode'));

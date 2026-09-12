@@ -7,8 +7,6 @@
 
 import { Schema } from 'effect';
 
-import type { CurrencyCodesKeys } from '#/values/currency-code.generated';
-
 import { currencyCodesKeys } from '#/values/currency-code.generated';
 
 /**
@@ -16,7 +14,7 @@ import { currencyCodesKeys } from '#/values/currency-code.generated';
  *
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/ISO4217/
  */
-export type PeppolCurrencyCode = CurrencyCodesKeys;
+export type PeppolCurrencyCode = typeof currencyCodeSchema.Type;
 
 /**
  * @description Validates an ISO 4217 currency code against the PEPPOL codelist.
@@ -30,4 +28,4 @@ export type PeppolCurrencyCode = CurrencyCodesKeys;
  *
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/ISO4217/
  */
-export const currencyCodeSchema = Schema.Literals(currencyCodesKeys);
+export const currencyCodeSchema = Schema.Literals(currencyCodesKeys).pipe(Schema.brand('PeppolCurrencyCode'));

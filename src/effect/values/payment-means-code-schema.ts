@@ -8,8 +8,6 @@
 
 import { Schema } from 'effect';
 
-import type { PaymentMeansCodesKeys } from '#/values/payment-means-codes.generated';
-
 import { paymentMeansCodesKeys } from '#/values/payment-means-codes.generated';
 
 /**
@@ -17,7 +15,7 @@ import { paymentMeansCodesKeys } from '#/values/payment-means-codes.generated';
  *
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/UNCL4461/
  */
-export type PeppolPaymentMeansCode = PaymentMeansCodesKeys;
+export type PeppolPaymentMeansCode = typeof paymentMeansCodeSchema.Type;
 
 /**
  * @description Validates a payment means code against the PEPPOL subset of UNCL 4461.
@@ -31,4 +29,4 @@ export type PeppolPaymentMeansCode = PaymentMeansCodesKeys;
  *
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/UNCL4461/
  */
-export const paymentMeansCodeSchema = Schema.Literals(paymentMeansCodesKeys);
+export const paymentMeansCodeSchema = Schema.Literals(paymentMeansCodesKeys).pipe(Schema.brand('PeppolPaymentMeansCode'));

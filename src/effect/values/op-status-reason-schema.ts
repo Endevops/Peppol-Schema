@@ -1,7 +1,5 @@
 import { Schema } from 'effect';
 
-import type { OpStatusReasonKeys } from '#/values/op-status-reason.generated';
-
 import { opStatusReasonKeys } from '#/values/op-status-reason.generated';
 
 /**
@@ -9,7 +7,7 @@ import { opStatusReasonKeys } from '#/values/op-status-reason.generated';
  *
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/OPStatusReason/
  */
-export type PeppolOpStatusReason = OpStatusReasonKeys;
+export type PeppolOpStatusReason = typeof opStatusReasonSchema.Type;
 
 /**
  * @description Validates an OpenPeppol operation status reason code against the OPStatusReason codelist.
@@ -20,4 +18,4 @@ export type PeppolOpStatusReason = OpStatusReasonKeys;
  *
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/OPStatusReason/
  */
-export const opStatusReasonSchema = Schema.Literals(opStatusReasonKeys);
+export const opStatusReasonSchema = Schema.Literals(opStatusReasonKeys).pipe(Schema.brand('PeppolOpStatusReason'));

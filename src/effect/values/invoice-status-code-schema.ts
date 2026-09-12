@@ -1,7 +1,5 @@
 import { Schema } from 'effect';
 
-import type { InvoiceStatusCodesKeys } from '#/values/invoice-status-codes.generated';
-
 import { invoiceStatusCodesKeys } from '#/values/invoice-status-codes.generated';
 
 /**
@@ -9,7 +7,7 @@ import { invoiceStatusCodesKeys } from '#/values/invoice-status-codes.generated'
  *
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/UNCL4343-T111/
  */
-export type PeppolInvoiceStatusCodes = InvoiceStatusCodesKeys;
+export type PeppolInvoiceStatusCodes = typeof invoiceStatusCodeSchema.Type;
 
 /**
  * @description Validates an invoice status code against the PEPPOL subset of UNCL 4343 (T111).
@@ -20,4 +18,4 @@ export type PeppolInvoiceStatusCodes = InvoiceStatusCodesKeys;
  *
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/UNCL4343-T111/
  */
-export const invoiceStatusCodeSchema = Schema.Literals(invoiceStatusCodesKeys);
+export const invoiceStatusCodeSchema = Schema.Literals(invoiceStatusCodesKeys).pipe(Schema.brand('PeppolInvoiceStatusCodes'));

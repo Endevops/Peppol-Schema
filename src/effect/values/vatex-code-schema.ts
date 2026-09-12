@@ -1,7 +1,5 @@
 import { Schema } from 'effect';
 
-import type { VatexCodesKeys } from '#/values/vatex-codes.generated';
-
 import { vatexCodesKeys } from '#/values/vatex-codes.generated';
 
 /**
@@ -9,7 +7,7 @@ import { vatexCodesKeys } from '#/values/vatex-codes.generated';
  *
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/vatex/
  */
-export type PeppolVatexCode = VatexCodesKeys;
+export type PeppolVatexCode = typeof vatexCodeSchema.Type;
 
 /**
  * @description Validates a VAT exemption reason code against the CEF VATEX codelist.
@@ -23,4 +21,4 @@ export type PeppolVatexCode = VatexCodesKeys;
  *
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/vatex/
  */
-export const vatexCodeSchema = Schema.Literals(vatexCodesKeys);
+export const vatexCodeSchema = Schema.Literals(vatexCodesKeys).pipe(Schema.brand('PeppolVatexCode'));

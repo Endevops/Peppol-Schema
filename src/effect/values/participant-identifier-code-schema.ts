@@ -1,7 +1,5 @@
 import { Schema } from 'effect';
 
-import type { ParticipantIdentifierSchemesKeys } from '#/values/participant-identifier-schemes.generated';
-
 import { participantIdentifierSchemesKeys } from '#/values/participant-identifier-schemes.generated';
 
 /**
@@ -9,7 +7,7 @@ import { participantIdentifierSchemesKeys } from '#/values/participant-identifie
  *
  * @see https://docs.peppol.eu/poacc/billing/3.0/
  */
-export type PeppolParticipantIdentifierCode = ParticipantIdentifierSchemesKeys;
+export type PeppolParticipantIdentifierCode = typeof participantIdentifierCodeSchema.Type;
 
 /**
  * @description Validates a PEPPOL participant identifier scheme against the participant identifier schemes list.
@@ -18,4 +16,6 @@ export type PeppolParticipantIdentifierCode = ParticipantIdentifierSchemesKeys;
  *
  * @returns An Effect schema that accepts only valid participant identifier schemes.
  */
-export const participantIdentifierCodeSchema = Schema.Literals(participantIdentifierSchemesKeys);
+export const participantIdentifierCodeSchema = Schema.Literals(participantIdentifierSchemesKeys).pipe(
+  Schema.brand('PeppolParticipantIdentifierCode')
+);

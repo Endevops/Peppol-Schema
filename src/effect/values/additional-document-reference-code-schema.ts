@@ -1,7 +1,5 @@
 import { Schema } from 'effect';
 
-import type { AdditionalDocumentReferenceCodesKeys } from '#/values/additional-document-reference-codes.generated';
-
 import { additionalDocumentReferenceCodesKeys } from '#/values/additional-document-reference-codes.generated';
 
 /**
@@ -10,7 +8,7 @@ import { additionalDocumentReferenceCodesKeys } from '#/values/additional-docume
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/UNCL1153/
  * @see {@link additionalDocumentReferenceCodesKeys}
  */
-export type PeppolAdditionalDocumentReferenceCode = AdditionalDocumentReferenceCodesKeys;
+export type PeppolAdditionalDocumentReferenceCode = typeof additionalDocumentReferenceCodeSchema.Type;
 
 /**
  * @description Validates an additional document reference code against the PEPPOL subset of UNCL 1153 (reference qualifiers).
@@ -22,4 +20,6 @@ export type PeppolAdditionalDocumentReferenceCode = AdditionalDocumentReferenceC
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/UNCL1153/
  * @see {@link additionalDocumentReferenceCodesKeys}
  */
-export const additionalDocumentReferenceCodeSchema = Schema.Literals(additionalDocumentReferenceCodesKeys);
+export const additionalDocumentReferenceCodeSchema = Schema.Literals(additionalDocumentReferenceCodesKeys).pipe(
+  Schema.brand('PeppolAdditionalDocumentReferenceCode')
+);

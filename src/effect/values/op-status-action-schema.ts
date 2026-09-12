@@ -1,7 +1,5 @@
 import { Schema } from 'effect';
 
-import type { OpStatusActionKeys } from '#/values/op-status-action.generated';
-
 import { opStatusActionKeys } from '#/values/op-status-action.generated';
 
 /**
@@ -9,7 +7,7 @@ import { opStatusActionKeys } from '#/values/op-status-action.generated';
  *
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/OPStatusAction/
  */
-export type PeppolOpStatusAction = OpStatusActionKeys;
+export type PeppolOpStatusAction = typeof opStatusActionSchema.Type;
 
 /**
  * @description Validates an OpenPeppol operation status action code against the OPStatusAction codelist.
@@ -20,4 +18,4 @@ export type PeppolOpStatusAction = OpStatusActionKeys;
  *
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/OPStatusAction/
  */
-export const opStatusActionSchema = Schema.Literals(opStatusActionKeys);
+export const opStatusActionSchema = Schema.Literals(opStatusActionKeys).pipe(Schema.brand('PeppolOpStatusAction'));

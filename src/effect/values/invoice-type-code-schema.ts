@@ -1,7 +1,5 @@
 import { Schema } from 'effect';
 
-import type { InvoiceTypeCodesKeys } from '#/values/invoice-type-codes.generated';
-
 import { invoiceTypeCodesKeys } from '#/values/invoice-type-codes.generated';
 
 /**
@@ -9,7 +7,7 @@ import { invoiceTypeCodesKeys } from '#/values/invoice-type-codes.generated';
  *
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/UNCL1001-inv/
  */
-export type PeppolInvoiceTypeCode = InvoiceTypeCodesKeys;
+export type PeppolInvoiceTypeCode = typeof invoiceTypeCodeSchema.Type;
 
 /**
  * @description Validates an invoice type code against the PEPPOL subset of UNCL 1001 (invoice).
@@ -20,4 +18,4 @@ export type PeppolInvoiceTypeCode = InvoiceTypeCodesKeys;
  *
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/UNCL1001-inv/
  */
-export const invoiceTypeCodeSchema = Schema.Literals(invoiceTypeCodesKeys);
+export const invoiceTypeCodeSchema = Schema.Literals(invoiceTypeCodesKeys).pipe(Schema.brand('PeppolInvoiceTypeCode'));

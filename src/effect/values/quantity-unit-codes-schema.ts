@@ -1,7 +1,5 @@
 import { Schema } from 'effect';
 
-import type { QuantityUnitCodesKeys } from '#/values/quantity-unit-codes.generated';
-
 import { quantityUnitCodesKeys } from '#/values/quantity-unit-codes.generated';
 
 /**
@@ -9,7 +7,7 @@ import { quantityUnitCodesKeys } from '#/values/quantity-unit-codes.generated';
  *
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/UNECERec20/
  */
-export type PeppolQuantityUnitCode = QuantityUnitCodesKeys;
+export type PeppolQuantityUnitCode = typeof quantityUnitCodesSchema.Type;
 
 /**
  * @description Validates a unit of measure code against the PEPPOL subset of UN/ECE Recommendation 20.
@@ -23,4 +21,4 @@ export type PeppolQuantityUnitCode = QuantityUnitCodesKeys;
  *
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/UNECERec20/
  */
-export const quantityUnitCodesSchema = Schema.Literals(quantityUnitCodesKeys);
+export const quantityUnitCodesSchema = Schema.Literals(quantityUnitCodesKeys).pipe(Schema.brand('PeppolQuantityUnitCode'));

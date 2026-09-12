@@ -7,8 +7,6 @@
  */
 import { Schema } from 'effect';
 
-import type { ElectronicAddressCodesKeys } from '#/values/eas-codes.generated';
-
 import { electronicAddressCodesKeys } from '#/values/eas-codes.generated';
 
 /**
@@ -16,7 +14,7 @@ import { electronicAddressCodesKeys } from '#/values/eas-codes.generated';
  *
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/eas/
  */
-export type PeppolElectronicAddressCode = ElectronicAddressCodesKeys;
+export type PeppolElectronicAddressCode = typeof electronicCodesSchema.Type;
 
 /**
  * @description Validates an electronic address scheme (EAS) code against the PEPPOL Electronic Address Identifier Scheme codelist.
@@ -30,4 +28,4 @@ export type PeppolElectronicAddressCode = ElectronicAddressCodesKeys;
  *
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/eas/
  */
-export const electronicCodesSchema = Schema.Literals(electronicAddressCodesKeys);
+export const electronicCodesSchema = Schema.Literals(electronicAddressCodesKeys).pipe(Schema.brand('PeppolElectronicAddressCode'));

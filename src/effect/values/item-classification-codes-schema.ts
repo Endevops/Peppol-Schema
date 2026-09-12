@@ -1,7 +1,5 @@
 import { Schema } from 'effect';
 
-import type { ItemClassificationCodesKeys } from '#/values/item-classification-code.generated';
-
 import { itemClassificationCodesKeys } from '#/values/item-classification-code.generated';
 
 /**
@@ -9,7 +7,7 @@ import { itemClassificationCodesKeys } from '#/values/item-classification-code.g
  *
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/UNCL7143/
  */
-export type PeppolItemClassificationCode = ItemClassificationCodesKeys;
+export type PeppolItemClassificationCode = typeof itemClassificationCodesSchema.Type;
 
 /**
  * @description Validates an item classification code against the PEPPOL subset of UNCL 7143.
@@ -23,4 +21,4 @@ export type PeppolItemClassificationCode = ItemClassificationCodesKeys;
  *
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/UNCL7143/
  */
-export const itemClassificationCodesSchema = Schema.Literals(itemClassificationCodesKeys);
+export const itemClassificationCodesSchema = Schema.Literals(itemClassificationCodesKeys).pipe(Schema.brand('PeppolItemClassificationCode'));

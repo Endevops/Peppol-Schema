@@ -1,7 +1,5 @@
 import { Schema } from 'effect';
 
-import type { DocumentTypeCodesKeys } from '#/values/document-type-codes.generated';
-
 import { documentTypeCodesKeys } from '#/values/document-type-codes.generated';
 
 /**
@@ -9,7 +7,7 @@ import { documentTypeCodesKeys } from '#/values/document-type-codes.generated';
  *
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/UNCL1001/
  */
-export type PeppolDocumentTypeCode = DocumentTypeCodesKeys;
+export type PeppolDocumentTypeCode = typeof peppolDocumentTypeCodeSchema.Type;
 
 /**
  * @description Validates a document type code against the PEPPOL subset of UNCL 1001.
@@ -20,4 +18,4 @@ export type PeppolDocumentTypeCode = DocumentTypeCodesKeys;
  *
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/UNCL1001/
  */
-export const peppolDocumentTypeCodeSchema = Schema.Literals(documentTypeCodesKeys);
+export const peppolDocumentTypeCodeSchema = Schema.Literals(documentTypeCodesKeys).pipe(Schema.brand('PeppolDocumentTypeCode'));

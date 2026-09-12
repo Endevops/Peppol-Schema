@@ -1,7 +1,5 @@
 import { Schema } from 'effect';
 
-import type { AllowanceChargeReasonCodesKeys } from '#/values/allowance-charge-reason-codes.generated';
-
 import { allowanceChargeReasonCodesKeys } from '#/values/allowance-charge-reason-codes.generated';
 
 /**
@@ -9,7 +7,7 @@ import { allowanceChargeReasonCodesKeys } from '#/values/allowance-charge-reason
  *
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/UNCL5189/
  */
-export type PeppolAllowanceChargeReasonCode = AllowanceChargeReasonCodesKeys;
+export type PeppolAllowanceChargeReasonCode = typeof allowanceChargeReasonCodeSchema.Type;
 
 /**
  * @description Validates an allowance or charge reason code against the PEPPOL subset of UNCL 5189 (D.16B).
@@ -23,6 +21,6 @@ export type PeppolAllowanceChargeReasonCode = AllowanceChargeReasonCodesKeys;
  *
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/UNCL5189/
  */
-export const allowanceChargeReasonCodeSchema = Schema.Literals(allowanceChargeReasonCodesKeys).annotate({
-  documentation: 'PEPPOL-EN16931-CL002: Reason code MUST be according to subset of UNCL 5189 D.16B.',
-});
+export const allowanceChargeReasonCodeSchema = Schema.Literals(allowanceChargeReasonCodesKeys)
+  .pipe(Schema.brand('PeppolAllowanceChargeReasonCode'))
+  .annotate({ documentation: 'PEPPOL-EN16931-CL002: Reason code MUST be according to subset of UNCL 5189 D.16B.' });

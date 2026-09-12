@@ -1,7 +1,5 @@
 import { Schema } from 'effect';
 
-import type { MimeCodesKeys } from '#/values/mime-codes.generated';
-
 import { mimeCodesKeys } from '#/values/mime-codes.generated';
 
 /**
@@ -9,7 +7,7 @@ import { mimeCodesKeys } from '#/values/mime-codes.generated';
  *
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/MimeCode/
  */
-export type PeppolMimeCode = MimeCodesKeys;
+export type PeppolMimeCode = typeof mimeCodesSchema.Type;
 
 /**
  * @description Validates a MIME media type against the PEPPOL MIME code list.
@@ -23,6 +21,6 @@ export type PeppolMimeCode = MimeCodesKeys;
  *
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/MimeCode/
  */
-export const mimeCodesSchema = Schema.Literals(mimeCodesKeys).annotate({
-  documentation: 'PEPPOL-EN16931-CL001: Mime code must be according to subset of IANA code list.',
-});
+export const mimeCodesSchema = Schema.Literals(mimeCodesKeys)
+  .pipe(Schema.brand('PeppolMimeCode'))
+  .annotate({ documentation: 'PEPPOL-EN16931-CL001: Mime code must be according to subset of IANA code list.' });

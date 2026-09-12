@@ -4,6 +4,12 @@
   "version": "0.0.1",
   "description": "A simple example library built by tsdown",
   "license": "Apache-2.0",
+  "contributors": [
+    {
+      "name": "TheYoxy",
+      "url": "https://github.com/TheYoxy"
+    }
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Endevops/Peppol-Schema.git"
