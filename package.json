@@ -3,7 +3,7 @@
   "name": "@endevops/peppol-schema",
   "version": "0.0.1",
   "description": "A simple example library built by tsdown",
-  "license": "MIT",
+  "license": "Apache-2.0",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Endevops/Peppol-Schema.git"
@@ -14,7 +14,8 @@
   "files": [
     "dist",
     "src/**/*.ts",
-    "!src/**/*.{spec,test}.ts"
+    "!src/**/*.{spec,test}.ts",
+    "NOTICE"
   ],
   "type": "module",
   "exports": {

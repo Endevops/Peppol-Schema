@@ -38,6 +38,13 @@ pnpm vitest run     # Test
 tsc --noEmit        # Typecheck
 ```
 
+## License
+
+Licensed under the [Apache License, Version 2.0](LICENSE).
+
+This project generates code from Peppol BIS Billing 3.0 and related OpenPEPPOL
+code lists; see [NOTICE](NOTICE) for attributions.
+
 ## Versioning
 
 Versioning is fully automated via **semantic-release** and Conventional Commits:
@@ -57,7 +64,3 @@ See [docs/versioning.md](docs/versioning.md) for the full strategy.
 - [tsdown](https://tsdown.dev/) - Bundling (unbundled ESM)
 - [oxlint](https://oxc.rs/) / [oxfmt](https://oxc.rs/) - Linting & formatting
 - [Vitest](https://vitest.dev/) - Testing
-
-## License
-
-MIT
