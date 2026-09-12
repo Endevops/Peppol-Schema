@@ -28,7 +28,7 @@ export const peppolPayeePartySchema = Schema.Struct({
        * @name `cbc:ID`
        */
       id: Schema.optional(
-        peppolIdentifierSchema().pipe(
+        peppolIdentifierSchema.pipe(
           Schema.fieldsAssign({
             /**
              * @description This element is used for both the identification of the Payee, or the unique banking reference identifier of Payee (assigned by the
@@ -70,7 +70,7 @@ export const peppolPayeePartySchema = Schema.Struct({
        * @name `cbc:CompanyID`
        */
       companyId: Schema.optional(
-        peppolIdentifierSchema().pipe(
+        peppolIdentifierSchema.pipe(
           Schema.fieldsAssign({
             /**
              * @description An identifier issued by an official registrar that identifies the payee as a legal entity or person.
@@ -90,7 +90,7 @@ export const peppolPayeePartySchema = Schema.Struct({
              *
              * @name `@schemeID`
              */
-            schemeId: Schema.optional(icdCodesSchema()),
+            schemeId: Schema.optional(icdCodesSchema),
           })
         )
       ),

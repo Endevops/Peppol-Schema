@@ -23,7 +23,4 @@ export type PeppolItemClassificationCode = ItemClassificationCodesKeys;
  *
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/UNCL7143/
  */
-export function itemClassificationCodesSchema(error?: string) {
-  const schema = Schema.Literals(itemClassificationCodesKeys);
-  return error === undefined ? schema : schema.annotate({ message: error });
-}
+export const itemClassificationCodesSchema = Schema.Literals(itemClassificationCodesKeys);

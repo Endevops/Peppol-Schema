@@ -14,7 +14,7 @@ export const peppolDocumentResponseLineResponseContentSchema = Schema.Struct({
    *
    * @name `cbc:ResponseCode`
    */
-  responseCode: applicationResponseTypeCodeSchema(),
+  responseCode: applicationResponseTypeCodeSchema,
   /**
    * @description The description of the issued identifier in the transaction document.
    *

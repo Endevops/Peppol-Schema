@@ -23,7 +23,7 @@ export const peppolDocumentResponseDocumentSchema = Schema.Struct({
    *
    * @name `cbc:ResponseCode`
    */
-  responseCode: applicationResponseTypeCodeSchema(),
+  responseCode: applicationResponseTypeCodeSchema,
   /**
    * @description Used to meake any comments or instructions relevant to the response. The use of this element requires manual assessment by the receiver.
    *

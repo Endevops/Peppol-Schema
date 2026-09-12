@@ -30,7 +30,7 @@ export const peppolInvoiceSchema = Schema.Struct({
    *
    * @name cbc:InvoiceTypeCode
    */
-  invoiceTypeCode: invoiceTypeCodeSchema(),
+  invoiceTypeCode: invoiceTypeCodeSchema,
   /**
    * @summary PROJECT REFERENCE
    *
@@ -39,4 +39,4 @@ export const peppolInvoiceSchema = Schema.Struct({
   projectReference: Schema.optional(Schema.Struct({ id: Schema.String })),
 });
 
-export type PeppolInvoice = typeof peppolInvoiceSchema.Type;
+export interface PeppolInvoice extends Schema.Schema.Type<typeof peppolInvoiceSchema> {}

@@ -36,10 +36,10 @@ export const peppolInvoiceLineSchema = peppolBaseLineSchema.pipe(
          *
          * @see {@link quantityUnitCodes}
          */
-        unitCode: quantityUnitCodesSchema(),
+        unitCode: quantityUnitCodesSchema,
       })
     ),
   })
 );
 
-export type PeppolInvoiceLine = typeof peppolInvoiceLineSchema.Type;
+export interface PeppolInvoiceLine extends Schema.Schema.Type<typeof peppolInvoiceLineSchema> {}

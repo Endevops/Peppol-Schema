@@ -34,7 +34,7 @@ export const peppolBinaryObjectSchema = Schema.Struct({
    *
    * @name `@mimeCode`
    */
-  mimeCode: mimeCodesSchema('PEPPOL-EN16931-CL001: Mime code must be according to subset of IANA code list.'),
+  mimeCode: mimeCodesSchema,
   /**
    * @description The file name of the attached document.
    *

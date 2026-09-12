@@ -31,7 +31,4 @@ export type PeppolPaymentMeansCode = PaymentMeansCodesKeys;
  *
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/UNCL4461/
  */
-export function paymentMeansCodeSchema(error?: string) {
-  const schema = Schema.Literals(paymentMeansCodesKeys);
-  return error === undefined ? schema : schema.annotate({ message: error });
-}
+export const paymentMeansCodeSchema = Schema.Literals(paymentMeansCodesKeys);

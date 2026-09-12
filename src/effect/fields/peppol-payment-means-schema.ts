@@ -32,7 +32,7 @@ export const peppolPaymentMeansSchema = Schema.Struct({
      *
      * @name `#text`
      */
-    code: paymentMeansCodeSchema(),
+    code: paymentMeansCodeSchema,
     /**
      * @description The means, expressed as text, for how a payment is expected to be or has been settled.
      *

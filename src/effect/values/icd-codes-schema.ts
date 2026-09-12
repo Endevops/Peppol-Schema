@@ -23,6 +23,4 @@ export type PeppolIcdCode = IcdCodesKeys;
  *
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/ICD/
  */
-export function icdCodesSchema(error = 'Invalid ICD code provided') {
-  return Schema.Literals(icdCodesKeys).annotate({ message: error });
-}
+export const icdCodesSchema = Schema.Literals(icdCodesKeys);

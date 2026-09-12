@@ -82,7 +82,7 @@ export const peppolLineItemSchema = Schema.Struct({
        *
        * @name `cbc:ID`
        */
-      id: peppolIdentifierSchema().pipe(
+      id: peppolIdentifierSchema.pipe(
         Schema.fieldsAssign({
           /**
            * @description An item identifier based on a registered scheme.
@@ -99,7 +99,7 @@ export const peppolLineItemSchema = Schema.Struct({
            *
            * @name `@schemeID`
            */
-          schemeId: icdCodesSchema(),
+          schemeId: icdCodesSchema,
         })
       ),
     })

@@ -13,7 +13,7 @@ import { additionalDocumentReferenceCodeSchema } from '#/effect/values/additiona
  *
  * @name `cac:AdditionalDocumentReference`
  */
-export const peppolAdditionalDocumentReferenceSchema = peppolIdentifierSchema().pipe(
+export const peppolAdditionalDocumentReferenceSchema = peppolIdentifierSchema.pipe(
   Schema.fieldsAssign({
     /**
      * @description An identifier for an object on which the invoice is based (with DocumentTypeCode=130), given by the Seller, the identifier for the supporting
@@ -40,7 +40,7 @@ export const peppolAdditionalDocumentReferenceSchema = peppolIdentifierSchema().
        *
        * @name `@schemeID`
        */
-      schemeId: Schema.optional(additionalDocumentReferenceCodeSchema()),
+      schemeId: Schema.optional(additionalDocumentReferenceCodeSchema),
     }),
     /**
      * @remarks

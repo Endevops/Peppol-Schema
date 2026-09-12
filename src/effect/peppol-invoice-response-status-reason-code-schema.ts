@@ -5,7 +5,7 @@ import { opStatusReasonSchema } from '#/effect/values/op-status-reason-schema';
 
 export const peppolInvoiceResponseStatusReasonCodeSchema = Schema.Union([
   Schema.Struct({
-    value: opStatusActionSchema(),
+    value: opStatusActionSchema,
     /**
      * @description List identifier for clarification.
      *
@@ -16,7 +16,7 @@ export const peppolInvoiceResponseStatusReasonCodeSchema = Schema.Union([
     listId: Schema.Literal('OPStatusAction'),
   }),
   Schema.Struct({
-    value: opStatusReasonSchema(),
+    value: opStatusReasonSchema,
     /**
      * @description List identifier for clarification.
      *

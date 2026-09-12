@@ -23,7 +23,7 @@ export const peppolInvoicePeriodSchema = peppolInvoiceLinePeriodSchema.pipe(
      *
      * @name `cbc:DescriptionCode`
      */
-    descriptionCode: Schema.optional(vatDateCodeSchema()),
+    descriptionCode: Schema.optional(vatDateCodeSchema),
   })
 );
 

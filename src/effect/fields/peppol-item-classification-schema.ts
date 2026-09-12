@@ -28,7 +28,7 @@ export const peppolItemClassificationSchema = Schema.Struct({
    *
    * @name `@listID`
    */
-  listId: itemClassificationCodesSchema(),
+  listId: itemClassificationCodesSchema,
   /**
    * @description The identification scheme version identifier of the Item classification identifier.
    *

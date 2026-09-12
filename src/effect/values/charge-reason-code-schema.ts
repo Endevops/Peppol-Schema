@@ -23,8 +23,6 @@ export type PeppolChargeReasonCode = ChargeReasonCodesKeys;
  *
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/UNCL7161/
  */
-export function chargeReasonCodeSchema(error?: string) {
-  // validate against PEPPOL-EN16931-CL003: Reason code MUST be according to UNCL 7161 D.16B.
-  const schema = Schema.Literals(chargeReasonCodesKeys);
-  return error === undefined ? schema : schema.annotate({ message: error });
-}
+export const chargeReasonCodeSchema = Schema.Literals(chargeReasonCodesKeys).annotate({
+  documentation: 'PEPPOL-EN16931-CL003: Reason code MUST be according to UNCL 7161 D.16B.',
+});

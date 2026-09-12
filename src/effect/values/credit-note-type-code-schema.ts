@@ -20,7 +20,4 @@ export type PeppolCreditNoteTypeCode = CreditNoteTypeCodesKeys;
  *
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/UNCL1001-cn/
  */
-export function creditNoteTypeCodeSchema(error?: string) {
-  const schema = Schema.Literals(creditNoteTypeCodesKeys);
-  return error === undefined ? schema : schema.annotate({ message: error });
-}
+export const creditNoteTypeCodeSchema = Schema.Literals(creditNoteTypeCodesKeys);

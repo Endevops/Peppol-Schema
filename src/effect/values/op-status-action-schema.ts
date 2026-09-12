@@ -20,7 +20,4 @@ export type PeppolOpStatusAction = OpStatusActionKeys;
  *
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/OPStatusAction/
  */
-export function opStatusActionSchema(error?: string) {
-  const schema = Schema.Literals(opStatusActionKeys);
-  return error === undefined ? schema : schema.annotate({ message: error });
-}
+export const opStatusActionSchema = Schema.Literals(opStatusActionKeys);

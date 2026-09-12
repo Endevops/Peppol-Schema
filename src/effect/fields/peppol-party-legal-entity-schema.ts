@@ -9,7 +9,7 @@ export const peppolPartyLegalEntitySchema = Schema.Struct({
    *
    * @name cbc:CompanyID (+ @schemeID)
    */
-  companyId: Schema.optional(peppolIdentifierSchema()),
+  companyId: Schema.optional(peppolIdentifierSchema),
   /**
    * @example
    *   Share capital

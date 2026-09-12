@@ -1,6 +1,8 @@
-import { Schema } from 'effect';
+import { Record, Schema } from 'effect';
 
 import { documentTypesTable } from '#/values/document-type.generated';
+
+const values = Record.values(documentTypesTable).flat();
 
 /**
  * @description Validates the value part of a PEPPOL document type identifier (the portion after the scheme prefix) against the known document type table.
@@ -11,7 +13,4 @@ import { documentTypesTable } from '#/values/document-type.generated';
  *
  * @see {@link documentTypesTable}
  */
-export function documentTypeValuesSchema(error = 'invalid Peppol document type value') {
-  const values = Object.values(documentTypesTable).flat();
-  return Schema.String.check(Schema.makeFilter((val: string) => values.includes(val as never))).annotate({ message: error });
-}
+export const documentTypeValuesSchema = Schema.String.check(Schema.makeFilter((val: string) => values.includes(val as never)));

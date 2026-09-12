@@ -15,7 +15,7 @@ export const peppolInvoiceResponsePartySchema = peppolMessageLevelResponsePartyS
     /**
      * @summary Party partyIdentification
      */
-    partyIdentification: Schema.optional(peppolIdentifierSchema()),
+    partyIdentification: Schema.optional(peppolIdentifierSchema),
     partyLegalEntity: peppolPartyLegalEntitySchema.mapFields(Struct.pick(['registrationName'])),
   })
 );
@@ -40,7 +40,7 @@ export const peppolInvoiceResponseDocumentResponsePartySchema = Schema.Struct({
   /**
    * @summary Party partyIdentification
    */
-  partyIdentification: Schema.optional(peppolIdentifierSchema()),
+  partyIdentification: Schema.optional(peppolIdentifierSchema),
   /**
    * @example
    *   Seller Business Name AS
@@ -92,7 +92,7 @@ export const peppolInvoiceResponseDocumentReferenceSchema = Schema.Struct({
    *
    * @summary Identifier type code
    */
-  documentTypeCode: peppolDocumentTypeCodeSchema(),
+  documentTypeCode: peppolDocumentTypeCodeSchema,
 });
 
 export type PeppolInvoiceResponseDocumentReference = typeof peppolInvoiceResponseDocumentReferenceSchema.Type;

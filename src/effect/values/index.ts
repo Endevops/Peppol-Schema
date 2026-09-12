@@ -22,7 +22,6 @@ export * from './participant-identifier-code-schema';
 export * from './payment-means-code-schema';
 export * from './process-from-document-type-schema';
 export * from './peppol-process-schema';
-export * from './process-xml-identifier-schema';
 export * from './quantity-unit-codes-schema';
 export * from './vatex-code-schema';
 export * from './vat-date-code-schema';

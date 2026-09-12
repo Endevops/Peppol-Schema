@@ -22,7 +22,4 @@ export type PeppolAdditionalDocumentReferenceCode = AdditionalDocumentReferenceC
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/UNCL1153/
  * @see {@link additionalDocumentReferenceCodesKeys}
  */
-export function additionalDocumentReferenceCodeSchema(error?: string) {
-  const schema = Schema.Literals(additionalDocumentReferenceCodesKeys);
-  return error === undefined ? schema : schema.annotate({ message: error });
-}
+export const additionalDocumentReferenceCodeSchema = Schema.Literals(additionalDocumentReferenceCodesKeys);

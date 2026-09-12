@@ -23,7 +23,4 @@ export type PeppolDutyTaxFeeCategoryCode = DutyTaxFeeCategoriesKeys;
  *
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/UNCL5305/
  */
-export function dutyTaxFeeCategorySchema(error?: string) {
-  const schema = Schema.Literals(dutyTaxFeeCategoriesKeys);
-  return error === undefined ? schema : schema.annotate({ message: error });
-}
+export const dutyTaxFeeCategorySchema = Schema.Literals(dutyTaxFeeCategoriesKeys);

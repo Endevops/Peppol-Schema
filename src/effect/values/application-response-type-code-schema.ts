@@ -20,7 +20,4 @@ export type PeppolApplicationResponseTypeCode = ApplicationResponseTypeCodesKeys
  *
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/UNCL4343/
  */
-export function applicationResponseTypeCodeSchema(error?: string) {
-  const schema = Schema.Literals(applicationResponseTypeCodesKeys);
-  return error === undefined ? schema : schema.annotate({ message: error });
-}
+export const applicationResponseTypeCodeSchema = Schema.Literals(applicationResponseTypeCodesKeys);

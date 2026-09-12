@@ -20,7 +20,4 @@ export type PeppolOpStatusReason = OpStatusReasonKeys;
  *
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/OPStatusReason/
  */
-export function opStatusReasonSchema(error?: string) {
-  const schema = Schema.Literals(opStatusReasonKeys);
-  return error === undefined ? schema : schema.annotate({ message: error });
-}
+export const opStatusReasonSchema = Schema.Literals(opStatusReasonKeys);

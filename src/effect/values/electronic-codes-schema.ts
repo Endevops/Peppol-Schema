@@ -30,7 +30,4 @@ export type PeppolElectronicAddressCode = ElectronicAddressCodesKeys;
  *
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/eas/
  */
-export function electronicCodesSchema(error?: string) {
-  const schema = Schema.Literals(electronicAddressCodesKeys);
-  return error === undefined ? schema : schema.annotate({ message: error });
-}
+export const electronicCodesSchema = Schema.Literals(electronicAddressCodesKeys);

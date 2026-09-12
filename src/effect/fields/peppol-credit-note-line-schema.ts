@@ -32,10 +32,10 @@ export const peppolCreditNoteLineSchema = peppolBaseLineSchema.pipe(
          *
          * @see {@link quantityUnitCodes}
          */
-        unitCode: quantityUnitCodesSchema(),
+        unitCode: quantityUnitCodesSchema,
       })
     ),
   })
 );
 
-export type PeppolCreditNoteLine = typeof peppolCreditNoteLineSchema.Type;
+export interface PeppolCreditNoteLine extends Schema.Schema.Type<typeof peppolCreditNoteLineSchema> {}

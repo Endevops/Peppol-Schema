@@ -23,7 +23,4 @@ export type PeppolQuantityUnitCode = QuantityUnitCodesKeys;
  *
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/UNECERec20/
  */
-export function quantityUnitCodesSchema(error?: string) {
-  const schema = Schema.Literals(quantityUnitCodesKeys);
-  return error === undefined ? schema : schema.annotate({ message: error });
-}
+export const quantityUnitCodesSchema = Schema.Literals(quantityUnitCodesKeys);

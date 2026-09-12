@@ -23,7 +23,4 @@ export type PeppolVatexCode = VatexCodesKeys;
  *
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/vatex/
  */
-export function vatexCodeSchema(error?: string) {
-  const schema = Schema.Literals(vatexCodesKeys);
-  return error === undefined ? schema : schema.annotate({ message: error });
-}
+export const vatexCodeSchema = Schema.Literals(vatexCodesKeys);

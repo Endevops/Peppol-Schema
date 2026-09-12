@@ -116,7 +116,7 @@ export const peppolBillingBaseSchema = Schema.Struct({
    *
    * @name `cbc:DocumentCurrencyCode`
    */
-  documentCurrencyCode: currencyCodeSchema(),
+  documentCurrencyCode: currencyCodeSchema,
   /**
    * @description The currency used for VAT accounting and reporting purposes as accepted or required in the country of the Seller. Shall be used in combination
    * with the Invoice total VAT amount in accounting currency (BT-111), when the VAT accounting currency code differs from the Invoice currency code.
@@ -128,7 +128,7 @@ export const peppolBillingBaseSchema = Schema.Struct({
    *
    * @name `cbc:TaxCurrencyCode`
    */
-  taxCurrencyCode: Schema.optional(currencyCodeSchema()),
+  taxCurrencyCode: Schema.optional(currencyCodeSchema),
   /**
    * @description A textual value that specifies where to book the relevant data into the Buyer's financial accounts.
    *

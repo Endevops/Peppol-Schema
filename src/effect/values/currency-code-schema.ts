@@ -30,7 +30,4 @@ export type PeppolCurrencyCode = CurrencyCodesKeys;
  *
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/ISO4217/
  */
-export function currencyCodeSchema(error?: string) {
-  const schema = Schema.Literals(currencyCodesKeys);
-  return error === undefined ? schema : schema.annotate({ message: error });
-}
+export const currencyCodeSchema = Schema.Literals(currencyCodesKeys);

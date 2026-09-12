@@ -43,7 +43,7 @@ export const peppolBaseLineSchema = Schema.Struct({
    */
   documentReference: Schema.optional(
     Schema.Array(
-      peppolIdentifierSchema().pipe(
+      peppolIdentifierSchema.pipe(
         Schema.fieldsAssign({
           /**
            * @default 130

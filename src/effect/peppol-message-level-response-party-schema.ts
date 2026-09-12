@@ -13,7 +13,7 @@ export const peppolMessageLevelResponsePartySchema = Schema.Struct({
    *
    * @name `cbc:EndpointID (+ @schemeID)`
    */
-  endpointId: Schema.optional(peppolIdentifierSchema()),
+  endpointId: Schema.optional(peppolIdentifierSchema),
 });
 
 export type PeppolMessageLevelResponseParty = typeof peppolMessageLevelResponsePartySchema.Type;

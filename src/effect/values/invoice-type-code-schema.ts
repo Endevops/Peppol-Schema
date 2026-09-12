@@ -20,7 +20,4 @@ export type PeppolInvoiceTypeCode = InvoiceTypeCodesKeys;
  *
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/UNCL1001-inv/
  */
-export function invoiceTypeCodeSchema(error?: string) {
-  const schema = Schema.Literals(invoiceTypeCodesKeys);
-  return error === undefined ? schema : schema.annotate({ message: error });
-}
+export const invoiceTypeCodeSchema = Schema.Literals(invoiceTypeCodesKeys);

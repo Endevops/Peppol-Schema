@@ -24,7 +24,7 @@ export const peppolCreditNoteSchema = Schema.Struct({
    *
    * @name cbc:CreditNoteTypeCode
    */
-  creditNoteTypeCode: creditNoteTypeCodeSchema(),
+  creditNoteTypeCode: creditNoteTypeCodeSchema,
 });
 
-export type PeppolCreditNote = typeof peppolCreditNoteSchema.Type;
+export interface PeppolCreditNote extends Schema.Schema.Type<typeof peppolCreditNoteSchema> {}

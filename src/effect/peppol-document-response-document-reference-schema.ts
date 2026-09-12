@@ -21,7 +21,7 @@ export const peppolDocumentResponseDocumentReferenceSchema = Schema.Struct({
    *
    * @name `cbc:DocumentTypeCode`
    */
-  documentTypeCode: Schema.optional(peppolDocumentTypeCodeSchema()),
+  documentTypeCode: Schema.optional(peppolDocumentTypeCodeSchema),
   /**
    * @description The version of the document that has been identifier with the document identifier.
    *

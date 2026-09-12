@@ -5,8 +5,10 @@ import { Effect, Predicate, Schema, SchemaGetter, SchemaIssue } from 'effect';
 import XMLBuilder from 'fast-xml-builder';
 import { XMLParser } from 'fast-xml-parser';
 
-import type { peppolCreditNoteLineSchema } from '#/effect/fields/peppol-credit-note-line-schema';
-import type { peppolInvoiceLineSchema } from '#/effect/fields/peppol-invoice-line-schema';
+import type { PeppolCreditNoteLine } from '#/effect/fields/peppol-credit-note-line-schema';
+import type { PeppolInvoiceLine } from '#/effect/fields/peppol-invoice-line-schema';
+import type { PeppolCreditNote } from '#/effect/peppol-credit-note-schema';
+import type { PeppolInvoice } from '#/effect/peppol-invoice-schema';
 import type { XmlNode } from '#/helpers/get-prop';
 import type { PeppolCreditNote as ZodPeppolCreditNote } from '#/schemas/credit-note';
 import type { PeppolInvoice as ZodPeppolInvoice } from '#/schemas/invoice';
@@ -126,15 +128,15 @@ export const peppolDocumentSchema = peppolDocumentObjectSchema.pipe(
 );
 
 export type PeppolDocumentEncoded = string;
-export interface PeppolDocumentDecoded extends AllUnionFields<typeof peppolDocumentSchema.Type> {}
+export interface PeppolDocumentDecoded extends AllUnionFields<Schema.Schema.Type<typeof peppolDocumentSchema>> {}
 
 /**
  * @description This defines the types of documents that are sent/received through the peppol network.
  */
-export interface PeppolDocument extends AllUnionFields<typeof peppolInvoiceSchema.Type | typeof peppolCreditNoteSchema.Type> {}
+export interface PeppolDocument extends AllUnionFields<PeppolInvoice | PeppolCreditNote> {}
 /**
  * @description This defines the types of message that are sent/received through the peppol network.
  */
 export interface PeppolMessage extends AllUnionFields<typeof peppolMessageLevelResponseSchema.Type | typeof peppolInvoiceResponseSchema.Type> {}
 export interface PeppolAllDocuments extends AllUnionFields<PeppolDocument | PeppolMessage> {}
-export interface PeppolDocumentLine extends AllUnionFields<typeof peppolInvoiceLineSchema.Type | typeof peppolCreditNoteLineSchema.Type> {}
+export interface PeppolDocumentLine extends AllUnionFields<PeppolInvoiceLine | PeppolCreditNoteLine> {}

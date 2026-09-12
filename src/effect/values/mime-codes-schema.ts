@@ -23,7 +23,6 @@ export type PeppolMimeCode = MimeCodesKeys;
  *
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/MimeCode/
  */
-export function mimeCodesSchema(error?: string) {
-  const schema = Schema.Literals(mimeCodesKeys);
-  return error === undefined ? schema : schema.annotate({ message: error });
-}
+export const mimeCodesSchema = Schema.Literals(mimeCodesKeys).annotate({
+  documentation: 'PEPPOL-EN16931-CL001: Mime code must be according to subset of IANA code list.',
+});

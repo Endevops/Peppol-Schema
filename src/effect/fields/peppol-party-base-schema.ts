@@ -24,7 +24,7 @@ export const peppolPartyBaseSchema = Schema.Struct({
    *
    * @name `cbc:EndpointID`
    */
-  endpointId: peppolIdentifierSchema().pipe(
+  endpointId: peppolIdentifierSchema.pipe(
     Schema.fieldsAssign({
       /**
        * @description Identifies the Seller/buyer's electronic address to which the application level response to the invoice may be delivered.
@@ -44,7 +44,7 @@ export const peppolPartyBaseSchema = Schema.Struct({
        *
        * @name `@schemeID`
        */
-      schemeId: electronicCodesSchema(),
+      schemeId: electronicCodesSchema,
     })
   ),
   /**
@@ -64,7 +64,7 @@ export const peppolPartyBaseSchema = Schema.Struct({
        *
        * @name `cbc:ID`
        */
-      id: peppolIdentifierSchema().pipe(
+      id: peppolIdentifierSchema.pipe(
         Schema.fieldsAssign({
           /**
            * @description Identifies the Seller/buyer's electronic address to which the application level response to the invoice may be delivered.
@@ -84,7 +84,7 @@ export const peppolPartyBaseSchema = Schema.Struct({
            *
            * @name `@schemeID`
            */
-          schemeId: Schema.optional(icdCodesSchema()),
+          schemeId: Schema.optional(icdCodesSchema),
         })
       ),
     })

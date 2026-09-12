@@ -11,7 +11,7 @@ export const peppolQuantitySchema = Schema.Struct({
   /**
    * @name `@unitCode`
    */
-  unitCode: Schema.optional(quantityUnitCodesSchema()),
+  unitCode: Schema.optional(quantityUnitCodesSchema),
   /**
    * @name `#text (value)`
    */

@@ -11,6 +11,4 @@ import { documentTypesScheme } from '#/values/document-type.generated';
  *
  * @see {@link documentTypesScheme}
  */
-export function documentTypeSchemesSchema(error = 'invalid Peppol document type scheme') {
-  return Schema.Literals(documentTypesScheme as [string, ...Array<string>]).annotate({ message: error });
-}
+export const documentTypeSchemesSchema = Schema.Literals(documentTypesScheme as [string, ...Array<string>]);

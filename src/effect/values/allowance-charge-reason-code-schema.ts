@@ -23,8 +23,6 @@ export type PeppolAllowanceChargeReasonCode = AllowanceChargeReasonCodesKeys;
  *
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/UNCL5189/
  */
-export function allowanceChargeReasonCodeSchema(error?: string) {
-  // validate against PEPPOL-EN16931-CL002: Reason code MUST be according to subset of UNCL 5189 D.16B.
-  const schema = Schema.Literals(allowanceChargeReasonCodesKeys);
-  return error === undefined ? schema : schema.annotate({ message: error });
-}
+export const allowanceChargeReasonCodeSchema = Schema.Literals(allowanceChargeReasonCodesKeys).annotate({
+  documentation: 'PEPPOL-EN16931-CL002: Reason code MUST be according to subset of UNCL 5189 D.16B.',
+});

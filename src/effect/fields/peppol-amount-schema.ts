@@ -11,7 +11,7 @@ export const peppolAmountSchema = Schema.Struct({
   /**
    * @name \@currencyID
    */
-  currencyId: currencyCodeSchema(),
+  currencyId: currencyCodeSchema,
   /**
    * @name #text (value)
    */

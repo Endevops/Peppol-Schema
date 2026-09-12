@@ -29,9 +29,7 @@ export const peppolLineAllowanceChargeSchema = Schema.Union([
       /**
        * @name cbc:AllowanceChargeReasonCode
        */
-      allowanceChargeReasonCode: Schema.optional(
-        allowanceChargeReasonCodeSchema('PEPPOL-EN16931-CL002: Reason code MUST be according to subset of UNCL 5189 D.16B.')
-      ),
+      allowanceChargeReasonCode: Schema.optional(allowanceChargeReasonCodeSchema),
       /**
        * @name cbc:ChargeIndicator
        *
@@ -47,7 +45,7 @@ export const peppolLineAllowanceChargeSchema = Schema.Union([
       /**
        * @name cbc:AllowanceChargeReasonCode
        */
-      allowanceChargeReasonCode: Schema.optional(chargeReasonCodeSchema('PEPPOL-EN16931-CL003: Reason code MUST be according to UNCL 7161 D.16B.')),
+      allowanceChargeReasonCode: Schema.optional(chargeReasonCodeSchema),
       /**
        * @name cbc:ChargeIndicator
        *

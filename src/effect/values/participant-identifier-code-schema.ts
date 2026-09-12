@@ -18,7 +18,4 @@ export type PeppolParticipantIdentifierCode = ParticipantIdentifierSchemesKeys;
  *
  * @returns An Effect schema that accepts only valid participant identifier schemes.
  */
-export function participantIdentifierCodeSchema(error?: string) {
-  const schema = Schema.Literals(participantIdentifierSchemesKeys);
-  return error === undefined ? schema : schema.annotate({ message: error });
-}
+export const participantIdentifierCodeSchema = Schema.Literals(participantIdentifierSchemesKeys);

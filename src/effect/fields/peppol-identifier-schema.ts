@@ -1,6 +1,11 @@
 import { Schema } from 'effect';
 
-const peppolIdentifierBaseSchema = Schema.Struct({
+/**
+ * @summary Identifier with optional scheme
+ *
+ * @name `cbc:ID (+ optional @schemeID)`
+ */
+export const peppolIdentifierSchema = Schema.Struct({
   /**
    * @name cbc:ID
    */
@@ -11,13 +16,4 @@ const peppolIdentifierBaseSchema = Schema.Struct({
   schemeId: Schema.optional(Schema.String),
 });
 
-/**
- * @summary Identifier with optional scheme
- *
- * @name `cbc:ID (+ optional @schemeID)`
- */
-export function peppolIdentifierSchema(error?: string) {
-  return error === undefined ? peppolIdentifierBaseSchema : peppolIdentifierBaseSchema.annotate({ message: error });
-}
-
-export type PeppolIdentifier = typeof peppolIdentifierBaseSchema.Type;
+export type PeppolIdentifier = typeof peppolIdentifierSchema.Type;

@@ -17,7 +17,7 @@ export const peppolTaxCategorySchema = Schema.Struct({
    *
    * @name `cbc:ID`
    */
-  id: dutyTaxFeeCategorySchema(),
+  id: dutyTaxFeeCategorySchema,
   /**
    * @description The VAT rate, represented as percentage that applies to the invoiced item.
    *

@@ -36,7 +36,7 @@ export const peppolDeliverySchema = Schema.Struct({
        * @name `cbc:ID`
        */
       id: Schema.optional(
-        peppolIdentifierSchema().pipe(
+        peppolIdentifierSchema.pipe(
           Schema.fieldsAssign({
             /**
              * @description An identifier for the location at which the goods and services are delivered.
@@ -56,7 +56,7 @@ export const peppolDeliverySchema = Schema.Struct({
              *
              * @name `@schemeID`
              */
-            schemeId: Schema.optional(icdCodesSchema()),
+            schemeId: Schema.optional(icdCodesSchema),
           })
         )
       ),
