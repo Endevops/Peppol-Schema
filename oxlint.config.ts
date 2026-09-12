@@ -17,8 +17,9 @@ export default defineConfig({
       files: [
         './src/index.ts',
         './src/schemas.ts',
-        './src/peppol-validations/index.ts',
         './src/values.ts',
+        './src/decoders/index.ts',
+        './src/peppol-validations/index.ts',
         './src/constants/index.ts',
         './src/effect/index.ts',
         './src/effect/values/index.ts',

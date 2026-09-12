@@ -37,7 +37,7 @@ export const peppolBillingBaseSchema = Schema.Struct({
    *
    * @name `cbc:CustomizationID`
    */
-  customizationId: Schema.String.pipe(Schema.withDecodingDefault(Effect.succeed(DEFAULT_CUSTOMIZATION_ID))).check(
+  customizationId: Schema.String.pipe(Schema.withDecodingDefaultType(Effect.succeed(DEFAULT_CUSTOMIZATION_ID))).check(
     Schema.isStartsWith('urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0', {
       message:
         "PEPPOL-EN16931-R004: Specification identifier MUST have the value 'urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0'.",
@@ -52,7 +52,7 @@ export const peppolBillingBaseSchema = Schema.Struct({
    *
    * @name `cbc:ProfileID`
    */
-  profileId: Schema.String.pipe(Schema.withDecodingDefault(Effect.succeed(DEFAULT_PROFILE_ID))).check(
+  profileId: Schema.String.pipe(Schema.withDecodingDefaultType(Effect.succeed(DEFAULT_PROFILE_ID))).check(
     Schema.isPattern(/^urn:fdc:peppol.eu:2017:poacc:billing:(\d{2}):1\.0$/, {
       message:
         "PEPPOL-EN16931-R007: Business process MUST be in the format 'urn:fdc:peppol.eu:2017:poacc:billing:NN:1.0' where NN indicates the process number.",

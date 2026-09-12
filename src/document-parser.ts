@@ -23,6 +23,9 @@ import { messageLevelResponse } from '#/schemas/message-level-response-schema';
 import { builderOptions } from '#/xml/builder-options';
 import { parserOptions } from '#/xml/parser-options';
 
+/**
+ * @deprecated use `PeppolDocumentParser` instead
+ */
 export const documentParser = z.codec(
   z.string(),
   z.xor([invoiceSchema, creditNoteSchema, messageLevelResponse, invoiceResponseSchema], 'invalid document'),

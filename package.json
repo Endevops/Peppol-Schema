@@ -39,6 +39,10 @@
       "development": "./src/peppol-validations/index.ts",
       "default": "./dist/validations.js"
     },
+    "./values": {
+      "development": "./src/values.ts",
+      "default": "./dist/values.js"
+    },
     "./xml": {
       "development": "./src/xml.ts",
       "default": "./dist/xml.js"
@@ -55,6 +59,7 @@
       "./generate-translations": "./dist/bin/generate-translations.mjs",
       "./schematron": "./dist/schematron.js",
       "./validations": "./dist/validations.js",
+      "./values": "./dist/values.js",
       "./xml": "./dist/xml.js",
       "./package.json": "./package.json"
     },
