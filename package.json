@@ -68,13 +68,14 @@
     "generate": "bun scripts/values.ts",
     "lint": "oxlint . --type-aware",
     "prepack": "tsdown",
-    "prepare": "pnpm dlx husky",
+    "prepare": "pnpm dlx husky && effect-tsgo patch --oxlint",
     "test": "vitest run",
     "test:coverage": "vitest run --coverage"
   },
   "devDependencies": {
     "@arethetypeswrong/core": "^0.18.5",
     "@date-fns/tz": "^1.5.0",
+    "@effect/tsgo": "^0.44.0",
     "@nodable/compact-builder": "^2.0.0",
     "@nodable/flexible-xml-parser": "^1.11.3",
     "@types/bun": "^1.4.2",
@@ -94,7 +95,6 @@
     "semantic-release": "25.0.9",
     "simple-git": "^3.36.0",
     "testcontainers": "^12.1.0",
-    "ts-extras": "^1.3.0",
     "tsdown": "^0.23.0",
     "type-fest": "^5.9.0",
     "typescript": "^7.0.2",
@@ -125,7 +125,6 @@
   "packageManager": "pnpm@12.4.1",
   "inlinedDependencies": {
     "picocolors": "1.1.1",
-    "ts-extras": "1.3.0",
     "type-fest": "5.9.0"
   }
 }

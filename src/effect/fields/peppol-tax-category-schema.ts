@@ -25,7 +25,7 @@ export const peppolTaxCategorySchema = Schema.Struct({
    *
    * @name `cbc:Percent`
    */
-  percent: Schema.optional(Schema.Number),
+  percent: Schema.optional(Schema.Finite),
   /**
    * @default VAT
    *
@@ -35,7 +35,7 @@ export const peppolTaxCategorySchema = Schema.Struct({
     /**
      * @name `cbc:ID`
      */
-    id: Schema.String.pipe(Schema.withDecodingDefaultType(Effect.succeed('VAT'))),
+    id: Schema.String.pipe(Schema.withDecodingDefault(Effect.succeed('VAT'))),
   }),
 });
 

@@ -26,7 +26,7 @@ export const peppolPartyTaxSchemeSchema = Schema.Struct({
      *
      * @name cbc:ID
      */
-    id: Schema.String.pipe(Schema.withDecodingDefaultType(Effect.succeed('VAT'))),
+    id: Schema.String.pipe(Schema.withDecodingDefault(Effect.succeed('VAT'))),
   }),
 });
 

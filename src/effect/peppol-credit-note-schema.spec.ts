@@ -52,7 +52,7 @@ const validCreditNote = {
 
 describe('peppolCreditNoteSchema', () => {
   const testSchema = new TestSchema.Asserts(peppolCreditNoteSchema);
-  const decode = testSchema.decoding();
+  const decode = testSchema.decoding({ parseOptions: { errors: 'all' } });
   it('should parse valid credit note', async () => {
     await decode.succeed(validCreditNote, {
       accountingCustomerParty: {

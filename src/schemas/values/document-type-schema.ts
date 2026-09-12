@@ -1,4 +1,4 @@
-import { objectEntries } from 'ts-extras';
+import { Record } from 'effect';
 import * as z from 'zod/mini';
 
 import type { DocumentTypesTableKeys } from '#/values/document-type.generated';
@@ -12,7 +12,7 @@ import { documentTypesTable, documentTypesTableKeys } from '#/values/document-ty
  */
 export type PeppolDocumentType = `${DocumentTypesTableKeys}::${string}`;
 
-const entries = /* @__PURE__ */ objectEntries(documentTypesTable);
+const entries = /* @__PURE__ */ Record.toEntries(documentTypesTable);
 
 /**
  * @description Validates a full PEPPOL document type identifier (`<scheme>::<root>::…`) against the known document type table.

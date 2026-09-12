@@ -1,4 +1,4 @@
-import { objectEntries } from 'ts-extras';
+import { Record } from 'effect';
 import { describe, expect, it } from 'vitest';
 import * as z from 'zod/mini';
 
@@ -33,7 +33,7 @@ describe('documentTypeSchema (invalid prefixes)', () => {
   });
 });
 
-const entries = objectEntries(documentTypesTable);
+const entries = Record.toEntries(documentTypesTable);
 
 describe('document-type', () => {
   it.fails('should not contains duplicates', () => {

@@ -1,9 +1,9 @@
-import { objectEntries } from 'ts-extras';
+import { Record } from 'effect';
 import * as z from 'zod/mini';
 
 import { documentTypesTable } from '#/values/document-type.generated';
 
-const entries = /* @__PURE__ */ objectEntries(documentTypesTable);
+const entries = /* @__PURE__ */ Record.toEntries(documentTypesTable);
 
 /**
  * @description Validates the value part of a PEPPOL document type identifier (the portion after the scheme prefix) against the known document type table.

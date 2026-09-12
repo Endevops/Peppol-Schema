@@ -1,4 +1,4 @@
-import { objectEntries } from 'ts-extras';
+import { Record } from 'effect';
 import * as z from 'zod/mini';
 
 import type { ProcessesKeys } from '#/values/processes.generated';
@@ -12,7 +12,7 @@ import { processes } from '#/values/processes.generated';
  */
 export type PeppolProcesses = `${ProcessesKeys}::${string}`;
 
-const entries = /* @__PURE__ */ objectEntries(processes);
+const entries = /* @__PURE__ */ Record.toEntries(processes);
 
 /**
  * @description Validates a full PEPPOL business process identifier (`<scheme>::<value>`) against the known processes.

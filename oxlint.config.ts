@@ -1,8 +1,10 @@
+import { recommended } from '@effect/tsgo/oxlint-presets';
 import { defineConfig } from 'oxlint';
 
 export default defineConfig({
   categories: { correctness: 'error' },
   env: { browser: true, builtin: true, node: true, vitest: true },
+  extends: [recommended],
   ignorePatterns: ['**/dist', '**/node_modules', '**/coverage'],
   overrides: [
     { files: ['**/*.spec.ts'], rules: { 'typescript/no-explicit-any': 'off' } },
@@ -20,10 +22,37 @@ export default defineConfig({
       ],
       rules: { 'oxc/no-barrel-file': 'off', 'typescript/consistent-type-exports': 'off' },
     },
+    { files: ['**/scripts/**/*.ts', '**/*.spec.ts'], rules: { 'effecttsgo/node-builtin-import': 'allow' } },
   ],
   plugins: ['oxc', 'typescript', 'unicorn', 'import', 'vitest', 'node', 'promise'],
   rules: {
     'arrow-body-style': ['error', 'as-needed', { requireReturnForObjectLiteral: false }],
+    'effecttsgo/any-unknown-in-error-context': 'warn',
+    'effecttsgo/async-function': 'off',
+    'effecttsgo/catch-to-or-else-succeed': 'warn',
+    'effecttsgo/crypto-random-uuid': 'off',
+    'effecttsgo/crypto-random-uuid-in-effect': 'warn',
+    'effecttsgo/extends-native-error': 'warn',
+    'effecttsgo/global-console': 'off',
+    'effecttsgo/global-console-in-effect': 'warn',
+    'effecttsgo/global-date': 'off',
+    'effecttsgo/global-date-in-effect': 'warn',
+    'effecttsgo/global-fetch': 'off',
+    'effecttsgo/global-fetch-in-effect': 'warn',
+    'effecttsgo/global-random': 'off',
+    'effecttsgo/global-random-in-effect': 'warn',
+    'effecttsgo/global-timers': 'off',
+    'effecttsgo/global-timers-in-effect': 'warn',
+    'effecttsgo/instance-of-schema': 'off',
+    'effecttsgo/leaking-requirements': 'error',
+    'effecttsgo/new-promise': 'off',
+    'effecttsgo/node-builtin-import': 'warn',
+    'effecttsgo/prefer-schema-over-json': 'warn',
+    'effecttsgo/process-env': 'off',
+    'effecttsgo/process-env-in-effect': 'warn',
+    'effecttsgo/redundant-schema-tag-identifier': 'allow', // NOTE: this rule is allowed for now to reduce noise
+    'effecttsgo/unnecessary-fail-yieldable-error': 'warn',
+    'effecttsgo/unsafe-effect-type-assertion': 'warn',
     'import/consistent-type-specifier-style': 'error',
     'import/newline-after-import': 'warn',
     'import/no-relative-parent-imports': 'error',

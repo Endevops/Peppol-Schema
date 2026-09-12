@@ -7,7 +7,7 @@ import { INVOICE_RESPONSE_DOCTYPE_ID } from './invoice-response-doctype-id';
 import { INVOICE_RESPONSE_PROCESS_ID } from './invoice-response-process-id';
 import { MESSAGE_LEVEL_RESPONSE_DOCTYPE_ID } from './message-level-response-doctype-id';
 import { MESSAGE_LEVEL_RESPONSE_PROCESS_ID } from './message-level-response-process-id';
-import { participantScheme } from './participant-scheme';
+import { PARTICIPANT_SCHEME } from './participant-scheme';
 import { processScheme } from './process-scheme';
 import { transportProfile } from './transport-profile';
 
@@ -32,7 +32,7 @@ describe('constants', () => {
   });
 
   it('defines the scheme and transport profiles', () => {
-    expect(participantScheme).toBe('iso6523-actorid-upis');
+    expect(PARTICIPANT_SCHEME).toBe('iso6523-actorid-upis');
     expect(processScheme).toBe('cenbii-procid-ubl');
     expect(transportProfile).toBe('peppol-transport-as4-v2_0');
   });

@@ -15,7 +15,7 @@ export const peppolQuantitySchema = Schema.Struct({
   /**
    * @name `#text (value)`
    */
-  value: Schema.Number,
+  value: Schema.Finite,
 });
 
 export type PeppolQuantity = typeof peppolQuantitySchema.Type;

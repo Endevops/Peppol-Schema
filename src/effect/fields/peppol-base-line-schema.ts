@@ -50,7 +50,7 @@ export const peppolBaseLineSchema = Schema.Struct({
            *
            * @name cbc:DocumentTypeCode
            */
-          documentTypeCode: Schema.String.pipe(Schema.withDecodingDefaultType(Effect.succeed('130'))),
+          documentTypeCode: Schema.String.pipe(Schema.withDecodingDefault(Effect.succeed('130'))),
         })
       )
     )

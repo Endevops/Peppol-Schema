@@ -19,7 +19,7 @@ const baseLineAllowanceChargeSchema = priceAllowanceChargeSchema.pipe(
      *
      * @name cbc:MultiplierFactorNumeric
      */
-    multiplierFactorNumeric: Schema.optional(Schema.Number),
+    multiplierFactorNumeric: Schema.optional(Schema.Finite),
   })
 );
 

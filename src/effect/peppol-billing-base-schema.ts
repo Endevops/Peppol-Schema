@@ -19,9 +19,7 @@ import { peppolIsoDateStringSchema } from '#/effect/peppol-iso-date-string-schem
 import { currencyCodeSchema } from '#/effect/values/currency-code-schema';
 
 /**
- * @description Base schema for a billing document. Effect port of `billingBaseSchema` (`z.object(...)`): same keys and optionality (`z.optional` →
- * `Schema.optional`), ISO dates stay plain strings via `peppolIsoDateStringSchema` (never `Date` objects), and `z._default` becomes
- * `Schema.withDecodingDefaultType`.
+ * @description Base schema for a billing document.
  *
  * @see {@link creditNoteSchema} - the credit note schema
  * @see {@link invoiceSchema} - the invoice schema
@@ -39,12 +37,12 @@ export const peppolBillingBaseSchema = Schema.Struct({
    *
    * @name `cbc:CustomizationID`
    */
-  customizationId: Schema.String.check(
+  customizationId: Schema.String.pipe(Schema.withDecodingDefault(Effect.succeed(DEFAULT_CUSTOMIZATION_ID))).check(
     Schema.isStartsWith('urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0', {
       message:
         "PEPPOL-EN16931-R004: Specification identifier MUST have the value 'urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0'.",
     })
-  ).pipe(Schema.withDecodingDefaultType(Effect.succeed(DEFAULT_CUSTOMIZATION_ID))),
+  ),
   /**
    * @description Identifies the business process context in which the transaction appears, to enable the Buyer to process the Invoice in an appropriate way.
    *
@@ -54,12 +52,12 @@ export const peppolBillingBaseSchema = Schema.Struct({
    *
    * @name `cbc:ProfileID`
    */
-  profileId: Schema.String.check(
+  profileId: Schema.String.pipe(Schema.withDecodingDefault(Effect.succeed(DEFAULT_PROFILE_ID))).check(
     Schema.isPattern(/^urn:fdc:peppol.eu:2017:poacc:billing:(\d{2}):1\.0$/, {
       message:
         "PEPPOL-EN16931-R007: Business process MUST be in the format 'urn:fdc:peppol.eu:2017:poacc:billing:NN:1.0' where NN indicates the process number.",
     })
-  ).pipe(Schema.withDecodingDefaultType(Effect.succeed(DEFAULT_PROFILE_ID))),
+  ),
   /**
    * @description A using identification of the Invoice. The sequential number required in Article 226(2) of the directive 2006/112/EC [2], to uniquely identify
    * the Invoice within the business context, time-frame, operating systems and records of the Seller. No identification scheme is to be used.

@@ -1,9 +1,9 @@
-import { objectEntries } from 'ts-extras';
+import { Record } from 'effect';
 import * as z from 'zod/mini';
 
 import { processes } from '#/values/processes.generated';
 
-const entries = /* @__PURE__ */ objectEntries(processes);
+const entries = /* @__PURE__ */ Record.toEntries(processes);
 
 /**
  * @description Validates a raw XML process identifier object with `#text` and `@scheme` fields against the known processes.

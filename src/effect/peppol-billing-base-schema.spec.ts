@@ -42,7 +42,7 @@ const validBillingBase = {
 
 describe('peppolBillingBaseSchema', () => {
   const testSchema = new TestSchema.Asserts(peppolBillingBaseSchema);
-  const decode = testSchema.decoding();
+  const decode = testSchema.decoding({ parseOptions: { errors: 'all' } });
 
   it('should decode a valid billing base', async () => {
     await decode.succeed(validBillingBase);
