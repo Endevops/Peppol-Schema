@@ -4,21 +4,37 @@ import * as z from 'zod/mini';
 import { invoiceSchema } from './invoice';
 
 const validInvoice = {
-  customizationId: 'urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0',
-  profileId: 'urn:fdc:peppol.eu:2017:poacc:billing:01:1.0',
-  id: 'INV-001',
-  issueDate: '2024-01-15',
-  documentCurrencyCode: 'EUR',
-  accountingSupplierParty: {
-    endpointId: { id: '1234567890', schemeId: '0088' },
-    postalAddress: { streetName: 'Main Street 1', cityName: 'London', postalZone: 'W1G 8LZ', countryCode: { identificationCode: 'GB' } },
-    partyLegalEntity: { registrationName: 'Seller Company Ltd' },
-  },
   accountingCustomerParty: {
     endpointId: { id: '9876543210', schemeId: '0088' },
-    postalAddress: { cityName: 'Paris', countryCode: { identificationCode: 'FR' } },
     partyLegalEntity: { registrationName: 'Buyer Company SA' },
+    postalAddress: { cityName: 'Paris', countryCode: { identificationCode: 'FR' } },
   },
+  accountingSupplierParty: {
+    endpointId: { id: '1234567890', schemeId: '0088' },
+    partyLegalEntity: { registrationName: 'Seller Company Ltd' },
+    postalAddress: { cityName: 'London', countryCode: { identificationCode: 'GB' }, postalZone: 'W1G 8LZ', streetName: 'Main Street 1' },
+  },
+  customizationId: 'urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0',
+  documentCurrencyCode: 'EUR',
+  id: 'INV-001',
+  invoiceLines: [
+    {
+      id: '1',
+      invoicedQuantity: { unitCode: 'C62', value: 10 },
+      item: { classifiedTaxCategory: { id: 'S', percent: 20, taxSchemeId: { id: 'VAT' } }, name: 'Widget' },
+      lineExtensionAmount: { currencyId: 'EUR', value: 1000 },
+      price: { priceAmount: { currencyId: 'EUR', value: 100 } },
+    },
+  ],
+  invoiceTypeCode: '380',
+  issueDate: '2024-01-15',
+  legalMonetaryTotal: {
+    lineExtensionAmount: { currencyId: 'EUR', value: 1000 },
+    payableAmount: { currencyId: 'EUR', value: 1200 },
+    taxExclusiveAmount: { currencyId: 'EUR', value: 1000 },
+    taxInclusiveAmount: { currencyId: 'EUR', value: 1200 },
+  },
+  profileId: 'urn:fdc:peppol.eu:2017:poacc:billing:01:1.0',
   taxTotals: [
     {
       taxAmount: { currencyId: 'EUR', value: 200 },
@@ -31,22 +47,6 @@ const validInvoice = {
       ],
     },
   ],
-  legalMonetaryTotal: {
-    lineExtensionAmount: { currencyId: 'EUR', value: 1000 },
-    taxExclusiveAmount: { currencyId: 'EUR', value: 1000 },
-    taxInclusiveAmount: { currencyId: 'EUR', value: 1200 },
-    payableAmount: { currencyId: 'EUR', value: 1200 },
-  },
-  invoiceLines: [
-    {
-      id: '1',
-      invoicedQuantity: { value: 10, unitCode: 'C62' },
-      lineExtensionAmount: { currencyId: 'EUR', value: 1000 },
-      item: { name: 'Widget', classifiedTaxCategory: { id: 'S', percent: 20, taxSchemeId: { id: 'VAT' } } },
-      price: { priceAmount: { currencyId: 'EUR', value: 100 } },
-    },
-  ],
-  invoiceTypeCode: '380',
 };
 
 describe('invoiceSchema', () => {
@@ -80,9 +80,9 @@ describe('invoiceSchema', () => {
   it('should parse invoice with optional fields', () => {
     const result = z.safeParse(invoiceSchema, {
       ...validInvoice,
+      buyerReference: 'ref-001',
       dueDate: '2024-02-15',
       note: 'Test invoice note',
-      buyerReference: 'ref-001',
       projectReference: { id: 'PROJ-001' },
     });
     expect(result.success).toBe(true);

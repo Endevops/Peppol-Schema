@@ -18,10 +18,10 @@ describe('peppolLineAllowanceChargeSchema', () => {
 
   it('should parse a line allowance with reason and multiplier', async () => {
     await decode.succeed({
+      allowanceChargeReason: 'Discount',
+      allowanceChargeReasonCode: '41',
       amount: { currencyId: 'EUR', value: 20 },
       chargeIndicator: false,
-      allowanceChargeReasonCode: '41',
-      allowanceChargeReason: 'Discount',
       multiplierFactorNumeric: 20,
     });
   });

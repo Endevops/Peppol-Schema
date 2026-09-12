@@ -1,3 +1,4 @@
+import { DateTime } from 'effect';
 // oxlint-disable vitest/expect-expect
 import { TestSchema } from 'effect/testing';
 import { describe, it } from 'vitest';
@@ -9,7 +10,10 @@ describe('peppolInvoiceResponseDocumentActualResponseSchema', () => {
   const decode = testSchema.decoding();
 
   it('should decode a response code that requires clarification with a status', async () => {
-    await decode.succeed({ responseCode: 'RE', effectiveDate: '2018-09-24', status: [{ statusReason: 'VAT Reference not found' }] });
+    await decode.succeed(
+      { responseCode: 'RE', effectiveDate: '2018-09-24', status: [{ statusReason: 'VAT Reference not found' }] },
+      { responseCode: 'RE', effectiveDate: DateTime.makeUnsafe('2018-09-24'), status: [{ statusReason: 'VAT Reference not found' }] }
+    );
   });
 
   it('should decode a response code that does not require clarification without a status', async () => {
@@ -41,7 +45,7 @@ describe('peppolInvoiceResponseDocumentActualResponseSchema', () => {
   it('should reject an invalid effective date', async () => {
     await decode.fail(
       { responseCode: 'AP', effectiveDate: 'not-a-date' },
-      'Expected "UQ" | "RE" | "CA"\n  at ["responseCode"]\nExpected a string matching the RegExp ^\\d{4}-\\d{2}-\\d{2}$\n  at ["effectiveDate"]'
+      'Expected "UQ" | "RE" | "CA"\n  at ["responseCode"]\nExpected a string matching the RegExp ^\\d{4}-\\d{2}-\\d{2}Z?$\n  at ["effectiveDate"]'
     );
   });
 });

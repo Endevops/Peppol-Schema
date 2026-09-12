@@ -6,9 +6,9 @@ import { peppolInvoiceLineSchema } from './peppol-invoice-line-schema';
 
 const validInvoiceLine = {
   id: '1',
-  invoicedQuantity: { value: 100, unitCode: 'C62' },
+  invoicedQuantity: { unitCode: 'C62', value: 100 },
+  item: { classifiedTaxCategory: { id: 'S', percent: 20, taxSchemeId: { id: 'VAT' } }, name: 'Widget' },
   lineExtensionAmount: { currencyId: 'EUR', value: 3800 },
-  item: { name: 'Widget', classifiedTaxCategory: { id: 'S', percent: 20, taxSchemeId: { id: 'VAT' } } },
   price: { priceAmount: { currencyId: 'EUR', value: 38 } },
 };
 

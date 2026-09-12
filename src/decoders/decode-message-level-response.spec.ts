@@ -22,23 +22,23 @@ describe('decodeMessageLevelResponse', () => {
   it('decodes a fully populated DocumentResponse', () => {
     const out = decodeMessageLevelResponse({
       'ubl:ApplicationResponse': {
-        'cbc:CustomizationID': 'cid',
-        'cbc:ProfileID': 'mlr',
-        'cbc:ID': 'id1',
-        'cbc:IssueDate': '2024-01-01',
-        'cbc:IssueTime': '10:00:00Z',
         'cac:DocumentResponse': {
-          'cac:DocumentReference': { 'cbc:ID': 'DR1', 'cbc:DocumentTypeCode': 'X', 'cbc:VersionID': '1' },
-          'cac:Response': { 'cbc:Description': 'ok', 'cbc:ResponseCode': '1' },
+          'cac:DocumentReference': { 'cbc:DocumentTypeCode': 'X', 'cbc:ID': 'DR1', 'cbc:VersionID': '1' },
           'cac:LineResponse': [
             {
               'cac:LineReference': { 'cbc:LineID': 'L1' },
               'cac:Response': { 'cbc:Description': 'd', 'cbc:ResponseCode': '1', 'cac:Status': { 'cbc:StatusReasonCode': 'SR' } },
             },
           ],
+          'cac:Response': { 'cbc:Description': 'ok', 'cbc:ResponseCode': '1' },
         },
-        'cac:SenderParty': { 'cbc:EndpointID': { '#text': 'S1', '@schemeID': '0' } },
         'cac:ReceiverParty': { 'cbc:EndpointID': { '#text': 'R1', '@schemeID': '3' } },
+        'cac:SenderParty': { 'cbc:EndpointID': { '#text': 'S1', '@schemeID': '0' } },
+        'cbc:CustomizationID': 'cid',
+        'cbc:ID': 'id1',
+        'cbc:IssueDate': '2024-01-01',
+        'cbc:IssueTime': '10:00:00Z',
+        'cbc:ProfileID': 'mlr',
       },
     } as never);
     expect(out.documentResponse?.documentReference?.id).toBe('DR1');

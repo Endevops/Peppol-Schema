@@ -5,18 +5,18 @@ import { invoiceResponseSchema } from './invoice-response-schema';
 
 const validInvoiceResponse = {
   customizationId: 'urn:fdc:peppol.eu:poacc:trns:mlr:3',
-  profileId: 'urn:fdc:peppol.eu:poacc:bis:invoice_response:3',
+  documentResponse: {
+    documentReference: { documentTypeCode: '380', id: 'INV-001', issueDate: '2024-01-15' },
+    response: { effectiveDate: '2024-01-16', responseCode: 'AP' },
+  },
   id: 'IR-001',
   issueDate: '2024-01-15',
+  profileId: 'urn:fdc:peppol.eu:poacc:bis:invoice_response:3',
+  receiverParty: { endpointId: { id: '9876543210' }, partyLegalEntity: { registrationName: 'Receiver Company' } },
   senderParty: {
+    contact: { electronicMail: 'john@example.com', name: 'John Doe' },
     endpointId: { id: '1234567890' },
     partyLegalEntity: { registrationName: 'Sender Company' },
-    contact: { name: 'John Doe', electronicMail: 'john@example.com' },
-  },
-  receiverParty: { endpointId: { id: '9876543210' }, partyLegalEntity: { registrationName: 'Receiver Company' } },
-  documentResponse: {
-    response: { responseCode: 'AP', effectiveDate: '2024-01-16' },
-    documentReference: { id: 'INV-001', issueDate: '2024-01-15', documentTypeCode: '380' },
   },
 };
 

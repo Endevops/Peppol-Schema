@@ -3,17 +3,17 @@ import { describe, it, expect } from 'vitest';
 import { encodeParty } from './encode-party';
 
 const fullParty = {
+  contact: { electronicMail: 'jane@example.com', name: 'Jane', telephone: '555' },
   endpointId: { id: '7300010000001', schemeId: '0088' },
   partyIdentification: { id: { id: '5060012349998', schemeId: '0088' } },
-  partyName: { name: 'Seller Business Name AS' },
-  postalAddress: { countryCode: { identificationCode: 'GB' }, cityName: 'London' },
-  partyTaxSchemes: [{ companyId: 'GB123', taxSchemeId: { id: 'VAT' } }],
   partyLegalEntity: {
-    registrationName: 'Full Formal Seller Name LTD.',
     companyId: { id: '987654321', schemeId: '0088' },
     companyLegalForm: 'Share capital',
+    registrationName: 'Full Formal Seller Name LTD.',
   },
-  contact: { name: 'Jane', telephone: '555', electronicMail: 'jane@example.com' },
+  partyName: { name: 'Seller Business Name AS' },
+  partyTaxSchemes: [{ companyId: 'GB123', taxSchemeId: { id: 'VAT' } }],
+  postalAddress: { cityName: 'London', countryCode: { identificationCode: 'GB' } },
 };
 
 describe('encodeParty', () => {
@@ -26,17 +26,17 @@ describe('encodeParty', () => {
     // ✅ Positive: all optional sub-blocks (name, identification, contact) are encoded.
     const result = encodeParty(fullParty);
     expect(result?.['cac:Party']).toEqual({
-      'cbc:EndpointID': { '#text': '7300010000001', '@schemeID': '0088' },
+      'cac:Contact': { 'cbc:ElectronicMail': 'jane@example.com', 'cbc:Name': 'Jane', 'cbc:Telephone': '555' },
       'cac:PartyIdentification': { 'cbc:ID': { '#text': '5060012349998', '@schemeID': '0088' } },
-      'cac:PartyName': { 'cbc:Name': 'Seller Business Name AS' },
-      'cac:PostalAddress': { 'cbc:CityName': 'London', 'cac:Country': { 'cbc:IdentificationCode': 'GB' } },
-      'cac:PartyTaxScheme': [{ 'cbc:CompanyID': 'GB123', 'cac:TaxScheme': { 'cbc:ID': 'VAT' } }],
       'cac:PartyLegalEntity': {
-        'cbc:RegistrationName': 'Full Formal Seller Name LTD.',
         'cbc:CompanyID': { '#text': '987654321', '@schemeID': '0088' },
         'cbc:CompanyLegalForm': 'Share capital',
+        'cbc:RegistrationName': 'Full Formal Seller Name LTD.',
       },
-      'cac:Contact': { 'cbc:Name': 'Jane', 'cbc:Telephone': '555', 'cbc:ElectronicMail': 'jane@example.com' },
+      'cac:PartyName': { 'cbc:Name': 'Seller Business Name AS' },
+      'cac:PartyTaxScheme': [{ 'cbc:CompanyID': 'GB123', 'cac:TaxScheme': { 'cbc:ID': 'VAT' } }],
+      'cac:PostalAddress': { 'cac:Country': { 'cbc:IdentificationCode': 'GB' }, 'cbc:CityName': 'London' },
+      'cbc:EndpointID': { '#text': '7300010000001', '@schemeID': '0088' },
     });
   });
 

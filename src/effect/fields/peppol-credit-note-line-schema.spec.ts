@@ -5,10 +5,10 @@ import { describe, it } from 'vitest';
 import { peppolCreditNoteLineSchema } from './peppol-credit-note-line-schema';
 
 const validCreditNoteLine = {
+  creditedQuantity: { unitCode: 'C62', value: 2 },
   id: '1',
-  creditedQuantity: { value: 2, unitCode: 'C62' },
+  item: { classifiedTaxCategory: { id: 'S', percent: 20, taxSchemeId: { id: 'VAT' } }, name: 'Widget' },
   lineExtensionAmount: { currencyId: 'EUR', value: 100 },
-  item: { name: 'Widget', classifiedTaxCategory: { id: 'S', percent: 20, taxSchemeId: { id: 'VAT' } } },
   price: { priceAmount: { currencyId: 'EUR', value: 50 } },
 };
 

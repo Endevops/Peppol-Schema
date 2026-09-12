@@ -5,24 +5,24 @@ import { encodeLineShared } from './encode-line-shared';
 describe('encodeLineShared', () => {
   it('encodes document references on the line', () => {
     const out = encodeLineShared({
-      id: 'L1',
-      lineExtensionAmount: undefined,
       accountingCost: undefined,
-      invoicePeriod: undefined,
-      orderLineReference: undefined,
-      documentReference: [{ id: 'DR1', schemeId: 's', documentTypeCode: 'X' }],
       allowanceCharges: undefined,
+      documentReference: [{ id: 'DR1', schemeId: 's', documentTypeCode: 'X' }],
+      id: 'L1',
+      invoicePeriod: undefined,
       item: {
+        additionalItemProperties: undefined,
+        buyersItemIdentification: undefined,
+        classifiedTaxCategory: undefined,
+        commodityClassifications: undefined,
         description: undefined,
         name: 'n',
-        buyersItemIdentification: undefined,
+        originCountryCode: undefined,
         sellersItemIdentification: undefined,
         standardItemIdentification: undefined,
-        originCountryCode: undefined,
-        commodityClassifications: undefined,
-        classifiedTaxCategory: undefined,
-        additionalItemProperties: undefined,
       },
+      lineExtensionAmount: undefined,
+      orderLineReference: undefined,
       price: undefined,
     } as never);
 

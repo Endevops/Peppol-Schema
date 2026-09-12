@@ -1,3 +1,4 @@
+import { DateTime } from 'effect';
 // oxlint-disable vitest/expect-expect
 import { TestSchema } from 'effect/testing';
 import { describe, it } from 'vitest';
@@ -5,21 +6,27 @@ import { describe, it } from 'vitest';
 import { peppolBillingBaseSchema } from './peppol-billing-base-schema';
 
 const validBillingBase = {
-  customizationId: 'urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0',
-  profileId: 'urn:fdc:peppol.eu:2017:poacc:billing:01:1.0',
-  id: 'INV-001',
-  issueDate: '2024-01-15',
-  documentCurrencyCode: 'EUR',
-  accountingSupplierParty: {
-    endpointId: { id: '1234567890', schemeId: '0088' },
-    postalAddress: { streetName: 'Main Street 1', cityName: 'London', postalZone: 'W1G 8LZ', countryCode: { identificationCode: 'GB' } },
-    partyLegalEntity: { registrationName: 'Seller Company Ltd' },
-  },
   accountingCustomerParty: {
     endpointId: { id: '9876543210', schemeId: '0088' },
-    postalAddress: { cityName: 'Paris', countryCode: { identificationCode: 'FR' } },
     partyLegalEntity: { registrationName: 'Buyer Company SA' },
+    postalAddress: { cityName: 'Paris', countryCode: { identificationCode: 'FR' } },
   },
+  accountingSupplierParty: {
+    endpointId: { id: '1234567890', schemeId: '0088' },
+    partyLegalEntity: { registrationName: 'Seller Company Ltd' },
+    postalAddress: { cityName: 'London', countryCode: { identificationCode: 'GB' }, postalZone: 'W1G 8LZ', streetName: 'Main Street 1' },
+  },
+  customizationId: 'urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0',
+  documentCurrencyCode: 'EUR',
+  id: 'INV-001',
+  issueDate: '2024-01-15',
+  legalMonetaryTotal: {
+    lineExtensionAmount: { currencyId: 'EUR', value: 100 },
+    payableAmount: { currencyId: 'EUR', value: 120 },
+    taxExclusiveAmount: { currencyId: 'EUR', value: 100 },
+    taxInclusiveAmount: { currencyId: 'EUR', value: 120 },
+  },
+  profileId: 'urn:fdc:peppol.eu:2017:poacc:billing:01:1.0',
   taxTotals: [
     {
       taxAmount: { currencyId: 'EUR', value: 20 },
@@ -32,12 +39,6 @@ const validBillingBase = {
       ],
     },
   ],
-  legalMonetaryTotal: {
-    lineExtensionAmount: { currencyId: 'EUR', value: 100 },
-    taxExclusiveAmount: { currencyId: 'EUR', value: 100 },
-    taxInclusiveAmount: { currencyId: 'EUR', value: 120 },
-    payableAmount: { currencyId: 'EUR', value: 120 },
-  },
 } as const;
 
 describe('peppolBillingBaseSchema', () => {
@@ -45,7 +46,41 @@ describe('peppolBillingBaseSchema', () => {
   const decode = testSchema.decoding({ parseOptions: { errors: 'all' } });
 
   it('should decode a valid billing base', async () => {
-    await decode.succeed(validBillingBase);
+    await decode.succeed(validBillingBase, {
+      accountingCustomerParty: {
+        endpointId: { id: '9876543210', schemeId: '0088' },
+        partyLegalEntity: { registrationName: 'Buyer Company SA' },
+        postalAddress: { cityName: 'Paris', countryCode: { identificationCode: 'FR' } },
+      },
+      accountingSupplierParty: {
+        endpointId: { id: '1234567890', schemeId: '0088' },
+        partyLegalEntity: { registrationName: 'Seller Company Ltd' },
+        postalAddress: { cityName: 'London', countryCode: { identificationCode: 'GB' }, postalZone: 'W1G 8LZ', streetName: 'Main Street 1' },
+      },
+      customizationId: 'urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0',
+      documentCurrencyCode: 'EUR',
+      id: 'INV-001',
+      issueDate: DateTime.makeUnsafe('2024-01-15'),
+      legalMonetaryTotal: {
+        lineExtensionAmount: { currencyId: 'EUR', value: 100 },
+        payableAmount: { currencyId: 'EUR', value: 120 },
+        taxExclusiveAmount: { currencyId: 'EUR', value: 100 },
+        taxInclusiveAmount: { currencyId: 'EUR', value: 120 },
+      },
+      profileId: 'urn:fdc:peppol.eu:2017:poacc:billing:01:1.0',
+      taxTotals: [
+        {
+          taxAmount: { currencyId: 'EUR', value: 20 },
+          taxSubtotals: [
+            {
+              taxAmount: { currencyId: 'EUR', value: 20 },
+              taxableAmount: { currencyId: 'EUR', value: 100 },
+              taxCategory: { id: 'S', percent: 20, taxSchemeId: { id: 'VAT' } },
+            },
+          ],
+        },
+      ],
+    });
   });
 
   it('should reject a billing base without required id', async () => {
@@ -56,7 +91,7 @@ describe('peppolBillingBaseSchema', () => {
   it('should reject a billing base with an invalid issue date', async () => {
     await decode.fail(
       { ...validBillingBase, issueDate: 'not-a-date' },
-      'Expected a string matching the RegExp ^\\d{4}-\\d{2}-\\d{2}$\n  at ["issueDate"]'
+      'Expected a string matching the RegExp ^\\d{4}-\\d{2}-\\d{2}Z?$\n  at ["issueDate"]'
     );
   });
 
@@ -80,6 +115,40 @@ describe('peppolBillingBaseSchema', () => {
 
   it('should apply default customizationId and profileId when omitted', async () => {
     const { customizationId: _cid, profileId: _pid, ...withoutDefaults } = validBillingBase;
-    await decode.succeed(withoutDefaults, validBillingBase);
+    await decode.succeed(withoutDefaults, {
+      accountingCustomerParty: {
+        endpointId: { id: '9876543210', schemeId: '0088' },
+        partyLegalEntity: { registrationName: 'Buyer Company SA' },
+        postalAddress: { cityName: 'Paris', countryCode: { identificationCode: 'FR' } },
+      },
+      accountingSupplierParty: {
+        endpointId: { id: '1234567890', schemeId: '0088' },
+        partyLegalEntity: { registrationName: 'Seller Company Ltd' },
+        postalAddress: { cityName: 'London', countryCode: { identificationCode: 'GB' }, postalZone: 'W1G 8LZ', streetName: 'Main Street 1' },
+      },
+      customizationId: 'urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0',
+      documentCurrencyCode: 'EUR',
+      id: 'INV-001',
+      issueDate: DateTime.makeUnsafe('2024-01-15'),
+      legalMonetaryTotal: {
+        lineExtensionAmount: { currencyId: 'EUR', value: 100 },
+        payableAmount: { currencyId: 'EUR', value: 120 },
+        taxExclusiveAmount: { currencyId: 'EUR', value: 100 },
+        taxInclusiveAmount: { currencyId: 'EUR', value: 120 },
+      },
+      profileId: 'urn:fdc:peppol.eu:2017:poacc:billing:01:1.0',
+      taxTotals: [
+        {
+          taxAmount: { currencyId: 'EUR', value: 20 },
+          taxSubtotals: [
+            {
+              taxAmount: { currencyId: 'EUR', value: 20 },
+              taxableAmount: { currencyId: 'EUR', value: 100 },
+              taxCategory: { id: 'S', percent: 20, taxSchemeId: { id: 'VAT' } },
+            },
+          ],
+        },
+      ],
+    });
   });
 });

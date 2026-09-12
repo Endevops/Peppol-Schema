@@ -8,7 +8,11 @@ export default defineConfig({
   ignorePatterns: ['**/dist', '**/node_modules', '**/coverage'],
   overrides: [
     { files: ['**/*.spec.ts'], rules: { 'typescript/no-explicit-any': 'off' } },
-    { files: ['**/{effect,schemas,decoders}/**/*.ts'], rules: { 'typescript/no-redundant-type-constituents': 'off', 'sort-keys': 'off' } },
+    {
+      files: ['**/{effect,schemas,decoders}/**/*.ts'],
+      excludeFiles: ['**/*.spec.ts'],
+      rules: { 'typescript/no-redundant-type-constituents': 'off', 'sort-keys': 'off' },
+    },
     {
       files: [
         './src/index.ts',

@@ -9,17 +9,17 @@ describe('encodeMessageLevelResponse', () => {
 
   const full = {
     customizationId: 'c',
-    profileId: 'mlr',
+    documentResponse: {
+      documentReference: { documentTypeCode: 'X', id: 'D', versionId: '1' },
+      lineResponse: [{ lineReference: { lineId: 'L' }, response: { responseCode: '1', description: 'y', status: { statusReasonCode: 'SR' } } }],
+      response: { description: 'x', responseCode: '1' },
+    },
     id: 'id',
     issueDate: 'd',
     issueTime: 't',
-    senderParty: undefined,
+    profileId: 'mlr',
     receiverParty: undefined,
-    documentResponse: {
-      response: { responseCode: '1', description: 'x' },
-      documentReference: { id: 'D', documentTypeCode: 'X', versionId: '1' },
-      lineResponse: [{ lineReference: { lineId: 'L' }, response: { responseCode: '1', description: 'y', status: { statusReasonCode: 'SR' } } }],
-    },
+    senderParty: undefined,
   } as never;
 
   it('includes the schema location when MODE is test', () => {

@@ -21,10 +21,10 @@ describe('peppolPartyBaseSchema', () => {
   it('should parse with all optional fields', async () => {
     await decode.succeed({
       ...validParty,
+      contact: { electronicMail: 'john@example.com', name: 'John', telephone: '123' },
       partyIdentification: { id: { id: '5060012349998', schemeId: '0088' } },
       partyName: { name: 'Trading Name' },
       partyTaxSchemes: [{ companyId: 'GB123', taxSchemeId: { id: 'VAT' } }],
-      contact: { name: 'John', telephone: '123', electronicMail: 'john@example.com' },
     });
   });
 

@@ -14,15 +14,15 @@ describe('peppolLineItemSchema', () => {
 
   it('should parse a line item with optional fields', async () => {
     await decode.succeed({
-      name: 'Widget',
-      description: 'A very nice widget',
+      additionalItemProperties: [{ name: 'Colour', value: 'Blue' }],
       buyersItemIdentification: { id: '12345' },
+      classifiedTaxCategory: { id: 'S', percent: 20, taxSchemeId: { id: 'VAT' } },
+      commodityClassifications: [{ itemClassification: { id: '9873242', listId: 'AA' } }],
+      description: 'A very nice widget',
+      name: 'Widget',
+      originCountryCode: { identificationCode: 'GB' },
       sellersItemIdentification: { id: '987323' },
       standardItemIdentification: { id: { id: '1234567890123', schemeId: '0088' } },
-      originCountryCode: { identificationCode: 'GB' },
-      commodityClassifications: [{ itemClassification: { id: '9873242', listId: 'AA' } }],
-      classifiedTaxCategory: { id: 'S', percent: 20, taxSchemeId: { id: 'VAT' } },
-      additionalItemProperties: [{ name: 'Colour', value: 'Blue' }],
     });
   });
 

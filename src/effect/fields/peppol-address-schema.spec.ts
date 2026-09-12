@@ -14,13 +14,13 @@ describe('peppolAddressSchema', () => {
 
   it('should parse an address with all optional fields', async () => {
     await decode.succeed({
-      streetName: 'Main Street 1',
       additionalStreetName: 'Po Box 351',
-      cityName: 'London',
-      postalZone: 'W1G 8LZ',
-      countrySubentity: 'Region A',
-      countryCode: { identificationCode: 'GB' },
       addressLine: { line: 'Building 23' },
+      cityName: 'London',
+      countryCode: { identificationCode: 'GB' },
+      countrySubentity: 'Region A',
+      postalZone: 'W1G 8LZ',
+      streetName: 'Main Street 1',
     });
   });
 

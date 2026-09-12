@@ -1,4 +1,5 @@
 // oxlint-disable vitest/expect-expect
+import { DateTime } from 'effect';
 import { TestSchema } from 'effect/testing';
 import { describe, it } from 'vitest';
 
@@ -13,14 +14,24 @@ describe('peppolPaymentMeansSchema', () => {
   });
 
   it('should parse with all optional groups', async () => {
-    await decode.succeed({
-      paymentMeansCode: { code: '30', name: 'Credit transfer' },
-      paymentDueDate: '2024-02-15',
-      paymentId: '432948234234234',
-      cardAccount: { holderName: 'John', networkId: 'VISA', primaryAccountNumberId: '1234' },
-      payeeFinancialAccount: { id: 'IBAN123', name: 'Seller', financialInstitutionBranch: { id: '9998' } },
-      paymentMandate: { id: 'm1', payerFinancialAccountId: { id: '12345676543' } },
-    });
+    await decode.succeed(
+      {
+        cardAccount: { holderName: 'John', networkId: 'VISA', primaryAccountNumberId: '1234' },
+        payeeFinancialAccount: { financialInstitutionBranch: { id: '9998' }, id: 'IBAN123', name: 'Seller' },
+        paymentDueDate: '2024-02-15',
+        paymentId: '432948234234234',
+        paymentMandate: { id: 'm1', payerFinancialAccountId: { id: '12345676543' } },
+        paymentMeansCode: { code: '30', name: 'Credit transfer' },
+      },
+      {
+        cardAccount: { holderName: 'John', networkId: 'VISA', primaryAccountNumberId: '1234' },
+        payeeFinancialAccount: { financialInstitutionBranch: { id: '9998' }, id: 'IBAN123', name: 'Seller' },
+        paymentDueDate: DateTime.makeUnsafe('2024-02-15'),
+        paymentId: '432948234234234',
+        paymentMandate: { id: 'm1', payerFinancialAccountId: { id: '12345676543' } },
+        paymentMeansCode: { code: '30', name: 'Credit transfer' },
+      }
+    );
   });
 
   it('should reject a missing paymentMeansCode', async () => {
@@ -34,7 +45,7 @@ describe('peppolPaymentMeansSchema', () => {
   it('should reject an invalid payment due date', async () => {
     await decode.fail(
       { paymentMeansCode: { code: '30' }, paymentDueDate: 'nope' },
-      'Expected a string matching the RegExp ^\\d{4}-\\d{2}-\\d{2}$\n  at ["paymentDueDate"]'
+      'Expected a string matching the RegExp ^\\d{4}-\\d{2}-\\d{2}Z?$\n  at ["paymentDueDate"]'
     );
   });
 

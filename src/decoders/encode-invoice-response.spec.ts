@@ -9,21 +9,21 @@ describe('encodeInvoiceResponse', () => {
 
   const full = {
     customizationId: 'c',
-    profileId: 'p',
+    documentResponse: {
+      documentReference: { documentTypeCode: 'X', id: 'D', issueDate: 'd' },
+      response: {
+        effectiveDate: 'd',
+        responseCode: '1',
+        status: [{ statusReasonCode: { value: 'SR', listId: 'L' }, statusReason: 'r', condition: [{ attributeId: 'a', description: 'd' }] }],
+      },
+    },
     id: 'id',
     issueDate: 'd',
     issueTime: 't',
     note: 'n',
-    senderParty: undefined,
+    profileId: 'p',
     receiverParty: undefined,
-    documentResponse: {
-      response: {
-        responseCode: '1',
-        effectiveDate: 'd',
-        status: [{ statusReasonCode: { value: 'SR', listId: 'L' }, statusReason: 'r', condition: [{ attributeId: 'a', description: 'd' }] }],
-      },
-      documentReference: { id: 'D', issueDate: 'd', documentTypeCode: 'X' },
-    },
+    senderParty: undefined,
   } as any;
 
   it('includes the schema location when MODE is test', () => {

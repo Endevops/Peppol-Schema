@@ -3,19 +3,19 @@ import { describe, it, expect } from 'vitest';
 import { encodeInvoiceLines } from './encode-invoice-lines';
 
 const invoiceLine = {
-  id: '1',
-  note: 'note',
-  invoicedQuantity: { value: 2, unitCode: 'C62' },
-  lineExtensionAmount: { value: 10, currencyId: 'EUR' },
   accountingCost: 'AC',
+  id: '1',
+  invoicedQuantity: { unitCode: 'C62', value: 2 },
   item: {
+    buyersItemIdentification: { id: 'b1' },
+    classifiedTaxCategory: { id: 'S', percent: '20', taxSchemeId: { id: 'VAT' } },
     description: 'desc',
     name: 'Item',
-    buyersItemIdentification: { id: 'b1' },
     sellersItemIdentification: { id: 's1' },
-    classifiedTaxCategory: { id: 'S', percent: '20', taxSchemeId: { id: 'VAT' } },
   },
-  price: { priceAmount: { value: 5, currencyId: 'EUR' } },
+  lineExtensionAmount: { currencyId: 'EUR', value: 10 },
+  note: 'note',
+  price: { priceAmount: { currencyId: 'EUR', value: 5 } },
 };
 
 describe('encodeInvoiceLines', () => {

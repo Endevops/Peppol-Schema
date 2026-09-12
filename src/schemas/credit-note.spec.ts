@@ -4,21 +4,37 @@ import * as z from 'zod/mini';
 import { creditNoteSchema } from './credit-note';
 
 const validCreditNote = {
-  customizationId: 'urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0',
-  profileId: 'urn:fdc:peppol.eu:2017:poacc:billing:01:1.0',
-  id: 'CN-001',
-  issueDate: '2024-01-15',
-  documentCurrencyCode: 'EUR',
-  accountingSupplierParty: {
-    endpointId: { id: '1234567890', schemeId: '0088' },
-    postalAddress: { streetName: 'Main Street 1', cityName: 'London', postalZone: 'W1G 8LZ', countryCode: { identificationCode: 'GB' } },
-    partyLegalEntity: { registrationName: 'Seller Company Ltd' },
-  },
   accountingCustomerParty: {
     endpointId: { id: '9876543210', schemeId: '0088' },
-    postalAddress: { cityName: 'Paris', countryCode: { identificationCode: 'FR' } },
     partyLegalEntity: { registrationName: 'Buyer Company SA' },
+    postalAddress: { cityName: 'Paris', countryCode: { identificationCode: 'FR' } },
   },
+  accountingSupplierParty: {
+    endpointId: { id: '1234567890', schemeId: '0088' },
+    partyLegalEntity: { registrationName: 'Seller Company Ltd' },
+    postalAddress: { cityName: 'London', countryCode: { identificationCode: 'GB' }, postalZone: 'W1G 8LZ', streetName: 'Main Street 1' },
+  },
+  creditNoteLines: [
+    {
+      creditedQuantity: { unitCode: 'C62', value: 2 },
+      id: '1',
+      item: { classifiedTaxCategory: { id: 'S', percent: 20, taxSchemeId: { id: 'VAT' } }, name: 'Widget' },
+      lineExtensionAmount: { currencyId: 'EUR', value: 100 },
+      price: { priceAmount: { currencyId: 'EUR', value: 50 } },
+    },
+  ],
+  creditNoteTypeCode: '381',
+  customizationId: 'urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0',
+  documentCurrencyCode: 'EUR',
+  id: 'CN-001',
+  issueDate: '2024-01-15',
+  legalMonetaryTotal: {
+    lineExtensionAmount: { currencyId: 'EUR', value: 100 },
+    payableAmount: { currencyId: 'EUR', value: 120 },
+    taxExclusiveAmount: { currencyId: 'EUR', value: 100 },
+    taxInclusiveAmount: { currencyId: 'EUR', value: 120 },
+  },
+  profileId: 'urn:fdc:peppol.eu:2017:poacc:billing:01:1.0',
   taxTotals: [
     {
       taxAmount: { currencyId: 'EUR', value: 20 },
@@ -31,22 +47,6 @@ const validCreditNote = {
       ],
     },
   ],
-  legalMonetaryTotal: {
-    lineExtensionAmount: { currencyId: 'EUR', value: 100 },
-    taxExclusiveAmount: { currencyId: 'EUR', value: 100 },
-    taxInclusiveAmount: { currencyId: 'EUR', value: 120 },
-    payableAmount: { currencyId: 'EUR', value: 120 },
-  },
-  creditNoteLines: [
-    {
-      id: '1',
-      creditedQuantity: { value: 2, unitCode: 'C62' },
-      lineExtensionAmount: { currencyId: 'EUR', value: 100 },
-      item: { name: 'Widget', classifiedTaxCategory: { id: 'S', percent: 20, taxSchemeId: { id: 'VAT' } } },
-      price: { priceAmount: { currencyId: 'EUR', value: 50 } },
-    },
-  ],
-  creditNoteTypeCode: '381',
 };
 
 describe('creditNoteSchema', () => {

@@ -1,3 +1,4 @@
+import { DateTime } from 'effect';
 // oxlint-disable vitest/expect-expect
 import { TestSchema } from 'effect/testing';
 import { describe, it } from 'vitest';
@@ -13,7 +14,10 @@ describe('peppolBillingReferenceSchema', () => {
   });
 
   it('should parse a billing reference with an issue date', async () => {
-    await decode.succeed({ invoiceDocumentReference: { id: 'inv123', issueDate: '2017-09-15' } });
+    await decode.succeed(
+      { invoiceDocumentReference: { id: 'inv123', issueDate: '2017-09-15' } },
+      { invoiceDocumentReference: { id: 'inv123', issueDate: DateTime.makeUnsafe('2017-09-15') } }
+    );
   });
 
   it('should reject a billing reference without an invoice document reference', async () => {
@@ -27,7 +31,7 @@ describe('peppolBillingReferenceSchema', () => {
   it('should reject an invalid issue date', async () => {
     await decode.fail(
       { invoiceDocumentReference: { id: 'inv123', issueDate: '15-09-2017' } },
-      'Expected a string matching the RegExp ^\\d{4}-\\d{2}-\\d{2}$\n  at ["invoiceDocumentReference"]["issueDate"]'
+      'Expected a string matching the RegExp ^\\d{4}-\\d{2}-\\d{2}Z?$\n  at ["invoiceDocumentReference"]["issueDate"]'
     );
   });
 });

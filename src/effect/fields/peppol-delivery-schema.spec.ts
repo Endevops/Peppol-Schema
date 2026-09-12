@@ -1,3 +1,4 @@
+import { DateTime } from 'effect';
 // oxlint-disable vitest/expect-expect
 import { TestSchema } from 'effect/testing';
 import { describe, it } from 'vitest';
@@ -13,17 +14,24 @@ describe('peppolDeliverySchema', () => {
   });
 
   it('should parse a delivery with location and party', async () => {
-    await decode.succeed({
-      actualDeliveryDate: '2017-12-01',
-      deliveryLocation: { id: { id: '83745498753497', schemeId: '0088' }, address: { countryCode: { identificationCode: 'GB' } } },
-      deliveryParty: { partyName: { name: 'Buyer Company Ltd' } },
-    });
+    await decode.succeed(
+      {
+        actualDeliveryDate: '2017-12-01',
+        deliveryLocation: { id: { id: '83745498753497', schemeId: '0088' }, address: { countryCode: { identificationCode: 'GB' } } },
+        deliveryParty: { partyName: { name: 'Buyer Company Ltd' } },
+      },
+      {
+        actualDeliveryDate: DateTime.makeUnsafe('2017-12-01'),
+        deliveryLocation: { id: { id: '83745498753497', schemeId: '0088' }, address: { countryCode: { identificationCode: 'GB' } } },
+        deliveryParty: { partyName: { name: 'Buyer Company Ltd' } },
+      }
+    );
   });
 
   it('should reject an invalid actual delivery date', async () => {
     await decode.fail(
       { actualDeliveryDate: '01-12-2017' },
-      'Expected a string matching the RegExp ^\\d{4}-\\d{2}-\\d{2}$\n  at ["actualDeliveryDate"]'
+      'Expected a string matching the RegExp ^\\d{4}-\\d{2}-\\d{2}Z?$\n  at ["actualDeliveryDate"]'
     );
   });
 

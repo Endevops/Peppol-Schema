@@ -4,17 +4,9 @@ import { decodeInvoiceResponse } from './decode-invoice-response';
 
 const base = {
   'ubl:ApplicationResponse': {
-    'cbc:CustomizationID': 'c',
-    'cbc:ProfileID': 'p',
-    'cbc:ID': 'id',
-    'cbc:IssueDate': 'd',
-    'cbc:IssueTime': 't',
-    'cbc:Note': 'n',
     'cac:DocumentResponse': {
-      'cac:DocumentReference': { 'cbc:ID': 'D', 'cbc:DocumentTypeCode': 'X', 'cbc:IssueDate': 'd' },
+      'cac:DocumentReference': { 'cbc:DocumentTypeCode': 'X', 'cbc:ID': 'D', 'cbc:IssueDate': 'd' },
       'cac:Response': {
-        'cbc:EffectiveDate': 'd',
-        'cbc:ResponseCode': '1',
         'cac:Status': [
           {
             'cbc:StatusReason': 'reason',
@@ -22,10 +14,18 @@ const base = {
             'cac:Condition': [{ 'cbc:AttributeID': 'a', 'cbc:Description': 'cond' }],
           },
         ],
+        'cbc:EffectiveDate': 'd',
+        'cbc:ResponseCode': '1',
       },
     },
-    'cac:SenderParty': { 'cbc:EndpointID': { '#text': 'S', '@schemeID': '0' } },
     'cac:ReceiverParty': { 'cbc:EndpointID': { '#text': 'R', '@schemeID': '3' } },
+    'cac:SenderParty': { 'cbc:EndpointID': { '#text': 'S', '@schemeID': '0' } },
+    'cbc:CustomizationID': 'c',
+    'cbc:ID': 'id',
+    'cbc:IssueDate': 'd',
+    'cbc:IssueTime': 't',
+    'cbc:Note': 'n',
+    'cbc:ProfileID': 'p',
   },
 };
 

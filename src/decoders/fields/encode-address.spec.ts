@@ -12,22 +12,22 @@ describe('encodeAddress', () => {
     // ✅ Positive: every optional field is encoded to its XML key.
     expect(
       encodeAddress({
-        streetName: 'Main Street 1',
         additionalStreetName: 'Po Box 351',
-        cityName: 'London',
-        postalZone: 'W1G 8LZ',
-        countrySubentity: 'Region A',
-        countryCode: { identificationCode: 'GB' },
         addressLine: { line: 'Building 23' },
+        cityName: 'London',
+        countryCode: { identificationCode: 'GB' },
+        countrySubentity: 'Region A',
+        postalZone: 'W1G 8LZ',
+        streetName: 'Main Street 1',
       })
     ).toEqual({
-      'cbc:StreetName': 'Main Street 1',
-      'cbc:AdditionalStreetName': 'Po Box 351',
-      'cbc:CityName': 'London',
-      'cbc:PostalZone': 'W1G 8LZ',
-      'cbc:CountrySubentity': 'Region A',
       'cac:AddressLine': { 'cbc:Line': 'Building 23' },
       'cac:Country': { 'cbc:IdentificationCode': 'GB' },
+      'cbc:AdditionalStreetName': 'Po Box 351',
+      'cbc:CityName': 'London',
+      'cbc:CountrySubentity': 'Region A',
+      'cbc:PostalZone': 'W1G 8LZ',
+      'cbc:StreetName': 'Main Street 1',
     });
   });
 

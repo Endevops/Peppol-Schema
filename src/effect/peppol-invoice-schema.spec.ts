@@ -1,3 +1,4 @@
+import { DateTime } from 'effect';
 // oxlint-disable vitest/expect-expect
 import { TestSchema } from 'effect/testing';
 import { describe, it } from 'vitest';
@@ -6,28 +7,36 @@ import { peppolInvoiceSchema } from './peppol-invoice-schema';
 
 const invoiceLine = {
   id: '1',
-  invoicedQuantity: { value: 2, unitCode: 'C62' },
+  invoicedQuantity: { unitCode: 'C62', value: 2 },
+  item: { classifiedTaxCategory: { id: 'S', percent: 20, taxSchemeId: { id: 'VAT' } }, name: 'Widget' },
   lineExtensionAmount: { currencyId: 'EUR', value: 100 },
-  item: { name: 'Widget', classifiedTaxCategory: { id: 'S', percent: 20, taxSchemeId: { id: 'VAT' } } },
   price: { priceAmount: { currencyId: 'EUR', value: 50 } },
 } as const;
 
 const validInvoice = {
-  customizationId: 'urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0',
-  profileId: 'urn:fdc:peppol.eu:2017:poacc:billing:01:1.0',
-  id: 'INV-001',
-  issueDate: '2024-01-15',
-  documentCurrencyCode: 'EUR',
-  accountingSupplierParty: {
-    endpointId: { id: '1234567890', schemeId: '0088' },
-    postalAddress: { streetName: 'Main Street 1', cityName: 'London', postalZone: 'W1G 8LZ', countryCode: { identificationCode: 'GB' } },
-    partyLegalEntity: { registrationName: 'Seller Company Ltd' },
-  },
   accountingCustomerParty: {
     endpointId: { id: '9876543210', schemeId: '0088' },
-    postalAddress: { cityName: 'Paris', countryCode: { identificationCode: 'FR' } },
     partyLegalEntity: { registrationName: 'Buyer Company SA' },
+    postalAddress: { cityName: 'Paris', countryCode: { identificationCode: 'FR' } },
   },
+  accountingSupplierParty: {
+    endpointId: { id: '1234567890', schemeId: '0088' },
+    partyLegalEntity: { registrationName: 'Seller Company Ltd' },
+    postalAddress: { cityName: 'London', countryCode: { identificationCode: 'GB' }, postalZone: 'W1G 8LZ', streetName: 'Main Street 1' },
+  },
+  customizationId: 'urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0',
+  documentCurrencyCode: 'EUR',
+  id: 'INV-001',
+  invoiceLines: [invoiceLine],
+  invoiceTypeCode: '380',
+  issueDate: '2024-01-15',
+  legalMonetaryTotal: {
+    lineExtensionAmount: { currencyId: 'EUR', value: 100 },
+    payableAmount: { currencyId: 'EUR', value: 120 },
+    taxExclusiveAmount: { currencyId: 'EUR', value: 100 },
+    taxInclusiveAmount: { currencyId: 'EUR', value: 120 },
+  },
+  profileId: 'urn:fdc:peppol.eu:2017:poacc:billing:01:1.0',
   taxTotals: [
     {
       taxAmount: { currencyId: 'EUR', value: 20 },
@@ -40,14 +49,6 @@ const validInvoice = {
       ],
     },
   ],
-  legalMonetaryTotal: {
-    lineExtensionAmount: { currencyId: 'EUR', value: 100 },
-    taxExclusiveAmount: { currencyId: 'EUR', value: 100 },
-    taxInclusiveAmount: { currencyId: 'EUR', value: 120 },
-    payableAmount: { currencyId: 'EUR', value: 120 },
-  },
-  invoiceLines: [invoiceLine],
-  invoiceTypeCode: '380',
 } as const;
 
 describe('peppolInvoiceSchema', () => {
@@ -55,12 +56,84 @@ describe('peppolInvoiceSchema', () => {
   const decode = testSchema.decoding();
 
   it('should decode a valid invoice', async () => {
-    await decode.succeed(validInvoice);
+    await decode.succeed(validInvoice, {
+      accountingCustomerParty: {
+        endpointId: { id: '9876543210', schemeId: '0088' },
+        partyLegalEntity: { registrationName: 'Buyer Company SA' },
+        postalAddress: { cityName: 'Paris', countryCode: { identificationCode: 'FR' } },
+      },
+      accountingSupplierParty: {
+        endpointId: { id: '1234567890', schemeId: '0088' },
+        partyLegalEntity: { registrationName: 'Seller Company Ltd' },
+        postalAddress: { cityName: 'London', countryCode: { identificationCode: 'GB' }, postalZone: 'W1G 8LZ', streetName: 'Main Street 1' },
+      },
+      customizationId: 'urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0',
+      documentCurrencyCode: 'EUR',
+      id: 'INV-001',
+      invoiceLines: [invoiceLine],
+      invoiceTypeCode: '380',
+      issueDate: DateTime.makeUnsafe('2024-01-15'),
+      legalMonetaryTotal: {
+        lineExtensionAmount: { currencyId: 'EUR', value: 100 },
+        payableAmount: { currencyId: 'EUR', value: 120 },
+        taxExclusiveAmount: { currencyId: 'EUR', value: 100 },
+        taxInclusiveAmount: { currencyId: 'EUR', value: 120 },
+      },
+      profileId: 'urn:fdc:peppol.eu:2017:poacc:billing:01:1.0',
+      taxTotals: [
+        {
+          taxAmount: { currencyId: 'EUR', value: 20 },
+          taxSubtotals: [
+            {
+              taxAmount: { currencyId: 'EUR', value: 20 },
+              taxableAmount: { currencyId: 'EUR', value: 100 },
+              taxCategory: { id: 'S', percent: 20, taxSchemeId: { id: 'VAT' } },
+            },
+          ],
+        },
+      ],
+    });
   });
 
   it('should apply default customizationId and profileId when omitted', async () => {
     const { customizationId: _cid, profileId: _pid, ...withoutDefaults } = validInvoice;
-    await decode.succeed(withoutDefaults, validInvoice);
+    await decode.succeed(withoutDefaults, {
+      accountingCustomerParty: {
+        endpointId: { id: '9876543210', schemeId: '0088' },
+        partyLegalEntity: { registrationName: 'Buyer Company SA' },
+        postalAddress: { cityName: 'Paris', countryCode: { identificationCode: 'FR' } },
+      },
+      accountingSupplierParty: {
+        endpointId: { id: '1234567890', schemeId: '0088' },
+        partyLegalEntity: { registrationName: 'Seller Company Ltd' },
+        postalAddress: { cityName: 'London', countryCode: { identificationCode: 'GB' }, postalZone: 'W1G 8LZ', streetName: 'Main Street 1' },
+      },
+      customizationId: 'urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0',
+      documentCurrencyCode: 'EUR',
+      id: 'INV-001',
+      invoiceLines: [invoiceLine],
+      invoiceTypeCode: '380',
+      issueDate: DateTime.makeUnsafe('2024-01-15'),
+      legalMonetaryTotal: {
+        lineExtensionAmount: { currencyId: 'EUR', value: 100 },
+        payableAmount: { currencyId: 'EUR', value: 120 },
+        taxExclusiveAmount: { currencyId: 'EUR', value: 100 },
+        taxInclusiveAmount: { currencyId: 'EUR', value: 120 },
+      },
+      profileId: 'urn:fdc:peppol.eu:2017:poacc:billing:01:1.0',
+      taxTotals: [
+        {
+          taxAmount: { currencyId: 'EUR', value: 20 },
+          taxSubtotals: [
+            {
+              taxAmount: { currencyId: 'EUR', value: 20 },
+              taxableAmount: { currencyId: 'EUR', value: 100 },
+              taxCategory: { id: 'S', percent: 20, taxSchemeId: { id: 'VAT' } },
+            },
+          ],
+        },
+      ],
+    });
   });
 
   it('should reject an invoice without required id', async () => {
@@ -85,10 +158,51 @@ describe('peppolInvoiceSchema', () => {
   });
 
   it('should reject an invoice with an invalid due date', async () => {
-    await decode.fail({ ...validInvoice, dueDate: 'not-a-date' }, 'Expected a string matching the RegExp ^\\d{4}-\\d{2}-\\d{2}$\n  at ["dueDate"]');
+    await decode.fail({ ...validInvoice, dueDate: 'not-a-date' }, 'Expected a string matching the RegExp ^\\d{4}-\\d{2}-\\d{2}Z?$\n  at ["dueDate"]');
   });
 
   it('should decode an invoice with optional due date and project reference', async () => {
-    await decode.succeed({ ...validInvoice, dueDate: '2024-02-15', projectReference: { id: 'PRJ-1' } });
+    await decode.succeed(
+      { ...validInvoice, dueDate: '2024-02-15', projectReference: { id: 'PRJ-1' } },
+      {
+        accountingCustomerParty: {
+          endpointId: { id: '9876543210', schemeId: '0088' },
+          partyLegalEntity: { registrationName: 'Buyer Company SA' },
+          postalAddress: { cityName: 'Paris', countryCode: { identificationCode: 'FR' } },
+        },
+        accountingSupplierParty: {
+          endpointId: { id: '1234567890', schemeId: '0088' },
+          partyLegalEntity: { registrationName: 'Seller Company Ltd' },
+          postalAddress: { cityName: 'London', countryCode: { identificationCode: 'GB' }, postalZone: 'W1G 8LZ', streetName: 'Main Street 1' },
+        },
+        customizationId: 'urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0',
+        documentCurrencyCode: 'EUR',
+        dueDate: DateTime.makeUnsafe('2024-02-15'),
+        id: 'INV-001',
+        invoiceLines: [invoiceLine],
+        invoiceTypeCode: '380',
+        issueDate: DateTime.makeUnsafe('2024-01-15'),
+        legalMonetaryTotal: {
+          lineExtensionAmount: { currencyId: 'EUR', value: 100 },
+          payableAmount: { currencyId: 'EUR', value: 120 },
+          taxExclusiveAmount: { currencyId: 'EUR', value: 100 },
+          taxInclusiveAmount: { currencyId: 'EUR', value: 120 },
+        },
+        profileId: 'urn:fdc:peppol.eu:2017:poacc:billing:01:1.0',
+        projectReference: { id: 'PRJ-1' },
+        taxTotals: [
+          {
+            taxAmount: { currencyId: 'EUR', value: 20 },
+            taxSubtotals: [
+              {
+                taxAmount: { currencyId: 'EUR', value: 20 },
+                taxableAmount: { currencyId: 'EUR', value: 100 },
+                taxCategory: { id: 'S', percent: 20, taxSchemeId: { id: 'VAT' } },
+              },
+            ],
+          },
+        ],
+      }
+    );
   });
 });

@@ -18,10 +18,10 @@ describe('peppolAllowanceChargeSchema', () => {
 
   it('should parse an allowance with reason and tax category', async () => {
     await decode.succeed({
+      allowanceChargeReason: 'Bonus',
+      allowanceChargeReasonCode: '41',
       amount: { currencyId: 'EUR', value: 100 },
       chargeIndicator: false,
-      allowanceChargeReasonCode: '41',
-      allowanceChargeReason: 'Bonus',
       taxCategory: { id: 'S', percent: 20, taxSchemeId: { id: 'VAT' } },
     });
   });

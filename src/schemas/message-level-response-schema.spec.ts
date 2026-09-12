@@ -5,13 +5,7 @@ import { messageLevelResponse } from './message-level-response-schema';
 
 const validMlr = {
   customizationId: 'urn:fdc:peppol.eu:poacc:trns:mlr:3',
-  profileId: 'urn:fdc:peppol.eu:poacc:bis:mlr:3',
-  id: 'MLR-001',
-  issueDate: '2024-01-15',
-  senderParty: { endpointId: { id: '1234567890' } },
-  receiverParty: { endpointId: { id: '9876543210' } },
   documentResponse: {
-    response: { responseCode: 'RE' },
     documentReference: { id: 'ENVELOPE-001' },
     lineResponse: [
       {
@@ -19,7 +13,13 @@ const validMlr = {
         response: { responseCode: 'RE', description: 'Validation error on line 1', status: { statusReasonCode: 'BV' } },
       },
     ],
+    response: { responseCode: 'RE' },
   },
+  id: 'MLR-001',
+  issueDate: '2024-01-15',
+  profileId: 'urn:fdc:peppol.eu:poacc:bis:mlr:3',
+  receiverParty: { endpointId: { id: '9876543210' } },
+  senderParty: { endpointId: { id: '1234567890' } },
 };
 
 describe('messageLevelResponse', () => {
