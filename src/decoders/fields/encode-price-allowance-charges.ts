@@ -1,15 +1,17 @@
+import { Effect, Predicate } from 'effect';
+
 import type { PeppolLinePriceAllowanceCharge } from '#/schemas/fields/line-price-allowance-charge-schema';
 
 import { encodeAmount } from '#/decoders/fields/encode-amount';
 
-export function encodePriceAllowanceCharges(allowanceCharge: PeppolLinePriceAllowanceCharge | undefined) {
-  if (!allowanceCharge) {
+export const encodePriceAllowanceCharges = Effect.fn(function* (allowanceCharge: PeppolLinePriceAllowanceCharge | undefined) {
+  if (Predicate.isNullish(allowanceCharge)) {
     return undefined;
   }
 
   return {
     'cbc:ChargeIndicator': allowanceCharge.chargeIndicator,
-    'cbc:Amount': encodeAmount(allowanceCharge.amount),
-    'cbc:BaseAmount': encodeAmount(allowanceCharge.baseAmount),
+    'cbc:Amount': yield* encodeAmount(allowanceCharge.amount),
+    'cbc:BaseAmount': yield* encodeAmount(allowanceCharge.baseAmount),
   };
-}
+});

@@ -1,3 +1,4 @@
+import { Effect } from 'effect';
 import { describe, it, expect } from 'vitest';
 
 import { encodeParty } from './encode-party';
@@ -19,12 +20,12 @@ const fullParty = {
 describe('encodeParty', () => {
   it('returns undefined when party is missing', () => {
     // ❌ Negative: undefined party → undefined.
-    expect(encodeParty(undefined)).toBeUndefined();
+    expect(Effect.runSync(encodeParty(undefined))).toBeUndefined();
   });
 
   it('encodes a fully present party', () => {
     // ✅ Positive: all optional sub-blocks (name, identification, contact) are encoded.
-    const result = encodeParty(fullParty);
+    const result = Effect.runSync(encodeParty(fullParty));
     expect(result?.['cac:Party']).toEqual({
       'cac:Contact': { 'cbc:ElectronicMail': 'jane@example.com', 'cbc:Name': 'Jane', 'cbc:Telephone': '555' },
       'cac:PartyIdentification': { 'cbc:ID': { '#text': '5060012349998', '@schemeID': '0088' } },
@@ -42,7 +43,7 @@ describe('encodeParty', () => {
 
   it('omits optional party sub-blocks when they are absent', () => {
     // ❌ Negative: no partyName, no partyIdentification, no contact.
-    const result = encodeParty({ partyLegalEntity: { registrationName: 'Full Formal Seller Name LTD.' } } as any);
+    const result = Effect.runSync(encodeParty({ partyLegalEntity: { registrationName: 'Full Formal Seller Name LTD.' } } as any));
     expect(result?.['cac:Party']?.['cac:PartyName']).toBeUndefined();
     expect(result?.['cac:Party']?.['cac:PartyIdentification']).toBeUndefined();
     expect(result?.['cac:Party']?.['cac:Contact']).toBeUndefined();

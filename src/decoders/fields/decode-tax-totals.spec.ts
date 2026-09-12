@@ -1,3 +1,4 @@
+import { Effect } from 'effect';
 import { describe, expect, it } from 'vitest';
 
 import { decodeTaxTotals } from './decode-tax-totals';
@@ -25,13 +26,13 @@ const fullTaxTotalDoc = {
 
 describe('decodeTaxTotals', () => {
   it('returns undefined when the tax total path is missing', () => {
-    const result = decodeTaxTotals({}, 'cac:TaxTotal');
+    const result = Effect.runSync(decodeTaxTotals({}, 'cac:TaxTotal'));
 
     expect(result).toBeUndefined();
   });
 
   it('decodes a tax total with a fully populated tax subtotal', () => {
-    const result = decodeTaxTotals(fullTaxTotalDoc, 'cac:TaxTotal');
+    const result = Effect.runSync(decodeTaxTotals(fullTaxTotalDoc, 'cac:TaxTotal'));
 
     expect(result).toEqual([
       {
@@ -48,9 +49,8 @@ describe('decodeTaxTotals', () => {
   });
 
   it('decodes a tax subtotal without a tax category to undefined', () => {
-    const result = decodeTaxTotals(
-      { 'cac:TaxTotal': [{ 'cac:TaxSubtotal': [{ 'cbc:TaxAmount': '25.00' }], 'cbc:TaxAmount': '25.00' }] },
-      'cac:TaxTotal'
+    const result = Effect.runSync(
+      decodeTaxTotals({ 'cac:TaxTotal': [{ 'cac:TaxSubtotal': [{ 'cbc:TaxAmount': '25.00' }], 'cbc:TaxAmount': '25.00' }] }, 'cac:TaxTotal')
     );
 
     expect(result).toEqual([
@@ -62,7 +62,7 @@ describe('decodeTaxTotals', () => {
   });
 
   it('decodes a tax total without any tax subtotals', () => {
-    const result = decodeTaxTotals({ 'cac:TaxTotal': [{ 'cbc:TaxAmount': '25.00' }] }, 'cac:TaxTotal');
+    const result = Effect.runSync(decodeTaxTotals({ 'cac:TaxTotal': [{ 'cbc:TaxAmount': '25.00' }] }, 'cac:TaxTotal'));
 
     expect(result).toEqual([{ taxAmount: { currencyId: '', value: 25 }, taxSubtotals: undefined }]);
   });

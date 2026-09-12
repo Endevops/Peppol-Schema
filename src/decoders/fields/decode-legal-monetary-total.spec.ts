@@ -1,25 +1,28 @@
+import { Effect } from 'effect';
 import { describe, expect, it } from 'vitest';
 
 import { decodeLegalMonetaryTotal } from './decode-legal-monetary-total';
 
 describe('decodeLegalMonetaryTotal', () => {
   it('returns undefined when the legal monetary total path is missing', () => {
-    const result = decodeLegalMonetaryTotal({}, 'cac:LegalMonetaryTotal');
+    const result = Effect.runSync(decodeLegalMonetaryTotal({}, 'cac:LegalMonetaryTotal'));
 
     expect(result).toBeUndefined();
   });
 
   it('decodes a present legal monetary total node', () => {
-    const result = decodeLegalMonetaryTotal(
-      {
-        'cac:LegalMonetaryTotal': {
-          'cbc:LineExtensionAmount': '100.00',
-          'cbc:PayableAmount': '120.00',
-          'cbc:TaxExclusiveAmount': '100.00',
-          'cbc:TaxInclusiveAmount': '120.00',
+    const result = Effect.runSync(
+      decodeLegalMonetaryTotal(
+        {
+          'cac:LegalMonetaryTotal': {
+            'cbc:LineExtensionAmount': '100.00',
+            'cbc:PayableAmount': '120.00',
+            'cbc:TaxExclusiveAmount': '100.00',
+            'cbc:TaxInclusiveAmount': '120.00',
+          },
         },
-      },
-      'cac:LegalMonetaryTotal'
+        'cac:LegalMonetaryTotal'
+      )
     );
 
     expect(result).toEqual({
@@ -35,7 +38,7 @@ describe('decodeLegalMonetaryTotal', () => {
   });
 
   it('returns an object of undefined amounts for a present but empty node', () => {
-    const result = decodeLegalMonetaryTotal({ 'cac:LegalMonetaryTotal': {} }, 'cac:LegalMonetaryTotal');
+    const result = Effect.runSync(decodeLegalMonetaryTotal({ 'cac:LegalMonetaryTotal': {} }, 'cac:LegalMonetaryTotal'));
 
     expect(result).toEqual({
       allowanceTotalAmount: undefined,

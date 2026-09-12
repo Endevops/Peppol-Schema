@@ -1,3 +1,5 @@
+import { Effect, Predicate } from 'effect';
+
 import type { XmlNode } from '#/helpers/get-prop';
 import type { PeppolPartyTaxSchema } from '#/schemas/fields/party-tax-schema';
 import type { RecursivePartial } from '#/types';
@@ -5,15 +7,18 @@ import type { RecursivePartial } from '#/types';
 import { decodePartyTaxScheme } from '#/decoders/fields/decode-party-tax-scheme';
 import { getArray } from '#/helpers/get-array';
 
-export function decodePartiesTaxScheme(doc: XmlNode, ...path: Array<string>): RecursivePartial<Array<PeppolPartyTaxSchema>> | undefined {
-  const node = getArray(doc, ...path);
-  if (!node?.length) return undefined;
+export const decodePartiesTaxScheme = Effect.fn(function* (
+  doc: XmlNode,
+  ...path: Array<string>
+): Effect.fn.Return<RecursivePartial<Array<PeppolPartyTaxSchema>> | undefined> {
+  const node = yield* getArray(doc, ...path);
+  if (node.length === 0) return undefined;
 
-  return node.reduce((prev, n) => {
-    const val = decodePartyTaxScheme(n);
-    if (val) {
-      prev.push(val);
-    }
-    return prev;
-  }, []);
-}
+  const values = yield* Effect.forEach(
+    node,
+    Effect.fn(function* (n: XmlNode) {
+      return yield* decodePartyTaxScheme(n);
+    })
+  );
+  return values.filter(Predicate.isNotNullish);
+});

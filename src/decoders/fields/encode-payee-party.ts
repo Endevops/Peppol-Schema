@@ -1,26 +1,28 @@
+import { Effect, Predicate } from 'effect';
+
 import type { PeppolPayeeParty } from '#/schemas/fields/payee-party';
 
 import { encodeIdentifier } from '#/decoders/fields/encode-identifier';
 
-export function encodePayeeParty(payeeParty: PeppolPayeeParty | undefined) {
-  if (!payeeParty) return undefined;
+export const encodePayeeParty = Effect.fn(function* (payeeParty: PeppolPayeeParty | undefined) {
+  if (Predicate.isNullish(payeeParty)) return undefined;
   return {
-    'cac:PartyIdentification': encodePartyIdentification(payeeParty.partyIdentification),
-    'cac:PartyName': encodePartyName(payeeParty.partyName),
-    'cac:PartyLegalEntity': encodePartyLegalEntity(payeeParty.partyLegalEntity),
+    'cac:PartyIdentification': yield* encodePartyIdentification(payeeParty.partyIdentification),
+    'cac:PartyName': yield* encodePartyName(payeeParty.partyName),
+    'cac:PartyLegalEntity': yield* encodePartyLegalEntity(payeeParty.partyLegalEntity),
   };
-}
+});
 
-function encodePartyName(partyName: PeppolPayeeParty['partyName']) {
+const encodePartyName = Effect.fn(function* (partyName: PeppolPayeeParty['partyName']) {
   return { 'cbc:Name': partyName.name };
-}
+});
 
-function encodePartyLegalEntity(partyLegalEntity: PeppolPayeeParty['partyLegalEntity']) {
-  if (!partyLegalEntity) return undefined;
-  return { 'cbc:CompanyId': partyLegalEntity?.companyId ? encodeIdentifier(partyLegalEntity?.companyId) : undefined };
-}
+const encodePartyLegalEntity = Effect.fn(function* (partyLegalEntity: PeppolPayeeParty['partyLegalEntity']) {
+  if (Predicate.isNullish(partyLegalEntity)) return undefined;
+  return { 'cbc:CompanyId': Predicate.isTruthy(partyLegalEntity?.companyId) ? yield* encodeIdentifier(partyLegalEntity?.companyId) : undefined };
+});
 
-function encodePartyIdentification(partyIdentification: PeppolPayeeParty['partyIdentification']) {
-  if (!partyIdentification) return undefined;
-  return { 'cbc:ID': partyIdentification.id ? encodeIdentifier(partyIdentification.id) : undefined };
-}
+const encodePartyIdentification = Effect.fn(function* (partyIdentification: PeppolPayeeParty['partyIdentification']) {
+  if (Predicate.isNullish(partyIdentification)) return undefined;
+  return { 'cbc:ID': Predicate.isTruthy(partyIdentification.id) ? yield* encodeIdentifier(partyIdentification.id) : undefined };
+});

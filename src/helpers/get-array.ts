@@ -1,22 +1,30 @@
+import { Effect, Predicate } from 'effect';
+
 import type { XmlNode } from '#/helpers/get-prop';
 
 import { getProp } from '#/helpers/get-prop';
 
-export function getArray(node: XmlNode, ...path: Array<string>): Array<XmlNode> {
-  if (!node) return [];
+export const getArray = Effect.fn(function* (node: XmlNode, ...path: Array<string>): Effect.fn.Return<Array<XmlNode>> {
+  if (!Predicate.isTruthy(node)) return [];
   let currentNode = node;
   for (const key of path) {
-    if (!currentNode) {
+    if (!Predicate.isTruthy(currentNode)) {
       return [];
     }
     if (Array.isArray(currentNode)) {
-      currentNode = currentNode.flatMap(n => getProp(n, key) || []);
+      const flattened = yield* Effect.forEach(
+        currentNode,
+        Effect.fn(function* (n: XmlNode) {
+          return (yield* getProp(n, key)) || [];
+        })
+      );
+      currentNode = flattened.flat();
     } else {
-      currentNode = getProp(currentNode, key);
+      currentNode = yield* getProp(currentNode, key);
     }
   }
-  if (!currentNode) {
+  if (!Predicate.isTruthy(currentNode)) {
     return [];
   }
   return Array.isArray(currentNode) ? currentNode : [currentNode];
-}
+});

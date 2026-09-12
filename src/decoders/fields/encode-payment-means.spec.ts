@@ -1,3 +1,4 @@
+import { Effect } from 'effect';
 import { describe, it, expect } from 'vitest';
 
 import { encodePaymentMeans } from './encode-payment-means';
@@ -14,12 +15,12 @@ const allFields = {
 describe('encodePaymentMeans', () => {
   it('returns undefined when the means array is undefined', () => {
     // ❌ Negative: undefined array → undefined.
-    expect(encodePaymentMeans(undefined)).toBeUndefined();
+    expect(Effect.runSync(encodePaymentMeans(undefined))).toBeUndefined();
   });
 
   it('encodes a payment means with every field present', () => {
     // ✅ Positive: card account, code, mandate and financial account are all encoded.
-    const result = encodePaymentMeans([allFields]);
+    const result = Effect.runSync(encodePaymentMeans([allFields]));
     expect(result?.[0]).toEqual({
       'cac:CardAccount': { 'cbc:HolderName': 'Jane Doe', 'cbc:NetworkID': 'VISA', 'cbc:PrimaryAccountNumberID': '1234' },
       'cac:PayeeFinancialAccount': { 'cac:FinancialInstitutionBranch': { 'cbc:ID': '9998' }, 'cbc:ID': 'IBAN-1', 'cbc:Name': 'Main' },
@@ -32,7 +33,7 @@ describe('encodePaymentMeans', () => {
 
   it('omits every optional sub-block when only paymentId is present', () => {
     // ❌ Negative: cardAccount, paymentMeansCode, mandate and financial account all absent.
-    const result = encodePaymentMeans([{ paymentId: 'PAY-2' }] as any);
+    const result = Effect.runSync(encodePaymentMeans([{ paymentId: 'PAY-2' }] as any));
     expect(result?.[0]).toEqual({
       'cac:CardAccount': undefined,
       'cac:PayeeFinancialAccount': undefined,

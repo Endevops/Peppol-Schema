@@ -1,3 +1,4 @@
+import { Effect } from 'effect';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
 import { encodeInvoiceResponse } from './encode-invoice-response';
@@ -27,26 +28,27 @@ describe('encodeInvoiceResponse', () => {
   } as any;
 
   it('includes the schema location when MODE is test', () => {
-    const out = encodeInvoiceResponse(full) as { ApplicationResponse: Record<string, unknown> };
+    const out = Effect.runSync(encodeInvoiceResponse(full)) as { ApplicationResponse: Record<string, unknown> };
     expect(out.ApplicationResponse['@xsi:schemaLocation']).toContain('urn:oasis:names:specification:ubl:schema:xsd:ApplicationResponse-2');
   });
 
   it('omits the schema location when MODE is not test', () => {
     vi.stubEnv('MODE', 'production');
-    const out = encodeInvoiceResponse(full) as { ApplicationResponse: Record<string, unknown> };
+    const out = Effect.runSync(encodeInvoiceResponse(full)) as { ApplicationResponse: Record<string, unknown> };
     expect(out.ApplicationResponse['@xsi:schemaLocation']).toBeUndefined();
   });
 
   it('returns undefined for a missing documentResponse', () => {
-    const out = encodeInvoiceResponse({ customizationId: 'c' } as any) as { ApplicationResponse: { 'cac:DocumentResponse': unknown } };
+    const out = Effect.runSync(encodeInvoiceResponse({ customizationId: 'c' } as any)) as {
+      ApplicationResponse: { 'cac:DocumentResponse': unknown };
+    };
     expect(out.ApplicationResponse['cac:DocumentResponse']).toBeUndefined();
   });
 
   it('returns undefined for a missing documentReference', () => {
-    const out = encodeInvoiceResponse({
-      ...full,
-      documentResponse: { response: { responseCode: '1', effectiveDate: 'd', status: undefined } },
-    } as never) as { ApplicationResponse: { 'cac:DocumentResponse': { 'cac:DocumentReference': unknown } } };
+    const out = Effect.runSync(
+      encodeInvoiceResponse({ ...full, documentResponse: { response: { responseCode: '1', effectiveDate: 'd', status: undefined } } } as never)
+    ) as { ApplicationResponse: { 'cac:DocumentResponse': { 'cac:DocumentReference': unknown } } };
     expect(out.ApplicationResponse['cac:DocumentResponse']['cac:DocumentReference']).toBeUndefined();
   });
 });

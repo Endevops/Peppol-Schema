@@ -1,3 +1,4 @@
+import { Effect } from 'effect';
 import { describe, expect, it } from 'vitest';
 
 import { decodeAddress } from './decode-address';
@@ -16,13 +17,13 @@ const fullAddress = {
 
 describe('decodeAddress', () => {
   it('returns undefined when the address path is missing', () => {
-    const result = decodeAddress({}, 'cac:Address');
+    const result = Effect.runSync(decodeAddress({}, 'cac:Address'));
 
     expect(result).toBeUndefined();
   });
 
   it('decodes a fully populated address node', () => {
-    const result = decodeAddress(fullAddress, 'cac:Address');
+    const result = Effect.runSync(decodeAddress(fullAddress, 'cac:Address'));
 
     expect(result).toEqual({
       additionalStreetName: 'Block 4',
@@ -36,7 +37,7 @@ describe('decodeAddress', () => {
   });
 
   it('decodes address without country, address line, or street name to undefined fields', () => {
-    const result = decodeAddress({ 'cac:Address': { 'cbc:CityName': 'Oslo' } }, 'cac:Address');
+    const result = Effect.runSync(decodeAddress({ 'cac:Address': { 'cbc:CityName': 'Oslo' } }, 'cac:Address'));
 
     expect(result).toEqual({
       additionalStreetName: undefined,

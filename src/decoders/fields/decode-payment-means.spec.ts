@@ -1,3 +1,4 @@
+import { Effect } from 'effect';
 import { describe, expect, it } from 'vitest';
 
 import { decodePaymentMeans } from './decode-payment-means';
@@ -21,13 +22,13 @@ const fullMeansDoc = {
 
 describe('decodePaymentMeans', () => {
   it('returns undefined when the payment means path is missing', () => {
-    const result = decodePaymentMeans({}, 'cac:PaymentMeans');
+    const result = Effect.runSync(decodePaymentMeans({}, 'cac:PaymentMeans'));
 
     expect(result).toBeUndefined();
   });
 
   it('decodes a payment means with every optional sub-part present', () => {
-    const [result] = decodePaymentMeans(fullMeansDoc, 'cac:PaymentMeans') ?? [];
+    const [result] = Effect.runSync(decodePaymentMeans(fullMeansDoc, 'cac:PaymentMeans')) ?? [];
 
     expect(result).toEqual({
       cardAccount: { holderName: 'John Doe', networkId: 'VISA', primaryAccountNumberId: '4111111111111111' },
@@ -40,7 +41,7 @@ describe('decodePaymentMeans', () => {
   });
 
   it('decodes an empty payment means to all-undefined fields', () => {
-    const [result] = decodePaymentMeans({ 'cac:PaymentMeans': [{}] }, 'cac:PaymentMeans') ?? [];
+    const [result] = Effect.runSync(decodePaymentMeans({ 'cac:PaymentMeans': [{}] }, 'cac:PaymentMeans')) ?? [];
 
     expect(result).toEqual({
       cardAccount: undefined,
@@ -54,22 +55,25 @@ describe('decodePaymentMeans', () => {
 
   it('keeps a financial institution branch with an id as-is', () => {
     const [result] =
-      decodePaymentMeans(
-        { 'cac:PaymentMeans': [{ 'cac:PayeeFinancialAccount': { 'cac:FinancialInstitutionBranch': { 'cbc:ID': 'BR-1' } } }] },
-        'cac:PaymentMeans'
+      Effect.runSync(
+        decodePaymentMeans(
+          { 'cac:PaymentMeans': [{ 'cac:PayeeFinancialAccount': { 'cac:FinancialInstitutionBranch': { 'cbc:ID': 'BR-1' } } }] },
+          'cac:PaymentMeans'
+        )
       ) ?? [];
 
     expect(result?.payeeFinancialAccount).toEqual({ financialInstitutionBranch: { id: 'BR-1' }, id: undefined, name: undefined });
   });
 
   it('decodes a plain text payment means code', () => {
-    const [result] = decodePaymentMeans({ 'cac:PaymentMeans': [{ 'cbc:PaymentMeansCode': '58' }] }, 'cac:PaymentMeans') ?? [];
+    const [result] = Effect.runSync(decodePaymentMeans({ 'cac:PaymentMeans': [{ 'cbc:PaymentMeansCode': '58' }] }, 'cac:PaymentMeans')) ?? [];
 
     expect(result?.paymentMeansCode).toEqual({ code: '58', name: undefined });
   });
 
   it('decodes a payee financial account without a financial institution branch', () => {
-    const [result] = decodePaymentMeans({ 'cac:PaymentMeans': [{ 'cac:PayeeFinancialAccount': { 'cbc:ID': 'FI-2' } }] }, 'cac:PaymentMeans') ?? [];
+    const [result] =
+      Effect.runSync(decodePaymentMeans({ 'cac:PaymentMeans': [{ 'cac:PayeeFinancialAccount': { 'cbc:ID': 'FI-2' } }] }, 'cac:PaymentMeans')) ?? [];
 
     expect(result?.payeeFinancialAccount).toEqual({ financialInstitutionBranch: undefined, id: 'FI-2', name: undefined });
   });

@@ -1,24 +1,27 @@
+import { Effect } from 'effect';
 import { describe, expect, it } from 'vitest';
 
 import { decodeTaxRepresentativeParty } from './decode-tax-representative-party';
 
 describe('decodeTaxRepresentativeParty', () => {
   it('returns undefined when the tax representative path is missing', () => {
-    const result = decodeTaxRepresentativeParty({}, 'cac:TaxRepresentativeParty');
+    const result = Effect.runSync(decodeTaxRepresentativeParty({}, 'cac:TaxRepresentativeParty'));
 
     expect(result).toBeUndefined();
   });
 
   it('decodes a present tax representative node', () => {
-    const result = decodeTaxRepresentativeParty(
-      {
-        'cac:TaxRepresentativeParty': {
-          'cac:PartyName': { 'cbc:Name': 'Rep LLC' },
-          'cac:PartyTaxScheme': { 'cac:TaxScheme': { 'cbc:ID': 'VAT' }, 'cbc:CompanyID': 'VAT123' },
-          'cac:PostalAddress': { 'cbc:CityName': 'Oslo', 'cbc:StreetName': 'Main St' },
+    const result = Effect.runSync(
+      decodeTaxRepresentativeParty(
+        {
+          'cac:TaxRepresentativeParty': {
+            'cac:PartyName': { 'cbc:Name': 'Rep LLC' },
+            'cac:PartyTaxScheme': { 'cac:TaxScheme': { 'cbc:ID': 'VAT' }, 'cbc:CompanyID': 'VAT123' },
+            'cac:PostalAddress': { 'cbc:CityName': 'Oslo', 'cbc:StreetName': 'Main St' },
+          },
         },
-      },
-      'cac:TaxRepresentativeParty'
+        'cac:TaxRepresentativeParty'
+      )
     );
 
     expect(result).toEqual({
@@ -29,7 +32,7 @@ describe('decodeTaxRepresentativeParty', () => {
   });
 
   it('decodes a present but empty node to undefined fields', () => {
-    const result = decodeTaxRepresentativeParty({ 'cac:TaxRepresentativeParty': {} }, 'cac:TaxRepresentativeParty');
+    const result = Effect.runSync(decodeTaxRepresentativeParty({ 'cac:TaxRepresentativeParty': {} }, 'cac:TaxRepresentativeParty'));
 
     expect(result).toEqual({ name: undefined, partyTaxScheme: undefined, postalAddress: undefined });
   });

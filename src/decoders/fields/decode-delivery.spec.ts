@@ -1,3 +1,4 @@
+import { Effect } from 'effect';
 import { describe, expect, it } from 'vitest';
 
 import { decodeDelivery } from './decode-delivery';
@@ -12,13 +13,13 @@ const fullDeliveryDoc = {
 
 describe('decodeDelivery', () => {
   it('returns undefined when the delivery path is missing', () => {
-    const result = decodeDelivery({}, 'cac:Delivery');
+    const result = Effect.runSync(decodeDelivery({}, 'cac:Delivery'));
 
     expect(result).toBeUndefined();
   });
 
   it('decodes a fully populated delivery node', () => {
-    const result = decodeDelivery(fullDeliveryDoc, 'cac:Delivery');
+    const result = Effect.runSync(decodeDelivery(fullDeliveryDoc, 'cac:Delivery'));
 
     expect(result).toEqual({
       actualDeliveryDate: '2024-02-01',
@@ -28,19 +29,21 @@ describe('decodeDelivery', () => {
   });
 
   it('decodes a delivery without location or party to undefined fields', () => {
-    const result = decodeDelivery({ 'cac:Delivery': {} }, 'cac:Delivery');
+    const result = Effect.runSync(decodeDelivery({ 'cac:Delivery': {} }, 'cac:Delivery'));
 
     expect(result).toEqual({ actualDeliveryDate: undefined, deliveryLocation: undefined, deliveryParty: undefined });
   });
 
   it('returns undefined when a delivery party has no name', () => {
-    const result = decodeDelivery({ 'cac:Delivery': { 'cac:DeliveryParty': {} } }, 'cac:Delivery');
+    const result = Effect.runSync(decodeDelivery({ 'cac:Delivery': { 'cac:DeliveryParty': {} } }, 'cac:Delivery'));
 
     expect(result).toEqual({ actualDeliveryDate: undefined, deliveryLocation: undefined, deliveryParty: undefined });
   });
 
   it('decodes a delivery location without an address or id', () => {
-    const result = decodeDelivery({ 'cac:Delivery': { 'cac:DeliveryParty': { 'cac:PartyName': { 'cbc:Name': 'Acme' } } } }, 'cac:Delivery');
+    const result = Effect.runSync(
+      decodeDelivery({ 'cac:Delivery': { 'cac:DeliveryParty': { 'cac:PartyName': { 'cbc:Name': 'Acme' } } } }, 'cac:Delivery')
+    );
 
     expect(result).toEqual({ actualDeliveryDate: undefined, deliveryLocation: undefined, deliveryParty: { partyName: { name: 'Acme' } } });
   });

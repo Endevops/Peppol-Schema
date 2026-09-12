@@ -1,9 +1,11 @@
+import { Effect, Predicate } from 'effect';
+
 import type { InvoiceResponseDocumentReference, InvoiceResponseDocumentResponse } from '#/schemas/invoice-response-schema';
 import type { PeppolInvoiceResponse } from '#/schemas/invoice-response-schema';
 
 import { encodeMessageParty } from '#/decoders/fields/encode-message-party';
 
-export function encodeInvoiceResponse(invoiceResponse: PeppolInvoiceResponse) {
+export const encodeInvoiceResponse = Effect.fn(function* (invoiceResponse: PeppolInvoiceResponse) {
   return {
     '?xml': { '@version': '1.0', '@encoding': 'UTF-8' },
     ApplicationResponse: {
@@ -21,15 +23,15 @@ export function encodeInvoiceResponse(invoiceResponse: PeppolInvoiceResponse) {
       'cbc:IssueDate': invoiceResponse.issueDate,
       'cbc:IssueTime': invoiceResponse.issueTime,
       'cbc:Note': invoiceResponse.note,
-      'cac:SenderParty': encodeMessageParty(invoiceResponse.senderParty),
-      'cac:ReceiverParty': encodeMessageParty(invoiceResponse.receiverParty),
-      'cac:DocumentResponse': encodeDocumentResponse(invoiceResponse.documentResponse),
+      'cac:SenderParty': yield* encodeMessageParty(invoiceResponse.senderParty),
+      'cac:ReceiverParty': yield* encodeMessageParty(invoiceResponse.receiverParty),
+      'cac:DocumentResponse': yield* encodeDocumentResponse(invoiceResponse.documentResponse),
     },
   };
-}
+});
 
-function encodeDocumentResponse(documentResponse: InvoiceResponseDocumentResponse) {
-  if (!documentResponse) {
+const encodeDocumentResponse = Effect.fn(function* (documentResponse: InvoiceResponseDocumentResponse) {
+  if (Predicate.isNullish(documentResponse)) {
     return undefined;
   }
   return {
@@ -37,20 +39,20 @@ function encodeDocumentResponse(documentResponse: InvoiceResponseDocumentRespons
       'cbc:ResponseCode': documentResponse.response.responseCode,
       'cbc:EffectiveDate': documentResponse.response.effectiveDate,
       'cac:Status': documentResponse.response.status?.map(status => ({
-        'cbc:StatusReasonCode': status.statusReasonCode
+        'cbc:StatusReasonCode': Predicate.isNotNullish(status.statusReasonCode)
           ? { '#text': status.statusReasonCode.value, '@listID': status.statusReasonCode.listId }
           : undefined,
         'cbc:StatusReason': status.statusReason,
         'cac:Condition': status.condition?.map(condition => ({ 'cbc:AttributeID': condition.attributeId, 'cbc:Description': condition.description })),
       })),
     },
-    'cac:DocumentReference': encodeDocumentReference(documentResponse.documentReference),
-    'cac:IssuerParty': encodeMessageParty(documentResponse.issuerParty),
-    'cac:RecipientParty': encodeMessageParty(documentResponse.recipientParty),
+    'cac:DocumentReference': yield* encodeDocumentReference(documentResponse.documentReference),
+    'cac:IssuerParty': yield* encodeMessageParty(documentResponse.issuerParty),
+    'cac:RecipientParty': yield* encodeMessageParty(documentResponse.recipientParty),
   };
-}
+});
 
-function encodeDocumentReference(documentReference: InvoiceResponseDocumentReference) {
-  if (!documentReference) return undefined;
+const encodeDocumentReference = Effect.fn(function* (documentReference: InvoiceResponseDocumentReference) {
+  if (Predicate.isNullish(documentReference)) return undefined;
   return { 'cbc:ID': documentReference.id, 'cbc:IssueDate': documentReference.issueDate, 'cbc:DocumentTypeCode': documentReference.documentTypeCode };
-}
+});

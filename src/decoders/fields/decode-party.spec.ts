@@ -1,3 +1,4 @@
+import { Effect } from 'effect';
 import { describe, expect, it } from 'vitest';
 
 import { decodeParty } from './decode-party';
@@ -14,19 +15,19 @@ const fullParty = {
 
 describe('decodeParty', () => {
   it('returns undefined when the party is undefined', () => {
-    const result = decodeParty(undefined);
+    const result = Effect.runSync(decodeParty(undefined));
 
     expect(result).toBeUndefined();
   });
 
   it('returns undefined when the party path is missing', () => {
-    const result = decodeParty({}, 'cac:AccountingParty');
+    const result = Effect.runSync(decodeParty({}, 'cac:AccountingParty'));
 
     expect(result).toBeUndefined();
   });
 
   it('decodes a fully populated party node', () => {
-    const result = decodeParty(fullParty);
+    const result = Effect.runSync(decodeParty(fullParty));
 
     expect(result).toEqual({
       contact: { electronicMail: 'jane@acme.no', name: 'Jane', telephone: '+4712345678' },
@@ -40,7 +41,7 @@ describe('decodeParty', () => {
   });
 
   it('decodes a present but empty party to undefined sub-parts', () => {
-    const result = decodeParty({});
+    const result = Effect.runSync(decodeParty({}));
 
     expect(result).toEqual({
       contact: undefined,

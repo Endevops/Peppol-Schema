@@ -1,3 +1,4 @@
+import { Effect } from 'effect';
 import { describe, it, expect } from 'vitest';
 
 import { encodeDelivery } from './encode-delivery';
@@ -5,17 +6,19 @@ import { encodeDelivery } from './encode-delivery';
 describe('encodeDelivery', () => {
   it('returns undefined when delivery is missing', () => {
     // ❌ Negative: undefined delivery → undefined.
-    expect(encodeDelivery(undefined)).toBeUndefined();
+    expect(Effect.runSync(encodeDelivery(undefined))).toBeUndefined();
   });
 
   it('encodes a delivery with location and party', () => {
     // ✅ Positive: date, location (id + address) and delivery party are all encoded.
     expect(
-      encodeDelivery({
-        actualDeliveryDate: '2026-01-01',
-        deliveryLocation: { id: { id: 'LOC-1', schemeId: 'GLN' }, address: { countryCode: { identificationCode: 'GB' }, cityName: 'London' } },
-        deliveryParty: { partyName: { name: 'Deliver To Ltd' } },
-      })
+      Effect.runSync(
+        encodeDelivery({
+          actualDeliveryDate: '2026-01-01',
+          deliveryLocation: { id: { id: 'LOC-1', schemeId: 'GLN' }, address: { countryCode: { identificationCode: 'GB' }, cityName: 'London' } },
+          deliveryParty: { partyName: { name: 'Deliver To Ltd' } },
+        })
+      )
     ).toEqual({
       'cbc:ActualDeliveryDate': '2026-01-01',
       'cac:DeliveryLocation': {
@@ -28,13 +31,15 @@ describe('encodeDelivery', () => {
 
   it('omits the delivery party when it has no party name', () => {
     // ❌ Negative: delivery without deliveryParty → no cac:DeliveryParty.
-    expect(encodeDelivery({ actualDeliveryDate: '2026-01-01', deliveryLocation: { id: { id: 'LOC-1' } } })?.['cac:DeliveryParty']).toBeUndefined();
+    expect(
+      Effect.runSync(encodeDelivery({ actualDeliveryDate: '2026-01-01', deliveryLocation: { id: { id: 'LOC-1' } } }))?.['cac:DeliveryParty']
+    ).toBeUndefined();
   });
 
   it('omits the delivery location when absent', () => {
     // ❌ Negative: delivery without deliveryLocation → no cac:DeliveryLocation.
     expect(
-      encodeDelivery({ actualDeliveryDate: '2026-01-01', deliveryParty: { partyName: { name: 'X' } } })?.['cac:DeliveryLocation']
+      Effect.runSync(encodeDelivery({ actualDeliveryDate: '2026-01-01', deliveryParty: { partyName: { name: 'X' } } }))?.['cac:DeliveryLocation']
     ).toBeUndefined();
   });
 });

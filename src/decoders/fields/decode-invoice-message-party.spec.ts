@@ -1,25 +1,28 @@
+import { Effect } from 'effect';
 import { describe, expect, it } from 'vitest';
 
 import { decodeInvoiceMessageParty } from './decode-invoice-message-party';
 
 describe('decodeInvoiceMessageParty', () => {
   it('returns undefined when the party path is missing', () => {
-    const result = decodeInvoiceMessageParty({}, 'cac:AccountingSupplierParty');
+    const result = Effect.runSync(decodeInvoiceMessageParty({}, 'cac:AccountingSupplierParty'));
 
     expect(result).toBeUndefined();
   });
 
   it('decodes a fully populated party node', () => {
-    const result = decodeInvoiceMessageParty(
-      {
-        'cac:AccountingSupplierParty': {
-          'cac:Contact': { 'cbc:ElectronicMail': 'jane@acme.no', 'cbc:Name': 'Jane', 'cbc:Telephone': '+4712345678' },
-          'cac:PartyIdentification': { 'cbc:ID': 'PI-1' },
-          'cac:PartyLegalEntity': { 'cbc:CompanyID': 'C-1', 'cbc:CompanyLegalForm': 'AS', 'cbc:RegistrationName': 'Acme AS' },
-          'cbc:EndpointID': { '#text': 'john@acme.no', '@schemeID': 'EM' },
+    const result = Effect.runSync(
+      decodeInvoiceMessageParty(
+        {
+          'cac:AccountingSupplierParty': {
+            'cac:Contact': { 'cbc:ElectronicMail': 'jane@acme.no', 'cbc:Name': 'Jane', 'cbc:Telephone': '+4712345678' },
+            'cac:PartyIdentification': { 'cbc:ID': 'PI-1' },
+            'cac:PartyLegalEntity': { 'cbc:CompanyID': 'C-1', 'cbc:CompanyLegalForm': 'AS', 'cbc:RegistrationName': 'Acme AS' },
+            'cbc:EndpointID': { '#text': 'john@acme.no', '@schemeID': 'EM' },
+          },
         },
-      },
-      'cac:AccountingSupplierParty'
+        'cac:AccountingSupplierParty'
+      )
     );
 
     expect(result).toEqual({
@@ -31,7 +34,7 @@ describe('decodeInvoiceMessageParty', () => {
   });
 
   it('decodes a present party without legal entity or contact to undefined fields', () => {
-    const result = decodeInvoiceMessageParty({ 'cac:AccountingSupplierParty': {} }, 'cac:AccountingSupplierParty');
+    const result = Effect.runSync(decodeInvoiceMessageParty({ 'cac:AccountingSupplierParty': {} }, 'cac:AccountingSupplierParty'));
 
     expect(result).toEqual({ contact: undefined, endpointId: undefined, partyIdentification: undefined, partyLegalEntity: undefined });
   });

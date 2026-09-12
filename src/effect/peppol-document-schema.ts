@@ -1,6 +1,7 @@
+import type { SchemaAST } from 'effect';
 import type { AllUnionFields } from 'type-fest';
 
-import { Effect, Equal, Predicate, Schema, SchemaGetter, SchemaIssue } from 'effect';
+import { Effect, Predicate, Schema, SchemaGetter, SchemaIssue } from 'effect';
 import XMLBuilder from 'fast-xml-builder';
 import { XMLParser } from 'fast-xml-parser';
 
@@ -36,57 +37,90 @@ export class PeppolInvalidDocumentType extends Schema.TaggedError<PeppolInvalidD
 }) {}
 
 /**
- * @description Union of every supported PEPPOL business document (Effect port of the `z.xor` side of `documentParser`). Members discriminate cleanly: invoice vs
- * credit note via `invoiceLines`/`creditNoteLines`, message-level vs invoice response via the `profileId` literal.
+ * @description Object representation of a PEPPOL document, before the member schemas normalise it (dates stay strings, enums stay loose). This is the shape
+ * produced by the legacy `#/decoders/*` functions and consumed by their `#/decoders/encode-*` counterparts.
  */
-export const peppolDocumentSchema = Schema.Union([
+const peppolDocumentObjectSchema = Schema.Union([
   peppolInvoiceSchema,
   peppolCreditNoteSchema,
   peppolMessageLevelResponseSchema,
   peppolInvoiceResponseSchema,
-]).pipe(
+]);
+
+type PeppolDocumentObject = typeof peppolDocumentObjectSchema.Encoded;
+
+const parseXml = (value: string): XmlNode => new XMLParser({ ...parserOptions, removeNSPrefix: true }).parse(value);
+
+const toInvalidValue = (error: { readonly message: string }, input: unknown, options: SchemaAST.ParseOptions) =>
+  new SchemaIssue.InvalidValue({ message: error.message }, input, options);
+
+/**
+ * @description XML string -> loose document object. Dispatches on the root element; `ApplicationResponse` is further split by its `cbc:ProfileID`.
+ */
+const decodeDocumentXml = Effect.fn(function* (value: string) {
+  const parsed = parseXml(value);
+
+  if (Predicate.isNotNullish(parsed.Invoice)) {
+    return yield* decodeInvoice(parsed);
+  }
+  if (Predicate.isNotNullish(parsed.CreditNote)) {
+    return yield* decodeCreditNote(parsed);
+  }
+  if (Predicate.isNotNullish(parsed.ApplicationResponse)) {
+    const profileId = yield* strOrUnd(parsed.ApplicationResponse, 'cbc:ProfileID');
+    if (profileId === MESSAGE_LEVEL_RESPONSE_PROFILE_ID) {
+      return yield* decodeMessageLevelResponse(parsed);
+    }
+    if (profileId === INVOICE_RESPONSE_PROFILE_ID) {
+      return yield* decodeInvoiceResponse(parsed);
+    }
+  }
+
+  const rootNodes = Object.keys(parsed);
+  return yield* new PeppolInvalidDocumentType({ message: `Unsupported document type: ${rootNodes.join(',')}`, rootNodes });
+});
+
+/**
+ * @description Loose document object -> XML string. Mirrors {@link decodeDocumentXml} by dispatching on the decoded discriminant.
+ */
+const encodeDocumentXml = Effect.fn(function* (document: PeppolDocumentObject) {
+  let content: unknown;
+
+  if (Predicate.hasProperty(document, 'invoiceLines')) {
+    content = yield* encodeInvoice(document as unknown as ZodPeppolInvoice);
+  } else if (Predicate.hasProperty(document, 'creditNoteLines')) {
+    content = yield* encodeCreditNote(document as unknown as ZodPeppolCreditNote);
+  } else if (Predicate.hasProperty(document, 'documentResponse')) {
+    if (document.profileId === MESSAGE_LEVEL_RESPONSE_PROFILE_ID) {
+      content = yield* encodeMessageLevelResponse(document as unknown as ZodPeppolMessageLevelResponse);
+    } else if (document.profileId === INVOICE_RESPONSE_PROFILE_ID) {
+      content = yield* encodeInvoiceResponse(document as unknown as ZodPeppolInvoiceResponse);
+    }
+  }
+
+  if (Predicate.isNullish(content)) {
+    const rootNodes = Object.keys(document);
+    return yield* new PeppolInvalidDocumentType({ message: `Unsupported document type: ${rootNodes.join(',')}`, rootNodes });
+  }
+
+  return new XMLBuilder(builderOptions).build(content) as string;
+});
+
+/**
+ * @description Union of every supported PEPPOL business document (Effect port of the `z.xor` side of `documentParser`). Members discriminate cleanly: invoice vs
+ * credit note via `invoiceLines`/`creditNoteLines`, message-level vs invoice response via the `profileId` literal.
+ */
+export const peppolDocumentSchema = peppolDocumentObjectSchema.pipe(
   Schema.encodeTo(Schema.String, {
-    encode: SchemaGetter.transformEffect(
-      Effect.fn(function* (document) {
-        let content: unknown;
-        if (Predicate.hasProperty(document, 'invoiceLines')) {
-          content = encodeInvoice(document as unknown as ZodPeppolInvoice);
-        } else if (Predicate.hasProperty(document, 'creditNoteLines')) {
-          content = encodeCreditNote(document as unknown as ZodPeppolCreditNote);
-        } else if (Predicate.hasProperty(document, 'documentResponse')) {
-          if (Equal.equals(document.profileId, MESSAGE_LEVEL_RESPONSE_PROFILE_ID)) {
-            content = encodeMessageLevelResponse(document as unknown as ZodPeppolMessageLevelResponse);
-          } else if (Equal.equals(document.profileId, INVOICE_RESPONSE_PROFILE_ID)) {
-            content = encodeInvoiceResponse(document as unknown as ZodPeppolInvoiceResponse);
-          }
-        }
-
-        const builder = new XMLBuilder(builderOptions);
-        return builder.build(content);
-      })
+    encode: SchemaGetter.transformEffect((document, options) =>
+      encodeDocumentXml(document).pipe(Effect.mapError(error => toInvalidValue(error, document, options)))
     ),
-    decode: SchemaGetter.transformEffect(
-      Effect.fn(function* (value, options) {
-        const parser = new XMLParser({ ...parserOptions, removeNSPrefix: true });
-        const parsed: XmlNode = parser.parse(value);
-
-        if (Predicate.isNotNullish(parsed.Invoice)) {
-          return decodeInvoice(parsed) as typeof peppolInvoiceSchema.Type;
-        } else if (Predicate.isNotNullish(parsed.CreditNote)) {
-          return decodeCreditNote(parsed) as typeof peppolCreditNoteSchema.Type;
-        } else if (Predicate.isNotNullish(parsed.ApplicationResponse)) {
-          const profile = strOrUnd(parsed.ApplicationResponse, 'cbc:ProfileID');
-          if (Equal.equals(profile, MESSAGE_LEVEL_RESPONSE_PROFILE_ID)) {
-            return decodeMessageLevelResponse(parsed) as typeof peppolMessageLevelResponseSchema.Type;
-          } else if (Equal.equals(profile, INVOICE_RESPONSE_PROFILE_ID)) {
-            return decodeInvoiceResponse(parsed) as typeof peppolInvoiceResponseSchema.Type;
-          }
-        }
-
-        return yield* Effect.fail(
-          new SchemaIssue.InvalidValue({ message: `Unsupported document type: ${Object.keys(parsed).join(',')}` }, value, options)
-        );
-      })
+    decode: SchemaGetter.transformEffect((value, options) =>
+      decodeDocumentXml(value).pipe(
+        // The legacy decoders emit loose values (e.g. `descriptionCode: string`); the union member below validates and narrows them.
+        Effect.map(document => document as PeppolDocumentObject),
+        Effect.mapError(error => toInvalidValue(error, value, options))
+      )
     ),
   })
 );

@@ -1,3 +1,4 @@
+import { Effect } from 'effect';
 import XMLBuilder from 'fast-xml-builder';
 import { XMLParser } from 'fast-xml-parser';
 import * as z from 'zod/mini';
@@ -15,6 +16,7 @@ import { encodeCreditNote } from '#/decoders/encode-credit-note';
 import { encodeInvoice } from '#/decoders/encode-invoice';
 import { encodeInvoiceResponse } from '#/decoders/encode-invoice-response';
 import { encodeMessageLevelResponse } from '#/decoders/encode-message-level-response';
+import { PeppolDecodeError } from '#/decoders/errors';
 import { strOrUnd } from '#/helpers/str-or-und';
 import { creditNoteSchema } from '#/schemas/credit-note';
 import { invoiceSchema } from '#/schemas/invoice';
@@ -34,30 +36,30 @@ export const documentParser = z.codec(
       const parser = new XMLParser({ ...parserOptions, removeNSPrefix: true });
       const parsed = parser.parse(value);
       if (parsed.Invoice) {
-        return decodeInvoice(parsed);
+        return Effect.runSync(decodeInvoice(parsed));
       } else if (parsed.CreditNote) {
-        return decodeCreditNote(parsed);
+        return Effect.runSync(decodeCreditNote(parsed));
       } else if (parsed.ApplicationResponse) {
-        const profile = strOrUnd(parsed.ApplicationResponse, 'cbc:ProfileID');
+        const profile = Effect.runSync(strOrUnd(parsed.ApplicationResponse, 'cbc:ProfileID'));
         if (profile === MESSAGE_LEVEL_RESPONSE_PROFILE_ID) {
-          return decodeMessageLevelResponse(parsed);
+          return Effect.runSync(decodeMessageLevelResponse(parsed));
         } else if (profile === INVOICE_RESPONSE_PROFILE_ID) {
-          return decodeInvoiceResponse(parsed);
+          return Effect.runSync(decodeInvoiceResponse(parsed));
         }
       }
-      throw new Error(`Unsupported document type: ${Object.keys(parsed).join(',')}`);
+      throw new PeppolDecodeError({ message: `Unsupported document type: ${Object.keys(parsed).join(',')}` });
     },
     encode(value) {
       let content: unknown;
       if ('invoiceLines' in value) {
-        content = encodeInvoice(value as PeppolInvoice);
+        content = Effect.runSync(encodeInvoice(value as PeppolInvoice));
       } else if ('creditNoteLines' in value) {
-        content = encodeCreditNote(value as PeppolCreditNote);
+        content = Effect.runSync(encodeCreditNote(value as PeppolCreditNote));
       } else if ('documentResponse' in value) {
         if (value.profileId === MESSAGE_LEVEL_RESPONSE_PROFILE_ID) {
-          content = encodeMessageLevelResponse(value as PeppolMessageLevelResponse);
+          content = Effect.runSync(encodeMessageLevelResponse(value as PeppolMessageLevelResponse));
         } else if (value.profileId === INVOICE_RESPONSE_PROFILE_ID) {
-          content = encodeInvoiceResponse(value as PeppolInvoiceResponse);
+          content = Effect.runSync(encodeInvoiceResponse(value as PeppolInvoiceResponse));
         }
       }
 

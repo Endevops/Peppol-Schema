@@ -1,18 +1,20 @@
+import { Effect, Predicate } from 'effect';
+
 import { isDefined } from '#/helpers/is-defined';
 
 // oxlint-disable-next-line typescript/no-explicit-any
 export type XmlNode = any;
 
-export function getProp(node: XmlNode, ...path: Array<string>): XmlNode {
-  if (!node) {
+export const getProp = Effect.fn(function* (node: XmlNode, ...path: Array<string>): Effect.fn.Return<XmlNode> {
+  if (!Predicate.isTruthy(node)) {
     return undefined;
   }
-  if (!path || path.length === 0) {
+  if (path.length === 0) {
     return node;
   }
   let currentNode = node;
   for (const key of path) {
-    let newNode = currentNode[key];
+    const newNode = currentNode[key];
     if (isDefined(newNode)) {
       currentNode = newNode;
       continue;
@@ -28,4 +30,4 @@ export function getProp(node: XmlNode, ...path: Array<string>): XmlNode {
     }
   }
   return currentNode;
-}
+});

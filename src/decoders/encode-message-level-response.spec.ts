@@ -1,3 +1,4 @@
+import { Effect } from 'effect';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
 import { encodeMessageLevelResponse } from './encode-message-level-response';
@@ -23,13 +24,13 @@ describe('encodeMessageLevelResponse', () => {
   } as never;
 
   it('includes the schema location when MODE is test', () => {
-    const out = encodeMessageLevelResponse(full) as { ApplicationResponse: Record<string, unknown> };
+    const out = Effect.runSync(encodeMessageLevelResponse(full)) as { ApplicationResponse: Record<string, unknown> };
     expect(out.ApplicationResponse['@xsi:schemaLocation']).toContain('urn:oasis:names:specification:ubl:schema:xsd:ApplicationResponse-2');
   });
 
   it('omits the schema location when MODE is not test', () => {
     vi.stubEnv('MODE', 'production');
-    const out = encodeMessageLevelResponse(full) as { ApplicationResponse: Record<string, unknown> };
+    const out = Effect.runSync(encodeMessageLevelResponse(full)) as { ApplicationResponse: Record<string, unknown> };
     expect(out.ApplicationResponse['@xsi:schemaLocation']).toBeUndefined();
   });
 });

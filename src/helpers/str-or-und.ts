@@ -1,14 +1,18 @@
+import { Effect, Predicate } from 'effect';
+
 import type { XmlNode } from '#/helpers/get-prop';
 
 import { getProp } from '#/helpers/get-prop';
 import { isDefined } from '#/helpers/is-defined';
 
-export function strOrUnd<const T extends string = string>(node: XmlNode): T | undefined;
-export function strOrUnd<const T extends string = string>(node: XmlNode, ...path: Array<string>): T | undefined;
-export function strOrUnd<const T extends string = string>(node: XmlNode, ...path: Array<string>): T | undefined {
-  const val = getProp(node, ...path);
+export const strOrUnd = Effect.fn(function* <const T extends string = string>(
+  node: XmlNode,
+  ...path: Array<string>
+): Effect.fn.Return<T | undefined> {
+  const val = yield* getProp(node, ...path);
   if (!isDefined(val)) return undefined;
-  if (typeof val !== 'object') return val.toString();
-  if (typeof val['#text'] === 'undefined') return undefined;
-  return val['#text'].toString();
-}
+  if (!Predicate.isObject(val)) return val.toString();
+  const raw = val as XmlNode;
+  if (Predicate.isUndefined(raw['#text'])) return undefined;
+  return raw['#text'].toString();
+});

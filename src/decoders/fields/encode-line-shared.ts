@@ -1,3 +1,5 @@
+import { Effect, Predicate } from 'effect';
+
 import type { PeppolDocumentLine } from '#/document';
 
 import { encodeAmount } from '#/decoders/fields/encode-amount';
@@ -9,28 +11,32 @@ import { encodeQuantity } from '#/decoders/fields/encode-quantity';
 import { encodeSimpleIdentifier } from '#/decoders/fields/encode-simple-identifier';
 import { encodeTaxCategory } from '#/decoders/fields/encode-tax-category';
 
-export function encodeLineShared(lineShared: PeppolDocumentLine) {
+export const encodeLineShared = Effect.fn(function* (lineShared: PeppolDocumentLine) {
   return {
     'cbc:ID': lineShared.id,
     'cbc:Note': lineShared.note,
-    'cbc:InvoicedQuantity': 'invoicedQuantity' in lineShared ? encodeQuantity(lineShared.invoicedQuantity) : undefined,
-    'cbc:CreditedQuantity': 'creditedQuantity' in lineShared ? encodeQuantity(lineShared.creditedQuantity) : undefined,
-    'cbc:LineExtensionAmount': encodeAmount(lineShared.lineExtensionAmount),
+    'cbc:InvoicedQuantity': 'invoicedQuantity' in lineShared ? yield* encodeQuantity(lineShared.invoicedQuantity) : undefined,
+    'cbc:CreditedQuantity': 'creditedQuantity' in lineShared ? yield* encodeQuantity(lineShared.creditedQuantity) : undefined,
+    'cbc:LineExtensionAmount': yield* encodeAmount(lineShared.lineExtensionAmount),
     'cbc:AccountingCost': lineShared.accountingCost,
-    'cac:InvoicePeriod': encodeInvoiceLinePeriod(lineShared.invoicePeriod),
+    'cac:InvoicePeriod': yield* encodeInvoiceLinePeriod(lineShared.invoicePeriod),
     'cac:OrderLineReference': lineShared.orderLineReference ? { 'cbc:LineID': lineShared.orderLineReference.lineId } : undefined,
-    'cac:DocumentReference': lineShared.documentReference?.map(documentReference => ({
-      'cbc:DocumentTypeCode': documentReference.documentTypeCode,
-      'cbc:ID': encodeIdentifier(documentReference),
-    })),
-    'cac:AllowanceCharge': encodeLineAllowanceCharges(lineShared.allowanceCharges),
+    'cac:DocumentReference': Predicate.isNullish(lineShared.documentReference)
+      ? undefined
+      : yield* Effect.forEach(
+          lineShared.documentReference,
+          Effect.fn(function* (documentReference) {
+            return { 'cbc:DocumentTypeCode': documentReference.documentTypeCode, 'cbc:ID': yield* encodeIdentifier(documentReference) };
+          })
+        ),
+    'cac:AllowanceCharge': yield* encodeLineAllowanceCharges(lineShared.allowanceCharges),
     'cac:Item': {
       'cbc:Description': lineShared.item.description,
       'cbc:Name': lineShared.item.name,
-      'cac:BuyersItemIdentification': encodeSimpleIdentifier(lineShared.item.buyersItemIdentification),
-      'cac:SellersItemIdentification': encodeSimpleIdentifier(lineShared.item.sellersItemIdentification),
+      'cac:BuyersItemIdentification': yield* encodeSimpleIdentifier(lineShared.item.buyersItemIdentification),
+      'cac:SellersItemIdentification': yield* encodeSimpleIdentifier(lineShared.item.sellersItemIdentification),
       'cac:StandardItemIdentification': lineShared.item.standardItemIdentification
-        ? { 'cbc:ID': encodeIdentifier(lineShared.item.standardItemIdentification.id) }
+        ? { 'cbc:ID': yield* encodeIdentifier(lineShared.item.standardItemIdentification.id) }
         : undefined,
       'cac:OriginCountry': lineShared.item.originCountryCode
         ? { 'cbc:IdentificationCode': lineShared.item.originCountryCode.identificationCode }
@@ -42,9 +48,9 @@ export function encodeLineShared(lineShared: PeppolDocumentLine) {
           '@listVersionID': c.itemClassification.listVersionId,
         },
       })),
-      'cac:ClassifiedTaxCategory': encodeTaxCategory(lineShared.item.classifiedTaxCategory),
+      'cac:ClassifiedTaxCategory': yield* encodeTaxCategory(lineShared.item.classifiedTaxCategory),
       'cac:AdditionalItemProperty': lineShared.item.additionalItemProperties?.map(p => ({ 'cbc:Name': p.name, 'cbc:Value': p.value })),
     },
-    'cac:Price': encodeLinePrice(lineShared.price),
+    'cac:Price': yield* encodeLinePrice(lineShared.price),
   };
-}
+});

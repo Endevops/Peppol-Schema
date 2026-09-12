@@ -1,3 +1,5 @@
+import { Effect, Predicate } from 'effect';
+
 import type { XmlNode } from '#/helpers/get-prop';
 import type { PeppolPartySchema } from '#/schemas/fields/party-base-schema';
 import type { RecursivePartial } from '#/types';
@@ -11,31 +13,38 @@ import { decodePartyLegalEntity } from '#/decoders/fields/decode-party-legal-ent
 import { getProp } from '#/helpers/get-prop';
 import { strOrUnd } from '#/helpers/str-or-und';
 
-export function decodeParty(party: XmlNode | undefined): RecursivePartial<PeppolPartySchema> | undefined;
-export function decodeParty(party: XmlNode | undefined, ...path: Array<string>): RecursivePartial<PeppolPartySchema> | undefined;
-export function decodeParty(party: XmlNode | undefined, ...path: Array<string>): RecursivePartial<PeppolPartySchema> | undefined {
-  const val = getProp(party, ...path);
-  if (!val) return undefined;
+export const decodeParty = Effect.fn(function* (
+  party: XmlNode | undefined,
+  ...path: Array<string>
+): Effect.fn.Return<RecursivePartial<PeppolPartySchema> | undefined> {
+  const val = yield* getProp(party, ...path);
+  if (Predicate.isNullish(val)) return undefined;
 
   return {
-    contact: decodeContact(val, 'cac:Contact'),
-    endpointId: decodeElectronicAddress(val, 'cbc:EndpointID'),
-    partyIdentification: decodeAdditionalIdentifiers(val, 'cac:PartyIdentification'),
-    partyLegalEntity: decodePartyLegalEntity(val, 'cac:PartyLegalEntity'),
-    partyName: decodePartyName(val, 'cac:PartyName'),
-    partyTaxSchemes: decodePartiesTaxScheme(val, 'cac:PartyTaxScheme'),
-    postalAddress: decodeAddress(val, 'cac:PostalAddress'),
+    contact: yield* decodeContact(val, 'cac:Contact'),
+    endpointId: yield* decodeElectronicAddress(val, 'cbc:EndpointID'),
+    partyIdentification: yield* decodeAdditionalIdentifiers(val, 'cac:PartyIdentification'),
+    partyLegalEntity: yield* decodePartyLegalEntity(val, 'cac:PartyLegalEntity'),
+    partyName: yield* decodePartyName(val, 'cac:PartyName'),
+    partyTaxSchemes: yield* decodePartiesTaxScheme(val, 'cac:PartyTaxScheme'),
+    postalAddress: yield* decodeAddress(val, 'cac:PostalAddress'),
   };
-}
+});
 
-function decodePartyName(node: XmlNode, ...path: Array<string>): RecursivePartial<PeppolPartySchema['partyName']> | undefined {
-  const partyNameNode = getProp(node, ...path);
-  if (!partyNameNode) return undefined;
-  return { name: strOrUnd(partyNameNode, 'cbc:Name') };
-}
+const decodePartyName = Effect.fn(function* (
+  node: XmlNode,
+  ...path: Array<string>
+): Effect.fn.Return<RecursivePartial<PeppolPartySchema['partyName']> | undefined> {
+  const partyNameNode = yield* getProp(node, ...path);
+  if (Predicate.isNullish(partyNameNode)) return undefined;
+  return { name: yield* strOrUnd(partyNameNode, 'cbc:Name') };
+});
 
-function decodeAdditionalIdentifiers(node: XmlNode, ...path: Array<string>): RecursivePartial<PeppolPartySchema['partyIdentification']> | undefined {
-  const val = getProp(node, ...path);
-  if (!val) return undefined;
-  return { id: decodeIdentifier(val, 'cbc:ID') };
-}
+const decodeAdditionalIdentifiers = Effect.fn(function* (
+  node: XmlNode,
+  ...path: Array<string>
+): Effect.fn.Return<RecursivePartial<PeppolPartySchema['partyIdentification']> | undefined> {
+  const val = yield* getProp(node, ...path);
+  if (Predicate.isNullish(val)) return undefined;
+  return { id: yield* decodeIdentifier(val, 'cbc:ID') };
+});

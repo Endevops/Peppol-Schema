@@ -1,13 +1,14 @@
+import { Effect, Predicate } from 'effect';
+
 import type { XmlNode } from '#/helpers/get-prop';
 
+import { PeppolNodeError } from '#/helpers/errors';
 import { strOrUnd } from '#/helpers/str-or-und';
 
-export function str(node: XmlNode): string;
-export function str(node: XmlNode, ...path: Array<string>): string;
-export function str(node: XmlNode, ...path: Array<string>): string {
-  const val = strOrUnd(node, ...path);
-  if (typeof val === 'undefined' || val === null) {
-    throw new Error('Invalid node');
+export const str = Effect.fn(function* (node: XmlNode, ...path: Array<string>): Effect.fn.Return<string, PeppolNodeError> {
+  const val = yield* strOrUnd(node, ...path);
+  if (Predicate.isNullish(val)) {
+    return yield* new PeppolNodeError({ message: 'Invalid node' });
   }
   return val;
-}
+});

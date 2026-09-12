@@ -1,3 +1,4 @@
+import { Effect } from 'effect';
 import { describe, it, expect } from 'vitest';
 
 import { encodeInvoiceLines } from './encode-invoice-lines';
@@ -21,12 +22,12 @@ const invoiceLine = {
 describe('encodeInvoiceLines', () => {
   it('returns undefined for an empty array', () => {
     // ❌ Negative: empty invoice lines array → undefined.
-    expect(encodeInvoiceLines([])).toBeUndefined();
+    expect(Effect.runSync(encodeInvoiceLines([]))).toBeUndefined();
   });
 
   it('maps each line of a non-empty array', () => {
     // ✅ Positive: a present line is encoded through the shared line encoder.
-    const result = encodeInvoiceLines([invoiceLine] as any);
+    const result = Effect.runSync(encodeInvoiceLines([invoiceLine] as any));
     expect(result).toHaveLength(1);
     expect(result?.[0]?.['cbc:ID']).toBe('1');
     expect(result?.[0]?.['cbc:InvoicedQuantity']).toEqual({ '#text': 2, '@unitCode': 'C62' });

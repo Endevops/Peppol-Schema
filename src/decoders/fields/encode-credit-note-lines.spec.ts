@@ -1,3 +1,4 @@
+import { Effect } from 'effect';
 import { describe, it, expect } from 'vitest';
 
 import { encodeCreditNoteLines } from './encode-credit-note-lines';
@@ -21,12 +22,12 @@ const creditNoteLine = {
 describe('encodeCreditNoteLines', () => {
   it('returns undefined for an empty array', () => {
     // ❌ Negative: empty credit note lines array → undefined.
-    expect(encodeCreditNoteLines([])).toBeUndefined();
+    expect(Effect.runSync(encodeCreditNoteLines([]))).toBeUndefined();
   });
 
   it('maps each line of a non-empty array', () => {
     // ✅ Positive: a present line is encoded through the shared line encoder.
-    const result = encodeCreditNoteLines([creditNoteLine] as any);
+    const result = Effect.runSync(encodeCreditNoteLines([creditNoteLine] as any));
     expect(result).toHaveLength(1);
     expect(result?.[0]?.['cbc:ID']).toBe('1');
     expect(result?.[0]?.['cbc:CreditedQuantity']).toEqual({ '#text': 2, '@unitCode': 'C62' });

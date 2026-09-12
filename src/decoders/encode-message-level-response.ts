@@ -1,9 +1,12 @@
+import { Effect, Predicate } from 'effect';
+
 import type { PeppolMessageLevelMessageLevelResponseDocumentResponse } from '#/schemas/message-level-response-document-response-schema';
 import type { PeppolMessageLevelResponse } from '#/schemas/message-level-response-schema';
 
+import { PeppolEncodeError } from '#/decoders/errors';
 import { encodeMessageParty } from '#/decoders/fields/encode-message-party';
 
-export function encodeMessageLevelResponse(messageResponse: PeppolMessageLevelResponse) {
+export const encodeMessageLevelResponse = Effect.fn(function* (messageResponse: PeppolMessageLevelResponse) {
   return {
     '?xml': { '@version': '1.0', '@encoding': 'UTF-8' },
     ApplicationResponse: {
@@ -20,14 +23,19 @@ export function encodeMessageLevelResponse(messageResponse: PeppolMessageLevelRe
       'cbc:ID': messageResponse.id,
       'cbc:IssueDate': messageResponse.issueDate,
       'cbc:IssueTime': messageResponse.issueTime,
-      'cac:SenderParty': encodeMessageParty(messageResponse.senderParty),
-      'cac:ReceiverParty': encodeMessageParty(messageResponse.receiverParty),
-      'cac:DocumentResponse': encodeMessageLevelDocumentResponse(messageResponse.documentResponse),
+      'cac:SenderParty': yield* encodeMessageParty(messageResponse.senderParty),
+      'cac:ReceiverParty': yield* encodeMessageParty(messageResponse.receiverParty),
+      'cac:DocumentResponse': yield* encodeMessageLevelDocumentResponse(messageResponse.documentResponse),
     },
   };
-}
+});
 
-function encodeMessageLevelDocumentResponse(documentResponse: PeppolMessageLevelMessageLevelResponseDocumentResponse) {
+const encodeMessageLevelDocumentResponse = Effect.fn(function* (
+  documentResponse: PeppolMessageLevelMessageLevelResponseDocumentResponse | undefined
+) {
+  if (Predicate.isNullish(documentResponse)) {
+    return yield* new PeppolEncodeError({ message: 'Cannot encode a message level response without a document response' });
+  }
   return {
     'cac:Response': { 'cbc:ResponseCode': documentResponse.response.responseCode, 'cbc:Description': documentResponse.response.description },
     'cac:DocumentReference': {
@@ -44,4 +52,4 @@ function encodeMessageLevelDocumentResponse(documentResponse: PeppolMessageLevel
       },
     })),
   };
-}
+});
