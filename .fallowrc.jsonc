@@ -1,7 +1,18 @@
 {
   // This file is JSONC: fallow reads these comments; generic JSON tools may not.
   "$schema": "https://raw.githubusercontent.com/fallow-rs/fallow/main/schema.json",
-  "entry": ["**/scripts/**/*.ts", "test/custom-matchers.ts"],
+  // Public API surfaces backing package.json exports, plus build scripts
+  // and the shared test matcher.
+  "entry": [
+    "**/scripts/**/*.ts",
+    "test/custom-matchers.ts",
+    "src/index.ts",
+    "src/effect/index.ts",
+    "src/schematron/index.ts",
+    "src/peppol-validations/index.ts",
+    "src/values.ts",
+    "src/xml.ts",
+  ],
   "duplicates": {
     // Hide pair-only clones; focus on widespread copy-paste
     // worth refactoring. Lower to 2 to report every duplicate pair.
@@ -15,6 +26,23 @@
     //   "**/generated/**"     // OpenAPI, Protobuf codegen
     // ]
   },
-  "ignoreExports": [{ "file": "**/src/components/ui/**/*.tsx", "exports": ["*"] }],
+  // `Identifier` (decode-identifier.ts) and `OpaqueSchema` (opaque.ts) are used
+  // only within their own files as return types; explicitly exempt these two
+  // same-file return types from unused-export/unused-type reporting.
+  "ignoreExports": [
+    { "file": "**/decode-identifier.ts", "exports": ["Identifier"] },
+    { "file": "**/opaque.ts", "exports": ["OpaqueSchema"] },
+  ],
+  "ignoreDependencies": [
+    // tsdown `attw` build plugin (wired in tsdown.config.ts, never directly imported).
+    "@arethetypeswrong/core",
+    // tsdown `publint` build plugin (wired in tsdown.config.ts, never directly imported).
+    "publint",
+    // Build/generator tooling imported only from scripts/ (a configured `entry` root).
+    "@nodable/compact-builder",
+    "@nodable/flexible-xml-parser",
+    "picocolors",
+    "simple-git",
+  ],
   "rules": { "unused-dependencies": "warn" },
 }

@@ -19,6 +19,8 @@ import {
   hasVatBreakdownCode,
   hasVatCategoryCode,
   isCustomerGermany,
+  isDanishSupplierAndCustomer,
+  isGermanSupplierAndCustomer,
   isSupplierGermany,
   round2,
   schematronResult,
@@ -119,6 +121,64 @@ describe('schematron helpers', () => {
       } as unknown as PeppolDocument;
       expect(isSupplierGermany(altered)).toEqual(true);
       expect(isCustomerGermany(altered)).toEqual(true);
+    });
+  });
+
+  describe('isDanishSupplierAndCustomer / isGermanSupplierAndCustomer', () => {
+    const withVatCountries = (document: PeppolDocument, supplier: string, customer: string) =>
+      ({
+        ...document,
+        accountingSupplierParty: {
+          ...document.accountingSupplierParty,
+          partyTaxSchemes: [{ companyId: `${supplier}12345678`, taxSchemeId: { id: 'VAT' } }],
+        },
+        accountingCustomerParty: {
+          ...document.accountingCustomerParty,
+          partyTaxSchemes: [{ companyId: `${customer}12345678`, taxSchemeId: { id: 'VAT' } }],
+        },
+      }) as unknown as PeppolDocument;
+
+    const withPostalCountries = (document: PeppolDocument, supplier: string, customer: string) =>
+      ({
+        ...document,
+        accountingSupplierParty: {
+          ...document.accountingSupplierParty,
+          postalAddress: { ...document.accountingSupplierParty.postalAddress, countryCode: { identificationCode: supplier } },
+        },
+        accountingCustomerParty: {
+          ...document.accountingCustomerParty,
+          postalAddress: { ...document.accountingCustomerParty.postalAddress, countryCode: { identificationCode: customer } },
+        },
+      }) as unknown as PeppolDocument;
+
+    it('returns true when both supplier and customer are Danish', async () => {
+      const document = await decodeBaseExample();
+      expect(isDanishSupplierAndCustomer(withVatCountries(document, 'DK', 'DK'))).toEqual(true);
+    });
+
+    it('returns false when the customer is not Danish', async () => {
+      const document = await decodeBaseExample();
+      expect(isDanishSupplierAndCustomer(withVatCountries(document, 'DK', 'XX'))).toEqual(false);
+    });
+
+    it('returns false when the supplier is not Danish', async () => {
+      const document = await decodeBaseExample();
+      expect(isDanishSupplierAndCustomer(withVatCountries(document, 'XX', 'DK'))).toEqual(false);
+    });
+
+    it('returns true when both supplier and customer are German', async () => {
+      const document = await decodeBaseExample();
+      expect(isGermanSupplierAndCustomer(withPostalCountries(document, 'DE', 'DE'))).toEqual(true);
+    });
+
+    it('returns false when the customer is not German', async () => {
+      const document = await decodeBaseExample();
+      expect(isGermanSupplierAndCustomer(withPostalCountries(document, 'DE', 'FR'))).toEqual(false);
+    });
+
+    it('returns false when the supplier is not German', async () => {
+      const document = await decodeBaseExample();
+      expect(isGermanSupplierAndCustomer(withPostalCountries(document, 'FR', 'DE'))).toEqual(false);
     });
   });
 

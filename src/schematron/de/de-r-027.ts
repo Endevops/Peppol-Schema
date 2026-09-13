@@ -2,7 +2,7 @@ import type { PeppolDocument } from '#/document';
 import type { SchematronRule } from '#/schematron/helpers';
 import type { SchematronRuleResult } from '#/schematron/types';
 
-import { isCustomerGermany, isSupplierGermany, schematronResult } from '#/schematron/helpers';
+import { isGermanSupplierAndCustomer, schematronResult } from '#/schematron/helpers';
 
 const rule = {
   id: 'DE-R-027',
@@ -13,7 +13,7 @@ const rule = {
 const TELEPHONE_REGEX = /.*([0-9].*){3,}.*/;
 
 export function validateDeR027(document: PeppolDocument): SchematronRuleResult {
-  if (!isSupplierGermany(document) || !isCustomerGermany(document)) {
+  if (!isGermanSupplierAndCustomer(document)) {
     return schematronResult(rule, true);
   }
   const telephone = document.accountingSupplierParty.contact?.telephone;

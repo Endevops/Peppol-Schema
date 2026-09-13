@@ -2,7 +2,7 @@ import type { PeppolDocument } from '#/document';
 import type { SchematronRule } from '#/schematron/helpers';
 import type { SchematronRuleResult } from '#/schematron/types';
 
-import { isCustomerGermany, isSupplierGermany, schematronResult } from '#/schematron/helpers';
+import { isGermanSupplierAndCustomer, schematronResult } from '#/schematron/helpers';
 
 const rule = {
   id: 'DE-R-018',
@@ -14,7 +14,7 @@ const rule = {
 const SKONTO_REGEX = /^#(SKONTO)#TAGE=([0-9]+#PROZENT=[0-9]+\.[0-9]{2})(#BASISBETRAG=-?[0-9]+\.[0-9]{2})?#$/;
 
 export function validateDeR018(document: PeppolDocument): SchematronRuleResult {
-  if (!isSupplierGermany(document) || !isCustomerGermany(document)) {
+  if (!isGermanSupplierAndCustomer(document)) {
     return schematronResult(rule, true);
   }
   const note = document.paymentTerms?.note;

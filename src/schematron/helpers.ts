@@ -100,6 +100,21 @@ export function isCustomerGermany(document: PeppolDocument): boolean {
 }
 
 /**
+ * @description Whether both the supplier and customer countries are Denmark, mirroring the schematron `$supplierCountryIsDK` and `$customerCountryIsDK` variables.
+ */
+export function isDanishSupplierAndCustomer(document: PeppolDocument): boolean {
+  return getSupplierCountry(document) === 'DK' && getCustomerCountry(document) === 'DK';
+}
+
+/**
+ * @description Whether both the supplier and customer postal address countries are Germany, mirroring the schematron `$supplierCountryIsDE` and
+ * `$customerCountryIsDE` variables.
+ */
+export function isGermanSupplierAndCustomer(document: PeppolDocument): boolean {
+  return isSupplierGermany(document) && isCustomerGermany(document);
+}
+
+/**
  * @description Returns the invoice lines or credit note lines of a document.
  */
 export function getLines(document: PeppolDocument): Array<PeppolLine> {

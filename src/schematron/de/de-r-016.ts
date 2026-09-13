@@ -2,7 +2,7 @@ import type { PeppolDocument } from '#/document';
 import type { SchematronRule } from '#/schematron/helpers';
 import type { SchematronRuleResult } from '#/schematron/types';
 
-import { getAllAllowanceCharges, getLines, isCustomerGermany, isSupplierGermany, schematronResult } from '#/schematron/helpers';
+import { getAllAllowanceCharges, getLines, isGermanSupplierAndCustomer, schematronResult } from '#/schematron/helpers';
 
 const rule = {
   id: 'DE-R-016',
@@ -14,7 +14,7 @@ const rule = {
 const SUPPORTED_VAT_CODES = new Set(['S', 'Z', 'E', 'AE', 'K', 'G', 'L', 'M']);
 
 export function validateDeR016(document: PeppolDocument): SchematronRuleResult {
-  if (!isSupplierGermany(document) || !isCustomerGermany(document)) {
+  if (!isGermanSupplierAndCustomer(document)) {
     return schematronResult(rule, true);
   }
   const lineCodes = getLines(document).map(line => line.item.classifiedTaxCategory.id);

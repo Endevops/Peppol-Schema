@@ -2,7 +2,7 @@ import type { PeppolDocument } from '#/document';
 import type { SchematronRule } from '#/schematron/helpers';
 import type { SchematronRuleResult } from '#/schematron/types';
 
-import { isCustomerGermany, isSupplierGermany, schematronResult } from '#/schematron/helpers';
+import { isGermanSupplierAndCustomer, schematronResult } from '#/schematron/helpers';
 
 const rule = {
   id: 'DE-R-005',
@@ -11,7 +11,7 @@ const rule = {
 } as const satisfies SchematronRule;
 
 export function validateDeR005(document: PeppolDocument): SchematronRuleResult {
-  if (!isSupplierGermany(document) || !isCustomerGermany(document)) {
+  if (!isGermanSupplierAndCustomer(document)) {
     return schematronResult(rule, true);
   }
   const name = document.accountingSupplierParty.contact?.name;

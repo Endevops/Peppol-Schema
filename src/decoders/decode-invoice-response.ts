@@ -10,6 +10,7 @@ import type { InvoiceResponseDocumentReference, InvoiceResponseDocumentResponse,
 import type { InvoiceResponseStatusReasonCode } from '#/schemas/invoice-response-status-reason-code';
 import type { RecursivePartial } from '#/types';
 
+import { decodeApplicationResponseBase } from '#/decoders/fields/decode-application-response';
 import { decodeInvoiceMessageDocumentParty } from '#/decoders/fields/decode-invoice-message-document-party';
 import { decodeInvoiceMessageParty } from '#/decoders/fields/decode-invoice-message-party';
 import { getArray } from '#/helpers/get-array';
@@ -99,14 +100,10 @@ const decodeDocumentResponse = Effect.fn(function* (
 });
 
 export const decodeInvoiceResponse = Effect.fn(function* (value: XmlNode): Effect.fn.Return<PeppolInvoiceResponse> {
-  const root = value || {};
-  const doc: XmlNode = yield* getProp(root, 'ubl:ApplicationResponse');
+  const { base, doc } = yield* decodeApplicationResponseBase(value);
   const applicationResponse: RecursivePartial<PeppolInvoiceResponse> = {
-    customizationId: yield* strOrUnd(doc, 'cbc:CustomizationID'),
+    ...base,
     documentResponse: yield* decodeDocumentResponse(doc, 'cac:DocumentResponse'),
-    id: yield* strOrUnd(doc, 'cbc:ID'),
-    issueDate: yield* strOrUnd(doc, 'cbc:IssueDate'),
-    issueTime: yield* strOrUnd(doc, 'cbc:IssueTime'),
     note: yield* strOrUnd(doc, 'cbc:Note'),
     profileId: yield* strOrUnd<'urn:fdc:peppol.eu:poacc:bis:invoice_response:3'>(doc, 'cbc:ProfileID'),
     receiverParty: yield* decodeInvoiceMessageParty(doc, 'cac:ReceiverParty'),

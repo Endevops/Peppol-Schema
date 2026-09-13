@@ -2,7 +2,7 @@ import type { PeppolDocument } from '#/document';
 import type { SchematronRule } from '#/schematron/helpers';
 import type { SchematronRuleResult } from '#/schematron/types';
 
-import { isCustomerGermany, isSupplierGermany, schematronResult } from '#/schematron/helpers';
+import { isGermanSupplierAndCustomer, schematronResult } from '#/schematron/helpers';
 
 const rule = {
   id: 'DE-R-028',
@@ -15,7 +15,7 @@ const EMAIL_REGEX =
   /^[a-zA-Z0-9!#$%&"*+/=?^_`{|}~-]+(\.[a-zA-Z0-9!#$%&"*+/=?^_`{|}~-]+)*@([a-zA-Z0-9]([a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+[a-zA-Z0-9]([a-zA-Z0-9-]*[a-zA-Z0-9])?$/;
 
 export function validateDeR028(document: PeppolDocument): SchematronRuleResult {
-  if (!isSupplierGermany(document) || !isCustomerGermany(document)) {
+  if (!isGermanSupplierAndCustomer(document)) {
     return schematronResult(rule, true);
   }
   const email = document.accountingSupplierParty.contact?.electronicMail;

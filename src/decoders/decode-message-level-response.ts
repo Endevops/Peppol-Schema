@@ -9,6 +9,7 @@ import type { PeppolMessageLevelMessageLevelResponseDocumentResponse } from '#/s
 import type { PeppolMessageLevelResponse } from '#/schemas/message-level-response-schema';
 import type { RecursivePartial } from '#/types';
 
+import { decodeApplicationResponseBase } from '#/decoders/fields/decode-application-response';
 import { decodeMessageLevelParty } from '#/decoders/fields/decode-message-level-party';
 import { getArray } from '#/helpers/get-array';
 import { getProp } from '#/helpers/get-prop';
@@ -83,14 +84,10 @@ const decodeResponse = Effect.fn(function* (
 });
 
 export const decodeMessageLevelResponse = Effect.fn(function* (value: XmlNode): Effect.fn.Return<PeppolMessageLevelResponse> {
-  const root = value || {};
-  const doc: XmlNode = yield* getProp(root, 'ubl:ApplicationResponse');
+  const { base, doc } = yield* decodeApplicationResponseBase(value);
   const applicationResponse: RecursivePartial<PeppolMessageLevelResponse> = {
-    customizationId: yield* strOrUnd(doc, 'cbc:CustomizationID'),
+    ...base,
     documentResponse: yield* decodeDocumentResponse(doc, 'cac:DocumentResponse'),
-    id: yield* strOrUnd(doc, 'cbc:ID'),
-    issueDate: yield* strOrUnd(doc, 'cbc:IssueDate'),
-    issueTime: yield* strOrUnd(doc, 'cbc:IssueTime'),
     profileId: yield* strOrUnd<'urn:fdc:peppol.eu:poacc:bis:mlr:3'>(doc, 'cbc:ProfileID'),
     receiverParty: yield* decodeMessageLevelParty(doc, 'cac:ReceiverParty'),
     senderParty: yield* decodeMessageLevelParty(doc, 'cac:SenderParty'),

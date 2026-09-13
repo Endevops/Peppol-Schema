@@ -2,7 +2,7 @@ import type { PeppolDocument } from '#/document';
 import type { SchematronRule } from '#/schematron/helpers';
 import type { SchematronRuleResult } from '#/schematron/types';
 
-import { getAllAllowanceCharges, getCustomerCountry, getSupplierCountry, schematronResult } from '#/schematron/helpers';
+import { getAllAllowanceCharges, isDanishSupplierAndCustomer, schematronResult } from '#/schematron/helpers';
 
 const rule = {
   id: 'DK-R-004',
@@ -12,7 +12,7 @@ const rule = {
 } as const satisfies SchematronRule;
 
 export function validateDkR004(document: PeppolDocument): SchematronRuleResult {
-  if (getSupplierCountry(document) !== 'DK' || getCustomerCountry(document) !== 'DK') {
+  if (!isDanishSupplierAndCustomer(document)) {
     return schematronResult(rule, true);
   }
   const passed = getAllAllowanceCharges(document).every(ac => {

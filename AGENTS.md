@@ -47,7 +47,8 @@ src/
 ### Build & Export
 
 - **Unbundled ESM** via tsdown (`unbundle: true`) — each export maps to its own entry
-- Four public entry points: `index`, `schemas`, `validations`, `values`
+- Seven public entry points: `.`, `./effect`, `./generate-translations`, `./schematron`, `./validations`, `./values`, `./xml`
+- `./effect` and `./schematron` are intended public API: their exports are permanent contracts for external consumers, so new exports there are deliberate and reviewed as public API.
 - Types generated with `dts: { sourcemap: true }`
 - `package.json` exports use `development` condition for `src/` during dev
 

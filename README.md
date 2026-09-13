@@ -19,12 +19,15 @@ import { InvoiceTypeCode } from '@endevops/peppol-schema/values';
 
 ## Entry Points
 
-| Import path                           | Description                                  |
-| ------------------------------------- | -------------------------------------------- |
-| `@endevops/peppol-schema`             | Main exports (parser, types)                 |
-| `@endevops/peppol-schema/schemas`     | Zod schemas (invoice, credit-note, etc.)     |
-| `@endevops/peppol-schema/validations` | PEPPOL validation rules                      |
-| `@endevops/peppol-schema/values`      | Generated value enums from PEPPOL code lists |
+| Import path                                     | Description                                  |
+| ----------------------------------------------- | -------------------------------------------- |
+| `@endevops/peppol-schema`                       | Main exports (parser, types)                 |
+| `@endevops/peppol-schema/effect`                | Effect Schema API                            |
+| `@endevops/peppol-schema/generate-translations` | CLI that generates translation files         |
+| `@endevops/peppol-schema/schematron`            | Schematron rules                             |
+| `@endevops/peppol-schema/validations`           | PEPPOL validation rules                      |
+| `@endevops/peppol-schema/values`                | Generated value enums from PEPPOL code lists |
+| `@endevops/peppol-schema/xml`                   | XML parser and builder options               |
 
 ## Development
 
