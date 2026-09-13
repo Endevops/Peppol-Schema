@@ -2,10 +2,10 @@
 import { TestSchema } from 'effect/testing';
 import { describe, it } from 'vitest';
 
-import { peppolPayeePartySchema } from './peppol-payee-party-schema';
+import { PeppolPayeeParty } from './peppol-payee-party-schema';
 
-describe('peppolPayeePartySchema', () => {
-  const testSchema = new TestSchema.Asserts(peppolPayeePartySchema);
+describe('PeppolPayeeParty', () => {
+  const testSchema = new TestSchema.Asserts(PeppolPayeeParty);
   const decode = testSchema.decoding();
 
   it('should parse a party name only', async () => {

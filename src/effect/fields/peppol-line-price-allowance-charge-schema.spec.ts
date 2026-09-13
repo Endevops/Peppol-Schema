@@ -2,12 +2,12 @@
 import { TestSchema } from 'effect/testing';
 import { describe, it } from 'vitest';
 
-import { peppolLinePriceAllowanceChargeSchema } from './peppol-line-price-allowance-charge-schema';
+import { PeppolLinePriceAllowanceCharge } from './peppol-line-price-allowance-charge-schema';
 
 const validAllowanceCharge = { amount: { currencyId: 'EUR', value: 200 }, chargeIndicator: false };
 
-describe('peppolLinePriceAllowanceChargeSchema', () => {
-  const testSchema = new TestSchema.Asserts(peppolLinePriceAllowanceChargeSchema);
+describe('PeppolLinePriceAllowanceCharge', () => {
+  const testSchema = new TestSchema.Asserts(PeppolLinePriceAllowanceCharge);
   const decode = testSchema.decoding();
 
   it('should parse a valid price allowance charge', async () => {

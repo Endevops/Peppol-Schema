@@ -5,15 +5,15 @@ import { Schema } from 'effect';
  *
  * @name `cbc:ID (+ optional @schemeID)`
  */
-export const peppolIdentifierSchema = Schema.Struct({
-  /**
-   * @name cbc:ID
-   */
-  id: Schema.String,
-  /**
-   * @name `@schemeID`
-   */
-  schemeId: Schema.optional(Schema.String),
-});
-
-export type PeppolIdentifier = typeof peppolIdentifierSchema.Type;
+export class PeppolIdentifier extends Schema.Opaque<PeppolIdentifier>()(
+  Schema.Struct({
+    /**
+     * @name cbc:ID
+     */
+    id: Schema.String,
+    /**
+     * @name `@schemeID`
+     */
+    schemeId: Schema.optional(Schema.String),
+  })
+) {}

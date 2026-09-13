@@ -2,7 +2,7 @@
 import { TestSchema } from 'effect/testing';
 import { describe, it } from 'vitest';
 
-import { peppolInvoiceLineSchema } from './peppol-invoice-line-schema';
+import { PeppolInvoiceLine } from './peppol-invoice-line-schema';
 
 const validInvoiceLine = {
   id: '1',
@@ -12,8 +12,8 @@ const validInvoiceLine = {
   price: { priceAmount: { currencyId: 'EUR', value: 38 } },
 };
 
-describe('peppolInvoiceLineSchema', () => {
-  const testSchema = new TestSchema.Asserts(peppolInvoiceLineSchema);
+describe('PeppolInvoiceLine', () => {
+  const testSchema = new TestSchema.Asserts(PeppolInvoiceLine);
   const decode = testSchema.decoding();
 
   it('should parse an invoice line', async () => {

@@ -1,23 +1,25 @@
 import { Schema } from 'effect';
 
-import { peppolAddressSchema } from '#/effect/fields/peppol-address-schema';
-import { peppolPartyTaxSchemeSchema } from '#/effect/fields/peppol-party-tax-scheme-schema';
+import { PeppolAddress } from '#/effect/fields/peppol-address-schema';
+import { PeppolPartyTaxScheme } from '#/effect/fields/peppol-party-tax-scheme-schema';
 
 /**
  * @summary SELLER TAX REPRESENTATIVE PARTY
  *
  * @name cac:TaxRepresentativeParty
  */
-export const peppolTaxRepresentativeSchema = Schema.Struct({
-  /**
-   * @name cac:PartyName/cbc:Name
-   */
-  name: Schema.String,
-  /**
-   * @name cac:PostalAddress
-   */
-  postalAddress: peppolAddressSchema,
-  partyTaxScheme: peppolPartyTaxSchemeSchema,
-});
+export class PeppolTaxRepresentative extends Schema.Opaque<PeppolTaxRepresentative>()(
+  Schema.Struct({
+    /**
+     * @name cac:PartyName/cbc:Name
+     */
+    name: Schema.String,
+    /**
+     * @name cac:PostalAddress
+     */
+    postalAddress: PeppolAddress,
+    partyTaxScheme: PeppolPartyTaxScheme,
+  })
+) {}
 
-export type PeppolTaxRepresentativeParty = typeof peppolTaxRepresentativeSchema.Type;
+export type PeppolTaxRepresentativeParty = PeppolTaxRepresentative;

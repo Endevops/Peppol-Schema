@@ -2,10 +2,10 @@
 import { TestSchema } from 'effect/testing';
 import { describe, it } from 'vitest';
 
-import { peppolDocumentResponseDocumentReferenceSchema } from './peppol-document-response-document-reference-schema';
+import { PeppolDocumentResponseDocumentReference } from './peppol-document-response-document-reference-schema';
 
-describe('peppolDocumentResponseDocumentReferenceSchema', () => {
-  const testSchema = new TestSchema.Asserts(peppolDocumentResponseDocumentReferenceSchema);
+describe('PeppolDocumentResponseDocumentReference', () => {
+  const testSchema = new TestSchema.Asserts(PeppolDocumentResponseDocumentReference);
   const decode = testSchema.decoding();
 
   it('should decode a document reference with only an id', async () => {

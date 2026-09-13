@@ -3,7 +3,7 @@ import { DateTime } from 'effect';
 import { TestSchema } from 'effect/testing';
 import { describe, it } from 'vitest';
 
-import { peppolCreditNoteSchema } from '#/effect/peppol-credit-note-schema';
+import { PeppolCreditNote } from '#/effect/peppol-credit-note-schema';
 
 const validCreditNote = {
   accountingCustomerParty: {
@@ -51,8 +51,8 @@ const validCreditNote = {
   ],
 };
 
-describe('peppolCreditNoteSchema', () => {
-  const testSchema = new TestSchema.Asserts(peppolCreditNoteSchema);
+describe('PeppolCreditNote', () => {
+  const testSchema = new TestSchema.Asserts(PeppolCreditNote);
   const decode = testSchema.decoding({ parseOptions: { errors: 'all' } });
   it('should parse valid credit note', async () => {
     await decode.succeed(validCreditNote, {

@@ -7,8 +7,6 @@ import { XMLParser } from 'fast-xml-parser';
 
 import type { PeppolCreditNoteLine } from '#/effect/fields/peppol-credit-note-line-schema';
 import type { PeppolInvoiceLine } from '#/effect/fields/peppol-invoice-line-schema';
-import type { PeppolCreditNote } from '#/effect/peppol-credit-note-schema';
-import type { PeppolInvoice } from '#/effect/peppol-invoice-schema';
 import type { XmlNode } from '#/helpers/get-prop';
 import type { PeppolCreditNote as ZodPeppolCreditNote } from '#/schemas/credit-note';
 import type { PeppolInvoice as ZodPeppolInvoice } from '#/schemas/invoice';
@@ -25,10 +23,10 @@ import { encodeCreditNote } from '#/decoders/encode-credit-note';
 import { encodeInvoice } from '#/decoders/encode-invoice';
 import { encodeInvoiceResponse } from '#/decoders/encode-invoice-response';
 import { encodeMessageLevelResponse } from '#/decoders/encode-message-level-response';
-import { peppolCreditNoteSchema } from '#/effect/peppol-credit-note-schema';
-import { peppolInvoiceResponseSchema } from '#/effect/peppol-invoice-response-schema';
-import { peppolInvoiceSchema } from '#/effect/peppol-invoice-schema';
-import { peppolMessageLevelResponseSchema } from '#/effect/peppol-message-level-response-schema';
+import { PeppolCreditNote } from '#/effect/peppol-credit-note-schema';
+import { PeppolInvoiceResponse } from '#/effect/peppol-invoice-response-schema';
+import { PeppolInvoice } from '#/effect/peppol-invoice-schema';
+import { PeppolMessageLevelResponse } from '#/effect/peppol-message-level-response-schema';
 import { strOrUnd } from '#/helpers/str-or-und';
 import { builderOptions } from '#/xml/builder-options';
 import { parserOptions } from '#/xml/parser-options';
@@ -42,12 +40,7 @@ export class PeppolInvalidDocumentType extends Schema.TaggedError<PeppolInvalidD
  * @description Object representation of a PEPPOL document, before the member schemas normalise it (dates stay strings, enums stay loose). This is the shape
  * produced by the legacy `#/decoders/*` functions and consumed by their `#/decoders/encode-*` counterparts.
  */
-const peppolDocumentObjectSchema = Schema.Union([
-  peppolInvoiceSchema,
-  peppolCreditNoteSchema,
-  peppolMessageLevelResponseSchema,
-  peppolInvoiceResponseSchema,
-]);
+const peppolDocumentObjectSchema = Schema.Union([PeppolInvoice, PeppolCreditNote, PeppolMessageLevelResponse, PeppolInvoiceResponse]);
 
 type PeppolDocumentObject = typeof peppolDocumentObjectSchema.Encoded;
 
@@ -137,6 +130,6 @@ export interface PeppolDocument extends AllUnionFields<PeppolInvoice | PeppolCre
 /**
  * @description This defines the types of message that are sent/received through the peppol network.
  */
-export interface PeppolMessage extends AllUnionFields<typeof peppolMessageLevelResponseSchema.Type | typeof peppolInvoiceResponseSchema.Type> {}
+export interface PeppolMessage extends AllUnionFields<PeppolMessageLevelResponse | PeppolInvoiceResponse> {}
 export interface PeppolAllDocuments extends AllUnionFields<PeppolDocument | PeppolMessage> {}
 export interface PeppolDocumentLine extends AllUnionFields<PeppolInvoiceLine | PeppolCreditNoteLine> {}

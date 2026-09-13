@@ -3,10 +3,10 @@ import { DateTime } from 'effect';
 import { TestSchema } from 'effect/testing';
 import { describe, it } from 'vitest';
 
-import { peppolPaymentMeansSchema } from './peppol-payment-means-schema';
+import { PeppolPaymentMeans } from './peppol-payment-means-schema';
 
-describe('peppolPaymentMeansSchema', () => {
-  const testSchema = new TestSchema.Asserts(peppolPaymentMeansSchema);
+describe('PeppolPaymentMeans', () => {
+  const testSchema = new TestSchema.Asserts(PeppolPaymentMeans);
   const decode = testSchema.decoding();
 
   it('should parse a payment means code', async () => {

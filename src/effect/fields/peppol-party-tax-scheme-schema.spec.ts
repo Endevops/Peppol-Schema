@@ -2,10 +2,10 @@
 import { TestSchema } from 'effect/testing';
 import { describe, it } from 'vitest';
 
-import { peppolPartyTaxSchemeSchema } from './peppol-party-tax-scheme-schema';
+import { PeppolPartyTaxScheme } from './peppol-party-tax-scheme-schema';
 
-describe('peppolPartyTaxSchemeSchema', () => {
-  const testSchema = new TestSchema.Asserts(peppolPartyTaxSchemeSchema);
+describe('PeppolPartyTaxScheme', () => {
+  const testSchema = new TestSchema.Asserts(PeppolPartyTaxScheme);
   const decode = testSchema.decoding();
 
   it('should parse a party tax scheme', async () => {

@@ -2,7 +2,7 @@
 import { TestSchema } from 'effect/testing';
 import { describe, it } from 'vitest';
 
-import { peppolLegalMonetaryTotalSchema } from './peppol-legal-monetary-total-schema';
+import { PeppolLegalMonetaryTotal } from './peppol-legal-monetary-total-schema';
 
 const amount = (value: number) => ({ currencyId: 'EUR', value });
 
@@ -13,8 +13,8 @@ const validTotal = {
   payableAmount: amount(4500),
 };
 
-describe('peppolLegalMonetaryTotalSchema', () => {
-  const testSchema = new TestSchema.Asserts(peppolLegalMonetaryTotalSchema);
+describe('PeppolLegalMonetaryTotal', () => {
+  const testSchema = new TestSchema.Asserts(PeppolLegalMonetaryTotal);
   const decode = testSchema.decoding();
 
   it('should parse a minimal legal monetary total', async () => {

@@ -3,7 +3,7 @@ import { DateTime } from 'effect';
 import { TestSchema } from 'effect/testing';
 import { describe, it } from 'vitest';
 
-import { peppolInvoiceSchema } from './peppol-invoice-schema';
+import { PeppolInvoice } from './peppol-invoice-schema';
 
 const invoiceLine = {
   id: '1',
@@ -51,8 +51,8 @@ const validInvoice = {
   ],
 } as const;
 
-describe('peppolInvoiceSchema', () => {
-  const testSchema = new TestSchema.Asserts(peppolInvoiceSchema);
+describe('PeppolInvoice', () => {
+  const testSchema = new TestSchema.Asserts(PeppolInvoice);
   const decode = testSchema.decoding();
 
   it('should decode a valid invoice', async () => {

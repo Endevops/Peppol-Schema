@@ -2,10 +2,10 @@
 import { TestSchema } from 'effect/testing';
 import { describe, it } from 'vitest';
 
-import { peppolBinaryObjectSchema } from './peppol-binary-object-schema';
+import { PeppolBinaryObject } from './peppol-binary-object-schema';
 
-describe('peppolBinaryObjectSchema', () => {
-  const testSchema = new TestSchema.Asserts(peppolBinaryObjectSchema);
+describe('PeppolBinaryObject', () => {
+  const testSchema = new TestSchema.Asserts(PeppolBinaryObject);
   const decode = testSchema.decoding();
 
   it('should parse a binary object with standard base64 content', async () => {

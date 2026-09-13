@@ -3,10 +3,10 @@ import { DateTime } from 'effect';
 import { TestSchema } from 'effect/testing';
 import { describe, it } from 'vitest';
 
-import { peppolDeliverySchema } from './peppol-delivery-schema';
+import { PeppolDelivery } from './peppol-delivery-schema';
 
-describe('peppolDeliverySchema', () => {
-  const testSchema = new TestSchema.Asserts(peppolDeliverySchema);
+describe('PeppolDelivery', () => {
+  const testSchema = new TestSchema.Asserts(PeppolDelivery);
   const decode = testSchema.decoding();
 
   it('should parse an empty delivery', async () => {

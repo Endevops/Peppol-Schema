@@ -7,16 +7,16 @@ import { currencyCodeSchema } from '#/effect/values/currency-code-schema';
  *
  * @name cbc:* (+ @currencyID)
  */
-export const peppolAmountSchema = Schema.Struct({
-  /**
-   * @name \@currencyID
-   */
-  currencyId: currencyCodeSchema,
-  /**
-   * @name #text (value)
-   */
-  value: Schema.Finite,
-});
-
-export interface PeppolAmount extends Schema.Schema.Type<typeof peppolAmountSchema> {}
-export interface PeppolAmountEncoded extends Schema.Codec.Encoded<typeof peppolAmountSchema> {}
+export class PeppolAmount extends Schema.Opaque<PeppolAmount>()(
+  Schema.Struct({
+    /**
+     * @name \@currencyID
+     */
+    currencyId: currencyCodeSchema,
+    /**
+     * @name #text (value)
+     */
+    value: Schema.Finite,
+  })
+) {}
+export interface PeppolAmountEncoded extends Schema.Codec.Encoded<typeof PeppolAmount> {}

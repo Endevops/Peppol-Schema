@@ -2,10 +2,10 @@
 import { TestSchema } from 'effect/testing';
 import { describe, it } from 'vitest';
 
-import { peppolPaymentTermsSchema } from './peppol-payment-terms-schema';
+import { PeppolPaymentTerms } from './peppol-payment-terms-schema';
 
-describe('peppolPaymentTermsSchema', () => {
-  const testSchema = new TestSchema.Asserts(peppolPaymentTermsSchema);
+describe('PeppolPaymentTerms', () => {
+  const testSchema = new TestSchema.Asserts(PeppolPaymentTerms);
   const decode = testSchema.decoding();
 
   it('should parse payment terms', async () => {

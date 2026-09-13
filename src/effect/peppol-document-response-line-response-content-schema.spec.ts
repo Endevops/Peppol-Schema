@@ -2,12 +2,12 @@
 import { TestSchema } from 'effect/testing';
 import { describe, it } from 'vitest';
 
-import { peppolDocumentResponseLineResponseContentSchema } from './peppol-document-response-line-response-content-schema';
+import { PeppolDocumentResponseLineResponseContent } from './peppol-document-response-line-response-content-schema';
 
 const validContent = { responseCode: 'RE', description: 'Validation gives error [CL-T77-R0002]', status: { statusReasonCode: 'BV' } };
 
-describe('peppolDocumentResponseLineResponseContentSchema', () => {
-  const testSchema = new TestSchema.Asserts(peppolDocumentResponseLineResponseContentSchema);
+describe('PeppolDocumentResponseLineResponseContent', () => {
+  const testSchema = new TestSchema.Asserts(PeppolDocumentResponseLineResponseContent);
   const decode = testSchema.decoding();
 
   it('should decode valid line response content', async () => {

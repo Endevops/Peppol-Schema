@@ -2,10 +2,10 @@
 import { TestSchema } from 'effect/testing';
 import { describe, it } from 'vitest';
 
-import { peppolItemClassificationSchema } from './peppol-item-classification-schema';
+import { PeppolItemClassification } from './peppol-item-classification-schema';
 
-describe('peppolItemClassificationSchema', () => {
-  const testSchema = new TestSchema.Asserts(peppolItemClassificationSchema);
+describe('PeppolItemClassification', () => {
+  const testSchema = new TestSchema.Asserts(PeppolItemClassification);
   const decode = testSchema.decoding();
 
   it('should parse an item classification', async () => {

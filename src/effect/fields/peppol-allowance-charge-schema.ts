@@ -1,63 +1,64 @@
 import { Effect, Schema } from 'effect';
 
-import { baseLineAllowanceChargeSchema } from '#/effect/fields/peppol-line-allowance-charge-schema';
-import { peppolTaxCategorySchema } from '#/effect/fields/peppol-tax-category-schema';
+import { BaseLineAllowanceCharge } from '#/effect/fields/peppol-line-allowance-charge-schema';
+import { PeppolTaxCategory } from '#/effect/fields/peppol-tax-category-schema';
 import { allowanceChargeReasonCodeSchema } from '#/effect/values/allowance-charge-reason-code-schema';
 import { chargeReasonCodeSchema } from '#/effect/values/charge-reason-code-schema';
 import { dutyTaxFeeCategorySchema } from '#/effect/values/duty-tax-fee-category-schema';
 
-const baseAllowanceChargeSchema = baseLineAllowanceChargeSchema.pipe(
-  Schema.fieldsAssign({
+class PeppolTaxCategoryTaxSchemeId extends Schema.Opaque<PeppolTaxCategoryTaxSchemeId>()(
+  Schema.Struct({
     /**
-     * @summary TAX CATEGORY
+     * @description Mandatory element. Use "VAT"
      *
-     * @name cac:TaxCategory
+     * @name `cbc:ID`
      */
-    taxCategory: Schema.optional(
-      peppolTaxCategorySchema.pipe(
-        Schema.fieldsAssign({
-          /**
-           * @description A coded identification of what VAT category applies to the document level allowance or charge.
-           *
-           * @summary Document level allowance or charge VAT category code
-           *
-           * @name `cbc:ID`
-           */
-          id: dutyTaxFeeCategorySchema,
-          /**
-           * @description The VAT rate, represented as percentage that applies to the document level allowance or charge.
-           *
-           * @summary Document level allowance or charge VAT rate
-           *
-           * @name `cbc:Percent`
-           */
-          percent: Schema.optional(Schema.Finite),
-          /**
-           * @default VAT
-           *
-           * @name `cac:TaxScheme`
-           */
-          taxSchemeId: Schema.Struct({
+    id: Schema.String.pipe(Schema.withDecodingDefaultType(Effect.succeed('VAT'))),
+  })
+) {}
+
+class BaseAllowanceCharge extends Schema.Opaque<BaseAllowanceCharge>()(
+  BaseLineAllowanceCharge.pipe(
+    Schema.fieldsAssign({
+      /**
+       * @summary TAX CATEGORY
+       *
+       * @name cac:TaxCategory
+       */
+      taxCategory: Schema.optional(
+        PeppolTaxCategory.pipe(
+          Schema.fieldsAssign({
             /**
-             * @description Mandatory element. Use "VAT"
+             * @description A coded identification of what VAT category applies to the document level allowance or charge.
+             *
+             * @summary Document level allowance or charge VAT category code
              *
              * @name `cbc:ID`
              */
-            id: Schema.String.pipe(Schema.withDecodingDefaultType(Effect.succeed('VAT'))),
-          }),
-        })
-      )
-    ),
-  })
-);
+            id: dutyTaxFeeCategorySchema,
+            /**
+             * @description The VAT rate, represented as percentage that applies to the document level allowance or charge.
+             *
+             * @summary Document level allowance or charge VAT rate
+             *
+             * @name `cbc:Percent`
+             */
+            percent: Schema.optional(Schema.Finite),
+            /**
+             * @default VAT
+             *
+             * @name `cac:TaxScheme`
+             */
+            taxSchemeId: PeppolTaxCategoryTaxSchemeId,
+          })
+        )
+      ),
+    })
+  )
+) {}
 
-/**
- * @summary Allowance/Charge
- *
- * @name cac:AllowanceCharge
- */
-export const peppolAllowanceChargeSchema = Schema.Union([
-  baseAllowanceChargeSchema.pipe(
+class AllowanceChargeFalse extends Schema.Opaque<AllowanceChargeFalse>()(
+  BaseAllowanceCharge.pipe(
     Schema.fieldsAssign({
       /**
        * @name cbc:AllowanceChargeReasonCode
@@ -72,8 +73,11 @@ export const peppolAllowanceChargeSchema = Schema.Union([
         message: "PEPPOL-EN16931-R043: Allowance/charge ChargeIndicator value MUST equal 'true' or 'false'",
       }),
     })
-  ),
-  baseAllowanceChargeSchema.pipe(
+  )
+) {}
+
+class AllowanceChargeTrue extends Schema.Opaque<AllowanceChargeTrue>()(
+  BaseAllowanceCharge.pipe(
     Schema.fieldsAssign({
       /**
        * @name cbc:AllowanceChargeReasonCode
@@ -88,8 +92,17 @@ export const peppolAllowanceChargeSchema = Schema.Union([
         message: "PEPPOL-EN16931-R043: Allowance/charge ChargeIndicator value MUST equal 'true' or 'false'",
       }),
     })
-  ),
-]).annotate({ message: 'unable to decode allowance charge' });
+  )
+) {}
+
+/**
+ * @summary Allowance/Charge
+ *
+ * @name cac:AllowanceCharge
+ */
+export const peppolAllowanceChargeSchema = Schema.Union([AllowanceChargeFalse, AllowanceChargeTrue]).annotate({
+  message: 'unable to decode allowance charge',
+});
 
 export type PeppolAllowanceCharge = Schema.Schema.Type<typeof peppolAllowanceChargeSchema>;
 export type PeppolAllowanceChargeEncoded = Schema.Codec.Encoded<typeof peppolAllowanceChargeSchema>;

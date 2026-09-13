@@ -2,10 +2,10 @@
 import { TestSchema } from 'effect/testing';
 import { describe, it } from 'vitest';
 
-import { peppolOrderReferenceSchema } from './peppol-order-reference-schema';
+import { PeppolOrderReference } from './peppol-order-reference-schema';
 
-describe('peppolOrderReferenceSchema', () => {
-  const testSchema = new TestSchema.Asserts(peppolOrderReferenceSchema);
+describe('PeppolOrderReference', () => {
+  const testSchema = new TestSchema.Asserts(PeppolOrderReference);
   const decode = testSchema.decoding();
 
   it('should parse a purchase order reference', async () => {

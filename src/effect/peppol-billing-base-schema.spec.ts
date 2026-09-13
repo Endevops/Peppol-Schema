@@ -3,7 +3,7 @@ import { DateTime } from 'effect';
 import { TestSchema } from 'effect/testing';
 import { describe, it } from 'vitest';
 
-import { peppolBillingBaseSchema } from './peppol-billing-base-schema';
+import { PeppolBillingBase } from './peppol-billing-base-schema';
 
 const validBillingBase = {
   accountingCustomerParty: {
@@ -41,8 +41,8 @@ const validBillingBase = {
   ],
 } as const;
 
-describe('peppolBillingBaseSchema', () => {
-  const testSchema = new TestSchema.Asserts(peppolBillingBaseSchema);
+describe('PeppolBillingBase', () => {
+  const testSchema = new TestSchema.Asserts(PeppolBillingBase);
   const decode = testSchema.decoding({ parseOptions: { errors: 'all' } });
 
   it('should decode a valid billing base', async () => {

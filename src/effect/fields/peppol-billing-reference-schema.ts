@@ -2,21 +2,8 @@ import { Schema } from 'effect';
 
 import { peppolIsoDateStringSchema } from '#/effect/peppol-iso-date-string-schema';
 
-/**
- * @summary PRECEDING INVOICE REFERENCE (0..n)
- *
- * @name cac:BillingReference
- */
-export const peppolBillingReferenceSchema = Schema.Struct({
-  /**
-   * @example
-   *   inv123;
-   *
-   * @summary INVOICE DOCUMENT REFERENCE
-   *
-   * @name `cac:InvoiceDocumentReference`
-   */
-  invoiceDocumentReference: Schema.Struct({
+class PeppolInvoiceDocumentReference extends Schema.Opaque<PeppolInvoiceDocumentReference>()(
+  Schema.Struct({
     /**
      * @description The identification of an Invoice that was previously sent by the seller.
      *
@@ -41,7 +28,24 @@ export const peppolBillingReferenceSchema = Schema.Struct({
      * @name `cbc:IssueDate`
      */
     issueDate: Schema.optional(peppolIsoDateStringSchema),
-  }),
-});
+  })
+) {}
 
-export type PeppolBillingReference = typeof peppolBillingReferenceSchema.Type;
+/**
+ * @summary PRECEDING INVOICE REFERENCE (0..n)
+ *
+ * @name cac:BillingReference
+ */
+export class PeppolBillingReference extends Schema.Opaque<PeppolBillingReference>()(
+  Schema.Struct({
+    /**
+     * @example
+     *   inv123;
+     *
+     * @summary INVOICE DOCUMENT REFERENCE
+     *
+     * @name `cac:InvoiceDocumentReference`
+     */
+    invoiceDocumentReference: PeppolInvoiceDocumentReference,
+  })
+) {}

@@ -2,7 +2,7 @@
 import { TestSchema } from 'effect/testing';
 import { describe, it } from 'vitest';
 
-import { peppolTaxRepresentativeSchema } from './peppol-tax-representative-schema';
+import { PeppolTaxRepresentative } from './peppol-tax-representative-schema';
 
 const validTaxRepresentative = {
   name: 'Tax Rep',
@@ -10,8 +10,8 @@ const validTaxRepresentative = {
   partyTaxScheme: { companyId: 'FR123456789', taxSchemeId: { id: 'VAT' } },
 };
 
-describe('peppolTaxRepresentativeSchema', () => {
-  const testSchema = new TestSchema.Asserts(peppolTaxRepresentativeSchema);
+describe('PeppolTaxRepresentative', () => {
+  const testSchema = new TestSchema.Asserts(PeppolTaxRepresentative);
   const decode = testSchema.decoding();
 
   it('should parse a tax representative', async () => {

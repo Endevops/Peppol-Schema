@@ -3,7 +3,7 @@ import { DateTime } from 'effect';
 import { TestSchema } from 'effect/testing';
 import { describe, it } from 'vitest';
 
-import { peppolBaseLineSchema } from './peppol-base-line-schema';
+import { PeppolBaseLine } from './peppol-base-line-schema';
 
 const validBaseLine = {
   id: '1',
@@ -12,8 +12,8 @@ const validBaseLine = {
   price: { priceAmount: { currencyId: 'EUR', value: 50 } },
 } as const;
 
-describe('peppolBaseLineSchema', () => {
-  const testSchema = new TestSchema.Asserts(peppolBaseLineSchema);
+describe('PeppolBaseLine', () => {
+  const testSchema = new TestSchema.Asserts(PeppolBaseLine);
   const decode = testSchema.decoding();
 
   it('should parse a minimal base line', async () => {

@@ -3,7 +3,7 @@ import { DateTime } from 'effect';
 import { TestSchema } from 'effect/testing';
 import { describe, it } from 'vitest';
 
-import { peppolInvoiceResponseSchema } from './peppol-invoice-response-schema';
+import { PeppolInvoiceResponse } from './peppol-invoice-response-schema';
 
 const validInvoiceResponse = {
   customizationId: 'urn:fdc:peppol.eu:poacc:trns:invoice_response:3',
@@ -40,8 +40,8 @@ const validInvoiceResponse = {
   },
 } as const;
 
-describe('peppolInvoiceResponseSchema', () => {
-  const testSchema = new TestSchema.Asserts(peppolInvoiceResponseSchema);
+describe('PeppolInvoiceResponse', () => {
+  const testSchema = new TestSchema.Asserts(PeppolInvoiceResponse);
   const decode = testSchema.decoding();
 
   it('should decode a valid invoice response', async () => {

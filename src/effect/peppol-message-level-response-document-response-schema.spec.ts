@@ -2,7 +2,7 @@
 import { TestSchema } from 'effect/testing';
 import { describe, it } from 'vitest';
 
-import { peppolMessageLevelResponseDocumentResponseSchema } from './peppol-message-level-response-document-response-schema';
+import { PeppolMessageLevelResponseDocumentResponse } from './peppol-message-level-response-document-response-schema';
 
 const lineResponse = {
   lineReference: { lineId: '/Catalogue/cac:CatalogueLine[3]' },
@@ -15,8 +15,8 @@ const validDocumentResponse = {
   lineResponse: [lineResponse],
 };
 
-describe('peppolMessageLevelResponseDocumentResponseSchema', () => {
-  const testSchema = new TestSchema.Asserts(peppolMessageLevelResponseDocumentResponseSchema);
+describe('PeppolMessageLevelResponseDocumentResponse', () => {
+  const testSchema = new TestSchema.Asserts(PeppolMessageLevelResponseDocumentResponse);
   const decode = testSchema.decoding();
 
   it('should decode a valid document response', async () => {

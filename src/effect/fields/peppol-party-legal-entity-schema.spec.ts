@@ -2,10 +2,10 @@
 import { TestSchema } from 'effect/testing';
 import { describe, it } from 'vitest';
 
-import { peppolPartyLegalEntitySchema } from './peppol-party-legal-entity-schema';
+import { PeppolPartyLegalEntity } from './peppol-party-legal-entity-schema';
 
-describe('peppolPartyLegalEntitySchema', () => {
-  const testSchema = new TestSchema.Asserts(peppolPartyLegalEntitySchema);
+describe('PeppolPartyLegalEntity', () => {
+  const testSchema = new TestSchema.Asserts(PeppolPartyLegalEntity);
   const decode = testSchema.decoding();
 
   it('should parse with only a registrationName', async () => {

@@ -7,15 +7,15 @@ import { quantityUnitCodesSchema } from '#/effect/values/quantity-unit-codes-sch
  *
  * @name `cbc:* (+ @unitCode)`
  */
-export const peppolQuantitySchema = Schema.Struct({
-  /**
-   * @name `@unitCode`
-   */
-  unitCode: Schema.optional(quantityUnitCodesSchema),
-  /**
-   * @name `#text (value)`
-   */
-  value: Schema.Finite,
-});
-
-export type PeppolQuantity = typeof peppolQuantitySchema.Type;
+export class PeppolQuantity extends Schema.Opaque<PeppolQuantity>()(
+  Schema.Struct({
+    /**
+     * @name `@unitCode`
+     */
+    unitCode: Schema.optional(quantityUnitCodesSchema),
+    /**
+     * @name `#text (value)`
+     */
+    value: Schema.Finite,
+  })
+) {}

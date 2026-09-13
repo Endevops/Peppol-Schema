@@ -2,10 +2,10 @@
 import { TestSchema } from 'effect/testing';
 import { describe, it } from 'vitest';
 
-import { peppolLineItemSchema } from './peppol-line-item-schema';
+import { PeppolLineItem } from './peppol-line-item-schema';
 
-describe('peppolLineItemSchema', () => {
-  const testSchema = new TestSchema.Asserts(peppolLineItemSchema);
+describe('PeppolLineItem', () => {
+  const testSchema = new TestSchema.Asserts(PeppolLineItem);
   const decode = testSchema.decoding();
 
   it('should parse a minimal line item', async () => {

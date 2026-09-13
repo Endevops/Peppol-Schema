@@ -3,10 +3,10 @@ import { DateTime } from 'effect';
 import { TestSchema } from 'effect/testing';
 import { describe, it } from 'vitest';
 
-import { peppolInvoicePeriodSchema } from './peppol-invoice-period-schema';
+import { PeppolInvoicePeriod } from './peppol-invoice-period-schema';
 
-describe('peppolInvoicePeriodSchema', () => {
-  const testSchema = new TestSchema.Asserts(peppolInvoicePeriodSchema);
+describe('PeppolInvoicePeriod', () => {
+  const testSchema = new TestSchema.Asserts(PeppolInvoicePeriod);
   const decode = testSchema.decoding();
 
   it('should parse an empty invoice period', async () => {

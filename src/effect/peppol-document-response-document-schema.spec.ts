@@ -2,10 +2,10 @@
 import { TestSchema } from 'effect/testing';
 import { describe, it } from 'vitest';
 
-import { peppolDocumentResponseDocumentSchema } from './peppol-document-response-document-schema';
+import { PeppolDocumentResponseDocument } from './peppol-document-response-document-schema';
 
-describe('peppolDocumentResponseDocumentSchema', () => {
-  const testSchema = new TestSchema.Asserts(peppolDocumentResponseDocumentSchema);
+describe('PeppolDocumentResponseDocument', () => {
+  const testSchema = new TestSchema.Asserts(PeppolDocumentResponseDocument);
   const decode = testSchema.decoding();
 
   it('should decode a document response with only a response code', async () => {

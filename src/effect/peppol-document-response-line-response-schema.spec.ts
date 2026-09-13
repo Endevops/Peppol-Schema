@@ -2,14 +2,14 @@
 import { TestSchema } from 'effect/testing';
 import { describe, it } from 'vitest';
 
-import { peppolDocumentResponseLineResponseSchema } from './peppol-document-response-line-response-schema';
+import { PeppolDocumentResponseLineResponse } from './peppol-document-response-line-response-schema';
 
 const response = { responseCode: 'RE', description: 'Validation gives error', status: { statusReasonCode: 'BV' } };
 
 const validLineResponse = { lineReference: { lineId: '/Catalogue/cac:CatalogueLine[3]' }, response };
 
-describe('peppolDocumentResponseLineResponseSchema', () => {
-  const testSchema = new TestSchema.Asserts(peppolDocumentResponseLineResponseSchema);
+describe('PeppolDocumentResponseLineResponse', () => {
+  const testSchema = new TestSchema.Asserts(PeppolDocumentResponseLineResponse);
   const decode = testSchema.decoding();
 
   it('should decode a valid line response', async () => {

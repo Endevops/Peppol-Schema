@@ -3,10 +3,10 @@ import { DateTime } from 'effect';
 import { TestSchema } from 'effect/testing';
 import { describe, it } from 'vitest';
 
-import { peppolBillingReferenceSchema } from './peppol-billing-reference-schema';
+import { PeppolBillingReference } from './peppol-billing-reference-schema';
 
-describe('peppolBillingReferenceSchema', () => {
-  const testSchema = new TestSchema.Asserts(peppolBillingReferenceSchema);
+describe('PeppolBillingReference', () => {
+  const testSchema = new TestSchema.Asserts(PeppolBillingReference);
   const decode = testSchema.decoding();
 
   it('should parse a billing reference with an invoice document reference', async () => {

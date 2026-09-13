@@ -2,7 +2,7 @@
 import { TestSchema } from 'effect/testing';
 import { describe, it } from 'vitest';
 
-import { peppolCreditNoteLineSchema } from './peppol-credit-note-line-schema';
+import { PeppolCreditNoteLine } from './peppol-credit-note-line-schema';
 
 const validCreditNoteLine = {
   creditedQuantity: { unitCode: 'C62', value: 2 },
@@ -12,8 +12,8 @@ const validCreditNoteLine = {
   price: { priceAmount: { currencyId: 'EUR', value: 50 } },
 };
 
-describe('peppolCreditNoteLineSchema', () => {
-  const testSchema = new TestSchema.Asserts(peppolCreditNoteLineSchema);
+describe('PeppolCreditNoteLine', () => {
+  const testSchema = new TestSchema.Asserts(PeppolCreditNoteLine);
   const decode = testSchema.decoding();
 
   it('should parse a credit note line', async () => {

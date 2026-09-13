@@ -2,10 +2,10 @@
 import { TestSchema } from 'effect/testing';
 import { describe, it } from 'vitest';
 
-import { peppolAddressSchema } from './peppol-address-schema';
+import { PeppolAddress } from './peppol-address-schema';
 
-describe('peppolAddressSchema', () => {
-  const testSchema = new TestSchema.Asserts(peppolAddressSchema);
+describe('PeppolAddress', () => {
+  const testSchema = new TestSchema.Asserts(PeppolAddress);
   const decode = testSchema.decoding();
 
   it('should parse a minimal address', async () => {

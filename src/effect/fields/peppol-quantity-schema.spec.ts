@@ -2,10 +2,10 @@
 import { TestSchema } from 'effect/testing';
 import { describe, it } from 'vitest';
 
-import { peppolQuantitySchema } from './peppol-quantity-schema';
+import { PeppolQuantity } from './peppol-quantity-schema';
 
-describe('peppolQuantitySchema', () => {
-  const testSchema = new TestSchema.Asserts(peppolQuantitySchema);
+describe('PeppolQuantity', () => {
+  const testSchema = new TestSchema.Asserts(PeppolQuantity);
   const decode = testSchema.decoding();
 
   it('should parse a quantity with a unit code', async () => {

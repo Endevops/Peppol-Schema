@@ -2,10 +2,10 @@
 import { TestSchema } from 'effect/testing';
 import { describe, it } from 'vitest';
 
-import { peppolMessageLevelResponsePartySchema } from './peppol-message-level-response-party-schema';
+import { PeppolMessageLevelResponseParty } from './peppol-message-level-response-party-schema';
 
-describe('peppolMessageLevelResponsePartySchema', () => {
-  const testSchema = new TestSchema.Asserts(peppolMessageLevelResponsePartySchema);
+describe('PeppolMessageLevelResponseParty', () => {
+  const testSchema = new TestSchema.Asserts(PeppolMessageLevelResponseParty);
   const decode = testSchema.decoding();
 
   it('should decode a party with an endpoint id', async () => {

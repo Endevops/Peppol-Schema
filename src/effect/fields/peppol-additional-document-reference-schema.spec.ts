@@ -2,10 +2,10 @@
 import { TestSchema } from 'effect/testing';
 import { describe, it } from 'vitest';
 
-import { peppolAdditionalDocumentReferenceSchema } from './peppol-additional-document-reference-schema';
+import { PeppolAdditionalDocumentReference } from './peppol-additional-document-reference-schema';
 
-describe('peppolAdditionalDocumentReferenceSchema', () => {
-  const testSchema = new TestSchema.Asserts(peppolAdditionalDocumentReferenceSchema);
+describe('PeppolAdditionalDocumentReference', () => {
+  const testSchema = new TestSchema.Asserts(PeppolAdditionalDocumentReference);
   const decode = testSchema.decoding();
 
   it('should parse a minimal additional document reference', async () => {

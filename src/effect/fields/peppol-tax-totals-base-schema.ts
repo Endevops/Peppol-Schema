@@ -1,25 +1,27 @@
 import { Schema } from 'effect';
 
-import { peppolAmountSchema } from '#/effect/fields/peppol-amount-schema';
-import { peppolTaxSubtotalSchema } from '#/effect/fields/peppol-tax-subtotal-schema';
+import { PeppolAmount } from '#/effect/fields/peppol-amount-schema';
+import { PeppolTaxSubtotal } from '#/effect/fields/peppol-tax-subtotal-schema';
 
 /**
  * @summary TAX TOTAL
  *
  * @name cac:TaxTotal (1..2)
  */
-export const peppolTaxTotalsBaseSchema = Schema.Struct({
-  /**
-   * @example
-   *   200;
-   *
-   * @name cbc:TaxAmount (+ @currencyID)
-   */
-  taxAmount: peppolAmountSchema,
-  /**
-   * @name cac:TaxSubtotal (0..n)
-   */
-  taxSubtotals: Schema.optional(Schema.Array(peppolTaxSubtotalSchema)),
-});
+export class PeppolTaxTotalsBase extends Schema.Opaque<PeppolTaxTotalsBase>()(
+  Schema.Struct({
+    /**
+     * @example
+     *   200;
+     *
+     * @name cbc:TaxAmount (+ @currencyID)
+     */
+    taxAmount: PeppolAmount,
+    /**
+     * @name cac:TaxSubtotal (0..n)
+     */
+    taxSubtotals: Schema.optional(Schema.Array(PeppolTaxSubtotal)),
+  })
+) {}
 
-export type PeppolTaxTotal = typeof peppolTaxTotalsBaseSchema.Type;
+export type PeppolTaxTotal = PeppolTaxTotalsBase;

@@ -2,10 +2,10 @@
 import { TestSchema } from 'effect/testing';
 import { describe, it } from 'vitest';
 
-import { peppolInvoiceResponseDocumentActualResponseStatusSchema } from './peppol-invoice-response-document-actual-response-status-schema';
+import { PeppolInvoiceResponseDocumentActualResponseStatus } from './peppol-invoice-response-document-actual-response-status-schema';
 
-describe('peppolInvoiceResponseDocumentActualResponseStatusSchema', () => {
-  const testSchema = new TestSchema.Asserts(peppolInvoiceResponseDocumentActualResponseStatusSchema);
+describe('PeppolInvoiceResponseDocumentActualResponseStatus', () => {
+  const testSchema = new TestSchema.Asserts(PeppolInvoiceResponseDocumentActualResponseStatus);
   const decode = testSchema.decoding();
 
   it('should decode an empty status', async () => {

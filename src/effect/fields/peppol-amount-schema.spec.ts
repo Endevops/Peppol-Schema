@@ -2,10 +2,10 @@
 import { TestSchema } from 'effect/testing';
 import { describe, it } from 'vitest';
 
-import { peppolAmountSchema } from './peppol-amount-schema';
+import { PeppolAmount } from './peppol-amount-schema';
 
-describe('peppolAmountSchema', () => {
-  const testSchema = new TestSchema.Asserts(peppolAmountSchema);
+describe('PeppolAmount', () => {
+  const testSchema = new TestSchema.Asserts(PeppolAmount);
   const decode = testSchema.decoding();
 
   it('should parse a monetary amount', async () => {

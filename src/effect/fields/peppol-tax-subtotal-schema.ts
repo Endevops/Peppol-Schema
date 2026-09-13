@@ -1,32 +1,34 @@
 import { Schema } from 'effect';
 
-import { peppolAmountSchema } from '#/effect/fields/peppol-amount-schema';
-import { peppolTaxSubtotalCategorySchema } from '#/effect/fields/peppol-tax-subtotal-category-schema';
+import { PeppolAmount } from '#/effect/fields/peppol-amount-schema';
+import { PeppolTaxSubtotalCategory } from '#/effect/fields/peppol-tax-subtotal-category-schema';
 
 /**
  * @summary VAT breakdown (TaxSubtotal)
  *
  * @name cac:TaxSubtotal
  */
-export const peppolTaxSubtotalSchema = Schema.Struct({
-  /**
-   * @description The amount of tax for the tax subtotal.
-   *
-   * @name `cbc:TaxAmount (+ @currencyID)`
-   */
-  taxAmount: peppolAmountSchema,
-  /**
-   * @description The tax category associated with this tax subtotal.
-   *
-   * @name cac:TaxCategory
-   */
-  taxCategory: peppolTaxSubtotalCategorySchema,
-  /**
-   * @description The taxable amount for the tax subtotal.
-   *
-   * @name `cbc:TaxableAmount (+ @currencyID)`
-   */
-  taxableAmount: peppolAmountSchema,
-});
+export class PeppolTaxSubtotal extends Schema.Opaque<PeppolTaxSubtotal>()(
+  Schema.Struct({
+    /**
+     * @description The amount of tax for the tax subtotal.
+     *
+     * @name `cbc:TaxAmount (+ @currencyID)`
+     */
+    taxAmount: PeppolAmount,
+    /**
+     * @description The tax category associated with this tax subtotal.
+     *
+     * @name cac:TaxCategory
+     */
+    taxCategory: PeppolTaxSubtotalCategory,
+    /**
+     * @description The taxable amount for the tax subtotal.
+     *
+     * @name `cbc:TaxableAmount (+ @currencyID)`
+     */
+    taxableAmount: PeppolAmount,
+  })
+) {}
 
-export type PeppolTaxSubTotal = typeof peppolTaxSubtotalSchema.Type;
+export type PeppolTaxSubTotal = PeppolTaxSubtotal;

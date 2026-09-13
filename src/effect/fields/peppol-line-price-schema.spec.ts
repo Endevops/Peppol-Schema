@@ -2,10 +2,10 @@
 import { TestSchema } from 'effect/testing';
 import { describe, it } from 'vitest';
 
-import { peppolLinePriceSchema } from './peppol-line-price-schema';
+import { PeppolLinePrice } from './peppol-line-price-schema';
 
-describe('peppolLinePriceSchema', () => {
-  const testSchema = new TestSchema.Asserts(peppolLinePriceSchema);
+describe('PeppolLinePrice', () => {
+  const testSchema = new TestSchema.Asserts(PeppolLinePrice);
   const decode = testSchema.decoding();
 
   it('should parse a valid line price', async () => {

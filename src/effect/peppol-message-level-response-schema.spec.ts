@@ -3,7 +3,7 @@ import { DateTime } from 'effect';
 import { TestSchema } from 'effect/testing';
 import { describe, it } from 'vitest';
 
-import { peppolMessageLevelResponseSchema } from './peppol-message-level-response-schema';
+import { PeppolMessageLevelResponse } from './peppol-message-level-response-schema';
 
 const lineResponse = {
   lineReference: { lineId: '/Catalogue/cac:CatalogueLine[3]' },
@@ -25,8 +25,8 @@ const validMessageLevelResponse = {
   senderParty: { endpointId: { id: '7300010000001', schemeId: '0088' } },
 } as const;
 
-describe('peppolMessageLevelResponseSchema', () => {
-  const testSchema = new TestSchema.Asserts(peppolMessageLevelResponseSchema);
+describe('PeppolMessageLevelResponse', () => {
+  const testSchema = new TestSchema.Asserts(PeppolMessageLevelResponse);
   const decode = testSchema.decoding();
 
   it('should decode a valid message level response', async () => {

@@ -1,6 +1,6 @@
 import { Schema } from 'effect';
 
-import { peppolTaxCategorySchema } from '#/effect/fields/peppol-tax-category-schema';
+import { PeppolTaxCategory } from '#/effect/fields/peppol-tax-category-schema';
 
 /**
  * @description This one is specific for TaxSubtotal since it includes more fields.
@@ -9,22 +9,24 @@ import { peppolTaxCategorySchema } from '#/effect/fields/peppol-tax-category-sch
  *
  * @name cac:TaxCategory
  */
-export const peppolTaxSubtotalCategorySchema = peppolTaxCategorySchema.pipe(
-  Schema.fieldsAssign({
-    /**
-     * @description The reason for the tax exemption.
-     *
-     * @name cbc:TaxExemptionReason
-     */
-    taxExemptionReason: Schema.optional(Schema.String),
-    /**
-     * @description The code for the reason of the tax exemption.
-     *
-     * @name cbc:TaxExemptionReasonCode
-     */
-    taxExemptionReasonCode: Schema.optional(Schema.String),
-  })
-);
+export class PeppolTaxSubtotalCategory extends Schema.Opaque<PeppolTaxSubtotalCategory>()(
+  PeppolTaxCategory.pipe(
+    Schema.fieldsAssign({
+      /**
+       * @description The reason for the tax exemption.
+       *
+       * @name cbc:TaxExemptionReason
+       */
+      taxExemptionReason: Schema.optional(Schema.String),
+      /**
+       * @description The code for the reason of the tax exemption.
+       *
+       * @name cbc:TaxExemptionReasonCode
+       */
+      taxExemptionReasonCode: Schema.optional(Schema.String),
+    })
+  )
+) {}
 
-export interface PeppolTaxSubTotalCategory extends Schema.Schema.Type<typeof peppolTaxSubtotalCategorySchema> {}
-export interface PeppolTaxSubTotalCategoryEncoded extends Schema.Codec.Encoded<typeof peppolTaxSubtotalCategorySchema> {}
+export interface PeppolTaxSubTotalCategory extends Schema.Schema.Type<typeof PeppolTaxSubtotalCategory> {}
+export interface PeppolTaxSubTotalCategoryEncoded extends Schema.Codec.Encoded<typeof PeppolTaxSubtotalCategory> {}

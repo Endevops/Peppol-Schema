@@ -2,10 +2,10 @@
 import { TestSchema } from 'effect/testing';
 import { describe, it } from 'vitest';
 
-import { peppolIdentifierSchema } from './peppol-identifier-schema';
+import { PeppolIdentifier } from './peppol-identifier-schema';
 
 describe('identifierSchema', () => {
-  const testSchema = new TestSchema.Asserts(peppolIdentifierSchema);
+  const testSchema = new TestSchema.Asserts(PeppolIdentifier);
   const decode = testSchema.decoding();
 
   it('should parse an identifier with a scheme', async () => {

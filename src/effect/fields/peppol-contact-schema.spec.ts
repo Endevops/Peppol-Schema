@@ -2,10 +2,10 @@
 import { TestSchema } from 'effect/testing';
 import { describe, it } from 'vitest';
 
-import { peppolContactSchema } from './peppol-contact-schema';
+import { PeppolContact } from './peppol-contact-schema';
 
-describe('peppolContactSchema', () => {
-  const testSchema = new TestSchema.Asserts(peppolContactSchema);
+describe('PeppolContact', () => {
+  const testSchema = new TestSchema.Asserts(PeppolContact);
   const decode = testSchema.decoding();
 
   it('should parse an empty contact', async () => {

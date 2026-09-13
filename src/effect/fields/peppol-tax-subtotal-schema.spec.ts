@@ -2,7 +2,7 @@
 import { TestSchema } from 'effect/testing';
 import { describe, it } from 'vitest';
 
-import { peppolTaxSubtotalSchema } from './peppol-tax-subtotal-schema';
+import { PeppolTaxSubtotal } from './peppol-tax-subtotal-schema';
 
 const validTaxSubtotal = {
   taxAmount: { currencyId: 'EUR', value: 20 },
@@ -10,8 +10,8 @@ const validTaxSubtotal = {
   taxableAmount: { currencyId: 'EUR', value: 100 },
 };
 
-describe('peppolTaxSubtotalSchema', () => {
-  const testSchema = new TestSchema.Asserts(peppolTaxSubtotalSchema);
+describe('PeppolTaxSubtotal', () => {
+  const testSchema = new TestSchema.Asserts(PeppolTaxSubtotal);
   const decode = testSchema.decoding();
 
   it('should parse a tax subtotal', async () => {

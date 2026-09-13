@@ -2,10 +2,10 @@
 import { TestSchema } from 'effect/testing';
 import { describe, it } from 'vitest';
 
-import { peppolTaxCategorySchema } from './peppol-tax-category-schema';
+import { PeppolTaxCategory } from './peppol-tax-category-schema';
 
-describe('peppolTaxCategorySchema', () => {
-  const testSchema = new TestSchema.Asserts(peppolTaxCategorySchema);
+describe('PeppolTaxCategory', () => {
+  const testSchema = new TestSchema.Asserts(PeppolTaxCategory);
   const decode = testSchema.decoding();
 
   it('should parse a tax category', async () => {

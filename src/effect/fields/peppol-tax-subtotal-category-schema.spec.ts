@@ -2,10 +2,10 @@
 import { TestSchema } from 'effect/testing';
 import { describe, it } from 'vitest';
 
-import { peppolTaxSubtotalCategorySchema } from './peppol-tax-subtotal-category-schema';
+import { PeppolTaxSubtotalCategory } from './peppol-tax-subtotal-category-schema';
 
-describe('peppolTaxSubtotalCategorySchema', () => {
-  const testSchema = new TestSchema.Asserts(peppolTaxSubtotalCategorySchema);
+describe('PeppolTaxSubtotalCategory', () => {
+  const testSchema = new TestSchema.Asserts(PeppolTaxSubtotalCategory);
   const decode = testSchema.decoding();
 
   it('should parse with a tax exemption reason', async () => {
