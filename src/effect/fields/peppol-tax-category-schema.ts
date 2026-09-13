@@ -1,7 +1,7 @@
 import { Effect, Schema } from 'effect';
 
 import { opaque } from '#/effect/utils/opaque';
-import { dutyTaxFeeCategorySchema } from '#/effect/values/duty-tax-fee-category-schema';
+import { peppolDutyTaxFeeCategorySchema } from '#/effect/values/duty-tax-fee-category-schema';
 
 class PeppolTaxSchemeId extends opaque<PeppolTaxSchemeId>()(
   Schema.Struct({
@@ -28,7 +28,7 @@ export class PeppolTaxCategory extends opaque<PeppolTaxCategory>()(
      *
      * @name `cbc:ID`
      */
-    id: dutyTaxFeeCategorySchema,
+    id: peppolDutyTaxFeeCategorySchema,
     /**
      * @description The VAT rate, represented as percentage that applies to the invoiced item.
      *

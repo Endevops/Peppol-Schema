@@ -5,7 +5,7 @@ import { PeppolTaxCategory } from '#/effect/fields/peppol-tax-category-schema';
 import { opaque } from '#/effect/utils/opaque';
 import { allowanceChargeReasonCodeSchema } from '#/effect/values/allowance-charge-reason-code-schema';
 import { chargeReasonCodeSchema } from '#/effect/values/charge-reason-code-schema';
-import { dutyTaxFeeCategorySchema } from '#/effect/values/duty-tax-fee-category-schema';
+import { peppolDutyTaxFeeCategorySchema } from '#/effect/values/duty-tax-fee-category-schema';
 
 class PeppolTaxCategoryTaxSchemeId extends opaque<PeppolTaxCategoryTaxSchemeId>()(
   Schema.Struct({
@@ -36,7 +36,7 @@ class BaseAllowanceCharge extends opaque<BaseAllowanceCharge>()(
              *
              * @name `cbc:ID`
              */
-            id: dutyTaxFeeCategorySchema,
+            id: peppolDutyTaxFeeCategorySchema,
             /**
              * @description The VAT rate, represented as percentage that applies to the document level allowance or charge.
              *

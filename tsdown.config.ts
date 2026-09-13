@@ -25,6 +25,7 @@ export default defineConfig([
     entry: {
       effect: './src/effect/index.ts',
       index: './src/index.ts',
+      constants: './src/constants/index.ts',
       schematron: './src/schematron/index.ts',
       validations: './src/peppol-validations/index.ts',
       values: './src/values.ts',

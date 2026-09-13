@@ -7,8 +7,8 @@ import { dutyTaxFeeCategoriesKeys } from '#/values/duty-tax-fee-categories.gener
  *
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/UNCL5305/
  */
-export type PeppolDutyTaxFeeCategoryCode = typeof dutyTaxFeeCategorySchema.Type;
-export type PeppolDutyTaxFeeCategoryCodeEncoded = typeof dutyTaxFeeCategorySchema.Encoded;
+export type PeppolDutyTaxFeeCategoryCode = typeof peppolDutyTaxFeeCategorySchema.Type;
+export type PeppolDutyTaxFeeCategoryCodeEncoded = typeof peppolDutyTaxFeeCategorySchema.Encoded;
 
 /**
  * @description Validates a duty, tax or fee category code against the PEPPOL subset of UNCL 5305 (VAT category code).
@@ -22,4 +22,4 @@ export type PeppolDutyTaxFeeCategoryCodeEncoded = typeof dutyTaxFeeCategorySchem
  *
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/UNCL5305/
  */
-export const dutyTaxFeeCategorySchema = Schema.Literals(dutyTaxFeeCategoriesKeys).pipe(Schema.brand('PeppolDutyTaxFeeCategoryCode'));
+export const peppolDutyTaxFeeCategorySchema = Schema.Literals(dutyTaxFeeCategoriesKeys).pipe(Schema.brand('PeppolDutyTaxFeeCategoryCode'));

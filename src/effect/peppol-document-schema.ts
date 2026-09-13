@@ -52,7 +52,7 @@ const toInvalidValue = (error: { readonly message: string }, input: unknown, opt
 /**
  * @description XML string -> loose document object. Dispatches on the root element; `ApplicationResponse` is further split by its `cbc:ProfileID`.
  */
-const decodeDocumentXml = Effect.fn(function* (value: string) {
+const decodeDocumentXml = Effect.fn('decode-peppol-document-xml')(function* (value: string) {
   const parsed = parseXml(value);
 
   if (Predicate.isNotNullish(parsed.Invoice)) {
@@ -78,7 +78,7 @@ const decodeDocumentXml = Effect.fn(function* (value: string) {
 /**
  * @description Loose document object -> XML string. Mirrors {@link decodeDocumentXml} by dispatching on the decoded discriminant.
  */
-const encodeDocumentXml = Effect.fn(function* (document: PeppolDocumentObject) {
+const encodeDocumentXml = Effect.fn('encode-peppol-document-xml')(function* (document: PeppolDocumentObject) {
   let content: unknown;
 
   if (Predicate.hasProperty(document, 'invoiceLines')) {
