@@ -18,4 +18,5 @@ export const peppolAmountSchema = Schema.Struct({
   value: Schema.Finite,
 });
 
-export type PeppolAmount = typeof peppolAmountSchema.Type;
+export interface PeppolAmount extends Schema.Schema.Type<typeof peppolAmountSchema> {}
+export interface PeppolAmountEncoded extends Schema.Codec.Encoded<typeof peppolAmountSchema> {}

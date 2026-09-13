@@ -111,4 +111,4 @@ export const peppolAdditionalDocumentReferenceSchema = peppolIdentifierSchema.pi
   })
 );
 
-export type PeppolAdditionalDocumentReference = typeof peppolAdditionalDocumentReferenceSchema.Type;
+export interface PeppolAdditionalDocumentReference extends Schema.Schema.Type<typeof peppolAdditionalDocumentReferenceSchema> {}

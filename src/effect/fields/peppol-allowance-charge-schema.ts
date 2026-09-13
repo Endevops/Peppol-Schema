@@ -91,4 +91,5 @@ export const peppolAllowanceChargeSchema = Schema.Union([
   ),
 ]).annotate({ message: 'unable to decode allowance charge' });
 
-export type PeppolAllowanceCharge = typeof peppolAllowanceChargeSchema.Type;
+export type PeppolAllowanceCharge = Schema.Schema.Type<typeof peppolAllowanceChargeSchema>;
+export type PeppolAllowanceChargeEncoded = Schema.Codec.Encoded<typeof peppolAllowanceChargeSchema>;

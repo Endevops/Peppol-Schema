@@ -59,5 +59,6 @@ export const peppolLineAllowanceChargeSchema = Schema.Union([
 ]).annotate({ message: 'unable to decode line allowance charge' });
 
 export type PeppolLineAllowanceCharge = typeof peppolLineAllowanceChargeSchema.Type;
+export type PeppolLineAllowanceChargeEncoded = typeof peppolLineAllowanceChargeSchema.Encoded;
 
 export { baseLineAllowanceChargeSchema };

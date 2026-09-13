@@ -127,7 +127,7 @@ export const peppolDocumentSchema = peppolDocumentObjectSchema.pipe(
   })
 );
 
-export type PeppolDocumentEncoded = string;
+export type PeppolDocumentEncoded = Schema.Codec.Encoded<typeof peppolDocumentSchema>;
 export interface PeppolDocumentDecoded extends AllUnionFields<Schema.Schema.Type<typeof peppolDocumentSchema>> {}
 
 /**

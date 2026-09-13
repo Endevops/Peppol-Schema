@@ -39,3 +39,4 @@ export const peppolCreditNoteLineSchema = peppolBaseLineSchema.pipe(
 );
 
 export interface PeppolCreditNoteLine extends Schema.Schema.Type<typeof peppolCreditNoteLineSchema> {}
+export interface PeppolCreditNoteLineEncoded extends Schema.Codec.Encoded<typeof peppolCreditNoteLineSchema> {}

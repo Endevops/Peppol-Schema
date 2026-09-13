@@ -43,3 +43,4 @@ export const peppolInvoiceLineSchema = peppolBaseLineSchema.pipe(
 );
 
 export interface PeppolInvoiceLine extends Schema.Schema.Type<typeof peppolInvoiceLineSchema> {}
+export interface PeppolInvoiceLineEncoded extends Schema.Codec.Encoded<typeof peppolInvoiceLineSchema> {}

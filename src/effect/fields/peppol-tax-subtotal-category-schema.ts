@@ -26,4 +26,5 @@ export const peppolTaxSubtotalCategorySchema = peppolTaxCategorySchema.pipe(
   })
 );
 
-export type PeppolTaxSubTotalCategory = typeof peppolTaxSubtotalCategorySchema.Type;
+export interface PeppolTaxSubTotalCategory extends Schema.Schema.Type<typeof peppolTaxSubtotalCategorySchema> {}
+export interface PeppolTaxSubTotalCategoryEncoded extends Schema.Codec.Encoded<typeof peppolTaxSubtotalCategorySchema> {}
