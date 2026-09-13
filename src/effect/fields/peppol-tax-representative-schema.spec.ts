@@ -1,6 +1,7 @@
 // oxlint-disable vitest/expect-expect
-import { TestSchema } from 'effect/testing';
 import { describe, it } from 'vitest';
+
+import { decoding } from '#/test/schema-asserts';
 
 import { PeppolTaxRepresentative } from './peppol-tax-representative-schema';
 
@@ -11,8 +12,7 @@ const validTaxRepresentative = {
 };
 
 describe('PeppolTaxRepresentative', () => {
-  const testSchema = new TestSchema.Asserts(PeppolTaxRepresentative);
-  const decode = testSchema.decoding();
+  const decode = decoding(PeppolTaxRepresentative);
 
   it('should parse a tax representative', async () => {
     await decode.succeed(validTaxRepresentative);

@@ -1,12 +1,12 @@
 // oxlint-disable vitest/expect-expect
-import { TestSchema } from 'effect/testing';
 import { describe, it } from 'vitest';
+
+import { decoding } from '#/test/schema-asserts';
 
 import { PeppolTaxSubtotalCategory } from './peppol-tax-subtotal-category-schema';
 
 describe('PeppolTaxSubtotalCategory', () => {
-  const testSchema = new TestSchema.Asserts(PeppolTaxSubtotalCategory);
-  const decode = testSchema.decoding();
+  const decode = decoding(PeppolTaxSubtotalCategory);
 
   it('should parse with a tax exemption reason', async () => {
     await decode.succeed({ id: 'E', taxSchemeId: { id: 'VAT' }, taxExemptionReason: 'Exempt', taxExemptionReasonCode: 'VATEX-EU-132' });

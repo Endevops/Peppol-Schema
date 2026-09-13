@@ -1,7 +1,8 @@
 // oxlint-disable vitest/expect-expect
 import { DateTime } from 'effect';
-import { TestSchema } from 'effect/testing';
 import { describe, it } from 'vitest';
+
+import { decoding } from '#/test/schema-asserts';
 
 import { PeppolBaseLine } from './peppol-base-line-schema';
 
@@ -13,8 +14,7 @@ const validBaseLine = {
 } as const;
 
 describe('PeppolBaseLine', () => {
-  const testSchema = new TestSchema.Asserts(PeppolBaseLine);
-  const decode = testSchema.decoding();
+  const decode = decoding(PeppolBaseLine);
 
   it('should parse a minimal base line', async () => {
     await decode.succeed(validBaseLine);

@@ -1,7 +1,8 @@
 import { DateTime } from 'effect';
 // oxlint-disable vitest/expect-expect
-import { TestSchema } from 'effect/testing';
 import { describe, it } from 'vitest';
+
+import { decoding } from '#/test/schema-asserts';
 
 import { PeppolMessageLevelResponse } from './peppol-message-level-response-schema';
 
@@ -26,8 +27,7 @@ const validMessageLevelResponse = {
 } as const;
 
 describe('PeppolMessageLevelResponse', () => {
-  const testSchema = new TestSchema.Asserts(PeppolMessageLevelResponse);
-  const decode = testSchema.decoding();
+  const decode = decoding(PeppolMessageLevelResponse);
 
   it('should decode a valid message level response', async () => {
     await decode.succeed(validMessageLevelResponse, {

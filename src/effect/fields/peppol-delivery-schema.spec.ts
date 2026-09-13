@@ -1,13 +1,13 @@
 import { DateTime } from 'effect';
 // oxlint-disable vitest/expect-expect
-import { TestSchema } from 'effect/testing';
 import { describe, it } from 'vitest';
+
+import { decoding } from '#/test/schema-asserts';
 
 import { PeppolDelivery } from './peppol-delivery-schema';
 
 describe('PeppolDelivery', () => {
-  const testSchema = new TestSchema.Asserts(PeppolDelivery);
-  const decode = testSchema.decoding();
+  const decode = decoding(PeppolDelivery);
 
   it('should parse an empty delivery', async () => {
     await decode.succeed({});

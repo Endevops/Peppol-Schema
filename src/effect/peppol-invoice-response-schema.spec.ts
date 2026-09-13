@@ -1,7 +1,8 @@
 import { DateTime } from 'effect';
 // oxlint-disable vitest/expect-expect
-import { TestSchema } from 'effect/testing';
 import { describe, it } from 'vitest';
+
+import { decoding } from '#/test/schema-asserts';
 
 import { PeppolInvoiceResponse } from './peppol-invoice-response-schema';
 
@@ -41,8 +42,7 @@ const validInvoiceResponse = {
 } as const;
 
 describe('PeppolInvoiceResponse', () => {
-  const testSchema = new TestSchema.Asserts(PeppolInvoiceResponse);
-  const decode = testSchema.decoding();
+  const decode = decoding(PeppolInvoiceResponse);
 
   it('should decode a valid invoice response', async () => {
     await decode.succeed(validInvoiceResponse, {

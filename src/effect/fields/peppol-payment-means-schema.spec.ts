@@ -1,13 +1,13 @@
 // oxlint-disable vitest/expect-expect
 import { DateTime } from 'effect';
-import { TestSchema } from 'effect/testing';
 import { describe, it } from 'vitest';
+
+import { decoding } from '#/test/schema-asserts';
 
 import { PeppolPaymentMeans } from './peppol-payment-means-schema';
 
 describe('PeppolPaymentMeans', () => {
-  const testSchema = new TestSchema.Asserts(PeppolPaymentMeans);
-  const decode = testSchema.decoding();
+  const decode = decoding(PeppolPaymentMeans);
 
   it('should parse a payment means code', async () => {
     await decode.succeed({ paymentMeansCode: { code: '30' } });

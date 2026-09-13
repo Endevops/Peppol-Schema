@@ -1,7 +1,8 @@
 import { DateTime } from 'effect';
 // oxlint-disable vitest/expect-expect
-import { TestSchema } from 'effect/testing';
 import { describe, it } from 'vitest';
+
+import { decoding } from '#/test/schema-asserts';
 
 import { PeppolBillingBase } from './peppol-billing-base-schema';
 
@@ -42,8 +43,7 @@ const validBillingBase = {
 } as const;
 
 describe('PeppolBillingBase', () => {
-  const testSchema = new TestSchema.Asserts(PeppolBillingBase);
-  const decode = testSchema.decoding({ parseOptions: { errors: 'all' } });
+  const decode = decoding(PeppolBillingBase, { parseOptions: { errors: 'all' } });
 
   it('should decode a valid billing base', async () => {
     await decode.succeed(validBillingBase, {
