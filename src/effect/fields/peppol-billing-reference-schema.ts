@@ -1,6 +1,6 @@
 import { Schema } from 'effect';
 
-import { peppolIsoDateStringSchema } from '#/effect/peppol-iso-date-string-schema';
+import { PeppolIsoDateString } from '#/effect/peppol-iso-date-string';
 import { opaque } from '#/effect/utils/opaque';
 
 class PeppolInvoiceDocumentReference extends opaque<PeppolInvoiceDocumentReference>()(
@@ -28,7 +28,7 @@ class PeppolInvoiceDocumentReference extends opaque<PeppolInvoiceDocumentReferen
      *
      * @name `cbc:IssueDate`
      */
-    issueDate: Schema.optional(peppolIsoDateStringSchema),
+    issueDate: Schema.optional(PeppolIsoDateString),
   })
 ) {}
 

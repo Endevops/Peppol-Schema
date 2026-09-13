@@ -41,6 +41,10 @@
       "development": "./scripts/generate-translations.ts",
       "default": "./dist/bin/generate-translations.mjs"
     },
+    "./invoice-response-codes": {
+      "development": "./src/invoice-response-codes/index.ts",
+      "default": "./dist/invoice-response-codes.js"
+    },
     "./schematron": {
       "development": "./src/schematron/index.ts",
       "default": "./dist/schematron.js"
@@ -68,6 +72,7 @@
       "./constants": "./dist/constants.js",
       "./effect": "./dist/effect.js",
       "./generate-translations": "./dist/bin/generate-translations.mjs",
+      "./invoice-response-codes": "./dist/invoice-response-codes.js",
       "./schematron": "./dist/schematron.js",
       "./validations": "./dist/validations.js",
       "./values": "./dist/values.js",

@@ -2,7 +2,7 @@ import { Schema } from 'effect';
 
 import { PeppolInvoiceLine } from '#/effect/fields/peppol-invoice-line-schema';
 import { PeppolBillingBase } from '#/effect/peppol-billing-base-schema';
-import { peppolIsoDateStringSchema } from '#/effect/peppol-iso-date-string-schema';
+import { PeppolIsoDateString } from '#/effect/peppol-iso-date-string';
 import { opaque } from '#/effect/utils/opaque';
 import { invoiceTypeCodeSchema } from '#/effect/values/invoice-type-code-schema';
 
@@ -19,7 +19,7 @@ export class PeppolInvoice extends opaque<PeppolInvoice>()(
      *
      * @name cbc:DueDate
      */
-    dueDate: Schema.optional(peppolIsoDateStringSchema),
+    dueDate: Schema.optional(PeppolIsoDateString),
     /**
      * @summary INVOICE LINE
      *

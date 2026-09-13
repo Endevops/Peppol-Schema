@@ -1,15 +1,15 @@
 import { Schema } from 'effect';
 
 import { PeppolInvoiceResponseDocumentActualResponseStatus } from '#/effect/peppol-invoice-response-document-actual-response-status-schema';
-import { peppolIsoDateStringSchema } from '#/effect/peppol-iso-date-string-schema';
+import { PeppolIsoDateString } from '#/effect/peppol-iso-date-string';
 import { opaque } from '#/effect/utils/opaque';
 import { invoiceResponseCodeNeedsSchema } from '#/invoice-response-codes/invoice-response-code-needs-schema';
 import { invoiceResponseCodeNotNeedsSchema } from '#/invoice-response-codes/invoice-response-code-not-needs-schema';
 
-const withStatusCodes = Schema.Literals(invoiceResponseCodeNeedsSchema);
-const withoutStatusCodes = Schema.Literals(invoiceResponseCodeNotNeedsSchema);
+export const withStatusCodes = Schema.Literals(invoiceResponseCodeNeedsSchema);
+export const withoutStatusCodes = Schema.Literals(invoiceResponseCodeNotNeedsSchema);
 
-class PeppolInvoiceResponseDocumentActualResponseWithoutStatus extends opaque<PeppolInvoiceResponseDocumentActualResponseWithoutStatus>()(
+export class PeppolInvoiceResponseDocumentActualResponseWithoutStatus extends opaque<PeppolInvoiceResponseDocumentActualResponseWithoutStatus>()(
   Schema.Struct({
     /**
      * @summary A code stating the status of the invoice in the process.
@@ -27,7 +27,7 @@ class PeppolInvoiceResponseDocumentActualResponseWithoutStatus extends opaque<Pe
      *
      * @name `cbc:EffectiveDate`
      */
-    effectiveDate: Schema.optional(peppolIsoDateStringSchema),
+    effectiveDate: Schema.optional(PeppolIsoDateString),
     /**
      * @description Clarification is mendatory when the status is UQ-`under query`,RE-`rejected` and `CA`-Conditionally accepted. Clarification may be given as a
      * code, a description or both. If both are used, they must indicate the same clarification.
@@ -40,7 +40,7 @@ class PeppolInvoiceResponseDocumentActualResponseWithoutStatus extends opaque<Pe
   })
 ) {}
 
-class PeppolInvoiceResponseDocumentActualResponseWithStatus extends opaque<PeppolInvoiceResponseDocumentActualResponseWithStatus>()(
+export class PeppolInvoiceResponseDocumentActualResponseWithStatus extends opaque<PeppolInvoiceResponseDocumentActualResponseWithStatus>()(
   Schema.Struct({
     /**
      * @remarks
@@ -61,7 +61,7 @@ class PeppolInvoiceResponseDocumentActualResponseWithStatus extends opaque<Peppo
      *
      * @name `cbc:EffectiveDate`
      */
-    effectiveDate: Schema.optional(peppolIsoDateStringSchema),
+    effectiveDate: Schema.optional(PeppolIsoDateString),
     /**
      * @description Clarification is mendatory when the status is UQ-`under query`,RE-`rejected` and `CA`-Conditionally accepted. Clarification may be given as a
      * code, a description or both. If both are used, they must indicate the same clarification.

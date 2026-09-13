@@ -1,7 +1,7 @@
 import { Schema } from 'effect';
 
 import { MESSAGE_LEVEL_RESPONSE_PROFILE_ID } from '#/constants/message-level-response-profile-id';
-import { peppolIsoDateStringSchema } from '#/effect/peppol-iso-date-string-schema';
+import { PeppolIsoDateString } from '#/effect/peppol-iso-date-string';
 import { PeppolMessageLevelResponseDocumentResponse } from '#/effect/peppol-message-level-response-document-response-schema';
 import { PeppolMessageLevelResponseParty } from '#/effect/peppol-message-level-response-party-schema';
 import { opaque } from '#/effect/utils/opaque';
@@ -58,7 +58,7 @@ export class PeppolMessageLevelResponse extends opaque<PeppolMessageLevelRespons
      *
      * @name cbc:IssueDate
      */
-    issueDate: peppolIsoDateStringSchema,
+    issueDate: PeppolIsoDateString,
     /**
      * @description The time at which the transaction instance was issued.
      *

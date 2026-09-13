@@ -1,7 +1,7 @@
 import { Schema } from 'effect';
 
 import { PeppolAmount } from '#/effect/fields/peppol-amount-schema';
-import { PeppolTaxSubtotalCategory } from '#/effect/fields/peppol-tax-subtotal-category-schema';
+import { PeppolTaxSubTotalCategory } from '#/effect/fields/peppol-tax-subtotal-category-schema';
 import { opaque } from '#/effect/utils/opaque';
 
 /**
@@ -9,7 +9,7 @@ import { opaque } from '#/effect/utils/opaque';
  *
  * @name cac:TaxSubtotal
  */
-export class PeppolTaxSubtotal extends opaque<PeppolTaxSubtotal>()(
+export class PeppolTaxSubTotal extends opaque<PeppolTaxSubTotal>()(
   Schema.Struct({
     /**
      * @description The amount of tax for the tax subtotal.
@@ -22,7 +22,7 @@ export class PeppolTaxSubtotal extends opaque<PeppolTaxSubtotal>()(
      *
      * @name cac:TaxCategory
      */
-    taxCategory: PeppolTaxSubtotalCategory,
+    taxCategory: PeppolTaxSubTotalCategory,
     /**
      * @description The taxable amount for the tax subtotal.
      *
@@ -31,5 +31,3 @@ export class PeppolTaxSubtotal extends opaque<PeppolTaxSubtotal>()(
     taxableAmount: PeppolAmount,
   })
 ) {}
-
-export type PeppolTaxSubTotal = PeppolTaxSubtotal;

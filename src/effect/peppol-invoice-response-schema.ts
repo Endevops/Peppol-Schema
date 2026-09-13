@@ -5,13 +5,13 @@ import { PeppolContact } from '#/effect/fields/peppol-contact-schema';
 import { PeppolIdentifier } from '#/effect/fields/peppol-identifier-schema';
 import { PeppolPartyLegalEntity } from '#/effect/fields/peppol-party-legal-entity-schema';
 import { peppolInvoiceResponseDocumentActualResponseSchema } from '#/effect/peppol-invoice-response-document-actual-response-schema';
-import { peppolIsoDateStringSchema } from '#/effect/peppol-iso-date-string-schema';
+import { PeppolIsoDateString } from '#/effect/peppol-iso-date-string';
 import { PeppolMessageLevelResponseParty } from '#/effect/peppol-message-level-response-party-schema';
 import { PeppolMessageLevelResponse } from '#/effect/peppol-message-level-response-schema';
 import { opaque } from '#/effect/utils/opaque';
 import { peppolDocumentTypeCodeSchema } from '#/effect/values/peppol-document-type-code-schema';
 
-class PeppolPartyName extends opaque<PeppolPartyName>()(
+export class PeppolPartyName extends opaque<PeppolPartyName>()(
   Schema.Struct({
     /**
      * @description - The party that issued the reference invoice
@@ -95,7 +95,7 @@ export class PeppolInvoiceResponseDocumentReference extends opaque<PeppolInvoice
      *
      * @name `cbc:IssueDate`
      */
-    issueDate: Schema.optional(peppolIsoDateStringSchema),
+    issueDate: Schema.optional(PeppolIsoDateString),
     /**
      * @example
      *   `380`;
@@ -143,35 +143,34 @@ export class PeppolInvoiceResponseDocumentResponse extends opaque<PeppolInvoiceR
  * `Schema.Literal(INVOICE_RESPONSE_PROFILE_ID)` plus sender/receiver/documentResponse.
  */
 export class PeppolInvoiceResponse extends opaque<PeppolInvoiceResponse>()(
-  PeppolMessageLevelResponse.pipe(
-    Schema.fieldsAssign({
-      profileId: Schema.Literal(INVOICE_RESPONSE_PROFILE_ID),
-      /**
-       * @description The party sending an electronic message level response message back to the sending party of the business document.
-       *
-       * @summary Sender information
-       */
-      senderParty: PeppolInvoiceResponseSenderParty,
-      /**
-       * @description The party, an electronic message level response was addressed to, and who is supposed to process the message level response. This is the same
-       * party as the sender of the business document.
-       *
-       * @summary Receiver information
-       */
-      receiverParty: PeppolInvoiceResponseParty,
-      /**
-       * @description General comments or instructions that are revelant to the response as a whole.
-       *
-       * @example
-       *   `Please refere to previous email exchange regarding this invoice.`;
-       *
-       * @summary Invoice response note
-       */
-      note: Schema.optional(Schema.String),
-      /**
-       * @summary Document response
-       */
-      documentResponse: PeppolInvoiceResponseDocumentResponse,
-    })
-  )
+  Schema.Struct({
+    ...PeppolMessageLevelResponse.fields,
+    profileId: Schema.Literal(INVOICE_RESPONSE_PROFILE_ID),
+    /**
+     * @description The party sending an electronic message level response message back to the sending party of the business document.
+     *
+     * @summary Sender information
+     */
+    senderParty: PeppolInvoiceResponseSenderParty,
+    /**
+     * @description The party, an electronic message level response was addressed to, and who is supposed to process the message level response. This is the same
+     * party as the sender of the business document.
+     *
+     * @summary Receiver information
+     */
+    receiverParty: PeppolInvoiceResponseParty,
+    /**
+     * @description General comments or instructions that are revelant to the response as a whole.
+     *
+     * @example
+     *   `Please refere to previous email exchange regarding this invoice.`;
+     *
+     * @summary Invoice response note
+     */
+    note: Schema.optional(Schema.String),
+    /**
+     * @summary Document response
+     */
+    documentResponse: PeppolInvoiceResponseDocumentResponse,
+  })
 ) {}

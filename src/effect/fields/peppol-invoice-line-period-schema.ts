@@ -1,6 +1,6 @@
 import { Schema } from 'effect';
 
-import { peppolIsoDateStringSchema } from '#/effect/peppol-iso-date-string-schema';
+import { PeppolIsoDateString } from '#/effect/peppol-iso-date-string';
 import { opaque } from '#/effect/utils/opaque';
 
 export class PeppolInvoiceLinePeriod extends opaque<PeppolInvoiceLinePeriod>()(
@@ -17,7 +17,7 @@ export class PeppolInvoiceLinePeriod extends opaque<PeppolInvoiceLinePeriod>()(
      *
      * @name `cbc:EndDate`
      */
-    endDate: Schema.optional(peppolIsoDateStringSchema),
+    endDate: Schema.optional(PeppolIsoDateString),
     /**
      * @description The date when the Invoice period for this Invoice line starts.
      *
@@ -30,6 +30,6 @@ export class PeppolInvoiceLinePeriod extends opaque<PeppolInvoiceLinePeriod>()(
      *
      * @name `cbc:StartDate`
      */
-    startDate: Schema.optional(peppolIsoDateStringSchema),
+    startDate: Schema.optional(PeppolIsoDateString),
   })
 ) {}

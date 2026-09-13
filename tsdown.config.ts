@@ -20,6 +20,7 @@ export default defineConfig([
   {
     attw,
     define,
+    clean: false,
     deps: { onlyBundle: false },
     dts: { sourcemap: true },
     entry: {
@@ -27,6 +28,7 @@ export default defineConfig([
       index: './src/index.ts',
       constants: './src/constants/index.ts',
       schematron: './src/schematron/index.ts',
+      'invoice-response-codes': './src/invoice-response-codes/index.ts',
       validations: './src/peppol-validations/index.ts',
       values: './src/values.ts',
       xml: './src/xml.ts',

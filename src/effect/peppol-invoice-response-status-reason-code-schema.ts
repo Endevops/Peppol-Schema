@@ -4,7 +4,7 @@ import { opaque } from '#/effect/utils/opaque';
 import { opStatusActionSchema } from '#/effect/values/op-status-action-schema';
 import { opStatusReasonSchema } from '#/effect/values/op-status-reason-schema';
 
-class PeppolInvoiceResponseStatusReasonCodeReason extends opaque<PeppolInvoiceResponseStatusReasonCodeReason>()(
+export class PeppolInvoiceResponseStatusReasonCodeReason extends opaque<PeppolInvoiceResponseStatusReasonCodeReason>()(
   Schema.Struct({
     value: opStatusReasonSchema,
     /**
@@ -18,7 +18,7 @@ class PeppolInvoiceResponseStatusReasonCodeReason extends opaque<PeppolInvoiceRe
   })
 ) {}
 
-class PeppolInvoiceResponseStatusReasonCodeAction extends opaque<PeppolInvoiceResponseStatusReasonCodeAction>()(
+export class PeppolInvoiceResponseStatusReasonCodeAction extends opaque<PeppolInvoiceResponseStatusReasonCodeAction>()(
   Schema.Struct({
     value: opStatusActionSchema,
     /**
@@ -37,4 +37,4 @@ export const peppolInvoiceResponseStatusReasonCodeSchema = Schema.Union([
   PeppolInvoiceResponseStatusReasonCodeReason,
 ]);
 
-export type InvoiceResponseStatusReasonCode = typeof peppolInvoiceResponseStatusReasonCodeSchema.Type;
+export type PeppolInvoiceResponseStatusReasonCode = typeof peppolInvoiceResponseStatusReasonCodeSchema.Type;

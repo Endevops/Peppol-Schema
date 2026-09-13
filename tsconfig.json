@@ -37,4 +37,5 @@
     "paths": { "#/*": ["./src/*"], "#/test/*": ["./test/*"], "#/assets/*": ["./assets/*"] }
   },
   "include": ["src/**/*.ts", "scripts/**/*.ts", "test/**/*.ts"]
+  // "exclude": ["scripts/**/*.ts", "test/**/*.ts", "src/**/*.spec.ts"]
 }

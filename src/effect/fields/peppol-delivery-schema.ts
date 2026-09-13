@@ -1,6 +1,6 @@
 import { Schema } from 'effect';
 
-import { peppolIsoDateStringSchema } from '#/effect/peppol-iso-date-string-schema';
+import { PeppolIsoDateString } from '#/effect/peppol-iso-date-string';
 import { opaque } from '#/effect/utils/opaque';
 import { icdCodesSchema } from '#/effect/values/icd-codes-schema';
 
@@ -93,7 +93,7 @@ export class PeppolDelivery extends opaque<PeppolDelivery>()(
      *
      * @name cbc:ActualDeliveryDate
      */
-    actualDeliveryDate: Schema.optional(peppolIsoDateStringSchema),
+    actualDeliveryDate: Schema.optional(PeppolIsoDateString),
     /**
      * @name `cac:DeliveryLocation`
      */

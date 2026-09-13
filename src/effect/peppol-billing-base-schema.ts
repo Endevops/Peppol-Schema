@@ -15,11 +15,11 @@ import { PeppolPaymentMeans } from '#/effect/fields/peppol-payment-means-schema'
 import { PeppolPaymentTerms } from '#/effect/fields/peppol-payment-terms-schema';
 import { PeppolTaxRepresentative } from '#/effect/fields/peppol-tax-representative-schema';
 import { PeppolTaxTotalsBase } from '#/effect/fields/peppol-tax-totals-base-schema';
-import { peppolIsoDateStringSchema } from '#/effect/peppol-iso-date-string-schema';
+import { PeppolIsoDateString } from '#/effect/peppol-iso-date-string';
 import { opaque } from '#/effect/utils/opaque';
 import { currencyCodeSchema } from '#/effect/values/currency-code-schema';
 
-class PeppolContractDocumentReference extends opaque<PeppolContractDocumentReference>()(
+export class PeppolContractDocumentReference extends opaque<PeppolContractDocumentReference>()(
   Schema.Struct({
     /**
      * @description An identifier of a referenced contract.
@@ -35,7 +35,7 @@ class PeppolContractDocumentReference extends opaque<PeppolContractDocumentRefer
   })
 ) {}
 
-class PeppolOriginatorDocumentReference extends opaque<PeppolOriginatorDocumentReference>()(
+export class PeppolOriginatorDocumentReference extends opaque<PeppolOriginatorDocumentReference>()(
   Schema.Struct({
     /**
      * @description The identification of the call for tender or lot the invoice relates to.
@@ -51,7 +51,7 @@ class PeppolOriginatorDocumentReference extends opaque<PeppolOriginatorDocumentR
   })
 ) {}
 
-class PeppolReceiptDocumentReference extends opaque<PeppolReceiptDocumentReference>()(
+export class PeppolReceiptDocumentReference extends opaque<PeppolReceiptDocumentReference>()(
   Schema.Struct({
     /**
      * @description An identifier of a referenced receiving advice.
@@ -67,7 +67,7 @@ class PeppolReceiptDocumentReference extends opaque<PeppolReceiptDocumentReferen
   })
 ) {}
 
-class PeppolDespatchDocumentReference extends opaque<PeppolDespatchDocumentReference>()(
+export class PeppolDespatchDocumentReference extends opaque<PeppolDespatchDocumentReference>()(
   Schema.Struct({
     /**
      * @description An identifier of a referenced despatch advice.
@@ -148,7 +148,7 @@ export class PeppolBillingBase extends opaque<PeppolBillingBase>()(
      *
      * @name `cbc:IssueDate`
      */
-    issueDate: peppolIsoDateStringSchema,
+    issueDate: PeppolIsoDateString,
     /**
      * @description Invoice note A textual note that gives unstructured information that is relevant to the Credit Note as a whole.
      *
@@ -170,7 +170,7 @@ export class PeppolBillingBase extends opaque<PeppolBillingBase>()(
      *
      * @name `cbc:TaxPointDate`
      */
-    taxPointDate: Schema.optional(peppolIsoDateStringSchema),
+    taxPointDate: Schema.optional(PeppolIsoDateString),
     /**
      * @description The currency in which all Invoice amounts are given, except for the Total VAT amount in accounting currency. Only one currency shall be used in
      * the Invoice, except for the VAT accounting currency code (BT-6) and the invoice total VAT amount in accounting currency (BT-111).

@@ -3,7 +3,7 @@ import { Schema } from 'effect';
 import { peppolInvoiceResponseStatusReasonCodeSchema } from '#/effect/peppol-invoice-response-status-reason-code-schema';
 import { opaque } from '#/effect/utils/opaque';
 
-class InvoiceResponseCondition extends opaque<InvoiceResponseCondition>()(
+export class PeppolInvoiceResponseCondition extends opaque<PeppolInvoiceResponseCondition>()(
   Schema.Struct({
     /**
      * @description A code defining the type of the detail.
@@ -56,7 +56,7 @@ export class PeppolInvoiceResponseDocumentActualResponseStatus extends opaque<Pe
      *
      * @name `cac:Condition`
      */
-    condition: Schema.optional(Schema.Array(InvoiceResponseCondition)),
+    condition: Schema.optional(Schema.Array(PeppolInvoiceResponseCondition)),
   })
 ) {}
 

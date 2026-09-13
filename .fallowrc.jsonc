@@ -11,6 +11,7 @@
     "src/schematron/index.ts",
     "src/peppol-validations/index.ts",
     "src/values.ts",
+    "src/invoice-response-codes.ts",
     "src/xml.ts",
   ],
   "duplicates": {

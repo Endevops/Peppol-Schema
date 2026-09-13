@@ -1,4 +1,4 @@
-export * from './peppol-iso-date-string-schema';
+export * from './peppol-iso-date-string';
 export * from './peppol-billing-base-schema';
 export * from './peppol-invoice-schema';
 export * from './peppol-credit-note-schema';

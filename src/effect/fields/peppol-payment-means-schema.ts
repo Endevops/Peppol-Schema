@@ -1,6 +1,6 @@
 import { Schema } from 'effect';
 
-import { peppolIsoDateStringSchema } from '#/effect/peppol-iso-date-string-schema';
+import { PeppolIsoDateString } from '#/effect/peppol-iso-date-string';
 import { opaque } from '#/effect/utils/opaque';
 import { paymentMeansCodeSchema } from '#/effect/values/payment-means-code-schema';
 
@@ -183,7 +183,7 @@ export class PeppolPaymentMeans extends opaque<PeppolPaymentMeans>()(
      *
      * @name `cbc:PaymentDueDate`
      */
-    paymentDueDate: Schema.optional(peppolIsoDateStringSchema),
+    paymentDueDate: Schema.optional(PeppolIsoDateString),
     /**
      * @description A textual value used to establish a link between the payment and the Invoice, issued by the Seller. Used for creditor's critical reconciliation
      * information. This information element helps the Seller to assign an incoming payment to the relevant payment process.

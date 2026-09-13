@@ -3,7 +3,7 @@ import { Effect, Schema } from 'effect';
 import { opaque } from '#/effect/utils/opaque';
 import { peppolDutyTaxFeeCategorySchema } from '#/effect/values/duty-tax-fee-category-schema';
 
-class PeppolTaxSchemeId extends opaque<PeppolTaxSchemeId>()(
+export class PeppolTaxSchemeId extends opaque<PeppolTaxSchemeId>()(
   Schema.Struct({
     /**
      * @name `cbc:ID`

@@ -10,24 +10,22 @@ import { opaque } from '#/effect/utils/opaque';
  *
  * @name cac:TaxCategory
  */
-export class PeppolTaxSubtotalCategory extends opaque<PeppolTaxSubtotalCategory>()(
-  PeppolTaxCategory.pipe(
-    Schema.fieldsAssign({
-      /**
-       * @description The reason for the tax exemption.
-       *
-       * @name cbc:TaxExemptionReason
-       */
-      taxExemptionReason: Schema.optional(Schema.String),
-      /**
-       * @description The code for the reason of the tax exemption.
-       *
-       * @name cbc:TaxExemptionReasonCode
-       */
-      taxExemptionReasonCode: Schema.optional(Schema.String),
-    })
-  )
+export class PeppolTaxSubTotalCategory extends opaque<PeppolTaxSubTotalCategory>()(
+  Schema.Struct({
+    ...PeppolTaxCategory.fields,
+    /**
+     * @description The reason for the tax exemption.
+     *
+     * @name cbc:TaxExemptionReason
+     */
+    taxExemptionReason: Schema.optional(Schema.String),
+    /**
+     * @description The code for the reason of the tax exemption.
+     *
+     * @name cbc:TaxExemptionReasonCode
+     */
+    taxExemptionReasonCode: Schema.optional(Schema.String),
+  })
 ) {}
 
-export interface PeppolTaxSubTotalCategory extends Schema.Schema.Type<typeof PeppolTaxSubtotalCategory> {}
-export interface PeppolTaxSubTotalCategoryEncoded extends Schema.Codec.Encoded<typeof PeppolTaxSubtotalCategory> {}
+export interface PeppolTaxSubTotalCategoryEncoded extends Schema.Codec.Encoded<typeof PeppolTaxSubTotalCategory> {}

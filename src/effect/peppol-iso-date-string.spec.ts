@@ -3,10 +3,10 @@ import { DateTime } from 'effect';
 import { TestSchema } from 'effect/testing';
 import { describe, it } from 'vitest';
 
-import { peppolIsoDateStringSchema } from './peppol-iso-date-string-schema';
+import { PeppolIsoDateString } from './peppol-iso-date-string';
 
 describe('peppolIsoDateStringSchema', () => {
-  const testSchema = new TestSchema.Asserts(peppolIsoDateStringSchema);
+  const testSchema = new TestSchema.Asserts(PeppolIsoDateString);
   const decode = testSchema.decoding();
 
   it('should decode a valid ISO date string', async () => {

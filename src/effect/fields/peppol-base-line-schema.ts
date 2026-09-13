@@ -8,7 +8,7 @@ import { PeppolLineItem } from '#/effect/fields/peppol-line-item-schema';
 import { PeppolLinePrice } from '#/effect/fields/peppol-line-price-schema';
 import { opaque } from '#/effect/utils/opaque';
 
-class PeppolOrderLineReference extends opaque<PeppolOrderLineReference>()(Schema.Struct({ lineId: Schema.String })) {}
+export class PeppolOrderLineReference extends opaque<PeppolOrderLineReference>()(Schema.Struct({ lineId: Schema.String })) {}
 
 /**
  * @description Base of the invoice line and credit note line schemas.
