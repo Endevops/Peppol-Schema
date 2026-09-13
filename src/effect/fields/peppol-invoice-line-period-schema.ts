@@ -1,8 +1,9 @@
 import { Schema } from 'effect';
 
 import { peppolIsoDateStringSchema } from '#/effect/peppol-iso-date-string-schema';
+import { opaque } from '#/effect/utils/opaque';
 
-export class PeppolInvoiceLinePeriod extends Schema.Opaque<PeppolInvoiceLinePeriod>()(
+export class PeppolInvoiceLinePeriod extends opaque<PeppolInvoiceLinePeriod>()(
   Schema.Struct({
     /**
      * @description The date when the Invoice period for this Invoice line ends. Format ="YYYY-MM-DD"

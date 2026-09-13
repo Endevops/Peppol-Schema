@@ -1,9 +1,10 @@
 import { Schema } from 'effect';
 
 import { peppolIsoDateStringSchema } from '#/effect/peppol-iso-date-string-schema';
+import { opaque } from '#/effect/utils/opaque';
 import { paymentMeansCodeSchema } from '#/effect/values/payment-means-code-schema';
 
-class PeppolPaymentMandatePayerFinancialAccountId extends Schema.Opaque<PeppolPaymentMandatePayerFinancialAccountId>()(
+class PeppolPaymentMandatePayerFinancialAccountId extends opaque<PeppolPaymentMandatePayerFinancialAccountId>()(
   Schema.Struct({
     /**
      * @description The account to be debited by the direct debit.
@@ -19,7 +20,7 @@ class PeppolPaymentMandatePayerFinancialAccountId extends Schema.Opaque<PeppolPa
   })
 ) {}
 
-class PeppolPaymentMandate extends Schema.Opaque<PeppolPaymentMandate>()(
+class PeppolPaymentMandate extends opaque<PeppolPaymentMandate>()(
   Schema.Struct({
     /**
      * @description Unique identifier assigned by the Payee for referencing the direct debit mandate. Used in order to pre-notify the Buyer of a SEPA direct debit.
@@ -43,7 +44,7 @@ class PeppolPaymentMandate extends Schema.Opaque<PeppolPaymentMandate>()(
   })
 ) {}
 
-class PeppolPayeeFinancialAccountFinancialInstitutionBranch extends Schema.Opaque<PeppolPayeeFinancialAccountFinancialInstitutionBranch>()(
+class PeppolPayeeFinancialAccountFinancialInstitutionBranch extends opaque<PeppolPayeeFinancialAccountFinancialInstitutionBranch>()(
   Schema.Struct({
     /**
      * @description An identifier for the payment service provider where a payment account is located. Such as a BIC or a national clearing code where required. No
@@ -60,7 +61,7 @@ class PeppolPayeeFinancialAccountFinancialInstitutionBranch extends Schema.Opaqu
   })
 ) {}
 
-class PeppolPayeeFinancialAccount extends Schema.Opaque<PeppolPayeeFinancialAccount>()(
+class PeppolPayeeFinancialAccount extends opaque<PeppolPayeeFinancialAccount>()(
   Schema.Struct({
     /**
      * @description An identifier for the payment service provider where a payment account is located. Such as a BIC or a national clearing code where required. No
@@ -93,7 +94,7 @@ class PeppolPayeeFinancialAccount extends Schema.Opaque<PeppolPayeeFinancialAcco
   })
 ) {}
 
-class PeppolCardAccount extends Schema.Opaque<PeppolCardAccount>()(
+class PeppolCardAccount extends opaque<PeppolCardAccount>()(
   Schema.Struct({
     /**
      * @description The name of the payment card holder.
@@ -124,7 +125,7 @@ class PeppolCardAccount extends Schema.Opaque<PeppolCardAccount>()(
   })
 ) {}
 
-class PeppolPaymentMeansCode extends Schema.Opaque<PeppolPaymentMeansCode>()(
+class PeppolPaymentMeansCode extends opaque<PeppolPaymentMeansCode>()(
   Schema.Struct({
     /**
      * @description The means, expressed as code, for how a payment is expected to be or has been settled.
@@ -158,7 +159,7 @@ class PeppolPaymentMeansCode extends Schema.Opaque<PeppolPaymentMeansCode>()(
  *
  * @name cac:PaymentMeans
  */
-export class PeppolPaymentMeans extends Schema.Opaque<PeppolPaymentMeans>()(
+export class PeppolPaymentMeans extends opaque<PeppolPaymentMeans>()(
   Schema.Struct({
     /**
      * @description The means, expressed as code, for how a payment is expected to be or has been settled.

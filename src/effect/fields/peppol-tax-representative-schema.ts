@@ -2,13 +2,14 @@ import { Schema } from 'effect';
 
 import { PeppolAddress } from '#/effect/fields/peppol-address-schema';
 import { PeppolPartyTaxScheme } from '#/effect/fields/peppol-party-tax-scheme-schema';
+import { opaque } from '#/effect/utils/opaque';
 
 /**
  * @summary SELLER TAX REPRESENTATIVE PARTY
  *
  * @name cac:TaxRepresentativeParty
  */
-export class PeppolTaxRepresentative extends Schema.Opaque<PeppolTaxRepresentative>()(
+export class PeppolTaxRepresentative extends opaque<PeppolTaxRepresentative>()(
   Schema.Struct({
     /**
      * @name cac:PartyName/cbc:Name

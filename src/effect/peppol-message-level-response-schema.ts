@@ -4,9 +4,10 @@ import { MESSAGE_LEVEL_RESPONSE_PROFILE_ID } from '#/constants/message-level-res
 import { peppolIsoDateStringSchema } from '#/effect/peppol-iso-date-string-schema';
 import { PeppolMessageLevelResponseDocumentResponse } from '#/effect/peppol-message-level-response-document-response-schema';
 import { PeppolMessageLevelResponseParty } from '#/effect/peppol-message-level-response-party-schema';
+import { opaque } from '#/effect/utils/opaque';
 import { peppolXsdTimeSchema } from '#/effect/utils/peppol-xsd-time-schema';
 
-export class PeppolMessageLevelResponse extends Schema.Opaque<PeppolMessageLevelResponse>()(
+export class PeppolMessageLevelResponse extends opaque<PeppolMessageLevelResponse>()(
   Schema.Struct({
     /**
      * @description Identifies the specification of content and rules that apply to the transaction.

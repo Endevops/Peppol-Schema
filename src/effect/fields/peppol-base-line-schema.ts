@@ -6,13 +6,14 @@ import { PeppolInvoiceLinePeriod } from '#/effect/fields/peppol-invoice-line-per
 import { peppolLineAllowanceChargeSchema } from '#/effect/fields/peppol-line-allowance-charge-schema';
 import { PeppolLineItem } from '#/effect/fields/peppol-line-item-schema';
 import { PeppolLinePrice } from '#/effect/fields/peppol-line-price-schema';
+import { opaque } from '#/effect/utils/opaque';
 
-class PeppolOrderLineReference extends Schema.Opaque<PeppolOrderLineReference>()(Schema.Struct({ lineId: Schema.String })) {}
+class PeppolOrderLineReference extends opaque<PeppolOrderLineReference>()(Schema.Struct({ lineId: Schema.String })) {}
 
 /**
  * @description Base of the invoice line and credit note line schemas.
  */
-export class PeppolBaseLine extends Schema.Opaque<PeppolBaseLine>()(
+export class PeppolBaseLine extends opaque<PeppolBaseLine>()(
   Schema.Struct({
     /**
      * @description A textual value that specifies where to book the relevant data into the Buyer's financial accounts.

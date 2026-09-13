@@ -2,13 +2,14 @@ import { Schema } from 'effect';
 
 import { PeppolAmount } from '#/effect/fields/peppol-amount-schema';
 import { PeppolTaxSubtotalCategory } from '#/effect/fields/peppol-tax-subtotal-category-schema';
+import { opaque } from '#/effect/utils/opaque';
 
 /**
  * @summary VAT breakdown (TaxSubtotal)
  *
  * @name cac:TaxSubtotal
  */
-export class PeppolTaxSubtotal extends Schema.Opaque<PeppolTaxSubtotal>()(
+export class PeppolTaxSubtotal extends opaque<PeppolTaxSubtotal>()(
   Schema.Struct({
     /**
      * @description The amount of tax for the tax subtotal.

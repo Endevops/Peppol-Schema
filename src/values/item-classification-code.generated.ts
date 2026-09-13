@@ -12,7 +12,7 @@
  *
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/UNCL7143/
  */
-export const itemClassificationCodes = {
+export const itemClassificationCodes: Record<ItemClassificationCodesKeys, string> = {
   /**
    * @description Number assigned by manufacturer or seller to identify the release of a product.
    */

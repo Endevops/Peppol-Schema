@@ -1,6 +1,7 @@
 import { Schema } from 'effect';
 
 import { PeppolInvoiceLinePeriod } from '#/effect/fields/peppol-invoice-line-period-schema';
+import { opaque } from '#/effect/utils/opaque';
 import { vatDateCodeSchema } from '#/effect/values/vat-date-code-schema';
 
 /**
@@ -11,7 +12,7 @@ import { vatDateCodeSchema } from '#/effect/values/vat-date-code-schema';
  *
  * @name `cac:InvoicePeriod`
  */
-export class PeppolInvoicePeriod extends Schema.Opaque<PeppolInvoicePeriod>()(
+export class PeppolInvoicePeriod extends opaque<PeppolInvoicePeriod>()(
   PeppolInvoiceLinePeriod.pipe(
     Schema.fieldsAssign({
       /**

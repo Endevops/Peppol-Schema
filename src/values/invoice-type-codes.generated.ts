@@ -12,7 +12,7 @@
  *
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/UNCL1001-inv/
  */
-export const invoiceTypeCodes = {
+export const invoiceTypeCodes: Record<InvoiceTypeCodesKeys, string> = {
   /**
    * @description Document/message issued by a creditor to a debtor to request payment of one or more invoices past due.
    */

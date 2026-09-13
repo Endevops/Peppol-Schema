@@ -2,13 +2,14 @@ import { Schema } from 'effect';
 
 import { PeppolInvoiceResponseDocumentActualResponseStatus } from '#/effect/peppol-invoice-response-document-actual-response-status-schema';
 import { peppolIsoDateStringSchema } from '#/effect/peppol-iso-date-string-schema';
+import { opaque } from '#/effect/utils/opaque';
 import { invoiceResponseCodeNeedsSchema } from '#/invoice-response-codes/invoice-response-code-needs-schema';
 import { invoiceResponseCodeNotNeedsSchema } from '#/invoice-response-codes/invoice-response-code-not-needs-schema';
 
 const withStatusCodes = Schema.Literals(invoiceResponseCodeNeedsSchema);
 const withoutStatusCodes = Schema.Literals(invoiceResponseCodeNotNeedsSchema);
 
-class PeppolInvoiceResponseDocumentActualResponseWithoutStatus extends Schema.Opaque<PeppolInvoiceResponseDocumentActualResponseWithoutStatus>()(
+class PeppolInvoiceResponseDocumentActualResponseWithoutStatus extends opaque<PeppolInvoiceResponseDocumentActualResponseWithoutStatus>()(
   Schema.Struct({
     /**
      * @summary A code stating the status of the invoice in the process.
@@ -39,7 +40,7 @@ class PeppolInvoiceResponseDocumentActualResponseWithoutStatus extends Schema.Op
   })
 ) {}
 
-class PeppolInvoiceResponseDocumentActualResponseWithStatus extends Schema.Opaque<PeppolInvoiceResponseDocumentActualResponseWithStatus>()(
+class PeppolInvoiceResponseDocumentActualResponseWithStatus extends opaque<PeppolInvoiceResponseDocumentActualResponseWithStatus>()(
   Schema.Struct({
     /**
      * @remarks

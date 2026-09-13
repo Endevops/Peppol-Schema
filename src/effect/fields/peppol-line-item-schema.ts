@@ -3,10 +3,11 @@ import { Schema } from 'effect';
 import { PeppolIdentifier } from '#/effect/fields/peppol-identifier-schema';
 import { PeppolItemClassification } from '#/effect/fields/peppol-item-classification-schema';
 import { PeppolTaxCategory } from '#/effect/fields/peppol-tax-category-schema';
+import { opaque } from '#/effect/utils/opaque';
 import { icdCodesSchema } from '#/effect/values/icd-codes-schema';
 import { peppolCountryCodeSchema } from '#/effect/values/peppol-country-code-schema';
 
-class PeppolAdditionalItemProperties extends Schema.Opaque<PeppolAdditionalItemProperties>()(
+class PeppolAdditionalItemProperties extends opaque<PeppolAdditionalItemProperties>()(
   Schema.Struct({
     /**
      * @description The name of the attribute or property of the item.
@@ -27,7 +28,7 @@ class PeppolAdditionalItemProperties extends Schema.Opaque<PeppolAdditionalItemP
   })
 ) {}
 
-class PeppolCommodityClassifications extends Schema.Opaque<PeppolCommodityClassifications>()(
+class PeppolCommodityClassifications extends opaque<PeppolCommodityClassifications>()(
   Schema.Struct({
     /**
      * @description A code for classifying the item by its type or nature.
@@ -43,7 +44,7 @@ class PeppolCommodityClassifications extends Schema.Opaque<PeppolCommodityClassi
   })
 ) {}
 
-class PeppolOriginCountryCode extends Schema.Opaque<PeppolOriginCountryCode>()(
+class PeppolOriginCountryCode extends opaque<PeppolOriginCountryCode>()(
   Schema.Struct({
     /**
      * @description The code identifying the country from which the item originates.
@@ -56,7 +57,7 @@ class PeppolOriginCountryCode extends Schema.Opaque<PeppolOriginCountryCode>()(
   })
 ) {}
 
-class PeppolStandardItemIdentification extends Schema.Opaque<PeppolStandardItemIdentification>()(
+class PeppolStandardItemIdentification extends opaque<PeppolStandardItemIdentification>()(
   Schema.Struct({
     /**
      * @description An item identifier based on a registered scheme.
@@ -88,7 +89,7 @@ class PeppolStandardItemIdentification extends Schema.Opaque<PeppolStandardItemI
   })
 ) {}
 
-class PeppolSellersItemIdentification extends Schema.Opaque<PeppolSellersItemIdentification>()(
+class PeppolSellersItemIdentification extends opaque<PeppolSellersItemIdentification>()(
   Schema.Struct({
     /**
      * @description An identifier, assigned by the Seller, for the item.
@@ -104,7 +105,7 @@ class PeppolSellersItemIdentification extends Schema.Opaque<PeppolSellersItemIde
   })
 ) {}
 
-class PeppolBuyersItemIdentification extends Schema.Opaque<PeppolBuyersItemIdentification>()(
+class PeppolBuyersItemIdentification extends opaque<PeppolBuyersItemIdentification>()(
   Schema.Struct({
     /**
      * @description An identifier, assigned by the Buyer, for the item.
@@ -125,7 +126,7 @@ class PeppolBuyersItemIdentification extends Schema.Opaque<PeppolBuyersItemIdent
  *
  * @name cac:Item
  */
-export class PeppolLineItem extends Schema.Opaque<PeppolLineItem>()(
+export class PeppolLineItem extends opaque<PeppolLineItem>()(
   Schema.Struct({
     /**
      * @description A description for an item. The item description allows for descibing the item and its features in more detail than the item name.

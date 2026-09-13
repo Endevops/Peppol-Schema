@@ -10,7 +10,7 @@
  *
  * @enum
  */
-export const participantIdentifierSchemes = {
+export const participantIdentifierSchemes: Record<ParticipantIdentifierSchemesKeys, string> = {
   /**
    * @since 1.0.0
    *
@@ -1488,7 +1488,7 @@ export const participantIdentifierSchemesKeys = [
   '9959',
 ] as [string, ...string[]];
 
-export const participantIdentifierSchemesValidations = {
+export const participantIdentifierSchemesValidations: Record<string, Array<RegExp> | undefined> = {
   '0002': [/[0-9]{9}([0-9]{5})?/g],
   '0007': [/[0-9]{10}/g],
   '0009': [/[0-9]{14}/g],

@@ -1,12 +1,13 @@
 import { Schema } from 'effect';
 
 import { peppolIsoDateStringSchema } from '#/effect/peppol-iso-date-string-schema';
+import { opaque } from '#/effect/utils/opaque';
 import { icdCodesSchema } from '#/effect/values/icd-codes-schema';
 
 import { PeppolAddress } from './peppol-address-schema';
 import { PeppolIdentifier } from './peppol-identifier-schema';
 
-class PeppolDeliveryPartyPartyName extends Schema.Opaque<PeppolDeliveryPartyPartyName>()(
+class PeppolDeliveryPartyPartyName extends opaque<PeppolDeliveryPartyPartyName>()(
   Schema.Struct({
     /**
      * @description The name of the party to which the goods and services are delivered.
@@ -19,7 +20,7 @@ class PeppolDeliveryPartyPartyName extends Schema.Opaque<PeppolDeliveryPartyPart
   })
 ) {}
 
-class PeppolDeliveryParty extends Schema.Opaque<PeppolDeliveryParty>()(
+class PeppolDeliveryParty extends opaque<PeppolDeliveryParty>()(
   Schema.Struct({
     /**
      * @summary PARTY NAME
@@ -30,7 +31,7 @@ class PeppolDeliveryParty extends Schema.Opaque<PeppolDeliveryParty>()(
   })
 ) {}
 
-class PeppolDeliveryLocation extends Schema.Opaque<PeppolDeliveryLocation>()(
+class PeppolDeliveryLocation extends opaque<PeppolDeliveryLocation>()(
   Schema.Struct({
     /**
      * @description An identifier for the location at which the goods and services are delivered.
@@ -78,7 +79,7 @@ class PeppolDeliveryLocation extends Schema.Opaque<PeppolDeliveryLocation>()(
   })
 ) {}
 
-export class PeppolDelivery extends Schema.Opaque<PeppolDelivery>()(
+export class PeppolDelivery extends opaque<PeppolDelivery>()(
   Schema.Struct({
     /**
      * @description Th edate on which the supply of goods or services was made or completed.

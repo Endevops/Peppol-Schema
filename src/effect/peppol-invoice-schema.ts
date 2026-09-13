@@ -3,11 +3,12 @@ import { Schema } from 'effect';
 import { PeppolInvoiceLine } from '#/effect/fields/peppol-invoice-line-schema';
 import { PeppolBillingBase } from '#/effect/peppol-billing-base-schema';
 import { peppolIsoDateStringSchema } from '#/effect/peppol-iso-date-string-schema';
+import { opaque } from '#/effect/utils/opaque';
 import { invoiceTypeCodeSchema } from '#/effect/values/invoice-type-code-schema';
 
-class PeppolProjectReference extends Schema.Opaque<PeppolProjectReference>()(Schema.Struct({ id: Schema.String })) {}
+class PeppolProjectReference extends opaque<PeppolProjectReference>()(Schema.Struct({ id: Schema.String })) {}
 
-export class PeppolInvoice extends Schema.Opaque<PeppolInvoice>()(
+export class PeppolInvoice extends opaque<PeppolInvoice>()(
   Schema.Struct({
     ...PeppolBillingBase.fields,
     /**

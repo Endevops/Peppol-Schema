@@ -10,7 +10,7 @@
  *
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/ICD/
  */
-export const icdCodes = {
+export const icdCodes: Record<IcdCodesKeys, string> = {
   /**
    * @description Notes on Use of Code: The Sirene number is used in France mainly for the official registration in the Trade Register and as the only number used
    * between authorities and organizations, and between authorities when dealing with data interchange on organizations. Issuing agency: Institut
@@ -95,8 +95,8 @@ export const icdCodes = {
    */
   '0017': 'COMMON LANGUAGE',
   /**
-   * @description Notes on Use of Code: The ICD code will also form the initial part of the OSI Network addressing and naming tree as depicted in Addendum 2 to ISO
-   * 8348. Issuing agency: International Business Machines Corporation, USA.
+   * @description Notes on Use of Code: The ICD code will also form the initial part of the OSI Network addressing and naming tree as depicted in Addendum 2 to ISO 8348.
+   * Issuing agency: International Business Machines Corporation, USA.
    */
   '0018': 'SNA/OSI Network',
   /**
@@ -401,8 +401,8 @@ export const icdCodes = {
    */
   '0078': 'Mitel terminal or switching equipment',
   /**
-   * @description Notes on Use of Code: The ICD code will also form part of the Initial Domain Part of the OSI network addressing as specified in Addendum 2 to ISO
-   * 8348. Issuing agency: The ATM Forum, USA.
+   * @description Notes on Use of Code: The ICD code will also form part of the Initial Domain Part of the OSI network addressing as specified in Addendum 2 to ISO 8348.
+   * Issuing agency: The ATM Forum, USA.
    */
   '0079': 'ATM Forum',
   /**
@@ -419,8 +419,8 @@ export const icdCodes = {
    */
   '0082': "Norwegian Telecommunications Authority's, NTA'S, EDI, identifier scheme (EDIRA compliant)",
   /**
-   * @description Notes on Use of Code: The ICD code will also form part of the Initial Domain Part of the OSI network addressing as specified in Addendum 2 to ISO
-   * 8348. Issuing agency: ATM Ltd, ENGLAND.
+   * @description Notes on Use of Code: The ICD code will also form part of the Initial Domain Part of the OSI network addressing as specified in Addendum 2 to ISO 8348.
+   * Issuing agency: ATM Ltd, ENGLAND.
    */
   '0083': 'Advanced Telecommunications Modules Limited, Corporate Network',
   /**

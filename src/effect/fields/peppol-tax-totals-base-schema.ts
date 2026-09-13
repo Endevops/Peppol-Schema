@@ -2,13 +2,14 @@ import { Schema } from 'effect';
 
 import { PeppolAmount } from '#/effect/fields/peppol-amount-schema';
 import { PeppolTaxSubtotal } from '#/effect/fields/peppol-tax-subtotal-schema';
+import { opaque } from '#/effect/utils/opaque';
 
 /**
  * @summary TAX TOTAL
  *
  * @name cac:TaxTotal (1..2)
  */
-export class PeppolTaxTotalsBase extends Schema.Opaque<PeppolTaxTotalsBase>()(
+export class PeppolTaxTotalsBase extends opaque<PeppolTaxTotalsBase>()(
   Schema.Struct({
     /**
      * @example

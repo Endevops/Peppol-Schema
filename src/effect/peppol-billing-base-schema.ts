@@ -16,9 +16,10 @@ import { PeppolPaymentTerms } from '#/effect/fields/peppol-payment-terms-schema'
 import { PeppolTaxRepresentative } from '#/effect/fields/peppol-tax-representative-schema';
 import { PeppolTaxTotalsBase } from '#/effect/fields/peppol-tax-totals-base-schema';
 import { peppolIsoDateStringSchema } from '#/effect/peppol-iso-date-string-schema';
+import { opaque } from '#/effect/utils/opaque';
 import { currencyCodeSchema } from '#/effect/values/currency-code-schema';
 
-class PeppolContractDocumentReference extends Schema.Opaque<PeppolContractDocumentReference>()(
+class PeppolContractDocumentReference extends opaque<PeppolContractDocumentReference>()(
   Schema.Struct({
     /**
      * @description An identifier of a referenced contract.
@@ -34,7 +35,7 @@ class PeppolContractDocumentReference extends Schema.Opaque<PeppolContractDocume
   })
 ) {}
 
-class PeppolOriginatorDocumentReference extends Schema.Opaque<PeppolOriginatorDocumentReference>()(
+class PeppolOriginatorDocumentReference extends opaque<PeppolOriginatorDocumentReference>()(
   Schema.Struct({
     /**
      * @description The identification of the call for tender or lot the invoice relates to.
@@ -50,7 +51,7 @@ class PeppolOriginatorDocumentReference extends Schema.Opaque<PeppolOriginatorDo
   })
 ) {}
 
-class PeppolReceiptDocumentReference extends Schema.Opaque<PeppolReceiptDocumentReference>()(
+class PeppolReceiptDocumentReference extends opaque<PeppolReceiptDocumentReference>()(
   Schema.Struct({
     /**
      * @description An identifier of a referenced receiving advice.
@@ -66,7 +67,7 @@ class PeppolReceiptDocumentReference extends Schema.Opaque<PeppolReceiptDocument
   })
 ) {}
 
-class PeppolDespatchDocumentReference extends Schema.Opaque<PeppolDespatchDocumentReference>()(
+class PeppolDespatchDocumentReference extends opaque<PeppolDespatchDocumentReference>()(
   Schema.Struct({
     /**
      * @description An identifier of a referenced despatch advice.
@@ -88,7 +89,7 @@ class PeppolDespatchDocumentReference extends Schema.Opaque<PeppolDespatchDocume
  * @see {@link creditNoteSchema} - the credit note schema
  * @see {@link invoiceSchema} - the invoice schema
  */
-export class PeppolBillingBase extends Schema.Opaque<PeppolBillingBase>()(
+export class PeppolBillingBase extends opaque<PeppolBillingBase>()(
   Schema.Struct({
     /**
      * @description An identification of the specification containing the total set of rules regarding semantic content, cardinalities, and business rules to which

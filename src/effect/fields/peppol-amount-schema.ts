@@ -1,5 +1,6 @@
 import { Schema } from 'effect';
 
+import { opaque } from '#/effect/utils/opaque';
 import { currencyCodeSchema } from '#/effect/values/currency-code-schema';
 
 /**
@@ -7,7 +8,7 @@ import { currencyCodeSchema } from '#/effect/values/currency-code-schema';
  *
  * @name cbc:* (+ @currencyID)
  */
-export class PeppolAmount extends Schema.Opaque<PeppolAmount>()(
+export class PeppolAmount extends opaque<PeppolAmount>()(
   Schema.Struct({
     /**
      * @name \@currencyID

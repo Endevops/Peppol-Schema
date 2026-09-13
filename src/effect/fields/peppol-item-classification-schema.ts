@@ -1,5 +1,6 @@
 import { Schema } from 'effect';
 
+import { opaque } from '#/effect/utils/opaque';
 import { itemClassificationCodesSchema } from '#/effect/values/item-classification-codes-schema';
 
 /**
@@ -12,7 +13,7 @@ import { itemClassificationCodesSchema } from '#/effect/values/item-classificati
  *
  * @name `cbc:ItemClassificationCode`
  */
-export class PeppolItemClassification extends Schema.Opaque<PeppolItemClassification>()(
+export class PeppolItemClassification extends opaque<PeppolItemClassification>()(
   Schema.Struct({
     /**
      * @description A code for classifying the item by its type or nature.

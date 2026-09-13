@@ -1,8 +1,9 @@
 import { Schema } from 'effect';
 
 import { PeppolIdentifier } from '#/effect/fields/peppol-identifier-schema';
+import { opaque } from '#/effect/utils/opaque';
 
-export class PeppolMessageLevelResponseParty extends Schema.Opaque<PeppolMessageLevelResponseParty>()(
+export class PeppolMessageLevelResponseParty extends opaque<PeppolMessageLevelResponseParty>()(
   Schema.Struct({
     /**
      * @description Identifies the sender party's electronic address.

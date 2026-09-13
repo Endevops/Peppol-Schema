@@ -12,7 +12,7 @@
  *
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/OPStatusReason/
  */
-export const opStatusReason = {
+export const opStatusReason: Record<OpStatusReasonKeys, string> = {
   /**
    * @description Indicates that receiver of the documents sends the message just to update the status and there are no problems with document processing.
    */

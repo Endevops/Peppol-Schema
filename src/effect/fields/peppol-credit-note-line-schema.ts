@@ -2,12 +2,13 @@ import { Schema } from 'effect';
 
 import { PeppolBaseLine } from '#/effect/fields/peppol-base-line-schema';
 import { PeppolQuantity } from '#/effect/fields/peppol-quantity-schema';
+import { opaque } from '#/effect/utils/opaque';
 import { quantityUnitCodesSchema } from '#/effect/values/quantity-unit-codes-schema';
 
 /**
  * @description Credit note line is identical to Invoice line except the quantity element name.
  */
-export class PeppolCreditNoteLine extends Schema.Opaque<PeppolCreditNoteLine>()(
+export class PeppolCreditNoteLine extends opaque<PeppolCreditNoteLine>()(
   PeppolBaseLine.pipe(
     Schema.fieldsAssign({
       /**

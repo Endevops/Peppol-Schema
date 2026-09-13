@@ -8,9 +8,10 @@ import { peppolInvoiceResponseDocumentActualResponseSchema } from '#/effect/pepp
 import { peppolIsoDateStringSchema } from '#/effect/peppol-iso-date-string-schema';
 import { PeppolMessageLevelResponseParty } from '#/effect/peppol-message-level-response-party-schema';
 import { PeppolMessageLevelResponse } from '#/effect/peppol-message-level-response-schema';
+import { opaque } from '#/effect/utils/opaque';
 import { peppolDocumentTypeCodeSchema } from '#/effect/values/peppol-document-type-code-schema';
 
-class PeppolPartyName extends Schema.Opaque<PeppolPartyName>()(
+class PeppolPartyName extends opaque<PeppolPartyName>()(
   Schema.Struct({
     /**
      * @description - The party that issued the reference invoice
@@ -24,7 +25,7 @@ class PeppolPartyName extends Schema.Opaque<PeppolPartyName>()(
   })
 ) {}
 
-export class PeppolInvoiceResponseParty extends Schema.Opaque<PeppolInvoiceResponseParty>()(
+export class PeppolInvoiceResponseParty extends opaque<PeppolInvoiceResponseParty>()(
   PeppolMessageLevelResponseParty.pipe(
     Schema.fieldsAssign({
       /**
@@ -36,7 +37,7 @@ export class PeppolInvoiceResponseParty extends Schema.Opaque<PeppolInvoiceRespo
   )
 ) {}
 
-export class PeppolInvoiceResponseSenderParty extends Schema.Opaque<PeppolInvoiceResponseSenderParty>()(
+export class PeppolInvoiceResponseSenderParty extends opaque<PeppolInvoiceResponseSenderParty>()(
   PeppolInvoiceResponseParty.pipe(
     Schema.fieldsAssign({
       /**
@@ -52,7 +53,7 @@ export class PeppolInvoiceResponseSenderParty extends Schema.Opaque<PeppolInvoic
 /**
  * @description Party schema used under `cac:DocumentReference/(cac:IssuerParty|cac:RecipientParty)`
  */
-export class PeppolInvoiceResponseDocumentResponseParty extends Schema.Opaque<PeppolInvoiceResponseDocumentResponseParty>()(
+export class PeppolInvoiceResponseDocumentResponseParty extends opaque<PeppolInvoiceResponseDocumentResponseParty>()(
   Schema.Struct({
     /**
      * @summary Party partyIdentification
@@ -70,7 +71,7 @@ export class PeppolInvoiceResponseDocumentResponseParty extends Schema.Opaque<Pe
 
 export type PeppolInvoiceDocumentResponseParty = PeppolInvoiceResponseDocumentResponseParty;
 
-export class PeppolInvoiceResponseDocumentReference extends Schema.Opaque<PeppolInvoiceResponseDocumentReference>()(
+export class PeppolInvoiceResponseDocumentReference extends opaque<PeppolInvoiceResponseDocumentReference>()(
   Schema.Struct({
     /**
      * @description An identifier for the invoice that the status applies to. The invoice identifier must be of the main invoice number that appears in the invoice
@@ -105,7 +106,7 @@ export class PeppolInvoiceResponseDocumentReference extends Schema.Opaque<Peppol
   })
 ) {}
 
-export class PeppolInvoiceResponseDocumentResponse extends Schema.Opaque<PeppolInvoiceResponseDocumentResponse>()(
+export class PeppolInvoiceResponseDocumentResponse extends opaque<PeppolInvoiceResponseDocumentResponse>()(
   Schema.Struct({
     /**
      * @summary Response information
@@ -141,7 +142,7 @@ export class PeppolInvoiceResponseDocumentResponse extends Schema.Opaque<PeppolI
  * (`z.extend(messageLevelResponse, ...)` → `messageLevelResponse.pipe(Schema.fieldsAssign(...))`), overriding `profileId` with
  * `Schema.Literal(INVOICE_RESPONSE_PROFILE_ID)` plus sender/receiver/documentResponse.
  */
-export class PeppolInvoiceResponse extends Schema.Opaque<PeppolInvoiceResponse>()(
+export class PeppolInvoiceResponse extends opaque<PeppolInvoiceResponse>()(
   PeppolMessageLevelResponse.pipe(
     Schema.fieldsAssign({
       profileId: Schema.Literal(INVOICE_RESPONSE_PROFILE_ID),

@@ -1,10 +1,11 @@
 import { Schema } from 'effect';
 
 import { PriceAllowanceCharge } from '#/effect/fields/peppol-line-price-allowance-charge-schema';
+import { opaque } from '#/effect/utils/opaque';
 import { allowanceChargeReasonCodeSchema } from '#/effect/values/allowance-charge-reason-code-schema';
 import { chargeReasonCodeSchema } from '#/effect/values/charge-reason-code-schema';
 
-class BaseLineAllowanceCharge extends Schema.Opaque<BaseLineAllowanceCharge>()(
+class BaseLineAllowanceCharge extends opaque<BaseLineAllowanceCharge>()(
   PriceAllowanceCharge.pipe(
     Schema.fieldsAssign({
       /**
@@ -25,7 +26,7 @@ class BaseLineAllowanceCharge extends Schema.Opaque<BaseLineAllowanceCharge>()(
   )
 ) {}
 
-class LineAllowanceChargeFalse extends Schema.Opaque<LineAllowanceChargeFalse>()(
+class LineAllowanceChargeFalse extends opaque<LineAllowanceChargeFalse>()(
   BaseLineAllowanceCharge.pipe(
     Schema.fieldsAssign({
       /**
@@ -44,7 +45,7 @@ class LineAllowanceChargeFalse extends Schema.Opaque<LineAllowanceChargeFalse>()
   )
 ) {}
 
-class LineAllowanceChargeTrue extends Schema.Opaque<LineAllowanceChargeTrue>()(
+class LineAllowanceChargeTrue extends opaque<LineAllowanceChargeTrue>()(
   BaseLineAllowanceCharge.pipe(
     Schema.fieldsAssign({
       /**

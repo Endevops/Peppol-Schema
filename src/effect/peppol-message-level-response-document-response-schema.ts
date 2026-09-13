@@ -3,8 +3,9 @@ import { Schema } from 'effect';
 import { PeppolDocumentResponseDocumentReference } from '#/effect/peppol-document-response-document-reference-schema';
 import { PeppolDocumentResponseDocument } from '#/effect/peppol-document-response-document-schema';
 import { PeppolDocumentResponseLineResponse } from '#/effect/peppol-document-response-line-response-schema';
+import { opaque } from '#/effect/utils/opaque';
 
-export class PeppolMessageLevelResponseDocumentResponse extends Schema.Opaque<PeppolMessageLevelResponseDocumentResponse>()(
+export class PeppolMessageLevelResponseDocumentResponse extends opaque<PeppolMessageLevelResponseDocumentResponse>()(
   Schema.Struct({
     /**
      * @summary Response information

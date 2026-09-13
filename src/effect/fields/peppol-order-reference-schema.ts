@@ -1,11 +1,13 @@
 import { Schema } from 'effect';
 
+import { opaque } from '#/effect/utils/opaque';
+
 /**
  * @summary ORDER AND SALES ORDER REFERENCE
  *
  * @name cac:OrderReference
  */
-export class PeppolOrderReference extends Schema.Opaque<PeppolOrderReference>()(
+export class PeppolOrderReference extends opaque<PeppolOrderReference>()(
   Schema.Struct({
     /**
      * @description An identifier of a referenced purchase order, issued by the Buyer. An identifier of a referenced purchase order, issued by the Buyer. An

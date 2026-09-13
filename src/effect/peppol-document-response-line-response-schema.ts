@@ -1,8 +1,9 @@
 import { Schema } from 'effect';
 
 import { PeppolDocumentResponseLineResponseContent } from '#/effect/peppol-document-response-line-response-content-schema';
+import { opaque } from '#/effect/utils/opaque';
 
-class PeppolLineReference extends Schema.Opaque<PeppolLineReference>()(
+class PeppolLineReference extends opaque<PeppolLineReference>()(
   Schema.Struct({
     /**
      * @description Identifies the section of the document to which the reported issue applied. The LineID element mustbe used to indicate where in the business
@@ -19,7 +20,7 @@ class PeppolLineReference extends Schema.Opaque<PeppolLineReference>()(
   })
 ) {}
 
-export class PeppolDocumentResponseLineResponse extends Schema.Opaque<PeppolDocumentResponseLineResponse>()(
+export class PeppolDocumentResponseLineResponse extends opaque<PeppolDocumentResponseLineResponse>()(
   Schema.Struct({
     /**
      * @description Identifies the line in the business document to which the reported issue applies.

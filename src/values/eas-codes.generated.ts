@@ -10,7 +10,7 @@
  *
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/eas/
  */
-export const electronicAddressCodes = {
+export const electronicAddressCodes: Record<ElectronicAddressCodesKeys, string> = {
   '0002': 'System Information et Repertoire des Entreprise et des Etablissements: SIRENE',
 
   '0007': 'Organisationsnummer (Swedish legal entities)',

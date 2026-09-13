@@ -10,7 +10,7 @@
  *
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/vatex/
  */
-export const vatexCodes = {
+export const vatexCodes: Record<VatexCodesKeys, string> = {
   /**
    * @description Exemptions relating to repayment of expenditures. Remark, Repayment of expenditure is not an exemption in the sense of the VAT Directive but may
    * be handled as such in the context of the EN16931.

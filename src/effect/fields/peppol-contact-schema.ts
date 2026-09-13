@@ -1,6 +1,8 @@
 import { Schema } from 'effect';
 
-export class PeppolContact extends Schema.Opaque<PeppolContact>()(
+import { opaque } from '#/effect/utils/opaque';
+
+export class PeppolContact extends opaque<PeppolContact>()(
   Schema.Struct({
     /**
      * @name cbc:ElectronicMail

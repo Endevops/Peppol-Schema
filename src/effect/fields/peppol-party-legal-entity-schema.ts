@@ -1,8 +1,9 @@
 import { Schema } from 'effect';
 
 import { PeppolIdentifier } from '#/effect/fields/peppol-identifier-schema';
+import { opaque } from '#/effect/utils/opaque';
 
-export class PeppolPartyLegalEntity extends Schema.Opaque<PeppolPartyLegalEntity>()(
+export class PeppolPartyLegalEntity extends opaque<PeppolPartyLegalEntity>()(
   Schema.Struct({
     /**
      * @example

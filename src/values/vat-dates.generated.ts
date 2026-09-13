@@ -12,7 +12,7 @@
  *
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/UNCL2005/
  */
-export const vatDateCodes = {
+export const vatDateCodes: Record<VatDateCodesKeys, string> = {
   '3': 'Invoice document issue date time',
 
   '35': 'Delivery date/time, actual',

@@ -49,7 +49,7 @@ ${version ? ` * @version ${version}` : ''}
  * @enum
  * @category Peppol Values
  */
-export const ${variableName} = {
+export const ${variableName}: Record<${String.capitalize(`${variableName}Keys`)}, string> = {
 ${content}
 };
 

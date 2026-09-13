@@ -1,11 +1,13 @@
 import { Schema } from 'effect';
 
+import { opaque } from '#/effect/utils/opaque';
+
 /**
  * @summary PAYMENT TERMS
  *
  * @name cac:PaymentTerms
  */
-export class PeppolPaymentTerms extends Schema.Opaque<PeppolPaymentTerms>()(
+export class PeppolPaymentTerms extends opaque<PeppolPaymentTerms>()(
   Schema.Struct({
     /**
      * @description A textual description of the payment terms that apply to the amount due for payment (Including description of possible penalties). In case the

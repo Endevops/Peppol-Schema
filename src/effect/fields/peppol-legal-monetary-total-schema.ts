@@ -1,6 +1,7 @@
 import { Schema } from 'effect';
 
 import { PeppolAmount } from '#/effect/fields/peppol-amount-schema';
+import { opaque } from '#/effect/utils/opaque';
 
 /**
  * @description A group of business terms providing the monetary totals for the Invoice.
@@ -9,7 +10,7 @@ import { PeppolAmount } from '#/effect/fields/peppol-amount-schema';
  *
  * @name cac:LegalMonetaryTotal
  */
-export class PeppolLegalMonetaryTotal extends Schema.Opaque<PeppolLegalMonetaryTotal>()(
+export class PeppolLegalMonetaryTotal extends opaque<PeppolLegalMonetaryTotal>()(
   Schema.Struct({
     /**
      * @description Sum of all allowances on document level in the Invoice.

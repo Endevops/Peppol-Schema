@@ -1,5 +1,6 @@
 import { Schema } from 'effect';
 
+import { opaque } from '#/effect/utils/opaque';
 import { peppolBase64Schema } from '#/effect/utils/peppol-base-64-schema';
 import { mimeCodesSchema } from '#/effect/values/mime-codes-schema';
 
@@ -12,7 +13,7 @@ const base64UrlSchema = Schema.String.check(Schema.isPattern(/^[A-Za-z0-9\-_]+={
  *
  * @name cbc:EmbeddedDocumentBinaryObject (+ @mimeCode, @filename)
  */
-export class PeppolBinaryObject extends Schema.Opaque<PeppolBinaryObject>()(
+export class PeppolBinaryObject extends opaque<PeppolBinaryObject>()(
   Schema.Struct({
     /**
      * @description An attached document embedded as binary object (Base64) or sent together with the invoice.

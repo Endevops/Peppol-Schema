@@ -1,5 +1,6 @@
 import { Schema } from 'effect';
 
+import { opaque } from '#/effect/utils/opaque';
 import { quantityUnitCodesSchema } from '#/effect/values/quantity-unit-codes-schema';
 
 /**
@@ -7,7 +8,7 @@ import { quantityUnitCodesSchema } from '#/effect/values/quantity-unit-codes-sch
  *
  * @name `cbc:* (+ @unitCode)`
  */
-export class PeppolQuantity extends Schema.Opaque<PeppolQuantity>()(
+export class PeppolQuantity extends opaque<PeppolQuantity>()(
   Schema.Struct({
     /**
      * @name `@unitCode`

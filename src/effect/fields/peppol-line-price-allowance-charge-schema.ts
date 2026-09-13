@@ -1,8 +1,9 @@
 import { Schema } from 'effect';
 
 import { PeppolAmount } from '#/effect/fields/peppol-amount-schema';
+import { opaque } from '#/effect/utils/opaque';
 
-class PriceAllowanceCharge extends Schema.Opaque<PriceAllowanceCharge>()(
+class PriceAllowanceCharge extends opaque<PriceAllowanceCharge>()(
   Schema.Struct({
     /**
      * @example
@@ -27,7 +28,7 @@ class PriceAllowanceCharge extends Schema.Opaque<PriceAllowanceCharge>()(
   })
 ) {}
 
-export class PeppolLinePriceAllowanceCharge extends Schema.Opaque<PeppolLinePriceAllowanceCharge>()(
+export class PeppolLinePriceAllowanceCharge extends opaque<PeppolLinePriceAllowanceCharge>()(
   PriceAllowanceCharge.pipe(
     Schema.fieldsAssign({
       chargeIndicator: Schema.Literal(false).annotate({

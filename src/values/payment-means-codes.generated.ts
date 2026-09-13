@@ -12,7 +12,7 @@
  *
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/UNCL4461/
  */
-export const paymentMeansCodes = {
+export const paymentMeansCodes: Record<PaymentMeansCodesKeys, string> = {
   /**
    * @description Not defined legally enforceable agreement between two or more parties (expressing a contractual right or a right to the payment of money).
    */

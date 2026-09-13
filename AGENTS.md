@@ -76,11 +76,13 @@ src/
 - `scripts/values.ts` generates value enums from Peppol code lists (run manually via `bun scripts/values.ts`)
 - Output goes to `src/values/` — **do not edit generated files directly**
 - Generated files have `// oxlint-disable sort-keys` header
+- Value objects are annotated as `Record<XxxKeys, ...>` so their declaration collapses to an index signature instead of thousands of properties. Keep this when adding a generator: an unannotated object literal emits every key into `dist/values.d.ts`.
 
 ### Effect Usage
 
 - Uses `Effect` (v4 beta) for typed effects, `Schema` for decoding
 - See `src/decoders/` for Effect Schema decoders
+- Build opaque structs with `opaque<Self>()(Schema.Struct({...}))` from `#/effect/utils/opaque` instead of `Schema.Opaque<Self>()(...)`. Both are identical at runtime and in type, but `Schema.Opaque` expands the wrapped struct twice in declaration emit (once in `Opaque`, once in `Omit`), which doubled `dist/effect.d.ts`.
 
 ### XML Parsing
 

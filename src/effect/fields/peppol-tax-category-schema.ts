@@ -1,8 +1,9 @@
 import { Effect, Schema } from 'effect';
 
+import { opaque } from '#/effect/utils/opaque';
 import { dutyTaxFeeCategorySchema } from '#/effect/values/duty-tax-fee-category-schema';
 
-class PeppolTaxSchemeId extends Schema.Opaque<PeppolTaxSchemeId>()(
+class PeppolTaxSchemeId extends opaque<PeppolTaxSchemeId>()(
   Schema.Struct({
     /**
      * @name `cbc:ID`
@@ -18,7 +19,7 @@ class PeppolTaxSchemeId extends Schema.Opaque<PeppolTaxSchemeId>()(
  *
  * @name `cac:TaxCategory`
  */
-export class PeppolTaxCategory extends Schema.Opaque<PeppolTaxCategory>()(
+export class PeppolTaxCategory extends opaque<PeppolTaxCategory>()(
   Schema.Struct({
     /**
      * @description The VAT category code for the invoiced item.

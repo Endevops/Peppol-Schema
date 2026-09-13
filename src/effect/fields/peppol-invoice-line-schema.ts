@@ -2,6 +2,7 @@ import { Schema } from 'effect';
 
 import { PeppolBaseLine } from '#/effect/fields/peppol-base-line-schema';
 import { PeppolQuantity } from '#/effect/fields/peppol-quantity-schema';
+import { opaque } from '#/effect/utils/opaque';
 import { quantityUnitCodesSchema } from '#/effect/values/quantity-unit-codes-schema';
 
 /**
@@ -9,7 +10,7 @@ import { quantityUnitCodesSchema } from '#/effect/values/quantity-unit-codes-sch
  *
  * @name cac:InvoiceLine
  */
-export class PeppolInvoiceLine extends Schema.Opaque<PeppolInvoiceLine>()(
+export class PeppolInvoiceLine extends opaque<PeppolInvoiceLine>()(
   PeppolBaseLine.pipe(
     Schema.fieldsAssign({
       /**

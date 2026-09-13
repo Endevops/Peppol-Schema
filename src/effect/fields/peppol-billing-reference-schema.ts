@@ -1,8 +1,9 @@
 import { Schema } from 'effect';
 
 import { peppolIsoDateStringSchema } from '#/effect/peppol-iso-date-string-schema';
+import { opaque } from '#/effect/utils/opaque';
 
-class PeppolInvoiceDocumentReference extends Schema.Opaque<PeppolInvoiceDocumentReference>()(
+class PeppolInvoiceDocumentReference extends opaque<PeppolInvoiceDocumentReference>()(
   Schema.Struct({
     /**
      * @description The identification of an Invoice that was previously sent by the seller.
@@ -36,7 +37,7 @@ class PeppolInvoiceDocumentReference extends Schema.Opaque<PeppolInvoiceDocument
  *
  * @name cac:BillingReference
  */
-export class PeppolBillingReference extends Schema.Opaque<PeppolBillingReference>()(
+export class PeppolBillingReference extends opaque<PeppolBillingReference>()(
   Schema.Struct({
     /**
      * @example

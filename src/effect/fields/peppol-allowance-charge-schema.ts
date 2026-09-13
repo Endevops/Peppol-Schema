@@ -2,11 +2,12 @@ import { Effect, Schema } from 'effect';
 
 import { BaseLineAllowanceCharge } from '#/effect/fields/peppol-line-allowance-charge-schema';
 import { PeppolTaxCategory } from '#/effect/fields/peppol-tax-category-schema';
+import { opaque } from '#/effect/utils/opaque';
 import { allowanceChargeReasonCodeSchema } from '#/effect/values/allowance-charge-reason-code-schema';
 import { chargeReasonCodeSchema } from '#/effect/values/charge-reason-code-schema';
 import { dutyTaxFeeCategorySchema } from '#/effect/values/duty-tax-fee-category-schema';
 
-class PeppolTaxCategoryTaxSchemeId extends Schema.Opaque<PeppolTaxCategoryTaxSchemeId>()(
+class PeppolTaxCategoryTaxSchemeId extends opaque<PeppolTaxCategoryTaxSchemeId>()(
   Schema.Struct({
     /**
      * @description Mandatory element. Use "VAT"
@@ -17,7 +18,7 @@ class PeppolTaxCategoryTaxSchemeId extends Schema.Opaque<PeppolTaxCategoryTaxSch
   })
 ) {}
 
-class BaseAllowanceCharge extends Schema.Opaque<BaseAllowanceCharge>()(
+class BaseAllowanceCharge extends opaque<BaseAllowanceCharge>()(
   BaseLineAllowanceCharge.pipe(
     Schema.fieldsAssign({
       /**
@@ -57,7 +58,7 @@ class BaseAllowanceCharge extends Schema.Opaque<BaseAllowanceCharge>()(
   )
 ) {}
 
-class AllowanceChargeFalse extends Schema.Opaque<AllowanceChargeFalse>()(
+class AllowanceChargeFalse extends opaque<AllowanceChargeFalse>()(
   BaseAllowanceCharge.pipe(
     Schema.fieldsAssign({
       /**
@@ -76,7 +77,7 @@ class AllowanceChargeFalse extends Schema.Opaque<AllowanceChargeFalse>()(
   )
 ) {}
 
-class AllowanceChargeTrue extends Schema.Opaque<AllowanceChargeTrue>()(
+class AllowanceChargeTrue extends opaque<AllowanceChargeTrue>()(
   BaseAllowanceCharge.pipe(
     Schema.fieldsAssign({
       /**

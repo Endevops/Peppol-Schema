@@ -1,8 +1,9 @@
 import { Schema } from 'effect';
 
+import { opaque } from '#/effect/utils/opaque';
 import { applicationResponseTypeCodeSchema } from '#/effect/values/application-response-type-code-schema';
 
-class PeppolStatus extends Schema.Opaque<PeppolStatus>()(
+class PeppolStatus extends opaque<PeppolStatus>()(
   Schema.Struct({
     /**
      * @description A codified version of the issue description that describes the nature of the issue. e.g. Syntax violation, business rule violation, ...
@@ -15,7 +16,7 @@ class PeppolStatus extends Schema.Opaque<PeppolStatus>()(
   })
 ) {}
 
-export class PeppolDocumentResponseLineResponseContent extends Schema.Opaque<PeppolDocumentResponseLineResponseContent>()(
+export class PeppolDocumentResponseLineResponseContent extends opaque<PeppolDocumentResponseLineResponseContent>()(
   Schema.Struct({
     /**
      * @description An indicator stating whether the referenced message was cleared through validation and advanced to the next step in the process. A negative

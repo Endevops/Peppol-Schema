@@ -12,7 +12,7 @@
  *
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/UNCL4343/
  */
-export const applicationResponseTypeCodes = {
+export const applicationResponseTypeCodes: Record<ApplicationResponseTypeCodesKeys, string> = {
   AB: 'Message acknowledgement',
 
   AP: 'Accepted',

@@ -2,13 +2,14 @@ import { Schema } from 'effect';
 
 import { PeppolCreditNoteLine } from '#/effect/fields/peppol-credit-note-line-schema';
 import { PeppolBillingBase } from '#/effect/peppol-billing-base-schema';
+import { opaque } from '#/effect/utils/opaque';
 import { creditNoteTypeCodeSchema } from '#/effect/values/credit-note-type-code-schema';
 
 /**
  * @description Main UBL Credit Note schema (camelCase properties) Effect port of `creditNoteSchema` (`z.extend(billingBaseSchema, ...)` →
  * `PeppolBillingBase.pipe(Schema.fieldsAssign(...))`).
  */
-export class PeppolCreditNote extends Schema.Opaque<PeppolCreditNote>()(
+export class PeppolCreditNote extends opaque<PeppolCreditNote>()(
   Schema.Struct({
     ...PeppolBillingBase.fields,
     /**

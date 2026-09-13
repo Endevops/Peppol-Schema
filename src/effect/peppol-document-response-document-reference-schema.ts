@@ -1,8 +1,9 @@
 import { Schema } from 'effect';
 
+import { opaque } from '#/effect/utils/opaque';
 import { peppolDocumentTypeCodeSchema } from '#/effect/values/peppol-document-type-code-schema';
 
-export class PeppolDocumentResponseDocumentReference extends Schema.Opaque<PeppolDocumentResponseDocumentReference>()(
+export class PeppolDocumentResponseDocumentReference extends opaque<PeppolDocumentResponseDocumentReference>()(
   Schema.Struct({
     /**
      * @description Identifies the document on which the message level response is based.

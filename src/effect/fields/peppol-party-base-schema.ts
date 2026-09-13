@@ -5,10 +5,11 @@ import { PeppolContact } from '#/effect/fields/peppol-contact-schema';
 import { PeppolIdentifier } from '#/effect/fields/peppol-identifier-schema';
 import { PeppolPartyLegalEntity } from '#/effect/fields/peppol-party-legal-entity-schema';
 import { PeppolPartyTaxScheme } from '#/effect/fields/peppol-party-tax-scheme-schema';
+import { opaque } from '#/effect/utils/opaque';
 import { electronicCodesSchema } from '#/effect/values/electronic-codes-schema';
 import { icdCodesSchema } from '#/effect/values/icd-codes-schema';
 
-class PeppolPartyName extends Schema.Opaque<PeppolPartyName>()(
+class PeppolPartyName extends opaque<PeppolPartyName>()(
   Schema.Struct({
     /**
      * @description A name by which the Buyer/Seller is known, other than Buyer/Seller name (also known as Business name).
@@ -22,7 +23,7 @@ class PeppolPartyName extends Schema.Opaque<PeppolPartyName>()(
   })
 ) {}
 
-class PeppolPartyIdentification extends Schema.Opaque<PeppolPartyIdentification>()(
+class PeppolPartyIdentification extends opaque<PeppolPartyIdentification>()(
   Schema.Struct({
     /**
      * @description An identifier of the Buyer/seller.
@@ -57,7 +58,7 @@ class PeppolPartyIdentification extends Schema.Opaque<PeppolPartyIdentification>
   })
 ) {}
 
-export class PeppolPartyEndpointId extends Schema.Opaque<PeppolPartyEndpointId>()(
+export class PeppolPartyEndpointId extends opaque<PeppolPartyEndpointId>()(
   PeppolIdentifier.pipe(
     Schema.fieldsAssign({
       /**
@@ -88,7 +89,7 @@ export class PeppolPartyEndpointId extends Schema.Opaque<PeppolPartyEndpointId>(
  *
  * @name cac:Party
  */
-export class PeppolPartyBase extends Schema.Opaque<PeppolPartyBase>()(
+export class PeppolPartyBase extends opaque<PeppolPartyBase>()(
   Schema.Struct({
     /**
      * @description Identifies the Seller/buyer's electronic address to which the application level response to the invoice may be delivered.

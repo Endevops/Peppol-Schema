@@ -1,11 +1,12 @@
 import { Schema } from 'effect';
 
 import { PeppolIdentifier } from '#/effect/fields/peppol-identifier-schema';
+import { opaque } from '#/effect/utils/opaque';
 import { icdCodesSchema } from '#/effect/values/icd-codes-schema';
 
-class PeppolPartyName extends Schema.Opaque<PeppolPartyName>()(Schema.Struct({ name: Schema.String })) {}
+class PeppolPartyName extends opaque<PeppolPartyName>()(Schema.Struct({ name: Schema.String })) {}
 
-class PeppolPartyLegalEntity extends Schema.Opaque<PeppolPartyLegalEntity>()(
+class PeppolPartyLegalEntity extends opaque<PeppolPartyLegalEntity>()(
   Schema.Struct({
     /**
      * @description An identifier issued by an official registrar that identifies the payee as a legal entity or person.
@@ -45,7 +46,7 @@ class PeppolPartyLegalEntity extends Schema.Opaque<PeppolPartyLegalEntity>()(
   })
 ) {}
 
-class PeppolPartyIdentification extends Schema.Opaque<PeppolPartyIdentification>()(
+class PeppolPartyIdentification extends opaque<PeppolPartyIdentification>()(
   Schema.Struct({
     /**
      * @description This element is used for both the identification of the Payee, or the unique banking reference identifier of Payee (assigned by the Payee
@@ -89,7 +90,7 @@ class PeppolPartyIdentification extends Schema.Opaque<PeppolPartyIdentification>
  *
  * @name cac:PayeeParty
  */
-export class PeppolPayeeParty extends Schema.Opaque<PeppolPayeeParty>()(
+export class PeppolPayeeParty extends opaque<PeppolPayeeParty>()(
   Schema.Struct({
     /**
      * @summary PARTY IDENTIFICATION

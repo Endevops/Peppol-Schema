@@ -1,6 +1,7 @@
 import { Schema } from 'effect';
 
 import { PeppolTaxCategory } from '#/effect/fields/peppol-tax-category-schema';
+import { opaque } from '#/effect/utils/opaque';
 
 /**
  * @description This one is specific for TaxSubtotal since it includes more fields.
@@ -9,7 +10,7 @@ import { PeppolTaxCategory } from '#/effect/fields/peppol-tax-category-schema';
  *
  * @name cac:TaxCategory
  */
-export class PeppolTaxSubtotalCategory extends Schema.Opaque<PeppolTaxSubtotalCategory>()(
+export class PeppolTaxSubtotalCategory extends opaque<PeppolTaxSubtotalCategory>()(
   PeppolTaxCategory.pipe(
     Schema.fieldsAssign({
       /**

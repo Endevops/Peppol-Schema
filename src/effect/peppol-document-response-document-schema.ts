@@ -1,5 +1,6 @@
 import { Schema } from 'effect';
 
+import { opaque } from '#/effect/utils/opaque';
 import { applicationResponseTypeCodeSchema } from '#/effect/values/application-response-type-code-schema';
 
 /**
@@ -11,7 +12,7 @@ import { applicationResponseTypeCodeSchema } from '#/effect/values/application-r
  *
  * @see {@link messageLevelResponseDocumentResponseSchema}
  */
-export class PeppolDocumentResponseDocument extends Schema.Opaque<PeppolDocumentResponseDocument>()(
+export class PeppolDocumentResponseDocument extends opaque<PeppolDocumentResponseDocument>()(
   Schema.Struct({
     /**
      * @description An indicator stating whether the referenced message was cleared through validation and advanced to the next step in the process. A negative

@@ -12,7 +12,7 @@
  *
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/UNCL1001-cn/
  */
-export const creditNoteTypeCodes = {
+export const creditNoteTypeCodes: Record<CreditNoteTypeCodesKeys, string> = {
   /**
    * @description Document message used to provide credit information related to a transaction for goods or services to the relevant party.
    */

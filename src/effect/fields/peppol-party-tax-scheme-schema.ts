@@ -1,6 +1,8 @@
 import { Effect, Schema } from 'effect';
 
-class PeppolTaxSchemeId extends Schema.Opaque<PeppolTaxSchemeId>()(
+import { opaque } from '#/effect/utils/opaque';
+
+class PeppolTaxSchemeId extends opaque<PeppolTaxSchemeId>()(
   Schema.Struct({
     /**
      * @description Mandatory element. For Seller VAT identifier (BT-31), use value “VAT”, for the seller tax registration identifier (BT-32), use != "VAT"
@@ -14,7 +16,7 @@ class PeppolTaxSchemeId extends Schema.Opaque<PeppolTaxSchemeId>()(
 /**
  * @name cac:PartyTaxScheme (0..2)
  */
-export class PeppolPartyTaxScheme extends Schema.Opaque<PeppolPartyTaxScheme>()(
+export class PeppolPartyTaxScheme extends opaque<PeppolPartyTaxScheme>()(
   Schema.Struct({
     /**
      * @description The Seller's VAT identifier (also known as Seller VAT identification number) or the local identification (defined by the Seller’s address) of

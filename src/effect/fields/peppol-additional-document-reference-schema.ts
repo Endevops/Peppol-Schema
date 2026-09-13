@@ -2,9 +2,10 @@ import { Schema } from 'effect';
 
 import { PeppolBinaryObject } from '#/effect/fields/peppol-binary-object-schema';
 import { PeppolIdentifier } from '#/effect/fields/peppol-identifier-schema';
+import { opaque } from '#/effect/utils/opaque';
 import { additionalDocumentReferenceCodeSchema } from '#/effect/values/additional-document-reference-code-schema';
 
-class PeppolAttachmentExternalReference extends Schema.Opaque<PeppolAttachmentExternalReference>()(
+class PeppolAttachmentExternalReference extends opaque<PeppolAttachmentExternalReference>()(
   Schema.Struct({
     /**
      * @description The URL (Uniform Resource Locator) that identifies where the external document is located. A means of locating the resource, including its
@@ -21,7 +22,7 @@ class PeppolAttachmentExternalReference extends Schema.Opaque<PeppolAttachmentEx
   })
 ) {}
 
-class PeppolAttachment extends Schema.Opaque<PeppolAttachment>()(
+class PeppolAttachment extends opaque<PeppolAttachment>()(
   Schema.Struct({
     /**
      * @description An attached document embedded as binary object (Base64) or sent together with the invoice.
@@ -45,7 +46,7 @@ class PeppolAttachment extends Schema.Opaque<PeppolAttachment>()(
   })
 ) {}
 
-class PeppolId extends Schema.Opaque<PeppolId>()(
+class PeppolId extends opaque<PeppolId>()(
   Schema.Struct({
     /**
      * @description An identifier for an object on which the invoice is based (with DocumentTypeCode=130), given by the Seller, the identifier for the supporting
@@ -76,7 +77,7 @@ class PeppolId extends Schema.Opaque<PeppolId>()(
  *
  * @name `cac:AdditionalDocumentReference`
  */
-export class PeppolAdditionalDocumentReference extends Schema.Opaque<PeppolAdditionalDocumentReference>()(
+export class PeppolAdditionalDocumentReference extends opaque<PeppolAdditionalDocumentReference>()(
   PeppolIdentifier.pipe(
     Schema.fieldsAssign({
       /**
