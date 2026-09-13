@@ -1,10 +1,11 @@
-import { Schema } from 'effect';
-import { describe, expect, it } from 'vitest';
+import { assert, expect, it, layer } from '@effect/vitest';
+import { Effect, Layer, Result, Schema } from 'effect';
 
 import { peppolXsdTimeSchema } from './peppol-xsd-time-schema';
 
-describe('peppolXsdTimeSchema', () => {
-  it.for([
+layer(Layer.empty)('peppolXsdTimeSchema', () => {
+  const decodeTime = Schema.decodeEffect(peppolXsdTimeSchema);
+  it.effect.each([
     '00:00:00',
     '00:00:00Z',
     '00:00:00+01:00',
@@ -30,11 +31,16 @@ describe('peppolXsdTimeSchema', () => {
     '00:00:00+2359',
     '14:30:00Z',
     '14:30:00+00:00',
-  ] as const)('should parse %s as iso date', val => {
-    expect(() => Schema.decodeSync(peppolXsdTimeSchema)(val)).not.toThrow();
-  });
+  ] as const)(
+    'should parse %s as iso date',
+    Effect.fn(function* (val) {
+      const result = yield* decodeTime(val).pipe(Effect.result);
+      assert(Result.isSuccess(result));
+      expect(result.success).toMatchSnapshot();
+    })
+  );
 
-  it.for([
+  it.effect.each([
     '10:10:11-0000',
     '10:10:11-00',
     '24:10:11+0000',
@@ -61,7 +67,10 @@ describe('peppolXsdTimeSchema', () => {
     '00:00',
     '00:00:',
     '',
-  ] as const)('should not parse %s as iso date', val => {
-    expect(() => Schema.decodeSync(peppolXsdTimeSchema)(val)).toThrow();
-  });
+  ] as const)(
+    'should not parse %s as iso date',
+    Effect.fn(function* (val) {
+      assert(Result.isFailure(yield* decodeTime(val).pipe(Effect.result)));
+    })
+  );
 });
