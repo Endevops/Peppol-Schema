@@ -1,6 +1,6 @@
 import { Effect } from 'effect';
 
-import type { PeppolInvoice } from '#/schemas/invoice';
+import type { PeppolInvoice } from '#/schemas/peppol-invoice-schema';
 
 import { encodeAdditionalDocumentReferences } from '#/decoders/fields/encode-additional-document-references';
 import { encodeAllowanceCharges } from '#/decoders/fields/encode-allowance-charges';

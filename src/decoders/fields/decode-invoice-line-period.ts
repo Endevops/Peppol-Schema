@@ -1,7 +1,7 @@
 import { Effect, Predicate } from 'effect';
 
 import type { XmlNode } from '#/helpers/get-prop';
-import type { PeppolInvoiceLinePeriod } from '#/schemas/fields/invoice-line-period-schema';
+import type { PeppolInvoiceLinePeriod } from '#/schemas/fields/peppol-invoice-line-period-schema';
 import type { RecursivePartial } from '#/types';
 
 import { getProp } from '#/helpers/get-prop';

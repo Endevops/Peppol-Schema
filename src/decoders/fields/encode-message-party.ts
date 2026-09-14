@@ -1,14 +1,14 @@
 import { Effect, Predicate } from 'effect';
 
-import type { InvoiceDocumentResponseParty, InvoiceResponseParty } from '#/schemas/invoice-response-schema';
-import type { PeppolMessageLevelResponseParty } from '#/schemas/message-level-response-party-schema';
+import type { PeppolInvoiceDocumentResponseParty, PeppolInvoiceResponseParty } from '#/schemas/peppol-invoice-response-schema';
+import type { PeppolMessageLevelResponseParty } from '#/schemas/peppol-message-level-response-party-schema';
 
 import { encodeContact } from '#/decoders/fields/encode-contact';
 import { encodeIdentifier } from '#/decoders/fields/encode-identifier';
 import { encodePartyLegalEntity } from '#/decoders/fields/encode-party-legal-entity';
 
 export const encodeMessageParty = Effect.fn(function* (
-  party?: PeppolMessageLevelResponseParty | InvoiceResponseParty | InvoiceDocumentResponseParty
+  party?: PeppolMessageLevelResponseParty | PeppolInvoiceResponseParty | PeppolInvoiceDocumentResponseParty
 ) {
   if (Predicate.isNullish(party)) return undefined;
   return {

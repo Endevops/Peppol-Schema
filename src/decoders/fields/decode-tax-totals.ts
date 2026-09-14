@@ -1,8 +1,8 @@
 import { Effect, Predicate } from 'effect';
 
 import type { XmlNode } from '#/helpers/get-prop';
-import type { PeppolTaxSubTotal } from '#/schemas/fields/tax-subtotal-schema';
-import type { PeppolTaxTotal } from '#/schemas/fields/tax-totals';
+import type { PeppolTaxSubTotal } from '#/schemas/fields/peppol-tax-subtotal-schema';
+import type { PeppolTaxTotal } from '#/schemas/fields/peppol-tax-totals-base-schema';
 import type { RecursivePartial } from '#/types';
 
 import { decodeAmount } from '#/decoders/fields/decode-amount';

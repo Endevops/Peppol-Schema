@@ -1,6 +1,6 @@
 import { Effect, Predicate } from 'effect';
 
-import type { PeppolLinePrice } from '#/schemas/fields/price-schema';
+import type { PeppolLinePrice } from '#/schemas/fields/peppol-line-price-schema';
 
 import { encodeAmount } from '#/decoders/fields/encode-amount';
 import { encodePriceAllowanceCharges } from '#/decoders/fields/encode-price-allowance-charges';

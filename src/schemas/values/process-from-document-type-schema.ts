@@ -1,8 +1,8 @@
-import * as z from 'zod/mini';
+import { Schema } from 'effect';
 
-import type { PeppolDocumentType } from '#/schemas/values/document-type-schema';
+import type { PeppolDocumentType } from '#/schemas/values/peppol-document-type-schema';
 
-import { processSchema } from '#/schemas/values/process-schema';
+import { peppolProcessSchema } from '#/schemas/values/peppol-process-schema';
 import { documentTypesProcessIds } from '#/values/document-type.generated';
 
 /**
@@ -11,18 +11,16 @@ import { documentTypesProcessIds } from '#/values/document-type.generated';
  * @param documentType - The PEPPOL document type scheme whose allowed processes should be used.
  * @param error - The custom error message to use when validation fails. Defaults to `'invalid process type for document type'`.
  *
- * @returns A Zod template-literal schema that matches only processes allowed for the given document type.
+ * @returns An Effect schema that matches only processes allowed for the given document type.
  *
- * @see {@link processSchema}
+ * @see {@link peppolProcessSchema}
  * @see {@link documentTypesProcessIds}
  */
 export function processFromDocumentTypeSchema(documentType: PeppolDocumentType, error = 'invalid process type for document type') {
-  const processes = documentTypesProcessIds[documentType as keyof typeof documentTypesProcessIds];
-  if (!processes) {
-    return processSchema(error);
+  const allowed = documentTypesProcessIds[documentType as keyof typeof documentTypesProcessIds];
+  if (allowed === undefined) {
+    return peppolProcessSchema;
   }
-
-  return z
-    .templateLiteral([z.string(), z.literal('::'), z.string()], error)
-    .check(z.refine(val => processes.map(p => `${p.scheme}::${p.value}`).includes(val)));
+  const values = allowed.map(p => `${p.scheme}::${p.value}`);
+  return Schema.String.check(Schema.makeFilter((val: string) => values.includes(val as never))).annotate({ message: error });
 }

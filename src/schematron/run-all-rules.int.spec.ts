@@ -1,8 +1,8 @@
+import { Schema } from 'effect';
 import { GenericContainer } from 'testcontainers';
 import { describe, expect, it } from 'vitest';
-import * as z from 'zod/mini';
 
-import { documentParser } from '#/document-parser';
+import { peppolDocumentSchema } from '#/schemas/peppol-document-schema';
 import { runAllRules } from '#/schematron/run-all-rules';
 import { decodeBaseExample } from '#/test/test-utils';
 
@@ -21,7 +21,7 @@ describe.todo('schematron.run-all-rules', () => {
       await using container = await new GenericContainer('theyoxy/peppol-validation:develop').withExposedPorts(8080).start();
       console.log('Container started');
       const baseDocument = await decodeBaseExample();
-      const baseDocumentXml = z.encode(documentParser, baseDocument as any);
+      const baseDocumentXml = Schema.decodeUnknownSync(peppolDocumentSchema)(baseDocument as any);
 
       console.log('Sending validation request to', `http://${container.getHost()}:${container.getMappedPort(8080)}/validate/invoice`);
       const result = await fetch(`http://${container.getHost()}:${container.getMappedPort(8080)}/validate/invoice`, {

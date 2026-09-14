@@ -1,6 +1,6 @@
 import { Effect, Predicate } from 'effect';
 
-import type { PeppolDocumentLine } from '#/document';
+import type { PeppolDocumentLine } from '#/schemas/peppol-document-schema';
 
 import { encodeAmount } from '#/decoders/fields/encode-amount';
 import { encodeIdentifier } from '#/decoders/fields/encode-identifier';

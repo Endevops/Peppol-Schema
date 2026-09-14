@@ -1,7 +1,10 @@
 import { Effect, Predicate } from 'effect';
 
-import type { InvoiceResponseDocumentReference, InvoiceResponseDocumentResponse } from '#/schemas/invoice-response-schema';
-import type { PeppolInvoiceResponse } from '#/schemas/invoice-response-schema';
+import type {
+  PeppolInvoiceResponse,
+  PeppolInvoiceResponseDocumentReference,
+  PeppolInvoiceResponseDocumentResponse,
+} from '#/schemas/peppol-invoice-response-schema';
 
 import { encodeMessageParty } from '#/decoders/fields/encode-message-party';
 
@@ -30,7 +33,7 @@ export const encodeInvoiceResponse = Effect.fn(function* (invoiceResponse: Peppo
   };
 });
 
-const encodeDocumentResponse = Effect.fn(function* (documentResponse: InvoiceResponseDocumentResponse) {
+const encodeDocumentResponse = Effect.fn(function* (documentResponse: PeppolInvoiceResponseDocumentResponse) {
   if (Predicate.isNullish(documentResponse)) {
     return undefined;
   }
@@ -52,7 +55,7 @@ const encodeDocumentResponse = Effect.fn(function* (documentResponse: InvoiceRes
   };
 });
 
-const encodeDocumentReference = Effect.fn(function* (documentReference: InvoiceResponseDocumentReference) {
+const encodeDocumentReference = Effect.fn(function* (documentReference: PeppolInvoiceResponseDocumentReference) {
   if (Predicate.isNullish(documentReference)) return undefined;
   return { 'cbc:ID': documentReference.id, 'cbc:IssueDate': documentReference.issueDate, 'cbc:DocumentTypeCode': documentReference.documentTypeCode };
 });

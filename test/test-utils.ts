@@ -3,11 +3,12 @@
  *
  * @effect-diagnostics nodeBuiltinImport:off
  */
-import * as z from 'zod/mini';
 
-import type { PeppolDocument } from '#/document';
+import { Schema } from 'effect';
 
-import { documentParser } from '#/document-parser';
+import type { PeppolDocument } from '#/schemas/peppol-document-schema';
+
+import { peppolDocumentSchema } from '#/schemas/peppol-document-schema';
 
 const BASE_EXAMPLE = '#/test/files/v3/invoice/base-example.xml';
 
@@ -22,12 +23,9 @@ export const fixtures = {
   vatCategoryE: '#/test/files/v3/invoice/vat-category-E.xml',
   vatCategoryO: '#/test/files/v3/invoice/vat-category-O.xml',
 } as const;
+const decodeDocument = Schema.decodeUnknownSync(peppolDocumentSchema);
 
 export async function decodeFixture(filename: string): Promise<PeppolDocument> {
   const content = await import(`${filename}?raw`).then(i => i.default);
-  const result = z.safeDecode(documentParser, content, { reportInput: true });
-  if (!result.success) {
-    throw new Error(`Failed to decode fixture ${filename}`);
-  }
-  return result.data as unknown as PeppolDocument;
+  return decodeDocument(content, { reportInput: true }) as unknown as PeppolDocument;
 }

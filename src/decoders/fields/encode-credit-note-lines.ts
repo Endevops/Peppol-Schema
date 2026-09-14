@@ -1,6 +1,6 @@
 import { Effect } from 'effect';
 
-import type { PeppolCreditNoteLine } from '#/schemas/fields/credit-note-line-schema';
+import type { PeppolCreditNoteLine } from '#/schemas/fields/peppol-credit-note-line-schema';
 
 import { encodeLineShared } from '#/decoders/fields/encode-line-shared';
 

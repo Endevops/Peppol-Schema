@@ -1,9 +1,7 @@
 import { Effect, Predicate } from 'effect';
 
-import type { PeppolDocumentLine } from '#/document';
-import type { PeppolNodeError } from '#/helpers/errors';
 import type { XmlNode } from '#/helpers/get-prop';
-import type { PeppolBaseLine } from '#/schemas/fields/base-line-schema';
+import type { PeppolDocumentLine } from '#/schemas/peppol-document-schema';
 import type { RecursivePartial } from '#/types';
 
 import { decodeAmount } from '#/decoders/fields/decode-amount';
@@ -19,7 +17,7 @@ import { strOrUnd } from '#/helpers/str-or-und';
 
 type PeppolDocumentLineItem = PeppolDocumentLine['item'];
 
-export const decodeLineShared = Effect.fn(function* (lineShared: XmlNode): Effect.fn.Return<RecursivePartial<PeppolBaseLine>, PeppolNodeError> {
+export const decodeLineShared = Effect.fn(function* (lineShared: XmlNode) {
   const item = yield* getProp(lineShared, 'cac:Item');
   const orderLineReference = yield* getProp(lineShared, 'cac:OrderLineReference');
 

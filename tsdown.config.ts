@@ -24,7 +24,6 @@ export default defineConfig([
     dts: { sourcemap: true },
     entry: {
       constants: './src/constants/index.ts',
-      effect: './src/effect/index.ts',
       index: './src/index.ts',
       'invoice-response-codes': './src/invoice-response-codes/index.ts',
       schematron: './src/schematron/index.ts',

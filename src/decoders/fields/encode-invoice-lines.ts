@@ -1,6 +1,6 @@
 import { Effect } from 'effect';
 
-import type { PeppolInvoiceLine } from '#/schemas/fields/invoice-line-schema';
+import type { PeppolInvoiceLine } from '#/schemas/fields/peppol-invoice-line-schema';
 
 import { encodeLineShared } from '#/decoders/fields/encode-line-shared';
 

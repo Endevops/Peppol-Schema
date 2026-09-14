@@ -1,6 +1,6 @@
 import { Effect, Predicate } from 'effect';
 
-import type { PeppolAllowanceCharge } from '#/schemas/fields/allowance-charge-schema';
+import type { PeppolAllowanceCharge } from '#/schemas/fields/peppol-allowance-charge-schema';
 
 import { encodeSimpleIdentifier } from '#/decoders/fields/encode-simple-identifier';
 

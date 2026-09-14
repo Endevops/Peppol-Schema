@@ -1,6 +1,6 @@
 import { Effect, Predicate } from 'effect';
 
-import type { PeppolAmount } from '#/schemas/fields/amount-schema';
+import type { PeppolAmount } from '#/schemas/fields/peppol-amount-schema';
 
 export const encodeAmount = Effect.fn(function* (amount?: PeppolAmount) {
   if (Predicate.isNullish(amount)) return undefined;

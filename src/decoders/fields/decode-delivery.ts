@@ -1,7 +1,7 @@
 import { Effect, Predicate } from 'effect';
 
 import type { XmlNode } from '#/helpers/get-prop';
-import type { PeppolDelivery } from '#/schemas/fields/delivery-schema';
+import type { PeppolDelivery } from '#/schemas/fields/peppol-delivery-schema';
 import type { RecursivePartial } from '#/types';
 
 import { decodeAddress } from '#/decoders/fields/decode-address';

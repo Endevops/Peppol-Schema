@@ -1,6 +1,6 @@
 import { Effect } from 'effect';
 
-import type { PeppolLegalMonetaryTotal } from '#/schemas/fields/legal-monetary-total-schema';
+import type { PeppolLegalMonetaryTotal } from '#/schemas/fields/peppol-legal-monetary-total-schema';
 
 import { encodeAmount } from '#/decoders/fields/encode-amount';
 

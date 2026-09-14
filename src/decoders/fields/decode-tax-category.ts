@@ -1,7 +1,7 @@
 import { Effect, Predicate } from 'effect';
 
 import type { XmlNode } from '#/helpers/get-prop';
-import type { PeppolAllowanceCharge } from '#/schemas/fields/allowance-charge-schema';
+import type { PeppolAllowanceCharge } from '#/schemas/fields/peppol-allowance-charge-schema';
 import type { RecursivePartial } from '#/types';
 
 import { decodeSimpleIdentifer } from '#/decoders/fields/decode-simple-identifier';

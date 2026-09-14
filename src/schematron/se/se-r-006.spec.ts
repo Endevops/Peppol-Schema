@@ -3,7 +3,7 @@
  */
 import { describe, expect, it } from 'vitest';
 
-import type { PeppolDocument } from '#/document';
+import type { PeppolDocument } from '#/schemas/peppol-document-schema';
 
 import { decodeBaseExample } from '#/test/test-utils';
 
@@ -36,7 +36,7 @@ describe('SE-R-006 (standard VAT rate)', () => {
     const lines = (document as PeppolDocument & { invoiceLines: Array<{ item: unknown }> }).invoiceLines;
     const line = lines[0];
     if (!line) {
-      throw new Error('base example has no invoice line');
+      expect.unreachable('base example has no invoice line');
     }
     const altered = {
       ...document,
@@ -53,7 +53,7 @@ describe('SE-R-006 (standard VAT rate)', () => {
     const lines = (document as PeppolDocument & { invoiceLines: Array<{ item: unknown }> }).invoiceLines;
     const line = lines[0];
     if (!line) {
-      throw new Error('base example has no invoice line');
+      expect.unreachable('base example has no invoice line');
     }
     const altered = {
       ...document,

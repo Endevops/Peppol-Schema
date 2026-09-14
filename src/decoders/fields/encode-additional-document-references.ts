@@ -1,6 +1,6 @@
 import { Effect, Predicate } from 'effect';
 
-import type { PeppolAdditionalDocumentReference } from '#/schemas/fields/additional-document-reference-schema';
+import type { PeppolAdditionalDocumentReference } from '#/schemas/fields/peppol-additional-document-reference-schema';
 
 import { encodeIdentifier } from '#/decoders/fields/encode-identifier';
 

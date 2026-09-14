@@ -83,7 +83,7 @@ src/
 
 - Uses `Effect` (v4 beta) for typed effects, `Schema` for decoding
 - See `src/decoders/` for Effect Schema decoders
-- Build opaque structs with `opaque<Self>()(Schema.Struct({...}))` from `#/effect/utils/opaque` instead of `Schema.Opaque<Self>()(...)`. Both are identical at runtime and in type, but `Schema.Opaque` expands the wrapped struct twice in declaration emit (once in `Opaque`, once in `Omit`), which doubled `dist/effect.d.ts`.
+- Build opaque structs with `opaque<Self>()(Schema.Struct({...}))` from `#/schemas/utils/opaque` instead of `Schema.Opaque<Self>()(...)`. Both are identical at runtime and in type, but `Schema.Opaque` expands the wrapped struct twice in declaration emit (once in `Opaque`, once in `Omit`), which doubled `dist/effect.d.ts`.
 
 ### XML Parsing
 

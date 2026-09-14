@@ -1,8 +1,8 @@
 import { Effect, Predicate } from 'effect';
 
 import type { XmlNode } from '#/helpers/get-prop';
-import type { PeppolIdentifier } from '#/schemas/fields/identifier-schema';
-import type { PeppolPaymentMeans } from '#/schemas/fields/payment-means-schema';
+import type { PeppolIdentifier } from '#/schemas/fields/peppol-identifier-schema';
+import type { PeppolPaymentMeans } from '#/schemas/fields/peppol-payment-means-schema';
 import type { RecursivePartial } from '#/types';
 
 import { decodeSimpleIdentifer } from '#/decoders/fields/decode-simple-identifier';

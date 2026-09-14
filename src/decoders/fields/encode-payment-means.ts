@@ -1,6 +1,6 @@
 import { Effect, Predicate } from 'effect';
 
-import type { PeppolPaymentMeans } from '#/schemas/fields/payment-means-schema';
+import type { PeppolPaymentMeans } from '#/schemas/fields/peppol-payment-means-schema';
 
 import { encodeSimpleIdentifier } from '#/decoders/fields/encode-simple-identifier';
 

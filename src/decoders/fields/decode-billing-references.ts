@@ -1,7 +1,7 @@
 import { Effect } from 'effect';
 
 import type { XmlNode } from '#/helpers/get-prop';
-import type { PeppolBillingReference } from '#/schemas/fields/billing-references-schema';
+import type { PeppolBillingReference } from '#/schemas/fields/peppol-billing-reference-schema';
 import type { RecursivePartial } from '#/types';
 
 import { getArray } from '#/helpers/get-array';

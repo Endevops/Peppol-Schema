@@ -1,6 +1,6 @@
 import { Effect } from 'effect';
 
-import type { PeppolBillingReference } from '#/schemas/fields/billing-references-schema';
+import type { PeppolBillingReference } from '#/schemas/fields/peppol-billing-reference-schema';
 
 export const encodeBillingReferences = Effect.fn(function* (billingReferences: Array<PeppolBillingReference> | undefined) {
   return billingReferences?.map(billingReference => ({

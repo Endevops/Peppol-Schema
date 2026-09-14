@@ -1,6 +1,6 @@
 import { Effect, Predicate } from 'effect';
 
-import type { PeppolDelivery } from '#/schemas/fields/delivery-schema';
+import type { PeppolDelivery } from '#/schemas/fields/peppol-delivery-schema';
 
 import { encodeAddress } from '#/decoders/fields/encode-address';
 import { encodeIdentifier } from '#/decoders/fields/encode-identifier';

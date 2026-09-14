@@ -1,6 +1,6 @@
 import { Effect, Predicate } from 'effect';
 
-import type { PeppolInvoicePeriod } from '#/schemas/fields/invoice-period-schema';
+import type { PeppolInvoicePeriod } from '#/schemas/fields/peppol-invoice-period-schema';
 
 export const encodeInvoicePeriod = Effect.fn(function* (invoicePeriod: PeppolInvoicePeriod | undefined) {
   return Predicate.isNotNullish(invoicePeriod)

@@ -1,6 +1,6 @@
 import { Effect, Predicate } from 'effect';
 
-import type { PeppolPartySchema } from '#/schemas/fields/party-base-schema';
+import type { PeppolPartySchema } from '#/schemas/fields/peppol-party-base-schema';
 
 import { encodeAddress } from '#/decoders/fields/encode-address';
 import { encodeContact } from '#/decoders/fields/encode-contact';

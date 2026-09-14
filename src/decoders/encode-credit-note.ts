@@ -1,6 +1,6 @@
 import { Effect } from 'effect';
 
-import type { PeppolCreditNote } from '#/schemas/credit-note';
+import type { PeppolCreditNote } from '#/schemas/peppol-credit-note-schema';
 
 import { encodeAdditionalDocumentReferences } from '#/decoders/fields/encode-additional-document-references';
 import { encodeAllowanceCharges } from '#/decoders/fields/encode-allowance-charges';

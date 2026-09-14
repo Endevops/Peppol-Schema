@@ -1,7 +1,7 @@
 import { Effect, Predicate } from 'effect';
 
 import type { XmlNode } from '#/helpers/get-prop';
-import type { PeppolTaxRepresentativeParty } from '#/schemas/fields/tax-representative-party-schema';
+import type { PeppolTaxRepresentativeParty } from '#/schemas/fields/peppol-tax-representative-schema';
 
 import { encodeAddress } from '#/decoders/fields/encode-address';
 import { encodePartyTaxScheme } from '#/decoders/fields/encode-party-tax-scheme';

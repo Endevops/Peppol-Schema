@@ -1,4 +1,4 @@
-import type { PeppolDocument } from '#/document';
+import type { PeppolDocument } from '#/schemas/peppol-document-schema';
 import type { SchematronRuleResult } from '#/schematron/types';
 
 const RULE_ID = 'PEPPOL-EN16931-R001';

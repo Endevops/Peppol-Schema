@@ -1,7 +1,7 @@
 import { Effect, Predicate } from 'effect';
 
-import type { PeppolTaxSubTotal } from '#/schemas/fields/tax-subtotal-schema';
-import type { PeppolTaxTotal } from '#/schemas/fields/tax-totals';
+import type { PeppolTaxSubTotal } from '#/schemas/fields/peppol-tax-subtotal-schema';
+import type { PeppolTaxTotal } from '#/schemas/fields/peppol-tax-totals-base-schema';
 
 import { encodeAmount } from '#/decoders/fields/encode-amount';
 import { encodeSimpleIdentifier } from '#/decoders/fields/encode-simple-identifier';

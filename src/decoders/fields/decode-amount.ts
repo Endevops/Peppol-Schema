@@ -1,8 +1,8 @@
 import { Effect, Predicate } from 'effect';
 
 import type { XmlNode } from '#/helpers/get-prop';
-import type { PeppolAmount } from '#/schemas/fields/amount-schema';
-import type { PeppolCurrencyCode } from '#/schemas/values/currency-codes';
+import type { PeppolAmount } from '#/schemas/fields/peppol-amount-schema';
+import type { PeppolCurrencyCode } from '#/schemas/values/currency-code-schema';
 import type { RecursivePartial } from '#/types';
 
 import { getProp } from '#/helpers/get-prop';

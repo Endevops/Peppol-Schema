@@ -1,6 +1,6 @@
 import type { PeppolQuantityUnitCode } from '#/schemas/values/quantity-unit-codes-schema';
 
-type BaseIntlUnit =
+export type BaseIntlUnit =
   | 'acre'
   | 'bit'
   | 'byte'
@@ -36,7 +36,7 @@ type BaseIntlUnit =
   | 'terabit'
   | 'terabyte'
   | 'yard';
-type TimeIntlUnit = 'nanosecond' | 'microsecond' | 'millisecond' | 'second' | 'minute' | 'hour' | 'day' | 'week' | 'month' | 'year';
+export type TimeIntlUnit = 'nanosecond' | 'microsecond' | 'millisecond' | 'second' | 'minute' | 'hour' | 'day' | 'week' | 'month' | 'year';
 
 export type IntlUnit = BaseIntlUnit | TimeIntlUnit | `${BaseIntlUnit}-per-${TimeIntlUnit}`;
 

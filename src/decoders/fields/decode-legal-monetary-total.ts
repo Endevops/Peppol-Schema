@@ -1,7 +1,7 @@
 import { Effect, Predicate } from 'effect';
 
 import type { XmlNode } from '#/helpers/get-prop';
-import type { PeppolLegalMonetaryTotal } from '#/schemas/fields/legal-monetary-total-schema';
+import type { PeppolLegalMonetaryTotal } from '#/schemas/fields/peppol-legal-monetary-total-schema';
 import type { RecursivePartial } from '#/types';
 
 import { decodeAmount } from '#/decoders/fields/decode-amount';

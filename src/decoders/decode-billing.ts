@@ -1,4 +1,4 @@
-import { Effect } from 'effect';
+import { Effect, SchemaParser } from 'effect';
 
 import type { XmlNode } from '#/helpers/get-prop';
 
@@ -17,9 +17,12 @@ import { decodeSimpleIdentifer } from '#/decoders/fields/decode-simple-identifie
 import { decodeTaxRepresentativeParty } from '#/decoders/fields/decode-tax-representative-party';
 import { decodeTaxTotals } from '#/decoders/fields/decode-tax-totals';
 import { strOrUnd } from '#/helpers/str-or-und';
+import { PeppolBillingBase } from '#/schemas/peppol-billing-base-schema';
+
+const decodeBillingValue = SchemaParser.decodeUnknownEffect(PeppolBillingBase);
 
 export const decodeBilling = Effect.fn(function* (doc: XmlNode) {
-  return {
+  return yield* decodeBillingValue({
     accountingCost: yield* strOrUnd(doc, 'cbc:AccountingCost'),
     accountingCustomerParty: yield* decodeParty(doc, 'cac:AccountingCustomerParty', 'cac:Party'),
     accountingSupplierParty: yield* decodeParty(doc, 'cac:AccountingSupplierParty', 'cac:Party'),
@@ -48,5 +51,5 @@ export const decodeBilling = Effect.fn(function* (doc: XmlNode) {
     taxPointDate: yield* strOrUnd(doc, 'cbc:TaxPointDate'),
     taxRepresentativeParty: yield* decodeTaxRepresentativeParty(doc, 'cac:TaxRepresentativeParty'),
     taxTotals: yield* decodeTaxTotals(doc, 'cac:TaxTotal'),
-  };
+  });
 });

@@ -3,11 +3,12 @@
   "$schema": "https://raw.githubusercontent.com/fallow-rs/fallow/main/schema.json",
   // Public API surfaces backing package.json exports, plus build scripts
   // and the shared test matcher.
+  "typeAware": { "enabled": true },
   "entry": [
     "**/scripts/**/*.ts",
     "test/custom-matchers.ts",
     "src/index.ts",
-    "src/effect/index.ts",
+    "src/schemas/index.ts",
     "src/schematron/index.ts",
     "src/peppol-validations/index.ts",
     "src/values.ts",

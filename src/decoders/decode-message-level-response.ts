@@ -1,38 +1,32 @@
-import { Effect, Predicate } from 'effect';
+import { Effect, Predicate, SchemaParser } from 'effect';
 
 import type { XmlNode } from '#/helpers/get-prop';
-import type { PeppolMessageLevelDocumentResponseDocumentReference } from '#/schemas/document-response-document-reference-schema';
-import type { PeppolMessageLevelResponseDocumentResponseDocument } from '#/schemas/document-response-document-schema';
-import type { DocumentResponseLineResponseContent } from '#/schemas/document-response-line-response-content';
-import type { PeppolMessageLevelDocumentResponseLineResponse } from '#/schemas/document-response-line-response-schema';
-import type { PeppolMessageLevelMessageLevelResponseDocumentResponse } from '#/schemas/message-level-response-document-response-schema';
-import type { PeppolMessageLevelResponse } from '#/schemas/message-level-response-schema';
-import type { RecursivePartial } from '#/types';
 
 import { decodeApplicationResponseBase } from '#/decoders/fields/decode-application-response';
 import { decodeMessageLevelParty } from '#/decoders/fields/decode-message-level-party';
 import { getArray } from '#/helpers/get-array';
 import { getProp } from '#/helpers/get-prop';
 import { strOrUnd } from '#/helpers/str-or-und';
+import { PeppolDocumentResponseDocumentReference } from '#/schemas/peppol-document-response-document-reference-schema';
+import { PeppolDocumentResponseLineResponseContent } from '#/schemas/peppol-document-response-line-response-content-schema';
+import { PeppolDocumentResponseLineResponse } from '#/schemas/peppol-document-response-line-response-schema';
+import { PeppolMessageLevelResponseDocumentResponse } from '#/schemas/peppol-message-level-response-document-response-schema';
+import { PeppolMessageLevelResponse } from '#/schemas/peppol-message-level-response-schema';
 
-const decodeDocumentResponse = Effect.fn(function* (
-  doc: XmlNode,
-  ...path: Array<string>
-): Effect.fn.Return<RecursivePartial<PeppolMessageLevelMessageLevelResponseDocumentResponse> | undefined> {
+const validateDocumentResponse = SchemaParser.decodeUnknownEffect(PeppolMessageLevelResponseDocumentResponse);
+const decodeDocumentResponse = Effect.fn(function* (doc: XmlNode, ...path: Array<string>) {
   const val = yield* getProp(doc, ...path);
   if (Predicate.isNullish(val)) return undefined;
 
-  return {
+  return yield* validateDocumentResponse({
     documentReference: yield* decodeDocumentReference(val, 'cac:DocumentReference'),
     lineResponse: yield* decodeLineResponse(val, 'cac:LineResponse'),
     response: yield* decodeResponse(val, 'cac:Response'),
-  } as RecursivePartial<PeppolMessageLevelMessageLevelResponseDocumentResponse>;
+  });
 });
 
-const decodeLineResponse = Effect.fn(function* (
-  doc: XmlNode,
-  ...path: Array<string>
-): Effect.fn.Return<Array<RecursivePartial<PeppolMessageLevelDocumentResponseLineResponse>> | undefined> {
+const validateLineResponse = SchemaParser.decodeUnknownEffect(PeppolDocumentResponseLineResponse);
+const decodeLineResponse = Effect.fn(function* (doc: XmlNode, ...path: Array<string>) {
   const val = yield* getArray(doc, ...path);
   /* istanbul ignore next -- getArray never returns a falsy value */
   if (Predicate.isNullish(val)) return undefined;
@@ -40,58 +34,51 @@ const decodeLineResponse = Effect.fn(function* (
   return yield* Effect.forEach(
     val,
     Effect.fn(function* (line: XmlNode) {
-      return {
+      return validateLineResponse({
         lineReference: { lineId: yield* strOrUnd(line, 'cac:LineReference', 'cbc:LineID') },
         response: yield* decodeLineResponseContent(line, 'cac:Response'),
-      };
+      });
     })
   );
 });
 
-const decodeLineResponseContent = Effect.fn(function* (
-  doc: XmlNode,
-  ...path: Array<string>
-): Effect.fn.Return<RecursivePartial<DocumentResponseLineResponseContent> | undefined> {
+const validateLineResponseContent = SchemaParser.decodeUnknownEffect(PeppolDocumentResponseLineResponseContent);
+const decodeLineResponseContent = Effect.fn(function* (doc: XmlNode, ...path: Array<string>) {
   const val = yield* getProp(doc, ...path);
   if (Predicate.isNullish(val)) return undefined;
-  return {
+  return yield* validateLineResponseContent({
     description: yield* strOrUnd(val, 'cbc:Description'),
     responseCode: yield* strOrUnd(val, 'cbc:ResponseCode'),
     status: { statusReasonCode: yield* strOrUnd<'BV' | 'BW' | 'SV'>(val, 'cac:Status', 'cbc:StatusReasonCode') },
-  };
+  });
 });
 
-const decodeDocumentReference = Effect.fn(function* (
-  doc: XmlNode,
-  ...path: Array<string>
-): Effect.fn.Return<RecursivePartial<PeppolMessageLevelDocumentResponseDocumentReference> | undefined> {
+const validateDocumentReference = SchemaParser.decodeUnknownEffect(PeppolDocumentResponseDocumentReference);
+const decodeDocumentReference = Effect.fn(function* (doc: XmlNode, ...path: Array<string>) {
   const val = yield* getProp(doc, ...path);
   if (Predicate.isNullish(val)) return undefined;
-  return {
+  return yield* validateDocumentReference({
     documentTypeCode: yield* strOrUnd(val, 'cbc:DocumentTypeCode'),
     id: yield* strOrUnd(val, 'cbc:ID'),
     versionId: yield* strOrUnd(val, 'cbc:VersionID'),
-  };
+  });
 });
 
-const decodeResponse = Effect.fn(function* (
-  doc: XmlNode,
-  ...path: Array<string>
-): Effect.fn.Return<RecursivePartial<PeppolMessageLevelResponseDocumentResponseDocument> | undefined> {
+const validateResponse = SchemaParser.decodeUnknownEffect(PeppolDocumentResponseLineResponseContent);
+const decodeResponse = Effect.fn(function* (doc: XmlNode, ...path: Array<string>) {
   const val = yield* getProp(doc, ...path);
   if (Predicate.isNullish(val)) return undefined;
-  return { description: yield* strOrUnd(val, 'cbc:Description'), responseCode: yield* strOrUnd(val, 'cbc:ResponseCode') };
+  return yield* validateResponse({ description: yield* strOrUnd(val, 'cbc:Description'), responseCode: yield* strOrUnd(val, 'cbc:ResponseCode') });
 });
 
-export const decodeMessageLevelResponse = Effect.fn(function* (value: XmlNode): Effect.fn.Return<PeppolMessageLevelResponse> {
+const validateMessageLevelResponse = SchemaParser.decodeUnknownEffect(PeppolMessageLevelResponse);
+export const decodeMessageLevelResponse = Effect.fn(function* (value: XmlNode) {
   const { base, doc } = yield* decodeApplicationResponseBase(value);
-  const applicationResponse: RecursivePartial<PeppolMessageLevelResponse> = {
+  return yield* validateMessageLevelResponse({
     ...base,
     documentResponse: yield* decodeDocumentResponse(doc, 'cac:DocumentResponse'),
     profileId: yield* strOrUnd<'urn:fdc:peppol.eu:poacc:bis:mlr:3'>(doc, 'cbc:ProfileID'),
     receiverParty: yield* decodeMessageLevelParty(doc, 'cac:ReceiverParty'),
     senderParty: yield* decodeMessageLevelParty(doc, 'cac:SenderParty'),
-  };
-
-  return applicationResponse as PeppolMessageLevelResponse;
+  });
 });

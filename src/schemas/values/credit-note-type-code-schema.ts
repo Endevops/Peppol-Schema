@@ -1,4 +1,4 @@
-import * as z from 'zod/mini';
+import { Schema } from 'effect';
 
 import type { CreditNoteTypeCodesKeys } from '#/values/credit-notes-type-codes.generated';
 
@@ -16,10 +16,8 @@ export type PeppolCreditNoteTypeCode = CreditNoteTypeCodesKeys;
  *
  * @param error - The custom error message to use when validation fails.
  *
- * @returns A Zod string schema that accepts only valid credit note type codes.
+ * @returns An Effect schema that accepts only valid credit note type codes.
  *
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/UNCL1001-cn/
  */
-export function creditNoteTypeCodeSchema(error?: string) {
-  return z.string().check(z.refine(val => creditNoteTypeCodesKeys.includes(val as never), error));
-}
+export const creditNoteTypeCodeSchema = Schema.Literals(creditNoteTypeCodesKeys);

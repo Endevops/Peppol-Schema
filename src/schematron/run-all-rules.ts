@@ -1,4 +1,4 @@
-import type { PeppolDocument } from '#/document';
+import type { PeppolDocument } from '#/schemas/peppol-document-schema';
 import type { SchematronRuleResult } from '#/schematron/types';
 
 import { validateCenEn16931BrAe01 } from '#/schematron/cen/ae/cen-en16931-br-ae-01';

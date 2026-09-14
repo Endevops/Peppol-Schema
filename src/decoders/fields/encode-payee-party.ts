@@ -1,6 +1,6 @@
 import { Effect, Predicate } from 'effect';
 
-import type { PeppolPayeeParty } from '#/schemas/fields/payee-party';
+import type { PeppolPayeeParty } from '#/schemas/fields/peppol-payee-party-schema';
 
 import { encodeIdentifier } from '#/decoders/fields/encode-identifier';
 

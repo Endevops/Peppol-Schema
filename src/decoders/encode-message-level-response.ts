@@ -1,9 +1,8 @@
-import { Effect, Predicate } from 'effect';
+import { Effect } from 'effect';
 
-import type { PeppolMessageLevelMessageLevelResponseDocumentResponse } from '#/schemas/message-level-response-document-response-schema';
-import type { PeppolMessageLevelResponse } from '#/schemas/message-level-response-schema';
+import type { PeppolMessageLevelResponseDocumentResponse } from '#/schemas/peppol-message-level-response-document-response-schema';
+import type { PeppolMessageLevelResponse } from '#/schemas/peppol-message-level-response-schema';
 
-import { PeppolEncodeError } from '#/decoders/errors';
 import { encodeMessageParty } from '#/decoders/fields/encode-message-party';
 
 export const encodeMessageLevelResponse = Effect.fn(function* (messageResponse: PeppolMessageLevelResponse) {
@@ -30,12 +29,7 @@ export const encodeMessageLevelResponse = Effect.fn(function* (messageResponse: 
   };
 });
 
-const encodeMessageLevelDocumentResponse = Effect.fn(function* (
-  documentResponse: PeppolMessageLevelMessageLevelResponseDocumentResponse | undefined
-) {
-  if (Predicate.isNullish(documentResponse)) {
-    return yield* new PeppolEncodeError({ message: 'Cannot encode a message level response without a document response' });
-  }
+const encodeMessageLevelDocumentResponse = Effect.fn(function* (documentResponse: PeppolMessageLevelResponseDocumentResponse) {
   return {
     'cac:Response': { 'cbc:ResponseCode': documentResponse.response.responseCode, 'cbc:Description': documentResponse.response.description },
     'cac:DocumentReference': {

@@ -1,7 +1,7 @@
 import { Effect, Predicate } from 'effect';
 
 import type { XmlNode } from '#/helpers/get-prop';
-import type { PeppolOrderReference } from '#/schemas/fields/order-reference-schema';
+import type { PeppolOrderReference } from '#/schemas/fields/peppol-order-reference-schema';
 import type { RecursivePartial } from '#/types';
 
 import { getProp } from '#/helpers/get-prop';
