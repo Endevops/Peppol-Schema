@@ -1,12 +1,12 @@
 import { Effect, Predicate } from 'effect';
 
-import type { XmlNode } from '#/helpers/get-prop';
+import type { XmlNode } from '#/helpers/get-prop.ts';
 
-import { decodeContact } from '#/decoders/fields/decode-contact';
-import { decodeElectronicAddress } from '#/decoders/fields/decode-electronic-address';
-import { decodeIdentifier } from '#/decoders/fields/decode-identifier';
-import { decodePartyLegalEntity } from '#/decoders/fields/decode-party-legal-entity';
-import { getProp } from '#/helpers/get-prop';
+import { decodeContact } from '#/decoders/fields/decode-contact.ts';
+import { decodeElectronicAddress } from '#/decoders/fields/decode-electronic-address.ts';
+import { decodeIdentifier } from '#/decoders/fields/decode-identifier.ts';
+import { decodePartyLegalEntity } from '#/decoders/fields/decode-party-legal-entity.ts';
+import { getProp } from '#/helpers/get-prop.ts';
 
 export const decodeInvoiceMessageParty = Effect.fn(function* (party: XmlNode, ...path: Array<string>) {
   const val = yield* getProp(party, ...path);

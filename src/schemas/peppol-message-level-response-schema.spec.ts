@@ -2,9 +2,9 @@
 import { DateTime } from 'effect';
 import { afterAll, beforeAll, describe, it, vi } from 'vitest';
 
-import { decoding } from '#/test/schema-asserts';
+import { decoding } from '#/test/schema-asserts.ts';
 
-import { PeppolMessageLevelResponse } from './peppol-message-level-response-schema';
+import { PeppolMessageLevelResponse } from './peppol-message-level-response-schema.ts';
 
 const lineResponse = {
   lineReference: { lineId: '/Catalogue/cac:CatalogueLine[3]' },

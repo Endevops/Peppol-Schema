@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { isValidABN } from './is-valid-abn';
+import { isValidABN } from './is-valid-abn.ts';
 
 describe('isValidABN', () => {
   describe('valid Australian Business Numbers', () => {

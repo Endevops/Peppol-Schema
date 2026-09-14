@@ -1,7 +1,7 @@
 import { Clock, Option, DateTime, Effect, Predicate, Schema, SchemaGetter, SchemaIssue, SchemaParser } from 'effect';
 
-import { formatXsdTime } from '#/schemas/utils/format-xsd-time';
-import { opaque } from '#/schemas/utils/opaque';
+import { formatXsdTime } from '#/schemas/utils/format-xsd-time.ts';
+import { opaque } from '#/schemas/utils/opaque.ts';
 
 const timeRegex =
   /^(?<hours>[01]\d|2[0-3]):(?<minutes>[0-5]\d):(?<seconds>[0-5]\d)(?<nanoseconds>\.\d{1,9})?(?<tz>(?:Z|-0[1-9]|-1\d|-2[0-3]|-00:?(?:0[1-9]|[1-5]\d)|\+[01]\d|\+2[0-3])?(?:|:?[0-5]\d))$/;

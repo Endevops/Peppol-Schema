@@ -1,7 +1,7 @@
 import { DateTime } from 'effect';
 import { describe, expect, it } from 'vitest';
 
-import { formatTimeZoneOffset, formatXsdTime } from './format-xsd-time';
+import { formatTimeZoneOffset, formatXsdTime } from './format-xsd-time.ts';
 
 const offset = (minutes: number): DateTime.TimeZone => DateTime.zoneMakeOffset(minutes * 60 * 1000);
 

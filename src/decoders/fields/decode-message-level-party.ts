@@ -1,11 +1,11 @@
 import { Effect, Predicate } from 'effect';
 
-import type { XmlNode } from '#/helpers/get-prop';
-import type { PeppolMessageLevelResponseParty } from '#/schemas/peppol-message-level-response-party-schema';
-import type { RecursivePartial } from '#/types';
+import type { XmlNode } from '#/helpers/get-prop.ts';
+import type { PeppolMessageLevelResponseParty } from '#/schemas/peppol-message-level-response-party-schema.ts';
+import type { RecursivePartial } from '#/types.ts';
 
-import { decodeElectronicAddress } from '#/decoders/fields/decode-electronic-address';
-import { getProp } from '#/helpers/get-prop';
+import { decodeElectronicAddress } from '#/decoders/fields/decode-electronic-address.ts';
+import { getProp } from '#/helpers/get-prop.ts';
 
 export const decodeMessageLevelParty = Effect.fn(function* (
   party: XmlNode,

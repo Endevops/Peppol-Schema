@@ -2,7 +2,7 @@
 import { TestSchema } from 'effect/testing';
 import { describe, it } from 'vitest';
 
-import { peppolInvoiceResponseStatusReasonCodeSchema } from './peppol-invoice-response-status-reason-code-schema';
+import { peppolInvoiceResponseStatusReasonCodeSchema } from './peppol-invoice-response-status-reason-code-schema.ts';
 
 describe('peppolInvoiceResponseStatusReasonCodeSchema', () => {
   const testSchema = new TestSchema.Asserts(peppolInvoiceResponseStatusReasonCodeSchema);

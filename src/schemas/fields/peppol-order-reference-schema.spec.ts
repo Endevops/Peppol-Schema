@@ -2,7 +2,7 @@
 import { TestSchema } from 'effect/testing';
 import { describe, it } from 'vitest';
 
-import { PeppolOrderReference } from './peppol-order-reference-schema';
+import { PeppolOrderReference } from './peppol-order-reference-schema.ts';
 
 describe('PeppolOrderReference', () => {
   const testSchema = new TestSchema.Asserts(PeppolOrderReference);

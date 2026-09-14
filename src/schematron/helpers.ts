@@ -1,11 +1,11 @@
 import { Effect } from 'effect';
 
-import type { PeppolInvoicePeriod } from '#/schemas/fields/peppol-invoice-period-schema';
-import type { PeppolTaxSubTotal } from '#/schemas/fields/peppol-tax-subtotal-schema';
-import type { PeppolDocument, PeppolDocumentLine } from '#/schemas/peppol-document-schema';
-import type { SchematronRuleLevel } from '#/schematron/types';
+import type { PeppolInvoicePeriod } from '#/schemas/fields/peppol-invoice-period-schema.ts';
+import type { PeppolTaxSubTotal } from '#/schemas/fields/peppol-tax-subtotal-schema.ts';
+import type { PeppolDocument, PeppolDocumentLine } from '#/schemas/peppol-document-schema.ts';
+import type { SchematronRuleLevel } from '#/schematron/types.ts';
 
-import { SchematronRuleError } from '#/schematron/errors';
+import { SchematronRuleError } from '#/schematron/errors.ts';
 import { chargeReasonCodesKeys } from '#/values/charge-reason-codes.generated';
 import { countryCodesKeys } from '#/values/country-code.generated';
 

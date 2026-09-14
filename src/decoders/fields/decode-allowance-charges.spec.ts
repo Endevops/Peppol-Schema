@@ -1,7 +1,7 @@
 import { Effect } from 'effect';
 import { describe, expect, it } from 'vitest';
 
-import { decodeAllowanceCharges } from './decode-allowance-charges';
+import { decodeAllowanceCharges } from './decode-allowance-charges.ts';
 
 describe('decodeAllowanceCharges', () => {
   it('returns undefined when the allowance charge path is missing', () => {

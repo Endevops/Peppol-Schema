@@ -2,7 +2,7 @@
 import { TestSchema } from 'effect/testing';
 import { describe, it } from 'vitest';
 
-import { PeppolTaxTotalsBase } from './peppol-tax-totals-base-schema';
+import { PeppolTaxTotalsBase } from './peppol-tax-totals-base-schema.ts';
 
 describe('PeppolTaxTotalsBase', () => {
   const testSchema = new TestSchema.Asserts(PeppolTaxTotalsBase);

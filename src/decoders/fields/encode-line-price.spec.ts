@@ -1,7 +1,7 @@
 import { Effect } from 'effect';
 import { describe, it, expect } from 'vitest';
 
-import { encodeLinePrice } from './encode-line-price';
+import { encodeLinePrice } from './encode-line-price.ts';
 
 describe('encodeLinePrice', () => {
   it('returns undefined when price is missing', () => {

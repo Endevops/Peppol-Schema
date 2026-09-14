@@ -1,8 +1,8 @@
 import { Effect, Predicate } from 'effect';
 
-import type { PeppolPaymentMeans } from '#/schemas/fields/peppol-payment-means-schema';
+import type { PeppolPaymentMeans } from '#/schemas/fields/peppol-payment-means-schema.ts';
 
-import { encodeSimpleIdentifier } from '#/decoders/fields/encode-simple-identifier';
+import { encodeSimpleIdentifier } from '#/decoders/fields/encode-simple-identifier.ts';
 
 export const encodePaymentMeans = Effect.fn(function* (pms: ReadonlyArray<PeppolPaymentMeans> | undefined) {
   if (Predicate.isNullish(pms)) return undefined;

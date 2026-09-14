@@ -2,7 +2,7 @@
 import { TestSchema } from 'effect/testing';
 import { describe, it } from 'vitest';
 
-import { PeppolContact } from './peppol-contact-schema';
+import { PeppolContact } from './peppol-contact-schema.ts';
 
 describe('PeppolContact', () => {
   const testSchema = new TestSchema.Asserts(PeppolContact);

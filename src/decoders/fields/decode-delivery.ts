@@ -1,13 +1,13 @@
 import { Effect, Predicate } from 'effect';
 
-import type { XmlNode } from '#/helpers/get-prop';
-import type { PeppolDelivery } from '#/schemas/fields/peppol-delivery-schema';
-import type { RecursivePartial } from '#/types';
+import type { XmlNode } from '#/helpers/get-prop.ts';
+import type { PeppolDelivery } from '#/schemas/fields/peppol-delivery-schema.ts';
+import type { RecursivePartial } from '#/types.ts';
 
-import { decodeAddress } from '#/decoders/fields/decode-address';
-import { decodeIdentifier } from '#/decoders/fields/decode-identifier';
-import { getProp } from '#/helpers/get-prop';
-import { strOrUnd } from '#/helpers/str-or-und';
+import { decodeAddress } from '#/decoders/fields/decode-address.ts';
+import { decodeIdentifier } from '#/decoders/fields/decode-identifier.ts';
+import { getProp } from '#/helpers/get-prop.ts';
+import { strOrUnd } from '#/helpers/str-or-und.ts';
 
 export const decodeDelivery = Effect.fn(function* (
   node: XmlNode,

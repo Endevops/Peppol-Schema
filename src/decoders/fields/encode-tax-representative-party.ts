@@ -1,10 +1,10 @@
 import { Effect, Predicate } from 'effect';
 
-import type { XmlNode } from '#/helpers/get-prop';
-import type { PeppolTaxRepresentativeParty } from '#/schemas/fields/peppol-tax-representative-schema';
+import type { XmlNode } from '#/helpers/get-prop.ts';
+import type { PeppolTaxRepresentativeParty } from '#/schemas/fields/peppol-tax-representative-schema.ts';
 
-import { encodeAddress } from '#/decoders/fields/encode-address';
-import { encodePartyTaxScheme } from '#/decoders/fields/encode-party-tax-scheme';
+import { encodeAddress } from '#/decoders/fields/encode-address.ts';
+import { encodePartyTaxScheme } from '#/decoders/fields/encode-party-tax-scheme.ts';
 
 export const encodeTaxRepresentativeParty = Effect.fn(function* (
   taxRepresentativeParty: PeppolTaxRepresentativeParty | undefined

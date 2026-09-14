@@ -1,7 +1,7 @@
 import { Schema } from 'effect';
 import { describe, expect, it } from 'vitest';
 
-import { peppolBase64Schema } from './peppol-base-64-schema';
+import { peppolBase64Schema } from './peppol-base-64-schema.ts';
 
 describe('peppolBase64Schema', () => {
   it.for([

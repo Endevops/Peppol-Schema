@@ -1,16 +1,16 @@
 import { Effect, Predicate } from 'effect';
 
-import type { XmlNode } from '#/helpers/get-prop';
-import type { PeppolTaxSubTotal } from '#/schemas/fields/peppol-tax-subtotal-schema';
-import type { PeppolTaxTotal } from '#/schemas/fields/peppol-tax-totals-base-schema';
-import type { RecursivePartial } from '#/types';
+import type { XmlNode } from '#/helpers/get-prop.ts';
+import type { PeppolTaxSubTotal } from '#/schemas/fields/peppol-tax-subtotal-schema.ts';
+import type { PeppolTaxTotal } from '#/schemas/fields/peppol-tax-totals-base-schema.ts';
+import type { RecursivePartial } from '#/types.ts';
 
-import { decodeAmount } from '#/decoders/fields/decode-amount';
-import { decodeSimpleIdentifer } from '#/decoders/fields/decode-simple-identifier';
-import { getArray } from '#/helpers/get-array';
-import { getProp } from '#/helpers/get-prop';
-import { numOrUnd } from '#/helpers/num-or-und';
-import { strOrUnd } from '#/helpers/str-or-und';
+import { decodeAmount } from '#/decoders/fields/decode-amount.ts';
+import { decodeSimpleIdentifer } from '#/decoders/fields/decode-simple-identifier.ts';
+import { getArray } from '#/helpers/get-array.ts';
+import { getProp } from '#/helpers/get-prop.ts';
+import { numOrUnd } from '#/helpers/num-or-und.ts';
+import { strOrUnd } from '#/helpers/str-or-und.ts';
 
 export const decodeTaxTotals = Effect.fn(function* (
   doc: XmlNode,

@@ -1,6 +1,6 @@
 import { Effect, Predicate } from 'effect';
 
-import type { PeppolContact } from '#/schemas/fields/peppol-contact-schema';
+import type { PeppolContact } from '#/schemas/fields/peppol-contact-schema.ts';
 
 export const encodeContact = Effect.fn(function* (contact: PeppolContact | undefined) {
   if (Predicate.isNullish(contact)) return undefined;

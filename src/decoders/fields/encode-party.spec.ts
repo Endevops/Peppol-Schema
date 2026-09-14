@@ -1,7 +1,7 @@
 import { Effect } from 'effect';
 import { describe, it, expect } from 'vitest';
 
-import { encodeParty } from './encode-party';
+import { encodeParty } from './encode-party.ts';
 
 const fullParty = {
   contact: { electronicMail: 'jane@example.com', name: 'Jane', telephone: '555' },

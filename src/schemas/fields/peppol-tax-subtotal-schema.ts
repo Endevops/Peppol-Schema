@@ -1,8 +1,8 @@
 import { Schema } from 'effect';
 
-import { PeppolAmount } from '#/schemas/fields/peppol-amount-schema';
-import { PeppolTaxSubTotalCategory } from '#/schemas/fields/peppol-tax-subtotal-category-schema';
-import { opaque } from '#/schemas/utils/opaque';
+import { PeppolAmount } from '#/schemas/fields/peppol-amount-schema.ts';
+import { PeppolTaxSubTotalCategory } from '#/schemas/fields/peppol-tax-subtotal-category-schema.ts';
+import { opaque } from '#/schemas/utils/opaque.ts';
 
 /**
  * @summary VAT breakdown (TaxSubtotal)

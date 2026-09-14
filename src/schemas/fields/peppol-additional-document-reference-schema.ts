@@ -1,9 +1,9 @@
 import { Schema } from 'effect';
 
-import { PeppolBinaryObject } from '#/schemas/fields/peppol-binary-object-schema';
-import { PeppolIdentifier } from '#/schemas/fields/peppol-identifier-schema';
-import { opaque } from '#/schemas/utils/opaque';
-import { additionalDocumentReferenceCodeSchema } from '#/schemas/values/additional-document-reference-code-schema';
+import { PeppolBinaryObject } from '#/schemas/fields/peppol-binary-object-schema.ts';
+import { PeppolIdentifier } from '#/schemas/fields/peppol-identifier-schema.ts';
+import { opaque } from '#/schemas/utils/opaque.ts';
+import { additionalDocumentReferenceCodeSchema } from '#/schemas/values/additional-document-reference-code-schema.ts';
 
 class PeppolAttachmentExternalReference extends opaque<PeppolAttachmentExternalReference>()(
   Schema.Struct({

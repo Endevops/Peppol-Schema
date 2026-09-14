@@ -1,7 +1,7 @@
-import type { PeppolDocument } from '#/schemas/peppol-document-schema';
-import type { SchematronRule } from '#/schematron/helpers';
+import type { PeppolDocument } from '#/schemas/peppol-document-schema.ts';
+import type { SchematronRule } from '#/schematron/helpers.ts';
 
-import { everyPeriodHasDateOrDescriptionCode, schematronRule } from '#/schematron/helpers';
+import { everyPeriodHasDateOrDescriptionCode, schematronRule } from '#/schematron/helpers.ts';
 
 const rule = {
   id: 'CEN-EN16931-BR-CO-20',

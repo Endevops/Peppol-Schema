@@ -1,9 +1,9 @@
-import type { PeppolDocument } from '#/schemas/peppol-document-schema';
-import type { SchematronRule } from '#/schematron/helpers';
+import type { PeppolDocument } from '#/schemas/peppol-document-schema.ts';
+import type { SchematronRule } from '#/schematron/helpers.ts';
 
-import { isValidGLN } from '#/peppol-validations/is-valid-gln';
-import { normalizeSpace } from '#/peppol-validations/normalize-space';
-import { getIdentifiersWithSchemeId, schematronRule } from '#/schematron/helpers';
+import { isValidGLN } from '#/peppol-validations/is-valid-gln.ts';
+import { normalizeSpace } from '#/peppol-validations/normalize-space.ts';
+import { getIdentifiersWithSchemeId, schematronRule } from '#/schematron/helpers.ts';
 
 const rule = {
   id: 'PEPPOL-COMMON-R040',

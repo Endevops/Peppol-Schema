@@ -1,7 +1,7 @@
 import { Effect } from 'effect';
 import { describe, expect, it } from 'vitest';
 
-import { decodeOrderReference } from './decode-order-reference';
+import { decodeOrderReference } from './decode-order-reference.ts';
 
 describe('decodeOrderReference', () => {
   it('returns undefined when the order reference path is missing', () => {

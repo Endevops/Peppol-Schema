@@ -1,8 +1,8 @@
 import { Effect, Predicate } from 'effect';
 
-import type { PeppolAllowanceCharge } from '#/schemas/fields/peppol-allowance-charge-schema';
+import type { PeppolAllowanceCharge } from '#/schemas/fields/peppol-allowance-charge-schema.ts';
 
-import { encodeSimpleIdentifier } from '#/decoders/fields/encode-simple-identifier';
+import { encodeSimpleIdentifier } from '#/decoders/fields/encode-simple-identifier.ts';
 
 export const encodeTaxCategory = Effect.fn(function* (taxCategory: PeppolAllowanceCharge['taxCategory']) {
   if (Predicate.isNullish(taxCategory)) {

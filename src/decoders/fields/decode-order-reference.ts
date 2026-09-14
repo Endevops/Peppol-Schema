@@ -1,11 +1,11 @@
 import { Effect, Predicate } from 'effect';
 
-import type { XmlNode } from '#/helpers/get-prop';
-import type { PeppolOrderReference } from '#/schemas/fields/peppol-order-reference-schema';
-import type { RecursivePartial } from '#/types';
+import type { XmlNode } from '#/helpers/get-prop.ts';
+import type { PeppolOrderReference } from '#/schemas/fields/peppol-order-reference-schema.ts';
+import type { RecursivePartial } from '#/types.ts';
 
-import { getProp } from '#/helpers/get-prop';
-import { strOrUnd } from '#/helpers/str-or-und';
+import { getProp } from '#/helpers/get-prop.ts';
+import { strOrUnd } from '#/helpers/str-or-und.ts';
 
 export const decodeOrderReference = Effect.fn(function* (
   node: XmlNode,

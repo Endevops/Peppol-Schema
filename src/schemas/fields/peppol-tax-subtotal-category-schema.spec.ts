@@ -1,9 +1,9 @@
 // oxlint-disable vitest/expect-expect
 import { describe, it } from 'vitest';
 
-import { decoding } from '#/test/schema-asserts';
+import { decoding } from '#/test/schema-asserts.ts';
 
-import { PeppolTaxSubTotalCategory } from './peppol-tax-subtotal-category-schema';
+import { PeppolTaxSubTotalCategory } from './peppol-tax-subtotal-category-schema.ts';
 
 describe('PeppolTaxSubtotalCategory', () => {
   const decode = decoding(PeppolTaxSubTotalCategory);

@@ -1,7 +1,7 @@
 import { Effect } from 'effect';
 import { describe, expect, it } from 'vitest';
 
-import { decodeAddress } from './decode-address';
+import { decodeAddress } from './decode-address.ts';
 
 const fullAddress = {
   'cac:Address': {

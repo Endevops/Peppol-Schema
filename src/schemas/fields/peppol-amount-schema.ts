@@ -1,7 +1,7 @@
 import { Schema } from 'effect';
 
-import { opaque } from '#/schemas/utils/opaque';
-import { currencyCodeSchema } from '#/schemas/values/currency-code-schema';
+import { opaque } from '#/schemas/utils/opaque.ts';
+import { currencyCodeSchema } from '#/schemas/values/currency-code-schema.ts';
 
 /**
  * @summary Monetary amount with mandatory currency

@@ -1,9 +1,9 @@
 import { Effect, Predicate } from 'effect';
 
-import type { PeppolDelivery } from '#/schemas/fields/peppol-delivery-schema';
+import type { PeppolDelivery } from '#/schemas/fields/peppol-delivery-schema.ts';
 
-import { encodeAddress } from '#/decoders/fields/encode-address';
-import { encodeIdentifier } from '#/decoders/fields/encode-identifier';
+import { encodeAddress } from '#/decoders/fields/encode-address.ts';
+import { encodeIdentifier } from '#/decoders/fields/encode-identifier.ts';
 
 export const encodeDelivery = Effect.fn(function* (delivery: PeppolDelivery | undefined) {
   if (Predicate.isNullish(delivery)) return undefined;

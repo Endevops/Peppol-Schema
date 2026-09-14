@@ -2,7 +2,7 @@
 import { TestSchema } from 'effect/testing';
 import { describe, it } from 'vitest';
 
-import { PeppolMessageLevelResponseParty } from './peppol-message-level-response-party-schema';
+import { PeppolMessageLevelResponseParty } from './peppol-message-level-response-party-schema.ts';
 
 describe('PeppolMessageLevelResponseParty', () => {
   const testSchema = new TestSchema.Asserts(PeppolMessageLevelResponseParty);

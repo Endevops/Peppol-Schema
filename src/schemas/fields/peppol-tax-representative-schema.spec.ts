@@ -1,9 +1,9 @@
 // oxlint-disable vitest/expect-expect
 import { describe, it } from 'vitest';
 
-import { decoding } from '#/test/schema-asserts';
+import { decoding } from '#/test/schema-asserts.ts';
 
-import { PeppolTaxRepresentative } from './peppol-tax-representative-schema';
+import { PeppolTaxRepresentative } from './peppol-tax-representative-schema.ts';
 
 const validTaxRepresentative = {
   name: 'Tax Rep',

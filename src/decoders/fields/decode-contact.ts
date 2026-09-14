@@ -1,11 +1,11 @@
 import { Effect, Predicate } from 'effect';
 
-import type { XmlNode } from '#/helpers/get-prop';
-import type { PeppolContact } from '#/schemas/fields/peppol-contact-schema';
-import type { RecursivePartial } from '#/types';
+import type { XmlNode } from '#/helpers/get-prop.ts';
+import type { PeppolContact } from '#/schemas/fields/peppol-contact-schema.ts';
+import type { RecursivePartial } from '#/types.ts';
 
-import { getProp } from '#/helpers/get-prop';
-import { strOrUnd } from '#/helpers/str-or-und';
+import { getProp } from '#/helpers/get-prop.ts';
+import { strOrUnd } from '#/helpers/str-or-und.ts';
 
 export const decodeContact = Effect.fn(function* (
   node: XmlNode,

@@ -1,11 +1,11 @@
 import { Schema } from 'effect';
 
-import { MESSAGE_LEVEL_RESPONSE_PROFILE_ID } from '#/constants/message-level-response-profile-id';
-import { PeppolIsoDateString } from '#/schemas/peppol-iso-date-string';
-import { PeppolMessageLevelResponseDocumentResponse } from '#/schemas/peppol-message-level-response-document-response-schema';
-import { PeppolMessageLevelResponseParty } from '#/schemas/peppol-message-level-response-party-schema';
-import { opaque } from '#/schemas/utils/opaque';
-import { PeppolXsdTime } from '#/schemas/utils/peppol-xsd-time-schema';
+import { MESSAGE_LEVEL_RESPONSE_PROFILE_ID } from '#/constants/message-level-response-profile-id.ts';
+import { PeppolIsoDateString } from '#/schemas/peppol-iso-date-string.ts';
+import { PeppolMessageLevelResponseDocumentResponse } from '#/schemas/peppol-message-level-response-document-response-schema.ts';
+import { PeppolMessageLevelResponseParty } from '#/schemas/peppol-message-level-response-party-schema.ts';
+import { opaque } from '#/schemas/utils/opaque.ts';
+import { PeppolXsdTime } from '#/schemas/utils/peppol-xsd-time-schema.ts';
 
 export class PeppolMessageLevelResponse extends opaque<PeppolMessageLevelResponse>()(
   Schema.Struct({

@@ -4,11 +4,11 @@
 import { assert, describe, it } from '@effect/vitest';
 import { Effect, Result } from 'effect';
 
-import type { PeppolDocument } from '#/schemas/peppol-document-schema';
+import type { PeppolDocument } from '#/schemas/peppol-document-schema.ts';
 
-import { decodeBaseExample } from '#/test/test-utils';
+import { decodeBaseExample } from '#/test/test-utils.ts';
 
-import { validatePeppolEn16931P0100 } from './peppol-en16931-p0100';
+import { validatePeppolEn16931P0100 } from './peppol-en16931-p0100.ts';
 
 describe('PEPPOL-EN16931-P0100 (invoice type code per profile)', () => {
   it.effect(

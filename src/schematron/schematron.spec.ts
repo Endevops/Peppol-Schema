@@ -4,11 +4,11 @@
 import { assert, layer } from '@effect/vitest';
 import { Effect, Result } from 'effect';
 
-import type { PeppolDocument } from '#/schemas/peppol-document-schema';
+import type { PeppolDocument } from '#/schemas/peppol-document-schema.ts';
 
-import { SchematronValidationError } from '#/schematron/errors';
-import { Schematron } from '#/schematron/schematron';
-import { decodeBaseExample } from '#/test/test-utils';
+import { SchematronValidationError } from '#/schematron/errors.ts';
+import { Schematron } from '#/schematron/schematron.ts';
+import { decodeBaseExample } from '#/test/test-utils.ts';
 
 layer(Schematron.layer)('Schematron', it => {
   it.effect('passes on the base example', () =>

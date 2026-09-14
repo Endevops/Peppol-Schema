@@ -1,7 +1,7 @@
 import { Effect } from 'effect';
 import { describe, it, expect } from 'vitest';
 
-import { encodeDelivery } from './encode-delivery';
+import { encodeDelivery } from './encode-delivery.ts';
 
 describe('encodeDelivery', () => {
   it('returns undefined when delivery is missing', () => {

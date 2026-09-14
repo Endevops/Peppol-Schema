@@ -1,10 +1,10 @@
 import { Effect, Predicate } from 'effect';
 
-import type { XmlNode } from '#/helpers/get-prop';
+import type { XmlNode } from '#/helpers/get-prop.ts';
 
-import { decodeAmount } from '#/decoders/fields/decode-amount';
-import { bool } from '#/helpers/bool';
-import { getProp } from '#/helpers/get-prop';
+import { decodeAmount } from '#/decoders/fields/decode-amount.ts';
+import { bool } from '#/helpers/bool.ts';
+import { getProp } from '#/helpers/get-prop.ts';
 
 export const decodePriceAllowanceCharge = Effect.fn(function* (allowanceCharges: XmlNode, ...path: Array<string>) {
   const allowanceCharge = yield* getProp(allowanceCharges, ...path);

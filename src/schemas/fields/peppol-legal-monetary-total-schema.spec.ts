@@ -2,7 +2,7 @@
 import { TestSchema } from 'effect/testing';
 import { describe, it } from 'vitest';
 
-import { PeppolLegalMonetaryTotal } from './peppol-legal-monetary-total-schema';
+import { PeppolLegalMonetaryTotal } from './peppol-legal-monetary-total-schema.ts';
 
 const amount = (value: number) => ({ currencyId: 'EUR', value });
 

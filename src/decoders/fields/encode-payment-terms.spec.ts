@@ -1,7 +1,7 @@
 import { Effect } from 'effect';
 import { describe, it, expect } from 'vitest';
 
-import { encodePaymentTerms } from './encode-payment-terms';
+import { encodePaymentTerms } from './encode-payment-terms.ts';
 
 describe('encodePaymentTerms', () => {
   it('returns undefined when payment terms are missing', () => {

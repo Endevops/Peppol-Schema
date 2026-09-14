@@ -2,11 +2,11 @@ import { assert, describe, expect, it } from '@effect/vitest';
 import { Effect, Result, Schema } from 'effect';
 import path from 'node:path';
 
-import { PeppolCreditNote } from '#/schemas/peppol-credit-note-schema';
-import { peppolDocumentSchema } from '#/schemas/peppol-document-schema';
-import { PeppolInvoiceResponse } from '#/schemas/peppol-invoice-response-schema';
-import { PeppolInvoice } from '#/schemas/peppol-invoice-schema';
-import { PeppolMessageLevelResponse } from '#/schemas/peppol-message-level-response-schema';
+import { PeppolCreditNote } from '#/schemas/peppol-credit-note-schema.ts';
+import { peppolDocumentSchema } from '#/schemas/peppol-document-schema.ts';
+import { PeppolInvoiceResponse } from '#/schemas/peppol-invoice-response-schema.ts';
+import { PeppolInvoice } from '#/schemas/peppol-invoice-schema.ts';
+import { PeppolMessageLevelResponse } from '#/schemas/peppol-message-level-response-schema.ts';
 
 describe('effect/document-parser', () => {
   const decodeDocument = Schema.decodeEffect(peppolDocumentSchema, { reportInput: true, errors: 'all', concurrency: 'unbounded' });

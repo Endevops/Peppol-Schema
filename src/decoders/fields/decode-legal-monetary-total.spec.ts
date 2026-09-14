@@ -1,7 +1,7 @@
 import { Effect } from 'effect';
 import { describe, expect, it } from 'vitest';
 
-import { decodeLegalMonetaryTotal } from './decode-legal-monetary-total';
+import { decodeLegalMonetaryTotal } from './decode-legal-monetary-total.ts';
 
 describe('decodeLegalMonetaryTotal', () => {
   it('returns undefined when the legal monetary total path is missing', () => {

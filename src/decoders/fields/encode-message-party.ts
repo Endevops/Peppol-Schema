@@ -1,13 +1,13 @@
 import { Effect, Predicate } from 'effect';
 
-import type { PeppolContact } from '#/schemas/fields/peppol-contact-schema';
-import type { PeppolIdentifier } from '#/schemas/fields/peppol-identifier-schema';
-import type { PeppolInvoiceDocumentResponseParty, PeppolInvoiceResponseParty } from '#/schemas/peppol-invoice-response-schema';
-import type { PeppolMessageLevelResponseParty } from '#/schemas/peppol-message-level-response-party-schema';
+import type { PeppolContact } from '#/schemas/fields/peppol-contact-schema.ts';
+import type { PeppolIdentifier } from '#/schemas/fields/peppol-identifier-schema.ts';
+import type { PeppolInvoiceDocumentResponseParty, PeppolInvoiceResponseParty } from '#/schemas/peppol-invoice-response-schema.ts';
+import type { PeppolMessageLevelResponseParty } from '#/schemas/peppol-message-level-response-party-schema.ts';
 
-import { encodeContact } from '#/decoders/fields/encode-contact';
-import { encodeIdentifier } from '#/decoders/fields/encode-identifier';
-import { encodePartyLegalEntity } from '#/decoders/fields/encode-party-legal-entity';
+import { encodeContact } from '#/decoders/fields/encode-contact.ts';
+import { encodeIdentifier } from '#/decoders/fields/encode-identifier.ts';
+import { encodePartyLegalEntity } from '#/decoders/fields/encode-party-legal-entity.ts';
 
 type ResponseParty = PeppolMessageLevelResponseParty | PeppolInvoiceResponseParty | PeppolInvoiceDocumentResponseParty;
 

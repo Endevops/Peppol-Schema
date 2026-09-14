@@ -1,12 +1,12 @@
 import { Effect, Predicate } from 'effect';
 
-import type { PeppolPartySchema } from '#/schemas/fields/peppol-party-base-schema';
+import type { PeppolPartySchema } from '#/schemas/fields/peppol-party-base-schema.ts';
 
-import { encodeAddress } from '#/decoders/fields/encode-address';
-import { encodeContact } from '#/decoders/fields/encode-contact';
-import { encodeIdentifier } from '#/decoders/fields/encode-identifier';
-import { encodePartiesTaxScheme } from '#/decoders/fields/encode-parties-tax-scheme';
-import { encodePartyLegalEntity } from '#/decoders/fields/encode-party-legal-entity';
+import { encodeAddress } from '#/decoders/fields/encode-address.ts';
+import { encodeContact } from '#/decoders/fields/encode-contact.ts';
+import { encodeIdentifier } from '#/decoders/fields/encode-identifier.ts';
+import { encodePartiesTaxScheme } from '#/decoders/fields/encode-parties-tax-scheme.ts';
+import { encodePartyLegalEntity } from '#/decoders/fields/encode-party-legal-entity.ts';
 
 export const encodeParty = Effect.fn(function* (party?: PeppolPartySchema) {
   if (Predicate.isNullish(party)) return undefined;

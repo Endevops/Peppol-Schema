@@ -1,8 +1,8 @@
-import type { PeppolDocument } from '#/schemas/peppol-document-schema';
-import type { SchematronRule } from '#/schematron/helpers';
+import type { PeppolDocument } from '#/schemas/peppol-document-schema.ts';
+import type { SchematronRule } from '#/schematron/helpers.ts';
 
-import { greekTinVerification } from '#/peppol-validations/greek-tin-verification';
-import { getCustomerCountry, getSupplierCountry, schematronRule } from '#/schematron/helpers';
+import { greekTinVerification } from '#/peppol-validations/greek-tin-verification.ts';
+import { getCustomerCountry, getSupplierCountry, schematronRule } from '#/schematron/helpers.ts';
 
 const rule = {
   id: 'GR-R-010',

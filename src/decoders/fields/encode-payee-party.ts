@@ -1,8 +1,8 @@
 import { Effect, Predicate } from 'effect';
 
-import type { PeppolPayeeParty } from '#/schemas/fields/peppol-payee-party-schema';
+import type { PeppolPayeeParty } from '#/schemas/fields/peppol-payee-party-schema.ts';
 
-import { encodeIdentifier } from '#/decoders/fields/encode-identifier';
+import { encodeIdentifier } from '#/decoders/fields/encode-identifier.ts';
 
 export const encodePayeeParty = Effect.fn(function* (payeeParty: PeppolPayeeParty | undefined) {
   if (Predicate.isNullish(payeeParty)) return undefined;

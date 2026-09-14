@@ -1,7 +1,7 @@
 import { describe, expect, it } from '@effect/vitest';
 import { Effect } from 'effect';
 
-import { getProp } from '#/helpers/get-prop';
+import { getProp } from '#/helpers/get-prop.ts';
 
 describe('getProps', () => {
   it.effect.each([undefined, null, false, 0, ''])(

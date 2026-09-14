@@ -2,10 +2,10 @@ import type { Result } from 'effect';
 
 import { Context, Effect, Layer } from 'effect';
 
-import type { PeppolDocument } from '#/schemas/peppol-document-schema';
+import type { PeppolDocument } from '#/schemas/peppol-document-schema.ts';
 
-import { SchematronValidationError } from '#/schematron/errors';
-import { ruleValidators } from '#/schematron/run-all-rules';
+import { SchematronValidationError } from '#/schematron/errors.ts';
+import { ruleValidators } from '#/schematron/run-all-rules.ts';
 
 /**
  * @description The `Schematron` service validates a document against every schematron rule.

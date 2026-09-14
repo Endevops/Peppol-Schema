@@ -1,7 +1,7 @@
 import { Effect } from 'effect';
 import { describe, it, expect } from 'vitest';
 
-import { encodeCreditNoteLines } from './encode-credit-note-lines';
+import { encodeCreditNoteLines } from './encode-credit-note-lines.ts';
 
 const creditNoteLine = {
   accountingCost: 'AC',

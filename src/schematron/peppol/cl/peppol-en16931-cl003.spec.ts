@@ -4,11 +4,11 @@
 import { assert, describe, it } from '@effect/vitest';
 import { Effect, Result } from 'effect';
 
-import type { PeppolDocument } from '#/schemas/peppol-document-schema';
+import type { PeppolDocument } from '#/schemas/peppol-document-schema.ts';
 
-import { decodeBaseExample } from '#/test/test-utils';
+import { decodeBaseExample } from '#/test/test-utils.ts';
 
-import { validatePeppolEn16931CL003 } from './peppol-en16931-cl003';
+import { validatePeppolEn16931CL003 } from './peppol-en16931-cl003.ts';
 
 describe('PEPPOL-EN16931-CL003 (charge reason code)', () => {
   it.effect(

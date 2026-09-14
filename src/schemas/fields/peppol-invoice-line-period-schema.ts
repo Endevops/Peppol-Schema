@@ -1,7 +1,7 @@
 import { Schema } from 'effect';
 
-import { PeppolIsoDateString } from '#/schemas/peppol-iso-date-string';
-import { opaque } from '#/schemas/utils/opaque';
+import { PeppolIsoDateString } from '#/schemas/peppol-iso-date-string.ts';
+import { opaque } from '#/schemas/utils/opaque.ts';
 
 export class PeppolInvoiceLinePeriod extends opaque<PeppolInvoiceLinePeriod>()(
   Schema.Struct({

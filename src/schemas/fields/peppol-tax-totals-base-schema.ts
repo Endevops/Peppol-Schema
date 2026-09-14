@@ -1,8 +1,8 @@
 import { Schema } from 'effect';
 
-import { PeppolAmount } from '#/schemas/fields/peppol-amount-schema';
-import { PeppolTaxSubTotal } from '#/schemas/fields/peppol-tax-subtotal-schema';
-import { opaque } from '#/schemas/utils/opaque';
+import { PeppolAmount } from '#/schemas/fields/peppol-amount-schema.ts';
+import { PeppolTaxSubTotal } from '#/schemas/fields/peppol-tax-subtotal-schema.ts';
+import { opaque } from '#/schemas/utils/opaque.ts';
 
 /**
  * @summary TAX TOTAL

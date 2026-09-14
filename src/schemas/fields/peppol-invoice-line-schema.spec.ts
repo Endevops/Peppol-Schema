@@ -2,7 +2,7 @@
 import { TestSchema } from 'effect/testing';
 import { describe, it } from 'vitest';
 
-import { PeppolInvoiceLine } from './peppol-invoice-line-schema';
+import { PeppolInvoiceLine } from './peppol-invoice-line-schema.ts';
 
 const validInvoiceLine = {
   id: '1',

@@ -1,7 +1,7 @@
 import { Effect } from 'effect';
 import { describe, expect, it } from 'vitest';
 
-import { strOrArray } from './str-or-array';
+import { strOrArray } from './str-or-array.ts';
 
 describe('strOrArray', () => {
   it('returns a string for a plain string value', () => {

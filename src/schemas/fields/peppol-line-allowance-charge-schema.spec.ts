@@ -2,7 +2,7 @@
 import { TestSchema } from 'effect/testing';
 import { describe, it } from 'vitest';
 
-import { peppolLineAllowanceChargeSchema } from './peppol-line-allowance-charge-schema';
+import { peppolLineAllowanceChargeSchema } from './peppol-line-allowance-charge-schema.ts';
 
 describe('peppolLineAllowanceChargeSchema', () => {
   const testSchema = new TestSchema.Asserts(peppolLineAllowanceChargeSchema);

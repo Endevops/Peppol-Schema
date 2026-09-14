@@ -1,8 +1,8 @@
 import { Effect, Predicate } from 'effect';
 
-import type { XmlNode } from '#/helpers/get-prop';
+import type { XmlNode } from '#/helpers/get-prop.ts';
 
-import { getProp } from '#/helpers/get-prop';
+import { getProp } from '#/helpers/get-prop.ts';
 
 export const strOrUnd = Effect.fn('str-or-und')(function* <const T extends string = string>(
   node: XmlNode,

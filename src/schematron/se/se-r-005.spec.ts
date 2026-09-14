@@ -4,11 +4,11 @@
 import { assert, describe, it } from '@effect/vitest';
 import { Effect, Result } from 'effect';
 
-import type { PeppolDocument } from '#/schemas/peppol-document-schema';
+import type { PeppolDocument } from '#/schemas/peppol-document-schema.ts';
 
-import { decodeBaseExample } from '#/test/test-utils';
+import { decodeBaseExample } from '#/test/test-utils.ts';
 
-import { validateSeR005 } from './se-r-005';
+import { validateSeR005 } from './se-r-005.ts';
 
 async function asSwedish(document: PeppolDocument): Promise<PeppolDocument> {
   return {

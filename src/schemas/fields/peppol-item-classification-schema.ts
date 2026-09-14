@@ -1,7 +1,7 @@
 import { Schema } from 'effect';
 
-import { opaque } from '#/schemas/utils/opaque';
-import { itemClassificationCodesSchema } from '#/schemas/values/item-classification-codes-schema';
+import { opaque } from '#/schemas/utils/opaque.ts';
+import { itemClassificationCodesSchema } from '#/schemas/values/item-classification-codes-schema.ts';
 
 /**
  * @description A code for classifying the item by its type or nature.

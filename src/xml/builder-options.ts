@@ -1,5 +1,5 @@
 import type { XmlBuilderOptions } from 'fast-xml-builder';
 
-import { commonXmlOptions } from '#/xml/common-xml-options';
+import { commonXmlOptions } from '#/xml/common-xml-options.ts';
 
 export const builderOptions = { ...commonXmlOptions, suppressEmptyNode: true } satisfies XmlBuilderOptions;

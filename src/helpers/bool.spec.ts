@@ -1,7 +1,7 @@
 import { assert, describe, expect, it } from '@effect/vitest';
 import { Effect, Result } from 'effect';
 
-import { bool } from './bool';
+import { bool } from './bool.ts';
 
 describe('bool', () => {
   it.effect.each([true, false])(

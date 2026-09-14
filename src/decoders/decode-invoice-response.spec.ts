@@ -1,7 +1,7 @@
 import { describe, expect, it } from '@effect/vitest';
 import { Effect, Schema } from 'effect';
 
-import { decodeInvoiceResponse } from './decode-invoice-response';
+import { decodeInvoiceResponse } from './decode-invoice-response.ts';
 
 describe('decodeInvoiceResponse()', () => {
   it.effect(

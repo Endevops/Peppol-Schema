@@ -5,8 +5,8 @@ import { promises as fs } from 'node:fs';
 import path from 'node:path';
 import pc from 'picocolors';
 
-import { generateKeyDeclarations } from './generate-key-declarations';
-import { Git } from './git';
+import { generateKeyDeclarations } from './generate-key-declarations.ts';
+import { Git } from './git.ts';
 /**
  * @description The latest version of the document types.\
  * Since they release process is kinda scary, I keep it raw here and update manually.\

@@ -1,6 +1,6 @@
 import { Schema } from 'effect';
 
-import { opaque } from '#/schemas/utils/opaque';
+import { opaque } from '#/schemas/utils/opaque.ts';
 
 class PeppolReferenceId extends opaque<PeppolReferenceId>()(Schema.Struct({ id: Schema.String })) {}
 

@@ -1,8 +1,8 @@
 import { describe, expect, it } from '@effect/vitest';
 import { Effect, Schema } from 'effect';
 
-import { encodeMessageLevelResponse } from '#/decoders/encode-message-level-response';
-import { PeppolMessageLevelResponse } from '#/schemas/peppol-message-level-response-schema';
+import { encodeMessageLevelResponse } from '#/decoders/encode-message-level-response.ts';
+import { PeppolMessageLevelResponse } from '#/schemas/peppol-message-level-response-schema.ts';
 
 describe('encodeMessageLevelResponse()', () => {
   const decodeMessageLevelResponse = Schema.decodeSync(PeppolMessageLevelResponse);

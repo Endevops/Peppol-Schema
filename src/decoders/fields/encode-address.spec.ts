@@ -1,7 +1,7 @@
 import { Effect } from 'effect';
 import { describe, it, expect } from 'vitest';
 
-import { encodeAddress } from './encode-address';
+import { encodeAddress } from './encode-address.ts';
 
 describe('encodeAddress', () => {
   it('returns undefined when address is missing', () => {

@@ -1,8 +1,8 @@
 import { Schema } from 'effect';
 
-import { PeppolInvoiceLinePeriod } from '#/schemas/fields/peppol-invoice-line-period-schema';
-import { opaque } from '#/schemas/utils/opaque';
-import { vatDateCodeSchema } from '#/schemas/values/vat-date-code-schema';
+import { PeppolInvoiceLinePeriod } from '#/schemas/fields/peppol-invoice-line-period-schema.ts';
+import { opaque } from '#/schemas/utils/opaque.ts';
+import { vatDateCodeSchema } from '#/schemas/values/vat-date-code-schema.ts';
 
 /**
  * @description A group of business terms providing information on the invoice period. Also called delivery period. If the group is used, the invoiceing period

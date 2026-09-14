@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { checkCF16 } from './check-cf16';
+import { checkCF16 } from './check-cf16.ts';
 
 describe('checkCF16', () => {
   describe('valid 16-character Italian fiscal codes', () => {

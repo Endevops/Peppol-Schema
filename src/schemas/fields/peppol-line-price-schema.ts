@@ -1,9 +1,9 @@
 import { Schema } from 'effect';
 
-import { PeppolAmount } from '#/schemas/fields/peppol-amount-schema';
-import { PeppolLinePriceAllowanceCharge } from '#/schemas/fields/peppol-line-price-allowance-charge-schema';
-import { PeppolQuantity } from '#/schemas/fields/peppol-quantity-schema';
-import { opaque } from '#/schemas/utils/opaque';
+import { PeppolAmount } from '#/schemas/fields/peppol-amount-schema.ts';
+import { PeppolLinePriceAllowanceCharge } from '#/schemas/fields/peppol-line-price-allowance-charge-schema.ts';
+import { PeppolQuantity } from '#/schemas/fields/peppol-quantity-schema.ts';
+import { opaque } from '#/schemas/utils/opaque.ts';
 
 /**
  * @summary Price details on invoice line

@@ -4,8 +4,8 @@ import { $ } from 'bun';
 import path from 'node:path';
 import pc from 'picocolors';
 
-import { generateEdec } from './values/generate-edec';
-import { generateFromPeppol } from './values/generate-peppol';
+import { generateEdec } from './values/generate-edec.ts';
+import { generateFromPeppol } from './values/generate-peppol.ts';
 
 const valuePath = path.join(import.meta.dirname, '..', 'src', 'values');
 

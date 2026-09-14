@@ -1,10 +1,10 @@
 import { Predicate, Schema } from 'effect';
 
-import type { PeppolDocument } from '#/schemas/peppol-document-schema';
-import type { SchematronRule } from '#/schematron/helpers';
+import type { PeppolDocument } from '#/schemas/peppol-document-schema.ts';
+import type { SchematronRule } from '#/schematron/helpers.ts';
 
-import { PeppolIsoDateString } from '#/schemas/peppol-iso-date-string';
-import { getLines, schematronRule } from '#/schematron/helpers';
+import { PeppolIsoDateString } from '#/schemas/peppol-iso-date-string.ts';
+import { getLines, schematronRule } from '#/schematron/helpers.ts';
 
 const rule = { id: 'PEPPOL-EN16931-F001', level: 'fatal', message: 'A date MUST be formatted YYYY-MM-DD.' } as const satisfies SchematronRule;
 

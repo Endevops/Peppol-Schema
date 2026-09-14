@@ -2,7 +2,7 @@
 import { TestSchema } from 'effect/testing';
 import { describe, it } from 'vitest';
 
-import { PeppolPaymentTerms } from './peppol-payment-terms-schema';
+import { PeppolPaymentTerms } from './peppol-payment-terms-schema.ts';
 
 describe('PeppolPaymentTerms', () => {
   const testSchema = new TestSchema.Asserts(PeppolPaymentTerms);

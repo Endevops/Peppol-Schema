@@ -1,15 +1,15 @@
 import { Effect, Predicate } from 'effect';
 
-import type { PeppolDocumentLine } from '#/schemas/peppol-document-schema';
+import type { PeppolDocumentLine } from '#/schemas/peppol-document-schema.ts';
 
-import { encodeAmount } from '#/decoders/fields/encode-amount';
-import { encodeIdentifier } from '#/decoders/fields/encode-identifier';
-import { encodeInvoiceLinePeriod } from '#/decoders/fields/encode-invoice-line-period';
-import { encodeLineAllowanceCharges } from '#/decoders/fields/encode-line-allowance-charges';
-import { encodeLinePrice } from '#/decoders/fields/encode-line-price';
-import { encodeQuantity } from '#/decoders/fields/encode-quantity';
-import { encodeSimpleIdentifier } from '#/decoders/fields/encode-simple-identifier';
-import { encodeTaxCategory } from '#/decoders/fields/encode-tax-category';
+import { encodeAmount } from '#/decoders/fields/encode-amount.ts';
+import { encodeIdentifier } from '#/decoders/fields/encode-identifier.ts';
+import { encodeInvoiceLinePeriod } from '#/decoders/fields/encode-invoice-line-period.ts';
+import { encodeLineAllowanceCharges } from '#/decoders/fields/encode-line-allowance-charges.ts';
+import { encodeLinePrice } from '#/decoders/fields/encode-line-price.ts';
+import { encodeQuantity } from '#/decoders/fields/encode-quantity.ts';
+import { encodeSimpleIdentifier } from '#/decoders/fields/encode-simple-identifier.ts';
+import { encodeTaxCategory } from '#/decoders/fields/encode-tax-category.ts';
 
 export const encodeLineShared = Effect.fn(function* (lineShared: PeppolDocumentLine) {
   return {

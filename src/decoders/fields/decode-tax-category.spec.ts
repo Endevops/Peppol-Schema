@@ -1,7 +1,7 @@
 import { Effect } from 'effect';
 import { describe, expect, it } from 'vitest';
 
-import { decodeTaxCategory } from './decode-tax-category';
+import { decodeTaxCategory } from './decode-tax-category.ts';
 
 describe('decodeTaxCategory', () => {
   it('returns undefined when the tax category path is missing', () => {

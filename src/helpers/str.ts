@@ -1,8 +1,8 @@
 import { Effect, Predicate, SchemaIssue } from 'effect';
 
-import type { XmlNode } from '#/helpers/get-prop';
+import type { XmlNode } from '#/helpers/get-prop.ts';
 
-import { strOrUnd } from '#/helpers/str-or-und';
+import { strOrUnd } from '#/helpers/str-or-und.ts';
 
 export const str = Effect.fn(function* (node: XmlNode, ...path: Array<string>) {
   return yield* strOrUnd(node, ...path).pipe(

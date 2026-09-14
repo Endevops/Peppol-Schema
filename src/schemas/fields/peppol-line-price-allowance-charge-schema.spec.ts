@@ -2,7 +2,7 @@
 import { TestSchema } from 'effect/testing';
 import { describe, it } from 'vitest';
 
-import { PeppolLinePriceAllowanceCharge } from './peppol-line-price-allowance-charge-schema';
+import { PeppolLinePriceAllowanceCharge } from './peppol-line-price-allowance-charge-schema.ts';
 
 const validAllowanceCharge = { amount: { currencyId: 'EUR', value: 200 }, chargeIndicator: false };
 

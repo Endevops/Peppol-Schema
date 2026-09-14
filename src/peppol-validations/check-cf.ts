@@ -1,5 +1,5 @@
-import { checkCF16 } from './check-cf16';
-import { normalizeSpace } from './normalize-space';
+import { checkCF16 } from './check-cf16.ts';
+import { normalizeSpace } from './normalize-space.ts';
 
 /**
  * @description Validates both 16 and 11 character Italian fiscal codes.

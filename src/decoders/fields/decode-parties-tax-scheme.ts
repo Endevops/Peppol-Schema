@@ -1,11 +1,11 @@
 import { Effect, Predicate } from 'effect';
 
-import type { XmlNode } from '#/helpers/get-prop';
-import type { PeppolPartyTaxSchema } from '#/schemas/fields/peppol-party-tax-scheme-schema';
-import type { RecursivePartial } from '#/types';
+import type { XmlNode } from '#/helpers/get-prop.ts';
+import type { PeppolPartyTaxSchema } from '#/schemas/fields/peppol-party-tax-scheme-schema.ts';
+import type { RecursivePartial } from '#/types.ts';
 
-import { decodePartyTaxScheme } from '#/decoders/fields/decode-party-tax-scheme';
-import { getArray } from '#/helpers/get-array';
+import { decodePartyTaxScheme } from '#/decoders/fields/decode-party-tax-scheme.ts';
+import { getArray } from '#/helpers/get-array.ts';
 
 export const decodePartiesTaxScheme = Effect.fn(function* (
   doc: XmlNode,

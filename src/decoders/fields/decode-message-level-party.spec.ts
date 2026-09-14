@@ -1,7 +1,7 @@
 import { Effect } from 'effect';
 import { describe, expect, it } from 'vitest';
 
-import { decodeMessageLevelParty } from './decode-message-level-party';
+import { decodeMessageLevelParty } from './decode-message-level-party.ts';
 
 describe('decodeMessageLevelParty', () => {
   it('returns undefined when the party path is missing', () => {

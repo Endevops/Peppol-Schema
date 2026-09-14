@@ -1,6 +1,6 @@
 import { Schema } from 'effect';
 
-import { isValidMod97_0208 } from '#/peppol-validations/is-valid-mod97-0208';
+import { isValidMod97_0208 } from '#/peppol-validations/is-valid-mod97-0208.ts';
 
 /**
  * @description Belgian VAT number (`BE` + 10 digits with mod 97-0208 check digits). Effect port of the `BE` member of `vatRegexSchema`: prefix, exact length,

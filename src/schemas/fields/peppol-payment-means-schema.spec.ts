@@ -2,9 +2,9 @@
 import { DateTime } from 'effect';
 import { describe, it } from 'vitest';
 
-import { decoding } from '#/test/schema-asserts';
+import { decoding } from '#/test/schema-asserts.ts';
 
-import { PeppolPaymentMeans } from './peppol-payment-means-schema';
+import { PeppolPaymentMeans } from './peppol-payment-means-schema.ts';
 
 describe('PeppolPaymentMeans', () => {
   const decode = decoding(PeppolPaymentMeans);

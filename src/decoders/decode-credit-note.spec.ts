@@ -1,7 +1,7 @@
 import { describe, expect, it } from '@effect/vitest';
 import { Effect, Schema } from 'effect';
 
-import { decodeCreditNote } from './decode-credit-note';
+import { decodeCreditNote } from './decode-credit-note.ts';
 
 describe('decodeCreditNote()', () => {
   it.effect(

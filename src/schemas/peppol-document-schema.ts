@@ -4,27 +4,27 @@ import { Effect, Predicate, Schema, SchemaGetter, SchemaIssue } from 'effect';
 import XMLBuilder from 'fast-xml-builder';
 import { XMLParser } from 'fast-xml-parser';
 
-import type { XmlNode } from '#/helpers/get-prop';
-import type { PeppolCreditNoteLine } from '#/schemas/fields/peppol-credit-note-line-schema';
-import type { PeppolInvoiceLine } from '#/schemas/fields/peppol-invoice-line-schema';
+import type { XmlNode } from '#/helpers/get-prop.ts';
+import type { PeppolCreditNoteLine } from '#/schemas/fields/peppol-credit-note-line-schema.ts';
+import type { PeppolInvoiceLine } from '#/schemas/fields/peppol-invoice-line-schema.ts';
 
-import { INVOICE_RESPONSE_PROFILE_ID } from '#/constants/invoice-response-profile-id';
-import { MESSAGE_LEVEL_RESPONSE_PROFILE_ID } from '#/constants/message-level-response-profile-id';
-import { decodeCreditNote } from '#/decoders/decode-credit-note';
-import { decodeInvoice } from '#/decoders/decode-invoice';
-import { decodeInvoiceResponse } from '#/decoders/decode-invoice-response';
-import { decodeMessageLevelResponse } from '#/decoders/decode-message-level-response';
-import { encodeCreditNote } from '#/decoders/encode-credit-note';
-import { encodeInvoice } from '#/decoders/encode-invoice';
-import { encodeInvoiceResponse } from '#/decoders/encode-invoice-response';
-import { encodeMessageLevelResponse } from '#/decoders/encode-message-level-response';
-import { strOrUnd } from '#/helpers/str-or-und';
-import { PeppolCreditNote } from '#/schemas/peppol-credit-note-schema';
-import { PeppolInvoiceResponse } from '#/schemas/peppol-invoice-response-schema';
-import { PeppolInvoice } from '#/schemas/peppol-invoice-schema';
-import { PeppolMessageLevelResponse } from '#/schemas/peppol-message-level-response-schema';
-import { builderOptions } from '#/xml/builder-options';
-import { parserOptions } from '#/xml/parser-options';
+import { INVOICE_RESPONSE_PROFILE_ID } from '#/constants/invoice-response-profile-id.ts';
+import { MESSAGE_LEVEL_RESPONSE_PROFILE_ID } from '#/constants/message-level-response-profile-id.ts';
+import { decodeCreditNote } from '#/decoders/decode-credit-note.ts';
+import { decodeInvoiceResponse } from '#/decoders/decode-invoice-response.ts';
+import { decodeInvoice } from '#/decoders/decode-invoice.ts';
+import { decodeMessageLevelResponse } from '#/decoders/decode-message-level-response.ts';
+import { encodeCreditNote } from '#/decoders/encode-credit-note.ts';
+import { encodeInvoiceResponse } from '#/decoders/encode-invoice-response.ts';
+import { encodeInvoice } from '#/decoders/encode-invoice.ts';
+import { encodeMessageLevelResponse } from '#/decoders/encode-message-level-response.ts';
+import { strOrUnd } from '#/helpers/str-or-und.ts';
+import { PeppolCreditNote } from '#/schemas/peppol-credit-note-schema.ts';
+import { PeppolInvoiceResponse } from '#/schemas/peppol-invoice-response-schema.ts';
+import { PeppolInvoice } from '#/schemas/peppol-invoice-schema.ts';
+import { PeppolMessageLevelResponse } from '#/schemas/peppol-message-level-response-schema.ts';
+import { builderOptions } from '#/xml/builder-options.ts';
+import { parserOptions } from '#/xml/parser-options.ts';
 
 /**
  * @description Object representation of a PEPPOL document, before the member schemas normalise it (dates stay strings, enums stay loose). This is the shape

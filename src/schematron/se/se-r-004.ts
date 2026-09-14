@@ -1,7 +1,7 @@
-import type { PeppolDocument } from '#/schemas/peppol-document-schema';
-import type { SchematronRule } from '#/schematron/helpers';
+import type { PeppolDocument } from '#/schemas/peppol-document-schema.ts';
+import type { SchematronRule } from '#/schematron/helpers.ts';
 
-import { getSupplierCountry, schematronRule } from '#/schematron/helpers';
+import { getSupplierCountry, schematronRule } from '#/schematron/helpers.ts';
 
 const rule = { id: 'SE-R-004', level: 'fatal', message: 'Swedish organisation numbers consist of 10 characters.' } as const satisfies SchematronRule;
 

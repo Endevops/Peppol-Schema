@@ -1,7 +1,7 @@
 import { Effect } from 'effect';
 import { describe, expect, it } from 'vitest';
 
-import { strOrUnd } from './str-or-und';
+import { strOrUnd } from './str-or-und.ts';
 
 describe('strOrUnd', () => {
   it('returns the string for a primitive value', () => {

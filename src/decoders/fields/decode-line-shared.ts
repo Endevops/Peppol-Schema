@@ -1,19 +1,19 @@
 import { Effect, Predicate } from 'effect';
 
-import type { XmlNode } from '#/helpers/get-prop';
-import type { PeppolDocumentLine } from '#/schemas/peppol-document-schema';
-import type { RecursivePartial } from '#/types';
+import type { XmlNode } from '#/helpers/get-prop.ts';
+import type { PeppolDocumentLine } from '#/schemas/peppol-document-schema.ts';
+import type { RecursivePartial } from '#/types.ts';
 
-import { decodeAmount } from '#/decoders/fields/decode-amount';
-import { decodeIdentifier } from '#/decoders/fields/decode-identifier';
-import { decodeInvoiceLinePeriod } from '#/decoders/fields/decode-invoice-line-period';
-import { decodeLineAllowanceCharges } from '#/decoders/fields/decode-line-allowance-charges';
-import { decodeLinePrice } from '#/decoders/fields/decode-line-price';
-import { decodeSimpleIdentifer } from '#/decoders/fields/decode-simple-identifier';
-import { decodeTaxCategory } from '#/decoders/fields/decode-tax-category';
-import { getArray } from '#/helpers/get-array';
-import { getProp } from '#/helpers/get-prop';
-import { strOrUnd } from '#/helpers/str-or-und';
+import { decodeAmount } from '#/decoders/fields/decode-amount.ts';
+import { decodeIdentifier } from '#/decoders/fields/decode-identifier.ts';
+import { decodeInvoiceLinePeriod } from '#/decoders/fields/decode-invoice-line-period.ts';
+import { decodeLineAllowanceCharges } from '#/decoders/fields/decode-line-allowance-charges.ts';
+import { decodeLinePrice } from '#/decoders/fields/decode-line-price.ts';
+import { decodeSimpleIdentifer } from '#/decoders/fields/decode-simple-identifier.ts';
+import { decodeTaxCategory } from '#/decoders/fields/decode-tax-category.ts';
+import { getArray } from '#/helpers/get-array.ts';
+import { getProp } from '#/helpers/get-prop.ts';
+import { strOrUnd } from '#/helpers/str-or-und.ts';
 
 type PeppolDocumentLineItem = PeppolDocumentLine['item'];
 

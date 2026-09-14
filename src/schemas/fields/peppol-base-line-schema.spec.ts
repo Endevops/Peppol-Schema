@@ -2,9 +2,9 @@
 import { DateTime } from 'effect';
 import { describe, it } from 'vitest';
 
-import { decoding } from '#/test/schema-asserts';
+import { decoding } from '#/test/schema-asserts.ts';
 
-import { PeppolBaseLine } from './peppol-base-line-schema';
+import { PeppolBaseLine } from './peppol-base-line-schema.ts';
 
 const validBaseLine = {
   id: '1',

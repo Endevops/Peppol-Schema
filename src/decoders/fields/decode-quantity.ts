@@ -1,9 +1,9 @@
 import { Effect, Predicate } from 'effect';
 
-import type { XmlNode } from '#/helpers/get-prop';
+import type { XmlNode } from '#/helpers/get-prop.ts';
 
-import { getProp } from '#/helpers/get-prop';
-import { numOrUnd } from '#/helpers/num-or-und';
+import { getProp } from '#/helpers/get-prop.ts';
+import { numOrUnd } from '#/helpers/num-or-und.ts';
 
 export const decodeQuantity = Effect.fn(function* (quantity: XmlNode | undefined, ...path: Array<string>) {
   const val = yield* getProp(quantity, ...path);

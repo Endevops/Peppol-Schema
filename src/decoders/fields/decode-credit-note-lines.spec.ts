@@ -1,7 +1,7 @@
 import { describe, expect, it } from '@effect/vitest';
 import { Effect, Schema } from 'effect';
 
-import { decodeCreditNoteLines } from './decode-credit-note-lines';
+import { decodeCreditNoteLines } from './decode-credit-note-lines.ts';
 
 describe('decodeCreditNoteLines', () => {
   it('returns an empty array when the credit note line path is missing', () => {

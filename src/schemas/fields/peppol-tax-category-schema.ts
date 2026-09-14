@@ -1,7 +1,7 @@
 import { Effect, Schema } from 'effect';
 
-import { opaque } from '#/schemas/utils/opaque';
-import { peppolDutyTaxFeeCategorySchema } from '#/schemas/values/duty-tax-fee-category-schema';
+import { opaque } from '#/schemas/utils/opaque.ts';
+import { peppolDutyTaxFeeCategorySchema } from '#/schemas/values/duty-tax-fee-category-schema.ts';
 
 export class PeppolTaxSchemeId extends opaque<PeppolTaxSchemeId>()(
   Schema.Struct({

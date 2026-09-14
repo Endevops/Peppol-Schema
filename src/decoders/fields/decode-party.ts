@@ -1,15 +1,15 @@
 import { Effect, Predicate } from 'effect';
 
-import type { XmlNode } from '#/helpers/get-prop';
+import type { XmlNode } from '#/helpers/get-prop.ts';
 
-import { decodeAddress } from '#/decoders/fields/decode-address';
-import { decodeContact } from '#/decoders/fields/decode-contact';
-import { decodeElectronicAddress } from '#/decoders/fields/decode-electronic-address';
-import { decodeIdentifier } from '#/decoders/fields/decode-identifier';
-import { decodePartiesTaxScheme } from '#/decoders/fields/decode-parties-tax-scheme';
-import { decodePartyLegalEntity } from '#/decoders/fields/decode-party-legal-entity';
-import { getProp } from '#/helpers/get-prop';
-import { strOrUnd } from '#/helpers/str-or-und';
+import { decodeAddress } from '#/decoders/fields/decode-address.ts';
+import { decodeContact } from '#/decoders/fields/decode-contact.ts';
+import { decodeElectronicAddress } from '#/decoders/fields/decode-electronic-address.ts';
+import { decodeIdentifier } from '#/decoders/fields/decode-identifier.ts';
+import { decodePartiesTaxScheme } from '#/decoders/fields/decode-parties-tax-scheme.ts';
+import { decodePartyLegalEntity } from '#/decoders/fields/decode-party-legal-entity.ts';
+import { getProp } from '#/helpers/get-prop.ts';
+import { strOrUnd } from '#/helpers/str-or-und.ts';
 
 export const decodeParty = Effect.fn(function* (party: XmlNode | undefined, ...path: Array<string>) {
   const val = yield* getProp(party, ...path);

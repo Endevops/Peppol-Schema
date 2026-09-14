@@ -1,7 +1,7 @@
 import { Effect } from 'effect';
 import { describe, it, expect } from 'vitest';
 
-import { encodeAdditionalDocumentReferences } from './encode-additional-document-references';
+import { encodeAdditionalDocumentReferences } from './encode-additional-document-references.ts';
 
 const embedded = { content: 'aGVsbG8=', mimeCode: 'text/plain', filename: 'notes.txt' };
 

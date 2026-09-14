@@ -1,7 +1,7 @@
 import { Schema } from 'effect';
 
-import { PeppolDocumentResponseLineResponseContent } from '#/schemas/peppol-document-response-line-response-content-schema';
-import { opaque } from '#/schemas/utils/opaque';
+import { PeppolDocumentResponseLineResponseContent } from '#/schemas/peppol-document-response-line-response-content-schema.ts';
+import { opaque } from '#/schemas/utils/opaque.ts';
 
 class PeppolLineReference extends opaque<PeppolLineReference>()(
   Schema.Struct({

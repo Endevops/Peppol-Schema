@@ -2,7 +2,7 @@
 import { TestSchema } from 'effect/testing';
 import { describe, it } from 'vitest';
 
-import { PeppolInvoiceResponseDocumentActualResponseStatus } from './peppol-invoice-response-document-actual-response-status-schema';
+import { PeppolInvoiceResponseDocumentActualResponseStatus } from './peppol-invoice-response-document-actual-response-status-schema.ts';
 
 describe('PeppolInvoiceResponseDocumentActualResponseStatus', () => {
   const testSchema = new TestSchema.Asserts(PeppolInvoiceResponseDocumentActualResponseStatus);

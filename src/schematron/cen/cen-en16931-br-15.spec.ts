@@ -4,9 +4,9 @@
 import { describe, it } from '@effect/vitest';
 import { Effect } from 'effect';
 
-import { decodeBaseExample } from '#/test/test-utils';
+import { decodeBaseExample } from '#/test/test-utils.ts';
 
-import { validateCenEn16931Br15 } from './cen-en16931-br-15';
+import { validateCenEn16931Br15 } from './cen-en16931-br-15.ts';
 
 describe('CEN-EN16931-BR-15', () => {
   it.effect(

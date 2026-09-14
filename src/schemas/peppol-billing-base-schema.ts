@@ -1,23 +1,23 @@
 import { Effect, Schema } from 'effect';
 
-import { DEFAULT_CUSTOMIZATION_ID } from '#/schemas/fields/default-customization-id';
-import { DEFAULT_PROFILE_ID } from '#/schemas/fields/default-profile-id';
-import { PeppolAdditionalDocumentReference } from '#/schemas/fields/peppol-additional-document-reference-schema';
-import { peppolAllowanceChargeSchema } from '#/schemas/fields/peppol-allowance-charge-schema';
-import { PeppolBillingReference } from '#/schemas/fields/peppol-billing-reference-schema';
-import { PeppolDelivery } from '#/schemas/fields/peppol-delivery-schema';
-import { PeppolInvoicePeriod } from '#/schemas/fields/peppol-invoice-period-schema';
-import { PeppolLegalMonetaryTotal } from '#/schemas/fields/peppol-legal-monetary-total-schema';
-import { PeppolOrderReference } from '#/schemas/fields/peppol-order-reference-schema';
-import { PeppolPartySchema } from '#/schemas/fields/peppol-party-base-schema';
-import { PeppolPayeeParty } from '#/schemas/fields/peppol-payee-party-schema';
-import { PeppolPaymentMeans } from '#/schemas/fields/peppol-payment-means-schema';
-import { PeppolPaymentTerms } from '#/schemas/fields/peppol-payment-terms-schema';
-import { PeppolTaxRepresentative } from '#/schemas/fields/peppol-tax-representative-schema';
-import { PeppolTaxTotalsBase } from '#/schemas/fields/peppol-tax-totals-base-schema';
-import { PeppolIsoDateString } from '#/schemas/peppol-iso-date-string';
-import { opaque } from '#/schemas/utils/opaque';
-import { currencyCodeSchema } from '#/schemas/values/currency-code-schema';
+import { DEFAULT_CUSTOMIZATION_ID } from '#/schemas/fields/default-customization-id.ts';
+import { DEFAULT_PROFILE_ID } from '#/schemas/fields/default-profile-id.ts';
+import { PeppolAdditionalDocumentReference } from '#/schemas/fields/peppol-additional-document-reference-schema.ts';
+import { peppolAllowanceChargeSchema } from '#/schemas/fields/peppol-allowance-charge-schema.ts';
+import { PeppolBillingReference } from '#/schemas/fields/peppol-billing-reference-schema.ts';
+import { PeppolDelivery } from '#/schemas/fields/peppol-delivery-schema.ts';
+import { PeppolInvoicePeriod } from '#/schemas/fields/peppol-invoice-period-schema.ts';
+import { PeppolLegalMonetaryTotal } from '#/schemas/fields/peppol-legal-monetary-total-schema.ts';
+import { PeppolOrderReference } from '#/schemas/fields/peppol-order-reference-schema.ts';
+import { PeppolPartySchema } from '#/schemas/fields/peppol-party-base-schema.ts';
+import { PeppolPayeeParty } from '#/schemas/fields/peppol-payee-party-schema.ts';
+import { PeppolPaymentMeans } from '#/schemas/fields/peppol-payment-means-schema.ts';
+import { PeppolPaymentTerms } from '#/schemas/fields/peppol-payment-terms-schema.ts';
+import { PeppolTaxRepresentative } from '#/schemas/fields/peppol-tax-representative-schema.ts';
+import { PeppolTaxTotalsBase } from '#/schemas/fields/peppol-tax-totals-base-schema.ts';
+import { PeppolIsoDateString } from '#/schemas/peppol-iso-date-string.ts';
+import { opaque } from '#/schemas/utils/opaque.ts';
+import { currencyCodeSchema } from '#/schemas/values/currency-code-schema.ts';
 
 export class PeppolContractDocumentReference extends opaque<PeppolContractDocumentReference>()(
   Schema.Struct({

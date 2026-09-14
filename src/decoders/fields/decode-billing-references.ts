@@ -1,11 +1,11 @@
 import { Effect } from 'effect';
 
-import type { XmlNode } from '#/helpers/get-prop';
-import type { PeppolBillingReference } from '#/schemas/fields/peppol-billing-reference-schema';
-import type { RecursivePartial } from '#/types';
+import type { XmlNode } from '#/helpers/get-prop.ts';
+import type { PeppolBillingReference } from '#/schemas/fields/peppol-billing-reference-schema.ts';
+import type { RecursivePartial } from '#/types.ts';
 
-import { getArray } from '#/helpers/get-array';
-import { strOrUnd } from '#/helpers/str-or-und';
+import { getArray } from '#/helpers/get-array.ts';
+import { strOrUnd } from '#/helpers/str-or-und.ts';
 
 export const decodeBillingReferences = Effect.fn(function* (
   doc: XmlNode,

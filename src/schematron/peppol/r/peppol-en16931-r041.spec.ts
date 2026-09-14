@@ -7,11 +7,11 @@
 import { assert, describe, it } from '@effect/vitest';
 import { Effect, Result } from 'effect';
 
-import type { PeppolDocument } from '#/schemas/peppol-document-schema';
+import type { PeppolDocument } from '#/schemas/peppol-document-schema.ts';
 
-import { decodeBaseExample, decodeFixture, fixtures } from '#/test/test-utils';
+import { decodeBaseExample, decodeFixture, fixtures } from '#/test/test-utils.ts';
 
-import { validatePeppolEn16931R041 } from './peppol-en16931-r041';
+import { validatePeppolEn16931R041 } from './peppol-en16931-r041.ts';
 
 describe('PEPPOL-EN16931-R041 (base amount when percentage provided)', () => {
   it.effect(

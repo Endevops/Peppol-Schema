@@ -1,9 +1,9 @@
 import { describe, expect, it } from '@effect/vitest';
 import { Effect, Schema } from 'effect';
 
-import { PeppolInvoiceResponse } from '#/schemas/peppol-invoice-response-schema';
+import { PeppolInvoiceResponse } from '#/schemas/peppol-invoice-response-schema.ts';
 
-import { encodeInvoiceResponse } from './encode-invoice-response';
+import { encodeInvoiceResponse } from './encode-invoice-response.ts';
 
 describe('encodeInvoiceResponse', () => {
   const decodeInvoiceResponse = Schema.decodeSync(PeppolInvoiceResponse);

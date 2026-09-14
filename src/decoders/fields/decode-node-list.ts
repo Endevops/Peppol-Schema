@@ -1,8 +1,8 @@
 import { Effect } from 'effect';
 
-import type { XmlNode } from '#/helpers/get-prop';
+import type { XmlNode } from '#/helpers/get-prop.ts';
 
-import { getArray } from '#/helpers/get-array';
+import { getArray } from '#/helpers/get-array.ts';
 
 export const decodeNodeList = Effect.fn(function* <A, E, R>(
   node: XmlNode,

@@ -1,7 +1,7 @@
 import { assert, describe, expect, it, layer } from '@effect/vitest';
 import { Effect, Layer, Result, Schema } from 'effect';
 
-import { parseZoneOffsetFromString, PeppolXsdTime } from './peppol-xsd-time-schema';
+import { parseZoneOffsetFromString, PeppolXsdTime } from './peppol-xsd-time-schema.ts';
 
 describe('parseZoneOffsetFromString', () => {
   it.each(['+00:00', '-00:00', '+00:01', '+01:00', '+12:00', '-12:00', '-13:00'] as const)('should parse a valid timezone offset (%s)', tz => {

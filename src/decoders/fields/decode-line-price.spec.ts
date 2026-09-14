@@ -1,7 +1,7 @@
 import { Effect } from 'effect';
 import { describe, expect, it } from 'vitest';
 
-import { decodeLinePrice } from './decode-line-price';
+import { decodeLinePrice } from './decode-line-price.ts';
 
 describe('decodeLinePrice', () => {
   it('returns undefined when the price path is missing', () => {

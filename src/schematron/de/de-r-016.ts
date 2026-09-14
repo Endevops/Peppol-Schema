@@ -1,7 +1,7 @@
-import type { PeppolDocument } from '#/schemas/peppol-document-schema';
-import type { SchematronRule } from '#/schematron/helpers';
+import type { PeppolDocument } from '#/schemas/peppol-document-schema.ts';
+import type { SchematronRule } from '#/schematron/helpers.ts';
 
-import { getAllAllowanceCharges, getLines, isGermanSupplierAndCustomer, schematronRule } from '#/schematron/helpers';
+import { getAllAllowanceCharges, getLines, isGermanSupplierAndCustomer, schematronRule } from '#/schematron/helpers.ts';
 
 const rule = {
   id: 'DE-R-016',

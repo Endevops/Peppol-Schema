@@ -2,8 +2,8 @@ import { DateTime } from 'effect';
 // oxlint-disable vitest/expect-expect
 import { describe, it } from 'vitest';
 
-import { PeppolCreditNote } from '#/schemas/peppol-credit-note-schema';
-import { decoding } from '#/test/schema-asserts';
+import { PeppolCreditNote } from '#/schemas/peppol-credit-note-schema.ts';
+import { decoding } from '#/test/schema-asserts.ts';
 
 const validCreditNote = {
   accountingCustomerParty: {

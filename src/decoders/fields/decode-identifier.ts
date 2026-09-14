@@ -1,11 +1,11 @@
 import { Effect, Predicate } from 'effect';
 
-import type { XmlNode } from '#/helpers/get-prop';
-import type { PeppolIdentifier } from '#/schemas/fields/peppol-identifier-schema';
-import type { RecursivePartial } from '#/types';
+import type { XmlNode } from '#/helpers/get-prop.ts';
+import type { PeppolIdentifier } from '#/schemas/fields/peppol-identifier-schema.ts';
+import type { RecursivePartial } from '#/types.ts';
 
-import { getProp } from '#/helpers/get-prop';
-import { strOrUnd } from '#/helpers/str-or-und';
+import { getProp } from '#/helpers/get-prop.ts';
+import { strOrUnd } from '#/helpers/str-or-und.ts';
 
 export interface Identifier<T extends PeppolIdentifier['schemeId'] = string> extends PeppolIdentifier {
   schemeId?: T;

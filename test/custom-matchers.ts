@@ -2,7 +2,7 @@
 import { XMLParser } from 'fast-xml-parser';
 import { expect } from 'vitest';
 
-import { parserOptions } from '#/xml/parser-options';
+import { parserOptions } from '#/xml/parser-options.ts';
 
 function parseXML(content: string | Buffer) {
   const parser = new XMLParser(parserOptions);

@@ -1,7 +1,7 @@
 import { Effect } from 'effect';
 import { describe, expect, it } from 'vitest';
 
-import { encodeLineShared } from './encode-line-shared';
+import { encodeLineShared } from './encode-line-shared.ts';
 
 describe('encodeLineShared', () => {
   it('encodes document references on the line', () => {

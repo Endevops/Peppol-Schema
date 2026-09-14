@@ -1,7 +1,7 @@
 import { Effect } from 'effect';
 import { describe, expect, it } from 'vitest';
 
-import { decodeInvoiceMessageDocumentParty } from './decode-invoice-message-document-party';
+import { decodeInvoiceMessageDocumentParty } from './decode-invoice-message-document-party.ts';
 
 describe('decodeInvoiceMessageDocumentParty', () => {
   it('returns undefined when the party path is missing', () => {

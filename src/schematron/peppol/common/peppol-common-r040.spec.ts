@@ -6,11 +6,11 @@
 import { assert, describe, it } from '@effect/vitest';
 import { Effect, Result } from 'effect';
 
-import type { PeppolDocument } from '#/schemas/peppol-document-schema';
+import type { PeppolDocument } from '#/schemas/peppol-document-schema.ts';
 
-import { decodeBaseExample, decodeFixture, fixtures } from '#/test/test-utils';
+import { decodeBaseExample, decodeFixture, fixtures } from '#/test/test-utils.ts';
 
-import { validatePeppolCommonR040 } from './peppol-common-r040';
+import { validatePeppolCommonR040 } from './peppol-common-r040.ts';
 
 async function withEndpointId(document: PeppolDocument, schemeId: string, id: string): Promise<PeppolDocument> {
   return { ...document, accountingSupplierParty: { ...document.accountingSupplierParty, endpointId: { id, schemeId } } } as unknown as PeppolDocument;

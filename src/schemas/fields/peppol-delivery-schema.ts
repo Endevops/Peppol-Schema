@@ -1,11 +1,11 @@
 import { Schema } from 'effect';
 
-import { PeppolIsoDateString } from '#/schemas/peppol-iso-date-string';
-import { opaque } from '#/schemas/utils/opaque';
-import { icdCodesSchema } from '#/schemas/values/icd-codes-schema';
+import { PeppolIsoDateString } from '#/schemas/peppol-iso-date-string.ts';
+import { opaque } from '#/schemas/utils/opaque.ts';
+import { icdCodesSchema } from '#/schemas/values/icd-codes-schema.ts';
 
-import { PeppolAddress } from './peppol-address-schema';
-import { PeppolIdentifier } from './peppol-identifier-schema';
+import { PeppolAddress } from './peppol-address-schema.ts';
+import { PeppolIdentifier } from './peppol-identifier-schema.ts';
 
 class PeppolDeliveryPartyPartyName extends opaque<PeppolDeliveryPartyPartyName>()(
   Schema.Struct({

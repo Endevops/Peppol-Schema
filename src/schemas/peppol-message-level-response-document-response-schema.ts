@@ -1,9 +1,9 @@
 import { Schema } from 'effect';
 
-import { PeppolDocumentResponseDocumentReference } from '#/schemas/peppol-document-response-document-reference-schema';
-import { PeppolDocumentResponseDocument } from '#/schemas/peppol-document-response-document-schema';
-import { PeppolDocumentResponseLineResponse } from '#/schemas/peppol-document-response-line-response-schema';
-import { opaque } from '#/schemas/utils/opaque';
+import { PeppolDocumentResponseDocumentReference } from '#/schemas/peppol-document-response-document-reference-schema.ts';
+import { PeppolDocumentResponseDocument } from '#/schemas/peppol-document-response-document-schema.ts';
+import { PeppolDocumentResponseLineResponse } from '#/schemas/peppol-document-response-line-response-schema.ts';
+import { opaque } from '#/schemas/utils/opaque.ts';
 
 export class PeppolMessageLevelResponseDocumentResponse extends opaque<PeppolMessageLevelResponseDocumentResponse>()(
   Schema.Struct({

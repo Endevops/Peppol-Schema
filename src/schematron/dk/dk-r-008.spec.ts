@@ -4,11 +4,11 @@
 import { assert, describe, it } from '@effect/vitest';
 import { Effect, Result } from 'effect';
 
-import type { PeppolDocument } from '#/schemas/peppol-document-schema';
+import type { PeppolDocument } from '#/schemas/peppol-document-schema.ts';
 
-import { decodeBaseExample } from '#/test/test-utils';
+import { decodeBaseExample } from '#/test/test-utils.ts';
 
-import { validateDkR008 } from './dk-r-008';
+import { validateDkR008 } from './dk-r-008.ts';
 
 async function asDanish(document: PeppolDocument): Promise<PeppolDocument> {
   return {

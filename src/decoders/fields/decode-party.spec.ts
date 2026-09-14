@@ -1,7 +1,7 @@
 import { Effect } from 'effect';
 import { describe, expect, it } from 'vitest';
 
-import { decodeParty } from './decode-party';
+import { decodeParty } from './decode-party.ts';
 
 const fullParty = {
   'cac:Contact': { 'cbc:ElectronicMail': 'jane@acme.no', 'cbc:Name': 'Jane', 'cbc:Telephone': '+4712345678' },

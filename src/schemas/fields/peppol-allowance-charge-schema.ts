@@ -1,11 +1,11 @@
 import { Effect, Schema } from 'effect';
 
-import { BaseLineAllowanceCharge } from '#/schemas/fields/peppol-line-allowance-charge-schema';
-import { PeppolTaxCategory } from '#/schemas/fields/peppol-tax-category-schema';
-import { opaque } from '#/schemas/utils/opaque';
-import { allowanceChargeReasonCodeSchema } from '#/schemas/values/allowance-charge-reason-code-schema';
-import { chargeReasonCodeSchema } from '#/schemas/values/charge-reason-code-schema';
-import { peppolDutyTaxFeeCategorySchema } from '#/schemas/values/duty-tax-fee-category-schema';
+import { BaseLineAllowanceCharge } from '#/schemas/fields/peppol-line-allowance-charge-schema.ts';
+import { PeppolTaxCategory } from '#/schemas/fields/peppol-tax-category-schema.ts';
+import { opaque } from '#/schemas/utils/opaque.ts';
+import { allowanceChargeReasonCodeSchema } from '#/schemas/values/allowance-charge-reason-code-schema.ts';
+import { chargeReasonCodeSchema } from '#/schemas/values/charge-reason-code-schema.ts';
+import { peppolDutyTaxFeeCategorySchema } from '#/schemas/values/duty-tax-fee-category-schema.ts';
 
 export class PeppolTaxCategoryTaxSchemeId extends opaque<PeppolTaxCategoryTaxSchemeId>()(
   Schema.Struct({

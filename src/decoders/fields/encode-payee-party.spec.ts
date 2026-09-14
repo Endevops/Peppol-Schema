@@ -1,7 +1,7 @@
 import { Effect } from 'effect';
 import { describe, it, expect } from 'vitest';
 
-import { encodePayeeParty } from './encode-payee-party';
+import { encodePayeeParty } from './encode-payee-party.ts';
 
 describe('encodePayeeParty', () => {
   it('returns undefined when payee party is missing', () => {

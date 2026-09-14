@@ -1,11 +1,11 @@
 import { Schema } from 'effect';
 
-import { PeppolIdentifier } from '#/schemas/fields/peppol-identifier-schema';
-import { PeppolItemClassification } from '#/schemas/fields/peppol-item-classification-schema';
-import { PeppolTaxCategory } from '#/schemas/fields/peppol-tax-category-schema';
-import { opaque } from '#/schemas/utils/opaque';
-import { icdCodesSchema } from '#/schemas/values/icd-codes-schema';
-import { peppolCountryCodeSchema } from '#/schemas/values/peppol-country-code-schema';
+import { PeppolIdentifier } from '#/schemas/fields/peppol-identifier-schema.ts';
+import { PeppolItemClassification } from '#/schemas/fields/peppol-item-classification-schema.ts';
+import { PeppolTaxCategory } from '#/schemas/fields/peppol-tax-category-schema.ts';
+import { opaque } from '#/schemas/utils/opaque.ts';
+import { icdCodesSchema } from '#/schemas/values/icd-codes-schema.ts';
+import { peppolCountryCodeSchema } from '#/schemas/values/peppol-country-code-schema.ts';
 
 class PeppolAdditionalItemProperties extends opaque<PeppolAdditionalItemProperties>()(
   Schema.Struct({

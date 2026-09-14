@@ -2,7 +2,7 @@
 import { TestSchema } from 'effect/testing';
 import { describe, it } from 'vitest';
 
-import { PeppolPartySchema } from './peppol-party-base-schema';
+import { PeppolPartySchema } from './peppol-party-base-schema.ts';
 
 const validParty = {
   endpointId: { id: '7300010000001', schemeId: '0088' },

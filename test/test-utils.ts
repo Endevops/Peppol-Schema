@@ -6,9 +6,9 @@
 
 import { Schema } from 'effect';
 
-import type { PeppolDocument } from '#/schemas/peppol-document-schema';
+import type { PeppolDocument } from '#/schemas/peppol-document-schema.ts';
 
-import { peppolDocumentSchema } from '#/schemas/peppol-document-schema';
+import { peppolDocumentSchema } from '#/schemas/peppol-document-schema.ts';
 
 const BASE_EXAMPLE = '#/test/files/v3/invoice/base-example.xml';
 

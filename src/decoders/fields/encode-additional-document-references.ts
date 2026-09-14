@@ -1,8 +1,8 @@
 import { Effect, Predicate } from 'effect';
 
-import type { PeppolAdditionalDocumentReference } from '#/schemas/fields/peppol-additional-document-reference-schema';
+import type { PeppolAdditionalDocumentReference } from '#/schemas/fields/peppol-additional-document-reference-schema.ts';
 
-import { encodeIdentifier } from '#/decoders/fields/encode-identifier';
+import { encodeIdentifier } from '#/decoders/fields/encode-identifier.ts';
 
 export const encodeAdditionalDocumentReferences = Effect.fn(function* (refs: ReadonlyArray<PeppolAdditionalDocumentReference> | undefined) {
   if (Predicate.isNullish(refs)) return undefined;

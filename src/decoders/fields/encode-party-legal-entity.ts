@@ -1,6 +1,6 @@
 import { Effect } from 'effect';
 
-import { encodeIdentifier } from '#/decoders/fields/encode-identifier';
+import { encodeIdentifier } from '#/decoders/fields/encode-identifier.ts';
 
 export const encodePartyLegalEntity = Effect.fn(function* (legalEntity: {
   registrationName?: string;

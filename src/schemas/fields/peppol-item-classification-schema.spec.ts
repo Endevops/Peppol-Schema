@@ -2,7 +2,7 @@
 import { TestSchema } from 'effect/testing';
 import { describe, it } from 'vitest';
 
-import { PeppolItemClassification } from './peppol-item-classification-schema';
+import { PeppolItemClassification } from './peppol-item-classification-schema.ts';
 
 describe('PeppolItemClassification', () => {
   const testSchema = new TestSchema.Asserts(PeppolItemClassification);

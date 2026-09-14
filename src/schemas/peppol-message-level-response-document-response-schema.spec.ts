@@ -2,7 +2,7 @@
 import { TestSchema } from 'effect/testing';
 import { describe, it } from 'vitest';
 
-import { PeppolMessageLevelResponseDocumentResponse } from './peppol-message-level-response-document-response-schema';
+import { PeppolMessageLevelResponseDocumentResponse } from './peppol-message-level-response-document-response-schema.ts';
 
 const lineResponse = {
   lineReference: { lineId: '/Catalogue/cac:CatalogueLine[3]' },

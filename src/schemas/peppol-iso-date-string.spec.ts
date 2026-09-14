@@ -3,7 +3,7 @@ import { DateTime } from 'effect';
 import { TestSchema } from 'effect/testing';
 import { describe, it } from 'vitest';
 
-import { PeppolIsoDateString } from './peppol-iso-date-string';
+import { PeppolIsoDateString } from './peppol-iso-date-string.ts';
 
 describe('peppolIsoDateStringSchema', () => {
   const testSchema = new TestSchema.Asserts(PeppolIsoDateString);

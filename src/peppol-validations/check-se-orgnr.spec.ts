@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { checkSEOrgnr } from './check-se-orgnr';
+import { checkSEOrgnr } from './check-se-orgnr.ts';
 
 describe('checkSEOrgnr', () => {
   it.each([['5560360793']] as const)('should validate %s as a correct Swedish organization numbers', value => {

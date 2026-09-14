@@ -3,7 +3,7 @@ import { DateTime } from 'effect';
 import { TestSchema } from 'effect/testing';
 import { describe, it } from 'vitest';
 
-import { peppolInvoiceResponseDocumentActualResponseSchema } from './peppol-invoice-response-document-actual-response-schema';
+import { peppolInvoiceResponseDocumentActualResponseSchema } from './peppol-invoice-response-document-actual-response-schema.ts';
 
 describe('peppolInvoiceResponseDocumentActualResponseSchema', () => {
   const testSchema = new TestSchema.Asserts(peppolInvoiceResponseDocumentActualResponseSchema);

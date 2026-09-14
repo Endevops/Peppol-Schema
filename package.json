@@ -24,6 +24,11 @@
     "NOTICE"
   ],
   "type": "module",
+  "imports": {
+    "#/*": "./src/*",
+    "#/test/*": "./test/*",
+    "#/assets/*": "./assets/*"
+  },
   "exports": {
     ".": {
       "development": "./src/index.ts",

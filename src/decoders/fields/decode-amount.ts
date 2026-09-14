@@ -1,11 +1,11 @@
 import { Effect, Predicate } from 'effect';
 
-import type { XmlNode } from '#/helpers/get-prop';
-import type { PeppolAmount } from '#/schemas/fields/peppol-amount-schema';
-import type { PeppolCurrencyCode } from '#/schemas/values/currency-code-schema';
-import type { RecursivePartial } from '#/types';
+import type { XmlNode } from '#/helpers/get-prop.ts';
+import type { PeppolAmount } from '#/schemas/fields/peppol-amount-schema.ts';
+import type { PeppolCurrencyCode } from '#/schemas/values/currency-code-schema.ts';
+import type { RecursivePartial } from '#/types.ts';
 
-import { getProp } from '#/helpers/get-prop';
+import { getProp } from '#/helpers/get-prop.ts';
 
 export const decodeAmount = Effect.fn(function* (
   amount: XmlNode | undefined,

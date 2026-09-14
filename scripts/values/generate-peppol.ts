@@ -7,8 +7,8 @@ import { promises as fs } from 'node:fs';
 import path from 'node:path';
 import pc from 'picocolors';
 
-import { generateKeyDeclarations } from './generate-key-declarations';
-import { Git } from './git';
+import { generateKeyDeclarations } from './generate-key-declarations.ts';
+import { Git } from './git.ts';
 
 const typescript = String.String.raw;
 const xmlParser = new XMLParser({

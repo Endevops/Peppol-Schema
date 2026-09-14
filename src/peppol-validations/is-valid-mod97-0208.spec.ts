@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { isValidMod97_0208 } from './is-valid-mod97-0208';
+import { isValidMod97_0208 } from './is-valid-mod97-0208.ts';
 
 describe('isValidMod97_0208', () => {
   it.each([

@@ -1,7 +1,7 @@
 import { Effect } from 'effect';
 import { describe, it, expect } from 'vitest';
 
-import { encodePaymentMeans } from './encode-payment-means';
+import { encodePaymentMeans } from './encode-payment-means.ts';
 
 const allFields = {
   cardAccount: { holderName: 'Jane Doe', networkId: 'VISA', primaryAccountNumberId: '1234' },

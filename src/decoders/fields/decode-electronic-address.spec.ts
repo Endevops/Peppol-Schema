@@ -1,7 +1,7 @@
 import { Effect } from 'effect';
 import { describe, expect, it } from 'vitest';
 
-import { decodeElectronicAddress } from './decode-electronic-address';
+import { decodeElectronicAddress } from './decode-electronic-address.ts';
 
 describe('decodeElectronicAddress', () => {
   it('pads the scheme id with leading zeros when it is present', () => {

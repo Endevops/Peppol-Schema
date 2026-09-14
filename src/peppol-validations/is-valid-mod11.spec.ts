@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { isValidMod11 } from './is-valid-mod11';
+import { isValidMod11 } from './is-valid-mod11.ts';
 
 describe('isValidMod11', () => {
   it('should validate Norwegian organization numbers', () => {

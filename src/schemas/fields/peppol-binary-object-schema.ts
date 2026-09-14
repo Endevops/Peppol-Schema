@@ -1,8 +1,8 @@
 import { Schema } from 'effect';
 
-import { opaque } from '#/schemas/utils/opaque';
-import { peppolBase64Schema } from '#/schemas/utils/peppol-base-64-schema';
-import { mimeCodesSchema } from '#/schemas/values/mime-codes-schema';
+import { opaque } from '#/schemas/utils/opaque.ts';
+import { peppolBase64Schema } from '#/schemas/utils/peppol-base-64-schema.ts';
+import { mimeCodesSchema } from '#/schemas/values/mime-codes-schema.ts';
 
 // RFC 4648 §5 — Base64url Encoding: URL/file-safe alphabet (A-Z a-z 0-9 - _), optional `=` padding.
 // Effect port of `z.base64url()`: keeps the value as a plain string and only validates the shape.

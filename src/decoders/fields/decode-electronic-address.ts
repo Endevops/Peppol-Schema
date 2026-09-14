@@ -1,9 +1,9 @@
 import { Effect, Predicate } from 'effect';
 
-import type { XmlNode } from '#/helpers/get-prop';
-import type { PeppolIdentifier } from '#/schemas/fields/peppol-identifier-schema';
+import type { XmlNode } from '#/helpers/get-prop.ts';
+import type { PeppolIdentifier } from '#/schemas/fields/peppol-identifier-schema.ts';
 
-import { decodeIdentifier } from '#/decoders/fields/decode-identifier';
+import { decodeIdentifier } from '#/decoders/fields/decode-identifier.ts';
 
 export const decodeElectronicAddress = Effect.fn(function* <const T extends PeppolIdentifier['schemeId'] = string>(
   node: XmlNode | undefined,

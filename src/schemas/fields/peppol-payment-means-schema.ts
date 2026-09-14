@@ -1,8 +1,8 @@
 import { Schema } from 'effect';
 
-import { PeppolIsoDateString } from '#/schemas/peppol-iso-date-string';
-import { opaque } from '#/schemas/utils/opaque';
-import { paymentMeansCodeSchema } from '#/schemas/values/payment-means-code-schema';
+import { PeppolIsoDateString } from '#/schemas/peppol-iso-date-string.ts';
+import { opaque } from '#/schemas/utils/opaque.ts';
+import { paymentMeansCodeSchema } from '#/schemas/values/payment-means-code-schema.ts';
 
 class PeppolPaymentMandatePayerFinancialAccountId extends opaque<PeppolPaymentMandatePayerFinancialAccountId>()(
   Schema.Struct({

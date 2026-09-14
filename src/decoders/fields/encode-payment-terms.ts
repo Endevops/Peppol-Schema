@@ -1,6 +1,6 @@
 import { Effect, Predicate } from 'effect';
 
-import type { PeppolPaymentTerms } from '#/schemas/fields/peppol-payment-terms-schema';
+import type { PeppolPaymentTerms } from '#/schemas/fields/peppol-payment-terms-schema.ts';
 
 export const encodePaymentTerms = Effect.fn(function* (paymentTerms: PeppolPaymentTerms | undefined) {
   if (Predicate.isNullish(paymentTerms)) return undefined;

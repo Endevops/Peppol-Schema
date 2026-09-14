@@ -1,13 +1,13 @@
 import { Effect, Predicate } from 'effect';
 
-import type { XmlNode } from '#/helpers/get-prop';
-import type { PeppolAdditionalDocumentReference } from '#/schemas/fields/peppol-additional-document-reference-schema';
-import type { RecursivePartial } from '#/types';
+import type { XmlNode } from '#/helpers/get-prop.ts';
+import type { PeppolAdditionalDocumentReference } from '#/schemas/fields/peppol-additional-document-reference-schema.ts';
+import type { RecursivePartial } from '#/types.ts';
 
-import { decodeIdentifier } from '#/decoders/fields/decode-identifier';
-import { getArray } from '#/helpers/get-array';
-import { getProp } from '#/helpers/get-prop';
-import { strOrUnd } from '#/helpers/str-or-und';
+import { decodeIdentifier } from '#/decoders/fields/decode-identifier.ts';
+import { getArray } from '#/helpers/get-array.ts';
+import { getProp } from '#/helpers/get-prop.ts';
+import { strOrUnd } from '#/helpers/str-or-und.ts';
 
 export const decodeAdditionalDocumentReferences = Effect.fn(function* (
   doc: XmlNode

@@ -1,7 +1,7 @@
 import { assert, describe, expect, it } from '@effect/vitest';
 import { Effect, Result } from 'effect';
 
-import { str } from './str';
+import { str } from './str.ts';
 
 describe('str', () => {
   it.effect(

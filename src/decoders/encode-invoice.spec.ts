@@ -1,8 +1,8 @@
 import { describe, expect, it } from '@effect/vitest';
 import { Effect, Schema } from 'effect';
 
-import { encodeInvoice } from '#/decoders/encode-invoice';
-import { PeppolInvoice } from '#/schemas/peppol-invoice-schema';
+import { encodeInvoice } from '#/decoders/encode-invoice.ts';
+import { PeppolInvoice } from '#/schemas/peppol-invoice-schema.ts';
 
 describe('encodeInvoice()', () => {
   const decodePeppolInvoice = Schema.decodeSync(PeppolInvoice);

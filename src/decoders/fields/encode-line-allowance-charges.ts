@@ -1,8 +1,8 @@
 import { Effect, Predicate } from 'effect';
 
-import type { PeppolLineAllowanceCharge } from '#/schemas/fields/peppol-line-allowance-charge-schema';
+import type { PeppolLineAllowanceCharge } from '#/schemas/fields/peppol-line-allowance-charge-schema.ts';
 
-import { encodeAmount } from '#/decoders/fields/encode-amount';
+import { encodeAmount } from '#/decoders/fields/encode-amount.ts';
 
 export const encodeLineAllowanceCharges = Effect.fn(function* (allowanceCharges: ReadonlyArray<PeppolLineAllowanceCharge> | undefined) {
   if (Predicate.isNullish(allowanceCharges)) return undefined;

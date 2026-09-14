@@ -2,9 +2,9 @@ import { describe, expect, it } from '@effect/vitest';
 import { Effect, Schema } from 'effect';
 import { GenericContainer } from 'testcontainers';
 
-import { peppolDocumentSchema } from '#/schemas/peppol-document-schema';
-import { Schematron } from '#/schematron/schematron';
-import { decodeBaseExample } from '#/test/test-utils';
+import { peppolDocumentSchema } from '#/schemas/peppol-document-schema.ts';
+import { Schematron } from '#/schematron/schematron.ts';
+import { decodeBaseExample } from '#/test/test-utils.ts';
 
 // oxlint-disable-next-line vitest/warn-todo
 describe.todo('schematron.run-all-rules', () => {

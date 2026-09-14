@@ -1,7 +1,7 @@
 import { Effect } from 'effect';
 import { describe, expect, it } from 'vitest';
 
-import { decodeDelivery } from './decode-delivery';
+import { decodeDelivery } from './decode-delivery.ts';
 
 const fullDeliveryDoc = {
   'cac:Delivery': {

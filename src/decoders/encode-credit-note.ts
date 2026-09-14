@@ -1,22 +1,22 @@
 import { Effect } from 'effect';
 
-import type { PeppolCreditNote } from '#/schemas/peppol-credit-note-schema';
+import type { PeppolCreditNote } from '#/schemas/peppol-credit-note-schema.ts';
 
-import { encodeAdditionalDocumentReferences } from '#/decoders/fields/encode-additional-document-references';
-import { encodeAllowanceCharges } from '#/decoders/fields/encode-allowance-charges';
-import { encodeBillingReferences } from '#/decoders/fields/encode-billing-references';
-import { encodeCreditNoteLines } from '#/decoders/fields/encode-credit-note-lines';
-import { encodeDelivery } from '#/decoders/fields/encode-delivery';
-import { encodeInvoicePeriod } from '#/decoders/fields/encode-invoice-period';
-import { encodeLegalMonetaryTotal } from '#/decoders/fields/encode-legal-monetary-total';
-import { encodeOrderReference } from '#/decoders/fields/encode-order-reference';
-import { encodeParty } from '#/decoders/fields/encode-party';
-import { encodePayeeParty } from '#/decoders/fields/encode-payee-party';
-import { encodePaymentMeans } from '#/decoders/fields/encode-payment-means';
-import { encodePaymentTerms } from '#/decoders/fields/encode-payment-terms';
-import { encodeSimpleIdentifier } from '#/decoders/fields/encode-simple-identifier';
-import { encodeTaxRepresentativeParty } from '#/decoders/fields/encode-tax-representative-party';
-import { encodeTaxTotals } from '#/decoders/fields/encode-tax-totals';
+import { encodeAdditionalDocumentReferences } from '#/decoders/fields/encode-additional-document-references.ts';
+import { encodeAllowanceCharges } from '#/decoders/fields/encode-allowance-charges.ts';
+import { encodeBillingReferences } from '#/decoders/fields/encode-billing-references.ts';
+import { encodeCreditNoteLines } from '#/decoders/fields/encode-credit-note-lines.ts';
+import { encodeDelivery } from '#/decoders/fields/encode-delivery.ts';
+import { encodeInvoicePeriod } from '#/decoders/fields/encode-invoice-period.ts';
+import { encodeLegalMonetaryTotal } from '#/decoders/fields/encode-legal-monetary-total.ts';
+import { encodeOrderReference } from '#/decoders/fields/encode-order-reference.ts';
+import { encodeParty } from '#/decoders/fields/encode-party.ts';
+import { encodePayeeParty } from '#/decoders/fields/encode-payee-party.ts';
+import { encodePaymentMeans } from '#/decoders/fields/encode-payment-means.ts';
+import { encodePaymentTerms } from '#/decoders/fields/encode-payment-terms.ts';
+import { encodeSimpleIdentifier } from '#/decoders/fields/encode-simple-identifier.ts';
+import { encodeTaxRepresentativeParty } from '#/decoders/fields/encode-tax-representative-party.ts';
+import { encodeTaxTotals } from '#/decoders/fields/encode-tax-totals.ts';
 
 export const encodeCreditNote = Effect.fn(function* (creditNote: PeppolCreditNote) {
   return {

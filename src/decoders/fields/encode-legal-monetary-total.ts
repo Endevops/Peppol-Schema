@@ -1,8 +1,8 @@
 import { Effect } from 'effect';
 
-import type { PeppolLegalMonetaryTotal } from '#/schemas/fields/peppol-legal-monetary-total-schema';
+import type { PeppolLegalMonetaryTotal } from '#/schemas/fields/peppol-legal-monetary-total-schema.ts';
 
-import { encodeAmount } from '#/decoders/fields/encode-amount';
+import { encodeAmount } from '#/decoders/fields/encode-amount.ts';
 
 export const encodeLegalMonetaryTotal = Effect.fn(function* (legalMonetaryTotal: PeppolLegalMonetaryTotal) {
   return {

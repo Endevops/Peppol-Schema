@@ -1,4 +1,4 @@
-import { checkPIVA } from './check-piva';
+import { checkPIVA } from './check-piva.ts';
 
 /**
  * @description Validates Italian VAT numbers with IT prefix.

@@ -2,9 +2,9 @@
 import { DateTime } from 'effect';
 import { afterAll, beforeAll, describe, it, vi } from 'vitest';
 
-import { decoding } from '#/test/schema-asserts';
+import { decoding } from '#/test/schema-asserts.ts';
 
-import { PeppolInvoiceResponse } from './peppol-invoice-response-schema';
+import { PeppolInvoiceResponse } from './peppol-invoice-response-schema.ts';
 
 const validInvoiceResponse = {
   customizationId: 'urn:fdc:peppol.eu:poacc:trns:invoice_response:3',

@@ -1,12 +1,12 @@
 import { Effect, Predicate } from 'effect';
 
-import type { XmlNode } from '#/helpers/get-prop';
-import type { PeppolPayeeParty } from '#/schemas/fields/peppol-payee-party-schema';
-import type { RecursivePartial } from '#/types';
+import type { XmlNode } from '#/helpers/get-prop.ts';
+import type { PeppolPayeeParty } from '#/schemas/fields/peppol-payee-party-schema.ts';
+import type { RecursivePartial } from '#/types.ts';
 
-import { decodeIdentifier } from '#/decoders/fields/decode-identifier';
-import { getProp } from '#/helpers/get-prop';
-import { strOrUnd } from '#/helpers/str-or-und';
+import { decodeIdentifier } from '#/decoders/fields/decode-identifier.ts';
+import { getProp } from '#/helpers/get-prop.ts';
+import { strOrUnd } from '#/helpers/str-or-und.ts';
 
 export const decodePayeeParty = Effect.fn(function* (
   payee: XmlNode | undefined,

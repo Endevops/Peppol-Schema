@@ -2,7 +2,7 @@
 import { TestSchema } from 'effect/testing';
 import { describe, it } from 'vitest';
 
-import { PeppolTaxSubTotal } from './peppol-tax-subtotal-schema';
+import { PeppolTaxSubTotal } from './peppol-tax-subtotal-schema.ts';
 
 const validTaxSubtotal = {
   taxAmount: { currencyId: 'EUR', value: 20 },

@@ -1,8 +1,8 @@
 import { Schema } from 'effect';
 
-import { PeppolIdentifier } from '#/schemas/fields/peppol-identifier-schema';
-import { opaque } from '#/schemas/utils/opaque';
-import { icdCodesSchema } from '#/schemas/values/icd-codes-schema';
+import { PeppolIdentifier } from '#/schemas/fields/peppol-identifier-schema.ts';
+import { opaque } from '#/schemas/utils/opaque.ts';
+import { icdCodesSchema } from '#/schemas/values/icd-codes-schema.ts';
 
 class PeppolPartyName extends opaque<PeppolPartyName>()(Schema.Struct({ name: Schema.String })) {}
 

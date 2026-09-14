@@ -2,7 +2,7 @@
 import { TestSchema } from 'effect/testing';
 import { describe, it } from 'vitest';
 
-import { PeppolDocumentResponseLineResponseContent } from './peppol-document-response-line-response-content-schema';
+import { PeppolDocumentResponseLineResponseContent } from './peppol-document-response-line-response-content-schema.ts';
 
 const validContent = { responseCode: 'RE', description: 'Validation gives error [CL-T77-R0002]', status: { statusReasonCode: 'BV' } };
 

@@ -1,8 +1,8 @@
 import { Effect, Predicate } from 'effect';
 
-import type { XmlNode } from '#/helpers/get-prop';
+import type { XmlNode } from '#/helpers/get-prop.ts';
 
-import { getProp } from '#/helpers/get-prop';
+import { getProp } from '#/helpers/get-prop.ts';
 
 export const getArray = Effect.fn(function* (node: XmlNode, ...path: Array<string>): Effect.fn.Return<Array<XmlNode>> {
   if (!Predicate.isTruthy(node)) return [];

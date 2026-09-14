@@ -1,7 +1,7 @@
-import type { PeppolDocument } from '#/schemas/peppol-document-schema';
-import type { SchematronRule } from '#/schematron/helpers';
+import type { PeppolDocument } from '#/schemas/peppol-document-schema.ts';
+import type { SchematronRule } from '#/schematron/helpers.ts';
 
-import { getAllAllowanceCharges, isDanishSupplierAndCustomer, schematronRule } from '#/schematron/helpers';
+import { getAllAllowanceCharges, isDanishSupplierAndCustomer, schematronRule } from '#/schematron/helpers.ts';
 
 const rule = {
   id: 'DK-R-004',

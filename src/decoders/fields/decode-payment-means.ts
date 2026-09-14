@@ -1,14 +1,14 @@
 import { Effect, Predicate } from 'effect';
 
-import type { XmlNode } from '#/helpers/get-prop';
-import type { PeppolIdentifier } from '#/schemas/fields/peppol-identifier-schema';
-import type { PeppolPaymentMeans } from '#/schemas/fields/peppol-payment-means-schema';
-import type { RecursivePartial } from '#/types';
+import type { XmlNode } from '#/helpers/get-prop.ts';
+import type { PeppolIdentifier } from '#/schemas/fields/peppol-identifier-schema.ts';
+import type { PeppolPaymentMeans } from '#/schemas/fields/peppol-payment-means-schema.ts';
+import type { RecursivePartial } from '#/types.ts';
 
-import { decodeSimpleIdentifer } from '#/decoders/fields/decode-simple-identifier';
-import { getArray } from '#/helpers/get-array';
-import { getProp } from '#/helpers/get-prop';
-import { strOrUnd } from '#/helpers/str-or-und';
+import { decodeSimpleIdentifer } from '#/decoders/fields/decode-simple-identifier.ts';
+import { getArray } from '#/helpers/get-array.ts';
+import { getProp } from '#/helpers/get-prop.ts';
+import { strOrUnd } from '#/helpers/str-or-und.ts';
 
 export const decodePaymentMeans = Effect.fn(function* (
   doc: XmlNode,

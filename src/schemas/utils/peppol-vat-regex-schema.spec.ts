@@ -1,7 +1,7 @@
 import { Schema } from 'effect';
 import { describe, expect, it } from 'vitest';
 
-import { peppolVatRegexSchema } from './peppol-vat-regex-schema';
+import { peppolVatRegexSchema } from './peppol-vat-regex-schema.ts';
 
 describe('peppolVatRegexSchema', () => {
   it.each([

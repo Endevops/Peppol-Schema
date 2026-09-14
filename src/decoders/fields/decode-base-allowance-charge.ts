@@ -1,11 +1,11 @@
 import { Effect } from 'effect';
 
-import type { XmlNode } from '#/helpers/get-prop';
+import type { XmlNode } from '#/helpers/get-prop.ts';
 
-import { decodeAmount } from '#/decoders/fields/decode-amount';
-import { bool } from '#/helpers/bool';
-import { numOrUnd } from '#/helpers/num-or-und';
-import { strOrUnd } from '#/helpers/str-or-und';
+import { decodeAmount } from '#/decoders/fields/decode-amount.ts';
+import { bool } from '#/helpers/bool.ts';
+import { numOrUnd } from '#/helpers/num-or-und.ts';
+import { strOrUnd } from '#/helpers/str-or-und.ts';
 
 export const decodeBaseAllowanceCharge = Effect.fn(function* (allowanceCharge: XmlNode) {
   return {

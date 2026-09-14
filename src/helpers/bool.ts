@@ -1,8 +1,8 @@
 import { Effect, Predicate, SchemaIssue } from 'effect';
 
-import type { XmlNode } from '#/helpers/get-prop';
+import type { XmlNode } from '#/helpers/get-prop.ts';
 
-import { getProp } from '#/helpers/get-prop';
+import { getProp } from '#/helpers/get-prop.ts';
 
 export const bool = Effect.fn(function* <const T extends boolean = boolean>(node: XmlNode, ...path: Array<string>) {
   const val = yield* getProp(node, ...path).pipe(

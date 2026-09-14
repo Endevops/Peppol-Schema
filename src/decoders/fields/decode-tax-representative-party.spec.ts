@@ -1,7 +1,7 @@
 import { Effect } from 'effect';
 import { describe, expect, it } from 'vitest';
 
-import { decodeTaxRepresentativeParty } from './decode-tax-representative-party';
+import { decodeTaxRepresentativeParty } from './decode-tax-representative-party.ts';
 
 describe('decodeTaxRepresentativeParty', () => {
   it('returns undefined when the tax representative path is missing', () => {

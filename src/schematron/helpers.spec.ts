@@ -3,7 +3,7 @@
  */
 import { describe, expect, it } from 'vitest';
 
-import type { PeppolDocument } from '#/schemas/peppol-document-schema';
+import type { PeppolDocument } from '#/schemas/peppol-document-schema.ts';
 
 import {
   getAllAllowanceCharges,
@@ -24,8 +24,8 @@ import {
   isSupplierGermany,
   round2,
   slack,
-} from '#/schematron/helpers';
-import { decodeBaseExample } from '#/test/test-utils';
+} from '#/schematron/helpers.ts';
+import { decodeBaseExample } from '#/test/test-utils.ts';
 
 describe('schematron helpers', () => {
   describe('round2', () => {

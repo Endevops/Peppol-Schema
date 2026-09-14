@@ -4,11 +4,11 @@
 import { assert, describe, it } from '@effect/vitest';
 import { Effect, Result } from 'effect';
 
-import type { PeppolDocument } from '#/schemas/peppol-document-schema';
+import type { PeppolDocument } from '#/schemas/peppol-document-schema.ts';
 
-import { decodeBaseExample } from '#/test/test-utils';
+import { decodeBaseExample } from '#/test/test-utils.ts';
 
-import { validateGrR008_3 } from './gr-r-008-3';
+import { validateGrR008_3 } from './gr-r-008-3.ts';
 
 async function asGreek(document: PeppolDocument): Promise<PeppolDocument> {
   return {

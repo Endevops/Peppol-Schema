@@ -2,9 +2,9 @@ import { DateTime } from 'effect';
 // oxlint-disable vitest/expect-expect
 import { describe, it } from 'vitest';
 
-import { decoding } from '#/test/schema-asserts';
+import { decoding } from '#/test/schema-asserts.ts';
 
-import { PeppolDelivery } from './peppol-delivery-schema';
+import { PeppolDelivery } from './peppol-delivery-schema.ts';
 
 describe('PeppolDelivery', () => {
   const decode = decoding(PeppolDelivery);

@@ -1,7 +1,7 @@
 import { Schema } from 'effect';
 
-import { peppolInvoiceResponseStatusReasonCodeSchema } from '#/schemas/peppol-invoice-response-status-reason-code-schema';
-import { opaque } from '#/schemas/utils/opaque';
+import { peppolInvoiceResponseStatusReasonCodeSchema } from '#/schemas/peppol-invoice-response-status-reason-code-schema.ts';
+import { opaque } from '#/schemas/utils/opaque.ts';
 
 export class PeppolInvoiceResponseCondition extends opaque<PeppolInvoiceResponseCondition>()(
   Schema.Struct({

@@ -1,7 +1,7 @@
 import { Schema } from 'effect';
 
-import { PeppolTaxCategory } from '#/schemas/fields/peppol-tax-category-schema';
-import { opaque } from '#/schemas/utils/opaque';
+import { PeppolTaxCategory } from '#/schemas/fields/peppol-tax-category-schema.ts';
+import { opaque } from '#/schemas/utils/opaque.ts';
 
 /**
  * @description This one is specific for TaxSubtotal since it includes more fields.

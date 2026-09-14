@@ -3,7 +3,7 @@ import { DateTime } from 'effect';
 import { TestSchema } from 'effect/testing';
 import { describe, it } from 'vitest';
 
-import { PeppolBillingReference } from './peppol-billing-reference-schema';
+import { PeppolBillingReference } from './peppol-billing-reference-schema.ts';
 
 describe('PeppolBillingReference', () => {
   const testSchema = new TestSchema.Asserts(PeppolBillingReference);

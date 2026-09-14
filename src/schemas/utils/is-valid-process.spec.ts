@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 
 import { processesList } from '#/values/processes.generated';
 
-import { isValidProcess } from './is-valid-process';
+import { isValidProcess } from './is-valid-process.ts';
 
 describe('isValidProcess', () => {
   it.each(processesList)('returns true for a valid process id (%s)', processId => {

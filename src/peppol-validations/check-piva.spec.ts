@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { checkPIVA } from './check-piva';
+import { checkPIVA } from './check-piva.ts';
 
 describe('checkPIVA', () => {
   it.each([['01234567889', 0]] as const)('should validate Italian VAT numbers', (piva, expected) => {

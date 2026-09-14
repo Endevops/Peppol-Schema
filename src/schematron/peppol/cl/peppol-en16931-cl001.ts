@@ -1,7 +1,7 @@
-import type { PeppolDocument } from '#/schemas/peppol-document-schema';
-import type { SchematronRule } from '#/schematron/helpers';
+import type { PeppolDocument } from '#/schemas/peppol-document-schema.ts';
+import type { SchematronRule } from '#/schematron/helpers.ts';
 
-import { schematronRule } from '#/schematron/helpers';
+import { schematronRule } from '#/schematron/helpers.ts';
 import { mimeCodesKeys } from '#/values/mime-codes.generated';
 
 const rule = {

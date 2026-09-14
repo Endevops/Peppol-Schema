@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { greekTinVerification } from './greek-tin-verification';
+import { greekTinVerification } from './greek-tin-verification.ts';
 
 describe('greekTinVerification', () => {
   it.each([['123456795'], ['123456783'], ['987654324'], ['123123128']] as const)('should validate %s as a valid Greek TINs', tin => {

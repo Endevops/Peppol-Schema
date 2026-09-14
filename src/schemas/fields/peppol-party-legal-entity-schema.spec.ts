@@ -2,7 +2,7 @@
 import { TestSchema } from 'effect/testing';
 import { describe, it } from 'vitest';
 
-import { PeppolPartyLegalEntity } from './peppol-party-legal-entity-schema';
+import { PeppolPartyLegalEntity } from './peppol-party-legal-entity-schema.ts';
 
 describe('PeppolPartyLegalEntity', () => {
   const testSchema = new TestSchema.Asserts(PeppolPartyLegalEntity);

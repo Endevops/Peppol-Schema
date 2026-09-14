@@ -1,7 +1,7 @@
 import { describe, expect, it } from '@effect/vitest';
 import { Effect, Schema } from 'effect';
 
-import { decodeMessageLevelResponse } from './decode-message-level-response';
+import { decodeMessageLevelResponse } from './decode-message-level-response.ts';
 
 describe('decodeMessageLevelResponse()', () => {
   it.effect(

@@ -1,9 +1,9 @@
 import { Schema } from 'effect';
 
-import { PriceAllowanceCharge } from '#/schemas/fields/peppol-line-price-allowance-charge-schema';
-import { opaque } from '#/schemas/utils/opaque';
-import { allowanceChargeReasonCodeSchema } from '#/schemas/values/allowance-charge-reason-code-schema';
-import { chargeReasonCodeSchema } from '#/schemas/values/charge-reason-code-schema';
+import { PriceAllowanceCharge } from '#/schemas/fields/peppol-line-price-allowance-charge-schema.ts';
+import { opaque } from '#/schemas/utils/opaque.ts';
+import { allowanceChargeReasonCodeSchema } from '#/schemas/values/allowance-charge-reason-code-schema.ts';
+import { chargeReasonCodeSchema } from '#/schemas/values/charge-reason-code-schema.ts';
 
 export class BaseLineAllowanceCharge extends opaque<BaseLineAllowanceCharge>()(
   Schema.Struct({

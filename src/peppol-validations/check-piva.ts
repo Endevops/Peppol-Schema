@@ -1,4 +1,4 @@
-import { addPIVA } from './add-piva';
+import { addPIVA } from './add-piva.ts';
 
 /**
  * @description Validates Italian VAT numbers (PIVA)

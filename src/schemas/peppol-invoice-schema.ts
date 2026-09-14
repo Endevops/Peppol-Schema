@@ -1,10 +1,10 @@
 import { Schema } from 'effect';
 
-import { PeppolInvoiceLine } from '#/schemas/fields/peppol-invoice-line-schema';
-import { PeppolBillingBase } from '#/schemas/peppol-billing-base-schema';
-import { PeppolIsoDateString } from '#/schemas/peppol-iso-date-string';
-import { opaque } from '#/schemas/utils/opaque';
-import { invoiceTypeCodeSchema } from '#/schemas/values/invoice-type-code-schema';
+import { PeppolInvoiceLine } from '#/schemas/fields/peppol-invoice-line-schema.ts';
+import { PeppolBillingBase } from '#/schemas/peppol-billing-base-schema.ts';
+import { PeppolIsoDateString } from '#/schemas/peppol-iso-date-string.ts';
+import { opaque } from '#/schemas/utils/opaque.ts';
+import { invoiceTypeCodeSchema } from '#/schemas/values/invoice-type-code-schema.ts';
 
 class PeppolProjectReference extends opaque<PeppolProjectReference>()(Schema.Struct({ id: Schema.String })) {}
 

@@ -2,7 +2,7 @@
 import { TestSchema } from 'effect/testing';
 import { describe, it } from 'vitest';
 
-import { PeppolIdentifier } from './peppol-identifier-schema';
+import { PeppolIdentifier } from './peppol-identifier-schema.ts';
 
 describe('identifierSchema', () => {
   const testSchema = new TestSchema.Asserts(PeppolIdentifier);

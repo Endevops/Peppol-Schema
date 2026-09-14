@@ -2,7 +2,7 @@ import { TestSchema } from 'effect/testing';
 import { describe, it } from 'vitest';
 
 // oxlint-disable vitest/expect-expect
-import { PeppolDocumentResponseLineResponse } from './peppol-document-response-line-response-schema';
+import { PeppolDocumentResponseLineResponse } from './peppol-document-response-line-response-schema.ts';
 
 const response = { responseCode: 'RE', description: 'Validation gives error', status: { statusReasonCode: 'BV' } };
 

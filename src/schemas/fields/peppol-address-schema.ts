@@ -1,7 +1,7 @@
 import { Schema } from 'effect';
 
-import { opaque } from '#/schemas/utils/opaque';
-import { peppolCountryCodeSchema } from '#/schemas/values/peppol-country-code-schema';
+import { opaque } from '#/schemas/utils/opaque.ts';
+import { peppolCountryCodeSchema } from '#/schemas/values/peppol-country-code-schema.ts';
 
 class PeppolAddressLine extends opaque<PeppolAddressLine>()(
   Schema.Struct({

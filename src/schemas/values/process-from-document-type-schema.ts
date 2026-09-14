@@ -1,8 +1,8 @@
 import { Schema } from 'effect';
 
-import type { PeppolDocumentType } from '#/schemas/values/peppol-document-type-schema';
+import type { PeppolDocumentType } from '#/schemas/values/peppol-document-type-schema.ts';
 
-import { peppolProcessSchema } from '#/schemas/values/peppol-process-schema';
+import { peppolProcessSchema } from '#/schemas/values/peppol-process-schema.ts';
 import { documentTypesProcessIds } from '#/values/document-type.generated';
 
 /**

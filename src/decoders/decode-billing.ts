@@ -1,22 +1,22 @@
 import { Effect } from 'effect';
 
-import type { XmlNode } from '#/helpers/get-prop';
+import type { XmlNode } from '#/helpers/get-prop.ts';
 
-import { decodeAdditionalDocumentReferences } from '#/decoders/fields/decode-additional-document-references';
-import { decodeAllowanceCharges } from '#/decoders/fields/decode-allowance-charges';
-import { decodeBillingReferences } from '#/decoders/fields/decode-billing-references';
-import { decodeDelivery } from '#/decoders/fields/decode-delivery';
-import { decodeInvoicePeriod } from '#/decoders/fields/decode-invoice-period';
-import { decodeLegalMonetaryTotal } from '#/decoders/fields/decode-legal-monetary-total';
-import { decodeOrderReference } from '#/decoders/fields/decode-order-reference';
-import { decodeParty } from '#/decoders/fields/decode-party';
-import { decodePayeeParty } from '#/decoders/fields/decode-payee-party';
-import { decodePaymentMeans } from '#/decoders/fields/decode-payment-means';
-import { decodePaymentTerms } from '#/decoders/fields/decode-payment-terms';
-import { decodeSimpleIdentifer } from '#/decoders/fields/decode-simple-identifier';
-import { decodeTaxRepresentativeParty } from '#/decoders/fields/decode-tax-representative-party';
-import { decodeTaxTotals } from '#/decoders/fields/decode-tax-totals';
-import { strOrUnd } from '#/helpers/str-or-und';
+import { decodeAdditionalDocumentReferences } from '#/decoders/fields/decode-additional-document-references.ts';
+import { decodeAllowanceCharges } from '#/decoders/fields/decode-allowance-charges.ts';
+import { decodeBillingReferences } from '#/decoders/fields/decode-billing-references.ts';
+import { decodeDelivery } from '#/decoders/fields/decode-delivery.ts';
+import { decodeInvoicePeriod } from '#/decoders/fields/decode-invoice-period.ts';
+import { decodeLegalMonetaryTotal } from '#/decoders/fields/decode-legal-monetary-total.ts';
+import { decodeOrderReference } from '#/decoders/fields/decode-order-reference.ts';
+import { decodeParty } from '#/decoders/fields/decode-party.ts';
+import { decodePayeeParty } from '#/decoders/fields/decode-payee-party.ts';
+import { decodePaymentMeans } from '#/decoders/fields/decode-payment-means.ts';
+import { decodePaymentTerms } from '#/decoders/fields/decode-payment-terms.ts';
+import { decodeSimpleIdentifer } from '#/decoders/fields/decode-simple-identifier.ts';
+import { decodeTaxRepresentativeParty } from '#/decoders/fields/decode-tax-representative-party.ts';
+import { decodeTaxTotals } from '#/decoders/fields/decode-tax-totals.ts';
+import { strOrUnd } from '#/helpers/str-or-und.ts';
 
 export const decodeBilling = Effect.fn('decode-billing')(function* (doc: XmlNode) {
   return {

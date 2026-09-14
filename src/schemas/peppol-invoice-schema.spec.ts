@@ -2,9 +2,9 @@ import { DateTime } from 'effect';
 // oxlint-disable vitest/expect-expect
 import { describe, it } from 'vitest';
 
-import { decoding } from '#/test/schema-asserts';
+import { decoding } from '#/test/schema-asserts.ts';
 
-import { PeppolInvoice } from './peppol-invoice-schema';
+import { PeppolInvoice } from './peppol-invoice-schema.ts';
 
 const invoiceLine = {
   id: '1',

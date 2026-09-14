@@ -4,7 +4,7 @@
     "effect/*",
     "better-auth/*",
     "#/index",
-    "#/schema",
+    "#/schemas",
     "#/schematron",
     "#/values",
     "#/peppol-validations",

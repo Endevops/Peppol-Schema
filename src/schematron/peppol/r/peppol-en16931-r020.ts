@@ -1,7 +1,7 @@
-import type { PeppolDocument } from '#/schemas/peppol-document-schema';
-import type { SchematronRule } from '#/schematron/helpers';
+import type { PeppolDocument } from '#/schemas/peppol-document-schema.ts';
+import type { SchematronRule } from '#/schematron/helpers.ts';
 
-import { schematronRule } from '#/schematron/helpers';
+import { schematronRule } from '#/schematron/helpers.ts';
 
 const rule = { id: 'PEPPOL-EN16931-R020', level: 'fatal', message: 'Seller electronic address MUST be provided' } as const satisfies SchematronRule;
 

@@ -2,7 +2,7 @@
 import { TestSchema } from 'effect/testing';
 import { describe, it } from 'vitest';
 
-import { PeppolCreditNoteLine } from './peppol-credit-note-line-schema';
+import { PeppolCreditNoteLine } from './peppol-credit-note-line-schema.ts';
 
 const validCreditNoteLine = {
   creditedQuantity: { unitCode: 'C62', value: 2 },

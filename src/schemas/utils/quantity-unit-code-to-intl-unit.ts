@@ -1,4 +1,4 @@
-import type { PeppolQuantityUnitCode } from '#/schemas/values/quantity-unit-codes-schema';
+import type { PeppolQuantityUnitCode } from '#/schemas/values/quantity-unit-codes-schema.ts';
 
 export type BaseIntlUnit =
   | 'acre'

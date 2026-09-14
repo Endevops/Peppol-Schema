@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { checkCF } from './check-cf';
+import { checkCF } from './check-cf.ts';
 
 describe('checkCF', () => {
   describe('valid codes', () => {

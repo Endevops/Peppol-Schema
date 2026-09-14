@@ -1,7 +1,7 @@
 import { Effect } from 'effect';
 import { describe, expect, it } from 'vitest';
 
-import { decodeLineShared } from './decode-line-shared';
+import { decodeLineShared } from './decode-line-shared.ts';
 
 describe('decodeLineShared', () => {
   it('decodes document references on the line', () => {

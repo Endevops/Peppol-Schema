@@ -1,8 +1,8 @@
 import { Schema } from 'effect';
 
-import { PeppolAddress } from '#/schemas/fields/peppol-address-schema';
-import { PeppolPartyTaxScheme } from '#/schemas/fields/peppol-party-tax-scheme-schema';
-import { opaque } from '#/schemas/utils/opaque';
+import { PeppolAddress } from '#/schemas/fields/peppol-address-schema.ts';
+import { PeppolPartyTaxScheme } from '#/schemas/fields/peppol-party-tax-scheme-schema.ts';
+import { opaque } from '#/schemas/utils/opaque.ts';
 
 /**
  * @summary SELLER TAX REPRESENTATIVE PARTY

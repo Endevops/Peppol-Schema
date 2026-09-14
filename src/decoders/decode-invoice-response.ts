@@ -1,13 +1,13 @@
 import { Effect, Predicate } from 'effect';
 
-import type { XmlNode } from '#/helpers/get-prop';
+import type { XmlNode } from '#/helpers/get-prop.ts';
 
-import { decodeApplicationResponseBase } from '#/decoders/fields/decode-application-response';
-import { decodeInvoiceMessageDocumentParty } from '#/decoders/fields/decode-invoice-message-document-party';
-import { decodeInvoiceMessageParty } from '#/decoders/fields/decode-invoice-message-party';
-import { getArray } from '#/helpers/get-array';
-import { getProp } from '#/helpers/get-prop';
-import { strOrUnd } from '#/helpers/str-or-und';
+import { decodeApplicationResponseBase } from '#/decoders/fields/decode-application-response.ts';
+import { decodeInvoiceMessageDocumentParty } from '#/decoders/fields/decode-invoice-message-document-party.ts';
+import { decodeInvoiceMessageParty } from '#/decoders/fields/decode-invoice-message-party.ts';
+import { getArray } from '#/helpers/get-array.ts';
+import { getProp } from '#/helpers/get-prop.ts';
+import { strOrUnd } from '#/helpers/str-or-und.ts';
 
 const decodeStatusReasonCode = Effect.fn(function* (doc: XmlNode, ...path: Array<string>) {
   const val = yield* getProp(doc, ...path);

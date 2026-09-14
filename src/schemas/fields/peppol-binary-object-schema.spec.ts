@@ -2,7 +2,7 @@
 import { TestSchema } from 'effect/testing';
 import { describe, it } from 'vitest';
 
-import { PeppolBinaryObject } from './peppol-binary-object-schema';
+import { PeppolBinaryObject } from './peppol-binary-object-schema.ts';
 
 describe('PeppolBinaryObject', () => {
   const testSchema = new TestSchema.Asserts(PeppolBinaryObject);

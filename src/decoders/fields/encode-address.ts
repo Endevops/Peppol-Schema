@@ -1,7 +1,7 @@
 import { Effect, Predicate } from 'effect';
 
-import type { XmlNode } from '#/helpers/get-prop';
-import type { PeppolAddress } from '#/schemas/fields/peppol-address-schema';
+import type { XmlNode } from '#/helpers/get-prop.ts';
+import type { PeppolAddress } from '#/schemas/fields/peppol-address-schema.ts';
 
 export const encodeAddress = Effect.fn(function* (address?: PeppolAddress): Effect.fn.Return<XmlNode> {
   if (Predicate.isNullish(address)) return undefined;

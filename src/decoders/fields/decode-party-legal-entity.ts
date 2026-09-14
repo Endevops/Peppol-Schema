@@ -1,12 +1,12 @@
 import { Effect, Predicate } from 'effect';
 
-import type { XmlNode } from '#/helpers/get-prop';
-import type { PeppolPartyLegalEntitySchema } from '#/schemas/fields/peppol-party-legal-entity-schema';
-import type { RecursivePartial } from '#/types';
+import type { XmlNode } from '#/helpers/get-prop.ts';
+import type { PeppolPartyLegalEntitySchema } from '#/schemas/fields/peppol-party-legal-entity-schema.ts';
+import type { RecursivePartial } from '#/types.ts';
 
-import { decodeIdentifier } from '#/decoders/fields/decode-identifier';
-import { getProp } from '#/helpers/get-prop';
-import { strOrUnd } from '#/helpers/str-or-und';
+import { decodeIdentifier } from '#/decoders/fields/decode-identifier.ts';
+import { getProp } from '#/helpers/get-prop.ts';
+import { strOrUnd } from '#/helpers/str-or-und.ts';
 
 export const decodePartyLegalEntity = Effect.fn(function* (
   node: XmlNode,

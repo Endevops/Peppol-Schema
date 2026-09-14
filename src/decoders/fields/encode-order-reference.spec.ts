@@ -1,7 +1,7 @@
 import { Effect } from 'effect';
 import { describe, it, expect } from 'vitest';
 
-import { encodeOrderReference } from './encode-order-reference';
+import { encodeOrderReference } from './encode-order-reference.ts';
 
 describe('encodeOrderReference', () => {
   it('returns undefined when order reference is missing', () => {

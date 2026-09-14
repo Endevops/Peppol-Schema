@@ -1,7 +1,7 @@
 import { Effect } from 'effect';
 import { describe, expect, it } from 'vitest';
 
-import { decodeInvoiceLines } from './decode-invoice-lines';
+import { decodeInvoiceLines } from './decode-invoice-lines.ts';
 
 describe('decodeInvoiceLines', () => {
   it('returns undefined when the invoice line path is missing', () => {

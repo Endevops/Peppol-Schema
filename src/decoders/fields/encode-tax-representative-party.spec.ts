@@ -1,7 +1,7 @@
 import { Effect } from 'effect';
 import { describe, it, expect } from 'vitest';
 
-import { encodeTaxRepresentativeParty } from './encode-tax-representative-party';
+import { encodeTaxRepresentativeParty } from './encode-tax-representative-party.ts';
 
 describe('encodeTaxRepresentativeParty', () => {
   it('returns undefined when the tax representative party is missing', () => {

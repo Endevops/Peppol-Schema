@@ -1,7 +1,7 @@
 import { Effect } from 'effect';
 import { describe, expect, it } from 'vitest';
 
-import { decodeQuantity } from './decode-quantity';
+import { decodeQuantity } from './decode-quantity.ts';
 
 describe('decodeQuantity', () => {
   it('decodes an object quantity node with unit code and text', () => {

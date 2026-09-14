@@ -1,7 +1,7 @@
 import { Effect } from 'effect';
 import { describe, expect, it } from 'vitest';
 
-import { decodePaymentMeans } from './decode-payment-means';
+import { decodePaymentMeans } from './decode-payment-means.ts';
 
 const fullMeansDoc = {
   'cac:PaymentMeans': [

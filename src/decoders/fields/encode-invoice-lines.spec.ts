@@ -1,7 +1,7 @@
 import { Effect } from 'effect';
 import { describe, it, expect } from 'vitest';
 
-import { encodeInvoiceLines } from './encode-invoice-lines';
+import { encodeInvoiceLines } from './encode-invoice-lines.ts';
 
 const invoiceLine = {
   accountingCost: 'AC',

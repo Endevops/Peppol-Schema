@@ -1,8 +1,8 @@
-import type { PeppolDocument } from '#/schemas/peppol-document-schema';
-import type { SchematronRule } from '#/schematron/helpers';
+import type { PeppolDocument } from '#/schemas/peppol-document-schema.ts';
+import type { SchematronRule } from '#/schematron/helpers.ts';
 
-import { checkPIVAseIT } from '#/peppol-validations/check-piva-se-it';
-import { getIdentifiersWithSchemeId, schematronRule } from '#/schematron/helpers';
+import { checkPIVAseIT } from '#/peppol-validations/check-piva-se-it.ts';
+import { getIdentifiersWithSchemeId, schematronRule } from '#/schematron/helpers.ts';
 
 const rule = {
   id: 'PEPPOL-COMMON-R047',

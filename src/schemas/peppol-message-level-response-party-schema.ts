@@ -1,7 +1,7 @@
 import { Schema } from 'effect';
 
-import { PeppolIdentifier } from '#/schemas/fields/peppol-identifier-schema';
-import { opaque } from '#/schemas/utils/opaque';
+import { PeppolIdentifier } from '#/schemas/fields/peppol-identifier-schema.ts';
+import { opaque } from '#/schemas/utils/opaque.ts';
 
 export class PeppolMessageLevelResponseParty extends opaque<PeppolMessageLevelResponseParty>()(
   Schema.Struct({

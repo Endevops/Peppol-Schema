@@ -1,13 +1,13 @@
 import { Effect, Predicate } from 'effect';
 
-import type { XmlNode } from '#/helpers/get-prop';
-import type { PeppolAllowanceCharge } from '#/schemas/fields/peppol-allowance-charge-schema';
-import type { RecursivePartial } from '#/types';
+import type { XmlNode } from '#/helpers/get-prop.ts';
+import type { PeppolAllowanceCharge } from '#/schemas/fields/peppol-allowance-charge-schema.ts';
+import type { RecursivePartial } from '#/types.ts';
 
-import { decodeSimpleIdentifer } from '#/decoders/fields/decode-simple-identifier';
-import { getProp } from '#/helpers/get-prop';
-import { numOrUnd } from '#/helpers/num-or-und';
-import { strOrUnd } from '#/helpers/str-or-und';
+import { decodeSimpleIdentifer } from '#/decoders/fields/decode-simple-identifier.ts';
+import { getProp } from '#/helpers/get-prop.ts';
+import { numOrUnd } from '#/helpers/num-or-und.ts';
+import { strOrUnd } from '#/helpers/str-or-und.ts';
 
 export const decodeTaxCategory = Effect.fn(function* (
   doc: XmlNode,

@@ -1,7 +1,7 @@
 import { Schema } from 'effect';
 
-import { opaque } from '#/schemas/utils/opaque';
-import { peppolDocumentTypeCodeSchema } from '#/schemas/values/peppol-document-type-code-schema';
+import { opaque } from '#/schemas/utils/opaque.ts';
+import { peppolDocumentTypeCodeSchema } from '#/schemas/values/peppol-document-type-code-schema.ts';
 
 export class PeppolDocumentResponseDocumentReference extends opaque<PeppolDocumentResponseDocumentReference>()(
   Schema.Struct({

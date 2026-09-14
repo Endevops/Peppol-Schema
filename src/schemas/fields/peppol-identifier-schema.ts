@@ -1,6 +1,6 @@
 import { Schema } from 'effect';
 
-import { opaque } from '#/schemas/utils/opaque';
+import { opaque } from '#/schemas/utils/opaque.ts';
 
 /**
  * @summary Identifier with optional scheme

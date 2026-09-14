@@ -1,7 +1,7 @@
 import { Effect } from 'effect';
 import { describe, it, expect } from 'vitest';
 
-import { encodePartyTaxScheme } from './encode-party-tax-scheme';
+import { encodePartyTaxScheme } from './encode-party-tax-scheme.ts';
 
 describe('encodePartyTaxScheme', () => {
   it('returns undefined when party tax scheme is missing', () => {

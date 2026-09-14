@@ -1,12 +1,12 @@
 import { Effect, Predicate } from 'effect';
 
-import type { XmlNode } from '#/helpers/get-prop';
+import type { XmlNode } from '#/helpers/get-prop.ts';
 
-import { decodeApplicationResponseBase } from '#/decoders/fields/decode-application-response';
-import { decodeMessageLevelParty } from '#/decoders/fields/decode-message-level-party';
-import { getArray } from '#/helpers/get-array';
-import { getProp } from '#/helpers/get-prop';
-import { strOrUnd } from '#/helpers/str-or-und';
+import { decodeApplicationResponseBase } from '#/decoders/fields/decode-application-response.ts';
+import { decodeMessageLevelParty } from '#/decoders/fields/decode-message-level-party.ts';
+import { getArray } from '#/helpers/get-array.ts';
+import { getProp } from '#/helpers/get-prop.ts';
+import { strOrUnd } from '#/helpers/str-or-und.ts';
 
 const decodeLineResponseContent = Effect.fn(function* (doc: XmlNode, ...path: Array<string>) {
   const val = yield* getProp(doc, ...path);

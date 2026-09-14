@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { invoiceResponseCodesOrder } from './invoice-response-codes-order';
+import { invoiceResponseCodesOrder } from './invoice-response-codes-order.ts';
 
 describe('invoiceResponseCodesOrder', () => {
   it('defines the transition order for each status', () => {

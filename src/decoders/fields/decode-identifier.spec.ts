@@ -1,7 +1,7 @@
 import { Effect } from 'effect';
 import { describe, expect, it } from 'vitest';
 
-import { decodeIdentifier } from './decode-identifier';
+import { decodeIdentifier } from './decode-identifier.ts';
 
 describe('decodeIdentifier', () => {
   it('decodes a plain string id', () => {

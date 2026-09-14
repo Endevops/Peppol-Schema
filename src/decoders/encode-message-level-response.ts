@@ -1,9 +1,9 @@
 import { Effect } from 'effect';
 
-import type { PeppolMessageLevelResponseDocumentResponse } from '#/schemas/peppol-message-level-response-document-response-schema';
-import type { PeppolMessageLevelResponse } from '#/schemas/peppol-message-level-response-schema';
+import type { PeppolMessageLevelResponseDocumentResponse } from '#/schemas/peppol-message-level-response-document-response-schema.ts';
+import type { PeppolMessageLevelResponse } from '#/schemas/peppol-message-level-response-schema.ts';
 
-import { encodeMessageParty } from '#/decoders/fields/encode-message-party';
+import { encodeMessageParty } from '#/decoders/fields/encode-message-party.ts';
 
 export const encodeMessageLevelResponse = Effect.fn(function* (messageResponse: PeppolMessageLevelResponse) {
   return {

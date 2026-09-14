@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { isValidInvoiceTypeCode } from '#/schemas/utils/is-valid-invoice-type-code';
+import { isValidInvoiceTypeCode } from '#/schemas/utils/is-valid-invoice-type-code.ts';
 import { invoiceTypeCodesKeys } from '#/values/invoice-type-codes.generated';
 
 describe('isValidInvoiceTypeCode', () => {

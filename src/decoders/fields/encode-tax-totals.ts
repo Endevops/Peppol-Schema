@@ -1,10 +1,10 @@
 import { Effect, Predicate } from 'effect';
 
-import type { PeppolTaxSubTotal } from '#/schemas/fields/peppol-tax-subtotal-schema';
-import type { PeppolTaxTotal } from '#/schemas/fields/peppol-tax-totals-base-schema';
+import type { PeppolTaxSubTotal } from '#/schemas/fields/peppol-tax-subtotal-schema.ts';
+import type { PeppolTaxTotal } from '#/schemas/fields/peppol-tax-totals-base-schema.ts';
 
-import { encodeAmount } from '#/decoders/fields/encode-amount';
-import { encodeSimpleIdentifier } from '#/decoders/fields/encode-simple-identifier';
+import { encodeAmount } from '#/decoders/fields/encode-amount.ts';
+import { encodeSimpleIdentifier } from '#/decoders/fields/encode-simple-identifier.ts';
 
 export const encodeTaxTotals = Effect.fn(function* (taxTotals: ReadonlyArray<PeppolTaxTotal>) {
   return yield* Effect.forEach(

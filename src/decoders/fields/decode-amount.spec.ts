@@ -1,7 +1,7 @@
 import { Effect } from 'effect';
 import { describe, expect, it } from 'vitest';
 
-import { decodeAmount } from './decode-amount';
+import { decodeAmount } from './decode-amount.ts';
 
 describe('decodeAmount', () => {
   it('decodes an object amount node with currency and text', () => {

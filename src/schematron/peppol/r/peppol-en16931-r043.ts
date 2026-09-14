@@ -1,7 +1,7 @@
-import type { PeppolDocument } from '#/schemas/peppol-document-schema';
-import type { SchematronRule } from '#/schematron/helpers';
+import type { PeppolDocument } from '#/schemas/peppol-document-schema.ts';
+import type { SchematronRule } from '#/schematron/helpers.ts';
 
-import { getAllAllowanceCharges, schematronRule } from '#/schematron/helpers';
+import { getAllAllowanceCharges, schematronRule } from '#/schematron/helpers.ts';
 
 const rule = {
   id: 'PEPPOL-EN16931-R043',

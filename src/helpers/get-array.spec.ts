@@ -1,7 +1,7 @@
 import { Effect } from 'effect';
 import { describe, expect, it } from 'vitest';
 
-import { getArray } from './get-array';
+import { getArray } from './get-array.ts';
 
 describe('getArray', () => {
   it('returns [] when the node is undefined', () => {

@@ -1,7 +1,7 @@
 import { Schema } from 'effect';
 
-import { opaque } from '#/schemas/utils/opaque';
-import { applicationResponseTypeCodeSchema } from '#/schemas/values/application-response-type-code-schema';
+import { opaque } from '#/schemas/utils/opaque.ts';
+import { applicationResponseTypeCodeSchema } from '#/schemas/values/application-response-type-code-schema.ts';
 
 class PeppolStatus extends opaque<PeppolStatus>()(
   Schema.Struct({

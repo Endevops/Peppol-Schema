@@ -4,9 +4,9 @@ import type {
   PeppolInvoiceResponse,
   PeppolInvoiceResponseDocumentReference,
   PeppolInvoiceResponseDocumentResponse,
-} from '#/schemas/peppol-invoice-response-schema';
+} from '#/schemas/peppol-invoice-response-schema.ts';
 
-import { encodeMessageParty } from '#/decoders/fields/encode-message-party';
+import { encodeMessageParty } from '#/decoders/fields/encode-message-party.ts';
 
 export const encodeInvoiceResponse = Effect.fn(function* (invoiceResponse: PeppolInvoiceResponse) {
   return {

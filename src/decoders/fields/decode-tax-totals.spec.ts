@@ -1,7 +1,7 @@
 import { Effect } from 'effect';
 import { describe, expect, it } from 'vitest';
 
-import { decodeTaxTotals } from './decode-tax-totals';
+import { decodeTaxTotals } from './decode-tax-totals.ts';
 
 const fullTaxTotalDoc = {
   'cac:TaxTotal': [

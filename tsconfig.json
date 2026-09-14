@@ -33,6 +33,7 @@
     "skipLibCheck": true,
     "erasableSyntaxOnly": true,
     "allowJs": true,
+    "allowImportingTsExtensions": true,
 
     "paths": { "#/*": ["./src/*"], "#/test/*": ["./test/*"], "#/assets/*": ["./assets/*"] }
   },

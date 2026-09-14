@@ -1,8 +1,8 @@
 import { describe, expect, it } from '@effect/vitest';
 import { Effect, Schema } from 'effect';
 
-import { encodeCreditNote } from '#/decoders/encode-credit-note';
-import { PeppolCreditNote } from '#/schemas/peppol-credit-note-schema';
+import { encodeCreditNote } from '#/decoders/encode-credit-note.ts';
+import { PeppolCreditNote } from '#/schemas/peppol-credit-note-schema.ts';
 
 describe('encodeCreditNote()', () => {
   const decodePeppolCreditNote = Schema.decodeSync(PeppolCreditNote);

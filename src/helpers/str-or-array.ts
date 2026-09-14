@@ -1,9 +1,9 @@
 import { Effect } from 'effect';
 
-import type { XmlNode } from '#/helpers/get-prop';
+import type { XmlNode } from '#/helpers/get-prop.ts';
 
-import { getProp } from '#/helpers/get-prop';
-import { strOrUnd } from '#/helpers/str-or-und';
+import { getProp } from '#/helpers/get-prop.ts';
+import { strOrUnd } from '#/helpers/str-or-und.ts';
 
 export const strOrArray = Effect.fn(function* (node: XmlNode, ...path: Array<string>): Effect.fn.Return<string | Array<string> | undefined> {
   const val = yield* getProp(node, ...path);

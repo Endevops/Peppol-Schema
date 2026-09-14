@@ -4,11 +4,11 @@
 import { assert, describe, it } from '@effect/vitest';
 import { Effect, Result } from 'effect';
 
-import type { PeppolDocument } from '#/schemas/peppol-document-schema';
+import type { PeppolDocument } from '#/schemas/peppol-document-schema.ts';
 
-import { decodeBaseExample } from '#/test/test-utils';
+import { decodeBaseExample } from '#/test/test-utils.ts';
 
-import { validatePeppolEn16931R100 } from './peppol-en16931-r100';
+import { validatePeppolEn16931R100 } from './peppol-en16931-r100.ts';
 
 describe('PEPPOL-EN16931-R100 (only one invoiced object per line)', () => {
   it.effect(
