@@ -1,6 +1,6 @@
-import { DateTime } from 'effect';
 // oxlint-disable vitest/expect-expect
-import { describe, it } from 'vitest';
+import { DateTime } from 'effect';
+import { afterAll, beforeAll, describe, it, vi } from 'vitest';
 
 import { decoding } from '#/test/schema-asserts';
 
@@ -29,6 +29,14 @@ const validMessageLevelResponse = {
 describe('PeppolMessageLevelResponse', () => {
   const decode = decoding(PeppolMessageLevelResponse);
 
+  beforeAll(() => {
+    vi.useFakeTimers({ now: new Date('1970-01-01T00:00:00.000Z') });
+  });
+
+  afterAll(() => {
+    vi.useRealTimers();
+  });
+
   it('should decode a valid message level response', async () => {
     await decode.succeed(validMessageLevelResponse, {
       customizationId: 'urn:fdc:peppol.eu:poacc:trns:mlr:3',
@@ -39,7 +47,7 @@ describe('PeppolMessageLevelResponse', () => {
       },
       id: 'MLR-ID123',
       issueDate: DateTime.makeUnsafe('2016-08-15'),
-      issueTime: '12:00:00',
+      issueTime: DateTime.makeUnsafe('1970-01-01T12:00:00'),
       profileId: 'urn:fdc:peppol.eu:poacc:bis:mlr:3',
       receiverParty: { endpointId: { id: '7315458756328', schemeId: '0088' } },
       senderParty: { endpointId: { id: '7300010000001', schemeId: '0088' } },

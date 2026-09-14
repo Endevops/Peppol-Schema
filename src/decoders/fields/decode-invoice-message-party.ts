@@ -1,8 +1,6 @@
 import { Effect, Predicate } from 'effect';
 
 import type { XmlNode } from '#/helpers/get-prop';
-import type { PeppolInvoiceResponseParty } from '#/schemas/peppol-invoice-response-schema';
-import type { RecursivePartial } from '#/types';
 
 import { decodeContact } from '#/decoders/fields/decode-contact';
 import { decodeElectronicAddress } from '#/decoders/fields/decode-electronic-address';
@@ -10,10 +8,7 @@ import { decodeIdentifier } from '#/decoders/fields/decode-identifier';
 import { decodePartyLegalEntity } from '#/decoders/fields/decode-party-legal-entity';
 import { getProp } from '#/helpers/get-prop';
 
-export const decodeInvoiceMessageParty = Effect.fn(function* (
-  party: XmlNode,
-  ...path: Array<string>
-): Effect.fn.Return<RecursivePartial<PeppolInvoiceResponseParty> | undefined> {
+export const decodeInvoiceMessageParty = Effect.fn(function* (party: XmlNode, ...path: Array<string>) {
   const val = yield* getProp(party, ...path);
   if (Predicate.isNullish(val)) return undefined;
   return {

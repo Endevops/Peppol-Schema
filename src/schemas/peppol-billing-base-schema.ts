@@ -9,7 +9,7 @@ import { PeppolDelivery } from '#/schemas/fields/peppol-delivery-schema';
 import { PeppolInvoicePeriod } from '#/schemas/fields/peppol-invoice-period-schema';
 import { PeppolLegalMonetaryTotal } from '#/schemas/fields/peppol-legal-monetary-total-schema';
 import { PeppolOrderReference } from '#/schemas/fields/peppol-order-reference-schema';
-import { PeppolPartyBase } from '#/schemas/fields/peppol-party-base-schema';
+import { PeppolPartySchema } from '#/schemas/fields/peppol-party-base-schema';
 import { PeppolPayeeParty } from '#/schemas/fields/peppol-payee-party-schema';
 import { PeppolPaymentMeans } from '#/schemas/fields/peppol-payment-means-schema';
 import { PeppolPaymentTerms } from '#/schemas/fields/peppol-payment-terms-schema';
@@ -284,7 +284,7 @@ export class PeppolBillingBase extends opaque<PeppolBillingBase>()(
      *
      * @name `cac:AccountingSupplierParty`
      */
-    accountingSupplierParty: PeppolPartyBase,
+    accountingSupplierParty: PeppolPartySchema,
 
     /**
      * @description A group of business terms providing information about the Buyer.
@@ -293,7 +293,7 @@ export class PeppolBillingBase extends opaque<PeppolBillingBase>()(
      *
      * @name `cac:AccountingCustomerParty`
      */
-    accountingCustomerParty: PeppolPartyBase,
+    accountingCustomerParty: PeppolPartySchema,
 
     /**
      * @description A group of business terms providing information about the Payee, i.e. the role that received the payment. Shall be used wwhen the payee is

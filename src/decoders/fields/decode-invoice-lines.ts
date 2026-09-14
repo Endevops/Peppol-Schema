@@ -6,7 +6,7 @@ import { decodeLineShared } from '#/decoders/fields/decode-line-shared';
 import { decodeNodeList } from '#/decoders/fields/decode-node-list';
 import { decodeQuantity } from '#/decoders/fields/decode-quantity';
 
-export const decodeInvoiceLines = Effect.fn(function* (doc: XmlNode, ...path: Array<string>) {
+export const decodeInvoiceLines = Effect.fn('decode-invoice-lines')(function* (doc: XmlNode, ...path: Array<string>) {
   return yield* decodeNodeList(
     doc,
     Effect.fn(function* (lineNode: XmlNode) {

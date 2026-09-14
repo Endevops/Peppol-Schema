@@ -4,7 +4,7 @@ import type { XmlNode } from '#/helpers/get-prop';
 
 import { getProp } from '#/helpers/get-prop';
 
-export const strOrUnd = Effect.fn(function* <const T extends string = string>(
+export const strOrUnd = Effect.fn('str-or-und')(function* <const T extends string = string>(
   node: XmlNode,
   ...path: Array<string>
 ): Effect.fn.Return<T | undefined> {

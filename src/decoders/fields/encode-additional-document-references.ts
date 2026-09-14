@@ -4,8 +4,9 @@ import type { PeppolAdditionalDocumentReference } from '#/schemas/fields/peppol-
 
 import { encodeIdentifier } from '#/decoders/fields/encode-identifier';
 
-export const encodeAdditionalDocumentReferences = Effect.fn(function* (refs: Array<PeppolAdditionalDocumentReference> | undefined) {
+export const encodeAdditionalDocumentReferences = Effect.fn(function* (refs: ReadonlyArray<PeppolAdditionalDocumentReference> | undefined) {
   if (Predicate.isNullish(refs)) return undefined;
+
   return yield* Effect.forEach(
     refs,
     Effect.fn(function* (ref: PeppolAdditionalDocumentReference) {

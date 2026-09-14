@@ -6,7 +6,7 @@ import type { RecursivePartial } from '#/types';
 import { getProp } from '#/helpers/get-prop';
 import { strOrUnd } from '#/helpers/str-or-und';
 
-export const decodeSimpleIdentifer = Effect.fn(function* (
+export const decodeSimpleIdentifer = Effect.fn('decode-simple-identifier')(function* (
   doc: XmlNode,
   ...path: Array<string>
 ): Effect.fn.Return<RecursivePartial<{ id: string }> | undefined> {

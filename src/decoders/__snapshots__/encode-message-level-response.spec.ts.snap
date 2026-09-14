@@ -1,0 +1,67 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`encodeMessageLevelResponse() > should encode an invoice to the xml structure 1`] = `
+{
+  "?xml": {
+    "@encoding": "UTF-8",
+    "@version": "1.0",
+  },
+  "ApplicationResponse": {
+    "@xmlns": "urn:oasis:names:specification:ubl:schema:xsd:ApplicationResponse-2",
+    "@xmlns:cac": "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2",
+    "@xmlns:cbc": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+    "@xmlns:xsi": "http://www.w3.org/2001/XMLSchema-instance",
+    "@xsi:schemaLocation": "urn:oasis:names:specification:ubl:schema:xsd:ApplicationResponse-2 https://docs.oasis-open.org/ubl/os-UBL-2.4/xsd/maindoc/UBL-ApplicationResponse-2.4.xsd urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2 https://docs.oasis-open.org/ubl/os-UBL-2.4/xsd/common/UBL-CommonAggregateComponents-2.4.xsd urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2 https://docs.oasis-open.org/ubl/os-UBL-2.4/xsd/common/UBL-CommonBasicComponents-2.4.xsd",
+    "cac:DocumentResponse": {
+      "cac:DocumentReference": {
+        "cbc:DocumentTypeCode": "9",
+        "cbc:ID": "EnvelopeID-12456789",
+        "cbc:VersionID": "2",
+      },
+      "cac:LineResponse": [
+        {
+          "cac:LineReference": {
+            "cbc:LineID": "/Catalogue/cac:CatalogueLine[3]/cac:Item[1]/cac:ClassifiedTaxCategory[1]/cbc:ID[1]",
+          },
+          "cac:Response": {
+            "cac:Status": {
+              "cbc:StatusReasonCode": "BV",
+            },
+            "cbc:Description": "Validation gives error [CL-T77-R002]- Tax categories MUST be coded using UN/ECE 5305 code list",
+            "cbc:ResponseCode": "RE",
+          },
+        },
+      ],
+      "cac:Response": {
+        "cbc:Description": "Rejected due to validation errore",
+        "cbc:ResponseCode": "RE",
+      },
+    },
+    "cac:ReceiverParty": {
+      "cac:Contact": undefined,
+      "cac:PartyIdentification": undefined,
+      "cac:PartyLegalEntity": undefined,
+      "cac:PartyName": undefined,
+      "cbc:EndpointID": {
+        "#text": "7315458756328",
+        "@schemeID": "0088",
+      },
+    },
+    "cac:SenderParty": {
+      "cac:Contact": undefined,
+      "cac:PartyIdentification": undefined,
+      "cac:PartyLegalEntity": undefined,
+      "cac:PartyName": undefined,
+      "cbc:EndpointID": {
+        "#text": "7300010000001",
+        "@schemeID": "0088",
+      },
+    },
+    "cbc:CustomizationID": "urn:fdc:peppol.eu:poacc:trns:mlr:3",
+    "cbc:ID": "MLR-ID123",
+    "cbc:IssueDate": "2016-08-15T00:00:00.000Z",
+    "cbc:IssueTime": "2026-09-14T12:00:00.000Z",
+    "cbc:ProfileID": "urn:fdc:peppol.eu:poacc:bis:mlr:3",
+  },
+}
+`;

@@ -9,7 +9,7 @@ import { opaque } from '#/schemas/utils/opaque';
 import { electronicCodesSchema } from '#/schemas/values/electronic-codes-schema';
 import { icdCodesSchema } from '#/schemas/values/icd-codes-schema';
 
-class PeppolPartyName extends opaque<PeppolPartyName>()(
+export class PeppolPartyName extends opaque<PeppolPartyName>()(
   Schema.Struct({
     /**
      * @description A name by which the Buyer/Seller is known, other than Buyer/Seller name (also known as Business name).
@@ -23,7 +23,7 @@ class PeppolPartyName extends opaque<PeppolPartyName>()(
   })
 ) {}
 
-class PeppolPartyIdentification extends opaque<PeppolPartyIdentification>()(
+export class PeppolPartyIdentification extends opaque<PeppolPartyIdentification>()(
   Schema.Struct({
     /**
      * @description An identifier of the Buyer/seller.
@@ -89,7 +89,7 @@ export class PeppolPartyEndpointId extends opaque<PeppolPartyEndpointId>()(
  *
  * @name cac:Party
  */
-export class PeppolPartyBase extends opaque<PeppolPartyBase>()(
+export class PeppolPartySchema extends opaque<PeppolPartySchema>()(
   Schema.Struct({
     /**
      * @description Identifies the Seller/buyer's electronic address to which the application level response to the invoice may be delivered.
@@ -143,5 +143,3 @@ export class PeppolPartyBase extends opaque<PeppolPartyBase>()(
     contact: Schema.optional(PeppolContact),
   })
 ) {}
-
-export type PeppolPartySchema = PeppolPartyBase;

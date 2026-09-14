@@ -2,7 +2,7 @@
 import { TestSchema } from 'effect/testing';
 import { describe, it } from 'vitest';
 
-import { PeppolPartyBase } from './peppol-party-base-schema';
+import { PeppolPartySchema } from './peppol-party-base-schema';
 
 const validParty = {
   endpointId: { id: '7300010000001', schemeId: '0088' },
@@ -11,7 +11,7 @@ const validParty = {
 };
 
 describe('PeppolPartyBase', () => {
-  const testSchema = new TestSchema.Asserts(PeppolPartyBase);
+  const testSchema = new TestSchema.Asserts(PeppolPartySchema);
   const decode = testSchema.decoding();
 
   it('should parse a minimal party', async () => {

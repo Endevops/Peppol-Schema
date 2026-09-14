@@ -6,7 +6,7 @@ import type { PeppolTaxTotal } from '#/schemas/fields/peppol-tax-totals-base-sch
 import { encodeAmount } from '#/decoders/fields/encode-amount';
 import { encodeSimpleIdentifier } from '#/decoders/fields/encode-simple-identifier';
 
-export const encodeTaxTotals = Effect.fn(function* (taxTotals: Array<PeppolTaxTotal>) {
+export const encodeTaxTotals = Effect.fn(function* (taxTotals: ReadonlyArray<PeppolTaxTotal>) {
   return yield* Effect.forEach(
     taxTotals,
     Effect.fn(function* (taxTotal: PeppolTaxTotal) {
@@ -15,7 +15,7 @@ export const encodeTaxTotals = Effect.fn(function* (taxTotals: Array<PeppolTaxTo
   );
 });
 
-const encodeTaxSubtotals = Effect.fn(function* (taxSubtotals: Array<PeppolTaxSubTotal> | undefined) {
+const encodeTaxSubtotals = Effect.fn(function* (taxSubtotals: ReadonlyArray<PeppolTaxSubTotal> | undefined) {
   if (Predicate.isNullish(taxSubtotals)) return undefined;
 
   return yield* Effect.forEach(

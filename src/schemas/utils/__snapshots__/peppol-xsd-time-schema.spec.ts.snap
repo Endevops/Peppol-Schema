@@ -1,51 +1,115 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`peppolXsdTimeSchema > should parse 00:00:00 as iso date 1`] = `"1970-01-01T00:00:00.000Z"`;
+exports[`PeppolXsdTime > with time 00:00:00 > should decode as iso date > decoded 1`] = `"1970-01-01T00:00:00.000Z"`;
 
-exports[`peppolXsdTimeSchema > should parse 00:00:00+01:00 as iso date 1`] = `"1970-01-01T00:00:00.000Z"`;
+exports[`PeppolXsdTime > with time 00:00:00 > should encode as iso date > encoded 1`] = `"00:00:00"`;
 
-exports[`peppolXsdTimeSchema > should parse 00:00:00+0100 as iso date 1`] = `"1970-01-01T00:00:00.000Z"`;
+exports[`PeppolXsdTime > with time 00:00:00+01:00 > should decode as iso date > decoded 1`] = `"1970-01-01T00:00:00.000Z"`;
 
-exports[`peppolXsdTimeSchema > should parse 00:00:00+14:00 as iso date 1`] = `"1970-01-01T00:00:00.000Z"`;
+exports[`PeppolXsdTime > with time 00:00:00+01:00 > should encode as iso date > encoded 1`] = `"00:00:00"`;
 
-exports[`peppolXsdTimeSchema > should parse 00:00:00+23:59 as iso date 1`] = `"1970-01-01T00:00:00.000Z"`;
+exports[`PeppolXsdTime > with time 00:00:00+0100 > should decode as iso date > decoded 1`] = `"1970-01-01T00:00:00.000Z"`;
 
-exports[`peppolXsdTimeSchema > should parse 00:00:00+1400 as iso date 1`] = `"1970-01-01T00:00:00.000Z"`;
+exports[`PeppolXsdTime > with time 00:00:00+0100 > should encode as iso date > encoded 1`] = `"00:00:00"`;
 
-exports[`peppolXsdTimeSchema > should parse 00:00:00+2359 as iso date 1`] = `"1970-01-01T00:00:00.000Z"`;
+exports[`PeppolXsdTime > with time 00:00:00+14:00 > should decode as iso date > decoded 1`] = `"1970-01-01T00:00:00.000Z"`;
 
-exports[`peppolXsdTimeSchema > should parse 00:00:00.000000000+01:00 as iso date 1`] = `"1970-01-01T00:00:00.000Z"`;
+exports[`PeppolXsdTime > with time 00:00:00+14:00 > should encode as iso date > encoded 1`] = `"00:00:00"`;
 
-exports[`peppolXsdTimeSchema > should parse 00:00:00.000000000Z as iso date 1`] = `"1970-01-01T00:00:00.000Z"`;
+exports[`PeppolXsdTime > with time 00:00:00+23:59 > should decode as iso date > decoded 1`] = `"1970-01-01T00:00:00.000Z"`;
 
-exports[`peppolXsdTimeSchema > should parse 00:00:00.00Z as iso date 1`] = `"1970-01-01T00:00:00.000Z"`;
+exports[`PeppolXsdTime > with time 00:00:00+23:59 > should encode as iso date > encoded 1`] = `"00:00:00"`;
 
-exports[`peppolXsdTimeSchema > should parse 00:00:00.0Z as iso date 1`] = `"1970-01-01T00:00:00.000Z"`;
+exports[`PeppolXsdTime > with time 00:00:00+1400 > should decode as iso date > decoded 1`] = `"1970-01-01T00:00:00.000Z"`;
 
-exports[`peppolXsdTimeSchema > should parse 00:00:00-01:00 as iso date 1`] = `"1970-01-01T00:00:00.000Z"`;
+exports[`PeppolXsdTime > with time 00:00:00+1400 > should encode as iso date > encoded 1`] = `"00:00:00"`;
 
-exports[`peppolXsdTimeSchema > should parse 00:00:00-0100 as iso date 1`] = `"1970-01-01T00:00:00.000Z"`;
+exports[`PeppolXsdTime > with time 00:00:00+2359 > should decode as iso date > decoded 1`] = `"1970-01-01T00:00:00.000Z"`;
 
-exports[`peppolXsdTimeSchema > should parse 00:00:00-14:00 as iso date 1`] = `"1970-01-01T00:00:00.000Z"`;
+exports[`PeppolXsdTime > with time 00:00:00+2359 > should encode as iso date > encoded 1`] = `"00:00:00"`;
 
-exports[`peppolXsdTimeSchema > should parse 00:00:00-23:59 as iso date 1`] = `"1970-01-01T00:00:00.000Z"`;
+exports[`PeppolXsdTime > with time 00:00:00.000000000+01:00 > should decode as iso date > decoded 1`] = `"1970-01-01T00:00:00.000Z"`;
 
-exports[`peppolXsdTimeSchema > should parse 00:00:00-1400 as iso date 1`] = `"1970-01-01T00:00:00.000Z"`;
+exports[`PeppolXsdTime > with time 00:00:00.000000000+01:00 > should encode as iso date > encoded 1`] = `"00:00:00"`;
 
-exports[`peppolXsdTimeSchema > should parse 00:00:00Z as iso date 1`] = `"1970-01-01T00:00:00.000Z"`;
+exports[`PeppolXsdTime > with time 00:00:00.000000000Z > should decode as iso date > decoded 1`] = `"1970-01-01T00:00:00.000Z"`;
 
-exports[`peppolXsdTimeSchema > should parse 00:00:59+0100 as iso date 1`] = `"1970-01-01T00:00:00.000Z"`;
+exports[`PeppolXsdTime > with time 00:00:00.000000000Z > should encode as iso date > encoded 1`] = `"00:00:00"`;
 
-exports[`peppolXsdTimeSchema > should parse 10:12:45-05:30 as iso date 1`] = `"1970-01-01T00:00:00.000Z"`;
+exports[`PeppolXsdTime > with time 00:00:00.00Z > should decode as iso date > decoded 1`] = `"1970-01-01T00:00:00.000Z"`;
 
-exports[`peppolXsdTimeSchema > should parse 12:30:45.5 as iso date 1`] = `"1970-01-01T00:00:00.000Z"`;
+exports[`PeppolXsdTime > with time 00:00:00.00Z > should encode as iso date > encoded 1`] = `"00:00:00"`;
 
-exports[`peppolXsdTimeSchema > should parse 12:30:45.123456789 as iso date 1`] = `"1970-01-01T00:00:00.000Z"`;
+exports[`PeppolXsdTime > with time 00:00:00.0Z > should decode as iso date > decoded 1`] = `"1970-01-01T00:00:00.000Z"`;
 
-exports[`peppolXsdTimeSchema > should parse 14:30:00+00:00 as iso date 1`] = `"1970-01-01T00:00:00.000Z"`;
+exports[`PeppolXsdTime > with time 00:00:00.0Z > should encode as iso date > encoded 1`] = `"00:00:00"`;
 
-exports[`peppolXsdTimeSchema > should parse 14:30:00Z as iso date 1`] = `"1970-01-01T00:00:00.000Z"`;
+exports[`PeppolXsdTime > with time 00:00:00-01:00 > should decode as iso date > decoded 1`] = `"1970-01-01T00:00:00.000Z"`;
 
-exports[`peppolXsdTimeSchema > should parse 23:59:59 as iso date 1`] = `"1970-01-01T00:00:00.000Z"`;
+exports[`PeppolXsdTime > with time 00:00:00-01:00 > should encode as iso date > encoded 1`] = `"00:00:00"`;
 
-exports[`peppolXsdTimeSchema > should parse 23:59:59Z as iso date 1`] = `"1970-01-01T00:00:00.000Z"`;
+exports[`PeppolXsdTime > with time 00:00:00-0100 > should decode as iso date > decoded 1`] = `"1970-01-01T00:00:00.000Z"`;
+
+exports[`PeppolXsdTime > with time 00:00:00-0100 > should encode as iso date > encoded 1`] = `"00:00:00"`;
+
+exports[`PeppolXsdTime > with time 00:00:00-14:00 > should decode as iso date > decoded 1`] = `"1970-01-01T00:00:00.000Z"`;
+
+exports[`PeppolXsdTime > with time 00:00:00-14:00 > should encode as iso date > encoded 1`] = `"00:00:00"`;
+
+exports[`PeppolXsdTime > with time 00:00:00-23:59 > should decode as iso date > decoded 1`] = `"1970-01-01T00:00:00.000Z"`;
+
+exports[`PeppolXsdTime > with time 00:00:00-23:59 > should encode as iso date > encoded 1`] = `"00:00:00"`;
+
+exports[`PeppolXsdTime > with time 00:00:00-1400 > should decode as iso date > decoded 1`] = `"1970-01-01T00:00:00.000Z"`;
+
+exports[`PeppolXsdTime > with time 00:00:00-1400 > should encode as iso date > encoded 1`] = `"00:00:00"`;
+
+exports[`PeppolXsdTime > with time 00:00:00Z > should decode as iso date > decoded 1`] = `"1970-01-01T00:00:00.000Z"`;
+
+exports[`PeppolXsdTime > with time 00:00:00Z > should encode as iso date > encoded 1`] = `"00:00:00"`;
+
+exports[`PeppolXsdTime > with time 00:00:59+0100 > should decode as iso date > decoded 1`] = `"1970-01-01T00:00:59.000Z"`;
+
+exports[`PeppolXsdTime > with time 00:00:59+0100 > should encode as iso date > encoded 1`] = `"00:00:59"`;
+
+exports[`PeppolXsdTime > with time 10:12:45-05:30 > should decode as iso date > decoded 1`] = `"1970-01-01T10:12:45.000Z"`;
+
+exports[`PeppolXsdTime > with time 10:12:45-05:30 > should encode as iso date > encoded 1`] = `"10:12:45"`;
+
+exports[`PeppolXsdTime > with time 12:30:45.5 > should decode as iso date > decoded 1`] = `"1970-01-01T12:30:45.000Z"`;
+
+exports[`PeppolXsdTime > with time 12:30:45.5 > should encode as iso date > encoded 1`] = `"12:30:45"`;
+
+exports[`PeppolXsdTime > with time 12:30:45.123456789 > should decode as iso date > decoded 1`] = `"1970-01-01T12:30:45.000Z"`;
+
+exports[`PeppolXsdTime > with time 12:30:45.123456789 > should encode as iso date > encoded 1`] = `"12:30:45"`;
+
+exports[`PeppolXsdTime > with time 14:30:00+00:00 > should decode as iso date > decoded 1`] = `"1970-01-01T14:30:00.000Z"`;
+
+exports[`PeppolXsdTime > with time 14:30:00+00:00 > should encode as iso date > encoded 1`] = `"14:30:00"`;
+
+exports[`PeppolXsdTime > with time 14:30:00Z > should decode as iso date > decoded 1`] = `"1970-01-01T14:30:00.000Z"`;
+
+exports[`PeppolXsdTime > with time 14:30:00Z > should encode as iso date > encoded 1`] = `"14:30:00"`;
+
+exports[`PeppolXsdTime > with time 23:59:59 > should decode as iso date > decoded 1`] = `"1970-01-01T23:59:59.000Z"`;
+
+exports[`PeppolXsdTime > with time 23:59:59 > should encode as iso date > encoded 1`] = `"23:59:59"`;
+
+exports[`PeppolXsdTime > with time 23:59:59Z > should decode as iso date > decoded 1`] = `"1970-01-01T23:59:59.000Z"`;
+
+exports[`PeppolXsdTime > with time 23:59:59Z > should encode as iso date > encoded 1`] = `"23:59:59"`;
+
+exports[`parseZoneOffsetFromString > should parse a valid timezone offset (+00:00) > parsed zone offset 1`] = `"TimeZone.Offset(+00:00)"`;
+
+exports[`parseZoneOffsetFromString > should parse a valid timezone offset (+00:01) > parsed zone offset 1`] = `"TimeZone.Offset(+00:01)"`;
+
+exports[`parseZoneOffsetFromString > should parse a valid timezone offset (+01:00) > parsed zone offset 1`] = `"TimeZone.Offset(+01:00)"`;
+
+exports[`parseZoneOffsetFromString > should parse a valid timezone offset (+12:00) > parsed zone offset 1`] = `"TimeZone.Offset(+12:00)"`;
+
+exports[`parseZoneOffsetFromString > should parse a valid timezone offset (-00:00) > parsed zone offset 1`] = `"TimeZone.Offset(+00:00)"`;
+
+exports[`parseZoneOffsetFromString > should parse a valid timezone offset (-12:00) > parsed zone offset 1`] = `"TimeZone.Offset(+12:00)"`;
+
+exports[`parseZoneOffsetFromString > should parse a valid timezone offset (-13:00) > parsed zone offset 1`] = `"TimeZone.Offset(+13:00)"`;

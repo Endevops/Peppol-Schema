@@ -4,7 +4,7 @@ import type { PeppolPaymentMeans } from '#/schemas/fields/peppol-payment-means-s
 
 import { encodeSimpleIdentifier } from '#/decoders/fields/encode-simple-identifier';
 
-export const encodePaymentMeans = Effect.fn(function* (pms: Array<PeppolPaymentMeans> | undefined) {
+export const encodePaymentMeans = Effect.fn(function* (pms: ReadonlyArray<PeppolPaymentMeans> | undefined) {
   if (Predicate.isNullish(pms)) return undefined;
 
   return yield* Effect.forEach(

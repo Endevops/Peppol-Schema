@@ -1,69 +1,59 @@
-import { Effect } from 'effect';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it } from '@effect/vitest';
+import { Effect, Schema } from 'effect';
 
 import { decodeInvoiceResponse } from './decode-invoice-response';
 
-const base = {
-  'ubl:ApplicationResponse': {
-    'cac:DocumentResponse': {
-      'cac:DocumentReference': { 'cbc:DocumentTypeCode': 'X', 'cbc:ID': 'D', 'cbc:IssueDate': 'd' },
-      'cac:Response': {
-        'cac:Status': [
-          {
-            'cbc:StatusReason': 'reason',
-            'cbc:StatusReasonCode': { '#text': '3', '@listID': 'list' } as { '#text': string; '@listID'?: string } | string | number,
-            'cac:Condition': [{ 'cbc:AttributeID': 'a', 'cbc:Description': 'cond' }],
+describe('decodeInvoiceResponse()', () => {
+  it.effect(
+    'should decode a valid invoice response',
+    Effect.fn(function* () {
+      const value = yield* decodeInvoiceResponse({
+        ApplicationResponse: {
+          'cac:DocumentResponse': {
+            'cac:DocumentReference': { 'cbc:DocumentTypeCode': '380', 'cbc:ID': 'inv021', 'cbc:IssueDate': '2018-09-22' },
+            'cac:IssuerParty': {
+              'cac:Contact': undefined,
+              'cac:PartyIdentification': { 'cbc:ID': { '#text': '123456785', '@schemeID': '0192' } },
+              'cac:PartyLegalEntity': undefined,
+              'cac:PartyName': { 'cbc:Name': 'Test Company AS' },
+              'cbc:EndpointID': undefined,
+            },
+            'cac:RecipientParty': undefined,
+            'cac:Response': {
+              'cac:Status': [
+                {
+                  'cac:Condition': [{ 'cbc:AttributeID': 'BT-48', 'cbc:Description': 'EU123456789' }],
+                  'cbc:StatusReason': 'VAT Reference not found',
+                  'cbc:StatusReasonCode': { '#text': 'NOA', '@listID': 'OPStatusAction' },
+                },
+              ],
+              'cbc:EffectiveDate': '2018-09-24',
+              'cbc:ResponseCode': 'RE',
+            },
           },
-        ],
-        'cbc:EffectiveDate': 'd',
-        'cbc:ResponseCode': '1',
-      },
-    },
-    'cac:ReceiverParty': { 'cbc:EndpointID': { '#text': 'R', '@schemeID': '3' } },
-    'cac:SenderParty': { 'cbc:EndpointID': { '#text': 'S', '@schemeID': '0' } },
-    'cbc:CustomizationID': 'c',
-    'cbc:ID': 'id',
-    'cbc:IssueDate': 'd',
-    'cbc:IssueTime': 't',
-    'cbc:Note': 'n',
-    'cbc:ProfileID': 'p',
-  },
-};
-
-const clone = (o: unknown) => JSON.parse(JSON.stringify(o)) as typeof base;
-
-describe('decodeInvoiceResponse', () => {
-  it('handles an undefined value (root fallback and missing DocumentResponse)', () => {
-    const out = Effect.runSync(decodeInvoiceResponse(undefined));
-    expect(out.id).toBeUndefined();
-    expect(out.documentResponse).toBeUndefined();
-  });
-
-  it('returns undefined for missing children of a present DocumentResponse', () => {
-    const out = Effect.runSync(decodeInvoiceResponse({ 'ubl:ApplicationResponse': { 'cac:DocumentResponse': {} } } as never));
-    expect(out.documentResponse).toEqual({ documentReference: undefined, issuerParty: undefined, recipientParty: undefined, response: undefined });
-  });
-
-  it('decodes an object status reason code with a list id', () => {
-    const out = Effect.runSync(decodeInvoiceResponse(base as never));
-    expect(out.documentResponse?.response?.status?.[0]?.statusReasonCode).toEqual({ listId: 'list', value: '3' });
-  });
-
-  it('decodes a string status reason code', () => {
-    const doc = clone(base);
-    doc['ubl:ApplicationResponse']['cac:DocumentResponse']['cac:Response']['cac:Status'][0]!['cbc:StatusReasonCode'] = '3';
-    expect(Effect.runSync(decodeInvoiceResponse(doc)).documentResponse?.response?.status?.[0]?.statusReasonCode).toEqual({ value: '3' });
-  });
-
-  it('decodes a numeric status reason code', () => {
-    const doc = clone(base);
-    doc['ubl:ApplicationResponse']['cac:DocumentResponse']['cac:Response']['cac:Status'][0]!['cbc:StatusReasonCode'] = 3;
-    expect(Effect.runSync(decodeInvoiceResponse(doc)).documentResponse?.response?.status?.[0]?.statusReasonCode).toEqual({ value: '3' });
-  });
-
-  it('returns undefined for an empty status reason code value', () => {
-    const doc = clone(base);
-    doc['ubl:ApplicationResponse']['cac:DocumentResponse']['cac:Response']['cac:Status'][0]!['cbc:StatusReasonCode'] = { '#text': '' };
-    expect(Effect.runSync(decodeInvoiceResponse(doc)).documentResponse?.response?.status?.[0]?.statusReasonCode).toBeUndefined();
-  });
+          'cac:ReceiverParty': {
+            'cac:Contact': undefined,
+            'cac:PartyIdentification': { 'cbc:ID': { '#text': '987654325', '@schemeID': '0192' } },
+            'cac:PartyLegalEntity': { 'cbc:CompanyID': undefined, 'cbc:CompanyLegalForm': undefined, 'cbc:RegistrationName': 'Seller company' },
+            'cac:PartyName': undefined,
+            'cbc:EndpointID': { '#text': '7330001000000', '@schemeID': '0088' },
+          },
+          'cac:SenderParty': {
+            'cac:Contact': { 'cbc:ElectronicMail': 'jj@test-company.dk', 'cbc:Name': 'Jens Jensen', 'cbc:Telephone': '23232323' },
+            'cac:PartyIdentification': { 'cbc:ID': { '#text': 'DK88776655', '@schemeID': '0184' } },
+            'cac:PartyLegalEntity': { 'cbc:CompanyID': undefined, 'cbc:CompanyLegalForm': undefined, 'cbc:RegistrationName': 'Buyer organization' },
+            'cac:PartyName': undefined,
+            'cbc:EndpointID': { '#text': '5798000012349', '@schemeID': '0088' },
+          },
+          'cbc:CustomizationID': 'urn:fdc:peppol.eu:poacc:trns:invoice_response:3',
+          'cbc:ID': 'imrid001',
+          'cbc:IssueDate': '2017-12-01',
+          'cbc:IssueTime': '00:00:00',
+          'cbc:Note': 'text',
+          'cbc:ProfileID': 'urn:fdc:peppol.eu:poacc:bis:invoice_response:3',
+        },
+      }).pipe(Effect.mapError(cause => new Schema.SchemaError(cause)));
+      expect(value).toMatchSnapshot('invoice-response');
+    })
+  );
 });

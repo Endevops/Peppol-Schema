@@ -1,3 +1,5 @@
+import { Predicate } from 'effect';
+
 import type { PeppolDocument } from '#/schemas/peppol-document-schema';
 import type { SchematronRule } from '#/schematron/helpers';
 import type { SchematronRuleResult } from '#/schematron/types';
@@ -11,6 +13,6 @@ const rule = {
 } as const satisfies SchematronRule;
 
 export function validateCenEn16931Br03(document: PeppolDocument): SchematronRuleResult {
-  const passed = typeof document.issueDate === 'string' && document.issueDate.trim() !== '';
+  const passed = Predicate.hasProperty(document, 'issueDate') && Predicate.isTruthy(document.issueDate);
   return schematronResult(rule, passed);
 }

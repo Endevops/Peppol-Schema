@@ -13,7 +13,7 @@ export class PeppolInvoice extends opaque<PeppolInvoice>()(
     ...PeppolBillingBase.fields,
     /**
      * @example
-     *   2017 - 11 - 01;
+     *   `2017-11-01`;
      *
      * @summary Payment due date
      *
@@ -28,7 +28,7 @@ export class PeppolInvoice extends opaque<PeppolInvoice>()(
     invoiceLines: Schema.Array(PeppolInvoiceLine).check(Schema.isMinLength(1)),
     /**
      * @example
-     *   380;
+     *   `380`;
      *
      * @summary Invoice type code
      *

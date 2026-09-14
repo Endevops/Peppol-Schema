@@ -4,7 +4,7 @@ import type { PeppolLineAllowanceCharge } from '#/schemas/fields/peppol-line-all
 
 import { encodeAmount } from '#/decoders/fields/encode-amount';
 
-export const encodeLineAllowanceCharges = Effect.fn(function* (allowanceCharges: Array<PeppolLineAllowanceCharge> | undefined) {
+export const encodeLineAllowanceCharges = Effect.fn(function* (allowanceCharges: ReadonlyArray<PeppolLineAllowanceCharge> | undefined) {
   if (Predicate.isNullish(allowanceCharges)) return undefined;
 
   return yield* Effect.forEach(

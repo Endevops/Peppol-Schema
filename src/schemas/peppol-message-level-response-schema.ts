@@ -5,7 +5,7 @@ import { PeppolIsoDateString } from '#/schemas/peppol-iso-date-string';
 import { PeppolMessageLevelResponseDocumentResponse } from '#/schemas/peppol-message-level-response-document-response-schema';
 import { PeppolMessageLevelResponseParty } from '#/schemas/peppol-message-level-response-party-schema';
 import { opaque } from '#/schemas/utils/opaque';
-import { peppolXsdTimeSchema } from '#/schemas/utils/peppol-xsd-time-schema';
+import { PeppolXsdTime } from '#/schemas/utils/peppol-xsd-time-schema';
 
 export class PeppolMessageLevelResponse extends opaque<PeppolMessageLevelResponse>()(
   Schema.Struct({
@@ -71,7 +71,7 @@ export class PeppolMessageLevelResponse extends opaque<PeppolMessageLevelRespons
      *
      * @name cbc:IssueDate
      */
-    issueTime: Schema.optional(peppolXsdTimeSchema),
+    issueTime: Schema.optional(PeppolXsdTime),
     /**
      * @description The party sending an electronic message level response message back to the sending party of the business document.
      *

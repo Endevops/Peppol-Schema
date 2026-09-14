@@ -1,26 +1,33 @@
-import { Effect } from 'effect';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it } from '@effect/vitest';
+import { Effect, Schema } from 'effect';
 
 import { decodeCreditNoteLines } from './decode-credit-note-lines';
 
 describe('decodeCreditNoteLines', () => {
-  it('returns undefined when the credit note line path is missing', () => {
+  it('returns an empty array when the credit note line path is missing', () => {
     const result = Effect.runSync(decodeCreditNoteLines({}, 'cac:CreditNoteLine'));
 
-    expect(result).toBeUndefined();
+    expect(result).toEqual([]);
   });
 
-  it('decodes a present, non-empty array of credit note lines', () => {
-    const result = Effect.runSync(
-      decodeCreditNoteLines({ 'cac:CreditNoteLine': [{ 'cbc:CreditedQuantity': '2', 'cbc:ID': '1' }] }, 'cac:CreditNoteLine')
-    );
+  it.effect(
+    'decodes a present, non-empty array of credit note lines',
+    Effect.fn(function* () {
+      const result = yield* decodeCreditNoteLines(
+        { 'cac:CreditNoteLine': [{ 'cbc:CreditedQuantity': '2', 'cbc:ID': '1' }] },
+        'cac:CreditNoteLine'
+      ).pipe(Effect.mapError(issue => new Schema.SchemaError(issue)));
 
-    expect(result).toEqual([expect.objectContaining({ creditedQuantity: { value: 2 }, id: '1' })]);
-  });
+      expect(result).toEqual([expect.objectContaining({ creditedQuantity: { value: 2 }, id: '1' })]);
+    })
+  );
 
-  it('wraps a single (non-array) credit note line node into an array', () => {
-    const result = Effect.runSync(decodeCreditNoteLines({ 'cac:CreditNoteLine': { 'cbc:CreditedQuantity': '3' } }, 'cac:CreditNoteLine'));
+  it.effect(
+    'wraps a single (non-array) credit note line node into an array',
+    Effect.fn(function* () {
+      const result = Effect.runSync(decodeCreditNoteLines({ 'cac:CreditNoteLine': { 'cbc:CreditedQuantity': '3' } }, 'cac:CreditNoteLine'));
 
-    expect(result).toEqual([expect.objectContaining({ creditedQuantity: { value: 3 } })]);
-  });
+      expect(result).toEqual([expect.objectContaining({ creditedQuantity: { value: 3 } })]);
+    })
+  );
 });

@@ -11,7 +11,7 @@ import { PeppolMessageLevelResponse } from '#/schemas/peppol-message-level-respo
 import { opaque } from '#/schemas/utils/opaque';
 import { peppolDocumentTypeCodeSchema } from '#/schemas/values/peppol-document-type-code-schema';
 
-export class PeppolPartyName extends opaque<PeppolPartyName>()(
+export class PeppolInvoiceResponseDocumentResponsePartyName extends opaque<PeppolInvoiceResponseDocumentResponsePartyName>()(
   Schema.Struct({
     /**
      * @description - The party that issued the reference invoice
@@ -65,7 +65,7 @@ export class PeppolInvoiceResponseDocumentResponseParty extends opaque<PeppolInv
      *
      * @name cac:PartyName
      */
-    partyName: PeppolPartyName,
+    partyName: PeppolInvoiceResponseDocumentResponsePartyName,
   })
 ) {}
 

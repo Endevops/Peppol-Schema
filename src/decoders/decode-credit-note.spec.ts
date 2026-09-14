@@ -1,23 +1,436 @@
-import { Effect } from 'effect';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it } from '@effect/vitest';
+import { Effect, Schema } from 'effect';
 
 import { decodeCreditNote } from './decode-credit-note';
 
-describe('decodeCreditNote', () => {
-  it('handles an undefined value', () => {
-    const out = Effect.runSync(decodeCreditNote(undefined));
-    expect(out.id).toBeUndefined();
-    expect(out.profileId).toBeUndefined();
-  });
+describe('decodeCreditNote()', () => {
+  it.effect(
+    'accepts a bare root without the ubl:CreditNote wrapper',
+    Effect.fn(function* () {
+      const out = yield* decodeCreditNote({
+        '@xmlns': 'urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2',
+        '@xmlns:cac': 'urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2',
+        '@xmlns:cbc': 'urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2',
+        '@xmlns:xsi': 'http://www.w3.org/2001/XMLSchema-instance',
+        '@xsi:schemaLocation':
+          'urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2 https://docs.oasis-open.org/ubl/os-UBL-2.4/xsd/maindoc/UBL-CreditNote-2.4.xsd urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2 https://docs.oasis-open.org/ubl/os-UBL-2.4/xsd/common/UBL-CommonAggregateComponents-2.4.xsd urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2 https://docs.oasis-open.org/ubl/os-UBL-2.4/xsd/common/UBL-CommonBasicComponents-2.4.xsd',
+        'cac:AccountingCustomerParty': {
+          'cac:Party': {
+            'cac:Contact': { 'cbc:ElectronicMail': 'lj@buyer.se', 'cbc:Name': 'Lisa Johnson', 'cbc:Telephone': '23434234' },
+            'cac:PartyIdentification': { 'cbc:ID': { '#text': 'FR23342', '@schemeID': '0002' } },
+            'cac:PartyLegalEntity': {
+              'cbc:CompanyID': { '#text': '39937423947', '@schemeID': '0183' },
+              'cbc:CompanyLegalForm': undefined,
+              'cbc:RegistrationName': 'Buyer Official Name',
+            },
+            'cac:PartyName': { 'cbc:Name': 'BuyerTradingName AS' },
+            'cac:PartyTaxScheme': [{ 'cac:TaxScheme': { 'cbc:ID': 'VAT' }, 'cbc:CompanyID': 'SE4598375937' }],
+            'cac:PostalAddress': {
+              'cac:AddressLine': undefined,
+              'cac:Country': { 'cbc:IdentificationCode': 'SE' },
+              'cbc:AdditionalStreetName': 'Po box 878',
+              'cbc:CityName': 'Stockholm',
+              'cbc:CountrySubentity': undefined,
+              'cbc:PostalZone': '456 34',
+              'cbc:StreetName': 'Hovedgatan 32',
+            },
+            'cbc:EndpointID': { '#text': 'FR23342', '@schemeID': '0002' },
+          },
+        },
+        'cac:AccountingSupplierParty': {
+          'cac:Party': {
+            'cac:Contact': undefined,
+            'cac:PartyIdentification': { 'cbc:ID': '99887766' },
+            'cac:PartyLegalEntity': {
+              'cbc:CompanyID': 'GB983294',
+              'cbc:CompanyLegalForm': undefined,
+              'cbc:RegistrationName': 'SupplierOfficialName Ltd',
+            },
+            'cac:PartyName': { 'cbc:Name': 'SupplierTradingName Ltd.' },
+            'cac:PartyTaxScheme': [{ 'cac:TaxScheme': { 'cbc:ID': 'VAT' }, 'cbc:CompanyID': 'GB1232434' }],
+            'cac:PostalAddress': {
+              'cac:AddressLine': undefined,
+              'cac:Country': { 'cbc:IdentificationCode': 'GB' },
+              'cbc:AdditionalStreetName': 'Postbox 123',
+              'cbc:CityName': 'London',
+              'cbc:CountrySubentity': undefined,
+              'cbc:PostalZone': 'GB 123 EW',
+              'cbc:StreetName': 'Main street 1',
+            },
+            'cbc:EndpointID': { '#text': '9482348239847239874', '@schemeID': '0088' },
+          },
+        },
+        'cac:AdditionalDocumentReference': undefined,
+        'cac:AllowanceCharge': [
+          {
+            'cac:TaxCategory': { 'cac:TaxScheme': { 'cbc:ID': 'VAT' }, 'cbc:ID': 'S', 'cbc:Percent': 25 },
+            'cbc:AllowanceChargeReason': 'Insurance',
+            'cbc:AllowanceChargeReasonCode': undefined,
+            'cbc:Amount': { '#text': 25, '@currencyID': 'EUR' },
+            'cbc:BaseAmount': undefined,
+            'cbc:ChargeIndicator': true,
+            'cbc:MultiplierFactorNumeric': undefined,
+          },
+        ],
+        'cac:BillingReference': [{ 'cac:InvoiceDocumentReference': { 'cbc:ID': 'Snippet0', 'cbc:IssueDate': undefined } }],
+        'cac:ContractDocumentReference': undefined,
+        'cac:CreditNoteLine': [
+          {
+            'cac:AllowanceCharge': undefined,
+            'cac:DocumentReference': [],
+            'cac:InvoicePeriod': undefined,
+            'cac:Item': {
+              'cac:AdditionalItemProperty': [],
+              'cac:BuyersItemIdentification': undefined,
+              'cac:ClassifiedTaxCategory': { 'cac:TaxScheme': { 'cbc:ID': 'VAT' }, 'cbc:ID': 'S', 'cbc:Percent': 25 },
+              'cac:CommodityClassification': [
+                { 'cbc:ItemClassificationCode': { '#text': '09348023', '@listID': 'SRV', '@listVersionID': undefined } },
+              ],
+              'cac:OriginCountry': { 'cbc:IdentificationCode': 'NO' },
+              'cac:SellersItemIdentification': undefined,
+              'cac:StandardItemIdentification': { 'cbc:ID': { '#text': '21382183120983', '@schemeID': '0088' } },
+              'cbc:Description': 'Description of item',
+              'cbc:Name': 'item name',
+            },
+            'cac:OrderLineReference': { 'cbc:LineID': '123' },
+            'cac:Price': {
+              'cac:AllowanceCharge': undefined,
+              'cbc:BaseQuantity': undefined,
+              'cbc:PriceAmount': { '#text': 400, '@currencyID': 'EUR' },
+            },
+            'cbc:AccountingCost': 'Konteringsstreng',
+            'cbc:CreditedQuantity': { '#text': 7, '@unitCode': 'DAY' },
+            'cbc:ID': '1',
+            'cbc:InvoicedQuantity': undefined,
+            'cbc:LineExtensionAmount': { '#text': 2800, '@currencyID': 'EUR' },
+            'cbc:Note': undefined,
+          },
+          {
+            'cac:AllowanceCharge': undefined,
+            'cac:DocumentReference': [],
+            'cac:InvoicePeriod': undefined,
+            'cac:Item': {
+              'cac:AdditionalItemProperty': [],
+              'cac:BuyersItemIdentification': undefined,
+              'cac:ClassifiedTaxCategory': { 'cac:TaxScheme': { 'cbc:ID': 'VAT' }, 'cbc:ID': 'S', 'cbc:Percent': 25 },
+              'cac:CommodityClassification': [
+                { 'cbc:ItemClassificationCode': { '#text': '09348023', '@listID': 'SRV', '@listVersionID': undefined } },
+              ],
+              'cac:OriginCountry': { 'cbc:IdentificationCode': 'NO' },
+              'cac:SellersItemIdentification': undefined,
+              'cac:StandardItemIdentification': { 'cbc:ID': { '#text': '21382183120983', '@schemeID': '0088' } },
+              'cbc:Description': 'Description 2',
+              'cbc:Name': 'item name 2',
+            },
+            'cac:OrderLineReference': { 'cbc:LineID': '123' },
+            'cac:Price': {
+              'cac:AllowanceCharge': undefined,
+              'cbc:BaseQuantity': undefined,
+              'cbc:PriceAmount': { '#text': 500, '@currencyID': 'EUR' },
+            },
+            'cbc:AccountingCost': undefined,
+            'cbc:CreditedQuantity': { '#text': -3, '@unitCode': 'DAY' },
+            'cbc:ID': '2',
+            'cbc:InvoicedQuantity': undefined,
+            'cbc:LineExtensionAmount': { '#text': -1500, '@currencyID': 'EUR' },
+            'cbc:Note': undefined,
+          },
+        ],
+        'cac:Delivery': {
+          'cac:DeliveryLocation': {
+            'cac:Address': {
+              'cac:AddressLine': undefined,
+              'cac:Country': { 'cbc:IdentificationCode': 'SE' },
+              'cbc:AdditionalStreetName': 'Building 56',
+              'cbc:CityName': 'Stockholm',
+              'cbc:CountrySubentity': undefined,
+              'cbc:PostalZone': '21234',
+              'cbc:StreetName': 'Delivery street 2',
+            },
+            'cbc:ID': { '#text': '9483759475923478', '@schemeID': '0088' },
+          },
+          'cac:DeliveryParty': { 'cac:PartyName': { 'cbc:Name': 'Delivery party Name' } },
+          'cbc:ActualDeliveryDate': '2017-11-01',
+        },
+        'cac:DespatchDocumentReference': undefined,
+        'cac:InvoicePeriod': undefined,
+        'cac:LegalMonetaryTotal': {
+          'cbc:AllowanceTotalAmount': undefined,
+          'cbc:ChargeTotalAmount': { '#text': 25, '@currencyID': 'EUR' },
+          'cbc:LineExtensionAmount': { '#text': 1300, '@currencyID': 'EUR' },
+          'cbc:PayableAmount': { '#text': 1656.25, '@currencyID': 'EUR' },
+          'cbc:PayableRoundingAmount': undefined,
+          'cbc:PrepaidAmount': undefined,
+          'cbc:TaxExclusiveAmount': { '#text': 1325, '@currencyID': 'EUR' },
+          'cbc:TaxInclusiveAmount': { '#text': 1656.25, '@currencyID': 'EUR' },
+        },
+        'cac:OrderReference': undefined,
+        'cac:OriginatorDocumentReference': undefined,
+        'cac:PayeeParty': undefined,
+        'cac:PaymentMeans': [
+          {
+            'cac:CardAccount': undefined,
+            'cac:PayeeFinancialAccount': {
+              'cac:FinancialInstitutionBranch': { 'cbc:ID': 'BIC324098' },
+              'cbc:ID': 'IBAN32423940',
+              'cbc:Name': 'AccountName',
+            },
+            'cac:PaymentMandate': undefined,
+            'cbc:PaymentDueDate': undefined,
+            'cbc:PaymentID': 'Snippet1',
+            'cbc:PaymentMeansCode': { '#text': '30', '@name': 'Credit transfer' },
+          },
+        ],
+        'cac:PaymentTerms': { 'cbc:Note': 'Payment within 10 days, 2% discount' },
+        'cac:ReceiptDocumentReference': undefined,
+        'cac:TaxRepresentativeParty': undefined,
+        'cac:TaxTotal': [
+          {
+            'cac:TaxSubtotal': [
+              {
+                'cac:TaxCategory': {
+                  'cac:TaxScheme': { 'cbc:ID': 'VAT' },
+                  'cbc:ID': 'S',
+                  'cbc:Percent': 25,
+                  'cbc:TaxExemptionReason': undefined,
+                  'cbc:TaxExemptionReasonCode': undefined,
+                },
+                'cbc:TaxAmount': { '#text': 331.25, '@currencyID': 'EUR' },
+                'cbc:TaxableAmount': { '#text': 1325, '@currencyID': 'EUR' },
+              },
+            ],
+            'cbc:TaxAmount': { '#text': 331.25, '@currencyID': 'EUR' },
+          },
+        ],
+        'cbc:AccountingCost': '4025:123:4343',
+        'cbc:BuyerReference': '0150abc',
+        'cbc:CreditNoteTypeCode': '381',
+        'cbc:CustomizationID': 'urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0',
+        'cbc:DocumentCurrencyCode': 'EUR',
+        'cbc:ID': 'Snippet1',
+        'cbc:IssueDate': '2017-11-13',
+        'cbc:Note': 'Please note we have a new phone number: 22 22 22 22',
+        'cbc:ProfileID': 'urn:fdc:peppol.eu:2017:poacc:billing:01:1.0',
+        'cbc:TaxCurrencyCode': undefined,
+        'cbc:TaxPointDate': undefined,
+      }).pipe(Effect.mapError(issue => new Schema.SchemaError(issue)));
+      expect(out).toMatchSnapshot('credit-note');
+    })
+  );
 
-  it('accepts a bare root without the ubl:CreditNote wrapper', () => {
-    const out = Effect.runSync(decodeCreditNote({ 'cbc:ID': 'CN1', 'cbc:ProfileID': 'P1' } as never));
-    expect(out.id).toBe('CN1');
-    expect(out.profileId).toBe('P1');
-  });
-
-  it('decodes a wrapped ubl:CreditNote root', () => {
-    const out = Effect.runSync(decodeCreditNote({ 'ubl:CreditNote': { 'cbc:ID': 'CN2' } } as never));
-    expect(out.id).toBe('CN2');
-  });
+  it.effect(
+    'decodes a wrapped ubl:CreditNote root',
+    Effect.fn(function* () {
+      const out = yield* decodeCreditNote({
+        'ubl:CreditNote': {
+          '@xmlns': 'urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2',
+          '@xmlns:cac': 'urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2',
+          '@xmlns:cbc': 'urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2',
+          '@xmlns:xsi': 'http://www.w3.org/2001/XMLSchema-instance',
+          '@xsi:schemaLocation':
+            'urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2 https://docs.oasis-open.org/ubl/os-UBL-2.4/xsd/maindoc/UBL-CreditNote-2.4.xsd urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2 https://docs.oasis-open.org/ubl/os-UBL-2.4/xsd/common/UBL-CommonAggregateComponents-2.4.xsd urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2 https://docs.oasis-open.org/ubl/os-UBL-2.4/xsd/common/UBL-CommonBasicComponents-2.4.xsd',
+          'cac:AccountingCustomerParty': {
+            'cac:Party': {
+              'cac:Contact': { 'cbc:ElectronicMail': 'lj@buyer.se', 'cbc:Name': 'Lisa Johnson', 'cbc:Telephone': '23434234' },
+              'cac:PartyIdentification': { 'cbc:ID': { '#text': 'FR23342', '@schemeID': '0002' } },
+              'cac:PartyLegalEntity': {
+                'cbc:CompanyID': { '#text': '39937423947', '@schemeID': '0183' },
+                'cbc:CompanyLegalForm': undefined,
+                'cbc:RegistrationName': 'Buyer Official Name',
+              },
+              'cac:PartyName': { 'cbc:Name': 'BuyerTradingName AS' },
+              'cac:PartyTaxScheme': [{ 'cac:TaxScheme': { 'cbc:ID': 'VAT' }, 'cbc:CompanyID': 'SE4598375937' }],
+              'cac:PostalAddress': {
+                'cac:AddressLine': undefined,
+                'cac:Country': { 'cbc:IdentificationCode': 'SE' },
+                'cbc:AdditionalStreetName': 'Po box 878',
+                'cbc:CityName': 'Stockholm',
+                'cbc:CountrySubentity': undefined,
+                'cbc:PostalZone': '456 34',
+                'cbc:StreetName': 'Hovedgatan 32',
+              },
+              'cbc:EndpointID': { '#text': 'FR23342', '@schemeID': '0002' },
+            },
+          },
+          'cac:AccountingSupplierParty': {
+            'cac:Party': {
+              'cac:Contact': undefined,
+              'cac:PartyIdentification': { 'cbc:ID': '99887766' },
+              'cac:PartyLegalEntity': {
+                'cbc:CompanyID': 'GB983294',
+                'cbc:CompanyLegalForm': undefined,
+                'cbc:RegistrationName': 'SupplierOfficialName Ltd',
+              },
+              'cac:PartyName': { 'cbc:Name': 'SupplierTradingName Ltd.' },
+              'cac:PartyTaxScheme': [{ 'cac:TaxScheme': { 'cbc:ID': 'VAT' }, 'cbc:CompanyID': 'GB1232434' }],
+              'cac:PostalAddress': {
+                'cac:AddressLine': undefined,
+                'cac:Country': { 'cbc:IdentificationCode': 'GB' },
+                'cbc:AdditionalStreetName': 'Postbox 123',
+                'cbc:CityName': 'London',
+                'cbc:CountrySubentity': undefined,
+                'cbc:PostalZone': 'GB 123 EW',
+                'cbc:StreetName': 'Main street 1',
+              },
+              'cbc:EndpointID': { '#text': '9482348239847239874', '@schemeID': '0088' },
+            },
+          },
+          'cac:AdditionalDocumentReference': undefined,
+          'cac:AllowanceCharge': [
+            {
+              'cac:TaxCategory': { 'cac:TaxScheme': { 'cbc:ID': 'VAT' }, 'cbc:ID': 'S', 'cbc:Percent': 25 },
+              'cbc:AllowanceChargeReason': 'Insurance',
+              'cbc:AllowanceChargeReasonCode': undefined,
+              'cbc:Amount': { '#text': 25, '@currencyID': 'EUR' },
+              'cbc:BaseAmount': undefined,
+              'cbc:ChargeIndicator': true,
+              'cbc:MultiplierFactorNumeric': undefined,
+            },
+          ],
+          'cac:BillingReference': [{ 'cac:InvoiceDocumentReference': { 'cbc:ID': 'Snippet0', 'cbc:IssueDate': undefined } }],
+          'cac:ContractDocumentReference': undefined,
+          'cac:CreditNoteLine': [
+            {
+              'cac:AllowanceCharge': undefined,
+              'cac:DocumentReference': [],
+              'cac:InvoicePeriod': undefined,
+              'cac:Item': {
+                'cac:AdditionalItemProperty': [],
+                'cac:BuyersItemIdentification': undefined,
+                'cac:ClassifiedTaxCategory': { 'cac:TaxScheme': { 'cbc:ID': 'VAT' }, 'cbc:ID': 'S', 'cbc:Percent': 25 },
+                'cac:CommodityClassification': [
+                  { 'cbc:ItemClassificationCode': { '#text': '09348023', '@listID': 'SRV', '@listVersionID': undefined } },
+                ],
+                'cac:OriginCountry': { 'cbc:IdentificationCode': 'NO' },
+                'cac:SellersItemIdentification': undefined,
+                'cac:StandardItemIdentification': { 'cbc:ID': { '#text': '21382183120983', '@schemeID': '0088' } },
+                'cbc:Description': 'Description of item',
+                'cbc:Name': 'item name',
+              },
+              'cac:OrderLineReference': { 'cbc:LineID': '123' },
+              'cac:Price': {
+                'cac:AllowanceCharge': undefined,
+                'cbc:BaseQuantity': undefined,
+                'cbc:PriceAmount': { '#text': 400, '@currencyID': 'EUR' },
+              },
+              'cbc:AccountingCost': 'Konteringsstreng',
+              'cbc:CreditedQuantity': { '#text': 7, '@unitCode': 'DAY' },
+              'cbc:ID': '1',
+              'cbc:InvoicedQuantity': undefined,
+              'cbc:LineExtensionAmount': { '#text': 2800, '@currencyID': 'EUR' },
+              'cbc:Note': undefined,
+            },
+            {
+              'cac:AllowanceCharge': undefined,
+              'cac:DocumentReference': [],
+              'cac:InvoicePeriod': undefined,
+              'cac:Item': {
+                'cac:AdditionalItemProperty': [],
+                'cac:BuyersItemIdentification': undefined,
+                'cac:ClassifiedTaxCategory': { 'cac:TaxScheme': { 'cbc:ID': 'VAT' }, 'cbc:ID': 'S', 'cbc:Percent': 25 },
+                'cac:CommodityClassification': [
+                  { 'cbc:ItemClassificationCode': { '#text': '09348023', '@listID': 'SRV', '@listVersionID': undefined } },
+                ],
+                'cac:OriginCountry': { 'cbc:IdentificationCode': 'NO' },
+                'cac:SellersItemIdentification': undefined,
+                'cac:StandardItemIdentification': { 'cbc:ID': { '#text': '21382183120983', '@schemeID': '0088' } },
+                'cbc:Description': 'Description 2',
+                'cbc:Name': 'item name 2',
+              },
+              'cac:OrderLineReference': { 'cbc:LineID': '123' },
+              'cac:Price': {
+                'cac:AllowanceCharge': undefined,
+                'cbc:BaseQuantity': undefined,
+                'cbc:PriceAmount': { '#text': 500, '@currencyID': 'EUR' },
+              },
+              'cbc:AccountingCost': undefined,
+              'cbc:CreditedQuantity': { '#text': -3, '@unitCode': 'DAY' },
+              'cbc:ID': '2',
+              'cbc:InvoicedQuantity': undefined,
+              'cbc:LineExtensionAmount': { '#text': -1500, '@currencyID': 'EUR' },
+              'cbc:Note': undefined,
+            },
+          ],
+          'cac:Delivery': {
+            'cac:DeliveryLocation': {
+              'cac:Address': {
+                'cac:AddressLine': undefined,
+                'cac:Country': { 'cbc:IdentificationCode': 'SE' },
+                'cbc:AdditionalStreetName': 'Building 56',
+                'cbc:CityName': 'Stockholm',
+                'cbc:CountrySubentity': undefined,
+                'cbc:PostalZone': '21234',
+                'cbc:StreetName': 'Delivery street 2',
+              },
+              'cbc:ID': { '#text': '9483759475923478', '@schemeID': '0088' },
+            },
+            'cac:DeliveryParty': { 'cac:PartyName': { 'cbc:Name': 'Delivery party Name' } },
+            'cbc:ActualDeliveryDate': '2017-11-01',
+          },
+          'cac:DespatchDocumentReference': undefined,
+          'cac:InvoicePeriod': undefined,
+          'cac:LegalMonetaryTotal': {
+            'cbc:AllowanceTotalAmount': undefined,
+            'cbc:ChargeTotalAmount': { '#text': 25, '@currencyID': 'EUR' },
+            'cbc:LineExtensionAmount': { '#text': 1300, '@currencyID': 'EUR' },
+            'cbc:PayableAmount': { '#text': 1656.25, '@currencyID': 'EUR' },
+            'cbc:PayableRoundingAmount': undefined,
+            'cbc:PrepaidAmount': undefined,
+            'cbc:TaxExclusiveAmount': { '#text': 1325, '@currencyID': 'EUR' },
+            'cbc:TaxInclusiveAmount': { '#text': 1656.25, '@currencyID': 'EUR' },
+          },
+          'cac:OrderReference': undefined,
+          'cac:OriginatorDocumentReference': undefined,
+          'cac:PayeeParty': undefined,
+          'cac:PaymentMeans': [
+            {
+              'cac:CardAccount': undefined,
+              'cac:PayeeFinancialAccount': {
+                'cac:FinancialInstitutionBranch': { 'cbc:ID': 'BIC324098' },
+                'cbc:ID': 'IBAN32423940',
+                'cbc:Name': 'AccountName',
+              },
+              'cac:PaymentMandate': undefined,
+              'cbc:PaymentDueDate': undefined,
+              'cbc:PaymentID': 'Snippet1',
+              'cbc:PaymentMeansCode': { '#text': '30', '@name': 'Credit transfer' },
+            },
+          ],
+          'cac:PaymentTerms': { 'cbc:Note': 'Payment within 10 days, 2% discount' },
+          'cac:ReceiptDocumentReference': undefined,
+          'cac:TaxRepresentativeParty': undefined,
+          'cac:TaxTotal': [
+            {
+              'cac:TaxSubtotal': [
+                {
+                  'cac:TaxCategory': {
+                    'cac:TaxScheme': { 'cbc:ID': 'VAT' },
+                    'cbc:ID': 'S',
+                    'cbc:Percent': 25,
+                    'cbc:TaxExemptionReason': undefined,
+                    'cbc:TaxExemptionReasonCode': undefined,
+                  },
+                  'cbc:TaxAmount': { '#text': 331.25, '@currencyID': 'EUR' },
+                  'cbc:TaxableAmount': { '#text': 1325, '@currencyID': 'EUR' },
+                },
+              ],
+              'cbc:TaxAmount': { '#text': 331.25, '@currencyID': 'EUR' },
+            },
+          ],
+          'cbc:AccountingCost': '4025:123:4343',
+          'cbc:BuyerReference': '0150abc',
+          'cbc:CreditNoteTypeCode': '381',
+          'cbc:CustomizationID': 'urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0',
+          'cbc:DocumentCurrencyCode': 'EUR',
+          'cbc:ID': 'Snippet1',
+          'cbc:IssueDate': '2017-11-13',
+          'cbc:Note': 'Please note we have a new phone number: 22 22 22 22',
+          'cbc:ProfileID': 'urn:fdc:peppol.eu:2017:poacc:billing:01:1.0',
+          'cbc:TaxCurrencyCode': undefined,
+          'cbc:TaxPointDate': undefined,
+        },
+      } as never).pipe(Effect.mapError(issue => new Schema.SchemaError(issue)));
+      expect(out).toMatchSnapshot('ubl:CreditNote');
+    })
+  );
 });

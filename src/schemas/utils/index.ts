@@ -7,4 +7,4 @@ export * from './is-valid-invoice-type-code';
 export * from './is-valid-process';
 export * from './quantity-unit-code-to-intl-unit';
 export * from './peppol-vat-regex-schema';
-export * from './peppol-xsd-time-schema';
+export { PeppolXsdTime } from './peppol-xsd-time-schema';

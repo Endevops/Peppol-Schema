@@ -1,8 +1,6 @@
 import { Effect, Predicate } from 'effect';
 
 import type { XmlNode } from '#/helpers/get-prop';
-import type { PeppolPartySchema } from '#/schemas/fields/peppol-party-base-schema';
-import type { RecursivePartial } from '#/types';
 
 import { decodeAddress } from '#/decoders/fields/decode-address';
 import { decodeContact } from '#/decoders/fields/decode-contact';
@@ -13,10 +11,7 @@ import { decodePartyLegalEntity } from '#/decoders/fields/decode-party-legal-ent
 import { getProp } from '#/helpers/get-prop';
 import { strOrUnd } from '#/helpers/str-or-und';
 
-export const decodeParty = Effect.fn(function* (
-  party: XmlNode | undefined,
-  ...path: Array<string>
-): Effect.fn.Return<RecursivePartial<PeppolPartySchema> | undefined> {
+export const decodeParty = Effect.fn(function* (party: XmlNode | undefined, ...path: Array<string>) {
   const val = yield* getProp(party, ...path);
   if (Predicate.isNullish(val)) return undefined;
 
@@ -31,19 +26,13 @@ export const decodeParty = Effect.fn(function* (
   };
 });
 
-const decodePartyName = Effect.fn(function* (
-  node: XmlNode,
-  ...path: Array<string>
-): Effect.fn.Return<RecursivePartial<PeppolPartySchema['partyName']> | undefined> {
+const decodePartyName = Effect.fn(function* (node: XmlNode, ...path: Array<string>) {
   const partyNameNode = yield* getProp(node, ...path);
   if (Predicate.isNullish(partyNameNode)) return undefined;
   return { name: yield* strOrUnd(partyNameNode, 'cbc:Name') };
 });
 
-const decodeAdditionalIdentifiers = Effect.fn(function* (
-  node: XmlNode,
-  ...path: Array<string>
-): Effect.fn.Return<RecursivePartial<PeppolPartySchema['partyIdentification']> | undefined> {
+const decodeAdditionalIdentifiers = Effect.fn(function* (node: XmlNode, ...path: Array<string>) {
   const val = yield* getProp(node, ...path);
   if (Predicate.isNullish(val)) return undefined;
   return { id: yield* decodeIdentifier(val, 'cbc:ID') };

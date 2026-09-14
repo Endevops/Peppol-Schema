@@ -1,43 +1,62 @@
-import { Schema } from 'effect';
+import { assert, describe, expect, it } from '@effect/vitest';
+import { Effect, Result, Schema } from 'effect';
 import path from 'node:path';
-import { describe, expect, it } from 'vitest';
 
-import type { PeppolInvoice } from '#/schemas/peppol-invoice-schema';
-
+import { PeppolCreditNote } from '#/schemas/peppol-credit-note-schema';
 import { peppolDocumentSchema } from '#/schemas/peppol-document-schema';
+import { PeppolInvoiceResponse } from '#/schemas/peppol-invoice-response-schema';
+import { PeppolInvoice } from '#/schemas/peppol-invoice-schema';
+import { PeppolMessageLevelResponse } from '#/schemas/peppol-message-level-response-schema';
 
 describe('effect/document-parser', () => {
-  const decodeDocument = Schema.decodeSync(peppolDocumentSchema);
-  const encodeDocument = Schema.encodeSync(peppolDocumentSchema);
-  it.each([
-    ['#/test/files/v3/invoice/base-example.xml', 'invoiceLines'],
-    ['#/test/files/v3/credit-note/base-creditnote-correction.xml', 'creditNoteLines'],
-    ['#/test/files/v3/message-level-response/MessageLevelResponseExample.xml', 'documentResponse'],
-    ['#/test/files/v3/invoice-response/InvoiceResponseExample.xml', 'documentResponse'],
-  ])('decodes %s', async (file, key) => {
-    const xml = await import(`${file}?raw`).then(i => i.default);
-    expect(decodeDocument(xml)).toMatchObject({ [key]: expect.anything() });
-  });
+  const decodeDocument = Schema.decodeEffect(peppolDocumentSchema, { reportInput: true, errors: 'all', concurrency: 'unbounded' });
+  const encodeDocument = Schema.encodeEffect(peppolDocumentSchema, { reportInput: true, errors: 'all', concurrency: 'unbounded' });
+
+  it.effect.each([
+    ['#/test/files/v3/invoice/base-example.xml', PeppolInvoice],
+    ['#/test/files/v3/credit-note/base-creditnote-correction.xml', PeppolCreditNote],
+    ['#/test/files/v3/message-level-response/MessageLevelResponseExample.xml', PeppolMessageLevelResponse],
+    ['#/test/files/v3/invoice-response/InvoiceResponseExample.xml', PeppolInvoiceResponse],
+  ] as const)(
+    'decodes %s',
+    Effect.fn(function* ([file, type]) {
+      const xml = yield* Effect.promise(async () => await import(`${file}?raw`).then(i => i.default));
+      const doc = yield* decodeDocument(xml);
+      assert(Schema.is(type)(doc));
+    })
+  );
 
   describe('invalid documents', () => {
-    it('throws for an unknown root', () => {
-      expect(() => decodeDocument('<Unknown><x/></Unknown>')).toThrow('Unsupported document type: Unknown');
-    });
+    it.effect(
+      'throws for an unknown root',
+      Effect.fn(function* () {
+        const result = yield* decodeDocument('<Unknown><x/></Unknown>').pipe(Effect.result);
+        assert(Result.isFailure(result));
+      })
+    );
 
-    it('throws for an ApplicationResponse with an unrecognized profile', () => {
-      const xml = '<ApplicationResponse><cbc:ProfileID>urn:not:profile</cbc:ProfileID></ApplicationResponse>';
-      expect(() => decodeDocument(xml)).toThrow('Unsupported document type: ApplicationResponse');
-    });
+    it.effect(
+      'throws for an ApplicationResponse with an unrecognized profile',
+      Effect.fn(function* () {
+        const result = yield* decodeDocument('<ApplicationResponse><cbc:ProfileID>urn:not:profile</cbc:ProfileID></ApplicationResponse>').pipe(
+          Effect.result
+        );
+        assert(Result.isFailure(result));
+      })
+    );
   });
 
   describe('with 0 based element', async () => {
     const file = `#/test/files/v3/invoice/zero-based.xml`;
     const fileContent = await import(`${file}?raw`).then(i => i.default);
 
-    it('should parse the customer endpoint successfully', () => {
-      const value = decodeDocument(fileContent) as PeppolInvoice;
-      expect(value.accountingSupplierParty.endpointId?.id).toEqual('0833629678');
-    });
+    it.effect(
+      'should parse the customer endpoint successfully',
+      Effect.fn(function* () {
+        const value = (yield* decodeDocument(fileContent)) as PeppolInvoice;
+        expect(value.accountingSupplierParty.endpointId?.id).toEqual('0833629678');
+      })
+    );
   });
 
   describe('for file from as4 endpoint', async () => {
@@ -45,14 +64,20 @@ describe('effect/document-parser', () => {
     const basename = path.basename(file, path.extname(file));
     const fileContent = await import(`${file}?raw`).then(i => i.default);
 
-    it('should parse the document from the filesystem', async () => {
-      expect(JSON.parse(JSON.stringify(decodeDocument(fileContent)))).toMatchSnapshot();
-    });
+    it.effect(
+      'should parse the document from the filesystem',
+      Effect.fn(function* () {
+        expect(JSON.parse(JSON.stringify(yield* decodeDocument(fileContent)))).toMatchSnapshot('decoded');
+      })
+    );
 
-    it(`should match the defined xml ${basename}`, () => {
-      const content = encodeDocument(decodeDocument(fileContent));
-      expect(JSON.parse(JSON.stringify(content))).toMatchSnapshot();
-    });
+    it.effect(
+      `should match the defined xml ${basename}`,
+      Effect.fn(function* () {
+        const content = yield* encodeDocument(yield* decodeDocument(fileContent));
+        expect(JSON.parse(JSON.stringify(content))).toMatchSnapshot('encoded');
+      })
+    );
   });
 
   describe.each([
@@ -79,24 +104,33 @@ describe('effect/document-parser', () => {
     '#/test/files/v3/invoice/vat-category-E.xml',
     '#/test/files/v3/invoice/vat-category-O.xml',
     '#/test/files/v3/invoice/vat-category-Z.xml',
-  ])('round trips (%s)', async file => {
+  ])('file (%s)', async file => {
     const xml = await import(`${file}?raw`).then(i => i.default);
-    it('decode should match inline snapshot', () => {
-      const encoded = decodeDocument(xml);
-      expect(encoded).toMatchSnapshot();
-    });
+    it.effect(
+      'decode should match snapshot',
+      Effect.fn(function* () {
+        const decoded = yield* decodeDocument(xml);
+        expect(decoded).toMatchSnapshot('decoded');
+      })
+    );
 
-    it('encode should match inline snapshot', () => {
-      const decoded = decodeDocument(xml);
-      const encoded = encodeDocument(decoded);
-      expect(encoded).toMatchSnapshot();
-    });
+    it.effect(
+      'encode should match snapshot',
+      Effect.fn(function* () {
+        const decoded = yield* decodeDocument(xml);
+        const encoded = yield* encodeDocument(decoded);
+        expect(encoded).toMatchSnapshot('encoded');
+      })
+    );
 
-    it('round-trips through encode', async () => {
-      const decoded = decodeDocument(xml);
-      const encoded = encodeDocument(decoded);
+    it.effect(
+      'round-trips through encode',
+      Effect.fn(function* () {
+        const decoded = yield* decodeDocument(xml);
+        const encoded = yield* encodeDocument(decoded);
 
-      expect(encoded).toMatchXML(xml);
-    });
+        expect(encoded).toMatchXML(xml);
+      })
+    );
   });
 });

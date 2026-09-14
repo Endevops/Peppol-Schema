@@ -1,54 +1,52 @@
-import { Effect } from 'effect';
-import { afterEach, describe, expect, it, vi } from 'vitest';
+import { describe, expect, it } from '@effect/vitest';
+import { Effect, Schema } from 'effect';
+
+import { PeppolInvoiceResponse } from '#/schemas/peppol-invoice-response-schema';
 
 import { encodeInvoiceResponse } from './encode-invoice-response';
 
 describe('encodeInvoiceResponse', () => {
-  afterEach(() => {
-    vi.unstubAllEnvs();
-  });
-
-  const full = {
-    customizationId: 'c',
+  const decodeInvoiceResponse = Schema.decodeSync(PeppolInvoiceResponse);
+  const invoiceResponse = decodeInvoiceResponse({
+    customizationId: 'urn:fdc:peppol.eu:poacc:trns:invoice_response:3',
     documentResponse: {
-      documentReference: { documentTypeCode: 'X', id: 'D', issueDate: 'd' },
+      documentReference: { documentTypeCode: '380', id: 'inv021', issueDate: '2018-09-22' },
+      issuerParty: { partyIdentification: { id: '123456785', schemeId: '0192' }, partyName: { name: 'Test Company AS' } },
       response: {
-        effectiveDate: 'd',
-        responseCode: '1',
-        status: [{ statusReasonCode: { value: 'SR', listId: 'L' }, statusReason: 'r', condition: [{ attributeId: 'a', description: 'd' }] }],
+        effectiveDate: '2018-09-24',
+        responseCode: 'RE',
+        status: [
+          {
+            condition: [{ attributeId: 'BT-48', description: 'EU123456789' }],
+            statusReason: 'VAT Reference not found',
+            statusReasonCode: { listId: 'OPStatusAction', value: 'NOA' },
+          },
+        ],
       },
     },
-    id: 'id',
-    issueDate: 'd',
-    issueTime: 't',
-    note: 'n',
-    profileId: 'p',
-    receiverParty: undefined,
-    senderParty: undefined,
-  } as any;
-
-  it('includes the schema location when MODE is test', () => {
-    const out = Effect.runSync(encodeInvoiceResponse(full)) as { ApplicationResponse: Record<string, unknown> };
-    expect(out.ApplicationResponse['@xsi:schemaLocation']).toContain('urn:oasis:names:specification:ubl:schema:xsd:ApplicationResponse-2');
+    id: 'imrid001',
+    issueDate: '2017-12-01',
+    issueTime: '12:00:00',
+    note: 'text',
+    profileId: 'urn:fdc:peppol.eu:poacc:bis:invoice_response:3',
+    receiverParty: {
+      endpointId: { id: '7330001000000', schemeId: '0088' },
+      partyIdentification: { id: '987654325', schemeId: '0192' },
+      partyLegalEntity: { registrationName: 'Seller company' },
+    },
+    senderParty: {
+      contact: { electronicMail: 'jj@test-company.dk', name: 'Jens Jensen', telephone: '23232323' },
+      endpointId: { id: '5798000012349', schemeId: '0088' },
+      partyIdentification: { id: 'DK88776655', schemeId: '0184' },
+      partyLegalEntity: { registrationName: 'Buyer organization' },
+    },
   });
 
-  it('omits the schema location when MODE is not test', () => {
-    vi.stubEnv('MODE', 'production');
-    const out = Effect.runSync(encodeInvoiceResponse(full)) as { ApplicationResponse: Record<string, unknown> };
-    expect(out.ApplicationResponse['@xsi:schemaLocation']).toBeUndefined();
-  });
-
-  it('returns undefined for a missing documentResponse', () => {
-    const out = Effect.runSync(encodeInvoiceResponse({ customizationId: 'c' } as any)) as {
-      ApplicationResponse: { 'cac:DocumentResponse': unknown };
-    };
-    expect(out.ApplicationResponse['cac:DocumentResponse']).toBeUndefined();
-  });
-
-  it('returns undefined for a missing documentReference', () => {
-    const out = Effect.runSync(
-      encodeInvoiceResponse({ ...full, documentResponse: { response: { responseCode: '1', effectiveDate: 'd', status: undefined } } } as never)
-    ) as { ApplicationResponse: { 'cac:DocumentResponse': { 'cac:DocumentReference': unknown } } };
-    expect(out.ApplicationResponse['cac:DocumentResponse']['cac:DocumentReference']).toBeUndefined();
-  });
+  it.effect(
+    'should decode an invoice response',
+    Effect.fn(function* () {
+      const out = yield* encodeInvoiceResponse(invoiceResponse);
+      expect(out).toMatchSnapshot('invoice-response');
+    })
+  );
 });

@@ -1,6 +1,6 @@
-import { DateTime } from 'effect';
 // oxlint-disable vitest/expect-expect
-import { describe, it } from 'vitest';
+import { DateTime } from 'effect';
+import { afterAll, beforeAll, describe, it, vi } from 'vitest';
 
 import { decoding } from '#/test/schema-asserts';
 
@@ -44,6 +44,14 @@ const validInvoiceResponse = {
 describe('PeppolInvoiceResponse', () => {
   const decode = decoding(PeppolInvoiceResponse);
 
+  beforeAll(() => {
+    vi.useFakeTimers({ now: new Date('1970-01-01T00:00:00.000Z') });
+  });
+
+  afterAll(() => {
+    vi.useRealTimers();
+  });
+
   it('should decode a valid invoice response', async () => {
     await decode.succeed(validInvoiceResponse, {
       customizationId: 'urn:fdc:peppol.eu:poacc:trns:invoice_response:3',
@@ -64,7 +72,7 @@ describe('PeppolInvoiceResponse', () => {
       },
       id: 'imrid001',
       issueDate: DateTime.makeUnsafe('2017-12-01'),
-      issueTime: '12:00:00',
+      issueTime: DateTime.makeUnsafe('1970-01-01T12:00:00'),
       note: 'Please refer to previous email exchange regarding this invoice.',
       profileId: 'urn:fdc:peppol.eu:poacc:bis:invoice_response:3',
       receiverParty: {

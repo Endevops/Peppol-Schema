@@ -1,12 +1,12 @@
 import { describe, expect, it } from '@effect/vitest';
 import { Effect, Schema } from 'effect';
 
-import { encodeCreditNote } from '#/decoders/encode-credit-note';
-import { PeppolCreditNote } from '#/schemas/peppol-credit-note-schema';
+import { encodeInvoice } from '#/decoders/encode-invoice';
+import { PeppolInvoice } from '#/schemas/peppol-invoice-schema';
 
-describe('encodeCreditNote()', () => {
-  const decodePeppolCreditNote = Schema.decodeSync(PeppolCreditNote);
-  const creditNote = decodePeppolCreditNote({
+describe('encodeInvoice()', () => {
+  const decodePeppolInvoice = Schema.decodeSync(PeppolInvoice);
+  const invoice = decodePeppolInvoice({
     accountingCost: '4025:123:4343',
     accountingCustomerParty: {
       contact: { electronicMail: 'lj@buyer.se', name: 'Lisa Johnson', telephone: '23434234' },
@@ -45,46 +45,7 @@ describe('encodeCreditNote()', () => {
         taxCategory: { id: 'S', percent: 25, taxSchemeId: { id: 'VAT' } },
       },
     ],
-    billingReferences: [{ invoiceDocumentReference: { id: 'Snippet0' } }],
     buyerReference: '0150abc',
-    creditNoteLines: [
-      {
-        accountingCost: 'Konteringsstreng',
-        creditedQuantity: { unitCode: 'DAY', value: 7 },
-        documentReference: [],
-        id: '1',
-        item: {
-          additionalItemProperties: [],
-          classifiedTaxCategory: { id: 'S', percent: 25, taxSchemeId: { id: 'VAT' } },
-          commodityClassifications: [{ itemClassification: { id: '09348023', listId: 'SRV' } }],
-          description: 'Description of item',
-          name: 'item name',
-          originCountryCode: { identificationCode: 'NO' },
-          standardItemIdentification: { id: { id: '21382183120983', schemeId: '0088' } },
-        },
-        lineExtensionAmount: { currencyId: 'EUR', value: 2800 },
-        orderLineReference: { lineId: '123' },
-        price: { priceAmount: { currencyId: 'EUR', value: 400 } },
-      },
-      {
-        creditedQuantity: { unitCode: 'DAY', value: -3 },
-        documentReference: [],
-        id: '2',
-        item: {
-          additionalItemProperties: [],
-          classifiedTaxCategory: { id: 'S', percent: 25, taxSchemeId: { id: 'VAT' } },
-          commodityClassifications: [{ itemClassification: { id: '09348023', listId: 'SRV' } }],
-          description: 'Description 2',
-          name: 'item name 2',
-          originCountryCode: { identificationCode: 'NO' },
-          standardItemIdentification: { id: { id: '21382183120983', schemeId: '0088' } },
-        },
-        lineExtensionAmount: { currencyId: 'EUR', value: -1500 },
-        orderLineReference: { lineId: '123' },
-        price: { priceAmount: { currencyId: 'EUR', value: 500 } },
-      },
-    ],
-    creditNoteTypeCode: '381',
     customizationId: 'urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0',
     delivery: {
       actualDeliveryDate: '2017-11-01',
@@ -101,7 +62,46 @@ describe('encodeCreditNote()', () => {
       deliveryParty: { partyName: { name: 'Delivery party Name' } },
     },
     documentCurrencyCode: 'EUR',
+    dueDate: '2017-12-01',
     id: 'Snippet1',
+    invoiceLines: [
+      {
+        accountingCost: 'Konteringsstreng',
+        documentReference: [],
+        id: '1',
+        invoicedQuantity: { unitCode: 'DAY', value: 7 },
+        item: {
+          additionalItemProperties: [],
+          classifiedTaxCategory: { id: 'S', percent: 25, taxSchemeId: { id: 'VAT' } },
+          commodityClassifications: [{ itemClassification: { id: '09348023', listId: 'SRV' } }],
+          description: 'Description of item',
+          name: 'item name',
+          originCountryCode: { identificationCode: 'NO' },
+          standardItemIdentification: { id: { id: '21382183120983', schemeId: '0088' } },
+        },
+        lineExtensionAmount: { currencyId: 'EUR', value: 2800 },
+        orderLineReference: { lineId: '123' },
+        price: { priceAmount: { currencyId: 'EUR', value: 400 } },
+      },
+      {
+        documentReference: [],
+        id: '2',
+        invoicedQuantity: { unitCode: 'DAY', value: -3 },
+        item: {
+          additionalItemProperties: [],
+          classifiedTaxCategory: { id: 'S', percent: 25, taxSchemeId: { id: 'VAT' } },
+          commodityClassifications: [{ itemClassification: { id: '09348023', listId: 'SRV' } }],
+          description: 'Description 2',
+          name: 'item name 2',
+          originCountryCode: { identificationCode: 'NO' },
+          standardItemIdentification: { id: { id: '21382183120983', schemeId: '0088' } },
+        },
+        lineExtensionAmount: { currencyId: 'EUR', value: -1500 },
+        orderLineReference: { lineId: '123' },
+        price: { priceAmount: { currencyId: 'EUR', value: 500 } },
+      },
+    ],
+    invoiceTypeCode: '380',
     issueDate: '2017-11-13',
     legalMonetaryTotal: {
       chargeTotalAmount: { currencyId: 'EUR', value: 25 },
@@ -110,7 +110,6 @@ describe('encodeCreditNote()', () => {
       taxExclusiveAmount: { currencyId: 'EUR', value: 1325 },
       taxInclusiveAmount: { currencyId: 'EUR', value: 1656.25 },
     },
-    note: 'Please note we have a new phone number: 22 22 22 22',
     paymentMeans: [
       {
         payeeFinancialAccount: { financialInstitutionBranch: { id: 'BIC324098' }, id: 'IBAN32423940', name: 'AccountName' },
@@ -135,9 +134,9 @@ describe('encodeCreditNote()', () => {
   });
 
   it.effect(
-    'should encode an creditNote to the xml structure',
+    'should encode an invoice to the xml structure',
     Effect.fn(function* () {
-      const result = yield* encodeCreditNote(creditNote).pipe(Effect.mapError(issue => new Schema.SchemaError(issue)));
+      const result = yield* encodeInvoice(invoice).pipe(Effect.mapError(issue => new Schema.SchemaError(issue)));
       expect(result).toMatchSnapshot();
     })
   );

@@ -5,8 +5,9 @@ import type { PeppolAllowanceCharge } from '#/schemas/fields/peppol-allowance-ch
 import { encodeAmount } from '#/decoders/fields/encode-amount';
 import { encodeTaxCategory } from '#/decoders/fields/encode-tax-category';
 
-export const encodeAllowanceCharges = Effect.fn(function* (allowanceCharges: Array<PeppolAllowanceCharge> | undefined) {
+export const encodeAllowanceCharges = Effect.fn(function* (allowanceCharges: ReadonlyArray<PeppolAllowanceCharge> | undefined) {
   if (Predicate.isNullish(allowanceCharges)) return undefined;
+
   return yield* Effect.forEach(
     allowanceCharges,
     Effect.fn(function* (allowanceCharge: PeppolAllowanceCharge) {

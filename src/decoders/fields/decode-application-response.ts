@@ -8,6 +8,7 @@ import { strOrUnd } from '#/helpers/str-or-und';
 export const decodeApplicationResponseBase = Effect.fn(function* (value: XmlNode) {
   const root = value || {};
   const doc: XmlNode = yield* getProp(root, 'ubl:ApplicationResponse');
+
   return {
     base: {
       customizationId: yield* strOrUnd(doc, 'cbc:CustomizationID'),

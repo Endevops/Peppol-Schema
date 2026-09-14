@@ -53,3 +53,4 @@ export * from './schemas/fields/peppol-tax-subtotal-schema';
 export * from './schemas/fields/peppol-tax-totals-base-schema';
 
 export * from './schemas/utils/index';
+export * from './schemas/values/index';

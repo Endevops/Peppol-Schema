@@ -1,0 +1,725 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`decodeCreditNote() > accepts a bare root without the ubl:CreditNote wrapper > credit-note 1`] = `
+{
+  "accountingCost": "4025:123:4343",
+  "accountingCustomerParty": {
+    "contact": {
+      "electronicMail": "lj@buyer.se",
+      "name": "Lisa Johnson",
+      "telephone": "23434234",
+    },
+    "endpointId": {
+      "id": "FR23342",
+      "schemeId": "0002",
+    },
+    "partyIdentification": {
+      "id": {
+        "id": "FR23342",
+        "schemeId": "0002",
+      },
+    },
+    "partyLegalEntity": {
+      "companyId": {
+        "id": "39937423947",
+        "schemeId": "0183",
+      },
+      "companyLegalForm": undefined,
+      "registrationName": "Buyer Official Name",
+    },
+    "partyName": {
+      "name": "BuyerTradingName AS",
+    },
+    "partyTaxSchemes": [
+      {
+        "companyId": "SE4598375937",
+        "taxSchemeId": {
+          "id": "VAT",
+        },
+      },
+    ],
+    "postalAddress": {
+      "additionalStreetName": "Po box 878",
+      "addressLine": undefined,
+      "cityName": "Stockholm",
+      "countryCode": {
+        "identificationCode": "SE",
+      },
+      "countrySubentity": undefined,
+      "postalZone": "456 34",
+      "streetName": "Hovedgatan 32",
+    },
+  },
+  "accountingSupplierParty": {
+    "contact": undefined,
+    "endpointId": {
+      "id": "9482348239847239874",
+      "schemeId": "0088",
+    },
+    "partyIdentification": {
+      "id": {
+        "id": "99887766",
+      },
+    },
+    "partyLegalEntity": {
+      "companyId": {
+        "id": "GB983294",
+      },
+      "companyLegalForm": undefined,
+      "registrationName": "SupplierOfficialName Ltd",
+    },
+    "partyName": {
+      "name": "SupplierTradingName Ltd.",
+    },
+    "partyTaxSchemes": [
+      {
+        "companyId": "GB1232434",
+        "taxSchemeId": {
+          "id": "VAT",
+        },
+      },
+    ],
+    "postalAddress": {
+      "additionalStreetName": "Postbox 123",
+      "addressLine": undefined,
+      "cityName": "London",
+      "countryCode": {
+        "identificationCode": "GB",
+      },
+      "countrySubentity": undefined,
+      "postalZone": "GB 123 EW",
+      "streetName": "Main street 1",
+    },
+  },
+  "additionalDocumentReferences": undefined,
+  "allowanceCharges": [
+    {
+      "allowanceChargeReason": "Insurance",
+      "allowanceChargeReasonCode": undefined,
+      "amount": {
+        "currencyId": "EUR",
+        "value": 25,
+      },
+      "baseAmount": undefined,
+      "chargeIndicator": true,
+      "multiplierFactorNumeric": undefined,
+      "taxCategory": {
+        "id": "S",
+        "percent": 25,
+        "taxSchemeId": {
+          "id": "VAT",
+        },
+      },
+    },
+  ],
+  "billingReferences": [
+    {
+      "invoiceDocumentReference": {
+        "id": "Snippet0",
+        "issueDate": undefined,
+      },
+    },
+  ],
+  "buyerReference": "0150abc",
+  "contractDocumentReference": undefined,
+  "creditNoteLines": [
+    {
+      "accountingCost": "Konteringsstreng",
+      "allowanceCharges": undefined,
+      "creditedQuantity": {
+        "unitCode": "DAY",
+        "value": 7,
+      },
+      "documentReference": [],
+      "id": "1",
+      "invoicePeriod": undefined,
+      "item": {
+        "additionalItemProperties": [],
+        "buyersItemIdentification": undefined,
+        "classifiedTaxCategory": {
+          "id": "S",
+          "percent": 25,
+          "taxSchemeId": {
+            "id": "VAT",
+          },
+        },
+        "commodityClassifications": [
+          {
+            "itemClassification": {
+              "id": "09348023",
+              "listId": "SRV",
+              "listVersionId": undefined,
+            },
+          },
+        ],
+        "description": "Description of item",
+        "name": "item name",
+        "originCountryCode": {
+          "identificationCode": "NO",
+        },
+        "sellersItemIdentification": undefined,
+        "standardItemIdentification": {
+          "id": {
+            "id": "21382183120983",
+            "schemeId": "0088",
+          },
+        },
+      },
+      "lineExtensionAmount": {
+        "currencyId": "EUR",
+        "value": 2800,
+      },
+      "note": undefined,
+      "orderLineReference": {
+        "lineId": "123",
+      },
+      "price": {
+        "allowanceCharge": undefined,
+        "baseQuantity": undefined,
+        "priceAmount": {
+          "currencyId": "EUR",
+          "value": 400,
+        },
+      },
+    },
+    {
+      "accountingCost": undefined,
+      "allowanceCharges": undefined,
+      "creditedQuantity": {
+        "unitCode": "DAY",
+        "value": -3,
+      },
+      "documentReference": [],
+      "id": "2",
+      "invoicePeriod": undefined,
+      "item": {
+        "additionalItemProperties": [],
+        "buyersItemIdentification": undefined,
+        "classifiedTaxCategory": {
+          "id": "S",
+          "percent": 25,
+          "taxSchemeId": {
+            "id": "VAT",
+          },
+        },
+        "commodityClassifications": [
+          {
+            "itemClassification": {
+              "id": "09348023",
+              "listId": "SRV",
+              "listVersionId": undefined,
+            },
+          },
+        ],
+        "description": "Description 2",
+        "name": "item name 2",
+        "originCountryCode": {
+          "identificationCode": "NO",
+        },
+        "sellersItemIdentification": undefined,
+        "standardItemIdentification": {
+          "id": {
+            "id": "21382183120983",
+            "schemeId": "0088",
+          },
+        },
+      },
+      "lineExtensionAmount": {
+        "currencyId": "EUR",
+        "value": -1500,
+      },
+      "note": undefined,
+      "orderLineReference": {
+        "lineId": "123",
+      },
+      "price": {
+        "allowanceCharge": undefined,
+        "baseQuantity": undefined,
+        "priceAmount": {
+          "currencyId": "EUR",
+          "value": 500,
+        },
+      },
+    },
+  ],
+  "creditNoteTypeCode": "381",
+  "customizationId": "urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0",
+  "delivery": {
+    "actualDeliveryDate": "2017-11-01",
+    "deliveryLocation": {
+      "address": {
+        "additionalStreetName": "Building 56",
+        "addressLine": undefined,
+        "cityName": "Stockholm",
+        "countryCode": {
+          "identificationCode": "SE",
+        },
+        "countrySubentity": undefined,
+        "postalZone": "21234",
+        "streetName": "Delivery street 2",
+      },
+      "id": {
+        "id": "9483759475923478",
+        "schemeId": "0088",
+      },
+    },
+    "deliveryParty": {
+      "partyName": {
+        "name": "Delivery party Name",
+      },
+    },
+  },
+  "despatchDocumentReference": undefined,
+  "documentCurrencyCode": "EUR",
+  "id": "Snippet1",
+  "invoicePeriod": undefined,
+  "issueDate": "2017-11-13",
+  "legalMonetaryTotal": {
+    "allowanceTotalAmount": undefined,
+    "chargeTotalAmount": {
+      "currencyId": "EUR",
+      "value": 25,
+    },
+    "lineExtensionAmount": {
+      "currencyId": "EUR",
+      "value": 1300,
+    },
+    "payableAmount": {
+      "currencyId": "EUR",
+      "value": 1656.25,
+    },
+    "payableRoundingAmount": undefined,
+    "prepaidAmount": undefined,
+    "taxExclusiveAmount": {
+      "currencyId": "EUR",
+      "value": 1325,
+    },
+    "taxInclusiveAmount": {
+      "currencyId": "EUR",
+      "value": 1656.25,
+    },
+  },
+  "note": "Please note we have a new phone number: 22 22 22 22",
+  "orderReference": undefined,
+  "originatorDocumentReference": undefined,
+  "payeeParty": undefined,
+  "paymentMeans": [
+    {
+      "cardAccount": undefined,
+      "payeeFinancialAccount": {
+        "financialInstitutionBranch": {
+          "id": "BIC324098",
+        },
+        "id": "IBAN32423940",
+        "name": "AccountName",
+      },
+      "paymentDueDate": undefined,
+      "paymentId": "Snippet1",
+      "paymentMandate": undefined,
+      "paymentMeansCode": {
+        "code": "30",
+        "name": "Credit transfer",
+      },
+    },
+  ],
+  "paymentTerms": {
+    "note": "Payment within 10 days, 2% discount",
+  },
+  "profileId": "urn:fdc:peppol.eu:2017:poacc:billing:01:1.0",
+  "receiptDocumentReference": undefined,
+  "taxCurrencyCode": undefined,
+  "taxPointDate": undefined,
+  "taxRepresentativeParty": undefined,
+  "taxTotals": [
+    {
+      "taxAmount": {
+        "currencyId": "EUR",
+        "value": 331.25,
+      },
+      "taxSubtotals": [
+        {
+          "taxAmount": {
+            "currencyId": "EUR",
+            "value": 331.25,
+          },
+          "taxCategory": {
+            "id": "S",
+            "percent": 25,
+            "taxExemptionReason": undefined,
+            "taxExemptionReasonCode": undefined,
+            "taxSchemeId": {
+              "id": "VAT",
+            },
+          },
+          "taxableAmount": {
+            "currencyId": "EUR",
+            "value": 1325,
+          },
+        },
+      ],
+    },
+  ],
+}
+`;
+
+exports[`decodeCreditNote() > decodes a wrapped ubl:CreditNote root > ubl:CreditNote 1`] = `
+{
+  "accountingCost": "4025:123:4343",
+  "accountingCustomerParty": {
+    "contact": {
+      "electronicMail": "lj@buyer.se",
+      "name": "Lisa Johnson",
+      "telephone": "23434234",
+    },
+    "endpointId": {
+      "id": "FR23342",
+      "schemeId": "0002",
+    },
+    "partyIdentification": {
+      "id": {
+        "id": "FR23342",
+        "schemeId": "0002",
+      },
+    },
+    "partyLegalEntity": {
+      "companyId": {
+        "id": "39937423947",
+        "schemeId": "0183",
+      },
+      "companyLegalForm": undefined,
+      "registrationName": "Buyer Official Name",
+    },
+    "partyName": {
+      "name": "BuyerTradingName AS",
+    },
+    "partyTaxSchemes": [
+      {
+        "companyId": "SE4598375937",
+        "taxSchemeId": {
+          "id": "VAT",
+        },
+      },
+    ],
+    "postalAddress": {
+      "additionalStreetName": "Po box 878",
+      "addressLine": undefined,
+      "cityName": "Stockholm",
+      "countryCode": {
+        "identificationCode": "SE",
+      },
+      "countrySubentity": undefined,
+      "postalZone": "456 34",
+      "streetName": "Hovedgatan 32",
+    },
+  },
+  "accountingSupplierParty": {
+    "contact": undefined,
+    "endpointId": {
+      "id": "9482348239847239874",
+      "schemeId": "0088",
+    },
+    "partyIdentification": {
+      "id": {
+        "id": "99887766",
+      },
+    },
+    "partyLegalEntity": {
+      "companyId": {
+        "id": "GB983294",
+      },
+      "companyLegalForm": undefined,
+      "registrationName": "SupplierOfficialName Ltd",
+    },
+    "partyName": {
+      "name": "SupplierTradingName Ltd.",
+    },
+    "partyTaxSchemes": [
+      {
+        "companyId": "GB1232434",
+        "taxSchemeId": {
+          "id": "VAT",
+        },
+      },
+    ],
+    "postalAddress": {
+      "additionalStreetName": "Postbox 123",
+      "addressLine": undefined,
+      "cityName": "London",
+      "countryCode": {
+        "identificationCode": "GB",
+      },
+      "countrySubentity": undefined,
+      "postalZone": "GB 123 EW",
+      "streetName": "Main street 1",
+    },
+  },
+  "additionalDocumentReferences": undefined,
+  "allowanceCharges": [
+    {
+      "allowanceChargeReason": "Insurance",
+      "allowanceChargeReasonCode": undefined,
+      "amount": {
+        "currencyId": "EUR",
+        "value": 25,
+      },
+      "baseAmount": undefined,
+      "chargeIndicator": true,
+      "multiplierFactorNumeric": undefined,
+      "taxCategory": {
+        "id": "S",
+        "percent": 25,
+        "taxSchemeId": {
+          "id": "VAT",
+        },
+      },
+    },
+  ],
+  "billingReferences": [
+    {
+      "invoiceDocumentReference": {
+        "id": "Snippet0",
+        "issueDate": undefined,
+      },
+    },
+  ],
+  "buyerReference": "0150abc",
+  "contractDocumentReference": undefined,
+  "creditNoteLines": [
+    {
+      "accountingCost": "Konteringsstreng",
+      "allowanceCharges": undefined,
+      "creditedQuantity": {
+        "unitCode": "DAY",
+        "value": 7,
+      },
+      "documentReference": [],
+      "id": "1",
+      "invoicePeriod": undefined,
+      "item": {
+        "additionalItemProperties": [],
+        "buyersItemIdentification": undefined,
+        "classifiedTaxCategory": {
+          "id": "S",
+          "percent": 25,
+          "taxSchemeId": {
+            "id": "VAT",
+          },
+        },
+        "commodityClassifications": [
+          {
+            "itemClassification": {
+              "id": "09348023",
+              "listId": "SRV",
+              "listVersionId": undefined,
+            },
+          },
+        ],
+        "description": "Description of item",
+        "name": "item name",
+        "originCountryCode": {
+          "identificationCode": "NO",
+        },
+        "sellersItemIdentification": undefined,
+        "standardItemIdentification": {
+          "id": {
+            "id": "21382183120983",
+            "schemeId": "0088",
+          },
+        },
+      },
+      "lineExtensionAmount": {
+        "currencyId": "EUR",
+        "value": 2800,
+      },
+      "note": undefined,
+      "orderLineReference": {
+        "lineId": "123",
+      },
+      "price": {
+        "allowanceCharge": undefined,
+        "baseQuantity": undefined,
+        "priceAmount": {
+          "currencyId": "EUR",
+          "value": 400,
+        },
+      },
+    },
+    {
+      "accountingCost": undefined,
+      "allowanceCharges": undefined,
+      "creditedQuantity": {
+        "unitCode": "DAY",
+        "value": -3,
+      },
+      "documentReference": [],
+      "id": "2",
+      "invoicePeriod": undefined,
+      "item": {
+        "additionalItemProperties": [],
+        "buyersItemIdentification": undefined,
+        "classifiedTaxCategory": {
+          "id": "S",
+          "percent": 25,
+          "taxSchemeId": {
+            "id": "VAT",
+          },
+        },
+        "commodityClassifications": [
+          {
+            "itemClassification": {
+              "id": "09348023",
+              "listId": "SRV",
+              "listVersionId": undefined,
+            },
+          },
+        ],
+        "description": "Description 2",
+        "name": "item name 2",
+        "originCountryCode": {
+          "identificationCode": "NO",
+        },
+        "sellersItemIdentification": undefined,
+        "standardItemIdentification": {
+          "id": {
+            "id": "21382183120983",
+            "schemeId": "0088",
+          },
+        },
+      },
+      "lineExtensionAmount": {
+        "currencyId": "EUR",
+        "value": -1500,
+      },
+      "note": undefined,
+      "orderLineReference": {
+        "lineId": "123",
+      },
+      "price": {
+        "allowanceCharge": undefined,
+        "baseQuantity": undefined,
+        "priceAmount": {
+          "currencyId": "EUR",
+          "value": 500,
+        },
+      },
+    },
+  ],
+  "creditNoteTypeCode": "381",
+  "customizationId": "urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0",
+  "delivery": {
+    "actualDeliveryDate": "2017-11-01",
+    "deliveryLocation": {
+      "address": {
+        "additionalStreetName": "Building 56",
+        "addressLine": undefined,
+        "cityName": "Stockholm",
+        "countryCode": {
+          "identificationCode": "SE",
+        },
+        "countrySubentity": undefined,
+        "postalZone": "21234",
+        "streetName": "Delivery street 2",
+      },
+      "id": {
+        "id": "9483759475923478",
+        "schemeId": "0088",
+      },
+    },
+    "deliveryParty": {
+      "partyName": {
+        "name": "Delivery party Name",
+      },
+    },
+  },
+  "despatchDocumentReference": undefined,
+  "documentCurrencyCode": "EUR",
+  "id": "Snippet1",
+  "invoicePeriod": undefined,
+  "issueDate": "2017-11-13",
+  "legalMonetaryTotal": {
+    "allowanceTotalAmount": undefined,
+    "chargeTotalAmount": {
+      "currencyId": "EUR",
+      "value": 25,
+    },
+    "lineExtensionAmount": {
+      "currencyId": "EUR",
+      "value": 1300,
+    },
+    "payableAmount": {
+      "currencyId": "EUR",
+      "value": 1656.25,
+    },
+    "payableRoundingAmount": undefined,
+    "prepaidAmount": undefined,
+    "taxExclusiveAmount": {
+      "currencyId": "EUR",
+      "value": 1325,
+    },
+    "taxInclusiveAmount": {
+      "currencyId": "EUR",
+      "value": 1656.25,
+    },
+  },
+  "note": "Please note we have a new phone number: 22 22 22 22",
+  "orderReference": undefined,
+  "originatorDocumentReference": undefined,
+  "payeeParty": undefined,
+  "paymentMeans": [
+    {
+      "cardAccount": undefined,
+      "payeeFinancialAccount": {
+        "financialInstitutionBranch": {
+          "id": "BIC324098",
+        },
+        "id": "IBAN32423940",
+        "name": "AccountName",
+      },
+      "paymentDueDate": undefined,
+      "paymentId": "Snippet1",
+      "paymentMandate": undefined,
+      "paymentMeansCode": {
+        "code": "30",
+        "name": "Credit transfer",
+      },
+    },
+  ],
+  "paymentTerms": {
+    "note": "Payment within 10 days, 2% discount",
+  },
+  "profileId": "urn:fdc:peppol.eu:2017:poacc:billing:01:1.0",
+  "receiptDocumentReference": undefined,
+  "taxCurrencyCode": undefined,
+  "taxPointDate": undefined,
+  "taxRepresentativeParty": undefined,
+  "taxTotals": [
+    {
+      "taxAmount": {
+        "currencyId": "EUR",
+        "value": 331.25,
+      },
+      "taxSubtotals": [
+        {
+          "taxAmount": {
+            "currencyId": "EUR",
+            "value": 331.25,
+          },
+          "taxCategory": {
+            "id": "S",
+            "percent": 25,
+            "taxExemptionReason": undefined,
+            "taxExemptionReasonCode": undefined,
+            "taxSchemeId": {
+              "id": "VAT",
+            },
+          },
+          "taxableAmount": {
+            "currencyId": "EUR",
+            "value": 1325,
+          },
+        },
+      ],
+    },
+  ],
+}
+`;
