@@ -6,32 +6,30 @@ import { execFileSync } from 'node:child_process';
 const featureIdentifier =
   '${name.replace(/^feature\\//, "").toLowerCase().replace(/[^a-z0-9-]/g, "-").replace(/-+/g, "-").replace(/^-|-$/g, "") || "alpha"}';
 
+// Best-effort git: deleting an already-absent tag is expected, so swallow the
+// failure rather than aborting an otherwise successful release.
+const tryGit = (...args) => {
+  try {
+    execFileSync('git', args, { stdio: 'ignore' });
+  } catch {
+    // Tag may not exist locally or remotely; the release itself succeeded.
+  }
+};
+
 // Feature/* releases are npm-only: semantic-release always creates a git tag,
 // so delete it (local + remote) right after a successful feature release.
 // The matching `@semantic-release/github` exclusion below avoids leaving a
 // GitHub Release behind that points at the deleted tag.
 const removeGitTagOnFeature = {
   async success(_pluginConfig, context) {
-    const branchName = context?.branch?.name ?? '';
+    const branchName = context.branch.name;
     if (!branchName.startsWith('feature/')) {
       return;
     }
-    const version = context?.nextRelease?.version;
-    if (!version) {
-      return;
-    }
-    const tag = `v${version}`;
-    try {
-      execFileSync('git', ['tag', '-d', tag], { stdio: 'ignore' });
-    } catch {
-      // Tag may not exist locally; the remote delete below is what matters.
-    }
-    try {
-      execFileSync('git', ['push', 'origin', `:refs/tags/${tag}`], { stdio: 'ignore' });
-    } catch {
-      // Tag may already be gone remotely; the release itself succeeded.
-    }
-    context?.logger?.log?.(`Deleted git tag ${tag} (feature branch releases are npm-only).`);
+    const tag = `v${context.nextRelease.version}`;
+    tryGit('tag', '-d', tag);
+    tryGit('push', 'origin', `:refs/tags/${tag}`);
+    context.logger.log(`Deleted git tag ${tag} (feature branch releases are npm-only).`);
   },
 };
 
