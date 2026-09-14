@@ -2,7 +2,6 @@ import type { SchemaAST } from 'effect';
 
 import { Effect, Predicate, Schema, SchemaGetter, SchemaIssue } from 'effect';
 import XMLBuilder from 'fast-xml-builder';
-import { XMLParser } from 'fast-xml-parser';
 
 import type { XmlNode } from '#/helpers/get-prop.ts';
 import type { PeppolCreditNoteLine } from '#/schemas/fields/peppol-credit-note-line-schema.ts';
@@ -24,7 +23,7 @@ import { PeppolInvoiceResponse } from '#/schemas/peppol-invoice-response-schema.
 import { PeppolInvoice } from '#/schemas/peppol-invoice-schema.ts';
 import { PeppolMessageLevelResponse } from '#/schemas/peppol-message-level-response-schema.ts';
 import { builderOptions } from '#/xml/builder-options.ts';
-import { parserOptions } from '#/xml/parser-options.ts';
+import { parseXmlNodable } from '#/xml/nodable-parser.ts';
 
 /**
  * @description Object representation of a PEPPOL document, before the member schemas normalise it (dates stay strings, enums stay loose). This is the shape
@@ -36,7 +35,7 @@ const peppolDocumentObjectSchema = Schema.Union([PeppolInvoice, PeppolCreditNote
 
 type PeppolDocumentObject = typeof peppolDocumentObjectSchema.Encoded;
 
-const parseXml = (value: string): XmlNode => new XMLParser({ ...parserOptions, removeNSPrefix: true }).parse(value);
+const parseXml = (value: string): XmlNode => parseXmlNodable(value);
 
 export const isPeppolInvoice = Schema.is(PeppolInvoice);
 export const isPeppolCreditNote = Schema.is(PeppolCreditNote);

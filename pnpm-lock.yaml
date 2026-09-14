@@ -175,6 +175,9 @@ importers:
       '@effect/vitest':
         specifier: ^4.0.0-rc.113
         version: 4.0.0-rc.115(effect@4.0.0-rc.113)(vitest@5.0.0)
+      '@nodable/base-output-builder':
+        specifier: ^2.0.0
+        version: 2.0.0
       '@nodable/compact-builder':
         specifier: ^2.0.0
         version: 2.0.0

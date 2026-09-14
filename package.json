@@ -114,6 +114,7 @@
     "@arethetypeswrong/core": "^0.18.5",
     "@effect/tsgo": "^0.45.0",
     "@effect/vitest": "^4.0.0-rc.113",
+    "@nodable/base-output-builder": "^2.0.0",
     "@nodable/compact-builder": "^2.0.0",
     "@nodable/flexible-xml-parser": "^1.11.3",
     "@types/bun": "^1.4.2",
@@ -137,6 +138,9 @@
     "vitest": "^5.0.0"
   },
   "peerDependencies": {
+    "@nodable/base-output-builder": "^2",
+    "@nodable/compact-builder": "^2",
+    "@nodable/flexible-xml-parser": "^1",
     "effect": "^4.0.0-rc.113",
     "fast-xml-builder": "^1",
     "fast-xml-parser": "^5"
