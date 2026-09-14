@@ -1,7 +1,8 @@
 /**
  * @description Unit tests for PEPPOL-EN16931-R043 (charge indicator value).
  */
-import { describe, expect, it } from 'vitest';
+import { describe, it } from '@effect/vitest';
+import { Effect } from 'effect';
 
 import type { PeppolDocument } from '#/schemas/peppol-document-schema';
 
@@ -10,18 +11,29 @@ import { decodeBaseExample } from '#/test/test-utils';
 import { validatePeppolEn16931R043 } from './peppol-en16931-r043';
 
 describe('PEPPOL-EN16931-R043 (charge indicator value)', () => {
-  it('passes on the base example', async () => {
-    const document = await decodeBaseExample();
-    expect(validatePeppolEn16931R043(document).passed).toEqual(true);
-  });
+  it.effect(
+    'passes on the base example',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => decodeBaseExample());
+      yield* validatePeppolEn16931R043(document);
+    })
+  );
 
-  it('passes when all allowance/charge indicators are booleans', async () => {
-    const document = await decodeBaseExample();
-    expect(validatePeppolEn16931R043(document).passed).toEqual(true);
-  });
+  it.effect(
+    'passes when all allowance/charge indicators are booleans',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => decodeBaseExample());
+      yield* validatePeppolEn16931R043(document);
+    })
+  );
 
-  it('passes when there are no allowance/charges', async () => {
-    const document = { ...(await decodeBaseExample()), allowanceCharges: undefined } as unknown as PeppolDocument;
-    expect(validatePeppolEn16931R043(document).passed).toEqual(true);
-  });
+  it.effect(
+    'passes when there are no allowance/charges',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(
+        async () => ({ ...(await decodeBaseExample()), allowanceCharges: undefined }) as unknown as PeppolDocument
+      );
+      yield* validatePeppolEn16931R043(document);
+    })
+  );
 });

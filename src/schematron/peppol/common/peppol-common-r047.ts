@@ -1,9 +1,8 @@
 import type { PeppolDocument } from '#/schemas/peppol-document-schema';
 import type { SchematronRule } from '#/schematron/helpers';
-import type { SchematronRuleResult } from '#/schematron/types';
 
 import { checkPIVAseIT } from '#/peppol-validations/check-piva-se-it';
-import { getIdentifiersWithSchemeId, schematronResult } from '#/schematron/helpers';
+import { getIdentifiersWithSchemeId, schematronRule } from '#/schematron/helpers';
 
 const rule = {
   id: 'PEPPOL-COMMON-R047',
@@ -13,8 +12,10 @@ const rule = {
 
 const SCHEME_ID = '0211';
 
-export function validatePeppolCommonR047(document: PeppolDocument): SchematronRuleResult {
+function evaluatePeppolCommonR047(document: PeppolDocument): boolean {
   const identifiers = getIdentifiersWithSchemeId(document).filter(i => i.schemeId === SCHEME_ID);
   const passed = identifiers.every(i => checkPIVAseIT(i.id));
-  return schematronResult(rule, passed);
+  return passed;
 }
+
+export const validatePeppolCommonR047 = schematronRule(rule, evaluatePeppolCommonR047);

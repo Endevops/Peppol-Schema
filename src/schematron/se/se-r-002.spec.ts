@@ -1,7 +1,8 @@
 /**
  * @description Unit tests for SE-R-002 (Swedish VAT number trailing 12 numeric).
  */
-import { describe, expect, it } from 'vitest';
+import { assert, describe, it } from '@effect/vitest';
+import { Effect, Result } from 'effect';
 
 import type { PeppolDocument } from '#/schemas/peppol-document-schema';
 
@@ -22,13 +23,20 @@ async function withSupplierCountry(document: PeppolDocument, country: string, va
 }
 
 describe('SE-R-002 (Swedish VAT number trailing 12 numeric)', () => {
-  it('passes when not applicable', async () => {
-    const document = await decodeBaseExample();
-    expect(validateSeR002(document).passed).toEqual(true);
-  });
+  it.effect(
+    'passes when not applicable',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => decodeBaseExample());
+      yield* validateSeR002(document);
+    })
+  );
 
-  it('fails when a Swedish supplier VAT number has non-numeric trailing characters', async () => {
-    const document = await withSupplierCountry(await decodeBaseExample(), 'SE', 'SE1234567890ABC');
-    expect(validateSeR002(document).passed).toEqual(false);
-  });
+  it.effect(
+    'fails when a Swedish supplier VAT number has non-numeric trailing characters',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => withSupplierCountry(await decodeBaseExample(), 'SE', 'SE1234567890ABC'));
+      const result = yield* validateSeR002(document).pipe(Effect.result);
+      assert(Result.isFailure(result));
+    })
+  );
 });

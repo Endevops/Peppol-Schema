@@ -1,7 +1,8 @@
 /**
  * @description Unit tests for NL-R-007 (payment means required when payment flows to supplier).
  */
-import { describe, expect, it } from 'vitest';
+import { assert, describe, it } from '@effect/vitest';
+import { Effect, Result } from 'effect';
 
 import type { PeppolDocument } from '#/schemas/peppol-document-schema';
 
@@ -26,19 +27,29 @@ async function asDutch(document: PeppolDocument): Promise<PeppolDocument> {
 }
 
 describe('NL-R-007 (payment means required when payment flows to supplier)', () => {
-  it('passes when not applicable', async () => {
-    const document = await decodeBaseExample();
-    expect(validateNlR007(document).passed).toEqual(true);
-  });
+  it.effect(
+    'passes when not applicable',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => decodeBaseExample());
+      yield* validateNlR007(document);
+    })
+  );
 
-  it('fails when a Dutch document has a positive payable amount and no payment means', async () => {
-    const document = await asDutch(await decodeBaseExample());
-    const altered = { ...document, paymentMeans: undefined } as unknown as PeppolDocument;
-    expect(validateNlR007(altered).passed).toEqual(false);
-  });
+  it.effect(
+    'fails when a Dutch document has a positive payable amount and no payment means',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => asDutch(await decodeBaseExample()));
+      const altered = { ...document, paymentMeans: undefined } as unknown as PeppolDocument;
+      const result = yield* validateNlR007(altered).pipe(Effect.result);
+      assert(Result.isFailure(result));
+    })
+  );
 
-  it('passes when a Dutch document has a positive payable amount and payment means', async () => {
-    const document = await asDutch(await decodeBaseExample());
-    expect(validateNlR007(document).passed).toEqual(true);
-  });
+  it.effect(
+    'passes when a Dutch document has a positive payable amount and payment means',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => asDutch(await decodeBaseExample()));
+      yield* validateNlR007(document);
+    })
+  );
 });

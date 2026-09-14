@@ -1,8 +1,7 @@
 import type { PeppolDocument } from '#/schemas/peppol-document-schema';
 import type { SchematronRule } from '#/schematron/helpers';
-import type { SchematronRuleResult } from '#/schematron/types';
 
-import { isDanishSupplierAndCustomer, schematronResult } from '#/schematron/helpers';
+import { isDanishSupplierAndCustomer, schematronRule } from '#/schematron/helpers';
 
 const rule = {
   id: 'DK-R-016',
@@ -10,9 +9,11 @@ const rule = {
   message: 'For Danish Suppliers, a Credit note cannot have a negative total (PayableAmount)',
 } as const satisfies SchematronRule;
 
-export function validateDkR016(document: PeppolDocument): SchematronRuleResult {
+function evaluateDkR016(document: PeppolDocument): boolean {
   if (!('creditNoteLines' in document) || !isDanishSupplierAndCustomer(document)) {
-    return schematronResult(rule, true);
+    return true;
   }
-  return schematronResult(rule, document.legalMonetaryTotal.payableAmount.value >= 0);
+  return document.legalMonetaryTotal.payableAmount.value >= 0;
 }
+
+export const validateDkR016 = schematronRule(rule, evaluateDkR016);

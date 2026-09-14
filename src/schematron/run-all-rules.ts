@@ -1,5 +1,4 @@
-import type { PeppolDocument } from '#/schemas/peppol-document-schema';
-import type { SchematronRuleResult } from '#/schematron/types';
+import type { SchematronDocumentValidator } from '#/schematron/helpers';
 
 import { validateCenEn16931BrAe01 } from '#/schematron/cen/ae/cen-en16931-br-ae-01';
 import { validateCenEn16931BrAe02 } from '#/schematron/cen/ae/cen-en16931-br-ae-02';
@@ -362,7 +361,7 @@ import { validateSeR011 } from '#/schematron/se/se-r-011';
 import { validateSeR012 } from '#/schematron/se/se-r-012';
 import { validateSeR013 } from '#/schematron/se/se-r-013';
 
-const ruleValidators: Array<(document: PeppolDocument) => SchematronRuleResult> = [
+export const ruleValidators: ReadonlyArray<SchematronDocumentValidator> = [
   validateCenEn16931BrAe01,
   validateCenEn16931BrAe02,
   validateCenEn16931BrAe03,
@@ -724,7 +723,3 @@ const ruleValidators: Array<(document: PeppolDocument) => SchematronRuleResult> 
   validateSeR012,
   validateSeR013,
 ];
-
-export function runAllRules(document: PeppolDocument): Array<SchematronRuleResult> {
-  return ruleValidators.map(validate => validate(document));
-}

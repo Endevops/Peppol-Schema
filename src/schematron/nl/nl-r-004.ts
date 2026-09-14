@@ -1,8 +1,7 @@
 import type { PeppolDocument } from '#/schemas/peppol-document-schema';
 import type { SchematronRule } from '#/schematron/helpers';
-import type { SchematronRuleResult } from '#/schematron/types';
 
-import { getCustomerCountry, getSupplierCountry, schematronResult } from '#/schematron/helpers';
+import { getCustomerCountry, getSupplierCountry, schematronRule } from '#/schematron/helpers';
 
 const rule = {
   id: 'NL-R-004',
@@ -11,10 +10,12 @@ const rule = {
     '[NL-R-004] For suppliers in the Netherlands, if the customer is in the Netherlands, the customer address (cac:AccountingCustomerParty/cac:Party/cac:PostalAddress) MUST contain the street name (cbc:StreetName), the city (cbc:CityName) and post code (cbc:PostalZone)',
 } as const satisfies SchematronRule;
 
-export function validateNlR004(document: PeppolDocument): SchematronRuleResult {
+function evaluateNlR004(document: PeppolDocument): boolean {
   if (getSupplierCountry(document) !== 'NL' || getCustomerCountry(document) !== 'NL') {
-    return schematronResult(rule, true);
+    return true;
   }
   const address = document.accountingCustomerParty.postalAddress;
-  return schematronResult(rule, Boolean(address.streetName) && Boolean(address.cityName) && Boolean(address.postalZone));
+  return Boolean(address.streetName) && Boolean(address.cityName) && Boolean(address.postalZone);
 }
+
+export const validateNlR004 = schematronRule(rule, evaluateNlR004);

@@ -1,8 +1,7 @@
 import type { PeppolDocument } from '#/schemas/peppol-document-schema';
 import type { SchematronRule } from '#/schematron/helpers';
-import type { SchematronRuleResult } from '#/schematron/types';
 
-import { getCustomerCountry, getSupplierCountry, schematronResult } from '#/schematron/helpers';
+import { getCustomerCountry, getSupplierCountry, schematronRule } from '#/schematron/helpers';
 
 const rule = {
   id: 'NL-R-005',
@@ -13,13 +12,15 @@ const rule = {
 
 const ALLOWED_SCHEMES = new Set(['0106', '0190']);
 
-export function validateNlR005(document: PeppolDocument): SchematronRuleResult {
+function evaluateNlR005(document: PeppolDocument): boolean {
   if (getSupplierCountry(document) !== 'NL' || getCustomerCountry(document) !== 'NL') {
-    return schematronResult(rule, true);
+    return true;
   }
   const companyId = document.accountingCustomerParty.partyLegalEntity.companyId;
   if (!companyId?.id) {
-    return schematronResult(rule, true);
+    return true;
   }
-  return schematronResult(rule, Boolean(companyId.schemeId && ALLOWED_SCHEMES.has(companyId.schemeId)));
+  return Boolean(companyId.schemeId && ALLOWED_SCHEMES.has(companyId.schemeId));
 }
+
+export const validateNlR005 = schematronRule(rule, evaluateNlR005);

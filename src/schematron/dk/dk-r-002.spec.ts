@@ -1,7 +1,8 @@
 /**
  * @description Unit tests for DK-R-002 (Danish suppliers MUST provide legal entity).
  */
-import { describe, expect, it } from 'vitest';
+import { assert, describe, it } from '@effect/vitest';
+import { Effect, Result } from 'effect';
 
 import type { PeppolDocument } from '#/schemas/peppol-document-schema';
 
@@ -22,20 +23,27 @@ async function withSupplierCountry(document: PeppolDocument, country: string, va
 }
 
 describe('DK-R-002 (Danish suppliers MUST provide legal entity)', () => {
-  it('passes when not applicable', async () => {
-    const document = await decodeBaseExample();
-    expect(validateDkR002(document).passed).toEqual(true);
-  });
+  it.effect(
+    'passes when not applicable',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => decodeBaseExample());
+      yield* validateDkR002(document);
+    })
+  );
 
-  it('fails when a Danish supplier has no legal entity company id', async () => {
-    const document = await withSupplierCountry(await decodeBaseExample(), 'DK');
-    const altered = {
-      ...document,
-      accountingSupplierParty: {
-        ...document.accountingSupplierParty,
-        partyLegalEntity: { ...document.accountingSupplierParty.partyLegalEntity, companyId: undefined },
-      },
-    } as unknown as PeppolDocument;
-    expect(validateDkR002(altered).passed).toEqual(false);
-  });
+  it.effect(
+    'fails when a Danish supplier has no legal entity company id',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => withSupplierCountry(await decodeBaseExample(), 'DK'));
+      const altered = {
+        ...document,
+        accountingSupplierParty: {
+          ...document.accountingSupplierParty,
+          partyLegalEntity: { ...document.accountingSupplierParty.partyLegalEntity, companyId: undefined },
+        },
+      } as unknown as PeppolDocument;
+      const result = yield* validateDkR002(altered).pipe(Effect.result);
+      assert(Result.isFailure(result));
+    })
+  );
 });

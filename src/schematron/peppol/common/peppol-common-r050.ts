@@ -1,10 +1,9 @@
 import type { PeppolDocument } from '#/schemas/peppol-document-schema';
 import type { SchematronRule } from '#/schematron/helpers';
-import type { SchematronRuleResult } from '#/schematron/types';
 
 import { isValidABN } from '#/peppol-validations/is-valid-abn';
 import { normalizeSpace } from '#/peppol-validations/normalize-space';
-import { getIdentifiersWithSchemeId, schematronResult } from '#/schematron/helpers';
+import { getIdentifiersWithSchemeId, schematronRule } from '#/schematron/helpers';
 
 const rule = {
   id: 'PEPPOL-COMMON-R050',
@@ -14,8 +13,10 @@ const rule = {
 
 const SCHEME_ID = '0151';
 
-export function validatePeppolCommonR050(document: PeppolDocument): SchematronRuleResult {
+function evaluatePeppolCommonR050(document: PeppolDocument): boolean {
   const identifiers = getIdentifiersWithSchemeId(document).filter(i => i.schemeId === SCHEME_ID);
   const passed = identifiers.every(i => /^[0-9]{11}$/.test(normalizeSpace(i.id)) && isValidABN(normalizeSpace(i.id)));
-  return schematronResult(rule, passed);
+  return passed;
 }
+
+export const validatePeppolCommonR050 = schematronRule(rule, evaluatePeppolCommonR050);

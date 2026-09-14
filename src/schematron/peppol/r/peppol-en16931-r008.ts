@@ -1,8 +1,7 @@
 import type { PeppolDocument } from '#/schemas/peppol-document-schema';
 import type { SchematronRule } from '#/schematron/helpers';
-import type { SchematronRuleResult } from '#/schematron/types';
 
-import { schematronResult } from '#/schematron/helpers';
+import { schematronRule } from '#/schematron/helpers';
 
 const rule = { id: 'PEPPOL-EN16931-R008', level: 'fatal', message: 'Document MUST not contain empty elements.' } as const satisfies SchematronRule;
 
@@ -22,6 +21,8 @@ function containsEmptyElement(value: unknown): boolean {
   return false;
 }
 
-export function validatePeppolEn16931R008(document: PeppolDocument): SchematronRuleResult {
-  return schematronResult(rule, !containsEmptyElement(document));
+function evaluatePeppolEn16931R008(document: PeppolDocument): boolean {
+  return !containsEmptyElement(document);
 }
+
+export const validatePeppolEn16931R008 = schematronRule(rule, evaluatePeppolEn16931R008);

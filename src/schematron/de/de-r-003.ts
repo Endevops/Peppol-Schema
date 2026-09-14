@@ -1,15 +1,16 @@
 import type { PeppolDocument } from '#/schemas/peppol-document-schema';
 import type { SchematronRule } from '#/schematron/helpers';
-import type { SchematronRuleResult } from '#/schematron/types';
 
-import { isGermanSupplierAndCustomer, schematronResult } from '#/schematron/helpers';
+import { isGermanSupplierAndCustomer, schematronRule } from '#/schematron/helpers';
 
 const rule = { id: 'DE-R-003', level: 'fatal', message: 'The element "Seller city" (BT-37) shall be provided.' } as const satisfies SchematronRule;
 
-export function validateDeR003(document: PeppolDocument): SchematronRuleResult {
+function evaluateDeR003(document: PeppolDocument): boolean {
   if (!isGermanSupplierAndCustomer(document)) {
-    return schematronResult(rule, true);
+    return true;
   }
   const cityName = document.accountingSupplierParty.postalAddress.cityName;
-  return schematronResult(rule, typeof cityName === 'string' && cityName.trim() !== '');
+  return typeof cityName === 'string' && cityName.trim() !== '';
 }
+
+export const validateDeR003 = schematronRule(rule, evaluateDeR003);

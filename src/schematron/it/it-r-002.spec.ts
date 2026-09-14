@@ -1,7 +1,8 @@
 /**
  * @description Unit tests for IT-R-002 (Italian supplier address).
  */
-import { describe, expect, it } from 'vitest';
+import { assert, describe, it } from '@effect/vitest';
+import { Effect, Result } from 'effect';
 
 import type { PeppolDocument } from '#/schemas/peppol-document-schema';
 
@@ -22,20 +23,27 @@ async function withSupplierCountry(document: PeppolDocument, country: string, va
 }
 
 describe('IT-R-002 (Italian supplier address)', () => {
-  it('passes when not applicable', async () => {
-    const document = await decodeBaseExample();
-    expect(validateItR002(document).passed).toEqual(true);
-  });
+  it.effect(
+    'passes when not applicable',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => decodeBaseExample());
+      yield* validateItR002(document);
+    })
+  );
 
-  it('fails when an Italian supplier has no address line', async () => {
-    const document = await withSupplierCountry(await decodeBaseExample(), 'IT');
-    const altered = {
-      ...document,
-      accountingSupplierParty: {
-        ...document.accountingSupplierParty,
-        postalAddress: { ...document.accountingSupplierParty.postalAddress, streetName: undefined },
-      },
-    } as unknown as PeppolDocument;
-    expect(validateItR002(altered).passed).toEqual(false);
-  });
+  it.effect(
+    'fails when an Italian supplier has no address line',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => withSupplierCountry(await decodeBaseExample(), 'IT'));
+      const altered = {
+        ...document,
+        accountingSupplierParty: {
+          ...document.accountingSupplierParty,
+          postalAddress: { ...document.accountingSupplierParty.postalAddress, streetName: undefined },
+        },
+      } as unknown as PeppolDocument;
+      const result = yield* validateItR002(altered).pipe(Effect.result);
+      assert(Result.isFailure(result));
+    })
+  );
 });

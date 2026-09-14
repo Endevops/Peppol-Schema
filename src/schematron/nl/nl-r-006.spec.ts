@@ -1,7 +1,8 @@
 /**
  * @description Unit tests for NL-R-006 (Dutch tax representative address).
  */
-import { describe, expect, it } from 'vitest';
+import { assert, describe, it } from '@effect/vitest';
+import { Effect, Result } from 'effect';
 
 import type { PeppolDocument } from '#/schemas/peppol-document-schema';
 
@@ -26,21 +27,28 @@ async function asDutch(document: PeppolDocument): Promise<PeppolDocument> {
 }
 
 describe('NL-R-006 (Dutch tax representative address)', () => {
-  it('passes when not applicable', async () => {
-    const document = await decodeBaseExample();
-    expect(validateNlR006(document).passed).toEqual(true);
-  });
+  it.effect(
+    'passes when not applicable',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => decodeBaseExample());
+      yield* validateNlR006(document);
+    })
+  );
 
-  it('fails when a Dutch document has a Dutch tax representative without a post code', async () => {
-    const document = await asDutch(await decodeBaseExample());
-    const altered = {
-      ...document,
-      taxRepresentativeParty: {
-        name: 'Tax Rep',
-        partyTaxScheme: { companyId: 'NL123', taxSchemeId: { id: 'VAT' } },
-        postalAddress: { streetName: 'Street 1', cityName: 'Amsterdam', postalZone: undefined, countryCode: { identificationCode: 'NL' } },
-      },
-    } as unknown as PeppolDocument;
-    expect(validateNlR006(altered).passed).toEqual(false);
-  });
+  it.effect(
+    'fails when a Dutch document has a Dutch tax representative without a post code',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => asDutch(await decodeBaseExample()));
+      const altered = {
+        ...document,
+        taxRepresentativeParty: {
+          name: 'Tax Rep',
+          partyTaxScheme: { companyId: 'NL123', taxSchemeId: { id: 'VAT' } },
+          postalAddress: { streetName: 'Street 1', cityName: 'Amsterdam', postalZone: undefined, countryCode: { identificationCode: 'NL' } },
+        },
+      } as unknown as PeppolDocument;
+      const result = yield* validateNlR006(altered).pipe(Effect.result);
+      assert(Result.isFailure(result));
+    })
+  );
 });

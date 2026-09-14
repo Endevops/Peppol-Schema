@@ -1,8 +1,7 @@
 import type { PeppolDocument } from '#/schemas/peppol-document-schema';
 import type { SchematronRule } from '#/schematron/helpers';
-import type { SchematronRuleResult } from '#/schematron/types';
 
-import { getSupplierCountry, schematronResult } from '#/schematron/helpers';
+import { getSupplierCountry, schematronRule } from '#/schematron/helpers';
 
 const rule = {
   id: 'IS-R-008',
@@ -12,17 +11,19 @@ const rule = {
 
 const DATE_REGEX = /^\d{4}-\d{2}-\d{2}$/;
 
-export function validateIsR008(document: PeppolDocument): SchematronRuleResult {
+function evaluateIsR008(document: PeppolDocument): boolean {
   if (getSupplierCountry(document) !== 'IS') {
-    return schematronResult(rule, true);
+    return true;
   }
   const eindagiReferences = (document.additionalDocumentReferences ?? []).filter(ref => ref.documentDescription === 'EINDAGI');
   if (eindagiReferences.length === 0) {
-    return schematronResult(rule, true);
+    return true;
   }
   const passed = eindagiReferences.every(ref => {
     const id = ref.id.id;
     return id.length === 10 && DATE_REGEX.test(id) && !Number.isNaN(Date.parse(id));
   });
-  return schematronResult(rule, passed);
+  return passed;
 }
+
+export const validateIsR008 = schematronRule(rule, evaluateIsR008);

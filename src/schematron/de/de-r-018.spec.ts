@@ -1,7 +1,8 @@
 /**
  * @description Unit tests for DE-R-018 (German skonto format).
  */
-import { describe, expect, it } from 'vitest';
+import { assert, describe, it } from '@effect/vitest';
+import { Effect, Result } from 'effect';
 
 import type { PeppolDocument } from '#/schemas/peppol-document-schema';
 
@@ -32,20 +33,30 @@ async function withCountry(
 }
 
 describe('DE-R-018 (German skonto format)', () => {
-  it('passes when not applicable', async () => {
-    const document = await decodeBaseExample();
-    expect(validateDeR018(document).passed).toEqual(true);
-  });
+  it.effect(
+    'passes when not applicable',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => decodeBaseExample());
+      yield* validateDeR018(document);
+    })
+  );
 
-  it('fails when both parties are German and the payment terms note does not match the skonto format', async () => {
-    const document = await withCountry(await decodeBaseExample(), 'DE', 'DE');
-    const altered = { ...document, paymentTerms: { note: '#NOT-A-SKONTO#' } } as unknown as PeppolDocument;
-    expect(validateDeR018(altered).passed).toEqual(false);
-  });
+  it.effect(
+    'fails when both parties are German and the payment terms note does not match the skonto format',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => withCountry(await decodeBaseExample(), 'DE', 'DE'));
+      const altered = { ...document, paymentTerms: { note: '#NOT-A-SKONTO#' } } as unknown as PeppolDocument;
+      const result = yield* validateDeR018(altered).pipe(Effect.result);
+      assert(Result.isFailure(result));
+    })
+  );
 
-  it('passes when both parties are German and the payment terms note matches the skonto format', async () => {
-    const document = await withCountry(await decodeBaseExample(), 'DE', 'DE');
-    const altered = { ...document, paymentTerms: { note: '#SKONTO#TAGE=10#PROZENT=2.00#' } } as unknown as PeppolDocument;
-    expect(validateDeR018(altered).passed).toEqual(true);
-  });
+  it.effect(
+    'passes when both parties are German and the payment terms note matches the skonto format',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => withCountry(await decodeBaseExample(), 'DE', 'DE'));
+      const altered = { ...document, paymentTerms: { note: '#SKONTO#TAGE=10#PROZENT=2.00#' } } as unknown as PeppolDocument;
+      yield* validateDeR018(altered);
+    })
+  );
 });

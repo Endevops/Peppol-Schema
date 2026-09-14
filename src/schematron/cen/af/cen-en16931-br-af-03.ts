@@ -1,13 +1,7 @@
 import type { PeppolDocument } from '#/schemas/peppol-document-schema';
 import type { SchematronRule } from '#/schematron/helpers';
-import type { SchematronRuleResult } from '#/schematron/types';
 
-import {
-  hasDocumentAllowanceVatCategoryCode,
-  hasSellerTaxIdentifier,
-  hasTaxRepresentativeVatCompanyId,
-  schematronResult,
-} from '#/schematron/helpers';
+import { hasDocumentAllowanceVatCategoryCode, hasSellerTaxIdentifier, hasTaxRepresentativeVatCompanyId, schematronRule } from '#/schematron/helpers';
 
 const rule = {
   id: 'CEN-EN16931-BR-AF-03',
@@ -16,8 +10,10 @@ const rule = {
     'An Invoice that contains a Document level allowance (BG-20) where the Document level allowance VAT category code (BT-95) is "IGIC" shall contain the Seller VAT Identifier (BT-31), the Seller tax registration identifier (BT-32) and/or the Seller tax representative VAT identifier (BT-63).',
 } as const satisfies SchematronRule;
 
-export function validateCenEn16931BrAf03(document: PeppolDocument): SchematronRuleResult {
+function evaluateCenEn16931BrAf03(document: PeppolDocument): boolean {
   const passed =
     !hasDocumentAllowanceVatCategoryCode(document, 'L') || hasSellerTaxIdentifier(document) || hasTaxRepresentativeVatCompanyId(document);
-  return schematronResult(rule, passed);
+  return passed;
 }
+
+export const validateCenEn16931BrAf03 = schematronRule(rule, evaluateCenEn16931BrAf03);

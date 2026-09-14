@@ -1,8 +1,7 @@
 import type { PeppolDocument } from '#/schemas/peppol-document-schema';
 import type { SchematronRule } from '#/schematron/helpers';
-import type { SchematronRuleResult } from '#/schematron/types';
 
-import { isGermanSupplierAndCustomer, schematronResult } from '#/schematron/helpers';
+import { isGermanSupplierAndCustomer, schematronRule } from '#/schematron/helpers';
 
 const rule = {
   id: 'DE-R-009',
@@ -10,10 +9,12 @@ const rule = {
   message: 'The element "Buyer post code" (BT-53) shall be provided.',
 } as const satisfies SchematronRule;
 
-export function validateDeR009(document: PeppolDocument): SchematronRuleResult {
+function evaluateDeR009(document: PeppolDocument): boolean {
   if (!isGermanSupplierAndCustomer(document)) {
-    return schematronResult(rule, true);
+    return true;
   }
   const postalZone = document.accountingCustomerParty.postalAddress.postalZone;
-  return schematronResult(rule, typeof postalZone === 'string' && postalZone.trim() !== '');
+  return typeof postalZone === 'string' && postalZone.trim() !== '';
 }
+
+export const validateDeR009 = schematronRule(rule, evaluateDeR009);

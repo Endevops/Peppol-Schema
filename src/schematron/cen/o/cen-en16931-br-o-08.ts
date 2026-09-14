@@ -1,8 +1,7 @@
 import type { PeppolDocument } from '#/schemas/peppol-document-schema';
 import type { SchematronRule } from '#/schematron/helpers';
-import type { SchematronRuleResult } from '#/schematron/types';
 
-import { amountsEqual, getTaxSubtotalsWithCode, categoryTaxableSum, schematronResult } from '#/schematron/helpers';
+import { amountsEqual, categoryTaxableSum, getTaxSubtotalsWithCode, schematronRule } from '#/schematron/helpers';
 
 const rule = {
   id: 'CEN-EN16931-BR-O-08',
@@ -11,7 +10,9 @@ const rule = {
     'In a VAT breakdown (BG-23) where the VAT category code (BT-118) is " Not subject to VAT" the VAT category taxable amount (BT-116) shall equal the sum of Invoice line net amounts (BT-131) minus the sum of Document level allowance amounts (BT-92) plus the sum of Document level charge amounts (BT-99) where the VAT category codes (BT-151, BT-95, BT-102) are "Not subject to VAT".',
 } as const satisfies SchematronRule;
 
-export function validateCenEn16931BrO08(document: PeppolDocument): SchematronRuleResult {
+function evaluateCenEn16931BrO08(document: PeppolDocument): boolean {
   const passed = getTaxSubtotalsWithCode(document, 'O').every(st => amountsEqual(st.taxableAmount, categoryTaxableSum(document, 'O')));
-  return schematronResult(rule, passed);
+  return passed;
 }
+
+export const validateCenEn16931BrO08 = schematronRule(rule, evaluateCenEn16931BrO08);

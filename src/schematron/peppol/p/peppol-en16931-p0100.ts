@@ -1,8 +1,7 @@
 import type { PeppolDocument } from '#/schemas/peppol-document-schema';
 import type { SchematronRule } from '#/schematron/helpers';
-import type { SchematronRuleResult } from '#/schematron/types';
 
-import { getProfile, schematronResult } from '#/schematron/helpers';
+import { getProfile, schematronRule } from '#/schematron/helpers';
 
 const rule = {
   id: 'PEPPOL-EN16931-P0100',
@@ -39,14 +38,16 @@ const PROFILE_01_INVOICE_TYPE_CODES = new Set([
   '877',
 ]);
 
-export function validatePeppolEn16931P0100(document: PeppolDocument): SchematronRuleResult {
+function evaluatePeppolEn16931P0100(document: PeppolDocument): boolean {
   const invoiceTypeCode = 'invoiceTypeCode' in document ? document.invoiceTypeCode : undefined;
   if (invoiceTypeCode === undefined) {
-    return schematronResult(rule, true);
+    return true;
   }
   const profile = getProfile(document);
   if (profile === 'Unknown' || profile !== '01') {
-    return schematronResult(rule, true);
+    return true;
   }
-  return schematronResult(rule, PROFILE_01_INVOICE_TYPE_CODES.has(invoiceTypeCode));
+  return PROFILE_01_INVOICE_TYPE_CODES.has(invoiceTypeCode);
 }
+
+export const validatePeppolEn16931P0100 = schematronRule(rule, evaluatePeppolEn16931P0100);

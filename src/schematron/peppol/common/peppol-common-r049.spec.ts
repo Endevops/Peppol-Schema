@@ -1,7 +1,8 @@
 /**
  * @description Unit tests for PEPPOL-COMMON-R049 (Swedish org number, scheme 0007).
  */
-import { describe, expect, it } from 'vitest';
+import { assert, describe, it } from '@effect/vitest';
+import { Effect, Result } from 'effect';
 
 import type { PeppolDocument } from '#/schemas/peppol-document-schema';
 
@@ -14,18 +15,28 @@ async function withEndpointId(document: PeppolDocument, schemeId: string, id: st
 }
 
 describe('PEPPOL-COMMON-R049 (Swedish org number, scheme 0007)', () => {
-  it('passes when no identifier uses the checked scheme', async () => {
-    const document = await decodeBaseExample();
-    expect(validatePeppolCommonR049(document).passed).toEqual(true);
-  });
+  it.effect(
+    'passes when no identifier uses the checked scheme',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => decodeBaseExample());
+      yield* validatePeppolCommonR049(document);
+    })
+  );
 
-  it('passes for a valid Swedish org number', async () => {
-    const document = await withEndpointId(await decodeBaseExample(), '0007', '5561234567');
-    expect(validatePeppolCommonR049(document).passed).toEqual(true);
-  });
+  it.effect(
+    'passes for a valid Swedish org number',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => withEndpointId(await decodeBaseExample(), '0007', '5561234567'));
+      yield* validatePeppolCommonR049(document);
+    })
+  );
 
-  it('fails for an invalid Swedish org number', async () => {
-    const document = await withEndpointId(await decodeBaseExample(), '0007', '123');
-    expect(validatePeppolCommonR049(document).passed).toEqual(false);
-  });
+  it.effect(
+    'fails for an invalid Swedish org number',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => withEndpointId(await decodeBaseExample(), '0007', '123'));
+      const result = yield* validatePeppolCommonR049(document).pipe(Effect.result);
+      assert(Result.isFailure(result));
+    })
+  );
 });

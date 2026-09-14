@@ -1,8 +1,7 @@
 import type { PeppolDocument } from '#/schemas/peppol-document-schema';
 import type { SchematronRule } from '#/schematron/helpers';
-import type { SchematronRuleResult } from '#/schematron/types';
 
-import { schematronResult } from '#/schematron/helpers';
+import { schematronRule } from '#/schematron/helpers';
 
 const rule = {
   id: 'CEN-EN16931-BR-57',
@@ -10,9 +9,11 @@ const rule = {
   message: 'Each Deliver to address (BG-15) shall contain a Deliver to country code (BT-80).',
 } as const satisfies SchematronRule;
 
-export function validateCenEn16931Br57(document: PeppolDocument): SchematronRuleResult {
+function evaluateCenEn16931Br57(document: PeppolDocument): boolean {
   const passed =
     typeof document.delivery?.deliveryLocation?.address?.countryCode.identificationCode === 'string' &&
     document.delivery.deliveryLocation.address.countryCode.identificationCode.trim() !== '';
-  return schematronResult(rule, passed);
+  return passed;
 }
+
+export const validateCenEn16931Br57 = schematronRule(rule, evaluateCenEn16931Br57);

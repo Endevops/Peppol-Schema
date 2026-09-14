@@ -1,8 +1,7 @@
 import type { PeppolDocument } from '#/schemas/peppol-document-schema';
 import type { SchematronRule } from '#/schematron/helpers';
-import type { SchematronRuleResult } from '#/schematron/types';
 
-import { isDanishSupplierAndCustomer, schematronResult } from '#/schematron/helpers';
+import { isDanishSupplierAndCustomer, schematronRule } from '#/schematron/helpers';
 
 const rule = {
   id: 'DK-R-005',
@@ -12,10 +11,12 @@ const rule = {
 
 const ALLOWED_CODES = new Set(['1', '10', '31', '42', '48', '49', '50', '58', '59', '93', '97']);
 
-export function validateDkR005(document: PeppolDocument): SchematronRuleResult {
+function evaluateDkR005(document: PeppolDocument): boolean {
   if (!isDanishSupplierAndCustomer(document)) {
-    return schematronResult(rule, true);
+    return true;
   }
   const passed = (document.paymentMeans ?? []).every(payment => ALLOWED_CODES.has(payment.paymentMeansCode.code));
-  return schematronResult(rule, passed);
+  return passed;
 }
+
+export const validateDkR005 = schematronRule(rule, evaluateDkR005);

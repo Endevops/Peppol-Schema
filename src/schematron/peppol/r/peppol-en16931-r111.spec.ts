@@ -1,7 +1,8 @@
 /**
  * @description Unit tests for PEPPOL-EN16931-R111 (line period end within invoice period).
  */
-import { describe, expect, it } from 'vitest';
+import { assert, describe, it } from '@effect/vitest';
+import { Effect, Result } from 'effect';
 
 import type { PeppolDocument } from '#/schemas/peppol-document-schema';
 
@@ -10,23 +11,30 @@ import { decodeBaseExample } from '#/test/test-utils';
 import { validatePeppolEn16931R111 } from './peppol-en16931-r111';
 
 describe('PEPPOL-EN16931-R111 (line period end within invoice period)', () => {
-  it('passes on the base example', async () => {
-    const document = await decodeBaseExample();
-    expect(validatePeppolEn16931R111(document).passed).toEqual(true);
-  });
+  it.effect(
+    'passes on the base example',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => decodeBaseExample());
+      yield* validatePeppolEn16931R111(document);
+    })
+  );
 
-  it('fails when a line period ends after the invoice period end', async () => {
-    const document = await decodeBaseExample();
-    const lines = (document as PeppolDocument & { invoiceLines: Array<{ invoicePeriod?: unknown }> }).invoiceLines;
-    const line = lines[0];
-    if (!line) {
-      throw new Error('base example has no invoice line');
-    }
-    const altered = {
-      ...document,
-      invoicePeriod: { endDate: '2017-10-31' },
-      invoiceLines: [{ ...line, invoicePeriod: { endDate: '2017-11-01' } }, ...lines.slice(1)],
-    } as unknown as PeppolDocument;
-    expect(validatePeppolEn16931R111(altered).passed).toEqual(false);
-  });
+  it.effect(
+    'fails when a line period ends after the invoice period end',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => decodeBaseExample());
+      const lines = (document as PeppolDocument & { invoiceLines: Array<{ invoicePeriod?: unknown }> }).invoiceLines;
+      const line = lines[0];
+      if (!line) {
+        throw new Error('base example has no invoice line');
+      }
+      const altered = {
+        ...document,
+        invoicePeriod: { endDate: '2017-10-31' },
+        invoiceLines: [{ ...line, invoicePeriod: { endDate: '2017-11-01' } }, ...lines.slice(1)],
+      } as unknown as PeppolDocument;
+      const result = yield* validatePeppolEn16931R111(altered).pipe(Effect.result);
+      assert(Result.isFailure(result));
+    })
+  );
 });

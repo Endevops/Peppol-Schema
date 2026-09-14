@@ -1,8 +1,7 @@
 import type { PeppolDocument } from '#/schemas/peppol-document-schema';
 import type { SchematronRule } from '#/schematron/helpers';
-import type { SchematronRuleResult } from '#/schematron/types';
 
-import { hasLineVatCategoryCode, hasSellerTaxIdentifier, hasTaxRepresentativeVatCompanyId, schematronResult } from '#/schematron/helpers';
+import { hasLineVatCategoryCode, hasSellerTaxIdentifier, hasTaxRepresentativeVatCompanyId, schematronRule } from '#/schematron/helpers';
 
 const rule = {
   id: 'CEN-EN16931-BR-AF-02',
@@ -11,7 +10,9 @@ const rule = {
     'An Invoice that contains an Invoice line (BG-25) where the Invoiced item VAT category code (BT-151) is "IGIC" shall contain the Seller VAT Identifier (BT-31), the Seller tax registration identifier (BT-32) and/or the Seller tax representative VAT identifier (BT-63).',
 } as const satisfies SchematronRule;
 
-export function validateCenEn16931BrAf02(document: PeppolDocument): SchematronRuleResult {
+function evaluateCenEn16931BrAf02(document: PeppolDocument): boolean {
   const passed = !hasLineVatCategoryCode(document, 'L') || hasSellerTaxIdentifier(document) || hasTaxRepresentativeVatCompanyId(document);
-  return schematronResult(rule, passed);
+  return passed;
 }
+
+export const validateCenEn16931BrAf02 = schematronRule(rule, evaluateCenEn16931BrAf02);

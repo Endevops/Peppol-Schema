@@ -1,7 +1,8 @@
 /**
  * @description Unit tests for GR-R-001-7 (sixth segment not empty).
  */
-import { describe, expect, it } from 'vitest';
+import { assert, describe, it } from '@effect/vitest';
+import { Effect, Result } from 'effect';
 
 import type { PeppolDocument } from '#/schemas/peppol-document-schema';
 
@@ -28,20 +29,30 @@ async function asGreek(document: PeppolDocument): Promise<PeppolDocument> {
 const VALID_GREEK_ID = '094259216|13/11/2017|1|1.1|0|1';
 
 describe('GR-R-001-7 (sixth segment not empty)', () => {
-  it('passes when not applicable', async () => {
-    const document = await decodeBaseExample();
-    expect(validateGrR001_7(document).passed).toEqual(true);
-  });
+  it.effect(
+    'passes when not applicable',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => decodeBaseExample());
+      yield* validateGrR001_7(document);
+    })
+  );
 
-  it('fails when the sixth segment is empty', async () => {
-    const document = await asGreek(await decodeBaseExample());
-    const altered = { ...document, id: '094259216|13/11/2017|1|1.1|0|' } as unknown as PeppolDocument;
-    expect(validateGrR001_7(altered).passed).toEqual(false);
-  });
+  it.effect(
+    'fails when the sixth segment is empty',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => asGreek(await decodeBaseExample()));
+      const altered = { ...document, id: '094259216|13/11/2017|1|1.1|0|' } as unknown as PeppolDocument;
+      const result = yield* validateGrR001_7(altered).pipe(Effect.result);
+      assert(Result.isFailure(result));
+    })
+  );
 
-  it('passes when the sixth segment is not empty', async () => {
-    const document = await asGreek(await decodeBaseExample());
-    const altered = { ...document, id: VALID_GREEK_ID } as unknown as PeppolDocument;
-    expect(validateGrR001_7(altered).passed).toEqual(true);
-  });
+  it.effect(
+    'passes when the sixth segment is not empty',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => asGreek(await decodeBaseExample()));
+      const altered = { ...document, id: VALID_GREEK_ID } as unknown as PeppolDocument;
+      yield* validateGrR001_7(altered);
+    })
+  );
 });

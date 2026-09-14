@@ -1,8 +1,7 @@
 import type { PeppolDocument } from '#/schemas/peppol-document-schema';
 import type { SchematronRule } from '#/schematron/helpers';
-import type { SchematronRuleResult } from '#/schematron/types';
 
-import { isGermanSupplierAndCustomer, schematronResult } from '#/schematron/helpers';
+import { isGermanSupplierAndCustomer, schematronRule } from '#/schematron/helpers';
 
 const rule = {
   id: 'DE-R-018',
@@ -13,18 +12,20 @@ const rule = {
 
 const SKONTO_REGEX = /^#(SKONTO)#TAGE=([0-9]+#PROZENT=[0-9]+\.[0-9]{2})(#BASISBETRAG=-?[0-9]+\.[0-9]{2})?#$/;
 
-export function validateDeR018(document: PeppolDocument): SchematronRuleResult {
+function evaluateDeR018(document: PeppolDocument): boolean {
   if (!isGermanSupplierAndCustomer(document)) {
-    return schematronResult(rule, true);
+    return true;
   }
   const note = document.paymentTerms?.note;
   if (note === undefined) {
-    return schematronResult(rule, true);
+    return true;
   }
   const lines = note.split(/\r?\n/).filter(line => line.startsWith('#'));
   if (lines.length === 0) {
-    return schematronResult(rule, true);
+    return true;
   }
   const passed = lines.every(line => SKONTO_REGEX.test(line.trim()));
-  return schematronResult(rule, passed);
+  return passed;
 }
+
+export const validateDeR018 = schematronRule(rule, evaluateDeR018);

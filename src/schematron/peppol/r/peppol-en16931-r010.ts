@@ -1,12 +1,13 @@
 import type { PeppolDocument } from '#/schemas/peppol-document-schema';
 import type { SchematronRule } from '#/schematron/helpers';
-import type { SchematronRuleResult } from '#/schematron/types';
 
-import { schematronResult } from '#/schematron/helpers';
+import { schematronRule } from '#/schematron/helpers';
 
 const rule = { id: 'PEPPOL-EN16931-R010', level: 'fatal', message: 'Buyer electronic address MUST be provided' } as const satisfies SchematronRule;
 
-export function validatePeppolEn16931R010(document: PeppolDocument): SchematronRuleResult {
+function evaluatePeppolEn16931R010(document: PeppolDocument): boolean {
   const endpointId = document.accountingCustomerParty.endpointId?.id;
-  return schematronResult(rule, typeof endpointId === 'string' && endpointId.trim() !== '');
+  return typeof endpointId === 'string' && endpointId.trim() !== '';
 }
+
+export const validatePeppolEn16931R010 = schematronRule(rule, evaluatePeppolEn16931R010);

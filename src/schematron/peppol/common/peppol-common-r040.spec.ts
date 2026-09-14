@@ -3,7 +3,8 @@
  *
  * @effect-diagnostics nodeBuiltinImport:off
  */
-import { describe, expect, it } from 'vitest';
+import { assert, describe, it } from '@effect/vitest';
+import { Effect, Result } from 'effect';
 
 import type { PeppolDocument } from '#/schemas/peppol-document-schema';
 
@@ -16,23 +17,36 @@ async function withEndpointId(document: PeppolDocument, schemeId: string, id: st
 }
 
 describe('PEPPOL-COMMON-R040 (GLN, scheme 0088)', () => {
-  it('passes when no identifier uses the checked scheme', async () => {
-    const document = await decodeBaseExample();
-    expect(validatePeppolCommonR040(document).passed).toEqual(true);
-  });
+  it.effect(
+    'passes when no identifier uses the checked scheme',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => decodeBaseExample());
+      yield* validatePeppolCommonR040(document);
+    })
+  );
 
-  it('passes for a valid GLN', async () => {
-    const document = await withEndpointId(await decodeBaseExample(), '0088', '9482348239847239874');
-    expect(validatePeppolCommonR040(document).passed).toEqual(true);
-  });
+  it.effect(
+    'passes for a valid GLN',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => withEndpointId(await decodeBaseExample(), '0088', '9482348239847239874'));
+      yield* validatePeppolCommonR040(document);
+    })
+  );
 
-  it('fails for an invalid GLN', async () => {
-    const document = await withEndpointId(await decodeBaseExample(), '0088', '1234567890123');
-    expect(validatePeppolCommonR040(document).passed).toEqual(false);
-  });
+  it.effect(
+    'fails for an invalid GLN',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => withEndpointId(await decodeBaseExample(), '0088', '1234567890123'));
+      const result = yield* validatePeppolCommonR040(document).pipe(Effect.result);
+      assert(Result.isFailure(result));
+    })
+  );
 
-  it('PEPPOL-COMMON-R040 should pass when no GLN identifiers are present', async () => {
-    const document = await decodeFixture(fixtures.creditNote);
-    expect(validatePeppolCommonR040(document).passed).toEqual(true);
-  });
+  it.effect(
+    'PEPPOL-COMMON-R040 should pass when no GLN identifiers are present',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => decodeFixture(fixtures.creditNote));
+      yield* validatePeppolCommonR040(document);
+    })
+  );
 });

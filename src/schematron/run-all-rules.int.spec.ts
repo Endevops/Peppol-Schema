@@ -1,20 +1,19 @@
-import { Schema } from 'effect';
+import { describe, expect, it } from '@effect/vitest';
+import { Effect, Schema } from 'effect';
 import { GenericContainer } from 'testcontainers';
-import { describe, expect, it } from 'vitest';
 
 import { peppolDocumentSchema } from '#/schemas/peppol-document-schema';
-import { runAllRules } from '#/schematron/run-all-rules';
+import { Schematron } from '#/schematron/schematron';
 import { decodeBaseExample } from '#/test/test-utils';
 
 // oxlint-disable-next-line vitest/warn-todo
 describe.todo('schematron.run-all-rules', () => {
-  it('should validate all rules', async () => {
-    const baseDocument = await decodeBaseExample();
-    const result = runAllRules(baseDocument);
-
-    expect(result).toHaveLength(360);
-    expect(result.every(r => r.passed)).toBe(true);
-  });
+  it.effect('should validate all rules', () =>
+    Effect.gen(function* () {
+      const baseDocument = yield* Effect.promise(() => decodeBaseExample());
+      yield* (yield* Schematron).run(baseDocument);
+    }).pipe(Effect.provide(Schematron.layer))
+  );
 
   describe('java impl comparision', () => {
     it('should return the same results', async () => {

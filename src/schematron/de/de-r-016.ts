@@ -1,8 +1,7 @@
 import type { PeppolDocument } from '#/schemas/peppol-document-schema';
 import type { SchematronRule } from '#/schematron/helpers';
-import type { SchematronRuleResult } from '#/schematron/types';
 
-import { getAllAllowanceCharges, getLines, isGermanSupplierAndCustomer, schematronResult } from '#/schematron/helpers';
+import { getAllAllowanceCharges, getLines, isGermanSupplierAndCustomer, schematronRule } from '#/schematron/helpers';
 
 const rule = {
   id: 'DE-R-016',
@@ -13,9 +12,9 @@ const rule = {
 
 const SUPPORTED_VAT_CODES = new Set(['S', 'Z', 'E', 'AE', 'K', 'G', 'L', 'M']);
 
-export function validateDeR016(document: PeppolDocument): SchematronRuleResult {
+function evaluateDeR016(document: PeppolDocument): boolean {
   if (!isGermanSupplierAndCustomer(document)) {
-    return schematronResult(rule, true);
+    return true;
   }
   const lineCodes = getLines(document).map(line => line.item.classifiedTaxCategory.id);
   const allowanceCodes = getAllAllowanceCharges(document)
@@ -23,9 +22,11 @@ export function validateDeR016(document: PeppolDocument): SchematronRuleResult {
     .filter((code): code is string => code !== undefined);
   const usesSupportedCode = [...lineCodes, ...allowanceCodes].some(code => SUPPORTED_VAT_CODES.has(code));
   if (!usesSupportedCode) {
-    return schematronResult(rule, true);
+    return true;
   }
   const hasTaxRepresentative = Boolean(document.taxRepresentativeParty);
   const hasSellerTaxId = document.accountingSupplierParty.partyTaxSchemes?.some(scheme => scheme.companyId.trim() !== '') ?? false;
-  return schematronResult(rule, hasTaxRepresentative || hasSellerTaxId);
+  return hasTaxRepresentative || hasSellerTaxId;
 }
+
+export const validateDeR016 = schematronRule(rule, evaluateDeR016);

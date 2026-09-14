@@ -1,8 +1,7 @@
 import type { PeppolDocument } from '#/schemas/peppol-document-schema';
 import type { SchematronRule } from '#/schematron/helpers';
-import type { SchematronRuleResult } from '#/schematron/types';
 
-import { getLines, schematronResult, slack } from '#/schematron/helpers';
+import { getLines, schematronRule, slack } from '#/schematron/helpers';
 
 const rule = {
   id: 'PEPPOL-EN16931-R046',
@@ -10,7 +9,7 @@ const rule = {
   message: 'Item net price MUST equal (Gross price - Allowance amount) when gross price is provided.',
 } as const satisfies SchematronRule;
 
-export function validatePeppolEn16931R046(document: PeppolDocument): SchematronRuleResult {
+function evaluatePeppolEn16931R046(document: PeppolDocument): boolean {
   const passed = getLines(document).every(line => {
     const price = line.price;
     const allowance = price.allowanceCharge;
@@ -19,5 +18,7 @@ export function validatePeppolEn16931R046(document: PeppolDocument): SchematronR
     }
     return slack(allowance.baseAmount.value - (allowance.amount?.value ?? 0), price.priceAmount.value, 0.02);
   });
-  return schematronResult(rule, passed);
+  return passed;
 }
+
+export const validatePeppolEn16931R046 = schematronRule(rule, evaluatePeppolEn16931R046);

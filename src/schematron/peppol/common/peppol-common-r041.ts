@@ -1,10 +1,9 @@
 import type { PeppolDocument } from '#/schemas/peppol-document-schema';
 import type { SchematronRule } from '#/schematron/helpers';
-import type { SchematronRuleResult } from '#/schematron/types';
 
 import { isValidMod11 } from '#/peppol-validations/is-valid-mod11';
 import { normalizeSpace } from '#/peppol-validations/normalize-space';
-import { getIdentifiersWithSchemeId, schematronResult } from '#/schematron/helpers';
+import { getIdentifiersWithSchemeId, schematronRule } from '#/schematron/helpers';
 
 const rule = {
   id: 'PEPPOL-COMMON-R041',
@@ -14,8 +13,10 @@ const rule = {
 
 const SCHEME_ID = '0192';
 
-export function validatePeppolCommonR041(document: PeppolDocument): SchematronRuleResult {
+function evaluatePeppolCommonR041(document: PeppolDocument): boolean {
   const identifiers = getIdentifiersWithSchemeId(document).filter(i => i.schemeId === SCHEME_ID);
   const passed = identifiers.every(i => /^[0-9]{9}$/.test(normalizeSpace(i.id)) && isValidMod11(normalizeSpace(i.id)));
-  return schematronResult(rule, passed);
+  return passed;
 }
+
+export const validatePeppolCommonR041 = schematronRule(rule, evaluatePeppolCommonR041);

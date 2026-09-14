@@ -1,8 +1,7 @@
 import type { PeppolDocument } from '#/schemas/peppol-document-schema';
 import type { SchematronRule } from '#/schematron/helpers';
-import type { SchematronRuleResult } from '#/schematron/types';
 
-import { getLines, schematronResult } from '#/schematron/helpers';
+import { getLines, schematronRule } from '#/schematron/helpers';
 
 const rule = {
   id: 'PEPPOL-EN16931-R051',
@@ -11,7 +10,7 @@ const rule = {
     'All currencyID attributes must have the same value as the invoice currency code (BT-5), except for the invoice total VAT amount in accounting currency (BT-111).',
 } as const satisfies SchematronRule;
 
-export function validatePeppolEn16931R051(document: PeppolDocument): SchematronRuleResult {
+function evaluatePeppolEn16931R051(document: PeppolDocument): boolean {
   const documentCurrency = document.documentCurrencyCode;
   const checkCurrency = (currencyId: string | undefined): boolean => currencyId === documentCurrency;
 
@@ -48,5 +47,7 @@ export function validatePeppolEn16931R051(document: PeppolDocument): SchematronR
     (!totals.payableRoundingAmount || checkCurrency(totals.payableRoundingAmount.currencyId)) &&
     checkCurrency(totals.payableAmount.currencyId);
 
-  return schematronResult(rule, documentAllowancesOk && linesOk && taxTotalsOk && totalsOk);
+  return documentAllowancesOk && linesOk && taxTotalsOk && totalsOk;
 }
+
+export const validatePeppolEn16931R051 = schematronRule(rule, evaluatePeppolEn16931R051);

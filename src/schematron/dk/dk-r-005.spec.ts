@@ -1,7 +1,8 @@
 /**
  * @description Unit tests for DK-R-005 (allowed payment means codes).
  */
-import { describe, expect, it } from 'vitest';
+import { assert, describe, it } from '@effect/vitest';
+import { Effect, Result } from 'effect';
 
 import type { PeppolDocument } from '#/schemas/peppol-document-schema';
 
@@ -26,14 +27,21 @@ async function asDanish(document: PeppolDocument): Promise<PeppolDocument> {
 }
 
 describe('DK-R-005 (allowed payment means codes)', () => {
-  it('passes when not applicable', async () => {
-    const document = await decodeBaseExample();
-    expect(validateDkR005(document).passed).toEqual(true);
-  });
+  it.effect(
+    'passes when not applicable',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => decodeBaseExample());
+      yield* validateDkR005(document);
+    })
+  );
 
-  it('fails when a Danish document uses a disallowed payment means code', async () => {
-    const document = await asDanish(await decodeBaseExample());
-    const altered = { ...document, paymentMeans: [{ paymentMeansCode: { code: '99' } }] } as unknown as PeppolDocument;
-    expect(validateDkR005(altered).passed).toEqual(false);
-  });
+  it.effect(
+    'fails when a Danish document uses a disallowed payment means code',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => asDanish(await decodeBaseExample()));
+      const altered = { ...document, paymentMeans: [{ paymentMeansCode: { code: '99' } }] } as unknown as PeppolDocument;
+      const result = yield* validateDkR005(altered).pipe(Effect.result);
+      assert(Result.isFailure(result));
+    })
+  );
 });

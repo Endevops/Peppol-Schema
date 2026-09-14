@@ -1,7 +1,8 @@
 /**
  * @description Unit tests for NO-R-002 (Foretaksregisteret).
  */
-import { describe, expect, it } from 'vitest';
+import { describe, it } from '@effect/vitest';
+import { Effect } from 'effect';
 
 import type { PeppolDocument } from '#/schemas/peppol-document-schema';
 
@@ -22,23 +23,29 @@ async function withSupplierCountry(document: PeppolDocument, country: string, va
 }
 
 describe('NO-R-002 (Foretaksregisteret)', () => {
-  it('passes when not applicable', async () => {
-    const document = await decodeBaseExample();
-    expect(validateNoR002(document).passed).toEqual(true);
-  });
+  it.effect(
+    'passes when not applicable',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => decodeBaseExample());
+      yield* validateNoR002(document);
+    })
+  );
 
-  it('fails when a Norwegian supplier does not state Foretaksregisteret', async () => {
-    const document = await withSupplierCountry(await decodeBaseExample(), 'NO');
-    const altered = {
-      ...document,
-      accountingSupplierParty: {
-        ...document.accountingSupplierParty,
-        partyTaxSchemes: [
-          { companyId: 'Foretaksregisteret', taxSchemeId: { id: 'TAX' } },
-          { companyId: 'NO123456789MVA', taxSchemeId: { id: 'VAT' } },
-        ],
-      },
-    } as unknown as PeppolDocument;
-    expect(validateNoR002(altered).passed).toEqual(true);
-  });
+  it.effect(
+    'fails when a Norwegian supplier does not state Foretaksregisteret',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => withSupplierCountry(await decodeBaseExample(), 'NO'));
+      const altered = {
+        ...document,
+        accountingSupplierParty: {
+          ...document.accountingSupplierParty,
+          partyTaxSchemes: [
+            { companyId: 'Foretaksregisteret', taxSchemeId: { id: 'TAX' } },
+            { companyId: 'NO123456789MVA', taxSchemeId: { id: 'VAT' } },
+          ],
+        },
+      } as unknown as PeppolDocument;
+      yield* validateNoR002(altered);
+    })
+  );
 });

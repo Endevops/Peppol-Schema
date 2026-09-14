@@ -1,8 +1,7 @@
 import type { PeppolDocument } from '#/schemas/peppol-document-schema';
 import type { SchematronRule } from '#/schematron/helpers';
-import type { SchematronRuleResult } from '#/schematron/types';
 
-import { getLines, schematronResult } from '#/schematron/helpers';
+import { getLines, schematronRule } from '#/schematron/helpers';
 
 const rule = {
   id: 'PEPPOL-EN16931-R121',
@@ -10,10 +9,12 @@ const rule = {
   message: 'Base quantity MUST be a positive number above zero.',
 } as const satisfies SchematronRule;
 
-export function validatePeppolEn16931R121(document: PeppolDocument): SchematronRuleResult {
+function evaluatePeppolEn16931R121(document: PeppolDocument): boolean {
   const passed = getLines(document).every(line => {
     const baseQuantity = line.price.baseQuantity?.value;
     return baseQuantity === undefined || baseQuantity > 0;
   });
-  return schematronResult(rule, passed);
+  return passed;
 }
+
+export const validatePeppolEn16931R121 = schematronRule(rule, evaluatePeppolEn16931R121);

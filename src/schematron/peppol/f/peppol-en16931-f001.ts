@@ -2,10 +2,9 @@ import { Predicate, Schema } from 'effect';
 
 import type { PeppolDocument } from '#/schemas/peppol-document-schema';
 import type { SchematronRule } from '#/schematron/helpers';
-import type { SchematronRuleResult } from '#/schematron/types';
 
 import { PeppolIsoDateString } from '#/schemas/peppol-iso-date-string';
-import { getLines, schematronResult } from '#/schematron/helpers';
+import { getLines, schematronRule } from '#/schematron/helpers';
 
 const rule = { id: 'PEPPOL-EN16931-F001', level: 'fatal', message: 'A date MUST be formatted YYYY-MM-DD.' } as const satisfies SchematronRule;
 
@@ -16,7 +15,7 @@ const isValidDate = (value: string | undefined): boolean => value === undefined 
 const encodeDateSync = Schema.encodeSync(Schema.Union([PeppolIsoDateString, Schema.String]));
 const isDate = Schema.is(PeppolIsoDateString);
 
-export function validatePeppolEn16931F001(document: PeppolDocument): SchematronRuleResult {
+function evaluatePeppolEn16931F001(document: PeppolDocument): boolean {
   const dates: Array<string | undefined> = [encodeDateSync(document.issueDate)];
   if (Predicate.hasProperty(document, 'dueDate') && isDate(document.dueDate)) dates.push(encodeDateSync(document.dueDate));
   if (document.taxPointDate) dates.push(encodeDateSync(document.taxPointDate));
@@ -27,5 +26,7 @@ export function validatePeppolEn16931F001(document: PeppolDocument): SchematronR
     if (line.invoicePeriod?.startDate) dates.push(encodeDateSync(line.invoicePeriod.startDate));
     if (line.invoicePeriod?.endDate) dates.push(encodeDateSync(line.invoicePeriod.endDate));
   }
-  return schematronResult(rule, dates.every(isValidDate));
+  return dates.every(isValidDate);
 }
+
+export const validatePeppolEn16931F001 = schematronRule(rule, evaluatePeppolEn16931F001);

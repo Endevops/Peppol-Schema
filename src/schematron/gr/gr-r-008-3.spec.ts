@@ -1,7 +1,8 @@
 /**
  * @description Unit tests for GR-R-008-3 (invoice url external reference).
  */
-import { describe, expect, it } from 'vitest';
+import { assert, describe, it } from '@effect/vitest';
+import { Effect, Result } from 'effect';
 
 import type { PeppolDocument } from '#/schemas/peppol-document-schema';
 
@@ -26,28 +27,38 @@ async function asGreek(document: PeppolDocument): Promise<PeppolDocument> {
 }
 
 describe('GR-R-008-3 (invoice url external reference)', () => {
-  it('passes when not applicable', async () => {
-    const document = await decodeBaseExample();
-    expect(validateGrR008_3(document).passed).toEqual(true);
-  });
+  it.effect(
+    'passes when not applicable',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => decodeBaseExample());
+      yield* validateGrR008_3(document);
+    })
+  );
 
-  it('fails when a Greek invoice url has no external reference uri', async () => {
-    const document = await asGreek(await decodeBaseExample());
-    const altered = {
-      ...document,
-      additionalDocumentReferences: [{ id: { id: 'a' }, documentDescription: '##INVOICE|URL##' }],
-    } as unknown as PeppolDocument;
-    expect(validateGrR008_3(altered).passed).toEqual(false);
-  });
+  it.effect(
+    'fails when a Greek invoice url has no external reference uri',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => asGreek(await decodeBaseExample()));
+      const altered = {
+        ...document,
+        additionalDocumentReferences: [{ id: { id: 'a' }, documentDescription: '##INVOICE|URL##' }],
+      } as unknown as PeppolDocument;
+      const result = yield* validateGrR008_3(altered).pipe(Effect.result);
+      assert(Result.isFailure(result));
+    })
+  );
 
-  it('passes when a Greek invoice url has an external reference uri', async () => {
-    const document = await asGreek(await decodeBaseExample());
-    const altered = {
-      ...document,
-      additionalDocumentReferences: [
-        { id: { id: 'a' }, documentDescription: '##INVOICE|URL##', attachment: { externalReference: { uri: 'https://example.com' } } },
-      ],
-    } as unknown as PeppolDocument;
-    expect(validateGrR008_3(altered).passed).toEqual(true);
-  });
+  it.effect(
+    'passes when a Greek invoice url has an external reference uri',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => asGreek(await decodeBaseExample()));
+      const altered = {
+        ...document,
+        additionalDocumentReferences: [
+          { id: { id: 'a' }, documentDescription: '##INVOICE|URL##', attachment: { externalReference: { uri: 'https://example.com' } } },
+        ],
+      } as unknown as PeppolDocument;
+      yield* validateGrR008_3(altered);
+    })
+  );
 });

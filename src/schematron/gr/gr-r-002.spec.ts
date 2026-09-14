@@ -1,7 +1,8 @@
 /**
  * @description Unit tests for GR-R-002 (Greek supplier full name).
  */
-import { describe, expect, it } from 'vitest';
+import { assert, describe, it } from '@effect/vitest';
+import { Effect, Result } from 'effect';
 
 import type { PeppolDocument } from '#/schemas/peppol-document-schema';
 
@@ -32,17 +33,24 @@ async function withCountry(
 }
 
 describe('GR-R-002 (Greek supplier full name)', () => {
-  it('passes when not applicable', async () => {
-    const document = await decodeBaseExample();
-    expect(validateGrR002(document).passed).toEqual(true);
-  });
+  it.effect(
+    'passes when not applicable',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => decodeBaseExample());
+      yield* validateGrR002(document);
+    })
+  );
 
-  it('fails when a Greek supplier has no party name', async () => {
-    const document = await withCountry(await decodeBaseExample(), 'GR', 'BE');
-    const altered = {
-      ...document,
-      accountingSupplierParty: { ...document.accountingSupplierParty, partyName: undefined },
-    } as unknown as PeppolDocument;
-    expect(validateGrR002(altered).passed).toEqual(false);
-  });
+  it.effect(
+    'fails when a Greek supplier has no party name',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => withCountry(await decodeBaseExample(), 'GR', 'BE'));
+      const altered = {
+        ...document,
+        accountingSupplierParty: { ...document.accountingSupplierParty, partyName: undefined },
+      } as unknown as PeppolDocument;
+      const result = yield* validateGrR002(altered).pipe(Effect.result);
+      assert(Result.isFailure(result));
+    })
+  );
 });

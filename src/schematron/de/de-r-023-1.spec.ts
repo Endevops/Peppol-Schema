@@ -1,7 +1,8 @@
 /**
  * @description Unit tests for DE-R-023-1 (credit transfer requires payee account).
  */
-import { describe, expect, it } from 'vitest';
+import { assert, describe, it } from '@effect/vitest';
+import { Effect, Result } from 'effect';
 
 import type { PeppolDocument } from '#/schemas/peppol-document-schema';
 
@@ -24,17 +25,24 @@ async function asGerman(document: PeppolDocument): Promise<PeppolDocument> {
 }
 
 describe('DE-R-023-1 (credit transfer requires payee account)', () => {
-  it('passes when not applicable', async () => {
-    const document = await decodeBaseExample();
-    expect(validateDeR023_1(document).passed).toEqual(true);
-  });
+  it.effect(
+    'passes when not applicable',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => decodeBaseExample());
+      yield* validateDeR023_1(document);
+    })
+  );
 
-  it('fails when a German document uses code 30 without a payee account', async () => {
-    const document = await asGerman(await decodeBaseExample());
-    const altered = {
-      ...document,
-      paymentMeans: [{ paymentMeansCode: { code: '30' }, payeeFinancialAccount: undefined }],
-    } as unknown as PeppolDocument;
-    expect(validateDeR023_1(altered).passed).toEqual(false);
-  });
+  it.effect(
+    'fails when a German document uses code 30 without a payee account',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => asGerman(await decodeBaseExample()));
+      const altered = {
+        ...document,
+        paymentMeans: [{ paymentMeansCode: { code: '30' }, payeeFinancialAccount: undefined }],
+      } as unknown as PeppolDocument;
+      const result = yield* validateDeR023_1(altered).pipe(Effect.result);
+      assert(Result.isFailure(result));
+    })
+  );
 });

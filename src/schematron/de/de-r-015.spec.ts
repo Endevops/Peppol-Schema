@@ -1,7 +1,8 @@
 /**
  * @description Unit tests for DE-R-015 (German buyer reference).
  */
-import { describe, expect, it } from 'vitest';
+import { assert, describe, it } from '@effect/vitest';
+import { Effect, Result } from 'effect';
 
 import type { PeppolDocument } from '#/schemas/peppol-document-schema';
 
@@ -32,14 +33,21 @@ async function withCountry(
 }
 
 describe('DE-R-015 (German buyer reference)', () => {
-  it('passes when not applicable', async () => {
-    const document = await decodeBaseExample();
-    expect(validateDeR015(document).passed).toEqual(true);
-  });
+  it.effect(
+    'passes when not applicable',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => decodeBaseExample());
+      yield* validateDeR015(document);
+    })
+  );
 
-  it('fails when both parties are German and no buyer reference is provided', async () => {
-    const document = await withCountry(await decodeBaseExample(), 'DE', 'DE');
-    const altered = { ...document, buyerReference: undefined } as unknown as PeppolDocument;
-    expect(validateDeR015(altered).passed).toEqual(false);
-  });
+  it.effect(
+    'fails when both parties are German and no buyer reference is provided',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => withCountry(await decodeBaseExample(), 'DE', 'DE'));
+      const altered = { ...document, buyerReference: undefined } as unknown as PeppolDocument;
+      const result = yield* validateDeR015(altered).pipe(Effect.result);
+      assert(Result.isFailure(result));
+    })
+  );
 });

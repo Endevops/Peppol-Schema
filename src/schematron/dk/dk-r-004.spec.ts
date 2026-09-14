@@ -1,7 +1,8 @@
 /**
  * @description Unit tests for DK-R-004 (ZZZ allowance reason).
  */
-import { describe, expect, it } from 'vitest';
+import { assert, describe, it } from '@effect/vitest';
+import { Effect, Result } from 'effect';
 
 import type { PeppolDocument } from '#/schemas/peppol-document-schema';
 
@@ -26,30 +27,40 @@ async function asDanish(document: PeppolDocument): Promise<PeppolDocument> {
 }
 
 describe('DK-R-004 (ZZZ allowance reason)', () => {
-  it('passes when not applicable', async () => {
-    const document = await decodeBaseExample();
-    expect(validateDkR004(document).passed).toEqual(true);
-  });
+  it.effect(
+    'passes when not applicable',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => decodeBaseExample());
+      yield* validateDkR004(document);
+    })
+  );
 
-  it('fails when a Danish document uses reason code ZZZ with an invalid reason', async () => {
-    const document = await asDanish(await decodeBaseExample());
-    const altered = {
-      ...document,
-      allowanceCharges: [
-        { amount: { currencyId: 'EUR', value: 10 }, chargeIndicator: false, allowanceChargeReasonCode: 'ZZZ', allowanceChargeReason: 'bad reason' },
-      ],
-    } as unknown as PeppolDocument;
-    expect(validateDkR004(altered).passed).toEqual(false);
-  });
+  it.effect(
+    'fails when a Danish document uses reason code ZZZ with an invalid reason',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => asDanish(await decodeBaseExample()));
+      const altered = {
+        ...document,
+        allowanceCharges: [
+          { amount: { currencyId: 'EUR', value: 10 }, chargeIndicator: false, allowanceChargeReasonCode: 'ZZZ', allowanceChargeReason: 'bad reason' },
+        ],
+      } as unknown as PeppolDocument;
+      const result = yield* validateDkR004(altered).pipe(Effect.result);
+      assert(Result.isFailure(result));
+    })
+  );
 
-  it('passes when a Danish document uses reason code ZZZ with a 4-digit reason', async () => {
-    const document = await asDanish(await decodeBaseExample());
-    const altered = {
-      ...document,
-      allowanceCharges: [
-        { amount: { currencyId: 'EUR', value: 10 }, chargeIndicator: false, allowanceChargeReasonCode: 'ZZZ', allowanceChargeReason: '1234' },
-      ],
-    } as unknown as PeppolDocument;
-    expect(validateDkR004(altered).passed).toEqual(true);
-  });
+  it.effect(
+    'passes when a Danish document uses reason code ZZZ with a 4-digit reason',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => asDanish(await decodeBaseExample()));
+      const altered = {
+        ...document,
+        allowanceCharges: [
+          { amount: { currencyId: 'EUR', value: 10 }, chargeIndicator: false, allowanceChargeReasonCode: 'ZZZ', allowanceChargeReason: '1234' },
+        ],
+      } as unknown as PeppolDocument;
+      yield* validateDkR004(altered);
+    })
+  );
 });

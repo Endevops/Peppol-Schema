@@ -1,8 +1,7 @@
 import type { PeppolDocument } from '#/schemas/peppol-document-schema';
 import type { SchematronRule } from '#/schematron/helpers';
-import type { SchematronRuleResult } from '#/schematron/types';
 
-import { getLines, schematronResult } from '#/schematron/helpers';
+import { getLines, schematronRule } from '#/schematron/helpers';
 
 const rule = {
   id: 'PEPPOL-EN16931-R101',
@@ -10,10 +9,12 @@ const rule = {
   message: 'Element Document reference can only be used for Invoice line object',
 } as const satisfies SchematronRule;
 
-export function validatePeppolEn16931R101(document: PeppolDocument): SchematronRuleResult {
+function evaluatePeppolEn16931R101(document: PeppolDocument): boolean {
   const passed = getLines(document).every(line => {
     const references = line.documentReference ?? [];
     return references.every(ref => ref.documentTypeCode === '130');
   });
-  return schematronResult(rule, passed);
+  return passed;
 }
+
+export const validatePeppolEn16931R101 = schematronRule(rule, evaluatePeppolEn16931R101);

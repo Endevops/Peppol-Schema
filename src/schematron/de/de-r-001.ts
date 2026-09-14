@@ -1,8 +1,7 @@
 import type { PeppolDocument } from '#/schemas/peppol-document-schema';
 import type { SchematronRule } from '#/schematron/helpers';
-import type { SchematronRuleResult } from '#/schematron/types';
 
-import { isGermanSupplierAndCustomer, schematronResult } from '#/schematron/helpers';
+import { isGermanSupplierAndCustomer, schematronRule } from '#/schematron/helpers';
 
 const rule = {
   id: 'DE-R-001',
@@ -10,9 +9,11 @@ const rule = {
   message: 'An invoice shall contain information on "PAYMENT INSTRUCTIONS" (BG-16).',
 } as const satisfies SchematronRule;
 
-export function validateDeR001(document: PeppolDocument): SchematronRuleResult {
+function evaluateDeR001(document: PeppolDocument): boolean {
   if (!isGermanSupplierAndCustomer(document)) {
-    return schematronResult(rule, true);
+    return true;
   }
-  return schematronResult(rule, (document.paymentMeans?.length ?? 0) > 0);
+  return (document.paymentMeans?.length ?? 0) > 0;
 }
+
+export const validateDeR001 = schematronRule(rule, evaluateDeR001);

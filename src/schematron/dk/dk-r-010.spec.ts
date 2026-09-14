@@ -1,7 +1,8 @@
 /**
  * @description Unit tests for DK-R-010 (FIK payment id and account).
  */
-import { describe, expect, it } from 'vitest';
+import { assert, describe, it } from '@effect/vitest';
+import { Effect, Result } from 'effect';
 
 import type { PeppolDocument } from '#/schemas/peppol-document-schema';
 
@@ -26,17 +27,24 @@ async function asDanish(document: PeppolDocument): Promise<PeppolDocument> {
 }
 
 describe('DK-R-010 (FIK payment id and account)', () => {
-  it('passes when not applicable', async () => {
-    const document = await decodeBaseExample();
-    expect(validateDkR010(document).passed).toEqual(true);
-  });
+  it.effect(
+    'passes when not applicable',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => decodeBaseExample());
+      yield* validateDkR010(document);
+    })
+  );
 
-  it('fails when a Danish document uses code 93 with a wrong account length', async () => {
-    const document = await asDanish(await decodeBaseExample());
-    const altered = {
-      ...document,
-      paymentMeans: [{ paymentMeansCode: { code: '93' }, paymentId: '71#123', payeeFinancialAccount: { id: '12345' } }],
-    } as unknown as PeppolDocument;
-    expect(validateDkR010(altered).passed).toEqual(false);
-  });
+  it.effect(
+    'fails when a Danish document uses code 93 with a wrong account length',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => asDanish(await decodeBaseExample()));
+      const altered = {
+        ...document,
+        paymentMeans: [{ paymentMeansCode: { code: '93' }, paymentId: '71#123', payeeFinancialAccount: { id: '12345' } }],
+      } as unknown as PeppolDocument;
+      const result = yield* validateDkR010(altered).pipe(Effect.result);
+      assert(Result.isFailure(result));
+    })
+  );
 });

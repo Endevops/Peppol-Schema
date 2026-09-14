@@ -1,7 +1,8 @@
 /**
  * @description Unit tests for NL-R-003 (Dutch legal entity identifier scheme).
  */
-import { describe, expect, it } from 'vitest';
+import { assert, describe, it } from '@effect/vitest';
+import { Effect, Result } from 'effect';
 
 import type { PeppolDocument } from '#/schemas/peppol-document-schema';
 
@@ -32,32 +33,42 @@ async function withCountry(
 }
 
 describe('NL-R-003 (Dutch legal entity identifier scheme)', () => {
-  it('passes when not applicable', async () => {
-    const document = await decodeBaseExample();
-    expect(validateNlR003(document).passed).toEqual(true);
-  });
+  it.effect(
+    'passes when not applicable',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => decodeBaseExample());
+      yield* validateNlR003(document);
+    })
+  );
 
-  it('fails when a Dutch supplier legal entity uses a wrong scheme', async () => {
-    const document = await withCountry(await decodeBaseExample(), 'NL', 'BE');
-    const altered = {
-      ...document,
-      accountingSupplierParty: {
-        ...document.accountingSupplierParty,
-        partyLegalEntity: { ...document.accountingSupplierParty.partyLegalEntity, companyId: { id: '12345678', schemeId: '0196' } },
-      },
-    } as unknown as PeppolDocument;
-    expect(validateNlR003(altered).passed).toEqual(false);
-  });
+  it.effect(
+    'fails when a Dutch supplier legal entity uses a wrong scheme',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => withCountry(await decodeBaseExample(), 'NL', 'BE'));
+      const altered = {
+        ...document,
+        accountingSupplierParty: {
+          ...document.accountingSupplierParty,
+          partyLegalEntity: { ...document.accountingSupplierParty.partyLegalEntity, companyId: { id: '12345678', schemeId: '0196' } },
+        },
+      } as unknown as PeppolDocument;
+      const result = yield* validateNlR003(altered).pipe(Effect.result);
+      assert(Result.isFailure(result));
+    })
+  );
 
-  it('passes when a Dutch supplier legal entity uses scheme 0106', async () => {
-    const document = await withCountry(await decodeBaseExample(), 'NL', 'BE');
-    const altered = {
-      ...document,
-      accountingSupplierParty: {
-        ...document.accountingSupplierParty,
-        partyLegalEntity: { ...document.accountingSupplierParty.partyLegalEntity, companyId: { id: '12345678', schemeId: '0106' } },
-      },
-    } as unknown as PeppolDocument;
-    expect(validateNlR003(altered).passed).toEqual(true);
-  });
+  it.effect(
+    'passes when a Dutch supplier legal entity uses scheme 0106',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => withCountry(await decodeBaseExample(), 'NL', 'BE'));
+      const altered = {
+        ...document,
+        accountingSupplierParty: {
+          ...document.accountingSupplierParty,
+          partyLegalEntity: { ...document.accountingSupplierParty.partyLegalEntity, companyId: { id: '12345678', schemeId: '0106' } },
+        },
+      } as unknown as PeppolDocument;
+      yield* validateNlR003(altered);
+    })
+  );
 });

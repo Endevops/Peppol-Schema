@@ -1,8 +1,7 @@
 import type { PeppolDocument } from '#/schemas/peppol-document-schema';
 import type { SchematronRule } from '#/schematron/helpers';
-import type { SchematronRuleResult } from '#/schematron/types';
 
-import { getSupplierCountry, schematronResult } from '#/schematron/helpers';
+import { getSupplierCountry, schematronRule } from '#/schematron/helpers';
 
 const rule = {
   id: 'IS-R-002',
@@ -10,10 +9,12 @@ const rule = {
   message: '[IS-R-002]-If seller is icelandic then it shall contain sellers legal id',
 } as const satisfies SchematronRule;
 
-export function validateIsR002(document: PeppolDocument): SchematronRuleResult {
+function evaluateIsR002(document: PeppolDocument): boolean {
   if (getSupplierCountry(document) !== 'IS') {
-    return schematronResult(rule, true);
+    return true;
   }
   const companyId = document.accountingSupplierParty.partyLegalEntity.companyId;
-  return schematronResult(rule, Boolean(companyId?.id) && companyId?.schemeId === '0196');
+  return Boolean(companyId?.id) && companyId?.schemeId === '0196';
 }
+
+export const validateIsR002 = schematronRule(rule, evaluateIsR002);

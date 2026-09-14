@@ -23,24 +23,11 @@ import {
   isGermanSupplierAndCustomer,
   isSupplierGermany,
   round2,
-  schematronResult,
   slack,
 } from '#/schematron/helpers';
 import { decodeBaseExample } from '#/test/test-utils';
 
 describe('schematron helpers', () => {
-  describe('schematronResult', () => {
-    it('builds a result with the rule metadata and the passed flag', () => {
-      const result = schematronResult({ id: 'TEST-RULE', level: 'fatal', message: 'A message' }, true);
-      expect(result).toEqual({ id: 'TEST-RULE', level: 'fatal', message: 'A message', passed: true });
-    });
-
-    it('preserves the passed flag when false', () => {
-      const result = schematronResult({ id: 'TEST-RULE', level: 'warning', message: 'A message' }, false);
-      expect(result.passed).toEqual(false);
-    });
-  });
-
   describe('round2', () => {
     it.each([
       [1, 1],

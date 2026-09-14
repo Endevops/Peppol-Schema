@@ -1,8 +1,7 @@
 import type { PeppolDocument } from '#/schemas/peppol-document-schema';
 import type { SchematronRule } from '#/schematron/helpers';
-import type { SchematronRuleResult } from '#/schematron/types';
 
-import { everyDocumentChargeCategoryPercent, schematronResult } from '#/schematron/helpers';
+import { everyDocumentChargeCategoryPercent, schematronRule } from '#/schematron/helpers';
 
 const rule = {
   id: 'CEN-EN16931-BR-Z-07',
@@ -11,7 +10,9 @@ const rule = {
     'In a Document level charge (BG-21) where the Document level charge VAT category code (BT-102) is "Zero rated" the Document level charge VAT rate (BT-103) shall be 0 (zero).',
 } as const satisfies SchematronRule;
 
-export function validateCenEn16931BrZ07(document: PeppolDocument): SchematronRuleResult {
+function evaluateCenEn16931BrZ07(document: PeppolDocument): boolean {
   const passed = everyDocumentChargeCategoryPercent(document, 'Z', percent => percent === 0);
-  return schematronResult(rule, passed);
+  return passed;
 }
+
+export const validateCenEn16931BrZ07 = schematronRule(rule, evaluateCenEn16931BrZ07);

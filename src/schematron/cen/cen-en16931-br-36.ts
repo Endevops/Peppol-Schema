@@ -1,8 +1,7 @@
 import type { PeppolDocument } from '#/schemas/peppol-document-schema';
 import type { SchematronRule } from '#/schematron/helpers';
-import type { SchematronRuleResult } from '#/schematron/types';
 
-import { schematronResult } from '#/schematron/helpers';
+import { schematronRule } from '#/schematron/helpers';
 
 const rule = {
   id: 'CEN-EN16931-BR-36',
@@ -10,7 +9,9 @@ const rule = {
   message: 'Each Document level charge (BG-21) shall have a Document level charge amount (BT-99).',
 } as const satisfies SchematronRule;
 
-export function validateCenEn16931Br36(document: PeppolDocument): SchematronRuleResult {
+function evaluateCenEn16931Br36(document: PeppolDocument): boolean {
   const passed = (document.allowanceCharges ?? []).filter(ac => ac.chargeIndicator).every(ac => typeof ac.amount === 'object' && ac.amount !== null);
-  return schematronResult(rule, passed);
+  return passed;
 }
+
+export const validateCenEn16931Br36 = schematronRule(rule, evaluateCenEn16931Br36);

@@ -1,8 +1,7 @@
 import type { PeppolDocument } from '#/schemas/peppol-document-schema';
 import type { SchematronRule } from '#/schematron/helpers';
-import type { SchematronRuleResult } from '#/schematron/types';
 
-import { getAllAllowanceCharges, schematronResult } from '#/schematron/helpers';
+import { getAllAllowanceCharges, schematronRule } from '#/schematron/helpers';
 
 const rule = {
   id: 'PEPPOL-EN16931-R041',
@@ -10,8 +9,10 @@ const rule = {
   message: 'Allowance/charge base amount MUST be provided when allowance/charge percentage is provided.',
 } as const satisfies SchematronRule;
 
-export function validatePeppolEn16931R041(document: PeppolDocument): SchematronRuleResult {
+function evaluatePeppolEn16931R041(document: PeppolDocument): boolean {
   const allowanceCharges = getAllAllowanceCharges(document);
   const passed = allowanceCharges.every(ac => !ac.multiplierFactorNumeric || ac.baseAmount !== undefined);
-  return schematronResult(rule, passed);
+  return passed;
 }
+
+export const validatePeppolEn16931R041 = schematronRule(rule, evaluatePeppolEn16931R041);

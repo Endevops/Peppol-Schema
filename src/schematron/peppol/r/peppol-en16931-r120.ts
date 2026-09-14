@@ -1,8 +1,7 @@
 import type { PeppolDocument } from '#/schemas/peppol-document-schema';
 import type { SchematronRule } from '#/schematron/helpers';
-import type { SchematronRuleResult } from '#/schematron/types';
 
-import { getLineQuantity, getLines, schematronResult, slack } from '#/schematron/helpers';
+import { getLineQuantity, getLines, schematronRule, slack } from '#/schematron/helpers';
 
 const rule = {
   id: 'PEPPOL-EN16931-R120',
@@ -11,7 +10,7 @@ const rule = {
     'Invoice line net amount MUST equal (Invoiced quantity * (Item net price/item price base quantity) + Sum of invoice line charge amount - sum of invoice line allowance amount',
 } as const satisfies SchematronRule;
 
-export function validatePeppolEn16931R120(document: PeppolDocument): SchematronRuleResult {
+function evaluatePeppolEn16931R120(document: PeppolDocument): boolean {
   const passed = getLines(document).every(line => {
     const lineExtensionAmount = line.lineExtensionAmount.value;
     const quantity = getLineQuantity(line);
@@ -22,5 +21,7 @@ export function validatePeppolEn16931R120(document: PeppolDocument): SchematronR
     const expected = quantity * (priceAmount / baseQuantity) + chargesTotal - allowancesTotal;
     return slack(expected, lineExtensionAmount, 0.02);
   });
-  return schematronResult(rule, passed);
+  return passed;
 }
+
+export const validatePeppolEn16931R120 = schematronRule(rule, evaluatePeppolEn16931R120);

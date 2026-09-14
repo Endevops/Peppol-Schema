@@ -1,8 +1,7 @@
 import type { PeppolDocument } from '#/schemas/peppol-document-schema';
 import type { SchematronRule } from '#/schematron/helpers';
-import type { SchematronRuleResult } from '#/schematron/types';
 
-import { hasVatBreakdownCode, schematronResult } from '#/schematron/helpers';
+import { hasVatBreakdownCode, schematronRule } from '#/schematron/helpers';
 
 const rule = {
   id: 'CEN-EN16931-BR-IC-11',
@@ -11,10 +10,12 @@ const rule = {
     'In an Invoice with a VAT breakdown (BG-23) where the VAT category code (BT-118) is "Intra-community supply" the Actual delivery date (BT-72) or the Invoicing period (BG-14) shall not be blank.',
 } as const satisfies SchematronRule;
 
-export function validateCenEn16931BrIc11(document: PeppolDocument): SchematronRuleResult {
+function evaluateCenEn16931BrIc11(document: PeppolDocument): boolean {
   const passed =
     !hasVatBreakdownCode(document, 'K') ||
     (typeof document.delivery?.actualDeliveryDate === 'string' && document.delivery.actualDeliveryDate.trim() !== '') ||
     typeof document.invoicePeriod === 'object';
-  return schematronResult(rule, passed);
+  return passed;
 }
+
+export const validateCenEn16931BrIc11 = schematronRule(rule, evaluateCenEn16931BrIc11);

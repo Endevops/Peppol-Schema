@@ -1,8 +1,7 @@
 import type { PeppolDocument } from '#/schemas/peppol-document-schema';
 import type { SchematronRule } from '#/schematron/helpers';
-import type { SchematronRuleResult } from '#/schematron/types';
 
-import { schematronResult } from '#/schematron/helpers';
+import { schematronRule } from '#/schematron/helpers';
 
 const rule = {
   id: 'CEN-EN16931-BR-12',
@@ -10,7 +9,9 @@ const rule = {
   message: 'An Invoice shall have the Sum of Invoice line net amount (BT-106).',
 } as const satisfies SchematronRule;
 
-export function validateCenEn16931Br12(document: PeppolDocument): SchematronRuleResult {
+function evaluateCenEn16931Br12(document: PeppolDocument): boolean {
   const passed = typeof document.legalMonetaryTotal.lineExtensionAmount === 'object' && document.legalMonetaryTotal.lineExtensionAmount !== null;
-  return schematronResult(rule, passed);
+  return passed;
 }
+
+export const validateCenEn16931Br12 = schematronRule(rule, evaluateCenEn16931Br12);

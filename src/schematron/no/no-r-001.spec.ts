@@ -1,7 +1,8 @@
 /**
  * @description Unit tests for NO-R-001 (Norwegian VAT number format).
  */
-import { describe, expect, it } from 'vitest';
+import { assert, describe, it } from '@effect/vitest';
+import { Effect, Result } from 'effect';
 
 import type { PeppolDocument } from '#/schemas/peppol-document-schema';
 
@@ -22,13 +23,20 @@ async function withSupplierCountry(document: PeppolDocument, country: string, va
 }
 
 describe('NO-R-001 (Norwegian VAT number format)', () => {
-  it('passes when not applicable', async () => {
-    const document = await decodeBaseExample();
-    expect(validateNoR001(document).passed).toEqual(true);
-  });
+  it.effect(
+    'passes when not applicable',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => decodeBaseExample());
+      yield* validateNoR001(document);
+    })
+  );
 
-  it('fails when a Norwegian supplier has an invalid VAT number', async () => {
-    const document = await withSupplierCountry(await decodeBaseExample(), 'NO', 'NO123456789MVA');
-    expect(validateNoR001(document).passed).toEqual(false);
-  });
+  it.effect(
+    'fails when a Norwegian supplier has an invalid VAT number',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => withSupplierCountry(await decodeBaseExample(), 'NO', 'NO123456789MVA'));
+      const result = yield* validateNoR001(document).pipe(Effect.result);
+      assert(Result.isFailure(result));
+    })
+  );
 });

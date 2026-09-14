@@ -1,8 +1,7 @@
 import type { PeppolDocument } from '#/schemas/peppol-document-schema';
 import type { SchematronRule } from '#/schematron/helpers';
-import type { SchematronRuleResult } from '#/schematron/types';
 
-import { getSupplierCountry, schematronResult } from '#/schematron/helpers';
+import { getSupplierCountry, schematronRule } from '#/schematron/helpers';
 
 const rule = {
   id: 'IS-R-001',
@@ -12,10 +11,12 @@ const rule = {
 
 const ALLOWED_CODES = new Set(['380', '381']);
 
-export function validateIsR001(document: PeppolDocument): SchematronRuleResult {
+function evaluateIsR001(document: PeppolDocument): boolean {
   if (getSupplierCountry(document) !== 'IS') {
-    return schematronResult(rule, true);
+    return true;
   }
   const code = 'invoiceTypeCode' in document ? document.invoiceTypeCode : 'creditNoteTypeCode' in document ? document.creditNoteTypeCode : undefined;
-  return schematronResult(rule, code !== undefined && !code.includes(' ') && ALLOWED_CODES.has(code));
+  return code !== undefined && !code.includes(' ') && ALLOWED_CODES.has(code);
 }
+
+export const validateIsR001 = schematronRule(rule, evaluateIsR001);

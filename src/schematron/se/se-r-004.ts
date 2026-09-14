@@ -1,15 +1,16 @@
 import type { PeppolDocument } from '#/schemas/peppol-document-schema';
 import type { SchematronRule } from '#/schematron/helpers';
-import type { SchematronRuleResult } from '#/schematron/types';
 
-import { getSupplierCountry, schematronResult } from '#/schematron/helpers';
+import { getSupplierCountry, schematronRule } from '#/schematron/helpers';
 
 const rule = { id: 'SE-R-004', level: 'fatal', message: 'Swedish organisation numbers consist of 10 characters.' } as const satisfies SchematronRule;
 
-export function validateSeR004(document: PeppolDocument): SchematronRuleResult {
+function evaluateSeR004(document: PeppolDocument): boolean {
   if (getSupplierCountry(document) !== 'SE') {
-    return schematronResult(rule, true);
+    return true;
   }
   const companyId = document.accountingSupplierParty.partyLegalEntity.companyId;
-  return schematronResult(rule, companyId === undefined || companyId.id.trim().length === 10);
+  return companyId === undefined || companyId.id.trim().length === 10;
 }
+
+export const validateSeR004 = schematronRule(rule, evaluateSeR004);

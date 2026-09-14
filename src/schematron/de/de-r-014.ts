@@ -1,8 +1,7 @@
 import type { PeppolDocument } from '#/schemas/peppol-document-schema';
 import type { SchematronRule } from '#/schematron/helpers';
-import type { SchematronRuleResult } from '#/schematron/types';
 
-import { isGermanSupplierAndCustomer, schematronResult } from '#/schematron/helpers';
+import { isGermanSupplierAndCustomer, schematronRule } from '#/schematron/helpers';
 
 const rule = {
   id: 'DE-R-014',
@@ -10,12 +9,14 @@ const rule = {
   message: 'The element "VAT category rate" (BT-119) shall be provided.',
 } as const satisfies SchematronRule;
 
-export function validateDeR014(document: PeppolDocument): SchematronRuleResult {
+function evaluateDeR014(document: PeppolDocument): boolean {
   if (!isGermanSupplierAndCustomer(document)) {
-    return schematronResult(rule, true);
+    return true;
   }
   const passed = document.taxTotals.every(total =>
     (total.taxSubtotals ?? []).every(subtotal => typeof subtotal.taxCategory.percent === 'number' && subtotal.taxCategory.percent > 0)
   );
-  return schematronResult(rule, passed);
+  return passed;
 }
+
+export const validateDeR014 = schematronRule(rule, evaluateDeR014);

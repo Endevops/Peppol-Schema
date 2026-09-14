@@ -1,7 +1,8 @@
 /**
  * @description Unit tests for DK-R-003 (UNSPSC version).
  */
-import { describe, expect, it } from 'vitest';
+import { assert, describe, it } from '@effect/vitest';
+import { Effect, Result } from 'effect';
 
 import type { PeppolDocument } from '#/schemas/peppol-document-schema';
 
@@ -26,45 +27,55 @@ async function asDanish(document: PeppolDocument): Promise<PeppolDocument> {
 }
 
 describe('DK-R-003 (UNSPSC version)', () => {
-  it('passes when not applicable', async () => {
-    const document = await decodeBaseExample();
-    expect(validateDkR003(document).passed).toEqual(true);
-  });
+  it.effect(
+    'passes when not applicable',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => decodeBaseExample());
+      yield* validateDkR003(document);
+    })
+  );
 
-  it('fails when a Danish line uses listID TST with an unsupported version', async () => {
-    const document = await asDanish(await decodeBaseExample());
-    const lines = (document as PeppolDocument & { invoiceLines: Array<{ item: unknown }> }).invoiceLines;
-    const line = lines[0];
-    if (!line) {
-      throw new Error('base example has no invoice line');
-    }
-    const altered = {
-      ...document,
-      invoiceLines: [
-        { ...line, item: { ...line.item, commodityClassifications: [{ itemClassification: { id: '123', listId: 'TST', listVersionId: '1.0' } }] } },
-        ...lines.slice(1),
-      ],
-    } as unknown as PeppolDocument;
-    expect(validateDkR003(altered).passed).toEqual(false);
-  });
+  it.effect(
+    'fails when a Danish line uses listID TST with an unsupported version',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => asDanish(await decodeBaseExample()));
+      const lines = (document as PeppolDocument & { invoiceLines: Array<{ item: unknown }> }).invoiceLines;
+      const line = lines[0];
+      if (!line) {
+        throw new Error('base example has no invoice line');
+      }
+      const altered = {
+        ...document,
+        invoiceLines: [
+          { ...line, item: { ...line.item, commodityClassifications: [{ itemClassification: { id: '123', listId: 'TST', listVersionId: '1.0' } }] } },
+          ...lines.slice(1),
+        ],
+      } as unknown as PeppolDocument;
+      const result = yield* validateDkR003(altered).pipe(Effect.result);
+      assert(Result.isFailure(result));
+    })
+  );
 
-  it('passes when a Danish line uses listID TST with a supported version', async () => {
-    const document = await asDanish(await decodeBaseExample());
-    const lines = (document as PeppolDocument & { invoiceLines: Array<{ item: unknown }> }).invoiceLines;
-    const line = lines[0];
-    if (!line) {
-      throw new Error('base example has no invoice line');
-    }
-    const altered = {
-      ...document,
-      invoiceLines: [
-        {
-          ...line,
-          item: { ...line.item, commodityClassifications: [{ itemClassification: { id: '123', listId: 'TST', listVersionId: '26.0801' } }] },
-        },
-        ...lines.slice(1),
-      ],
-    } as unknown as PeppolDocument;
-    expect(validateDkR003(altered).passed).toEqual(true);
-  });
+  it.effect(
+    'passes when a Danish line uses listID TST with a supported version',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => asDanish(await decodeBaseExample()));
+      const lines = (document as PeppolDocument & { invoiceLines: Array<{ item: unknown }> }).invoiceLines;
+      const line = lines[0];
+      if (!line) {
+        throw new Error('base example has no invoice line');
+      }
+      const altered = {
+        ...document,
+        invoiceLines: [
+          {
+            ...line,
+            item: { ...line.item, commodityClassifications: [{ itemClassification: { id: '123', listId: 'TST', listVersionId: '26.0801' } }] },
+          },
+          ...lines.slice(1),
+        ],
+      } as unknown as PeppolDocument;
+      yield* validateDkR003(altered);
+    })
+  );
 });

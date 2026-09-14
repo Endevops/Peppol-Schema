@@ -1,8 +1,7 @@
 import type { PeppolDocument } from '#/schemas/peppol-document-schema';
 import type { SchematronRule } from '#/schematron/helpers';
-import type { SchematronRuleResult } from '#/schematron/types';
 
-import { getSupplierCountry, schematronResult } from '#/schematron/helpers';
+import { getSupplierCountry, schematronRule } from '#/schematron/helpers';
 
 const rule = {
   id: 'NL-R-006',
@@ -11,14 +10,16 @@ const rule = {
     "[NL-R-006] For suppliers in the Netherlands, if the fiscal representative is in the Netherlands, the representative's address (cac:TaxRepresentativeParty/cac:PostalAddress) MUST contain street name (cbc:StreetName), city (cbc:CityName) and post code (cbc:PostalZone)",
 } as const satisfies SchematronRule;
 
-export function validateNlR006(document: PeppolDocument): SchematronRuleResult {
+function evaluateNlR006(document: PeppolDocument): boolean {
   if (getSupplierCountry(document) !== 'NL') {
-    return schematronResult(rule, true);
+    return true;
   }
   const taxRep = document.taxRepresentativeParty;
   if (!taxRep || taxRep.postalAddress.countryCode.identificationCode.toUpperCase() !== 'NL') {
-    return schematronResult(rule, true);
+    return true;
   }
   const address = taxRep.postalAddress;
-  return schematronResult(rule, Boolean(address.streetName) && Boolean(address.cityName) && Boolean(address.postalZone));
+  return Boolean(address.streetName) && Boolean(address.cityName) && Boolean(address.postalZone);
 }
+
+export const validateNlR006 = schematronRule(rule, evaluateNlR006);

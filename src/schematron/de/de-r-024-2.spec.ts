@@ -1,7 +1,8 @@
 /**
  * @description Unit tests for DE-R-024-2 (card code forbids payee account and mandate).
  */
-import { describe, expect, it } from 'vitest';
+import { assert, describe, it } from '@effect/vitest';
+import { Effect, Result } from 'effect';
 
 import type { PeppolDocument } from '#/schemas/peppol-document-schema';
 
@@ -24,17 +25,24 @@ async function asGerman(document: PeppolDocument): Promise<PeppolDocument> {
 }
 
 describe('DE-R-024-2 (card code forbids payee account and mandate)', () => {
-  it('passes when not applicable', async () => {
-    const document = await decodeBaseExample();
-    expect(validateDeR024_2(document).passed).toEqual(true);
-  });
+  it.effect(
+    'passes when not applicable',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => decodeBaseExample());
+      yield* validateDeR024_2(document);
+    })
+  );
 
-  it('fails when a German document uses code 54 with a payee account', async () => {
-    const document = await asGerman(await decodeBaseExample());
-    const altered = {
-      ...document,
-      paymentMeans: [{ paymentMeansCode: { code: '54' }, payeeFinancialAccount: { id: 'DE1234567890' } }],
-    } as unknown as PeppolDocument;
-    expect(validateDeR024_2(altered).passed).toEqual(false);
-  });
+  it.effect(
+    'fails when a German document uses code 54 with a payee account',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => asGerman(await decodeBaseExample()));
+      const altered = {
+        ...document,
+        paymentMeans: [{ paymentMeansCode: { code: '54' }, payeeFinancialAccount: { id: 'DE1234567890' } }],
+      } as unknown as PeppolDocument;
+      const result = yield* validateDeR024_2(altered).pipe(Effect.result);
+      assert(Result.isFailure(result));
+    })
+  );
 });

@@ -1,8 +1,7 @@
 import type { PeppolDocument } from '#/schemas/peppol-document-schema';
 import type { SchematronRule } from '#/schematron/helpers';
-import type { SchematronRuleResult } from '#/schematron/types';
 
-import { isGermanSupplierAndCustomer, schematronResult } from '#/schematron/helpers';
+import { isGermanSupplierAndCustomer, schematronRule } from '#/schematron/helpers';
 
 const rule = {
   id: 'DE-R-025-1',
@@ -10,9 +9,9 @@ const rule = {
   message: 'If "Payment means type code" (BT-81) contains a code for direct debit (59), "DIRECT DEBIT" (BG-19) shall be provided.',
 } as const satisfies SchematronRule;
 
-export function validateDeR025_1(document: PeppolDocument): SchematronRuleResult {
+function evaluateDeR025_1(document: PeppolDocument): boolean {
   if (!isGermanSupplierAndCustomer(document)) {
-    return schematronResult(rule, true);
+    return true;
   }
   const passed = (document.paymentMeans ?? []).every(payment => {
     if (payment.paymentMeansCode.code !== '59') {
@@ -20,5 +19,7 @@ export function validateDeR025_1(document: PeppolDocument): SchematronRuleResult
     }
     return Boolean(payment.paymentMandate);
   });
-  return schematronResult(rule, passed);
+  return passed;
 }
+
+export const validateDeR025_1 = schematronRule(rule, evaluateDeR025_1);

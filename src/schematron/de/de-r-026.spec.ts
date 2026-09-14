@@ -1,7 +1,8 @@
 /**
  * @description Unit tests for DE-R-026 (code 384 requires preceding invoice reference).
  */
-import { describe, expect, it } from 'vitest';
+import { assert, describe, it } from '@effect/vitest';
+import { Effect, Result } from 'effect';
 
 import type { PeppolDocument } from '#/schemas/peppol-document-schema';
 
@@ -24,14 +25,21 @@ async function asGerman(document: PeppolDocument): Promise<PeppolDocument> {
 }
 
 describe('DE-R-026 (code 384 requires preceding invoice reference)', () => {
-  it('passes when not applicable', async () => {
-    const document = await decodeBaseExample();
-    expect(validateDeR026(document).passed).toEqual(true);
-  });
+  it.effect(
+    'passes when not applicable',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => decodeBaseExample());
+      yield* validateDeR026(document);
+    })
+  );
 
-  it('fails when a German document uses invoice type 384 without a billing reference', async () => {
-    const document = await asGerman(await decodeBaseExample());
-    const altered = { ...document, invoiceTypeCode: '384', billingReferences: undefined } as unknown as PeppolDocument;
-    expect(validateDeR026(altered).passed).toEqual(false);
-  });
+  it.effect(
+    'fails when a German document uses invoice type 384 without a billing reference',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => asGerman(await decodeBaseExample()));
+      const altered = { ...document, invoiceTypeCode: '384', billingReferences: undefined } as unknown as PeppolDocument;
+      const result = yield* validateDeR026(altered).pipe(Effect.result);
+      assert(Result.isFailure(result));
+    })
+  );
 });

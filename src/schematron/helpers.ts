@@ -1,8 +1,11 @@
+import { Effect } from 'effect';
+
 import type { PeppolInvoicePeriod } from '#/schemas/fields/peppol-invoice-period-schema';
 import type { PeppolTaxSubTotal } from '#/schemas/fields/peppol-tax-subtotal-schema';
 import type { PeppolDocument, PeppolDocumentLine } from '#/schemas/peppol-document-schema';
-import type { SchematronRuleLevel, SchematronRuleResult } from '#/schematron/types';
+import type { SchematronRuleLevel } from '#/schematron/types';
 
+import { SchematronRuleError } from '#/schematron/errors';
 import { chargeReasonCodesKeys } from '#/values/charge-reason-codes.generated';
 import { countryCodesKeys } from '#/values/country-code.generated';
 
@@ -18,10 +21,19 @@ export interface SchematronRule {
 }
 
 /**
- * @description Builds a `SchematronRuleResult` for the given rule.
+ * @description An effectful schematron rule validator. Fails with a `SchematronRuleError` when the document does not satisfy the rule.
  */
-export function schematronResult(rule: SchematronRule, passed: boolean): SchematronRuleResult {
-  return { id: rule.id, level: rule.level, message: rule.message, passed };
+export type SchematronDocumentValidator = (document: PeppolDocument) => Effect.Effect<void, SchematronRuleError>;
+
+/**
+ * @description Builds an effectful validator from rule metadata and a pure predicate.
+ */
+export function schematronRule(rule: SchematronRule, predicate: (document: PeppolDocument) => boolean): SchematronDocumentValidator {
+  return Effect.fn(`schematron.${rule.id}`)(function* (document: PeppolDocument) {
+    if (!predicate(document)) {
+      return yield* new SchematronRuleError({ id: rule.id, level: rule.level, message: rule.message });
+    }
+  });
 }
 
 /**

@@ -1,8 +1,7 @@
 import type { PeppolDocument } from '#/schemas/peppol-document-schema';
 import type { SchematronRule } from '#/schematron/helpers';
-import type { SchematronRuleResult } from '#/schematron/types';
 
-import { isGermanSupplierAndCustomer, schematronResult } from '#/schematron/helpers';
+import { isGermanSupplierAndCustomer, schematronRule } from '#/schematron/helpers';
 
 const rule = {
   id: 'DE-R-023-1',
@@ -12,9 +11,9 @@ const rule = {
 
 const CREDIT_TRANSFER_CODES = new Set(['30', '58']);
 
-export function validateDeR023_1(document: PeppolDocument): SchematronRuleResult {
+function evaluateDeR023_1(document: PeppolDocument): boolean {
   if (!isGermanSupplierAndCustomer(document)) {
-    return schematronResult(rule, true);
+    return true;
   }
   const passed = (document.paymentMeans ?? []).every(payment => {
     if (!CREDIT_TRANSFER_CODES.has(payment.paymentMeansCode.code)) {
@@ -22,5 +21,7 @@ export function validateDeR023_1(document: PeppolDocument): SchematronRuleResult
     }
     return Boolean(payment.payeeFinancialAccount);
   });
-  return schematronResult(rule, passed);
+  return passed;
 }
+
+export const validateDeR023_1 = schematronRule(rule, evaluateDeR023_1);

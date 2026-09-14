@@ -1,7 +1,8 @@
 /**
  * @description Unit tests for DK-R-006 (bank account for codes 31/42).
  */
-import { describe, expect, it } from 'vitest';
+import { assert, describe, it } from '@effect/vitest';
+import { Effect, Result } from 'effect';
 
 import type { PeppolDocument } from '#/schemas/peppol-document-schema';
 
@@ -26,26 +27,36 @@ async function asDanish(document: PeppolDocument): Promise<PeppolDocument> {
 }
 
 describe('DK-R-006 (bank account for codes 31/42)', () => {
-  it('passes when not applicable', async () => {
-    const document = await decodeBaseExample();
-    expect(validateDkR006(document).passed).toEqual(true);
-  });
+  it.effect(
+    'passes when not applicable',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => decodeBaseExample());
+      yield* validateDkR006(document);
+    })
+  );
 
-  it('fails when a Danish document uses code 42 without a bank account', async () => {
-    const document = await asDanish(await decodeBaseExample());
-    const altered = {
-      ...document,
-      paymentMeans: [{ paymentMeansCode: { code: '42' }, payeeFinancialAccount: { id: '123' } }],
-    } as unknown as PeppolDocument;
-    expect(validateDkR006(altered).passed).toEqual(false);
-  });
+  it.effect(
+    'fails when a Danish document uses code 42 without a bank account',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => asDanish(await decodeBaseExample()));
+      const altered = {
+        ...document,
+        paymentMeans: [{ paymentMeansCode: { code: '42' }, payeeFinancialAccount: { id: '123' } }],
+      } as unknown as PeppolDocument;
+      const result = yield* validateDkR006(altered).pipe(Effect.result);
+      assert(Result.isFailure(result));
+    })
+  );
 
-  it('passes when a Danish document uses code 42 with account and branch', async () => {
-    const document = await asDanish(await decodeBaseExample());
-    const altered = {
-      ...document,
-      paymentMeans: [{ paymentMeansCode: { code: '42' }, payeeFinancialAccount: { id: '123', financialInstitutionBranch: { id: 'BIC' } } }],
-    } as unknown as PeppolDocument;
-    expect(validateDkR006(altered).passed).toEqual(true);
-  });
+  it.effect(
+    'passes when a Danish document uses code 42 with account and branch',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => asDanish(await decodeBaseExample()));
+      const altered = {
+        ...document,
+        paymentMeans: [{ paymentMeansCode: { code: '42' }, payeeFinancialAccount: { id: '123', financialInstitutionBranch: { id: 'BIC' } } }],
+      } as unknown as PeppolDocument;
+      yield* validateDkR006(altered);
+    })
+  );
 });

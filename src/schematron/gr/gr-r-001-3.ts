@@ -2,10 +2,9 @@ import { Schema } from 'effect';
 
 import type { PeppolDocument } from '#/schemas/peppol-document-schema';
 import type { SchematronRule } from '#/schematron/helpers';
-import type { SchematronRuleResult } from '#/schematron/types';
 
 import { PeppolIsoDateString } from '#/schemas/peppol-iso-date-string';
-import { getSupplierCountry, schematronResult } from '#/schematron/helpers';
+import { getSupplierCountry, schematronRule } from '#/schematron/helpers';
 
 const rule = {
   id: 'GR-R-001-3',
@@ -16,21 +15,23 @@ const rule = {
 const DATE_REGEX = /^(0?[1-9]|[12][0-9]|3[01])[-/]?(0?[1-9]|1[0-2])[-/]?((?:19|20)[0-9]{2})$/;
 const encodeDateSync = Schema.encodeSync(PeppolIsoDateString);
 
-export function validateGrR001_3(document: PeppolDocument): SchematronRuleResult {
+function evaluateGrR001_3(document: PeppolDocument): boolean {
   if (getSupplierCountry(document) !== 'GR' && getSupplierCountry(document) !== 'EL') {
-    return schematronResult(rule, true);
+    return true;
   }
   const segments = document.id.split('|');
   const secondSegment = segments[1];
   if (!secondSegment || secondSegment.trim().length === 0) {
-    return schematronResult(rule, false);
+    return false;
   }
   const dateMatch = secondSegment.match(DATE_REGEX);
   if (!dateMatch) {
-    return schematronResult(rule, false);
+    return false;
   }
   const [, day, month, year] = dateMatch;
   const issueDate = encodeDateSync(document.issueDate);
   const issueDateSegments = issueDate.split('-');
-  return schematronResult(rule, day === issueDateSegments[2] && month === issueDateSegments[1] && year === issueDateSegments[0]);
+  return day === issueDateSegments[2] && month === issueDateSegments[1] && year === issueDateSegments[0];
 }
+
+export const validateGrR001_3 = schematronRule(rule, evaluateGrR001_3);

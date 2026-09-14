@@ -263,7 +263,6 @@ export { validateGrR009 } from './gr/gr-r-009';
 export { validateGrR010 } from './gr/gr-r-010';
 export { validateGrS008_1 } from './gr/gr-s-008-1';
 export { validateGrS011 } from './gr/gr-s-011';
-export {} from './index';
 export { validateIsR001 } from './is/is-r-001';
 export { validateIsR002 } from './is/is-r-002';
 export { validateIsR003 } from './is/is-r-003';
@@ -359,5 +358,11 @@ export { validateSeR010 } from './se/se-r-010';
 export { validateSeR011 } from './se/se-r-011';
 export { validateSeR012 } from './se/se-r-012';
 export { validateSeR013 } from './se/se-r-013';
+
+export { SchematronRuleError, SchematronValidationError } from './errors';
+export type { SchematronDocumentValidator } from './helpers';
+export { ruleValidators } from './run-all-rules';
+export { Schematron } from './schematron';
+export type { SchematronShape } from './schematron';
 
 export type * from './types';

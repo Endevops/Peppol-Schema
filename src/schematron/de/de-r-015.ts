@@ -1,8 +1,7 @@
 import type { PeppolDocument } from '#/schemas/peppol-document-schema';
 import type { SchematronRule } from '#/schematron/helpers';
-import type { SchematronRuleResult } from '#/schematron/types';
 
-import { isGermanSupplierAndCustomer, schematronResult } from '#/schematron/helpers';
+import { isGermanSupplierAndCustomer, schematronRule } from '#/schematron/helpers';
 
 const rule = {
   id: 'DE-R-015',
@@ -10,10 +9,12 @@ const rule = {
   message: 'The element "Buyer reference" (BT-10) shall be provided.',
 } as const satisfies SchematronRule;
 
-export function validateDeR015(document: PeppolDocument): SchematronRuleResult {
+function evaluateDeR015(document: PeppolDocument): boolean {
   if (!isGermanSupplierAndCustomer(document)) {
-    return schematronResult(rule, true);
+    return true;
   }
   const buyerReference = document.buyerReference;
-  return schematronResult(rule, typeof buyerReference === 'string' && buyerReference.trim() !== '');
+  return typeof buyerReference === 'string' && buyerReference.trim() !== '';
 }
+
+export const validateDeR015 = schematronRule(rule, evaluateDeR015);

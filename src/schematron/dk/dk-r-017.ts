@@ -1,8 +1,7 @@
 import type { PeppolDocument } from '#/schemas/peppol-document-schema';
 import type { SchematronRule } from '#/schematron/helpers';
-import type { SchematronRuleResult } from '#/schematron/types';
 
-import { isDanishSupplierAndCustomer, schematronResult } from '#/schematron/helpers';
+import { isDanishSupplierAndCustomer, schematronRule } from '#/schematron/helpers';
 
 const rule = {
   id: 'DK-R-017',
@@ -11,11 +10,13 @@ const rule = {
     'For Danish Customers it is mandatory to specify schemeID as "0184" (DK CVR-number) when PartyLegalEntity/CompanyID is used for AccountingCustomerParty',
 } as const satisfies SchematronRule;
 
-export function validateDkR017(document: PeppolDocument): SchematronRuleResult {
+function evaluateDkR017(document: PeppolDocument): boolean {
   if (!isDanishSupplierAndCustomer(document)) {
-    return schematronResult(rule, true);
+    return true;
   }
   const companyId = document.accountingCustomerParty.partyLegalEntity.companyId;
   const passed = !companyId?.id || companyId.schemeId === '0184';
-  return schematronResult(rule, passed);
+  return passed;
 }
+
+export const validateDkR017 = schematronRule(rule, evaluateDkR017);

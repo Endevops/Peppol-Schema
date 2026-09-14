@@ -1,7 +1,8 @@
 /**
  * @description Unit tests for PEPPOL-COMMON-R050 (Australian ABN, scheme 0151).
  */
-import { describe, expect, it } from 'vitest';
+import { assert, describe, it } from '@effect/vitest';
+import { Effect, Result } from 'effect';
 
 import type { PeppolDocument } from '#/schemas/peppol-document-schema';
 
@@ -14,18 +15,28 @@ async function withEndpointId(document: PeppolDocument, schemeId: string, id: st
 }
 
 describe('PEPPOL-COMMON-R050 (Australian ABN, scheme 0151)', () => {
-  it('passes when no identifier uses the checked scheme', async () => {
-    const document = await decodeBaseExample();
-    expect(validatePeppolCommonR050(document).passed).toEqual(true);
-  });
+  it.effect(
+    'passes when no identifier uses the checked scheme',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => decodeBaseExample());
+      yield* validatePeppolCommonR050(document);
+    })
+  );
 
-  it('passes for a valid ABN', async () => {
-    const document = await withEndpointId(await decodeBaseExample(), '0151', '51824753556');
-    expect(validatePeppolCommonR050(document).passed).toEqual(true);
-  });
+  it.effect(
+    'passes for a valid ABN',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => withEndpointId(await decodeBaseExample(), '0151', '51824753556'));
+      yield* validatePeppolCommonR050(document);
+    })
+  );
 
-  it('fails for an invalid ABN', async () => {
-    const document = await withEndpointId(await decodeBaseExample(), '0151', '12345678901');
-    expect(validatePeppolCommonR050(document).passed).toEqual(false);
-  });
+  it.effect(
+    'fails for an invalid ABN',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => withEndpointId(await decodeBaseExample(), '0151', '12345678901'));
+      const result = yield* validatePeppolCommonR050(document).pipe(Effect.result);
+      assert(Result.isFailure(result));
+    })
+  );
 });

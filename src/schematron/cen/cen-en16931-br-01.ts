@@ -1,8 +1,7 @@
 import type { PeppolDocument } from '#/schemas/peppol-document-schema';
 import type { SchematronRule } from '#/schematron/helpers';
-import type { SchematronRuleResult } from '#/schematron/types';
 
-import { schematronResult } from '#/schematron/helpers';
+import { schematronRule } from '#/schematron/helpers';
 
 const rule = {
   id: 'CEN-EN16931-BR-01',
@@ -10,7 +9,9 @@ const rule = {
   message: 'An Invoice shall have a Specification identifier (BT-24).',
 } as const satisfies SchematronRule;
 
-export function validateCenEn16931Br01(document: PeppolDocument): SchematronRuleResult {
+function evaluateCenEn16931Br01(document: PeppolDocument): boolean {
   const passed = typeof document.customizationId === 'string' && document.customizationId.trim() !== '';
-  return schematronResult(rule, passed);
+  return passed;
 }
+
+export const validateCenEn16931Br01 = schematronRule(rule, evaluateCenEn16931Br01);

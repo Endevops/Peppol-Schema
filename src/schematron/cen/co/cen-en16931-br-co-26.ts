@@ -1,8 +1,7 @@
 import type { PeppolDocument } from '#/schemas/peppol-document-schema';
 import type { SchematronRule } from '#/schematron/helpers';
-import type { SchematronRuleResult } from '#/schematron/types';
 
-import { hasSellerLegalCompanyId, hasSellerTaxIdentifier, schematronResult } from '#/schematron/helpers';
+import { hasSellerLegalCompanyId, hasSellerTaxIdentifier, schematronRule } from '#/schematron/helpers';
 
 const rule = {
   id: 'CEN-EN16931-BR-CO-26',
@@ -11,10 +10,12 @@ const rule = {
     'In order for the buyer to automatically identify a supplier, the Seller identifier (BT-29), the Seller legal registration identifier (BT-30) and/or the Seller VAT identifier (BT-31) shall be present.',
 } as const satisfies SchematronRule;
 
-export function validateCenEn16931BrCo26(document: PeppolDocument): SchematronRuleResult {
+function evaluateCenEn16931BrCo26(document: PeppolDocument): boolean {
   const passed =
     hasSellerTaxIdentifier(document) ||
     typeof document.accountingSupplierParty.partyIdentification?.id.id === 'string' ||
     hasSellerLegalCompanyId(document);
-  return schematronResult(rule, passed);
+  return passed;
 }
+
+export const validateCenEn16931BrCo26 = schematronRule(rule, evaluateCenEn16931BrCo26);

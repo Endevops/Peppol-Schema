@@ -1,8 +1,7 @@
 import type { PeppolDocument } from '#/schemas/peppol-document-schema';
 import type { SchematronRule } from '#/schematron/helpers';
-import type { SchematronRuleResult } from '#/schematron/types';
 
-import { getSupplierCountry, schematronResult } from '#/schematron/helpers';
+import { getSupplierCountry, schematronRule } from '#/schematron/helpers';
 
 const rule = {
   id: 'GR-R-001-4',
@@ -10,14 +9,16 @@ const rule = {
   message: 'When Supplier is Greek, the Invoice Id third segment must be a positive integer',
 } as const satisfies SchematronRule;
 
-export function validateGrR001_4(document: PeppolDocument): SchematronRuleResult {
+function evaluateGrR001_4(document: PeppolDocument): boolean {
   if (getSupplierCountry(document) !== 'GR' && getSupplierCountry(document) !== 'EL') {
-    return schematronResult(rule, true);
+    return true;
   }
   const segments = document.id.split('|');
   const thirdSegment = segments[2];
   if (!thirdSegment || thirdSegment.trim().length === 0) {
-    return schematronResult(rule, false);
+    return false;
   }
-  return schematronResult(rule, /^\d+$/.test(thirdSegment) && Number(thirdSegment) >= 0);
+  return /^\d+$/.test(thirdSegment) && Number(thirdSegment) >= 0;
 }
+
+export const validateGrR001_4 = schematronRule(rule, evaluateGrR001_4);

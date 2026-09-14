@@ -1,13 +1,12 @@
 import type { PeppolDocument } from '#/schemas/peppol-document-schema';
 import type { SchematronRule } from '#/schematron/helpers';
-import type { SchematronRuleResult } from '#/schematron/types';
 
 import {
   hasBuyerVatCompanyId,
   hasLineVatCategoryCode,
   hasSellerVatCompanyId,
   hasTaxRepresentativeVatCompanyId,
-  schematronResult,
+  schematronRule,
 } from '#/schematron/helpers';
 
 const rule = {
@@ -17,9 +16,11 @@ const rule = {
     'An Invoice that contains an Invoice line (BG-25) where the Invoiced item VAT category code (BT-151) is "Intra-community supply" shall contain the Seller VAT Identifier (BT-31) or the Seller tax representative VAT identifier (BT-63) and the Buyer VAT identifier (BT-48).',
 } as const satisfies SchematronRule;
 
-export function validateCenEn16931BrIc02(document: PeppolDocument): SchematronRuleResult {
+function evaluateCenEn16931BrIc02(document: PeppolDocument): boolean {
   const passed =
     !hasLineVatCategoryCode(document, 'K') ||
     ((hasSellerVatCompanyId(document) || hasTaxRepresentativeVatCompanyId(document)) && hasBuyerVatCompanyId(document));
-  return schematronResult(rule, passed);
+  return passed;
 }
+
+export const validateCenEn16931BrIc02 = schematronRule(rule, evaluateCenEn16931BrIc02);

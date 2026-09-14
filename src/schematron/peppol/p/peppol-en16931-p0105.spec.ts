@@ -1,7 +1,8 @@
 /**
  * @description Unit tests for PEPPOL-EN16931-P0105 (tax category O for VATEX-EU-O).
  */
-import { describe, expect, it } from 'vitest';
+import { assert, describe, it } from '@effect/vitest';
+import { Effect, Result } from 'effect';
 
 import type { PeppolDocument } from '#/schemas/peppol-document-schema';
 
@@ -27,23 +28,36 @@ async function withExemptionReason(code: string, id: string): Promise<PeppolDocu
 }
 
 describe('PEPPOL-EN16931-P0105 (tax category O for VATEX-EU-O)', () => {
-  it('passes on the base example', async () => {
-    const document = await decodeBaseExample();
-    expect(validatePeppolEn16931P0105(document).passed).toEqual(true);
-  });
+  it.effect(
+    'passes on the base example',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => decodeBaseExample());
+      yield* validatePeppolEn16931P0105(document);
+    })
+  );
 
-  it('fails when VATEX-EU-O is paired with a non-O category', async () => {
-    const document = await withExemptionReason('VATEX-EU-O', 'S');
-    expect(validatePeppolEn16931P0105(document).passed).toEqual(false);
-  });
+  it.effect(
+    'fails when VATEX-EU-O is paired with a non-O category',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => withExemptionReason('VATEX-EU-O', 'S'));
+      const result = yield* validatePeppolEn16931P0105(document).pipe(Effect.result);
+      assert(Result.isFailure(result));
+    })
+  );
 
-  it('passes when no VATEX-EU-O exemption reason is used', async () => {
-    const document = await decodeBaseExample();
-    expect(validatePeppolEn16931P0105(document).passed).toEqual(true);
-  });
+  it.effect(
+    'passes when no VATEX-EU-O exemption reason is used',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => decodeBaseExample());
+      yield* validatePeppolEn16931P0105(document);
+    })
+  );
 
-  it('passes when VATEX-EU-O is paired with category O', async () => {
-    const document = await withExemptionReason('VATEX-EU-O', 'O');
-    expect(validatePeppolEn16931P0105(document).passed).toEqual(true);
-  });
+  it.effect(
+    'passes when VATEX-EU-O is paired with category O',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => withExemptionReason('VATEX-EU-O', 'O'));
+      yield* validatePeppolEn16931P0105(document);
+    })
+  );
 });

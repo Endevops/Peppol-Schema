@@ -1,7 +1,8 @@
 /**
  * @description Unit tests for GR-S-011 (Greek supplier VAT prefixed by country code).
  */
-import { describe, expect, it } from 'vitest';
+import { describe, it } from '@effect/vitest';
+import { Effect } from 'effect';
 
 import type { PeppolDocument } from '#/schemas/peppol-document-schema';
 
@@ -26,13 +27,19 @@ async function asGreek(document: PeppolDocument): Promise<PeppolDocument> {
 }
 
 describe('GR-S-011 (Greek supplier VAT prefixed by country code)', () => {
-  it('passes when not applicable', async () => {
-    const document = await decodeBaseExample();
-    expect(validateGrS011(document).passed).toEqual(true);
-  });
+  it.effect(
+    'passes when not applicable',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => decodeBaseExample());
+      yield* validateGrS011(document);
+    })
+  );
 
-  it('passes when a Greek supplier VAT is prefixed by EL', async () => {
-    const document = await asGreek(await decodeBaseExample());
-    expect(validateGrS011(document).passed).toEqual(true);
-  });
+  it.effect(
+    'passes when a Greek supplier VAT is prefixed by EL',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => asGreek(await decodeBaseExample()));
+      yield* validateGrS011(document);
+    })
+  );
 });

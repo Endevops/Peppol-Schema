@@ -1,13 +1,12 @@
 import type { PeppolDocument } from '#/schemas/peppol-document-schema';
 import type { SchematronRule } from '#/schematron/helpers';
-import type { SchematronRuleResult } from '#/schematron/types';
 
 import {
   hasBuyerVatCompanyId,
   hasDocumentAllowanceVatCategoryCode,
   hasSellerVatCompanyId,
   hasTaxRepresentativeVatCompanyId,
-  schematronResult,
+  schematronRule,
 } from '#/schematron/helpers';
 
 const rule = {
@@ -17,9 +16,11 @@ const rule = {
     'An Invoice that contains a Document level allowance (BG-20) where the Document level allowance VAT category code (BT-95) is "Not subject to VAT" shall not contain the Seller VAT identifier (BT-31), the Seller tax representative VAT identifier (BT-63) or the Buyer VAT identifier (BT-48).',
 } as const satisfies SchematronRule;
 
-export function validateCenEn16931BrO03(document: PeppolDocument): SchematronRuleResult {
+function evaluateCenEn16931BrO03(document: PeppolDocument): boolean {
   const passed =
     !hasDocumentAllowanceVatCategoryCode(document, 'O') ||
     (!hasSellerVatCompanyId(document) && !hasTaxRepresentativeVatCompanyId(document) && !hasBuyerVatCompanyId(document));
-  return schematronResult(rule, passed);
+  return passed;
 }
+
+export const validateCenEn16931BrO03 = schematronRule(rule, evaluateCenEn16931BrO03);

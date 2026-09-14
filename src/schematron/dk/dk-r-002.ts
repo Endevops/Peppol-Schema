@@ -1,15 +1,16 @@
 import type { PeppolDocument } from '#/schemas/peppol-document-schema';
 import type { SchematronRule } from '#/schematron/helpers';
-import type { SchematronRuleResult } from '#/schematron/types';
 
-import { getSupplierCountry, schematronResult } from '#/schematron/helpers';
+import { getSupplierCountry, schematronRule } from '#/schematron/helpers';
 
 const rule = { id: 'DK-R-002', level: 'fatal', message: 'Danish suppliers MUST provide legal entity (CVR-number)' } as const satisfies SchematronRule;
 
-export function validateDkR002(document: PeppolDocument): SchematronRuleResult {
+function evaluateDkR002(document: PeppolDocument): boolean {
   if (getSupplierCountry(document) !== 'DK') {
-    return schematronResult(rule, true);
+    return true;
   }
   const companyId = document.accountingSupplierParty.partyLegalEntity.companyId?.id;
-  return schematronResult(rule, typeof companyId === 'string' && companyId.trim() !== '');
+  return typeof companyId === 'string' && companyId.trim() !== '';
 }
+
+export const validateDkR002 = schematronRule(rule, evaluateDkR002);

@@ -1,7 +1,8 @@
 /**
  * @description Unit tests for DE-R-006 (seller contact telephone).
  */
-import { describe, expect, it } from 'vitest';
+import { assert, describe, it } from '@effect/vitest';
+import { Effect, Result } from 'effect';
 
 import type { PeppolDocument } from '#/schemas/peppol-document-schema';
 
@@ -24,20 +25,27 @@ async function asGerman(document: PeppolDocument): Promise<PeppolDocument> {
 }
 
 describe('DE-R-006 (seller contact telephone)', () => {
-  it('passes when not applicable', async () => {
-    const document = await decodeBaseExample();
-    expect(validateDeR006(document).passed).toEqual(true);
-  });
+  it.effect(
+    'passes when not applicable',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => decodeBaseExample());
+      yield* validateDeR006(document);
+    })
+  );
 
-  it('fails when a German document has no seller contact telephone', async () => {
-    const document = await asGerman(await decodeBaseExample());
-    const altered = {
-      ...document,
-      accountingSupplierParty: {
-        ...document.accountingSupplierParty,
-        contact: { ...document.accountingSupplierParty.contact, telephone: undefined },
-      },
-    } as unknown as PeppolDocument;
-    expect(validateDeR006(altered).passed).toEqual(false);
-  });
+  it.effect(
+    'fails when a German document has no seller contact telephone',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => asGerman(await decodeBaseExample()));
+      const altered = {
+        ...document,
+        accountingSupplierParty: {
+          ...document.accountingSupplierParty,
+          contact: { ...document.accountingSupplierParty.contact, telephone: undefined },
+        },
+      } as unknown as PeppolDocument;
+      const result = yield* validateDeR006(altered).pipe(Effect.result);
+      assert(Result.isFailure(result));
+    })
+  );
 });

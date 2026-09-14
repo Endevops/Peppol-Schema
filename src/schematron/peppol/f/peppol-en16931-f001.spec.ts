@@ -4,7 +4,8 @@
 /**
  * @effect-diagnostics nodeBuiltinImport:off
  */
-import { describe, expect, it } from 'vitest';
+import { assert, describe, it } from '@effect/vitest';
+import { Effect, Result } from 'effect';
 
 import type { PeppolDocument } from '#/schemas/peppol-document-schema';
 
@@ -13,19 +14,29 @@ import { decodeBaseExample, decodeFixture, fixtures } from '#/test/test-utils';
 import { validatePeppolEn16931F001 } from './peppol-en16931-f001';
 
 describe('PEPPOL-EN16931-F001 (date format)', () => {
-  it('passes on the base example', async () => {
-    const document = await decodeBaseExample();
-    expect(validatePeppolEn16931F001(document).passed).toEqual(true);
-  });
+  it.effect(
+    'passes on the base example',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => decodeBaseExample());
+      yield* validatePeppolEn16931F001(document);
+    })
+  );
 
-  it('fails for a malformed date', async () => {
-    const document = await decodeBaseExample();
-    const altered = { ...document, issueDate: '13-11-2017' } as unknown as PeppolDocument;
-    expect(validatePeppolEn16931F001(altered).passed).toEqual(false);
-  });
+  it.effect(
+    'fails for a malformed date',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => decodeBaseExample());
+      const altered = { ...document, issueDate: '13-11-2017' } as unknown as PeppolDocument;
+      const result = yield* validatePeppolEn16931F001(altered).pipe(Effect.result);
+      assert(Result.isFailure(result));
+    })
+  );
 
-  it('F001 should pass on date fixtures', async () => {
-    const document = await decodeFixture(fixtures.vatCategoryE);
-    expect(validatePeppolEn16931F001(document).passed).toEqual(true);
-  });
+  it.effect(
+    'F001 should pass on date fixtures',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => decodeFixture(fixtures.vatCategoryE));
+      yield* validatePeppolEn16931F001(document);
+    })
+  );
 });

@@ -1,7 +1,8 @@
 /**
  * @description Unit tests for GR-R-004-2 (MARK number is a positive integer).
  */
-import { describe, expect, it } from 'vitest';
+import { assert, describe, it } from '@effect/vitest';
+import { Effect, Result } from 'effect';
 
 import type { PeppolDocument } from '#/schemas/peppol-document-schema';
 
@@ -26,26 +27,36 @@ async function asGreek(document: PeppolDocument): Promise<PeppolDocument> {
 }
 
 describe('GR-R-004-2 (MARK number is a positive integer)', () => {
-  it('passes when not applicable', async () => {
-    const document = await decodeBaseExample();
-    expect(validateGrR004_2(document).passed).toEqual(true);
-  });
+  it.effect(
+    'passes when not applicable',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => decodeBaseExample());
+      yield* validateGrR004_2(document);
+    })
+  );
 
-  it('fails when a MARK number is not a positive integer', async () => {
-    const document = await asGreek(await decodeBaseExample());
-    const altered = {
-      ...document,
-      additionalDocumentReferences: [{ id: { id: '0' }, documentDescription: '##M.AR.K##' }],
-    } as unknown as PeppolDocument;
-    expect(validateGrR004_2(altered).passed).toEqual(false);
-  });
+  it.effect(
+    'fails when a MARK number is not a positive integer',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => asGreek(await decodeBaseExample()));
+      const altered = {
+        ...document,
+        additionalDocumentReferences: [{ id: { id: '0' }, documentDescription: '##M.AR.K##' }],
+      } as unknown as PeppolDocument;
+      const result = yield* validateGrR004_2(altered).pipe(Effect.result);
+      assert(Result.isFailure(result));
+    })
+  );
 
-  it('passes when a MARK number is a positive integer', async () => {
-    const document = await asGreek(await decodeBaseExample());
-    const altered = {
-      ...document,
-      additionalDocumentReferences: [{ id: { id: '123' }, documentDescription: '##M.AR.K##' }],
-    } as unknown as PeppolDocument;
-    expect(validateGrR004_2(altered).passed).toEqual(true);
-  });
+  it.effect(
+    'passes when a MARK number is a positive integer',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => asGreek(await decodeBaseExample()));
+      const altered = {
+        ...document,
+        additionalDocumentReferences: [{ id: { id: '123' }, documentDescription: '##M.AR.K##' }],
+      } as unknown as PeppolDocument;
+      yield* validateGrR004_2(altered);
+    })
+  );
 });

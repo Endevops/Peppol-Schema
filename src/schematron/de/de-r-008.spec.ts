@@ -1,7 +1,8 @@
 /**
  * @description Unit tests for DE-R-008 (buyer city).
  */
-import { describe, expect, it } from 'vitest';
+import { assert, describe, it } from '@effect/vitest';
+import { Effect, Result } from 'effect';
 
 import type { PeppolDocument } from '#/schemas/peppol-document-schema';
 
@@ -24,20 +25,27 @@ async function asGerman(document: PeppolDocument): Promise<PeppolDocument> {
 }
 
 describe('DE-R-008 (buyer city)', () => {
-  it('passes when not applicable', async () => {
-    const document = await decodeBaseExample();
-    expect(validateDeR008(document).passed).toEqual(true);
-  });
+  it.effect(
+    'passes when not applicable',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => decodeBaseExample());
+      yield* validateDeR008(document);
+    })
+  );
 
-  it('fails when a German document has no buyer city', async () => {
-    const document = await asGerman(await decodeBaseExample());
-    const altered = {
-      ...document,
-      accountingCustomerParty: {
-        ...document.accountingCustomerParty,
-        postalAddress: { ...document.accountingCustomerParty.postalAddress, cityName: undefined },
-      },
-    } as unknown as PeppolDocument;
-    expect(validateDeR008(altered).passed).toEqual(false);
-  });
+  it.effect(
+    'fails when a German document has no buyer city',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => asGerman(await decodeBaseExample()));
+      const altered = {
+        ...document,
+        accountingCustomerParty: {
+          ...document.accountingCustomerParty,
+          postalAddress: { ...document.accountingCustomerParty.postalAddress, cityName: undefined },
+        },
+      } as unknown as PeppolDocument;
+      const result = yield* validateDeR008(altered).pipe(Effect.result);
+      assert(Result.isFailure(result));
+    })
+  );
 });

@@ -1,8 +1,7 @@
 import type { PeppolDocument } from '#/schemas/peppol-document-schema';
 import type { SchematronRule } from '#/schematron/helpers';
-import type { SchematronRuleResult } from '#/schematron/types';
 
-import { isGermanSupplierAndCustomer, schematronResult } from '#/schematron/helpers';
+import { isGermanSupplierAndCustomer, schematronRule } from '#/schematron/helpers';
 
 const rule = {
   id: 'DE-R-022',
@@ -11,13 +10,15 @@ const rule = {
     'Attached documents provided with an invoice in "ADDITIONAL SUPPORTING DOCUMENTS" (BG-24) shall have a unique filename (non case-sensitive) within the element "Attached document" (BT-125).',
 } as const satisfies SchematronRule;
 
-export function validateDeR022(document: PeppolDocument): SchematronRuleResult {
+function evaluateDeR022(document: PeppolDocument): boolean {
   if (!isGermanSupplierAndCustomer(document)) {
-    return schematronResult(rule, true);
+    return true;
   }
   const filenames = (document.additionalDocumentReferences ?? [])
     .map(ref => ref.attachment?.embeddedDocumentBinaryObject?.filename)
     .filter((filename): filename is string => filename !== undefined)
     .map(filename => filename.toLowerCase());
-  return schematronResult(rule, new Set(filenames).size === filenames.length);
+  return new Set(filenames).size === filenames.length;
 }
+
+export const validateDeR022 = schematronRule(rule, evaluateDeR022);

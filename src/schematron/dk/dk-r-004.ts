@@ -1,8 +1,7 @@
 import type { PeppolDocument } from '#/schemas/peppol-document-schema';
 import type { SchematronRule } from '#/schematron/helpers';
-import type { SchematronRuleResult } from '#/schematron/types';
 
-import { getAllAllowanceCharges, isDanishSupplierAndCustomer, schematronResult } from '#/schematron/helpers';
+import { getAllAllowanceCharges, isDanishSupplierAndCustomer, schematronRule } from '#/schematron/helpers';
 
 const rule = {
   id: 'DK-R-004',
@@ -11,9 +10,9 @@ const rule = {
     'When specifying non-VAT Taxes for Danish customers, Danish suppliers MUST use the AllowanceChargeReasonCode="ZZZ" and MUST be specified in AllowanceChargeReason; Either as the 4-digit Tax category or must include a #, but the # is not allowed as first and last character',
 } as const satisfies SchematronRule;
 
-export function validateDkR004(document: PeppolDocument): SchematronRuleResult {
+function evaluateDkR004(document: PeppolDocument): boolean {
   if (!isDanishSupplierAndCustomer(document)) {
-    return schematronResult(rule, true);
+    return true;
   }
   const passed = getAllAllowanceCharges(document).every(ac => {
     if (ac.reasonCode !== 'ZZZ') {
@@ -27,5 +26,7 @@ export function validateDkR004(document: PeppolDocument): SchematronRuleResult {
     const hasHashInside = reason.includes('#') && !reason.startsWith('#') && !reason.endsWith('#');
     return is4DigitTaxCategory || hasHashInside;
   });
-  return schematronResult(rule, passed);
+  return passed;
 }
+
+export const validateDkR004 = schematronRule(rule, evaluateDkR004);

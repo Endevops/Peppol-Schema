@@ -1,7 +1,8 @@
 /**
  * @description Unit tests for SE-R-004 (Swedish organisation numbers 10 characters).
  */
-import { describe, expect, it } from 'vitest';
+import { assert, describe, it } from '@effect/vitest';
+import { Effect, Result } from 'effect';
 
 import type { PeppolDocument } from '#/schemas/peppol-document-schema';
 
@@ -38,61 +39,82 @@ async function asSwedish(document: PeppolDocument): Promise<PeppolDocument> {
 }
 
 describe('SE-R-004 (Swedish organisation numbers 10 characters)', () => {
-  it('passes when not applicable', async () => {
-    const document = await decodeBaseExample();
-    expect(validateSeR004(document).passed).toEqual(true);
-  });
+  it.effect(
+    'passes when not applicable',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => decodeBaseExample());
+      yield* validateSeR004(document);
+    })
+  );
 
-  it('fails when a Swedish supplier has a non-numeric organisation number', async () => {
-    const document = await withSupplierCountry(await decodeBaseExample(), 'SE');
-    const altered = {
-      ...document,
-      accountingSupplierParty: {
-        ...document.accountingSupplierParty,
-        partyLegalEntity: { ...document.accountingSupplierParty.partyLegalEntity, companyId: { id: 'ABC', schemeId: '0007' } },
-      },
-    } as unknown as PeppolDocument;
-    expect(validateSeR004(altered).passed).toEqual(false);
-  });
+  it.effect(
+    'fails when a Swedish supplier has a non-numeric organisation number',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => withSupplierCountry(await decodeBaseExample(), 'SE'));
+      const altered = {
+        ...document,
+        accountingSupplierParty: {
+          ...document.accountingSupplierParty,
+          partyLegalEntity: { ...document.accountingSupplierParty.partyLegalEntity, companyId: { id: 'ABC', schemeId: '0007' } },
+        },
+      } as unknown as PeppolDocument;
+      const result = yield* validateSeR004(altered).pipe(Effect.result);
+      assert(Result.isFailure(result));
+    })
+  );
 
-  it('fails when a Swedish supplier has a non-numeric organisation number', async () => {
-    const document = await withSupplierCountry(await decodeBaseExample(), 'SE');
-    const altered = {
-      ...document,
-      accountingSupplierParty: {
-        ...document.accountingSupplierParty,
-        partyLegalEntity: { ...document.accountingSupplierParty.partyLegalEntity, companyId: { id: 'ABC', schemeId: '0007' } },
-      },
-    } as unknown as PeppolDocument;
-    expect(validateSeR004(altered).passed).toEqual(false);
-  });
+  it.effect(
+    'fails when a Swedish supplier has a non-numeric organisation number',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => withSupplierCountry(await decodeBaseExample(), 'SE'));
+      const altered = {
+        ...document,
+        accountingSupplierParty: {
+          ...document.accountingSupplierParty,
+          partyLegalEntity: { ...document.accountingSupplierParty.partyLegalEntity, companyId: { id: 'ABC', schemeId: '0007' } },
+        },
+      } as unknown as PeppolDocument;
+      const result = yield* validateSeR004(altered).pipe(Effect.result);
+      assert(Result.isFailure(result));
+    })
+  );
 
-  it('passes when the supplier is not Swedish', async () => {
-    const document = await decodeBaseExample();
-    expect(validateSeR004(document).passed).toEqual(true);
-  });
+  it.effect(
+    'passes when the supplier is not Swedish',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => decodeBaseExample());
+      yield* validateSeR004(document);
+    })
+  );
 
-  it('fails when a Swedish organisation number is not 10 characters', async () => {
-    const document = await asSwedish(await decodeBaseExample());
-    const altered = {
-      ...document,
-      accountingSupplierParty: {
-        ...document.accountingSupplierParty,
-        partyLegalEntity: { ...document.accountingSupplierParty.partyLegalEntity, companyId: { id: '123', schemeId: '0007' } },
-      },
-    } as unknown as PeppolDocument;
-    expect(validateSeR004(altered).passed).toEqual(false);
-  });
+  it.effect(
+    'fails when a Swedish organisation number is not 10 characters',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => asSwedish(await decodeBaseExample()));
+      const altered = {
+        ...document,
+        accountingSupplierParty: {
+          ...document.accountingSupplierParty,
+          partyLegalEntity: { ...document.accountingSupplierParty.partyLegalEntity, companyId: { id: '123', schemeId: '0007' } },
+        },
+      } as unknown as PeppolDocument;
+      const result = yield* validateSeR004(altered).pipe(Effect.result);
+      assert(Result.isFailure(result));
+    })
+  );
 
-  it('passes when a Swedish organisation number is 10 characters', async () => {
-    const document = await asSwedish(await decodeBaseExample());
-    const altered = {
-      ...document,
-      accountingSupplierParty: {
-        ...document.accountingSupplierParty,
-        partyLegalEntity: { ...document.accountingSupplierParty.partyLegalEntity, companyId: { id: '5561234567', schemeId: '0007' } },
-      },
-    } as unknown as PeppolDocument;
-    expect(validateSeR004(altered).passed).toEqual(true);
-  });
+  it.effect(
+    'passes when a Swedish organisation number is 10 characters',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => asSwedish(await decodeBaseExample()));
+      const altered = {
+        ...document,
+        accountingSupplierParty: {
+          ...document.accountingSupplierParty,
+          partyLegalEntity: { ...document.accountingSupplierParty.partyLegalEntity, companyId: { id: '5561234567', schemeId: '0007' } },
+        },
+      } as unknown as PeppolDocument;
+      yield* validateSeR004(altered);
+    })
+  );
 });

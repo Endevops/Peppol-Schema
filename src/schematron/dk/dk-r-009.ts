@@ -1,8 +1,7 @@
 import type { PeppolDocument } from '#/schemas/peppol-document-schema';
 import type { SchematronRule } from '#/schematron/helpers';
-import type { SchematronRuleResult } from '#/schematron/types';
 
-import { isDanishSupplierAndCustomer, schematronResult } from '#/schematron/helpers';
+import { isDanishSupplierAndCustomer, schematronRule } from '#/schematron/helpers';
 
 const rule = {
   id: 'DK-R-009',
@@ -11,9 +10,9 @@ const rule = {
     'For Danish Suppliers if the PaymentID is prefixed with 04# or 15# the 16 digits instruction Id must be added to the PaymentID eg. "04#1234567890123456" when Payment means equals 50 (Giro)',
 } as const satisfies SchematronRule;
 
-export function validateDkR009(document: PeppolDocument): SchematronRuleResult {
+function evaluateDkR009(document: PeppolDocument): boolean {
   if (!isDanishSupplierAndCustomer(document)) {
-    return schematronResult(rule, true);
+    return true;
   }
   const passed = (document.paymentMeans ?? []).every(payment => {
     if (payment.paymentMeansCode.code !== '50' || !payment.paymentId) {
@@ -25,5 +24,7 @@ export function validateDkR009(document: PeppolDocument): SchematronRuleResult {
     }
     return true;
   });
-  return schematronResult(rule, passed);
+  return passed;
 }
+
+export const validateDkR009 = schematronRule(rule, evaluateDkR009);

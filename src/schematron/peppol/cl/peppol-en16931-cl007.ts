@@ -1,8 +1,7 @@
 import type { PeppolDocument } from '#/schemas/peppol-document-schema';
 import type { SchematronRule } from '#/schematron/helpers';
-import type { SchematronRuleResult } from '#/schematron/types';
 
-import { getLines, schematronResult } from '#/schematron/helpers';
+import { getLines, schematronRule } from '#/schematron/helpers';
 import { currencyCodesKeys } from '#/values/currency-code.generated';
 
 const rule = {
@@ -13,7 +12,7 @@ const rule = {
 
 const isValidCurrency = (code: string): boolean => (currencyCodesKeys as ReadonlyArray<string>).includes(code);
 
-export function validatePeppolEn16931CL007(document: PeppolDocument): SchematronRuleResult {
+function evaluatePeppolEn16931CL007(document: PeppolDocument): boolean {
   const currencies: Array<string> = [document.documentCurrencyCode];
   if (document.taxCurrencyCode) {
     currencies.push(document.taxCurrencyCode);
@@ -39,5 +38,7 @@ export function validatePeppolEn16931CL007(document: PeppolDocument): Schematron
       currencies.push(subtotal.taxAmount.currencyId, subtotal.taxableAmount.currencyId);
     }
   }
-  return schematronResult(rule, currencies.every(isValidCurrency));
+  return currencies.every(isValidCurrency);
 }
+
+export const validatePeppolEn16931CL007 = schematronRule(rule, evaluatePeppolEn16931CL007);

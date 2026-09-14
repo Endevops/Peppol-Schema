@@ -1,7 +1,8 @@
 /**
  * @description Unit tests for DK-R-013 (schemeID for party identification).
  */
-import { describe, expect, it } from 'vitest';
+import { assert, describe, it } from '@effect/vitest';
+import { Effect, Result } from 'effect';
 
 import type { PeppolDocument } from '#/schemas/peppol-document-schema';
 
@@ -26,26 +27,36 @@ async function asDanish(document: PeppolDocument): Promise<PeppolDocument> {
 }
 
 describe('DK-R-013 (schemeID for party identification)', () => {
-  it('passes when not applicable', async () => {
-    const document = await decodeBaseExample();
-    expect(validateDkR013(document).passed).toEqual(true);
-  });
+  it.effect(
+    'passes when not applicable',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => decodeBaseExample());
+      yield* validateDkR013(document);
+    })
+  );
 
-  it('fails when a Danish document has a party identification without a scheme id', async () => {
-    const document = await asDanish(await decodeBaseExample());
-    const altered = {
-      ...document,
-      accountingSupplierParty: { ...document.accountingSupplierParty, partyIdentification: { id: { id: '12345678', schemeId: undefined } } },
-    } as unknown as PeppolDocument;
-    expect(validateDkR013(altered).passed).toEqual(false);
-  });
+  it.effect(
+    'fails when a Danish document has a party identification without a scheme id',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => asDanish(await decodeBaseExample()));
+      const altered = {
+        ...document,
+        accountingSupplierParty: { ...document.accountingSupplierParty, partyIdentification: { id: { id: '12345678', schemeId: undefined } } },
+      } as unknown as PeppolDocument;
+      const result = yield* validateDkR013(altered).pipe(Effect.result);
+      assert(Result.isFailure(result));
+    })
+  );
 
-  it('passes when a Danish document has a party identification with a scheme id', async () => {
-    const document = await asDanish(await decodeBaseExample());
-    const altered = {
-      ...document,
-      accountingSupplierParty: { ...document.accountingSupplierParty, partyIdentification: { id: { id: '12345678', schemeId: '0088' } } },
-    } as unknown as PeppolDocument;
-    expect(validateDkR013(altered).passed).toEqual(true);
-  });
+  it.effect(
+    'passes when a Danish document has a party identification with a scheme id',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => asDanish(await decodeBaseExample()));
+      const altered = {
+        ...document,
+        accountingSupplierParty: { ...document.accountingSupplierParty, partyIdentification: { id: { id: '12345678', schemeId: '0088' } } },
+      } as unknown as PeppolDocument;
+      yield* validateDkR013(altered);
+    })
+  );
 });

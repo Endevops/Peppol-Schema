@@ -4,7 +4,8 @@
 /**
  * @effect-diagnostics nodeBuiltinImport:off
  */
-import { describe, expect, it } from 'vitest';
+import { assert, describe, it } from '@effect/vitest';
+import { Effect, Result } from 'effect';
 
 import type { PeppolDocument } from '#/schemas/peppol-document-schema';
 
@@ -21,41 +22,54 @@ const fixtures = {
 } as const;
 
 describe('PEPPOL-EN16931-CL001 (mime code)', () => {
-  it('passes on the base example', async () => {
-    const document = await decodeBaseExample();
-    expect(validatePeppolEn16931CL001(document).passed).toEqual(true);
-  });
+  it.effect(
+    'passes on the base example',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => decodeBaseExample());
+      yield* validatePeppolEn16931CL001(document);
+    })
+  );
 
-  it('passes for a supported mime code', async () => {
-    const document = await decodeBaseExample();
-    const altered = {
-      ...document,
-      additionalDocumentReferences: [
-        {
-          id: { id: 'ref' },
-          attachment: { embeddedDocumentBinaryObject: { content: 'aGVsbG8=', mimeCode: 'application/pdf', filename: 'doc.pdf' } },
-        },
-      ],
-    } as unknown as PeppolDocument;
-    expect(validatePeppolEn16931CL001(altered).passed).toEqual(true);
-  });
+  it.effect(
+    'passes for a supported mime code',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => decodeBaseExample());
+      const altered = {
+        ...document,
+        additionalDocumentReferences: [
+          {
+            id: { id: 'ref' },
+            attachment: { embeddedDocumentBinaryObject: { content: 'aGVsbG8=', mimeCode: 'application/pdf', filename: 'doc.pdf' } },
+          },
+        ],
+      } as unknown as PeppolDocument;
+      yield* validatePeppolEn16931CL001(altered);
+    })
+  );
 
-  it('fails for an unsupported mime code', async () => {
-    const document = await decodeBaseExample();
-    const altered = {
-      ...document,
-      additionalDocumentReferences: [
-        {
-          id: { id: 'ref' },
-          attachment: { embeddedDocumentBinaryObject: { content: 'aGVsbG8=', mimeCode: 'application/x-unknown', filename: 'doc.pdf' } },
-        },
-      ],
-    } as unknown as PeppolDocument;
-    expect(validatePeppolEn16931CL001(altered).passed).toEqual(false);
-  });
+  it.effect(
+    'fails for an unsupported mime code',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => decodeBaseExample());
+      const altered = {
+        ...document,
+        additionalDocumentReferences: [
+          {
+            id: { id: 'ref' },
+            attachment: { embeddedDocumentBinaryObject: { content: 'aGVsbG8=', mimeCode: 'application/x-unknown', filename: 'doc.pdf' } },
+          },
+        ],
+      } as unknown as PeppolDocument;
+      const result = yield* validatePeppolEn16931CL001(altered).pipe(Effect.result);
+      assert(Result.isFailure(result));
+    })
+  );
 
-  it('CL001 should pass when there are no attachments', async () => {
-    const document = await decodeFixture(fixtures.vatCategoryO);
-    expect(validatePeppolEn16931CL001(document).passed).toEqual(true);
-  });
+  it.effect(
+    'CL001 should pass when there are no attachments',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => decodeFixture(fixtures.vatCategoryO));
+      yield* validatePeppolEn16931CL001(document);
+    })
+  );
 });
