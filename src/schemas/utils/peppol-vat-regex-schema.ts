@@ -47,5 +47,3 @@ export const peppolVatRegexSchema = Schema.Union([
   Schema.String.check(Schema.isStartsWith('SI'), Schema.isPattern(/^SI\d{8}$/)),
   Schema.String.check(Schema.isStartsWith('SK'), Schema.isPattern(/^SK\d{10}$/)),
 ]);
-
-export type VatRegex = typeof peppolVatRegexSchema.Type;
