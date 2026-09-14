@@ -49,7 +49,7 @@ jobs:
           coverage: coverage/coverage-final.json
           type-aware: true
           save-snapshot: true
-          fail-on-issues: ${{ github.event_name == 'pull_request' }}
+          fail-on-issues: true
 
       - name: Alert on degraded scoping
         if: steps.fallow.outputs.changed-files-unavailable == 'true'
