@@ -14,7 +14,7 @@ layer(Schematron.layer)('Schematron', it => {
   it.effect('passes on the base example', () =>
     Effect.gen(function* () {
       const document = yield* Effect.promise(() => decodeBaseExample());
-      const result = yield* Schematron.use(schematron => schematron.run(document)).pipe(Effect.result);
+      const result = yield* Schematron.use(schematron => schematron.run(document));
       assert(Result.isSuccess(result));
     }).pipe()
   );
@@ -24,7 +24,7 @@ layer(Schematron.layer)('Schematron', it => {
       const base = yield* Effect.promise(() => decodeBaseExample());
       const document = { ...base, customizationId: '', profileId: '' } as unknown as PeppolDocument;
 
-      const result = yield* Schematron.use(schematron => schematron.run(document)).pipe(Effect.result);
+      const result = yield* Schematron.use(schematron => schematron.run(document));
 
       assert(Result.isFailure(result));
       assert(result.failure instanceof SchematronValidationError);

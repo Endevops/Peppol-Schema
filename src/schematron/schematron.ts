@@ -1,4 +1,6 @@
-import { Context, Effect, Layer, Result } from 'effect';
+import type { Result } from 'effect';
+
+import { Context, Effect, Layer } from 'effect';
 
 import type { PeppolDocument } from '#/schemas/peppol-document-schema';
 
@@ -12,7 +14,7 @@ export interface SchematronShape {
   /**
    * @description Runs every schematron rule against the document, failing with a single `SchematronValidationError` that wraps each failed rule.
    */
-  readonly run: (document: PeppolDocument) => Effect.Effect<void, SchematronValidationError>;
+  readonly run: (document: PeppolDocument) => Effect.Effect<Result.Result<void, SchematronValidationError>>;
 }
 
 /**
@@ -23,12 +25,11 @@ export class Schematron extends Context.Service<Schematron, SchematronShape>()('
     Schematron,
     Effect.gen(function* () {
       const run = Effect.fn('Schematron.run')(function* (document: PeppolDocument) {
-        const results = yield* Effect.forEach(ruleValidators, validator => validator(document).pipe(Effect.result));
-        const errors = results.filter(Result.isFailure).map(result => result.failure);
+        const [errors] = yield* Effect.partition(ruleValidators, validator => validator(document));
         if (errors.length > 0) {
           return yield* new SchematronValidationError({ errors });
         }
-      });
+      }, Effect.result);
       return Schematron.of({ run });
     })
   );
