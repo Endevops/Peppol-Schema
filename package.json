@@ -2,7 +2,23 @@
   "$schema": "https://raw.githubusercontent.com/SchemaStore/schemastore/refs/heads/master/src/schemas/json/package.json",
   "name": "@endevops/peppol-schema",
   "version": "0.0.1",
-  "description": "A simple example library built by tsdown",
+  "description": "TypeScript Effect Schema models for PEPPOL BIS Billing 3.0 — decode, validate and encode Invoice, Credit Note, Invoice Response and Message Level Response XML, with generated code lists, Schematron rules and identifier validations",
+  "keywords": [
+    "bis-billing",
+    "credit-note",
+    "e-invoicing",
+    "e-procurement",
+    "effect",
+    "invoice",
+    "openpeppol",
+    "peppol",
+    "peppol-bis",
+    "schematron",
+    "typescript",
+    "ubl",
+    "validation",
+    "xml"
+  ],
   "license": "Apache-2.0",
   "contributors": [
     {
