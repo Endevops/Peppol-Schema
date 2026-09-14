@@ -6,7 +6,7 @@ import { PeppolInvoiceResponse } from '#/schemas/peppol-invoice-response-schema.
 import { encodeInvoiceResponse } from './encode-invoice-response.ts';
 
 describe('encodeInvoiceResponse', () => {
-  const decodeInvoiceResponse = Schema.decodeSync(PeppolInvoiceResponse);
+  const decodeInvoiceResponse = (input: any) => Effect.runSync(Schema.decodeEffect(PeppolInvoiceResponse)(input));
   const invoiceResponse = decodeInvoiceResponse({
     customizationId: 'urn:fdc:peppol.eu:poacc:trns:invoice_response:3',
     documentResponse: {

@@ -1,4 +1,4 @@
-import { Clock, Option, DateTime, Effect, Predicate, Schema, SchemaGetter, SchemaIssue, SchemaParser } from 'effect';
+import { Clock, Option, DateTime, Effect, Predicate, Schema, SchemaGetter, SchemaIssue } from 'effect';
 
 import { formatXsdTime } from '#/schemas/utils/format-xsd-time.ts';
 import { opaque } from '#/schemas/utils/opaque.ts';
@@ -6,12 +6,13 @@ import { opaque } from '#/schemas/utils/opaque.ts';
 const timeRegex =
   /^(?<hours>[01]\d|2[0-3]):(?<minutes>[0-5]\d):(?<seconds>[0-5]\d)(?<nanoseconds>\.\d{1,9})?(?<tz>(?:Z|-0[1-9]|-1\d|-2[0-3]|-00:?(?:0[1-9]|[1-5]\d)|\+[01]\d|\+2[0-3])?(?:|:?[0-5]\d))$/;
 const timeZoneRegex = /^(?:(?<utc>Z)|[-+](?<hours>0[1-9]|1\d|2[0-3]|00):?(?<minutes>[0-5]\d))$/;
-const numberFromString = SchemaParser.decodeSync(
-  Schema.UndefinedOr(Schema.String.pipe(Schema.withDecodingDefault(Effect.succeed('0')))).pipe(
-    Schema.decodeTo(Schema.Number, { encode: SchemaGetter.String(), decode: SchemaGetter.Number() }),
-    Schema.catchDecoding(() => Effect.succeedSome(0))
-  )
-);
+const numberFromString = (value: string | undefined): number => {
+  if (value === undefined) {
+    return 0;
+  }
+  const parsed = Number(value);
+  return Number.isFinite(parsed) ? parsed : 0;
+};
 
 /**
  * @description Parse a timezone offset from a string. The string must be in the format `(+|-)HH:MM` where `HH` and `MM` are two digits.

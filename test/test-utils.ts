@@ -4,7 +4,7 @@
  * @effect-diagnostics nodeBuiltinImport:off
  */
 
-import { Schema } from 'effect';
+import { Effect, Schema } from 'effect';
 
 import type { PeppolDocument } from '#/schemas/peppol-document-schema.ts';
 
@@ -23,9 +23,10 @@ export const fixtures = {
   vatCategoryE: '#/test/files/v3/invoice/vat-category-E.xml',
   vatCategoryO: '#/test/files/v3/invoice/vat-category-O.xml',
 } as const;
-const decodeDocument = Schema.decodeUnknownSync(peppolDocumentSchema);
+const decodeDocument = Schema.decodeUnknownEffect(peppolDocumentSchema);
 
 export async function decodeFixture(filename: string): Promise<PeppolDocument> {
-  const content = await import(`${filename}?raw`).then(i => i.default);
-  return decodeDocument(content, { reportInput: true }) as unknown as PeppolDocument;
+  const content = await import(`${filename}?raw`).then(i => i.default as unknown);
+  const decoded = await Effect.runPromise(decodeDocument(content, { reportInput: true }));
+  return decoded as PeppolDocument;
 }

@@ -1,4 +1,4 @@
-import { Predicate, Schema } from 'effect';
+import { DateTime, Predicate, Schema } from 'effect';
 
 import type { PeppolDocument } from '#/schemas/peppol-document-schema.ts';
 import type { SchematronRule } from '#/schematron/helpers.ts';
@@ -12,7 +12,12 @@ const DATE_REGEX = /^\d{4}-\d{2}-\d{2}$/;
 
 const isValidDate = (value: string | undefined): boolean => value === undefined || (DATE_REGEX.test(value) && !Number.isNaN(Date.parse(value)));
 
-const encodeDateSync = Schema.encodeSync(Schema.Union([PeppolIsoDateString, Schema.String]));
+const formatDate = (value: PeppolIsoDateString | string): string => {
+  if (typeof value === 'string') {
+    return value;
+  }
+  return DateTime.formatIsoDate(value);
+};
 const isDate = Schema.is(PeppolIsoDateString);
 
 const collectDates = (document: PeppolDocument): Array<string> => {
@@ -24,9 +29,9 @@ const collectDates = (document: PeppolDocument): Array<string> => {
     ...getLines(document).flatMap(line => [line.invoicePeriod?.startDate, line.invoicePeriod?.endDate]),
   ].filter((date): date is string => date !== undefined);
 
-  const dates = [document.issueDate, ...optionalDates].map(date => encodeDateSync(date));
+  const dates = [document.issueDate, ...optionalDates].map(date => formatDate(date));
   if (Predicate.hasProperty(document, 'dueDate') && isDate(document.dueDate)) {
-    dates.push(encodeDateSync(document.dueDate));
+    dates.push(formatDate(document.dueDate));
   }
   return dates;
 };

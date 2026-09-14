@@ -40,7 +40,7 @@ describe('peppolBase64Schema', () => {
     // PEM-style 76-char lines with CRLF (real-world certificate block shape)
     'YWJjZGVmZ2hpamtsbW5vcHFyc3R1dnd4eXpBQkNERUZHSElKS0xNTk9QUVJTVFVWV1hZWjAx\r\nMjM0NTY3ODk=',
   ] as const)('should parse %s as base64', val => {
-    expect(() => Schema.decodeSync(peppolBase64Schema)(val)).not.toThrow();
+    expect(Schema.is(peppolBase64Schema)(val)).toBe(true);
   });
 
   it.for([
@@ -81,6 +81,6 @@ describe('peppolBase64Schema', () => {
     '\u00f1o\u00f1o',
     '\uD83D\uDD11',
   ] as const)('should not parse %s as base64', val => {
-    expect(() => Schema.decodeSync(peppolBase64Schema)(val)).toThrow();
+    expect(Schema.is(peppolBase64Schema)(val)).toBe(false);
   });
 });

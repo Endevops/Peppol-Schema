@@ -5,7 +5,7 @@ import { encodeMessageLevelResponse } from '#/decoders/encode-message-level-resp
 import { PeppolMessageLevelResponse } from '#/schemas/peppol-message-level-response-schema.ts';
 
 describe('encodeMessageLevelResponse()', () => {
-  const decodeMessageLevelResponse = Schema.decodeSync(PeppolMessageLevelResponse);
+  const decodeMessageLevelResponse = (input: any) => Effect.runSync(Schema.decodeEffect(PeppolMessageLevelResponse)(input));
   const invoice = decodeMessageLevelResponse({
     customizationId: 'urn:fdc:peppol.eu:poacc:trns:mlr:3',
     documentResponse: {

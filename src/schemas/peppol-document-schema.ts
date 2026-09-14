@@ -84,7 +84,6 @@ const encodeDocumentXml = Effect.fn('encode-peppol-document-xml')(function* (val
     content = yield* encodeInvoiceResponse(value as never);
   } else {
     const rootNodes = Object.keys(value);
-    console.log(value, isPeppolInvoice(value), isPeppolCreditNote(value), isPeppolMessageLevelResponse(value), isPeppolInvoiceResponse(value));
     return yield* Effect.fail(
       new SchemaIssue.InvalidValue({ message: `Unsupported document type: ${value.profileId}\n${rootNodes.join(',')}` }, value, options)
     );

@@ -5,7 +5,7 @@ import { encodeCreditNote } from '#/decoders/encode-credit-note.ts';
 import { PeppolCreditNote } from '#/schemas/peppol-credit-note-schema.ts';
 
 describe('encodeCreditNote()', () => {
-  const decodePeppolCreditNote = Schema.decodeSync(PeppolCreditNote);
+  const decodePeppolCreditNote = (input: any) => Effect.runSync(Schema.decodeEffect(PeppolCreditNote)(input));
   const creditNote = decodePeppolCreditNote({
     accountingCost: '4025:123:4343',
     accountingCustomerParty: {
