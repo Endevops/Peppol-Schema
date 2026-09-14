@@ -10,13 +10,13 @@ const rule = {
   message: 'Greek Suppliers must provide the VAT number of the buyer, if the buyer is Greek ',
 } as const satisfies SchematronRule;
 
+const isGreekCountry = (country: string): boolean => country === 'GR' || country === 'EL';
+
 function evaluateGrR006(document: PeppolDocument): boolean {
-  const isGreekSupplier = getSupplierCountry(document) === 'GR' || getSupplierCountry(document) === 'EL';
-  const isGreekCustomer = getCustomerCountry(document) === 'GR' || getCustomerCountry(document) === 'EL';
-  if (!isGreekSupplier || !isGreekCustomer) {
+  if (!isGreekCountry(getSupplierCountry(document)) || !isGreekCountry(getCustomerCountry(document))) {
     return true;
   }
-  const vatSchemes = document.accountingCustomerParty.partyTaxSchemes?.filter(scheme => scheme.taxSchemeId.id.trim().toUpperCase() === 'VAT') ?? [];
+  const vatSchemes = (document.accountingCustomerParty.partyTaxSchemes ?? []).filter(scheme => scheme.taxSchemeId.id.trim().toUpperCase() === 'VAT');
   if (vatSchemes.length !== 1) {
     return false;
   }

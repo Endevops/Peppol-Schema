@@ -15,18 +15,24 @@ const isValidDate = (value: string | undefined): boolean => value === undefined 
 const encodeDateSync = Schema.encodeSync(Schema.Union([PeppolIsoDateString, Schema.String]));
 const isDate = Schema.is(PeppolIsoDateString);
 
-function evaluatePeppolEn16931F001(document: PeppolDocument): boolean {
-  const dates: Array<string | undefined> = [encodeDateSync(document.issueDate)];
-  if (Predicate.hasProperty(document, 'dueDate') && isDate(document.dueDate)) dates.push(encodeDateSync(document.dueDate));
-  if (document.taxPointDate) dates.push(encodeDateSync(document.taxPointDate));
-  if (document.invoicePeriod?.startDate) dates.push(encodeDateSync(document.invoicePeriod.startDate));
-  if (document.invoicePeriod?.endDate) dates.push(encodeDateSync(document.invoicePeriod.endDate));
-  if (document.delivery?.actualDeliveryDate) dates.push(encodeDateSync(document.delivery.actualDeliveryDate));
-  for (const line of getLines(document)) {
-    if (line.invoicePeriod?.startDate) dates.push(encodeDateSync(line.invoicePeriod.startDate));
-    if (line.invoicePeriod?.endDate) dates.push(encodeDateSync(line.invoicePeriod.endDate));
+const collectDates = (document: PeppolDocument): Array<string> => {
+  const optionalDates = [
+    document.taxPointDate,
+    document.invoicePeriod?.startDate,
+    document.invoicePeriod?.endDate,
+    document.delivery?.actualDeliveryDate,
+    ...getLines(document).flatMap(line => [line.invoicePeriod?.startDate, line.invoicePeriod?.endDate]),
+  ].filter((date): date is string => date !== undefined);
+
+  const dates = [document.issueDate, ...optionalDates].map(date => encodeDateSync(date));
+  if (Predicate.hasProperty(document, 'dueDate') && isDate(document.dueDate)) {
+    dates.push(encodeDateSync(document.dueDate));
   }
-  return dates.every(isValidDate);
+  return dates;
+};
+
+function evaluatePeppolEn16931F001(document: PeppolDocument): boolean {
+  return collectDates(document).every(isValidDate);
 }
 
 export const validatePeppolEn16931F001 = schematronRule(rule, evaluatePeppolEn16931F001);

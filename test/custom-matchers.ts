@@ -28,19 +28,21 @@ function removeUncesessaryAttributes(obj: any) {
   }
 }
 
+const ROOT_ELEMENTS = ['Invoice', 'CreditNote', 'ApplicationResponse'] as const;
+
+function stripRootAttributes(expectedXML: Record<string, any>, root: (typeof ROOT_ELEMENTS)[number]) {
+  if (root in expectedXML) {
+    removeUncesessaryAttributes(expectedXML[root]);
+  }
+}
+
 expect.extend({
   toMatchXML(actual: string, expected: string) {
     const { isNot } = this;
     const actualXML = parseXML(actual);
     const expectedXML = parseXML(expected);
-    if ('Invoice' in expectedXML) {
-      removeUncesessaryAttributes(expectedXML.Invoice);
-    }
-    if ('CreditNote' in expectedXML) {
-      removeUncesessaryAttributes(expectedXML.CreditNote);
-    }
-    if ('ApplicationResponse' in expectedXML) {
-      removeUncesessaryAttributes(expectedXML.ApplicationResponse);
+    for (const root of ROOT_ELEMENTS) {
+      stripRootAttributes(expectedXML, root);
     }
 
     let pass: boolean;

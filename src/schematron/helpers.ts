@@ -566,19 +566,17 @@ export function everyVatBreakdownTaxableMatchesRateSum(document: PeppolDocument)
  * @description Returns all identifiers carrying a scheme identifier, used by the PEPPOL-COMMON-R* rules.
  */
 export function getIdentifiersWithSchemeId(document: PeppolDocument): Array<{ id: string; schemeId: string }> {
-  const result: Array<{ id: string; schemeId: string }> = [];
-  const push = (id: string | undefined, schemeId: string | undefined) => {
-    if (id && schemeId) {
-      result.push({ id, schemeId });
-    }
-  };
+  const candidates: Array<{ id: string | undefined; schemeId: string | undefined }> = [];
   for (const party of [document.accountingSupplierParty, document.accountingCustomerParty]) {
-    push(party.endpointId?.id, party.endpointId?.schemeId);
-    push(party.partyIdentification?.id?.id, party.partyIdentification?.id?.schemeId);
-    push(party.partyLegalEntity.companyId?.id, party.partyLegalEntity.companyId?.schemeId);
+    candidates.push(
+      { id: party.endpointId?.id, schemeId: party.endpointId?.schemeId },
+      { id: party.partyIdentification?.id?.id, schemeId: party.partyIdentification?.id?.schemeId },
+      { id: party.partyLegalEntity.companyId?.id, schemeId: party.partyLegalEntity.companyId?.schemeId }
+    );
   }
-  if (document.payeeParty?.partyIdentification?.id) {
-    push(document.payeeParty.partyIdentification.id.id, document.payeeParty.partyIdentification.id.schemeId);
+  const payeeIdentification = document.payeeParty?.partyIdentification?.id;
+  if (payeeIdentification) {
+    candidates.push({ id: payeeIdentification.id, schemeId: payeeIdentification.schemeId });
   }
-  return result;
+  return candidates.filter((candidate): candidate is { id: string; schemeId: string } => Boolean(candidate.id) && Boolean(candidate.schemeId));
 }

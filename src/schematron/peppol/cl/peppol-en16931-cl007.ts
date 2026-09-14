@@ -12,33 +12,33 @@ const rule = {
 
 const isValidCurrency = (code: string): boolean => (currencyCodesKeys as ReadonlyArray<string>).includes(code);
 
-function evaluatePeppolEn16931CL007(document: PeppolDocument): boolean {
-  const currencies: Array<string> = [document.documentCurrencyCode];
-  if (document.taxCurrencyCode) {
-    currencies.push(document.taxCurrencyCode);
-  }
-  for (const line of getLines(document)) {
-    currencies.push(line.lineExtensionAmount.currencyId);
-    currencies.push(line.price.priceAmount.currencyId);
-  }
+const collectCurrencies = (document: PeppolDocument): Array<string> => {
   const total = document.legalMonetaryTotal;
-  currencies.push(
+  const optionalTotalCurrencies = [
+    total.allowanceTotalAmount?.currencyId,
+    total.chargeTotalAmount?.currencyId,
+    total.prepaidAmount?.currencyId,
+    total.payableRoundingAmount?.currencyId,
+  ].filter((code): code is string => code !== undefined);
+
+  return [
+    document.documentCurrencyCode,
+    ...(document.taxCurrencyCode ? [document.taxCurrencyCode] : []),
+    ...getLines(document).flatMap(line => [line.lineExtensionAmount.currencyId, line.price.priceAmount.currencyId]),
     total.lineExtensionAmount.currencyId,
     total.taxExclusiveAmount.currencyId,
     total.taxInclusiveAmount.currencyId,
-    total.payableAmount.currencyId
-  );
-  if (total.allowanceTotalAmount) currencies.push(total.allowanceTotalAmount.currencyId);
-  if (total.chargeTotalAmount) currencies.push(total.chargeTotalAmount.currencyId);
-  if (total.prepaidAmount) currencies.push(total.prepaidAmount.currencyId);
-  if (total.payableRoundingAmount) currencies.push(total.payableRoundingAmount.currencyId);
-  for (const taxTotal of document.taxTotals) {
-    currencies.push(taxTotal.taxAmount.currencyId);
-    for (const subtotal of taxTotal.taxSubtotals ?? []) {
-      currencies.push(subtotal.taxAmount.currencyId, subtotal.taxableAmount.currencyId);
-    }
-  }
-  return currencies.every(isValidCurrency);
+    total.payableAmount.currencyId,
+    ...optionalTotalCurrencies,
+    ...document.taxTotals.flatMap(taxTotal => [
+      taxTotal.taxAmount.currencyId,
+      ...(taxTotal.taxSubtotals ?? []).flatMap(subtotal => [subtotal.taxAmount.currencyId, subtotal.taxableAmount.currencyId]),
+    ]),
+  ];
+};
+
+function evaluatePeppolEn16931CL007(document: PeppolDocument): boolean {
+  return collectCurrencies(document).every(isValidCurrency);
 }
 
 export const validatePeppolEn16931CL007 = schematronRule(rule, evaluatePeppolEn16931CL007);

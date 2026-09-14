@@ -3,7 +3,6 @@
   "$schema": "https://raw.githubusercontent.com/fallow-rs/fallow/main/schema.json",
   // Public API surfaces backing package.json exports, plus build scripts
   // and the shared test matcher.
-  "typeAware": { "enabled": true },
   "entry": [
     "**/scripts/**/*.ts",
     "test/custom-matchers.ts",
@@ -47,4 +46,10 @@
     "simple-git",
   ],
   "rules": { "unused-dependencies": "warn" },
+  // Test suites are not published (see package.json `files`) and the
+  // `scripts/values` codegen tools are offline-only. Their long `describe`
+  // blocks and template literals dominate the unit-size signal without
+  // reflecting shipped-code health, so keep them out of the health score.
+  // Complexity findings, dead code and duplication still cover them.
+  "health": { "ignore": ["**/*.spec.ts", "**/*.test.ts", "test/**", "scripts/values/**"] },
 }
