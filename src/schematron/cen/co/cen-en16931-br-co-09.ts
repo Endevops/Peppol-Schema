@@ -1,8 +1,7 @@
-import type { PeppolDocument } from '#/document';
-import type { SchematronRule } from '#/schematron/helpers';
-import type { SchematronRuleResult } from '#/schematron/types';
+import type { PeppolDocument } from '#/schemas/peppol-document-schema.ts';
+import type { SchematronRule } from '#/schematron/helpers.ts';
 
-import { allVatCompanyIdsHaveValidPrefix, schematronResult } from '#/schematron/helpers';
+import { allVatCompanyIdsHaveValidPrefix, schematronRule } from '#/schematron/helpers.ts';
 
 const rule = {
   id: 'CEN-EN16931-BR-CO-09',
@@ -11,7 +10,9 @@ const rule = {
     'The Seller VAT identifier (BT-31), the Seller tax representative VAT identifier (BT-63) and the Buyer VAT identifier (BT-48) shall have a prefix in accordance with ISO code ISO 3166-1 alpha-2 by which the country of issue may be identified. Nevertheless, Greece may use the prefix ‘EL’.',
 } as const satisfies SchematronRule;
 
-export function validateCenEn16931BrCo09(document: PeppolDocument): SchematronRuleResult {
+function evaluateCenEn16931BrCo09(document: PeppolDocument): boolean {
   const passed = allVatCompanyIdsHaveValidPrefix(document);
-  return schematronResult(rule, passed);
+  return passed;
 }
+
+export const validateCenEn16931BrCo09 = schematronRule(rule, evaluateCenEn16931BrCo09);

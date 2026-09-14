@@ -1,8 +1,7 @@
-import type { PeppolDocument } from '#/document';
-import type { SchematronRule } from '#/schematron/helpers';
-import type { SchematronRuleResult } from '#/schematron/types';
+import type { PeppolDocument } from '#/schemas/peppol-document-schema.ts';
+import type { SchematronRule } from '#/schematron/helpers.ts';
 
-import { schematronResult } from '#/schematron/helpers';
+import { schematronRule } from '#/schematron/helpers.ts';
 
 const rule = {
   id: 'PEPPOL-EN16931-R054',
@@ -10,8 +9,10 @@ const rule = {
   message: 'Only one tax total without tax subtotals MUST be provided when tax currency code is provided.',
 } as const satisfies SchematronRule;
 
-export function validatePeppolEn16931R054(document: PeppolDocument): SchematronRuleResult {
+function evaluatePeppolEn16931R054(document: PeppolDocument): boolean {
   const withoutSubtotals = document.taxTotals.filter(total => (total.taxSubtotals?.length ?? 0) === 0);
   const expected = document.taxCurrencyCode ? 1 : 0;
-  return schematronResult(rule, withoutSubtotals.length === expected);
+  return withoutSubtotals.length === expected;
 }
+
+export const validatePeppolEn16931R054 = schematronRule(rule, evaluatePeppolEn16931R054);

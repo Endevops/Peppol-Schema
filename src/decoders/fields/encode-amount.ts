@@ -1,6 +1,8 @@
-import type { PeppolAmount } from '#/schemas/fields/amount-schema';
+import { Effect, Predicate } from 'effect';
 
-export function encodeAmount(amount?: PeppolAmount) {
-  if (!amount) return undefined;
+import type { PeppolAmount } from '#/schemas/fields/peppol-amount-schema.ts';
+
+export const encodeAmount = Effect.fn(function* (amount?: PeppolAmount) {
+  if (Predicate.isNullish(amount)) return undefined;
   return { '#text': amount.value, '@currencyID': amount.currencyId };
-}
+});

@@ -1,8 +1,7 @@
-import type { PeppolDocument } from '#/document';
-import type { SchematronRule } from '#/schematron/helpers';
-import type { SchematronRuleResult } from '#/schematron/types';
+import type { PeppolDocument } from '#/schemas/peppol-document-schema.ts';
+import type { SchematronRule } from '#/schematron/helpers.ts';
 
-import { schematronResult } from '#/schematron/helpers';
+import { schematronRule } from '#/schematron/helpers.ts';
 
 const rule = {
   id: 'CEN-EN16931-BR-09',
@@ -10,9 +9,11 @@ const rule = {
   message: 'The Seller postal address (BG-5) shall contain a Seller country code (BT-40).',
 } as const satisfies SchematronRule;
 
-export function validateCenEn16931Br09(document: PeppolDocument): SchematronRuleResult {
+function evaluateCenEn16931Br09(document: PeppolDocument): boolean {
   const passed =
     typeof document.accountingSupplierParty.postalAddress.countryCode.identificationCode === 'string' &&
     document.accountingSupplierParty.postalAddress.countryCode.identificationCode.trim() !== '';
-  return schematronResult(rule, passed);
+  return passed;
 }
+
+export const validateCenEn16931Br09 = schematronRule(rule, evaluateCenEn16931Br09);

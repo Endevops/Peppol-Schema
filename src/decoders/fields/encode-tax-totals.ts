@@ -1,21 +1,37 @@
-import type { PeppolTaxTotal } from '#/schemas/fields/tax-totals';
+import { Effect, Predicate } from 'effect';
 
-import { encodeAmount } from '#/decoders/fields/encode-amount';
-import { encodeSimpleIdentifier } from '#/decoders/fields/encode-simple-identifier';
+import type { PeppolTaxSubTotal } from '#/schemas/fields/peppol-tax-subtotal-schema.ts';
+import type { PeppolTaxTotal } from '#/schemas/fields/peppol-tax-totals-base-schema.ts';
 
-export function encodeTaxTotals(taxTotals: Array<PeppolTaxTotal>) {
-  return taxTotals.map(taxTotal => ({
-    'cbc:TaxAmount': encodeAmount(taxTotal.taxAmount),
-    'cac:TaxSubtotal': taxTotal.taxSubtotals?.map(taxSubTotal => ({
-      'cbc:TaxableAmount': encodeAmount(taxSubTotal.taxableAmount),
-      'cbc:TaxAmount': encodeAmount(taxSubTotal.taxAmount),
-      'cac:TaxCategory': {
-        'cbc:ID': taxSubTotal.taxCategory.id,
-        'cbc:Percent': taxSubTotal.taxCategory.percent,
-        'cbc:TaxExemptionReasonCode': taxSubTotal.taxCategory.taxExemptionReasonCode,
-        'cbc:TaxExemptionReason': taxSubTotal.taxCategory.taxExemptionReason,
-        'cac:TaxScheme': encodeSimpleIdentifier(taxSubTotal.taxCategory.taxSchemeId),
-      },
-    })),
-  }));
-}
+import { encodeAmount } from '#/decoders/fields/encode-amount.ts';
+import { encodeSimpleIdentifier } from '#/decoders/fields/encode-simple-identifier.ts';
+
+export const encodeTaxTotals = Effect.fn(function* (taxTotals: ReadonlyArray<PeppolTaxTotal>) {
+  return yield* Effect.forEach(
+    taxTotals,
+    Effect.fn(function* (taxTotal: PeppolTaxTotal) {
+      return { 'cbc:TaxAmount': yield* encodeAmount(taxTotal.taxAmount), 'cac:TaxSubtotal': yield* encodeTaxSubtotals(taxTotal.taxSubtotals) };
+    })
+  );
+});
+
+const encodeTaxSubtotals = Effect.fn(function* (taxSubtotals: ReadonlyArray<PeppolTaxSubTotal> | undefined) {
+  if (Predicate.isNullish(taxSubtotals)) return undefined;
+
+  return yield* Effect.forEach(
+    taxSubtotals,
+    Effect.fn(function* (taxSubTotal: PeppolTaxSubTotal) {
+      return {
+        'cbc:TaxableAmount': yield* encodeAmount(taxSubTotal.taxableAmount),
+        'cbc:TaxAmount': yield* encodeAmount(taxSubTotal.taxAmount),
+        'cac:TaxCategory': {
+          'cbc:ID': taxSubTotal.taxCategory.id,
+          'cbc:Percent': taxSubTotal.taxCategory.percent,
+          'cbc:TaxExemptionReasonCode': taxSubTotal.taxCategory.taxExemptionReasonCode,
+          'cbc:TaxExemptionReason': taxSubTotal.taxCategory.taxExemptionReason,
+          'cac:TaxScheme': yield* encodeSimpleIdentifier(taxSubTotal.taxCategory.taxSchemeId),
+        },
+      };
+    })
+  );
+});

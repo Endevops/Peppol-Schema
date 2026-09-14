@@ -1,9 +1,11 @@
-import type { PeppolCreditNoteLine } from '#/schemas/fields/credit-note-line-schema';
+import { Effect } from 'effect';
 
-import { encodeLineShared } from '#/decoders/fields/encode-line-shared';
+import type { PeppolCreditNoteLine } from '#/schemas/fields/peppol-credit-note-line-schema.ts';
 
-export function encodeCreditNoteLines(creditNoteLines: Array<PeppolCreditNoteLine>) {
-  if (!creditNoteLines.length) return undefined;
+import { encodeLineShared } from '#/decoders/fields/encode-line-shared.ts';
 
-  return creditNoteLines.map(encodeLineShared);
-}
+export const encodeCreditNoteLines = Effect.fn(function* (creditNoteLines: ReadonlyArray<PeppolCreditNoteLine>) {
+  if (creditNoteLines.length === 0) return undefined;
+
+  return yield* Effect.forEach(creditNoteLines, encodeLineShared);
+});

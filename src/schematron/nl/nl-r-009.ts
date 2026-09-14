@@ -1,8 +1,7 @@
-import type { PeppolDocument } from '#/document';
-import type { SchematronRule } from '#/schematron/helpers';
-import type { SchematronRuleResult } from '#/schematron/types';
+import type { PeppolDocument } from '#/schemas/peppol-document-schema.ts';
+import type { SchematronRule } from '#/schematron/helpers.ts';
 
-import { getLines, getSupplierCountry, schematronResult } from '#/schematron/helpers';
+import { getLines, getSupplierCountry, schematronRule } from '#/schematron/helpers.ts';
 
 const rule = {
   id: 'NL-R-009',
@@ -11,13 +10,15 @@ const rule = {
     '[NL-R-009] For suppliers in the Netherlands, if an order line reference (cac:OrderLineReference/cbc:LineID) is used, there must be an order reference on the document level (cac:OrderReference/cbc:ID)',
 } as const satisfies SchematronRule;
 
-export function validateNlR009(document: PeppolDocument): SchematronRuleResult {
+function evaluateNlR009(document: PeppolDocument): boolean {
   if (getSupplierCountry(document) !== 'NL') {
-    return schematronResult(rule, true);
+    return true;
   }
   const hasOrderLineReference = getLines(document).some(line => Boolean(line.orderLineReference?.lineId));
   if (!hasOrderLineReference) {
-    return schematronResult(rule, true);
+    return true;
   }
-  return schematronResult(rule, Boolean(document.orderReference?.id));
+  return Boolean(document.orderReference?.id);
 }
+
+export const validateNlR009 = schematronRule(rule, evaluateNlR009);

@@ -1,9 +1,8 @@
-import type { PeppolDocument } from '#/document';
-import type { SchematronRule } from '#/schematron/helpers';
-import type { SchematronRuleResult } from '#/schematron/types';
+import type { PeppolDocument } from '#/schemas/peppol-document-schema.ts';
+import type { SchematronRule } from '#/schematron/helpers.ts';
 
-import { checkCF } from '#/peppol-validations/check-cf';
-import { getIdentifiersWithSchemeId, schematronResult } from '#/schematron/helpers';
+import { checkCF } from '#/peppol-validations/check-cf.ts';
+import { getIdentifiersWithSchemeId, schematronRule } from '#/schematron/helpers.ts';
 
 const rule = {
   id: 'PEPPOL-COMMON-R045',
@@ -13,8 +12,10 @@ const rule = {
 
 const SCHEME_ID = '0210';
 
-export function validatePeppolCommonR045(document: PeppolDocument): SchematronRuleResult {
+function evaluatePeppolCommonR045(document: PeppolDocument): boolean {
   const identifiers = getIdentifiersWithSchemeId(document).filter(i => i.schemeId === SCHEME_ID);
   const passed = identifiers.every(i => checkCF(i.id));
-  return schematronResult(rule, passed);
+  return passed;
 }
+
+export const validatePeppolCommonR045 = schematronRule(rule, evaluatePeppolCommonR045);

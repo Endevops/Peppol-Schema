@@ -1,21 +1,22 @@
-import type { XmlNode } from '#/helpers/get-prop';
-import type { PeppolInvoice } from '#/schemas/invoice';
+import { Effect } from 'effect';
 
-import { decodeBilling } from '#/decoders/decode-billing';
-import { decodeInvoiceLines } from '#/decoders/fields/decode-invoice-lines';
-import { decodeSimpleIdentifer } from '#/decoders/fields/decode-simple-identifier';
-import { getProp } from '#/helpers/get-prop';
-import { strOrUnd } from '#/helpers/str-or-und';
+import type { XmlNode } from '#/helpers/get-prop.ts';
 
-export function decodeInvoice(value: XmlNode): PeppolInvoice {
+import { decodeBilling } from '#/decoders/decode-billing.ts';
+import { decodeInvoiceLines } from '#/decoders/fields/decode-invoice-lines.ts';
+import { decodeSimpleIdentifer } from '#/decoders/fields/decode-simple-identifier.ts';
+import { getProp } from '#/helpers/get-prop.ts';
+import { strOrUnd } from '#/helpers/str-or-und.ts';
+
+export const decodeInvoice = Effect.fn('decode-invoice')(function* (value: XmlNode) {
   const root = value || {};
-  const doc: XmlNode = getProp(root, 'ubl:Invoice') ?? root;
+  const doc: XmlNode = (yield* getProp(root, 'ubl:Invoice')) ?? root;
 
   return {
-    ...decodeBilling(doc),
-    dueDate: strOrUnd(doc, 'cbc:DueDate'),
-    invoiceLines: decodeInvoiceLines(doc, 'cac:InvoiceLine'),
-    invoiceTypeCode: strOrUnd(doc, 'cbc:InvoiceTypeCode'),
-    projectReference: decodeSimpleIdentifer(doc, 'cac:ProjectReference'),
-  } as PeppolInvoice;
-}
+    ...(yield* decodeBilling(doc)),
+    dueDate: yield* strOrUnd(doc, 'cbc:DueDate'),
+    invoiceLines: yield* decodeInvoiceLines(doc, 'cac:InvoiceLine'),
+    invoiceTypeCode: yield* strOrUnd(doc, 'cbc:InvoiceTypeCode'),
+    projectReference: yield* decodeSimpleIdentifer(doc, 'cac:ProjectReference'),
+  };
+});

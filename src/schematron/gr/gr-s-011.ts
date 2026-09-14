@@ -1,8 +1,7 @@
-import type { PeppolDocument } from '#/document';
-import type { SchematronRule } from '#/schematron/helpers';
-import type { SchematronRuleResult } from '#/schematron/types';
+import type { PeppolDocument } from '#/schemas/peppol-document-schema.ts';
+import type { SchematronRule } from '#/schematron/helpers.ts';
 
-import { getSupplierCountry, schematronResult } from '#/schematron/helpers';
+import { getSupplierCountry, schematronRule } from '#/schematron/helpers.ts';
 
 const rule = {
   id: 'GR-S-011',
@@ -10,14 +9,16 @@ const rule = {
   message: 'Greek suppliers must provide their Seller Tax Registration Number, prefixed by the country code',
 } as const satisfies SchematronRule;
 
-export function validateGrS011(document: PeppolDocument): SchematronRuleResult {
+function evaluateGrS011(document: PeppolDocument): boolean {
   if (getSupplierCountry(document) !== 'GR' && getSupplierCountry(document) !== 'EL') {
-    return schematronResult(rule, true);
+    return true;
   }
   const vatSchemes = document.accountingSupplierParty.partyTaxSchemes?.filter(scheme => scheme.taxSchemeId.id.trim().toUpperCase() === 'VAT') ?? [];
   if (vatSchemes.length !== 1) {
-    return schematronResult(rule, false);
+    return false;
   }
   const companyId = vatSchemes[0]?.companyId ?? '';
-  return schematronResult(rule, companyId.startsWith('EL'));
+  return companyId.startsWith('EL');
 }
+
+export const validateGrS011 = schematronRule(rule, evaluateGrS011);

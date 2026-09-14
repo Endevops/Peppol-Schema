@@ -1,10 +1,12 @@
-import type { PeppolBillingReference } from '#/schemas/fields/billing-references-schema';
+import { Effect } from 'effect';
 
-export function encodeBillingReferences(billingReferences: Array<PeppolBillingReference> | undefined) {
+import type { PeppolBillingReference } from '#/schemas/fields/peppol-billing-reference-schema.ts';
+
+export const encodeBillingReferences = Effect.fn(function* (billingReferences: ReadonlyArray<PeppolBillingReference> | undefined) {
   return billingReferences?.map(billingReference => ({
     'cac:InvoiceDocumentReference': {
       'cbc:ID': billingReference.invoiceDocumentReference.id,
       'cbc:IssueDate': billingReference.invoiceDocumentReference.issueDate,
     },
   }));
-}
+});

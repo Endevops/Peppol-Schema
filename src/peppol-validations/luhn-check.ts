@@ -1,4 +1,4 @@
-import { normalizeSpace } from './normalize-space';
+import { normalizeSpace } from './normalize-space.ts';
 
 /**
  * @description Luhn algorithm check (used for credit card validation)

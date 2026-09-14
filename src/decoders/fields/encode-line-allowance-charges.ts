@@ -1,14 +1,23 @@
-import type { PeppolLineAllowanceCharge } from '#/schemas/fields/line-allowance-charge-schema';
+import { Effect, Predicate } from 'effect';
 
-import { encodeAmount } from '#/decoders/fields/encode-amount';
+import type { PeppolLineAllowanceCharge } from '#/schemas/fields/peppol-line-allowance-charge-schema.ts';
 
-export function encodeLineAllowanceCharges(allowanceCharges: Array<PeppolLineAllowanceCharge> | undefined) {
-  return allowanceCharges?.map(allowanceCharge => ({
-    'cbc:ChargeIndicator': allowanceCharge.chargeIndicator,
-    'cbc:AllowanceChargeReasonCode': allowanceCharge.allowanceChargeReasonCode,
-    'cbc:AllowanceChargeReason': allowanceCharge.allowanceChargeReason,
-    'cbc:MultiplierFactorNumeric': allowanceCharge.multiplierFactorNumeric,
-    'cbc:Amount': encodeAmount(allowanceCharge.amount),
-    'cbc:BaseAmount': encodeAmount(allowanceCharge.baseAmount),
-  }));
-}
+import { encodeAmount } from '#/decoders/fields/encode-amount.ts';
+
+export const encodeLineAllowanceCharges = Effect.fn(function* (allowanceCharges: ReadonlyArray<PeppolLineAllowanceCharge> | undefined) {
+  if (Predicate.isNullish(allowanceCharges)) return undefined;
+
+  return yield* Effect.forEach(
+    allowanceCharges,
+    Effect.fn(function* (allowanceCharge: PeppolLineAllowanceCharge) {
+      return {
+        'cbc:ChargeIndicator': allowanceCharge.chargeIndicator,
+        'cbc:AllowanceChargeReasonCode': allowanceCharge.allowanceChargeReasonCode,
+        'cbc:AllowanceChargeReason': allowanceCharge.allowanceChargeReason,
+        'cbc:MultiplierFactorNumeric': allowanceCharge.multiplierFactorNumeric,
+        'cbc:Amount': yield* encodeAmount(allowanceCharge.amount),
+        'cbc:BaseAmount': yield* encodeAmount(allowanceCharge.baseAmount),
+      };
+    })
+  );
+});

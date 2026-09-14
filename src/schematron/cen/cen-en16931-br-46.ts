@@ -1,8 +1,7 @@
-import type { PeppolDocument } from '#/document';
-import type { SchematronRule } from '#/schematron/helpers';
-import type { SchematronRuleResult } from '#/schematron/types';
+import type { PeppolDocument } from '#/schemas/peppol-document-schema.ts';
+import type { SchematronRule } from '#/schematron/helpers.ts';
 
-import { schematronResult } from '#/schematron/helpers';
+import { schematronRule } from '#/schematron/helpers.ts';
 
 const rule = {
   id: 'CEN-EN16931-BR-46',
@@ -10,7 +9,9 @@ const rule = {
   message: 'Each VAT breakdown (BG-23) shall have a VAT category tax amount (BT-117).',
 } as const satisfies SchematronRule;
 
-export function validateCenEn16931Br46(document: PeppolDocument): SchematronRuleResult {
+function evaluateCenEn16931Br46(document: PeppolDocument): boolean {
   const passed = document.taxTotals.every(total => (total.taxSubtotals ?? []).every(st => typeof st.taxAmount === 'object' && st.taxAmount !== null));
-  return schematronResult(rule, passed);
+  return passed;
 }
+
+export const validateCenEn16931Br46 = schematronRule(rule, evaluateCenEn16931Br46);

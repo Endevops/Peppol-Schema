@@ -1,8 +1,7 @@
-import type { PeppolDocument } from '#/document';
-import type { SchematronRule } from '#/schematron/helpers';
-import type { SchematronRuleResult } from '#/schematron/types';
+import type { PeppolDocument } from '#/schemas/peppol-document-schema.ts';
+import type { SchematronRule } from '#/schematron/helpers.ts';
 
-import { getSupplierCountry, schematronResult } from '#/schematron/helpers';
+import { getSupplierCountry, schematronRule } from '#/schematron/helpers.ts';
 
 const rule = {
   id: 'NO-R-002',
@@ -10,10 +9,12 @@ const rule = {
   message: 'For Norwegian suppliers, most invoice issuers are required to append "Foretaksregisteret" to their invoice.',
 } as const satisfies SchematronRule;
 
-export function validateNoR002(document: PeppolDocument): SchematronRuleResult {
+function evaluateNoR002(document: PeppolDocument): boolean {
   if (getSupplierCountry(document) !== 'NO') {
-    return schematronResult(rule, true);
+    return true;
   }
   const taxCompanyId = document.accountingSupplierParty.partyTaxSchemes?.find(scheme => scheme.taxSchemeId.id === 'TAX')?.companyId;
-  return schematronResult(rule, taxCompanyId === 'Foretaksregisteret');
+  return taxCompanyId === 'Foretaksregisteret';
 }
+
+export const validateNoR002 = schematronRule(rule, evaluateNoR002);

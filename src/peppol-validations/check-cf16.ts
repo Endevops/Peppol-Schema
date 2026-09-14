@@ -1,4 +1,4 @@
-import { normalizeSpace } from './normalize-space';
+import { normalizeSpace } from './normalize-space.ts';
 
 /**
  * @description Validates 16-character Italian fiscal codes.

@@ -1,8 +1,9 @@
-import type { PeppolDocument } from '#/document';
-import type { SchematronRule } from '#/schematron/helpers';
-import type { SchematronRuleResult } from '#/schematron/types';
+import { Predicate } from 'effect';
 
-import { schematronResult } from '#/schematron/helpers';
+import type { PeppolDocument } from '#/schemas/peppol-document-schema.ts';
+import type { SchematronRule } from '#/schematron/helpers.ts';
+
+import { schematronRule } from '#/schematron/helpers.ts';
 
 const rule = {
   id: 'CEN-EN16931-BR-03',
@@ -10,7 +11,9 @@ const rule = {
   message: 'An Invoice shall have an Invoice issue date (BT-2).',
 } as const satisfies SchematronRule;
 
-export function validateCenEn16931Br03(document: PeppolDocument): SchematronRuleResult {
-  const passed = typeof document.issueDate === 'string' && document.issueDate.trim() !== '';
-  return schematronResult(rule, passed);
+function evaluateCenEn16931Br03(document: PeppolDocument): boolean {
+  const passed = Predicate.hasProperty(document, 'issueDate') && Predicate.isTruthy(document.issueDate);
+  return passed;
 }
+
+export const validateCenEn16931Br03 = schematronRule(rule, evaluateCenEn16931Br03);

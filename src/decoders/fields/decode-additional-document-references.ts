@@ -1,38 +1,45 @@
-import type { XmlNode } from '#/helpers/get-prop';
-import type { PeppolAdditionalDocumentReference } from '#/schemas/fields/additional-document-reference-schema';
-import type { RecursivePartial } from '#/types';
+import { Effect, Predicate } from 'effect';
 
-import { decodeIdentifier } from '#/decoders/fields/decode-identifier';
-import { getArray } from '#/helpers/get-array';
-import { getProp } from '#/helpers/get-prop';
-import { strOrUnd } from '#/helpers/str-or-und';
+import type { XmlNode } from '#/helpers/get-prop.ts';
+import type { PeppolAdditionalDocumentReference } from '#/schemas/fields/peppol-additional-document-reference-schema.ts';
+import type { RecursivePartial } from '#/types.ts';
 
-export function decodeAdditionalDocumentReferences(doc: XmlNode): Array<RecursivePartial<PeppolAdditionalDocumentReference>> | undefined {
-  const arr = getArray(doc, 'cac:AdditionalDocumentReference');
+import { decodeIdentifier } from '#/decoders/fields/decode-identifier.ts';
+import { getArray } from '#/helpers/get-array.ts';
+import { getProp } from '#/helpers/get-prop.ts';
+import { strOrUnd } from '#/helpers/str-or-und.ts';
+
+export const decodeAdditionalDocumentReferences = Effect.fn(function* (
+  doc: XmlNode
+): Effect.fn.Return<Array<RecursivePartial<PeppolAdditionalDocumentReference>> | undefined> {
+  const arr = yield* getArray(doc, 'cac:AdditionalDocumentReference');
   if (arr.length === 0) {
     return undefined;
   }
 
-  return arr.map(additionalDocumentReference => {
-    const attachment = getProp(additionalDocumentReference, 'cac:Attachment');
-    const embeddedDocumentBinaryObject = getProp(attachment, 'cbc:EmbeddedDocumentBinaryObject');
-    const externalReference = getProp(attachment, 'cac:ExternalReference');
-    return {
-      attachment: attachment
-        ? {
-            embeddedDocumentBinaryObject: embeddedDocumentBinaryObject
-              ? {
-                  content: strOrUnd(embeddedDocumentBinaryObject),
-                  filename: strOrUnd(embeddedDocumentBinaryObject, '@filename'),
-                  mimeCode: strOrUnd(embeddedDocumentBinaryObject, '@mimeCode'),
-                }
-              : undefined,
-            externalReference: externalReference ? { uri: strOrUnd(externalReference, 'cbc:URI') } : undefined,
-          }
-        : undefined,
-      documentDescription: strOrUnd(additionalDocumentReference, 'cbc:DocumentDescription'),
-      documentTypeCode: strOrUnd(additionalDocumentReference, 'cbc:DocumentTypeCode'),
-      id: decodeIdentifier(additionalDocumentReference, 'cbc:ID'),
-    };
-  });
-}
+  return yield* Effect.forEach(
+    arr,
+    Effect.fn(function* (additionalDocumentReference: XmlNode) {
+      const attachment = yield* getProp(additionalDocumentReference, 'cac:Attachment');
+      const embeddedDocumentBinaryObject = yield* getProp(attachment, 'cbc:EmbeddedDocumentBinaryObject');
+      const externalReference = yield* getProp(attachment, 'cac:ExternalReference');
+      return {
+        attachment: Predicate.isNotNullish(attachment)
+          ? {
+              embeddedDocumentBinaryObject: Predicate.isNotNullish(embeddedDocumentBinaryObject)
+                ? {
+                    content: yield* strOrUnd(embeddedDocumentBinaryObject),
+                    filename: yield* strOrUnd(embeddedDocumentBinaryObject, '@filename'),
+                    mimeCode: yield* strOrUnd(embeddedDocumentBinaryObject, '@mimeCode'),
+                  }
+                : undefined,
+              externalReference: Predicate.isNotNullish(externalReference) ? { uri: yield* strOrUnd(externalReference, 'cbc:URI') } : undefined,
+            }
+          : undefined,
+        documentDescription: yield* strOrUnd(additionalDocumentReference, 'cbc:DocumentDescription'),
+        documentTypeCode: yield* strOrUnd(additionalDocumentReference, 'cbc:DocumentTypeCode'),
+        id: yield* decodeIdentifier(additionalDocumentReference, 'cbc:ID'),
+      };
+    })
+  );
+});

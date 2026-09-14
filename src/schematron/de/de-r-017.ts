@@ -1,8 +1,7 @@
-import type { PeppolDocument } from '#/document';
-import type { SchematronRule } from '#/schematron/helpers';
-import type { SchematronRuleResult } from '#/schematron/types';
+import type { PeppolDocument } from '#/schemas/peppol-document-schema.ts';
+import type { SchematronRule } from '#/schematron/helpers.ts';
 
-import { isCustomerGermany, isSupplierGermany, schematronResult } from '#/schematron/helpers';
+import { isGermanSupplierAndCustomer, schematronRule } from '#/schematron/helpers.ts';
 
 const rule = {
   id: 'DE-R-017',
@@ -13,10 +12,12 @@ const rule = {
 
 const ALLOWED_CODES = new Set(['326', '380', '384', '389', '381', '875', '876', '877']);
 
-export function validateDeR017(document: PeppolDocument): SchematronRuleResult {
-  if (!isSupplierGermany(document) || !isCustomerGermany(document)) {
-    return schematronResult(rule, true);
+function evaluateDeR017(document: PeppolDocument): boolean {
+  if (!isGermanSupplierAndCustomer(document)) {
+    return true;
   }
   const code = 'invoiceTypeCode' in document ? document.invoiceTypeCode : 'creditNoteTypeCode' in document ? document.creditNoteTypeCode : undefined;
-  return schematronResult(rule, code === undefined || ALLOWED_CODES.has(code));
+  return code === undefined || ALLOWED_CODES.has(code);
 }
+
+export const validateDeR017 = schematronRule(rule, evaluateDeR017);

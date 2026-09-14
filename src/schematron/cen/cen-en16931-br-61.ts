@@ -1,8 +1,7 @@
-import type { PeppolDocument } from '#/document';
-import type { SchematronRule } from '#/schematron/helpers';
-import type { SchematronRuleResult } from '#/schematron/types';
+import type { PeppolDocument } from '#/schemas/peppol-document-schema.ts';
+import type { SchematronRule } from '#/schematron/helpers.ts';
 
-import { schematronResult } from '#/schematron/helpers';
+import { schematronRule } from '#/schematron/helpers.ts';
 
 const rule = {
   id: 'CEN-EN16931-BR-61',
@@ -11,11 +10,13 @@ const rule = {
     'If the Payment means type code (BT-81) means SEPA credit transfer, Local credit transfer or Non-SEPA international credit transfer, the Payment account identifier (BT-84) shall be present.',
 } as const satisfies SchematronRule;
 
-export function validateCenEn16931Br61(document: PeppolDocument): SchematronRuleResult {
+function evaluateCenEn16931Br61(document: PeppolDocument): boolean {
   const passed = (document.paymentMeans ?? []).every(
     pm =>
       (pm.paymentMeansCode?.code !== '30' && pm.paymentMeansCode?.code !== '58') ||
       (typeof pm.payeeFinancialAccount?.id === 'string' && pm.payeeFinancialAccount.id.trim() !== '')
   );
-  return schematronResult(rule, passed);
+  return passed;
 }
+
+export const validateCenEn16931Br61 = schematronRule(rule, evaluateCenEn16931Br61);

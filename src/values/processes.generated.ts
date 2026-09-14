@@ -10,7 +10,7 @@
  *
  * @enum
  */
-export const processes = {
+export const processes: Record<ProcessesKeys, Array<string>> = {
   'cenbii-procid-ubl': [
     'none',
     'urn:www.cenbii.eu:profile:bii01:ver1.0',

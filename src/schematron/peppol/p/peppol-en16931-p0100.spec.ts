@@ -1,23 +1,31 @@
 /**
  * @description Unit tests for PEPPOL-EN16931-P0100 (invoice type code per profile).
  */
-import { describe, expect, it } from 'vitest';
+import { assert, describe, it } from '@effect/vitest';
+import { Effect, Result } from 'effect';
 
-import type { PeppolDocument } from '#/document';
+import type { PeppolDocument } from '#/schemas/peppol-document-schema.ts';
 
-import { decodeBaseExample } from '#/test/test-utils';
+import { decodeBaseExample } from '#/test/test-utils.ts';
 
-import { validatePeppolEn16931P0100 } from './peppol-en16931-p0100';
+import { validatePeppolEn16931P0100 } from './peppol-en16931-p0100.ts';
 
 describe('PEPPOL-EN16931-P0100 (invoice type code per profile)', () => {
-  it('passes on the base example', async () => {
-    const document = await decodeBaseExample();
-    expect(validatePeppolEn16931P0100(document).passed).toEqual(true);
-  });
+  it.effect(
+    'passes on the base example',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => decodeBaseExample());
+      yield* validatePeppolEn16931P0100(document);
+    })
+  );
 
-  it('fails when profile 01 uses an unsupported invoice type code', async () => {
-    const document = await decodeBaseExample();
-    const altered = { ...document, invoiceTypeCode: '999' } as unknown as PeppolDocument;
-    expect(validatePeppolEn16931P0100(altered).passed).toEqual(false);
-  });
+  it.effect(
+    'fails when profile 01 uses an unsupported invoice type code',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => decodeBaseExample());
+      const altered = { ...document, invoiceTypeCode: '999' } as unknown as PeppolDocument;
+      const result = yield* validatePeppolEn16931P0100(altered).pipe(Effect.result);
+      assert(Result.isFailure(result));
+    })
+  );
 });

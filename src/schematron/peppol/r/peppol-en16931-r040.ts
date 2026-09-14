@@ -1,8 +1,7 @@
-import type { PeppolDocument } from '#/document';
-import type { SchematronRule } from '#/schematron/helpers';
-import type { SchematronRuleResult } from '#/schematron/types';
+import type { PeppolDocument } from '#/schemas/peppol-document-schema.ts';
+import type { SchematronRule } from '#/schematron/helpers.ts';
 
-import { getAllAllowanceCharges, schematronResult, slack } from '#/schematron/helpers';
+import { getAllAllowanceCharges, schematronRule, slack } from '#/schematron/helpers.ts';
 
 const rule = {
   id: 'PEPPOL-EN16931-R040',
@@ -10,7 +9,7 @@ const rule = {
   message: 'Allowance/charge amount must equal base amount * percentage/100 if base amount and percentage exists',
 } as const satisfies SchematronRule;
 
-export function validatePeppolEn16931R040(document: PeppolDocument): SchematronRuleResult {
+function evaluatePeppolEn16931R040(document: PeppolDocument): boolean {
   const allowanceCharges = getAllAllowanceCharges(document);
   const passed = allowanceCharges.every(ac => {
     if (!ac.multiplierFactorNumeric || ac.baseAmount === undefined) {
@@ -19,5 +18,7 @@ export function validatePeppolEn16931R040(document: PeppolDocument): SchematronR
     const expected = (ac.baseAmount * ac.multiplierFactorNumeric) / 100;
     return slack(expected, ac.amount ?? 0, 0.02);
   });
-  return schematronResult(rule, passed);
+  return passed;
 }
+
+export const validatePeppolEn16931R040 = schematronRule(rule, evaluatePeppolEn16931R040);

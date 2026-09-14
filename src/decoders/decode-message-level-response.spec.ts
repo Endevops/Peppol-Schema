@@ -1,51 +1,57 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it } from '@effect/vitest';
+import { Effect, Schema } from 'effect';
 
-import { decodeMessageLevelResponse } from './decode-message-level-response';
+import { decodeMessageLevelResponse } from './decode-message-level-response.ts';
 
-describe('decodeMessageLevelResponse', () => {
-  it('handles an undefined value', () => {
-    const out = decodeMessageLevelResponse(undefined);
-    expect(out.id).toBeUndefined();
-    expect(out.documentResponse).toBeUndefined();
-  });
-
-  it('returns undefined for each missing child of a present DocumentResponse', () => {
-    const out = decodeMessageLevelResponse({ 'ubl:ApplicationResponse': { 'cac:DocumentResponse': {} } } as never);
-    expect(out.documentResponse).toEqual({ documentReference: undefined, lineResponse: [], response: undefined });
-  });
-
-  it('returns undefined for a LineResponse entry without a Response', () => {
-    const out = decodeMessageLevelResponse({ 'ubl:ApplicationResponse': { 'cac:DocumentResponse': { 'cac:LineResponse': [{}] } } } as never);
-    expect(out.documentResponse?.lineResponse?.[0]).toEqual({ lineReference: { lineId: undefined }, response: undefined });
-  });
-
-  it('decodes a fully populated DocumentResponse', () => {
-    const out = decodeMessageLevelResponse({
-      'ubl:ApplicationResponse': {
-        'cbc:CustomizationID': 'cid',
-        'cbc:ProfileID': 'mlr',
-        'cbc:ID': 'id1',
-        'cbc:IssueDate': '2024-01-01',
-        'cbc:IssueTime': '10:00:00Z',
-        'cac:DocumentResponse': {
-          'cac:DocumentReference': { 'cbc:ID': 'DR1', 'cbc:DocumentTypeCode': 'X', 'cbc:VersionID': '1' },
-          'cac:Response': { 'cbc:Description': 'ok', 'cbc:ResponseCode': '1' },
-          'cac:LineResponse': [
-            {
-              'cac:LineReference': { 'cbc:LineID': 'L1' },
-              'cac:Response': { 'cbc:Description': 'd', 'cbc:ResponseCode': '1', 'cac:Status': { 'cbc:StatusReasonCode': 'SR' } },
-            },
-          ],
+describe('decodeMessageLevelResponse()', () => {
+  it.effect(
+    'decodes a fully populated message level response',
+    Effect.fn(function* () {
+      const out = yield* decodeMessageLevelResponse({
+        '?xml': { '@encoding': 'UTF-8', '@version': '1.0' },
+        ApplicationResponse: {
+          '@xmlns': 'urn:oasis:names:specification:ubl:schema:xsd:ApplicationResponse-2',
+          '@xmlns:cac': 'urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2',
+          '@xmlns:cbc': 'urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2',
+          '@xmlns:xsi': 'http://www.w3.org/2001/XMLSchema-instance',
+          '@xsi:schemaLocation':
+            'urn:oasis:names:specification:ubl:schema:xsd:ApplicationResponse-2 https://docs.oasis-open.org/ubl/os-UBL-2.4/xsd/maindoc/UBL-ApplicationResponse-2.4.xsd urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2 https://docs.oasis-open.org/ubl/os-UBL-2.4/xsd/common/UBL-CommonAggregateComponents-2.4.xsd urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2 https://docs.oasis-open.org/ubl/os-UBL-2.4/xsd/common/UBL-CommonBasicComponents-2.4.xsd',
+          'cac:DocumentResponse': {
+            'cac:DocumentReference': { 'cbc:DocumentTypeCode': '9', 'cbc:ID': 'EnvelopeID-12456789', 'cbc:VersionID': '2' },
+            'cac:LineResponse': [
+              {
+                'cac:LineReference': { 'cbc:LineID': '/Catalogue/cac:CatalogueLine[3]/cac:Item[1]/cac:ClassifiedTaxCategory[1]/cbc:ID[1]' },
+                'cac:Response': {
+                  'cac:Status': { 'cbc:StatusReasonCode': 'BV' },
+                  'cbc:Description': 'Validation gives error [CL-T77-R002]- Tax categories MUST be coded using UN/ECE 5305 code list',
+                  'cbc:ResponseCode': 'RE',
+                },
+              },
+            ],
+            'cac:Response': { 'cbc:Description': 'Rejected due to validation errore', 'cbc:ResponseCode': 'RE' },
+          },
+          'cac:ReceiverParty': {
+            'cac:Contact': undefined,
+            'cac:PartyIdentification': undefined,
+            'cac:PartyLegalEntity': undefined,
+            'cac:PartyName': undefined,
+            'cbc:EndpointID': { '#text': '7315458756328', '@schemeID': '0088' },
+          },
+          'cac:SenderParty': {
+            'cac:Contact': undefined,
+            'cac:PartyIdentification': undefined,
+            'cac:PartyLegalEntity': undefined,
+            'cac:PartyName': undefined,
+            'cbc:EndpointID': { '#text': '7300010000001', '@schemeID': '0088' },
+          },
+          'cbc:CustomizationID': 'urn:fdc:peppol.eu:poacc:trns:mlr:3',
+          'cbc:ID': 'MLR-ID123',
+          'cbc:IssueDate': '2016-08-15',
+          'cbc:IssueTime': '00:00:00',
+          'cbc:ProfileID': 'urn:fdc:peppol.eu:poacc:bis:mlr:3',
         },
-        'cac:SenderParty': { 'cbc:EndpointID': { '#text': 'S1', '@schemeID': '0' } },
-        'cac:ReceiverParty': { 'cbc:EndpointID': { '#text': 'R1', '@schemeID': '3' } },
-      },
-    } as never);
-    expect(out.documentResponse?.documentReference?.id).toBe('DR1');
-    expect(out.documentResponse?.response?.responseCode).toBe('1');
-    expect(out.documentResponse?.lineResponse?.[0]?.lineReference?.lineId).toBe('L1');
-    expect(out.documentResponse?.lineResponse?.[0]?.response?.status?.statusReasonCode).toBe('SR');
-    expect(out.senderParty?.endpointId?.id).toBe('S1');
-    expect(out.receiverParty?.endpointId?.id).toBe('R1');
-  });
+      }).pipe(Effect.mapError(issue => new Schema.SchemaError(issue)));
+      expect(out).toMatchSnapshot('message-level-response');
+    })
+  );
 });

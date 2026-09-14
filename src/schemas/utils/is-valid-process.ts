@@ -1,4 +1,4 @@
-import type { PeppolProcesses } from '#/schemas/values/process-schema';
+import type { PeppolProcesses } from '#/schemas/values/peppol-process-schema.ts';
 
 import { processesList } from '#/values/processes.generated';
 

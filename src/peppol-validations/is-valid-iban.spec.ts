@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { isValidIBAN } from './is-valid-iban';
+import { isValidIBAN } from './is-valid-iban.ts';
 
 describe('isValidIBAN', () => {
   describe('valid IBANs', () => {

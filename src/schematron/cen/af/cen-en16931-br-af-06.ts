@@ -1,8 +1,7 @@
-import type { PeppolDocument } from '#/document';
-import type { SchematronRule } from '#/schematron/helpers';
-import type { SchematronRuleResult } from '#/schematron/types';
+import type { PeppolDocument } from '#/schemas/peppol-document-schema.ts';
+import type { SchematronRule } from '#/schematron/helpers.ts';
 
-import { everyDocumentAllowanceCategoryPercent, schematronResult } from '#/schematron/helpers';
+import { everyDocumentAllowanceCategoryPercent, schematronRule } from '#/schematron/helpers.ts';
 
 const rule = {
   id: 'CEN-EN16931-BR-AF-06',
@@ -11,7 +10,9 @@ const rule = {
     'In a Document level allowance (BG-20) where the Document level allowance VAT category code (BT-95) is "IGIC" the Document level allowance VAT rate (BT-96) shall be 0 (zero) or greater than zero.',
 } as const satisfies SchematronRule;
 
-export function validateCenEn16931BrAf06(document: PeppolDocument): SchematronRuleResult {
+function evaluateCenEn16931BrAf06(document: PeppolDocument): boolean {
   const passed = everyDocumentAllowanceCategoryPercent(document, 'L', percent => percent !== undefined && percent >= 0);
-  return schematronResult(rule, passed);
+  return passed;
 }
+
+export const validateCenEn16931BrAf06 = schematronRule(rule, evaluateCenEn16931BrAf06);

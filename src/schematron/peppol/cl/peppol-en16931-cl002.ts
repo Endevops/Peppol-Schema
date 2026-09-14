@@ -1,8 +1,7 @@
-import type { PeppolDocument } from '#/document';
-import type { SchematronRule } from '#/schematron/helpers';
-import type { SchematronRuleResult } from '#/schematron/types';
+import type { PeppolDocument } from '#/schemas/peppol-document-schema.ts';
+import type { SchematronRule } from '#/schematron/helpers.ts';
 
-import { getAllAllowanceCharges, schematronResult } from '#/schematron/helpers';
+import { getAllAllowanceCharges, schematronRule } from '#/schematron/helpers.ts';
 import { allowanceChargeReasonCodesKeys } from '#/values/allowance-charge-reason-codes.generated';
 
 const rule = {
@@ -11,10 +10,12 @@ const rule = {
   message: 'Reason code MUST be according to subset of UNCL 5189 D.16B.',
 } as const satisfies SchematronRule;
 
-export function validatePeppolEn16931CL002(document: PeppolDocument): SchematronRuleResult {
+function evaluatePeppolEn16931CL002(document: PeppolDocument): boolean {
   const allowances = getAllAllowanceCharges(document).filter(ac => !ac.chargeIndicator);
   const passed = allowances.every(
     ac => ac.reasonCode === undefined || (allowanceChargeReasonCodesKeys as ReadonlyArray<string>).includes(ac.reasonCode)
   );
-  return schematronResult(rule, passed);
+  return passed;
 }
+
+export const validatePeppolEn16931CL002 = schematronRule(rule, evaluatePeppolEn16931CL002);

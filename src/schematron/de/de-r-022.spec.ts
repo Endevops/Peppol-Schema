@@ -1,13 +1,14 @@
 /**
  * @description Unit tests for DE-R-022 (unique attachment filenames).
  */
-import { describe, expect, it } from 'vitest';
+import { assert, describe, it } from '@effect/vitest';
+import { Effect, Result } from 'effect';
 
-import type { PeppolDocument } from '#/document';
+import type { PeppolDocument } from '#/schemas/peppol-document-schema.ts';
 
-import { decodeBaseExample } from '#/test/test-utils';
+import { decodeBaseExample } from '#/test/test-utils.ts';
 
-import { validateDeR022 } from './de-r-022';
+import { validateDeR022 } from './de-r-022.ts';
 
 async function withCountry(
   document: PeppolDocument,
@@ -32,20 +33,33 @@ async function withCountry(
 }
 
 describe('DE-R-022 (unique attachment filenames)', () => {
-  it('passes when not applicable', async () => {
-    const document = await decodeBaseExample();
-    expect(validateDeR022(document).passed).toEqual(true);
-  });
+  it.effect(
+    'passes when not applicable',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => decodeBaseExample());
+      yield* validateDeR022(document);
+    })
+  );
 
-  it('fails when both parties are German and two attachments share a filename', async () => {
-    const document = await withCountry(await decodeBaseExample(), 'DE', 'DE');
-    const altered = {
-      ...document,
-      additionalDocumentReferences: [
-        { id: { id: 'a' }, attachment: { embeddedDocumentBinaryObject: { content: 'aGVsbG8=', mimeCode: 'application/pdf', filename: 'same.pdf' } } },
-        { id: { id: 'b' }, attachment: { embeddedDocumentBinaryObject: { content: 'aGVsbG8=', mimeCode: 'application/pdf', filename: 'SAME.PDF' } } },
-      ],
-    } as unknown as PeppolDocument;
-    expect(validateDeR022(altered).passed).toEqual(false);
-  });
+  it.effect(
+    'fails when both parties are German and two attachments share a filename',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => withCountry(await decodeBaseExample(), 'DE', 'DE'));
+      const altered = {
+        ...document,
+        additionalDocumentReferences: [
+          {
+            id: { id: 'a' },
+            attachment: { embeddedDocumentBinaryObject: { content: 'aGVsbG8=', mimeCode: 'application/pdf', filename: 'same.pdf' } },
+          },
+          {
+            id: { id: 'b' },
+            attachment: { embeddedDocumentBinaryObject: { content: 'aGVsbG8=', mimeCode: 'application/pdf', filename: 'SAME.PDF' } },
+          },
+        ],
+      } as unknown as PeppolDocument;
+      const result = yield* validateDeR022(altered).pipe(Effect.result);
+      assert(Result.isFailure(result));
+    })
+  );
 });

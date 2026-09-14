@@ -1,8 +1,7 @@
-import type { PeppolDocument } from '#/document';
-import type { SchematronRule } from '#/schematron/helpers';
-import type { SchematronRuleResult } from '#/schematron/types';
+import type { PeppolDocument } from '#/schemas/peppol-document-schema.ts';
+import type { SchematronRule } from '#/schematron/helpers.ts';
 
-import { schematronResult } from '#/schematron/helpers';
+import { schematronRule } from '#/schematron/helpers.ts';
 
 const rule = {
   id: 'PEPPOL-EN16931-P0107',
@@ -10,8 +9,10 @@ const rule = {
   message: 'Tax Category AE MUST be used when exemption reason code is VATEX-EU-AE',
 } as const satisfies SchematronRule;
 
-export function validatePeppolEn16931P0107(document: PeppolDocument): SchematronRuleResult {
+function evaluatePeppolEn16931P0107(document: PeppolDocument): boolean {
   const taxCategories = document.taxTotals.flatMap(total => (total.taxSubtotals ?? []).map(subtotal => subtotal.taxCategory));
   const passed = taxCategories.every(category => category.taxExemptionReasonCode?.toUpperCase() !== 'VATEX-EU-AE' || category.id === 'AE');
-  return schematronResult(rule, passed);
+  return passed;
 }
+
+export const validatePeppolEn16931P0107 = schematronRule(rule, evaluatePeppolEn16931P0107);

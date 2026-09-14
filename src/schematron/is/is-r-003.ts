@@ -1,8 +1,7 @@
-import type { PeppolDocument } from '#/document';
-import type { SchematronRule } from '#/schematron/helpers';
-import type { SchematronRuleResult } from '#/schematron/types';
+import type { PeppolDocument } from '#/schemas/peppol-document-schema.ts';
+import type { SchematronRule } from '#/schematron/helpers.ts';
 
-import { getSupplierCountry, schematronResult } from '#/schematron/helpers';
+import { getSupplierCountry, schematronRule } from '#/schematron/helpers.ts';
 
 const rule = {
   id: 'IS-R-003',
@@ -10,10 +9,12 @@ const rule = {
   message: '[IS-R-003]-If seller is icelandic then it shall contain his address with street name and zip code',
 } as const satisfies SchematronRule;
 
-export function validateIsR003(document: PeppolDocument): SchematronRuleResult {
+function evaluateIsR003(document: PeppolDocument): boolean {
   if (getSupplierCountry(document) !== 'IS') {
-    return schematronResult(rule, true);
+    return true;
   }
   const address = document.accountingSupplierParty.postalAddress;
-  return schematronResult(rule, Boolean(address.streetName) && Boolean(address.postalZone));
+  return Boolean(address.streetName) && Boolean(address.postalZone);
 }
+
+export const validateIsR003 = schematronRule(rule, evaluateIsR003);

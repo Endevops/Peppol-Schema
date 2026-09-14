@@ -1,82 +1,73 @@
-import type { XmlNode } from '#/helpers/get-prop';
-import type { PeppolMessageLevelDocumentResponseDocumentReference } from '#/schemas/document-response-document-reference-schema';
-import type { PeppolMessageLevelResponseDocumentResponseDocument } from '#/schemas/document-response-document-schema';
-import type { DocumentResponseLineResponseContent } from '#/schemas/document-response-line-response-content';
-import type { PeppolMessageLevelDocumentResponseLineResponse } from '#/schemas/document-response-line-response-schema';
-import type { PeppolMessageLevelMessageLevelResponseDocumentResponse } from '#/schemas/message-level-response-document-response-schema';
-import type { PeppolMessageLevelResponse } from '#/schemas/message-level-response-schema';
-import type { RecursivePartial } from '#/types';
+import { Effect, Predicate } from 'effect';
 
-import { decodeMessageLevelParty } from '#/decoders/fields/decode-message-level-party';
-import { getArray } from '#/helpers/get-array';
-import { getProp } from '#/helpers/get-prop';
-import { strOrUnd } from '#/helpers/str-or-und';
+import type { XmlNode } from '#/helpers/get-prop.ts';
 
-function decodeDocumentResponse(
-  doc: XmlNode,
-  ...path: Array<string>
-): RecursivePartial<PeppolMessageLevelMessageLevelResponseDocumentResponse> | undefined {
-  const val = getProp(doc, ...path);
-  if (!val) return undefined;
+import { decodeApplicationResponseBase } from '#/decoders/fields/decode-application-response.ts';
+import { decodeMessageLevelParty } from '#/decoders/fields/decode-message-level-party.ts';
+import { getArray } from '#/helpers/get-array.ts';
+import { getProp } from '#/helpers/get-prop.ts';
+import { strOrUnd } from '#/helpers/str-or-und.ts';
 
+const decodeLineResponseContent = Effect.fn(function* (doc: XmlNode, ...path: Array<string>) {
+  const val = yield* getProp(doc, ...path);
+  if (Predicate.isNullish(val)) return undefined;
   return {
-    documentReference: decodeDocumentReference(val, 'cac:DocumentReference'),
-    lineResponse: decodeLineResponse(val, 'cac:LineResponse'),
-    response: decodeResponse(val, 'cac:Response'),
-  } as RecursivePartial<PeppolMessageLevelMessageLevelResponseDocumentResponse>;
-}
+    description: yield* strOrUnd(val, 'cbc:Description'),
+    responseCode: yield* strOrUnd(val, 'cbc:ResponseCode'),
+    status: { statusReasonCode: yield* strOrUnd<'BV' | 'BW' | 'SV'>(val, 'cac:Status', 'cbc:StatusReasonCode') },
+  };
+});
 
-function decodeLineResponse(
-  doc: XmlNode,
-  ...path: Array<string>
-): Array<RecursivePartial<PeppolMessageLevelDocumentResponseLineResponse>> | undefined {
-  const val = getArray(doc, ...path);
+const decodeLineResponse = Effect.fn(function* (doc: XmlNode, ...path: Array<string>) {
+  const val = yield* getArray(doc, ...path);
   /* istanbul ignore next -- getArray never returns a falsy value */
-  if (!val) return undefined;
+  if (Predicate.isNullish(val)) return undefined;
 
-  return val.map(val => ({
-    lineReference: { lineId: strOrUnd(val, 'cac:LineReference', 'cbc:LineID') },
-    response: decodeLineResponseContent(val, 'cac:Response'),
-  }));
-}
+  return yield* Effect.forEach(
+    val,
+    Effect.fn(function* (line: XmlNode) {
+      return {
+        lineReference: { lineId: yield* strOrUnd(line, 'cac:LineReference', 'cbc:LineID') },
+        response: yield* decodeLineResponseContent(line, 'cac:Response'),
+      };
+    })
+  );
+});
 
-function decodeLineResponseContent(doc: XmlNode, ...path: Array<string>): RecursivePartial<DocumentResponseLineResponseContent> | undefined {
-  const val = getProp(doc, ...path);
-  if (!val) return undefined;
+const decodeResponse = Effect.fn(function* (doc: XmlNode, ...path: Array<string>) {
+  const val = yield* getProp(doc, ...path);
+  if (Predicate.isNullish(val)) return undefined;
+  return { description: yield* strOrUnd(val, 'cbc:Description'), responseCode: yield* strOrUnd(val, 'cbc:ResponseCode') };
+});
+
+const decodeDocumentReference = Effect.fn(function* (doc: XmlNode, ...path: Array<string>) {
+  const val = yield* getProp(doc, ...path);
+  if (Predicate.isNullish(val)) return undefined;
   return {
-    description: strOrUnd(val, 'cbc:Description'),
-    responseCode: strOrUnd(val, 'cbc:ResponseCode'),
-    status: { statusReasonCode: strOrUnd(val, 'cac:Status', 'cbc:StatusReasonCode') },
+    documentTypeCode: yield* strOrUnd(val, 'cbc:DocumentTypeCode'),
+    id: yield* strOrUnd(val, 'cbc:ID'),
+    versionId: yield* strOrUnd(val, 'cbc:VersionID'),
   };
-}
+});
 
-function decodeDocumentReference(
-  doc: XmlNode,
-  ...path: Array<string>
-): RecursivePartial<PeppolMessageLevelDocumentResponseDocumentReference> | undefined {
-  const val = getProp(doc, ...path);
-  if (!val) return undefined;
-  return { documentTypeCode: strOrUnd(val, 'cbc:DocumentTypeCode'), id: strOrUnd(val, 'cbc:ID'), versionId: strOrUnd(val, 'cbc:VersionID') };
-}
+const decodeDocumentResponse = Effect.fn(function* (doc: XmlNode, ...path: Array<string>) {
+  const val = yield* getProp(doc, ...path);
+  if (Predicate.isNullish(val)) return undefined;
 
-function decodeResponse(doc: XmlNode, ...path: Array<string>): RecursivePartial<PeppolMessageLevelResponseDocumentResponseDocument> | undefined {
-  const val = getProp(doc, ...path);
-  if (!val) return undefined;
-  return { description: strOrUnd(val, 'cbc:Description'), responseCode: strOrUnd(val, 'cbc:ResponseCode') };
-}
-
-export function decodeMessageLevelResponse(value: XmlNode): PeppolMessageLevelResponse {
-  const root = value || {};
-  const doc: XmlNode = getProp(root, 'ubl:ApplicationResponse');
-  const applicationResponse: RecursivePartial<PeppolMessageLevelResponse> = {
-    customizationId: strOrUnd(doc, 'cbc:CustomizationID'),
-    documentResponse: decodeDocumentResponse(doc, 'cac:DocumentResponse'),
-    id: strOrUnd(doc, 'cbc:ID'),
-    issueDate: strOrUnd(doc, 'cbc:IssueDate'),
-    issueTime: strOrUnd(doc, 'cbc:IssueTime'),
-    profileId: strOrUnd(doc, 'cbc:ProfileID'),
-    receiverParty: decodeMessageLevelParty(doc, 'cac:ReceiverParty'),
-    senderParty: decodeMessageLevelParty(doc, 'cac:SenderParty'),
+  return {
+    documentReference: yield* decodeDocumentReference(val, 'cac:DocumentReference'),
+    lineResponse: yield* decodeLineResponse(val, 'cac:LineResponse'),
+    response: yield* decodeResponse(val, 'cac:Response'),
   };
-  return applicationResponse as PeppolMessageLevelResponse;
-}
+});
+
+export const decodeMessageLevelResponse = Effect.fn(function* (value: XmlNode) {
+  const { base, doc } = yield* decodeApplicationResponseBase(value);
+  return {
+    ...base,
+    documentResponse: yield* decodeDocumentResponse(doc, 'cac:DocumentResponse'),
+    profileId: yield* strOrUnd<'urn:fdc:peppol.eu:poacc:bis:mlr:3'>(doc, 'cbc:ProfileID'),
+    receiverParty: yield* decodeMessageLevelParty(doc, 'cac:ReceiverParty'),
+    senderParty: yield* decodeMessageLevelParty(doc, 'cac:SenderParty'),
+  };
+});

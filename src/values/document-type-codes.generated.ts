@@ -12,7 +12,7 @@
  *
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/UNCL1001/
  */
-export const documentTypeCodes = {
+export const documentTypeCodes: Record<DocumentTypeCodesKeys, string> = {
   /**
    * @description Certificate providing the values of an analysis.
    */

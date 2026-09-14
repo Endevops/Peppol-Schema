@@ -1,4 +1,4 @@
-import type { PeppolCreditNoteTypeCode } from '#/schemas/values/credit-note-type-code-schema';
+import type { PeppolCreditNoteTypeCode } from '#/schemas/values/credit-note-type-code-schema.ts';
 
 import { creditNoteTypeCodes } from '#/values/credit-notes-type-codes.generated';
 

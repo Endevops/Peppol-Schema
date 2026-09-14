@@ -1,0 +1,17 @@
+@endevops/peppol-schema
+Copyright 2026 Endevops
+
+This product includes software and data derived from the following sources,
+made available by OpenPEPPOL AISBL and used under their respective terms:
+
+  - Peppol BIS Billing 3.0
+    https://github.com/OpenPEPPOL/peppol-bis-invoice-3
+  - Peppol poacc 3
+    https://github.com/OpenPEPPOL/poacc-upgrade-3
+  - OpenPEPPOL E-DEC code lists
+    https://github.com/OpenPEPPOL/edec-codelists
+
+Generated value enums under src/values/ are derived from these Peppol code
+lists and the UN/CEFACT code lists they reference. "Peppol" and "OpenPEPPOL"
+are the marks of their respective owners; this project is not affiliated with
+or endorsed by OpenPEPPOL AISBL.

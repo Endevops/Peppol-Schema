@@ -12,7 +12,7 @@
  *
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/UNCL7161/
  */
-export const chargeReasonCodes = {
+export const chargeReasonCodes: Record<ChargeReasonCodesKeys, string> = {
   /**
    * @description The service of providing advertising.
    */

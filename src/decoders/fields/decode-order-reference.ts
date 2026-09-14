@@ -1,13 +1,18 @@
-import type { XmlNode } from '#/helpers/get-prop';
-import type { PeppolOrderReference } from '#/schemas/fields/order-reference-schema';
-import type { RecursivePartial } from '#/types';
+import { Effect, Predicate } from 'effect';
 
-import { getProp } from '#/helpers/get-prop';
-import { strOrUnd } from '#/helpers/str-or-und';
+import type { XmlNode } from '#/helpers/get-prop.ts';
+import type { PeppolOrderReference } from '#/schemas/fields/peppol-order-reference-schema.ts';
+import type { RecursivePartial } from '#/types.ts';
 
-export function decodeOrderReference(node: XmlNode, ...path: Array<string>): RecursivePartial<PeppolOrderReference> | undefined {
-  const val = getProp(node, ...path);
-  if (!val) return undefined;
+import { getProp } from '#/helpers/get-prop.ts';
+import { strOrUnd } from '#/helpers/str-or-und.ts';
 
-  return { id: strOrUnd(val, 'cbc:ID'), salesOrderId: strOrUnd(val, 'cbc:SalesOrderID') };
-}
+export const decodeOrderReference = Effect.fn(function* (
+  node: XmlNode,
+  ...path: Array<string>
+): Effect.fn.Return<RecursivePartial<PeppolOrderReference> | undefined> {
+  const val = yield* getProp(node, ...path);
+  if (Predicate.isNullish(val)) return undefined;
+
+  return { id: yield* strOrUnd(val, 'cbc:ID'), salesOrderId: yield* strOrUnd(val, 'cbc:SalesOrderID') };
+});

@@ -1,21 +1,30 @@
-import type { PeppolAdditionalDocumentReference } from '#/schemas/fields/additional-document-reference-schema';
+import { Effect, Predicate } from 'effect';
 
-import { encodeIdentifier } from '#/decoders/fields/encode-identifier';
+import type { PeppolAdditionalDocumentReference } from '#/schemas/fields/peppol-additional-document-reference-schema.ts';
 
-export function encodeAdditionalDocumentReferences(refs: Array<PeppolAdditionalDocumentReference> | undefined) {
-  return refs?.map(ref => ({
-    'cbc:ID': encodeIdentifier(ref.id),
-    'cbc:DocumentTypeCode': ref.documentTypeCode,
-    'cbc:DocumentDescription': ref.documentDescription,
-    'cac:Attachment': encodeAttachment(ref.attachment),
-  }));
-}
+import { encodeIdentifier } from '#/decoders/fields/encode-identifier.ts';
 
-function encodeAttachment(attachment: PeppolAdditionalDocumentReference['attachment'] | undefined) {
-  if (!attachment) return undefined;
+export const encodeAdditionalDocumentReferences = Effect.fn(function* (refs: ReadonlyArray<PeppolAdditionalDocumentReference> | undefined) {
+  if (Predicate.isNullish(refs)) return undefined;
+
+  return yield* Effect.forEach(
+    refs,
+    Effect.fn(function* (ref: PeppolAdditionalDocumentReference) {
+      return {
+        'cbc:ID': yield* encodeIdentifier(ref.id),
+        'cbc:DocumentTypeCode': ref.documentTypeCode,
+        'cbc:DocumentDescription': ref.documentDescription,
+        'cac:Attachment': yield* encodeAttachment(ref.attachment),
+      };
+    })
+  );
+});
+
+const encodeAttachment = Effect.fn(function* (attachment: PeppolAdditionalDocumentReference['attachment'] | undefined) {
+  if (Predicate.isNullish(attachment)) return undefined;
   return {
-    'cac:ExternalReference': attachment.externalReference ? { 'cbc:URI': attachment.externalReference.uri } : undefined,
-    'cbc:EmbeddedDocumentBinaryObject': attachment.embeddedDocumentBinaryObject
+    'cac:ExternalReference': Predicate.isNotNullish(attachment.externalReference) ? { 'cbc:URI': attachment.externalReference.uri } : undefined,
+    'cbc:EmbeddedDocumentBinaryObject': Predicate.isNotNullish(attachment.embeddedDocumentBinaryObject)
       ? {
           '#text': attachment.embeddedDocumentBinaryObject.content,
           '@filename': attachment.embeddedDocumentBinaryObject.filename,
@@ -23,4 +32,4 @@ function encodeAttachment(attachment: PeppolAdditionalDocumentReference['attachm
         }
       : undefined,
   };
-}
+});

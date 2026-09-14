@@ -1,8 +1,6 @@
-import type { invoiceStatusCodesKeys } from '#/values/invoice-status-codes.generated';
+import type { InvoiceStatusCodesKeys } from '#/values/invoice-status-codes.generated';
 
-type StatusCode = (typeof invoiceStatusCodesKeys)[number];
-
-export const invoiceResponseCodesOrder: Record<StatusCode, Array<StatusCode>> = {
+export const invoiceResponseCodesOrder: Record<InvoiceStatusCodesKeys, Array<InvoiceStatusCodesKeys>> = {
   AB: ['IP', 'UQ', 'AP', 'CA', 'PD', 'RE'],
   AP: ['PD'],
   CA: ['PD'],

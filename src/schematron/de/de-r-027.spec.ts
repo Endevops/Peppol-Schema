@@ -1,13 +1,14 @@
 /**
  * @description Unit tests for DE-R-027 (seller telephone format).
  */
-import { describe, expect, it } from 'vitest';
+import { assert, describe, it } from '@effect/vitest';
+import { Effect, Result } from 'effect';
 
-import type { PeppolDocument } from '#/document';
+import type { PeppolDocument } from '#/schemas/peppol-document-schema.ts';
 
-import { decodeBaseExample } from '#/test/test-utils';
+import { decodeBaseExample } from '#/test/test-utils.ts';
 
-import { validateDeR027 } from './de-r-027';
+import { validateDeR027 } from './de-r-027.ts';
 
 async function asGerman(document: PeppolDocument): Promise<PeppolDocument> {
   return {
@@ -24,17 +25,24 @@ async function asGerman(document: PeppolDocument): Promise<PeppolDocument> {
 }
 
 describe('DE-R-027 (seller telephone format)', () => {
-  it('passes when not applicable', async () => {
-    const document = await decodeBaseExample();
-    expect(validateDeR027(document).passed).toEqual(true);
-  });
+  it.effect(
+    'passes when not applicable',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => decodeBaseExample());
+      yield* validateDeR027(document);
+    })
+  );
 
-  it('fails when a German document has a seller telephone without 3 digits', async () => {
-    const document = await asGerman(await decodeBaseExample());
-    const altered = {
-      ...document,
-      accountingSupplierParty: { ...document.accountingSupplierParty, contact: { ...document.accountingSupplierParty.contact, telephone: '12' } },
-    } as unknown as PeppolDocument;
-    expect(validateDeR027(altered).passed).toEqual(false);
-  });
+  it.effect(
+    'fails when a German document has a seller telephone without 3 digits',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => asGerman(await decodeBaseExample()));
+      const altered = {
+        ...document,
+        accountingSupplierParty: { ...document.accountingSupplierParty, contact: { ...document.accountingSupplierParty.contact, telephone: '12' } },
+      } as unknown as PeppolDocument;
+      const result = yield* validateDeR027(altered).pipe(Effect.result);
+      assert(Result.isFailure(result));
+    })
+  );
 });

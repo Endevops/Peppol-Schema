@@ -1,6 +1,8 @@
-import type { PeppolQuantity } from '#/schemas/fields/quantity-schema';
+import { Effect, Predicate } from 'effect';
 
-export function encodeQuantity(quantity?: PeppolQuantity) {
-  if (!quantity) return undefined;
+import type { PeppolQuantity } from '#/schemas/fields/peppol-quantity-schema.ts';
+
+export const encodeQuantity = Effect.fn(function* (quantity?: PeppolQuantity) {
+  if (Predicate.isNullish(quantity)) return undefined;
   return { '#text': quantity.value, '@unitCode': quantity.unitCode };
-}
+});

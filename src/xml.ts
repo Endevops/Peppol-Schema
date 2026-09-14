@@ -1,2 +1,2 @@
-export * from './xml/builder-options';
-export * from './xml/parser-options';
+export * from './xml/builder-options.ts';
+export * from './xml/parser-options.ts';

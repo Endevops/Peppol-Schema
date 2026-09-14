@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { luhnCheck } from './luhn-check';
+import { luhnCheck } from './luhn-check.ts';
 
 describe('luhnCheck', () => {
   describe('valid credit card numbers', () => {

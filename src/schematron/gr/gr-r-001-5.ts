@@ -1,8 +1,7 @@
-import type { PeppolDocument } from '#/document';
-import type { SchematronRule } from '#/schematron/helpers';
-import type { SchematronRuleResult } from '#/schematron/types';
+import type { PeppolDocument } from '#/schemas/peppol-document-schema.ts';
+import type { SchematronRule } from '#/schematron/helpers.ts';
 
-import { getSupplierCountry, schematronResult } from '#/schematron/helpers';
+import { getSupplierCountry, schematronRule } from '#/schematron/helpers.ts';
 
 const rule = {
   id: 'GR-R-001-5',
@@ -12,14 +11,16 @@ const rule = {
 
 const GREEK_DOCUMENT_TYPES = new Set(['1.1', '1.6', '2.1', '2.4', '5.1', '5.2']);
 
-export function validateGrR001_5(document: PeppolDocument): SchematronRuleResult {
+function evaluateGrR001_5(document: PeppolDocument): boolean {
   if (getSupplierCountry(document) !== 'GR' && getSupplierCountry(document) !== 'EL') {
-    return schematronResult(rule, true);
+    return true;
   }
   const segments = document.id.split('|');
   const fourthSegment = segments[3];
   if (!fourthSegment || fourthSegment.trim().length === 0) {
-    return schematronResult(rule, false);
+    return false;
   }
-  return schematronResult(rule, GREEK_DOCUMENT_TYPES.has(fourthSegment));
+  return GREEK_DOCUMENT_TYPES.has(fourthSegment);
 }
+
+export const validateGrR001_5 = schematronRule(rule, evaluateGrR001_5);

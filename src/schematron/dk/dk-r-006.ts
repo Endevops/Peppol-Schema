@@ -1,8 +1,7 @@
-import type { PeppolDocument } from '#/document';
-import type { SchematronRule } from '#/schematron/helpers';
-import type { SchematronRuleResult } from '#/schematron/types';
+import type { PeppolDocument } from '#/schemas/peppol-document-schema.ts';
+import type { SchematronRule } from '#/schematron/helpers.ts';
 
-import { getCustomerCountry, getSupplierCountry, schematronResult } from '#/schematron/helpers';
+import { isDanishSupplierAndCustomer, schematronRule } from '#/schematron/helpers.ts';
 
 const rule = {
   id: 'DK-R-006',
@@ -12,9 +11,9 @@ const rule = {
 
 const REQUIRED_CODES = new Set(['31', '42']);
 
-export function validateDkR006(document: PeppolDocument): SchematronRuleResult {
-  if (getSupplierCountry(document) !== 'DK' || getCustomerCountry(document) !== 'DK') {
-    return schematronResult(rule, true);
+function evaluateDkR006(document: PeppolDocument): boolean {
+  if (!isDanishSupplierAndCustomer(document)) {
+    return true;
   }
   const passed = (document.paymentMeans ?? []).every(payment => {
     if (!REQUIRED_CODES.has(payment.paymentMeansCode.code)) {
@@ -24,5 +23,7 @@ export function validateDkR006(document: PeppolDocument): SchematronRuleResult {
     const branchId = payment.payeeFinancialAccount?.financialInstitutionBranch?.id;
     return typeof accountId === 'string' && accountId.trim() !== '' && typeof branchId === 'string' && branchId.trim() !== '';
   });
-  return schematronResult(rule, passed);
+  return passed;
 }
+
+export const validateDkR006 = schematronRule(rule, evaluateDkR006);

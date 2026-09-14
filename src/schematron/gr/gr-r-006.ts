@@ -1,9 +1,8 @@
-import type { PeppolDocument } from '#/document';
-import type { SchematronRule } from '#/schematron/helpers';
-import type { SchematronRuleResult } from '#/schematron/types';
+import type { PeppolDocument } from '#/schemas/peppol-document-schema.ts';
+import type { SchematronRule } from '#/schematron/helpers.ts';
 
-import { greekTinVerification } from '#/peppol-validations/greek-tin-verification';
-import { getCustomerCountry, getSupplierCountry, schematronResult } from '#/schematron/helpers';
+import { greekTinVerification } from '#/peppol-validations/greek-tin-verification.ts';
+import { getCustomerCountry, getSupplierCountry, schematronRule } from '#/schematron/helpers.ts';
 
 const rule = {
   id: 'GR-R-006',
@@ -11,16 +10,18 @@ const rule = {
   message: 'Greek Suppliers must provide the VAT number of the buyer, if the buyer is Greek ',
 } as const satisfies SchematronRule;
 
-export function validateGrR006(document: PeppolDocument): SchematronRuleResult {
-  const isGreekSupplier = getSupplierCountry(document) === 'GR' || getSupplierCountry(document) === 'EL';
-  const isGreekCustomer = getCustomerCountry(document) === 'GR' || getCustomerCountry(document) === 'EL';
-  if (!isGreekSupplier || !isGreekCustomer) {
-    return schematronResult(rule, true);
+const isGreekCountry = (country: string): boolean => country === 'GR' || country === 'EL';
+
+function evaluateGrR006(document: PeppolDocument): boolean {
+  if (!isGreekCountry(getSupplierCountry(document)) || !isGreekCountry(getCustomerCountry(document))) {
+    return true;
   }
-  const vatSchemes = document.accountingCustomerParty.partyTaxSchemes?.filter(scheme => scheme.taxSchemeId.id.trim().toUpperCase() === 'VAT') ?? [];
+  const vatSchemes = (document.accountingCustomerParty.partyTaxSchemes ?? []).filter(scheme => scheme.taxSchemeId.id.trim().toUpperCase() === 'VAT');
   if (vatSchemes.length !== 1) {
-    return schematronResult(rule, false);
+    return false;
   }
   const companyId = vatSchemes[0]?.companyId ?? '';
-  return schematronResult(rule, companyId.startsWith('EL') && greekTinVerification(companyId.slice(2)));
+  return companyId.startsWith('EL') && greekTinVerification(companyId.slice(2));
 }
+
+export const validateGrR006 = schematronRule(rule, evaluateGrR006);

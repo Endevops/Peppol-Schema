@@ -12,7 +12,7 @@
  *
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/UNCL5305/
  */
-export const dutyTaxFeeCategories = {
+export const dutyTaxFeeCategories: Record<DutyTaxFeeCategoriesKeys, string> = {
   /**
    * @description Code specifying that the standard VAT rate is levied from the invoicee.
    */

@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 
 import { creditNoteTypeCodesKeys } from '#/values/credit-notes-type-codes.generated';
 
-import { isValidCreditNoteTypeCode } from './is-valid-credit-note-type-code';
+import { isValidCreditNoteTypeCode } from './is-valid-credit-note-type-code.ts';
 
 describe('isValidCreditNoteTypeCode (credit note type codes)', () => {
   it.each(creditNoteTypeCodesKeys)('returns true for a valid credit note type code (%s)', code => {

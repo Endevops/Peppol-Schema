@@ -1,13 +1,14 @@
 /**
  * @description Unit tests for NL-R-008 (allowed payment means codes).
  */
-import { describe, expect, it } from 'vitest';
+import { assert, describe, it } from '@effect/vitest';
+import { Effect, Result } from 'effect';
 
-import type { PeppolDocument } from '#/document';
+import type { PeppolDocument } from '#/schemas/peppol-document-schema.ts';
 
-import { decodeBaseExample } from '#/test/test-utils';
+import { decodeBaseExample } from '#/test/test-utils.ts';
 
-import { validateNlR008 } from './nl-r-008';
+import { validateNlR008 } from './nl-r-008.ts';
 
 async function asDutch(document: PeppolDocument): Promise<PeppolDocument> {
   return {
@@ -26,20 +27,30 @@ async function asDutch(document: PeppolDocument): Promise<PeppolDocument> {
 }
 
 describe('NL-R-008 (allowed payment means codes)', () => {
-  it('passes when not applicable', async () => {
-    const document = await decodeBaseExample();
-    expect(validateNlR008(document).passed).toEqual(true);
-  });
+  it.effect(
+    'passes when not applicable',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => decodeBaseExample());
+      yield* validateNlR008(document);
+    })
+  );
 
-  it('fails when both parties are Dutch and an unsupported payment means code is used', async () => {
-    const document = await asDutch(await decodeBaseExample());
-    const altered = { ...document, paymentMeans: [{ paymentMeansCode: { code: '99' } }] } as unknown as PeppolDocument;
-    expect(validateNlR008(altered).passed).toEqual(false);
-  });
+  it.effect(
+    'fails when both parties are Dutch and an unsupported payment means code is used',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => asDutch(await decodeBaseExample()));
+      const altered = { ...document, paymentMeans: [{ paymentMeansCode: { code: '99' } }] } as unknown as PeppolDocument;
+      const result = yield* validateNlR008(altered).pipe(Effect.result);
+      assert(Result.isFailure(result));
+    })
+  );
 
-  it('passes when both parties are Dutch and a supported payment means code is used', async () => {
-    const document = await asDutch(await decodeBaseExample());
-    const altered = { ...document, paymentMeans: [{ paymentMeansCode: { code: '30' } }] } as unknown as PeppolDocument;
-    expect(validateNlR008(altered).passed).toEqual(true);
-  });
+  it.effect(
+    'passes when both parties are Dutch and a supported payment means code is used',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => asDutch(await decodeBaseExample()));
+      const altered = { ...document, paymentMeans: [{ paymentMeansCode: { code: '30' } }] } as unknown as PeppolDocument;
+      yield* validateNlR008(altered);
+    })
+  );
 });

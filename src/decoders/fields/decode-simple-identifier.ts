@@ -1,12 +1,17 @@
-import type { XmlNode } from '#/helpers/get-prop';
-import type { RecursivePartial } from '#/types';
+import { Effect, Predicate } from 'effect';
 
-import { getProp } from '#/helpers/get-prop';
-import { strOrUnd } from '#/helpers/str-or-und';
+import type { XmlNode } from '#/helpers/get-prop.ts';
+import type { RecursivePartial } from '#/types.ts';
 
-export function decodeSimpleIdentifer(doc: XmlNode, ...path: Array<string>): RecursivePartial<{ id: string }> | undefined {
-  const node = getProp(doc, ...path);
-  if (!node) return undefined;
+import { getProp } from '#/helpers/get-prop.ts';
+import { strOrUnd } from '#/helpers/str-or-und.ts';
 
-  return { id: strOrUnd(node, 'cbc:ID') };
-}
+export const decodeSimpleIdentifer = Effect.fn('decode-simple-identifier')(function* (
+  doc: XmlNode,
+  ...path: Array<string>
+): Effect.fn.Return<RecursivePartial<{ id: string }> | undefined> {
+  const node = yield* getProp(doc, ...path);
+  if (Predicate.isNullish(node)) return undefined;
+
+  return { id: yield* strOrUnd(node, 'cbc:ID') };
+});

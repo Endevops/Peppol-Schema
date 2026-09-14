@@ -1,27 +1,26 @@
+import { describe, expect, it } from '@effect/vitest';
+import { Effect, Schema } from 'effect';
 import { GenericContainer } from 'testcontainers';
-import { describe, expect, it } from 'vitest';
-import * as z from 'zod/mini';
 
-import { documentParser } from '#/document-parser';
-import { runAllRules } from '#/schematron/run-all-rules';
-import { decodeBaseExample } from '#/test/test-utils';
+import { peppolDocumentSchema } from '#/schemas/peppol-document-schema.ts';
+import { Schematron } from '#/schematron/schematron.ts';
+import { decodeBaseExample } from '#/test/test-utils.ts';
 
 // oxlint-disable-next-line vitest/warn-todo
 describe.todo('schematron.run-all-rules', () => {
-  it('should validate all rules', async () => {
-    const baseDocument = await decodeBaseExample();
-    const result = runAllRules(baseDocument);
-
-    expect(result).toHaveLength(360);
-    expect(result.every(r => r.passed)).toBe(true);
-  });
+  it.effect('should validate all rules', () =>
+    Effect.gen(function* () {
+      const baseDocument = yield* Effect.promise(() => decodeBaseExample());
+      yield* (yield* Schematron).run(baseDocument);
+    }).pipe(Effect.provide(Schematron.layer))
+  );
 
   describe('java impl comparision', () => {
     it('should return the same results', async () => {
       await using container = await new GenericContainer('theyoxy/peppol-validation:develop').withExposedPorts(8080).start();
       console.log('Container started');
       const baseDocument = await decodeBaseExample();
-      const baseDocumentXml = z.encode(documentParser, baseDocument as any);
+      const baseDocumentXml = Schema.decodeUnknownSync(peppolDocumentSchema)(baseDocument as any);
 
       console.log('Sending validation request to', `http://${container.getHost()}:${container.getMappedPort(8080)}/validate/invoice`);
       const result = await fetch(`http://${container.getHost()}:${container.getMappedPort(8080)}/validate/invoice`, {

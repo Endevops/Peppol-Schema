@@ -1,37 +1,40 @@
+import { Effect } from 'effect';
 import { describe, expect, it } from 'vitest';
 
-import { encodeLineShared } from './encode-line-shared';
+import { encodeLineShared } from './encode-line-shared.ts';
 
 describe('encodeLineShared', () => {
   it('encodes document references on the line', () => {
-    const out = encodeLineShared({
-      id: 'L1',
-      lineExtensionAmount: undefined,
-      accountingCost: undefined,
-      invoicePeriod: undefined,
-      orderLineReference: undefined,
-      documentReference: [{ id: 'DR1', schemeId: 's', documentTypeCode: 'X' }],
-      allowanceCharges: undefined,
-      item: {
-        description: undefined,
-        name: 'n',
-        buyersItemIdentification: undefined,
-        sellersItemIdentification: undefined,
-        standardItemIdentification: undefined,
-        originCountryCode: undefined,
-        commodityClassifications: undefined,
-        classifiedTaxCategory: undefined,
-        additionalItemProperties: undefined,
-      },
-      price: undefined,
-    } as never);
+    const out = Effect.runSync(
+      encodeLineShared({
+        accountingCost: undefined,
+        allowanceCharges: undefined,
+        documentReference: [{ id: 'DR1', schemeId: 's', documentTypeCode: 'X' }],
+        id: 'L1',
+        invoicePeriod: undefined,
+        item: {
+          additionalItemProperties: undefined,
+          buyersItemIdentification: undefined,
+          classifiedTaxCategory: undefined,
+          commodityClassifications: undefined,
+          description: undefined,
+          name: 'n',
+          originCountryCode: undefined,
+          sellersItemIdentification: undefined,
+          standardItemIdentification: undefined,
+        },
+        lineExtensionAmount: undefined,
+        orderLineReference: undefined,
+        price: undefined,
+      } as never)
+    );
 
     expect(out['cac:DocumentReference']).toHaveLength(1);
     expect(out['cac:DocumentReference']?.[0]).toMatchObject({ 'cbc:DocumentTypeCode': 'X', 'cbc:ID': expect.anything() });
   });
 
   it('returns undefined document references when absent', () => {
-    const out = encodeLineShared({ id: 'L1', item: { name: 'n' } } as never);
+    const out = Effect.runSync(encodeLineShared({ id: 'L1', item: { name: 'n' } } as never));
     expect(out['cac:DocumentReference']).toBeUndefined();
   });
 });

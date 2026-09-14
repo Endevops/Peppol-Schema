@@ -1,0 +1,84 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`decodeInvoiceResponse() > should decode a valid invoice response > invoice-response 1`] = `
+{
+  "customizationId": "urn:fdc:peppol.eu:poacc:trns:invoice_response:3",
+  "documentResponse": {
+    "documentReference": {
+      "documentTypeCode": "380",
+      "id": "inv021",
+      "issueDate": "2018-09-22",
+    },
+    "issuerParty": {
+      "partyIdentification": {
+        "id": "123456785",
+        "schemeId": "0192",
+      },
+      "partyName": {
+        "name": "Test Company AS",
+      },
+    },
+    "recipientParty": undefined,
+    "response": {
+      "effectiveDate": "2018-09-24",
+      "responseCode": "RE",
+      "status": [
+        {
+          "condition": [
+            {
+              "attributeId": "BT-48",
+              "description": "EU123456789",
+            },
+          ],
+          "statusReason": "VAT Reference not found",
+          "statusReasonCode": {
+            "listId": "OPStatusAction",
+            "value": "NOA",
+          },
+        },
+      ],
+    },
+  },
+  "id": "imrid001",
+  "issueDate": "2017-12-01",
+  "issueTime": "00:00:00",
+  "note": "text",
+  "profileId": "urn:fdc:peppol.eu:poacc:bis:invoice_response:3",
+  "receiverParty": {
+    "contact": undefined,
+    "endpointId": {
+      "id": "7330001000000",
+      "schemeId": "0088",
+    },
+    "partyIdentification": {
+      "id": "987654325",
+      "schemeId": "0192",
+    },
+    "partyLegalEntity": {
+      "companyId": undefined,
+      "companyLegalForm": undefined,
+      "registrationName": "Seller company",
+    },
+  },
+  "senderParty": {
+    "contact": {
+      "electronicMail": "jj@test-company.dk",
+      "name": "Jens Jensen",
+      "telephone": "23232323",
+    },
+    "endpointId": {
+      "id": "5798000012349",
+      "schemeId": "0088",
+    },
+    "partyIdentification": {
+      "id": "DK88776655",
+      "schemeId": "0184",
+    },
+    "partyLegalEntity": {
+      "companyId": undefined,
+      "companyLegalForm": undefined,
+      "registrationName": "Buyer organization",
+    },
+  },
+}
+`;

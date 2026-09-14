@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { isValidGLN } from './is-valid-gln';
+import { isValidGLN } from './is-valid-gln.ts';
 
 describe('isValidGLN', () => {
   it.each([

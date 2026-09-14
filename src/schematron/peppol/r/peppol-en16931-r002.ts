@@ -1,8 +1,7 @@
-import type { PeppolDocument } from '#/document';
-import type { SchematronRule } from '#/schematron/helpers';
-import type { SchematronRuleResult } from '#/schematron/types';
+import type { PeppolDocument } from '#/schemas/peppol-document-schema.ts';
+import type { SchematronRule } from '#/schematron/helpers.ts';
 
-import { schematronResult } from '#/schematron/helpers';
+import { schematronRule } from '#/schematron/helpers.ts';
 
 const rule = {
   id: 'PEPPOL-EN16931-R002',
@@ -10,7 +9,9 @@ const rule = {
   message: 'No more than one note is allowed on document level, unless both the buyer and seller are German organizations.',
 } as const satisfies SchematronRule;
 
-export function validatePeppolEn16931R002(document: PeppolDocument): SchematronRuleResult {
+function evaluatePeppolEn16931R002(document: PeppolDocument): boolean {
   const noteCount = typeof document.note === 'string' ? 1 : 0;
-  return schematronResult(rule, noteCount <= 1);
+  return noteCount <= 1;
 }
+
+export const validatePeppolEn16931R002 = schematronRule(rule, evaluatePeppolEn16931R002);

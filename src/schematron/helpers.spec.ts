@@ -3,7 +3,7 @@
  */
 import { describe, expect, it } from 'vitest';
 
-import type { PeppolDocument } from '#/document';
+import type { PeppolDocument } from '#/schemas/peppol-document-schema.ts';
 
 import {
   getAllAllowanceCharges,
@@ -19,26 +19,15 @@ import {
   hasVatBreakdownCode,
   hasVatCategoryCode,
   isCustomerGermany,
+  isDanishSupplierAndCustomer,
+  isGermanSupplierAndCustomer,
   isSupplierGermany,
   round2,
-  schematronResult,
   slack,
-} from '#/schematron/helpers';
-import { decodeBaseExample } from '#/test/test-utils';
+} from '#/schematron/helpers.ts';
+import { decodeBaseExample } from '#/test/test-utils.ts';
 
 describe('schematron helpers', () => {
-  describe('schematronResult', () => {
-    it('builds a result with the rule metadata and the passed flag', () => {
-      const result = schematronResult({ id: 'TEST-RULE', level: 'fatal', message: 'A message' }, true);
-      expect(result).toEqual({ id: 'TEST-RULE', level: 'fatal', message: 'A message', passed: true });
-    });
-
-    it('preserves the passed flag when false', () => {
-      const result = schematronResult({ id: 'TEST-RULE', level: 'warning', message: 'A message' }, false);
-      expect(result.passed).toEqual(false);
-    });
-  });
-
   describe('round2', () => {
     it.each([
       [1, 1],
@@ -119,6 +108,64 @@ describe('schematron helpers', () => {
       } as unknown as PeppolDocument;
       expect(isSupplierGermany(altered)).toEqual(true);
       expect(isCustomerGermany(altered)).toEqual(true);
+    });
+  });
+
+  describe('isDanishSupplierAndCustomer / isGermanSupplierAndCustomer', () => {
+    const withVatCountries = (document: PeppolDocument, supplier: string, customer: string) =>
+      ({
+        ...document,
+        accountingSupplierParty: {
+          ...document.accountingSupplierParty,
+          partyTaxSchemes: [{ companyId: `${supplier}12345678`, taxSchemeId: { id: 'VAT' } }],
+        },
+        accountingCustomerParty: {
+          ...document.accountingCustomerParty,
+          partyTaxSchemes: [{ companyId: `${customer}12345678`, taxSchemeId: { id: 'VAT' } }],
+        },
+      }) as unknown as PeppolDocument;
+
+    const withPostalCountries = (document: PeppolDocument, supplier: string, customer: string) =>
+      ({
+        ...document,
+        accountingSupplierParty: {
+          ...document.accountingSupplierParty,
+          postalAddress: { ...document.accountingSupplierParty.postalAddress, countryCode: { identificationCode: supplier } },
+        },
+        accountingCustomerParty: {
+          ...document.accountingCustomerParty,
+          postalAddress: { ...document.accountingCustomerParty.postalAddress, countryCode: { identificationCode: customer } },
+        },
+      }) as unknown as PeppolDocument;
+
+    it('returns true when both supplier and customer are Danish', async () => {
+      const document = await decodeBaseExample();
+      expect(isDanishSupplierAndCustomer(withVatCountries(document, 'DK', 'DK'))).toEqual(true);
+    });
+
+    it('returns false when the customer is not Danish', async () => {
+      const document = await decodeBaseExample();
+      expect(isDanishSupplierAndCustomer(withVatCountries(document, 'DK', 'XX'))).toEqual(false);
+    });
+
+    it('returns false when the supplier is not Danish', async () => {
+      const document = await decodeBaseExample();
+      expect(isDanishSupplierAndCustomer(withVatCountries(document, 'XX', 'DK'))).toEqual(false);
+    });
+
+    it('returns true when both supplier and customer are German', async () => {
+      const document = await decodeBaseExample();
+      expect(isGermanSupplierAndCustomer(withPostalCountries(document, 'DE', 'DE'))).toEqual(true);
+    });
+
+    it('returns false when the customer is not German', async () => {
+      const document = await decodeBaseExample();
+      expect(isGermanSupplierAndCustomer(withPostalCountries(document, 'DE', 'FR'))).toEqual(false);
+    });
+
+    it('returns false when the supplier is not German', async () => {
+      const document = await decodeBaseExample();
+      expect(isGermanSupplierAndCustomer(withPostalCountries(document, 'FR', 'DE'))).toEqual(false);
     });
   });
 

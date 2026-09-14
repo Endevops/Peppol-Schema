@@ -1,8 +1,7 @@
-import type { PeppolDocument } from '#/document';
-import type { SchematronRule } from '#/schematron/helpers';
-import type { SchematronRuleResult } from '#/schematron/types';
+import type { PeppolDocument } from '#/schemas/peppol-document-schema.ts';
+import type { SchematronRule } from '#/schematron/helpers.ts';
 
-import { getSupplierCountry, schematronResult } from '#/schematron/helpers';
+import { getSupplierCountry, schematronRule } from '#/schematron/helpers.ts';
 
 const rule = {
   id: 'SE-R-002',
@@ -10,10 +9,12 @@ const rule = {
   message: 'For Swedish suppliers, the Swedish VAT-numbers must have the trailing 12 characters in numeric form',
 } as const satisfies SchematronRule;
 
-export function validateSeR002(document: PeppolDocument): SchematronRuleResult {
+function evaluateSeR002(document: PeppolDocument): boolean {
   if (getSupplierCountry(document) !== 'SE') {
-    return schematronResult(rule, true);
+    return true;
   }
   const vatCompanyId = document.accountingSupplierParty.partyTaxSchemes?.find(scheme => scheme.taxSchemeId.id === 'VAT')?.companyId;
-  return schematronResult(rule, vatCompanyId !== undefined && /^\d{12}$/.test(vatCompanyId.slice(2)));
+  return vatCompanyId !== undefined && /^\d{12}$/.test(vatCompanyId.slice(2));
 }
+
+export const validateSeR002 = schematronRule(rule, evaluateSeR002);

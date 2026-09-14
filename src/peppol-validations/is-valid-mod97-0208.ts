@@ -1,4 +1,4 @@
-import { normalizeSpace } from './normalize-space';
+import { normalizeSpace } from './normalize-space.ts';
 
 /**
  * @description Belgian enterprise number validation (mod 97-0208)

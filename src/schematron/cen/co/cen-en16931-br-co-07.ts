@@ -1,8 +1,7 @@
-import type { PeppolDocument } from '#/document';
-import type { SchematronRule } from '#/schematron/helpers';
-import type { SchematronRuleResult } from '#/schematron/types';
+import type { PeppolDocument } from '#/schemas/peppol-document-schema.ts';
+import type { SchematronRule } from '#/schematron/helpers.ts';
 
-import { schematronResult } from '#/schematron/helpers';
+import { schematronRule } from '#/schematron/helpers.ts';
 
 const rule = {
   id: 'CEN-EN16931-BR-CO-07',
@@ -10,7 +9,9 @@ const rule = {
   message: 'Invoice line allowance reason code (BT-140) and Invoice line allowance reason (BT-139) shall indicate the same type of allowance reason.',
 } as const satisfies SchematronRule;
 
-export function validateCenEn16931BrCo07(document: PeppolDocument): SchematronRuleResult {
+function evaluateCenEn16931BrCo07(document: PeppolDocument): boolean {
   void document;
-  return schematronResult(rule, true);
+  return true;
 }
+
+export const validateCenEn16931BrCo07 = schematronRule(rule, evaluateCenEn16931BrCo07);

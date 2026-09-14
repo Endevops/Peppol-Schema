@@ -1,8 +1,7 @@
-import type { PeppolDocument } from '#/document';
-import type { SchematronRule } from '#/schematron/helpers';
-import type { SchematronRuleResult } from '#/schematron/types';
+import type { PeppolDocument } from '#/schemas/peppol-document-schema.ts';
+import type { SchematronRule } from '#/schematron/helpers.ts';
 
-import { getCustomerCountry, getSupplierCountry, schematronResult } from '#/schematron/helpers';
+import { isDanishSupplierAndCustomer, schematronRule } from '#/schematron/helpers.ts';
 
 const rule = {
   id: 'DK-R-013',
@@ -11,14 +10,16 @@ const rule = {
     'For Danish Suppliers it is mandatory to use schemeID when PartyIdentification/ID is used for AccountingCustomerParty or AccountingSupplierParty',
 } as const satisfies SchematronRule;
 
-export function validateDkR013(document: PeppolDocument): SchematronRuleResult {
-  if (getSupplierCountry(document) !== 'DK' || getCustomerCountry(document) !== 'DK') {
-    return schematronResult(rule, true);
+function evaluateDkR013(document: PeppolDocument): boolean {
+  if (!isDanishSupplierAndCustomer(document)) {
+    return true;
   }
   const parties = [document.accountingSupplierParty, document.accountingCustomerParty];
   const passed = parties.every(party => {
     const id = party.partyIdentification?.id;
     return !id?.id || (typeof id.schemeId === 'string' && id.schemeId.trim() !== '');
   });
-  return schematronResult(rule, passed);
+  return passed;
 }
+
+export const validateDkR013 = schematronRule(rule, evaluateDkR013);

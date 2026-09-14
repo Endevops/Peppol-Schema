@@ -1,32 +1,37 @@
-import type { PeppolContact } from '#/schemas/fields/contact-schema';
-import type { PeppolPartyLegalEntitySchema } from '#/schemas/fields/party-legal-entity-schema';
-import type { InvoiceDocumentResponseParty, InvoiceResponseParty } from '#/schemas/invoice-response-schema';
-import type { PeppolMessageLevelResponseParty } from '#/schemas/message-level-response-party-schema';
+import { Effect, Predicate } from 'effect';
 
-import { encodeIdentifier } from '#/decoders/fields/encode-identifier';
+import type { PeppolContact } from '#/schemas/fields/peppol-contact-schema.ts';
+import type { PeppolIdentifier } from '#/schemas/fields/peppol-identifier-schema.ts';
+import type { PeppolInvoiceDocumentResponseParty, PeppolInvoiceResponseParty } from '#/schemas/peppol-invoice-response-schema.ts';
+import type { PeppolMessageLevelResponseParty } from '#/schemas/peppol-message-level-response-party-schema.ts';
 
-export function encodeMessageParty(party?: PeppolMessageLevelResponseParty | InvoiceResponseParty | InvoiceDocumentResponseParty) {
-  if (!party) return undefined;
+import { encodeContact } from '#/decoders/fields/encode-contact.ts';
+import { encodeIdentifier } from '#/decoders/fields/encode-identifier.ts';
+import { encodePartyLegalEntity } from '#/decoders/fields/encode-party-legal-entity.ts';
+
+type ResponseParty = PeppolMessageLevelResponseParty | PeppolInvoiceResponseParty | PeppolInvoiceDocumentResponseParty;
+
+/**
+ * @description The response party union exposes different fields per variant; reading the optional ones through a shared view keeps the encoder branch-free.
+ */
+interface ResponsePartyFields {
+  endpointId?: PeppolIdentifier | undefined;
+  partyIdentification?: PeppolIdentifier | undefined;
+  partyName?: { name: string } | undefined;
+  partyLegalEntity?:
+    | { registrationName?: string | undefined; companyId?: PeppolIdentifier | undefined; companyLegalForm?: string | undefined }
+    | undefined;
+  contact?: PeppolContact | undefined;
+}
+
+export const encodeMessageParty = Effect.fn(function* (party?: ResponseParty) {
+  if (Predicate.isNullish(party)) return undefined;
+  const fields = party as ResponsePartyFields;
   return {
-    'cbc:EndpointID': 'endpointId' in party && party.endpointId ? encodeIdentifier(party.endpointId) : undefined,
-    'cac:PartyIdentification':
-      'partyIdentification' in party && party.partyIdentification ? { 'cbc:ID': encodeIdentifier(party.partyIdentification) } : undefined,
-    'cac:PartyName': 'partyName' in party && party.partyName ? { 'cbc:Name': party.partyName.name } : undefined,
-    'cac:PartyLegalEntity': 'partyLegalEntity' in party ? encodePartyLegalEntity(party.partyLegalEntity) : undefined,
-    'cac:Contact': 'contact' in party ? encodeContact(party.contact) : undefined,
+    'cbc:EndpointID': yield* encodeIdentifier(fields.endpointId),
+    'cac:PartyIdentification': fields.partyIdentification ? { 'cbc:ID': yield* encodeIdentifier(fields.partyIdentification) } : undefined,
+    'cac:PartyName': fields.partyName ? { 'cbc:Name': fields.partyName.name } : undefined,
+    'cac:PartyLegalEntity': fields.partyLegalEntity ? yield* encodePartyLegalEntity(fields.partyLegalEntity) : undefined,
+    'cac:Contact': yield* encodeContact(fields.contact),
   };
-}
-
-function encodePartyLegalEntity(legalEntity: PeppolPartyLegalEntitySchema) {
-  return {
-    'cbc:RegistrationName': legalEntity.registrationName,
-    'cbc:CompanyID': encodeIdentifier(legalEntity.companyId),
-    'cbc:CompanyLegalForm': legalEntity.companyLegalForm,
-  };
-}
-
-function encodeContact(contact: PeppolContact | undefined) {
-  if (!contact) return undefined;
-
-  return { 'cbc:Name': contact.name, 'cbc:Telephone': contact.telephone, 'cbc:ElectronicMail': contact.electronicMail };
-}
+});

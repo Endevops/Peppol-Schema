@@ -1,15 +1,15 @@
 import { describe, expect, it } from 'vitest';
 
-import { CREDIT_NOTE_DOCTYPE_ID } from './credit-note-doctype-id';
-import { CREDIT_NOTE_PROCESS_ID } from './credit-note-process-id';
-import { INVOICE_PROCESS_ID } from './invoice-process-id';
-import { INVOICE_RESPONSE_DOCTYPE_ID } from './invoice-response-doctype-id';
-import { INVOICE_RESPONSE_PROCESS_ID } from './invoice-response-process-id';
-import { MESSAGE_LEVEL_RESPONSE_DOCTYPE_ID } from './message-level-response-doctype-id';
-import { MESSAGE_LEVEL_RESPONSE_PROCESS_ID } from './message-level-response-process-id';
-import { participantScheme } from './participant-scheme';
-import { processScheme } from './process-scheme';
-import { transportProfile } from './transport-profile';
+import { CREDIT_NOTE_DOCTYPE_ID } from './credit-note-doctype-id.ts';
+import { CREDIT_NOTE_PROCESS_ID } from './credit-note-process-id.ts';
+import { INVOICE_PROCESS_ID } from './invoice-process-id.ts';
+import { INVOICE_RESPONSE_DOCTYPE_ID } from './invoice-response-doctype-id.ts';
+import { INVOICE_RESPONSE_PROCESS_ID } from './invoice-response-process-id.ts';
+import { MESSAGE_LEVEL_RESPONSE_DOCTYPE_ID } from './message-level-response-doctype-id.ts';
+import { MESSAGE_LEVEL_RESPONSE_PROCESS_ID } from './message-level-response-process-id.ts';
+import { PARTICIPANT_SCHEME } from './participant-scheme.ts';
+import { processScheme } from './process-scheme.ts';
+import { transportProfile } from './transport-profile.ts';
 
 describe('constants', () => {
   it('defines the document type ids', () => {
@@ -32,7 +32,7 @@ describe('constants', () => {
   });
 
   it('defines the scheme and transport profiles', () => {
-    expect(participantScheme).toBe('iso6523-actorid-upis');
+    expect(PARTICIPANT_SCHEME).toBe('iso6523-actorid-upis');
     expect(processScheme).toBe('cenbii-procid-ubl');
     expect(transportProfile).toBe('peppol-transport-as4-v2_0');
   });

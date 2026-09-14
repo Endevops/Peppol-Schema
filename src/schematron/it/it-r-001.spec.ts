@@ -1,13 +1,14 @@
 /**
  * @description Unit tests for IT-R-001 (Italian seller tax registration identifier length).
  */
-import { describe, expect, it } from 'vitest';
+import { assert, describe, it } from '@effect/vitest';
+import { Effect, Result } from 'effect';
 
-import type { PeppolDocument } from '#/document';
+import type { PeppolDocument } from '#/schemas/peppol-document-schema.ts';
 
-import { decodeBaseExample } from '#/test/test-utils';
+import { decodeBaseExample } from '#/test/test-utils.ts';
 
-import { validateItR001 } from './it-r-001';
+import { validateItR001 } from './it-r-001.ts';
 
 async function withSupplierCountry(document: PeppolDocument, country: string, vatPrefix?: string): Promise<PeppolDocument> {
   const vat = vatPrefix ?? `${country}VAT123456789`;
@@ -22,23 +23,30 @@ async function withSupplierCountry(document: PeppolDocument, country: string, va
 }
 
 describe('IT-R-001 (Italian seller tax registration identifier length)', () => {
-  it('passes when not applicable', async () => {
-    const document = await decodeBaseExample();
-    expect(validateItR001(document).passed).toEqual(true);
-  });
+  it.effect(
+    'passes when not applicable',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => decodeBaseExample());
+      yield* validateItR001(document);
+    })
+  );
 
-  it('fails when an Italian supplier has a too-short tax registration identifier', async () => {
-    const document = await withSupplierCountry(await decodeBaseExample(), 'IT');
-    const altered = {
-      ...document,
-      accountingSupplierParty: {
-        ...document.accountingSupplierParty,
-        partyTaxSchemes: [
-          { companyId: '1234567890', taxSchemeId: { id: 'TAX' } },
-          { companyId: 'IT123456789', taxSchemeId: { id: 'VAT' } },
-        ],
-      },
-    } as unknown as PeppolDocument;
-    expect(validateItR001(altered).passed).toEqual(false);
-  });
+  it.effect(
+    'fails when an Italian supplier has a too-short tax registration identifier',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => withSupplierCountry(await decodeBaseExample(), 'IT'));
+      const altered = {
+        ...document,
+        accountingSupplierParty: {
+          ...document.accountingSupplierParty,
+          partyTaxSchemes: [
+            { companyId: '1234567890', taxSchemeId: { id: 'TAX' } },
+            { companyId: 'IT123456789', taxSchemeId: { id: 'VAT' } },
+          ],
+        },
+      } as unknown as PeppolDocument;
+      const result = yield* validateItR001(altered).pipe(Effect.result);
+      assert(Result.isFailure(result));
+    })
+  );
 });

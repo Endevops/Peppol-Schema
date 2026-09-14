@@ -1,131 +1,43 @@
 # AGENTS.md — @endevops/peppol-schema
 
-## Quick Reference
+TypeScript library: PEPPOL BIS Billing 3.0 Effect Schema models for Invoice, CreditNote, InvoiceResponse, MessageLevelResponse XML. Entry: `src/index.ts` (Effect schemas); XML decode/encode lives in `src/schemas/peppol-document-schema.ts` + `src/decoders/`.
 
-| Task               | Command                                         |
-| ------------------ | ----------------------------------------------- |
-| Build              | `pnpm build`                                    |
-| Dev (watch)        | `pnpm dev`                                      |
-| Format             | `pnpm oxfmt .`                                  |
-| Lint               | `pnpm oxlint`                                   |
-| Typecheck          | `tsc --noEmit`                                  |
-| Test               | `vitest run` (uses vitest from devDependencies) |
-| Sort message files | `mise run sort-messages`                        |
+## Commands
 
-## Project Overview
+| Task | Command |
+| ---- | ------- |
+| Install | `pnpm install --frozen-lockfile` (engines: node >= 26, pnpm >= 11) |
+| Build / watch | `pnpm build` / `pnpm dev` (tsdown) |
+| Lint | `pnpm lint` (= `oxlint . --type-aware`) |
+| Format | `pnpm format` (= `oxfmt`); check with `pnpm oxfmt --check .` |
+| Test | `pnpm test` (= `vitest run`); coverage: `pnpm test:coverage` |
+| Single test file | `pnpm vitest run src/<name>.spec.ts` |
+| Codegen | `pnpm generate` (= `bun scripts/values.ts`, requires bun) |
 
-This is a **TypeScript library** (`@endevops/peppol-schema`) for PEPPOL schema validation and parsing. Built with:
-
-- **tsdown** for bundling (unbundled ESM output)
-- **Effect** for typed effects
-- **Zod v4** for schema validation
-- **fast-xml-parser** / **fast-xml-builder** for XML parsing
-- **oxlint** + **oxfmt** for linting/formatting (OxC-based, not ESLint/Prettier)
-- **Vitest** for testing (with snapshot testing via `toMatchSnapshot`)
+CI (`ci.yml`): `lint` → `test --coverage` → `build`. Release via semantic-release on push (master/develop/feature\/*/hotfix\*); do not hand-version.
 
 ## Structure
 
-```
-src/
-├── index.ts                    # Main exports
-├── schemas.ts                  # Schema exports
-├── values.ts                   # Generated values exports
-├── document-parser.ts          # Main XML parser (Zod schema)
-├── document-parser.spec.ts     # Vitest snapshot tests
-├── document.ts                 # Document types
-├── helpers.ts                  # Helpers
-├── constants.ts                # Constants
-├── xml-options.ts              # XML parser options
-├── peppol-validations/         # Validation rules
-├── schemas/                    # Zod schemas (invoice, credit-note, etc.)
-├── values/                     # Generated value enums (from Peppol code lists)
-└── decoders/                   # Effect decoders
-```
+- `src/index.ts`, `src/types.ts`, `src/xml.ts`, `src/values.ts` — public surface
+- `src/schemas/` — Effect Schema models (source of truth for document shapes)
+- `src/decoders/` — Effect Schema decoders mirroring `schemas/`
+- `src/values/` — generated code-list enums, do not hand-edit (see Codegen)
+- `src/schematron/`, `src/peppol-validations/`, `src/constants/`, `src/invoice-response-codes/`, `src/helpers/`, `src/xml/`
+- `scripts/values/` + `scripts/generate-translations.ts` — codegen / translation CLI
+- `test/` — `custom-matchers.ts` (loaded via `vitest.config.ts` setupFiles), `test-utils.ts`, `schema-asserts.ts`, `files/` fixtures
+- `src/__snapshots__/` — committed snapshots; update with `vitest run -u`
 
-## Key Conventions
+Public entry points (8, generated from `tsdown.config.ts`): `.`, `./constants`, `./generate-translations`, `./invoice-response-codes`, `./schematron`, `./validations`, `./values`, `./xml`. Note: README also advertises `./effect`, but no `src/effect/` export exists in `package.json`/`tsdown.config.ts` — verify before importing it.
 
-### Build & Export
+## Conventions
 
-- **Unbundled ESM** via tsdown (`unbundle: true`) — each export maps to its own entry
-- Four public entry points: `index`, `schemas`, `validations`, `values`
-- Types generated with `dts: { sourcemap: true }`
-- `package.json` exports use `development` condition for `src/` during dev
+- TS strict + `exactOptionalPropertyTypes`, `noUncheckedIndexedAccess`, `erasableSyntaxOnly`, `verbatimModuleSyntax`, `moduleDetection: force`. No enums/namespaces or non-erasable syntax.
+- Imports: `#/*` → `src/*` (also `#/test/*`, `#/assets/*`; vitest resolves via `tsconfigPaths`). Use `import type` / `type` imports (`consistent-type-imports`, separate-type-imports style). Never import barrel `#/index`, `#/schemas`, `#/values`, `#/effect`, `#/schematron`, `#/constants`, `#/peppol-validations` directly — import the specific file (`no-restricted-imports` is error).
+- oxlint: `sort-keys` warn (asc, minKeys 5) but off in `effect|schemas|decoders/**`; `oxc/no-barrel-file` warn except allow-listed index files; `*.spec.ts` may use `any`. oxfmt: 150 width, single quotes, 2-space, sorts imports + package.json scripts.
+- Opaque structs: `opaque<Self>()(Schema.Struct({...}))` from `#/schemas/utils/opaque.ts` — never `Schema.Opaque` (doubles `dist/*.d.ts` emit).
+- Generated values: objects annotated as `Record<XxxKeys, ...>` so `dist/values.d.ts` collapses to an index signature instead of thousands of props. Keep this pattern in any new generator.
 
-### Linting & Formatting
+## Testing
 
-- **oxlint** (not ESLint) with plugins: `oxc`, `typescript`, `unicorn`, `import`, `vitest`, `node`
-- **oxfmt** (not Prettier) with 150-char line width, 2-space tabs, single quotes
-- Override: `sort-keys` disabled for `schemas/**` and `decoders/**` (generated files)
-
-### TypeScript
-
-- Strict mode with `exactOptionalPropertyTypes`, `noUncheckedIndexedAccess`, `erasableSyntaxOnly`
-- Path aliases: `#/*` → `./src/*`
-- `verbatimModuleSyntax`, `isolatedModules`, `moduleDetection: force`
-
-### Testing (Vitest)
-
-- Snapshot tests in `document-parser.spec.ts` comparing parsed XML against committed snapshots
-- Test files in `test/files/v3/` — invoice, credit-note, invoice-response, message-level-response
-- Run single test: `vitest run src/document-parser.spec.ts`
-- Snapshots auto-update with `vitest run -u`
-- **Note**: `#/*` path aliases don't resolve in tests (no vitest.config.ts) — some tests fail to import. This is a known limitation.
-
-### Generated Code
-
-- `scripts/values.ts` generates value enums from Peppol code lists (run manually via `bun scripts/values.ts`)
-- Output goes to `src/values/` — **do not edit generated files directly**
-- Generated files have `// oxlint-disable sort-keys` header
-
-### Effect Usage
-
-- Uses `Effect` (v4 beta) for typed effects, `Schema` for decoding
-- See `src/decoders/` for Effect Schema decoders
-
-### XML Parsing
-
-- `fast-xml-parser` with options in `src/xml-options.ts`
-- `fast-xml-builder` for serialization
-- Zod schemas parse XML strings directly
-
-## Common Tasks
-
-### Add a new test file
-
-1. Add XML file to `test/files/v3/<category>/`
-2. Add path to `files` array in `document-parser.spec.ts`
-3. Run `vitest run -u` to generate snapshot
-
-### Update Peppol code lists
-
-1. Download latest code lists from Peppol
-2. Place in `scripts/` (referenced by `scripts/values.ts`)
-3. Run `bun scripts/values.ts`
-4. Run `pnpm oxlint --fix src/values` to format generated files
-
-## CI / Pre-commit
-
-No CI config found. Recommended local checks before commit:
-
-```bash
-pnpm oxlint && pnpm oxfmt --check . && pnpm build && vitest run
-```
-
-**Note**: `tsc --noEmit` currently fails due to strict `exactOptionalPropertyTypes: true` in generated/decoder files. Use `pnpm build` (tsdown) for typechecking instead — it passes.
-
-## Notable Dependencies
-
-- **Effect** (`effect@4.0.0-beta.97`) — typed effects, Schema
-- **Zod v4** (`zod@4.4.3`) — runtime validation
-- **Zod Mini** (`zod/mini`) used in tests for `safeDecode`
-- **tsdown** — build (uses Rolldown)
-- **oxlint/oxfmt** — lint/format (OxC, fast)
-
-## Gotchas
-
-- **No vitest.config.ts** — uses defaults (globals: true, environment: node)
-- **No .gitignore shown** — `dist/` is gitignored
-- **pnpm** is package manager (pnpm-lock.yaml present)
-- **mise** manages tool versions (Node, pnpm, jq)
-- **TypeScript 7** (beta) with `erasableSyntaxOnly`
-- Effect v4 is beta — APIs may change
+- `vitest.config.ts` defines `unit` (`src/**/*.{test,spec}`) and `integration` (`src/**/*.int.{test,spec}`) projects; integration tests get 10s hook / 30s test timeouts. Coverage excludes `src/values/**`, `src/paraglide/**`, specs.
+- Adding a fixture: drop XML under `test/files/v3/<category>/`, register path in the spec's `files` array, run `vitest run -u` to write the snapshot.

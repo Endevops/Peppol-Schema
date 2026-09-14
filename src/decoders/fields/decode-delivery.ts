@@ -1,35 +1,46 @@
-import type { XmlNode } from '#/helpers/get-prop';
-import type { PeppolDelivery } from '#/schemas/fields/delivery-schema';
-import type { RecursivePartial } from '#/types';
+import { Effect, Predicate } from 'effect';
 
-import { decodeAddress } from '#/decoders/fields/decode-address';
-import { decodeIdentifier } from '#/decoders/fields/decode-identifier';
-import { getProp } from '#/helpers/get-prop';
-import { strOrUnd } from '#/helpers/str-or-und';
+import type { XmlNode } from '#/helpers/get-prop.ts';
+import type { PeppolDelivery } from '#/schemas/fields/peppol-delivery-schema.ts';
+import type { RecursivePartial } from '#/types.ts';
 
-export function decodeDelivery(node: XmlNode, ...path: Array<string>): RecursivePartial<PeppolDelivery> | undefined {
-  const val = getProp(node, ...path);
-  if (!val) return undefined;
+import { decodeAddress } from '#/decoders/fields/decode-address.ts';
+import { decodeIdentifier } from '#/decoders/fields/decode-identifier.ts';
+import { getProp } from '#/helpers/get-prop.ts';
+import { strOrUnd } from '#/helpers/str-or-und.ts';
+
+export const decodeDelivery = Effect.fn(function* (
+  node: XmlNode,
+  ...path: Array<string>
+): Effect.fn.Return<RecursivePartial<PeppolDelivery> | undefined> {
+  const val = yield* getProp(node, ...path);
+  if (Predicate.isNullish(val)) return undefined;
 
   return {
-    actualDeliveryDate: strOrUnd(val, 'cbc:ActualDeliveryDate'),
-    deliveryLocation: decodeDeliveryLocation(val, 'cac:DeliveryLocation'),
-    deliveryParty: decodeDeliveryParty(val, 'cac:DeliveryParty'),
+    actualDeliveryDate: yield* strOrUnd(val, 'cbc:ActualDeliveryDate'),
+    deliveryLocation: yield* decodeDeliveryLocation(val, 'cac:DeliveryLocation'),
+    deliveryParty: yield* decodeDeliveryParty(val, 'cac:DeliveryParty'),
   };
-}
+});
 
-function decodeDeliveryLocation(node: XmlNode, ...path: Array<string>): RecursivePartial<PeppolDelivery['deliveryLocation']> | undefined {
-  const val = getProp(node, ...path);
-  if (!val) return undefined;
+const decodeDeliveryLocation = Effect.fn(function* (
+  node: XmlNode,
+  ...path: Array<string>
+): Effect.fn.Return<RecursivePartial<PeppolDelivery['deliveryLocation']> | undefined> {
+  const val = yield* getProp(node, ...path);
+  if (Predicate.isNullish(val)) return undefined;
 
-  return { address: decodeAddress(val, 'cac:Address'), id: decodeIdentifier(val, 'cbc:ID') };
-}
+  return { address: yield* decodeAddress(val, 'cac:Address'), id: yield* decodeIdentifier(val, 'cbc:ID') };
+});
 
-function decodeDeliveryParty(node: XmlNode, ...path: Array<string>): RecursivePartial<PeppolDelivery['deliveryParty']> | undefined {
-  const val = getProp(node, ...path);
-  if (!val) return undefined;
-  const name = strOrUnd(val, 'cac:PartyName', 'cbc:Name');
-  if (!name) return undefined;
+const decodeDeliveryParty = Effect.fn(function* (
+  node: XmlNode,
+  ...path: Array<string>
+): Effect.fn.Return<RecursivePartial<PeppolDelivery['deliveryParty']> | undefined> {
+  const val = yield* getProp(node, ...path);
+  if (Predicate.isNullish(val)) return undefined;
+  const name = yield* strOrUnd(val, 'cac:PartyName', 'cbc:Name');
+  if (!Predicate.isTruthy(name)) return undefined;
 
   return { partyName: { name } };
-}
+});

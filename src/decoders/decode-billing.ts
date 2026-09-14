@@ -1,50 +1,52 @@
-import type { XmlNode } from '#/helpers/get-prop';
+import { Effect } from 'effect';
 
-import { decodeAdditionalDocumentReferences } from '#/decoders/fields/decode-additional-document-references';
-import { decodeAllowanceCharges } from '#/decoders/fields/decode-allowance-charges';
-import { decodeBillingReferences } from '#/decoders/fields/decode-billing-references';
-import { decodeDelivery } from '#/decoders/fields/decode-delivery';
-import { decodeInvoicePeriod } from '#/decoders/fields/decode-invoice-period';
-import { decodeLegalMonetaryTotal } from '#/decoders/fields/decode-legal-monetary-total';
-import { decodeOrderReference } from '#/decoders/fields/decode-order-reference';
-import { decodeParty } from '#/decoders/fields/decode-party';
-import { decodePayeeParty } from '#/decoders/fields/decode-payee-party';
-import { decodePaymentMeans } from '#/decoders/fields/decode-payment-means';
-import { decodePaymentTerms } from '#/decoders/fields/decode-payment-terms';
-import { decodeSimpleIdentifer } from '#/decoders/fields/decode-simple-identifier';
-import { decodeTaxRepresentativeParty } from '#/decoders/fields/decode-tax-representative-party';
-import { decodeTaxTotals } from '#/decoders/fields/decode-tax-totals';
-import { strOrUnd } from '#/helpers/str-or-und';
+import type { XmlNode } from '#/helpers/get-prop.ts';
 
-export function decodeBilling(doc: XmlNode) {
+import { decodeAdditionalDocumentReferences } from '#/decoders/fields/decode-additional-document-references.ts';
+import { decodeAllowanceCharges } from '#/decoders/fields/decode-allowance-charges.ts';
+import { decodeBillingReferences } from '#/decoders/fields/decode-billing-references.ts';
+import { decodeDelivery } from '#/decoders/fields/decode-delivery.ts';
+import { decodeInvoicePeriod } from '#/decoders/fields/decode-invoice-period.ts';
+import { decodeLegalMonetaryTotal } from '#/decoders/fields/decode-legal-monetary-total.ts';
+import { decodeOrderReference } from '#/decoders/fields/decode-order-reference.ts';
+import { decodeParty } from '#/decoders/fields/decode-party.ts';
+import { decodePayeeParty } from '#/decoders/fields/decode-payee-party.ts';
+import { decodePaymentMeans } from '#/decoders/fields/decode-payment-means.ts';
+import { decodePaymentTerms } from '#/decoders/fields/decode-payment-terms.ts';
+import { decodeSimpleIdentifer } from '#/decoders/fields/decode-simple-identifier.ts';
+import { decodeTaxRepresentativeParty } from '#/decoders/fields/decode-tax-representative-party.ts';
+import { decodeTaxTotals } from '#/decoders/fields/decode-tax-totals.ts';
+import { strOrUnd } from '#/helpers/str-or-und.ts';
+
+export const decodeBilling = Effect.fn('decode-billing')(function* (doc: XmlNode) {
   return {
-    accountingCost: strOrUnd(doc, 'cbc:AccountingCost'),
-    accountingCustomerParty: decodeParty(doc, 'cac:AccountingCustomerParty', 'cac:Party'),
-    accountingSupplierParty: decodeParty(doc, 'cac:AccountingSupplierParty', 'cac:Party'),
-    additionalDocumentReferences: decodeAdditionalDocumentReferences(doc),
-    allowanceCharges: decodeAllowanceCharges(doc, 'cac:AllowanceCharge'),
-    billingReferences: decodeBillingReferences(doc, 'cac:BillingReference'),
-    buyerReference: strOrUnd(doc, 'cbc:BuyerReference'),
-    contractDocumentReference: decodeSimpleIdentifer(doc, 'cac:ContractDocumentReference'),
-    customizationId: strOrUnd(doc, 'cbc:CustomizationID'),
-    delivery: decodeDelivery(doc, 'cac:Delivery'),
-    despatchDocumentReference: decodeSimpleIdentifer(doc, 'cac:DespatchDocumentReference'),
-    documentCurrencyCode: strOrUnd(doc, 'cbc:DocumentCurrencyCode'),
-    id: strOrUnd(doc, 'cbc:ID'),
-    invoicePeriod: decodeInvoicePeriod(doc, 'cac:InvoicePeriod'),
-    issueDate: strOrUnd(doc, 'cbc:IssueDate'),
-    legalMonetaryTotal: decodeLegalMonetaryTotal(doc, 'cac:LegalMonetaryTotal'),
-    note: strOrUnd(doc, 'cbc:Note'),
-    orderReference: decodeOrderReference(doc, 'cac:OrderReference'),
-    originatorDocumentReference: decodeSimpleIdentifer(doc, 'cac:OriginatorDocumentReference'),
-    payeeParty: decodePayeeParty(doc, 'cac:PayeeParty'),
-    paymentMeans: decodePaymentMeans(doc, 'cac:PaymentMeans'),
-    paymentTerms: decodePaymentTerms(doc, 'cac:PaymentTerms'),
-    profileId: strOrUnd(doc, 'cbc:ProfileID'),
-    receiptDocumentReference: decodeSimpleIdentifer(doc, 'cac:ReceiptDocumentReference'),
-    taxCurrencyCode: strOrUnd(doc, 'cbc:TaxCurrencyCode'),
-    taxPointDate: strOrUnd(doc, 'cbc:TaxPointDate'),
-    taxRepresentativeParty: decodeTaxRepresentativeParty(doc, 'cac:TaxRepresentativeParty'),
-    taxTotals: decodeTaxTotals(doc, 'cac:TaxTotal'),
+    accountingCost: yield* strOrUnd(doc, 'cbc:AccountingCost'),
+    accountingCustomerParty: yield* decodeParty(doc, 'cac:AccountingCustomerParty', 'cac:Party'),
+    accountingSupplierParty: yield* decodeParty(doc, 'cac:AccountingSupplierParty', 'cac:Party'),
+    additionalDocumentReferences: yield* decodeAdditionalDocumentReferences(doc),
+    allowanceCharges: yield* decodeAllowanceCharges(doc, 'cac:AllowanceCharge'),
+    billingReferences: yield* decodeBillingReferences(doc, 'cac:BillingReference'),
+    buyerReference: yield* strOrUnd(doc, 'cbc:BuyerReference'),
+    contractDocumentReference: yield* decodeSimpleIdentifer(doc, 'cac:ContractDocumentReference'),
+    customizationId: yield* strOrUnd(doc, 'cbc:CustomizationID'),
+    delivery: yield* decodeDelivery(doc, 'cac:Delivery'),
+    despatchDocumentReference: yield* decodeSimpleIdentifer(doc, 'cac:DespatchDocumentReference'),
+    documentCurrencyCode: yield* strOrUnd(doc, 'cbc:DocumentCurrencyCode'),
+    id: yield* strOrUnd(doc, 'cbc:ID'),
+    invoicePeriod: yield* decodeInvoicePeriod(doc, 'cac:InvoicePeriod'),
+    issueDate: yield* strOrUnd(doc, 'cbc:IssueDate'),
+    legalMonetaryTotal: yield* decodeLegalMonetaryTotal(doc, 'cac:LegalMonetaryTotal'),
+    note: yield* strOrUnd(doc, 'cbc:Note'),
+    orderReference: yield* decodeOrderReference(doc, 'cac:OrderReference'),
+    originatorDocumentReference: yield* decodeSimpleIdentifer(doc, 'cac:OriginatorDocumentReference'),
+    payeeParty: yield* decodePayeeParty(doc, 'cac:PayeeParty'),
+    paymentMeans: yield* decodePaymentMeans(doc, 'cac:PaymentMeans'),
+    paymentTerms: yield* decodePaymentTerms(doc, 'cac:PaymentTerms'),
+    profileId: yield* strOrUnd(doc, 'cbc:ProfileID'),
+    receiptDocumentReference: yield* decodeSimpleIdentifer(doc, 'cac:ReceiptDocumentReference'),
+    taxCurrencyCode: yield* strOrUnd(doc, 'cbc:TaxCurrencyCode'),
+    taxPointDate: yield* strOrUnd(doc, 'cbc:TaxPointDate'),
+    taxRepresentativeParty: yield* decodeTaxRepresentativeParty(doc, 'cac:TaxRepresentativeParty'),
+    taxTotals: yield* decodeTaxTotals(doc, 'cac:TaxTotal'),
   };
-}
+});

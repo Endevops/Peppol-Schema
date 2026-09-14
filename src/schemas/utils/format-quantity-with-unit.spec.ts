@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'vitest';
 
-import type { PeppolQuantityUnitCode } from '#/schemas/values/quantity-unit-codes-schema';
+import type { PeppolQuantityUnitCode } from '#/schemas/values/quantity-unit-codes-schema.ts';
 
-import { formatQuantityWithUnit } from './format-quantity-with-unit';
+import { formatQuantityWithUnit } from './format-quantity-with-unit.ts';
 
 describe('formatQuantityWithUnit', () => {
   describe('with mapped units', () => {

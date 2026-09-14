@@ -1,9 +1,11 @@
-import type { PeppolInvoiceLine } from '#/schemas/fields/invoice-line-schema';
+import { Effect } from 'effect';
 
-import { encodeLineShared } from '#/decoders/fields/encode-line-shared';
+import type { PeppolInvoiceLine } from '#/schemas/fields/peppol-invoice-line-schema.ts';
 
-export function encodeInvoiceLines(invoiceLines: Array<PeppolInvoiceLine>) {
-  if (!invoiceLines.length) return undefined;
+import { encodeLineShared } from '#/decoders/fields/encode-line-shared.ts';
 
-  return invoiceLines.map(encodeLineShared);
-}
+export const encodeInvoiceLines = Effect.fn(function* (invoiceLines: ReadonlyArray<PeppolInvoiceLine>) {
+  if (invoiceLines.length === 0) return undefined;
+
+  return yield* Effect.forEach(invoiceLines, encodeLineShared);
+});

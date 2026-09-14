@@ -1,13 +1,14 @@
 /**
  * @description Unit tests for DE-R-003 (seller city).
  */
-import { describe, expect, it } from 'vitest';
+import { assert, describe, it } from '@effect/vitest';
+import { Effect, Result } from 'effect';
 
-import type { PeppolDocument } from '#/document';
+import type { PeppolDocument } from '#/schemas/peppol-document-schema.ts';
 
-import { decodeBaseExample } from '#/test/test-utils';
+import { decodeBaseExample } from '#/test/test-utils.ts';
 
-import { validateDeR003 } from './de-r-003';
+import { validateDeR003 } from './de-r-003.ts';
 
 async function asGerman(document: PeppolDocument): Promise<PeppolDocument> {
   return {
@@ -24,20 +25,27 @@ async function asGerman(document: PeppolDocument): Promise<PeppolDocument> {
 }
 
 describe('DE-R-003 (seller city)', () => {
-  it('passes when not applicable', async () => {
-    const document = await decodeBaseExample();
-    expect(validateDeR003(document).passed).toEqual(true);
-  });
+  it.effect(
+    'passes when not applicable',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => decodeBaseExample());
+      yield* validateDeR003(document);
+    })
+  );
 
-  it('fails when a German document has no seller city', async () => {
-    const document = await asGerman(await decodeBaseExample());
-    const altered = {
-      ...document,
-      accountingSupplierParty: {
-        ...document.accountingSupplierParty,
-        postalAddress: { ...document.accountingSupplierParty.postalAddress, cityName: undefined },
-      },
-    } as unknown as PeppolDocument;
-    expect(validateDeR003(altered).passed).toEqual(false);
-  });
+  it.effect(
+    'fails when a German document has no seller city',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => asGerman(await decodeBaseExample()));
+      const altered = {
+        ...document,
+        accountingSupplierParty: {
+          ...document.accountingSupplierParty,
+          postalAddress: { ...document.accountingSupplierParty.postalAddress, cityName: undefined },
+        },
+      } as unknown as PeppolDocument;
+      const result = yield* validateDeR003(altered).pipe(Effect.result);
+      assert(Result.isFailure(result));
+    })
+  );
 });

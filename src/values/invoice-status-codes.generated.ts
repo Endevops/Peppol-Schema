@@ -12,7 +12,7 @@
  *
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/UNCL4343-T111/
  */
-export const invoiceStatusCodes = {
+export const invoiceStatusCodes: Record<InvoiceStatusCodesKeys, string> = {
   /**
    * @description Indicates that an acknowledgement relating to receipt of message or transaction is required. Status is used when Buyer has received a readable
    * invoice message that can be understood and submitted for processing by the Buyer.

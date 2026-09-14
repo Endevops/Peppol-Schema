@@ -1,13 +1,14 @@
 /**
  * @description Unit tests for DE-R-019 (IBAN for code 58).
  */
-import { describe, expect, it } from 'vitest';
+import { assert, describe, it } from '@effect/vitest';
+import { Effect, Result } from 'effect';
 
-import type { PeppolDocument } from '#/document';
+import type { PeppolDocument } from '#/schemas/peppol-document-schema.ts';
 
-import { decodeBaseExample } from '#/test/test-utils';
+import { decodeBaseExample } from '#/test/test-utils.ts';
 
-import { validateDeR019 } from './de-r-019';
+import { validateDeR019 } from './de-r-019.ts';
 
 async function asGerman(document: PeppolDocument): Promise<PeppolDocument> {
   return {
@@ -24,17 +25,24 @@ async function asGerman(document: PeppolDocument): Promise<PeppolDocument> {
 }
 
 describe('DE-R-019 (IBAN for code 58)', () => {
-  it('passes when not applicable', async () => {
-    const document = await decodeBaseExample();
-    expect(validateDeR019(document).passed).toEqual(true);
-  });
+  it.effect(
+    'passes when not applicable',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => decodeBaseExample());
+      yield* validateDeR019(document);
+    })
+  );
 
-  it('fails when a German document uses code 58 with an invalid IBAN', async () => {
-    const document = await asGerman(await decodeBaseExample());
-    const altered = {
-      ...document,
-      paymentMeans: [{ paymentMeansCode: { code: '58' }, payeeFinancialAccount: { id: 'NOT-AN-IBAN' } }],
-    } as unknown as PeppolDocument;
-    expect(validateDeR019(altered).passed).toEqual(false);
-  });
+  it.effect(
+    'fails when a German document uses code 58 with an invalid IBAN',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => asGerman(await decodeBaseExample()));
+      const altered = {
+        ...document,
+        paymentMeans: [{ paymentMeansCode: { code: '58' }, payeeFinancialAccount: { id: 'NOT-AN-IBAN' } }],
+      } as unknown as PeppolDocument;
+      const result = yield* validateDeR019(altered).pipe(Effect.result);
+      assert(Result.isFailure(result));
+    })
+  );
 });

@@ -1,4 +1,4 @@
-import { normalizeSpace } from './normalize-space';
+import { normalizeSpace } from './normalize-space.ts';
 
 /**
  * @description Validates Norwegian organization numbers using mod11 algorithm.

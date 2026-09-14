@@ -1,47 +1,35 @@
-import type { PeppolContact } from '#/schemas/fields/contact-schema';
-import type { PeppolPartySchema } from '#/schemas/fields/party-base-schema';
-import type { PeppolPartyLegalEntitySchema } from '#/schemas/fields/party-legal-entity-schema';
+import { Effect, Predicate } from 'effect';
 
-import { encodeAddress } from '#/decoders/fields/encode-address';
-import { encodeIdentifier } from '#/decoders/fields/encode-identifier';
-import { encodePartiesTaxScheme } from '#/decoders/fields/encode-parties-tax-scheme';
+import type { PeppolPartySchema } from '#/schemas/fields/peppol-party-base-schema.ts';
 
-export function encodeParty(party?: PeppolPartySchema) {
-  if (!party) return undefined;
+import { encodeAddress } from '#/decoders/fields/encode-address.ts';
+import { encodeContact } from '#/decoders/fields/encode-contact.ts';
+import { encodeIdentifier } from '#/decoders/fields/encode-identifier.ts';
+import { encodePartiesTaxScheme } from '#/decoders/fields/encode-parties-tax-scheme.ts';
+import { encodePartyLegalEntity } from '#/decoders/fields/encode-party-legal-entity.ts';
+
+export const encodeParty = Effect.fn(function* (party?: PeppolPartySchema) {
+  if (Predicate.isNullish(party)) return undefined;
 
   return {
     'cac:Party': {
-      'cbc:EndpointID': encodeIdentifier(party.endpointId),
-      'cac:PartyIdentification': encodeAdditionalIdentifiers(party.partyIdentification),
-      'cac:PartyName': encodePartyName(party.partyName),
-      'cac:PostalAddress': encodeAddress(party.postalAddress),
-      'cac:PartyTaxScheme': encodePartiesTaxScheme(party.partyTaxSchemes),
-      'cac:PartyLegalEntity': encodePartyLegalEntity(party.partyLegalEntity),
-      'cac:Contact': encodeContact(party.contact),
+      'cbc:EndpointID': yield* encodeIdentifier(party.endpointId),
+      'cac:PartyIdentification': yield* encodeAdditionalIdentifiers(party.partyIdentification),
+      'cac:PartyName': yield* encodePartyName(party.partyName),
+      'cac:PostalAddress': yield* encodeAddress(party.postalAddress),
+      'cac:PartyTaxScheme': yield* encodePartiesTaxScheme(party.partyTaxSchemes),
+      'cac:PartyLegalEntity': yield* encodePartyLegalEntity(party.partyLegalEntity),
+      'cac:Contact': yield* encodeContact(party.contact),
     },
   };
-}
+});
 
-function encodePartyName(partyName?: PeppolPartySchema['partyName']) {
-  if (!partyName) return undefined;
+const encodePartyName = Effect.fn(function* (partyName?: PeppolPartySchema['partyName']) {
+  if (Predicate.isNullish(partyName)) return undefined;
   return { 'cbc:Name': partyName.name };
-}
+});
 
-function encodeAdditionalIdentifiers(identifiers: PeppolPartySchema['partyIdentification']) {
-  if (!identifiers) return undefined;
-  return { 'cbc:ID': encodeIdentifier(identifiers?.id) };
-}
-
-function encodePartyLegalEntity(legalEntity: PeppolPartyLegalEntitySchema) {
-  return {
-    'cbc:RegistrationName': legalEntity.registrationName,
-    'cbc:CompanyID': encodeIdentifier(legalEntity.companyId),
-    'cbc:CompanyLegalForm': legalEntity.companyLegalForm,
-  };
-}
-
-function encodeContact(contact: PeppolContact | undefined) {
-  if (!contact) return undefined;
-
-  return { 'cbc:Name': contact.name, 'cbc:Telephone': contact.telephone, 'cbc:ElectronicMail': contact.electronicMail };
-}
+const encodeAdditionalIdentifiers = Effect.fn(function* (identifiers: PeppolPartySchema['partyIdentification']) {
+  if (Predicate.isNullish(identifiers)) return undefined;
+  return { 'cbc:ID': yield* encodeIdentifier(identifiers?.id) };
+});

@@ -12,7 +12,7 @@
  *
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/MimeCode/
  */
-export const mimeCodes = {
+export const mimeCodes: Record<MimeCodesKeys, string> = {
   'text/csv': 'text/csv',
 
   'application/pdf': 'application/pdf',

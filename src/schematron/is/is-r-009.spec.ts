@@ -1,13 +1,14 @@
 /**
  * @description Unit tests for IS-R-009 (EINDAGI requires due date).
  */
-import { describe, expect, it } from 'vitest';
+import { assert, describe, it } from '@effect/vitest';
+import { Effect, Result } from 'effect';
 
-import type { PeppolDocument } from '#/document';
+import type { PeppolDocument } from '#/schemas/peppol-document-schema.ts';
 
-import { decodeBaseExample } from '#/test/test-utils';
+import { decodeBaseExample } from '#/test/test-utils.ts';
 
-import { validateIsR009 } from './is-r-009';
+import { validateIsR009 } from './is-r-009.ts';
 
 async function asIcelandic(document: PeppolDocument): Promise<PeppolDocument> {
   return {
@@ -26,27 +27,37 @@ async function asIcelandic(document: PeppolDocument): Promise<PeppolDocument> {
 }
 
 describe('IS-R-009 (EINDAGI requires due date)', () => {
-  it('passes when not applicable', async () => {
-    const document = await decodeBaseExample();
-    expect(validateIsR009(document).passed).toEqual(true);
-  });
+  it.effect(
+    'passes when not applicable',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => decodeBaseExample());
+      yield* validateIsR009(document);
+    })
+  );
 
-  it('fails when an Icelandic EINDAGI document has no due date', async () => {
-    const document = await asIcelandic(await decodeBaseExample());
-    const altered = {
-      ...document,
-      dueDate: undefined,
-      additionalDocumentReferences: [{ id: { id: '2024-01-15' }, documentDescription: 'EINDAGI' }],
-    } as unknown as PeppolDocument;
-    expect(validateIsR009(altered).passed).toEqual(false);
-  });
+  it.effect(
+    'fails when an Icelandic EINDAGI document has no due date',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => asIcelandic(await decodeBaseExample()));
+      const altered = {
+        ...document,
+        dueDate: undefined,
+        additionalDocumentReferences: [{ id: { id: '2024-01-15' }, documentDescription: 'EINDAGI' }],
+      } as unknown as PeppolDocument;
+      const result = yield* validateIsR009(altered).pipe(Effect.result);
+      assert(Result.isFailure(result));
+    })
+  );
 
-  it('passes when an Icelandic EINDAGI document has a due date', async () => {
-    const document = await asIcelandic(await decodeBaseExample());
-    const altered = {
-      ...document,
-      additionalDocumentReferences: [{ id: { id: '2024-01-15' }, documentDescription: 'EINDAGI' }],
-    } as unknown as PeppolDocument;
-    expect(validateIsR009(altered).passed).toEqual(true);
-  });
+  it.effect(
+    'passes when an Icelandic EINDAGI document has a due date',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => asIcelandic(await decodeBaseExample()));
+      const altered = {
+        ...document,
+        additionalDocumentReferences: [{ id: { id: '2024-01-15' }, documentDescription: 'EINDAGI' }],
+      } as unknown as PeppolDocument;
+      yield* validateIsR009(altered);
+    })
+  );
 });

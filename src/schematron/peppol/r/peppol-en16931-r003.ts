@@ -1,8 +1,7 @@
-import type { PeppolDocument } from '#/document';
-import type { SchematronRule } from '#/schematron/helpers';
-import type { SchematronRuleResult } from '#/schematron/types';
+import type { PeppolDocument } from '#/schemas/peppol-document-schema.ts';
+import type { SchematronRule } from '#/schematron/helpers.ts';
 
-import { schematronResult } from '#/schematron/helpers';
+import { schematronRule } from '#/schematron/helpers.ts';
 
 const rule = {
   id: 'PEPPOL-EN16931-R003',
@@ -10,7 +9,9 @@ const rule = {
   message: 'A buyer reference or purchase order reference MUST be provided.',
 } as const satisfies SchematronRule;
 
-export function validatePeppolEn16931R003(document: PeppolDocument): SchematronRuleResult {
+function evaluatePeppolEn16931R003(document: PeppolDocument): boolean {
   const passed = typeof document.buyerReference === 'string' && document.buyerReference.trim() !== '' ? true : Boolean(document.orderReference?.id);
-  return schematronResult(rule, passed);
+  return passed;
 }
+
+export const validatePeppolEn16931R003 = schematronRule(rule, evaluatePeppolEn16931R003);

@@ -1,13 +1,14 @@
 /**
  * @description Unit tests for DE-R-001 (German payment instructions).
  */
-import { describe, expect, it } from 'vitest';
+import { assert, describe, it } from '@effect/vitest';
+import { Effect, Result } from 'effect';
 
-import type { PeppolDocument } from '#/document';
+import type { PeppolDocument } from '#/schemas/peppol-document-schema.ts';
 
-import { decodeBaseExample } from '#/test/test-utils';
+import { decodeBaseExample } from '#/test/test-utils.ts';
 
-import { validateDeR001 } from './de-r-001';
+import { validateDeR001 } from './de-r-001.ts';
 
 async function withCountry(
   document: PeppolDocument,
@@ -32,19 +33,29 @@ async function withCountry(
 }
 
 describe('DE-R-001 (German payment instructions)', () => {
-  it('passes when not applicable', async () => {
-    const document = await decodeBaseExample();
-    expect(validateDeR001(document).passed).toEqual(true);
-  });
+  it.effect(
+    'passes when not applicable',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => decodeBaseExample());
+      yield* validateDeR001(document);
+    })
+  );
 
-  it('fails when both parties are German and no payment means is provided', async () => {
-    const document = await withCountry(await decodeBaseExample(), 'DE', 'DE');
-    const altered = { ...document, paymentMeans: undefined } as unknown as PeppolDocument;
-    expect(validateDeR001(altered).passed).toEqual(false);
-  });
+  it.effect(
+    'fails when both parties are German and no payment means is provided',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => withCountry(await decodeBaseExample(), 'DE', 'DE'));
+      const altered = { ...document, paymentMeans: undefined } as unknown as PeppolDocument;
+      const result = yield* validateDeR001(altered).pipe(Effect.result);
+      assert(Result.isFailure(result));
+    })
+  );
 
-  it('passes when both parties are German and payment means are provided', async () => {
-    const document = await withCountry(await decodeBaseExample(), 'DE', 'DE');
-    expect(validateDeR001(document).passed).toEqual(true);
-  });
+  it.effect(
+    'passes when both parties are German and payment means are provided',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => withCountry(await decodeBaseExample(), 'DE', 'DE'));
+      yield* validateDeR001(document);
+    })
+  );
 });

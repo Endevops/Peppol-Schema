@@ -1,30 +1,18 @@
-import type { XmlNode } from '#/helpers/get-prop';
-import type { PeppolLineAllowanceCharge } from '#/schemas/fields/line-allowance-charge-schema';
-import type { RecursivePartial } from '#/types';
+import { Effect } from 'effect';
 
-import { decodeAmount } from '#/decoders/fields/decode-amount';
-import { bool } from '#/helpers/bool';
-import { getArray } from '#/helpers/get-array';
-import { numOrUnd } from '#/helpers/num-or-und';
-import { strOrUnd } from '#/helpers/str-or-und';
+import type { XmlNode } from '#/helpers/get-prop.ts';
+import type { PeppolLineAllowanceCharge } from '#/schemas/fields/peppol-line-allowance-charge-schema.ts';
+import type { RecursivePartial } from '#/types.ts';
 
-export function decodeLineAllowanceCharges(
-  allowanceCharges: XmlNode,
-  ...path: Array<string>
-): Array<RecursivePartial<PeppolLineAllowanceCharge>> | undefined {
-  const arr = getArray(allowanceCharges, ...path);
-  if (!arr.length) {
-    return undefined;
-  }
-  return arr.map(
-    allowanceCharge =>
-      ({
-        allowanceChargeReason: strOrUnd(allowanceCharge, 'cbc:AllowanceChargeReason'),
-        allowanceChargeReasonCode: strOrUnd(allowanceCharge, 'cbc:AllowanceChargeReasonCode'),
-        amount: decodeAmount(allowanceCharge, 'cbc:Amount'),
-        baseAmount: decodeAmount(allowanceCharge, 'cbc:BaseAmount'),
-        chargeIndicator: bool(allowanceCharge, 'cbc:ChargeIndicator'),
-        multiplierFactorNumeric: numOrUnd(allowanceCharge, 'cbc:MultiplierFactorNumeric'),
-      }) as RecursivePartial<PeppolLineAllowanceCharge>
+import { decodeBaseAllowanceCharge } from '#/decoders/fields/decode-base-allowance-charge.ts';
+import { decodeNodeList } from '#/decoders/fields/decode-node-list.ts';
+
+export const decodeLineAllowanceCharges = Effect.fn(function* (allowanceCharges: XmlNode, ...path: Array<string>) {
+  return yield* decodeNodeList(
+    allowanceCharges,
+    Effect.fn(function* (allowanceCharge: XmlNode) {
+      return { ...(yield* decodeBaseAllowanceCharge(allowanceCharge)) } as RecursivePartial<PeppolLineAllowanceCharge>;
+    }),
+    ...path
   );
-}
+});

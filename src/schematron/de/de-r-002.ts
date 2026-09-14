@@ -1,14 +1,15 @@
-import type { PeppolDocument } from '#/document';
-import type { SchematronRule } from '#/schematron/helpers';
-import type { SchematronRuleResult } from '#/schematron/types';
+import type { PeppolDocument } from '#/schemas/peppol-document-schema.ts';
+import type { SchematronRule } from '#/schematron/helpers.ts';
 
-import { isCustomerGermany, isSupplierGermany, schematronResult } from '#/schematron/helpers';
+import { isGermanSupplierAndCustomer, schematronRule } from '#/schematron/helpers.ts';
 
 const rule = { id: 'DE-R-002', level: 'fatal', message: 'The group "SELLER CONTACT" (BG-6) shall be provided.' } as const satisfies SchematronRule;
 
-export function validateDeR002(document: PeppolDocument): SchematronRuleResult {
-  if (!isSupplierGermany(document) || !isCustomerGermany(document)) {
-    return schematronResult(rule, true);
+function evaluateDeR002(document: PeppolDocument): boolean {
+  if (!isGermanSupplierAndCustomer(document)) {
+    return true;
   }
-  return schematronResult(rule, Boolean(document.accountingSupplierParty.contact));
+  return Boolean(document.accountingSupplierParty.contact);
 }
+
+export const validateDeR002 = schematronRule(rule, evaluateDeR002);

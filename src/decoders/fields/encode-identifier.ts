@@ -1,7 +1,9 @@
-import type { PeppolIdentifier } from '#/schemas/fields/identifier-schema';
+import { Effect, Predicate } from 'effect';
 
-export function encodeIdentifier(id?: PeppolIdentifier) {
-  if (!id) return undefined;
-  if (!id.schemeId) return id.id;
+import type { PeppolIdentifier } from '#/schemas/fields/peppol-identifier-schema.ts';
+
+export const encodeIdentifier = Effect.fn(function* (id?: PeppolIdentifier) {
+  if (Predicate.isNullish(id)) return undefined;
+  if (Predicate.isNullish(id.schemeId) || id.schemeId === '') return id.id;
   return { '#text': id.id, '@schemeID': id.schemeId };
-}
+});

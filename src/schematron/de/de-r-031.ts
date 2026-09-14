@@ -1,8 +1,7 @@
-import type { PeppolDocument } from '#/document';
-import type { SchematronRule } from '#/schematron/helpers';
-import type { SchematronRuleResult } from '#/schematron/types';
+import type { PeppolDocument } from '#/schemas/peppol-document-schema.ts';
+import type { SchematronRule } from '#/schematron/helpers.ts';
 
-import { isCustomerGermany, isSupplierGermany, schematronResult } from '#/schematron/helpers';
+import { isGermanSupplierAndCustomer, schematronRule } from '#/schematron/helpers.ts';
 
 const rule = {
   id: 'DE-R-031',
@@ -10,9 +9,9 @@ const rule = {
   message: 'If the group "DIRECT DEBIT" (BG-19) is delivered, the element "Debited account identifier" (BT-91) shall be provided.',
 } as const satisfies SchematronRule;
 
-export function validateDeR031(document: PeppolDocument): SchematronRuleResult {
-  if (!isSupplierGermany(document) || !isCustomerGermany(document)) {
-    return schematronResult(rule, true);
+function evaluateDeR031(document: PeppolDocument): boolean {
+  if (!isGermanSupplierAndCustomer(document)) {
+    return true;
   }
   const passed = (document.paymentMeans ?? []).every(payment => {
     if (!payment.paymentMandate) {
@@ -20,5 +19,7 @@ export function validateDeR031(document: PeppolDocument): SchematronRuleResult {
     }
     return Boolean(payment.paymentMandate.payerFinancialAccountId?.id);
   });
-  return schematronResult(rule, passed);
+  return passed;
 }
+
+export const validateDeR031 = schematronRule(rule, evaluateDeR031);

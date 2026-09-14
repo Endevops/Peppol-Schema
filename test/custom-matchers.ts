@@ -2,24 +2,24 @@
 import { XMLParser } from 'fast-xml-parser';
 import { expect } from 'vitest';
 
-import { parserOptions } from '#/xml/parser-options';
+import { parserOptions } from '#/xml/parser-options.ts';
 
 function parseXML(content: string | Buffer) {
   const parser = new XMLParser(parserOptions);
   return parser.parse(content);
 }
 
-interface CustomMatchers<R = string> {
+interface CustomMatchers<T = string> {
   /**
    * @description Check if the actual XML matches the expected XML.
    *
    * @param expected
    */
-  toMatchXML(expected: string): R;
+  toMatchXML(expected: string): T;
 }
 
 declare module 'vitest' {
-  interface Matchers<T = any> extends CustomMatchers<T> {}
+  interface Matchers<R extends void | Promise<void> = void | Promise<void>, T = unknown> extends CustomMatchers<T> {}
 }
 
 function removeUncesessaryAttributes(obj: any) {
@@ -28,19 +28,21 @@ function removeUncesessaryAttributes(obj: any) {
   }
 }
 
+const ROOT_ELEMENTS = ['Invoice', 'CreditNote', 'ApplicationResponse'] as const;
+
+function stripRootAttributes(expectedXML: Record<string, any>, root: (typeof ROOT_ELEMENTS)[number]) {
+  if (root in expectedXML) {
+    removeUncesessaryAttributes(expectedXML[root]);
+  }
+}
+
 expect.extend({
   toMatchXML(actual: string, expected: string) {
     const { isNot } = this;
     const actualXML = parseXML(actual);
     const expectedXML = parseXML(expected);
-    if ('Invoice' in expectedXML) {
-      removeUncesessaryAttributes(expectedXML.Invoice);
-    }
-    if ('CreditNote' in expectedXML) {
-      removeUncesessaryAttributes(expectedXML.CreditNote);
-    }
-    if ('ApplicationResponse' in expectedXML) {
-      removeUncesessaryAttributes(expectedXML.ApplicationResponse);
+    for (const root of ROOT_ELEMENTS) {
+      stripRootAttributes(expectedXML, root);
     }
 
     let pass: boolean;

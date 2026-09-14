@@ -1,9 +1,8 @@
-import type { PeppolDocument } from '#/document';
-import type { SchematronRule } from '#/schematron/helpers';
-import type { SchematronRuleResult } from '#/schematron/types';
+import type { PeppolDocument } from '#/schemas/peppol-document-schema.ts';
+import type { SchematronRule } from '#/schematron/helpers.ts';
 
-import { isValidIBAN } from '#/peppol-validations/is-valid-iban';
-import { isCustomerGermany, isSupplierGermany, schematronResult } from '#/schematron/helpers';
+import { isValidIBAN } from '#/peppol-validations/is-valid-iban.ts';
+import { isGermanSupplierAndCustomer, schematronRule } from '#/schematron/helpers.ts';
 
 const rule = {
   id: 'DE-R-019',
@@ -12,9 +11,9 @@ const rule = {
     'The element "Payment account identifier" (BT-84) should contain a valid IBAN if code 58 SEPA is provided in "Payment means type code" (BT-81).',
 } as const satisfies SchematronRule;
 
-export function validateDeR019(document: PeppolDocument): SchematronRuleResult {
-  if (!isSupplierGermany(document) || !isCustomerGermany(document)) {
-    return schematronResult(rule, true);
+function evaluateDeR019(document: PeppolDocument): boolean {
+  if (!isGermanSupplierAndCustomer(document)) {
+    return true;
   }
   const passed = (document.paymentMeans ?? []).every(payment => {
     if (payment.paymentMeansCode.code !== '58') {
@@ -23,5 +22,7 @@ export function validateDeR019(document: PeppolDocument): SchematronRuleResult {
     const accountId = payment.payeeFinancialAccount?.id;
     return accountId === undefined || isValidIBAN(accountId);
   });
-  return schematronResult(rule, passed);
+  return passed;
 }
+
+export const validateDeR019 = schematronRule(rule, evaluateDeR019);

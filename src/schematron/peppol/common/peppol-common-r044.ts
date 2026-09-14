@@ -1,8 +1,7 @@
-import type { PeppolDocument } from '#/document';
-import type { SchematronRule } from '#/schematron/helpers';
-import type { SchematronRuleResult } from '#/schematron/types';
+import type { PeppolDocument } from '#/schemas/peppol-document-schema.ts';
+import type { SchematronRule } from '#/schematron/helpers.ts';
 
-import { getIdentifiersWithSchemeId, schematronResult } from '#/schematron/helpers';
+import { getIdentifiersWithSchemeId, schematronRule } from '#/schematron/helpers.ts';
 
 const rule = {
   id: 'PEPPOL-COMMON-R044',
@@ -13,8 +12,10 @@ const rule = {
 const SCHEME_ID = '0201';
 const ALLOWED_CHARACTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 
-export function validatePeppolCommonR044(document: PeppolDocument): SchematronRuleResult {
+function evaluatePeppolCommonR044(document: PeppolDocument): boolean {
   const identifiers = getIdentifiersWithSchemeId(document).filter(i => i.schemeId === SCHEME_ID);
   const passed = identifiers.every(i => i.id.length === 6 && i.id.split('').every(c => ALLOWED_CHARACTERS.includes(c)));
-  return schematronResult(rule, passed);
+  return passed;
 }
+
+export const validatePeppolCommonR044 = schematronRule(rule, evaluatePeppolCommonR044);

@@ -1,9 +1,8 @@
-import type { PeppolDocument } from '#/document';
-import type { SchematronRule } from '#/schematron/helpers';
-import type { SchematronRuleResult } from '#/schematron/types';
+import type { PeppolDocument } from '#/schemas/peppol-document-schema.ts';
+import type { SchematronRule } from '#/schematron/helpers.ts';
 
-import { checkSEOrgnr } from '#/peppol-validations/check-se-orgnr';
-import { getSupplierCountry, schematronResult } from '#/schematron/helpers';
+import { checkSEOrgnr } from '#/peppol-validations/check-se-orgnr.ts';
+import { getSupplierCountry, schematronRule } from '#/schematron/helpers.ts';
 
 const rule = {
   id: 'SE-R-013',
@@ -11,10 +10,12 @@ const rule = {
   message: 'The last digit of a Swedish organization number must be valid according to the Luhn algorithm.',
 } as const satisfies SchematronRule;
 
-export function validateSeR013(document: PeppolDocument): SchematronRuleResult {
+function evaluateSeR013(document: PeppolDocument): boolean {
   if (getSupplierCountry(document) !== 'SE') {
-    return schematronResult(rule, true);
+    return true;
   }
   const companyId = document.accountingSupplierParty.partyLegalEntity.companyId;
-  return schematronResult(rule, companyId === undefined || checkSEOrgnr(companyId.id));
+  return companyId === undefined || checkSEOrgnr(companyId.id);
 }
+
+export const validateSeR013 = schematronRule(rule, evaluateSeR013);

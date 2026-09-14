@@ -1,0 +1,26 @@
+import { DateTime } from 'effect';
+// oxlint-disable vitest/expect-expect
+import { TestSchema } from 'effect/testing';
+import { describe, it } from 'vitest';
+
+import { PeppolInvoiceLinePeriod } from './peppol-invoice-line-period-schema.ts';
+
+describe('PeppolInvoiceLinePeriod', () => {
+  const testSchema = new TestSchema.Asserts(PeppolInvoiceLinePeriod);
+  const decode = testSchema.decoding();
+
+  it('should parse an empty invoice line period', async () => {
+    await decode.succeed({});
+  });
+
+  it('should parse an invoice line period with dates', async () => {
+    await decode.succeed(
+      { startDate: '2017-10-01', endDate: '2017-10-31' },
+      { startDate: DateTime.makeUnsafe('2017-10-01'), endDate: DateTime.makeUnsafe('2017-10-31') }
+    );
+  });
+
+  it('should reject an invalid start date', async () => {
+    await decode.fail({ startDate: '2017/10/01' }, 'Expected a string matching the RegExp ^\\d{4}-\\d{2}-\\d{2}Z?$\n  at ["startDate"]');
+  });
+});

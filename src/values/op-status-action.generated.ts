@@ -12,7 +12,7 @@
  *
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/OPStatusAction/
  */
-export const opStatusAction = {
+export const opStatusAction: Record<OpStatusActionKeys, string> = {
   /**
    * @description No action required.
    */

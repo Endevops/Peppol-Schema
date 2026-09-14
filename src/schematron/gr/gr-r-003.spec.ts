@@ -1,13 +1,14 @@
 /**
  * @description Unit tests for GR-R-003 (Greek VAT starts with EL).
  */
-import { describe, expect, it } from 'vitest';
+import { assert, describe, it } from '@effect/vitest';
+import { Effect, Result } from 'effect';
 
-import type { PeppolDocument } from '#/document';
+import type { PeppolDocument } from '#/schemas/peppol-document-schema.ts';
 
-import { decodeBaseExample } from '#/test/test-utils';
+import { decodeBaseExample } from '#/test/test-utils.ts';
 
-import { validateGrR003 } from './gr-r-003';
+import { validateGrR003 } from './gr-r-003.ts';
 
 async function withCountry(
   document: PeppolDocument,
@@ -32,18 +33,28 @@ async function withCountry(
 }
 
 describe('GR-R-003 (Greek VAT starts with EL)', () => {
-  it('passes when not applicable', async () => {
-    const document = await decodeBaseExample();
-    expect(validateGrR003(document).passed).toEqual(true);
-  });
+  it.effect(
+    'passes when not applicable',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => decodeBaseExample());
+      yield* validateGrR003(document);
+    })
+  );
 
-  it('fails when a Greek supplier VAT does not start with EL', async () => {
-    const document = await withCountry(await decodeBaseExample(), 'GR', 'BE');
-    expect(validateGrR003(document).passed).toEqual(false);
-  });
+  it.effect(
+    'fails when a Greek supplier VAT does not start with EL',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => withCountry(await decodeBaseExample(), 'GR', 'BE'));
+      const result = yield* validateGrR003(document).pipe(Effect.result);
+      assert(Result.isFailure(result));
+    })
+  );
 
-  it('passes when a Greek supplier VAT is valid', async () => {
-    const document = await withCountry(await decodeBaseExample(), 'GR', 'BE', 'EL094259216');
-    expect(validateGrR003(document).passed).toEqual(true);
-  });
+  it.effect(
+    'passes when a Greek supplier VAT is valid',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => withCountry(await decodeBaseExample(), 'GR', 'BE', 'EL094259216'));
+      yield* validateGrR003(document);
+    })
+  );
 });

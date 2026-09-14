@@ -1,4 +1,4 @@
-import type { ExportsOptions } from 'tsdown';
+import type { AttwOptions, ExportsOptions, PublintOptions, WithEnabled } from 'tsdown';
 
 import { defineConfig } from 'tsdown';
 
@@ -13,24 +13,32 @@ const exports: ExportsOptions = {
   packageJson: true,
   bin: { 'generate-translations': './scripts/generate-translations.ts' },
 };
+const attw: WithEnabled<AttwOptions> = { profile: 'esm-only', enabled: true };
+const publint: WithEnabled<PublintOptions> = { enabled: true };
 
 export default defineConfig([
   {
+    attw,
     define,
     deps: { onlyBundle: false },
     dts: { sourcemap: true },
     entry: {
+      constants: './src/constants/index.ts',
       index: './src/index.ts',
+      'invoice-response-codes': './src/invoice-response-codes/index.ts',
       schematron: './src/schematron/index.ts',
       validations: './src/peppol-validations/index.ts',
+      values: './src/values.ts',
       xml: './src/xml.ts',
     },
     exports,
     platform: 'neutral',
+    publint,
     sourcemap: true,
-    unbundle: true,
+    // unbundle: true,
   },
   {
+    attw,
     define,
     deps: { onlyBundle: false },
     dts: { enabled: false },
@@ -39,6 +47,7 @@ export default defineConfig([
     minify: 'dce-only',
     outDir: './dist/bin',
     platform: 'node',
+    publint,
     sourcemap: false,
   },
 ]);

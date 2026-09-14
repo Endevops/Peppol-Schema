@@ -1,4 +1,4 @@
-import type { PeppolInvoiceTypeCode } from '#/schemas/values/invoice-type-code-schema';
+import type { PeppolInvoiceTypeCode } from '#/schemas/values/invoice-type-code-schema.ts';
 
 import { invoiceTypeCodes } from '#/values/invoice-type-codes.generated';
 

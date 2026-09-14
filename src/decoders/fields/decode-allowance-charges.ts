@@ -1,33 +1,22 @@
-import type { XmlNode } from '#/helpers/get-prop';
-import type { PeppolAllowanceCharge } from '#/schemas/fields/allowance-charge-schema';
-import type { RecursivePartial } from '#/types';
+import { Effect } from 'effect';
 
-import { decodeAmount } from '#/decoders/fields/decode-amount';
-import { decodeTaxCategory } from '#/decoders/fields/decode-tax-category';
-import { bool } from '#/helpers/bool';
-import { getArray } from '#/helpers/get-array';
-import { numOrUnd } from '#/helpers/num-or-und';
-import { strOrUnd } from '#/helpers/str-or-und';
+import type { XmlNode } from '#/helpers/get-prop.ts';
+import type { PeppolAllowanceCharge } from '#/schemas/fields/peppol-allowance-charge-schema.ts';
+import type { RecursivePartial } from '#/types.ts';
 
-export function decodeAllowanceCharges(
-  allowanceCharges: XmlNode,
-  ...path: Array<string>
-): Array<RecursivePartial<PeppolAllowanceCharge>> | undefined {
-  const arr = getArray(allowanceCharges, ...path);
-  if (!arr.length) {
-    return undefined;
-  }
+import { decodeBaseAllowanceCharge } from '#/decoders/fields/decode-base-allowance-charge.ts';
+import { decodeNodeList } from '#/decoders/fields/decode-node-list.ts';
+import { decodeTaxCategory } from '#/decoders/fields/decode-tax-category.ts';
 
-  return arr.map(
-    allowanceCharge =>
-      ({
-        allowanceChargeReason: strOrUnd(allowanceCharge, 'cbc:AllowanceChargeReason'),
-        allowanceChargeReasonCode: strOrUnd(allowanceCharge, 'cbc:AllowanceChargeReasonCode'),
-        amount: decodeAmount(allowanceCharge, 'cbc:Amount'),
-        baseAmount: decodeAmount(allowanceCharge, 'cbc:BaseAmount'),
-        chargeIndicator: bool(allowanceCharge, 'cbc:ChargeIndicator'),
-        multiplierFactorNumeric: numOrUnd(allowanceCharge, 'cbc:MultiplierFactorNumeric'),
-        taxCategory: decodeTaxCategory(allowanceCharge, 'cac:TaxCategory'),
-      }) as RecursivePartial<PeppolAllowanceCharge>
+export const decodeAllowanceCharges = Effect.fn(function* (allowanceCharges: XmlNode, ...path: Array<string>) {
+  return yield* decodeNodeList(
+    allowanceCharges,
+    Effect.fn(function* (allowanceCharge: XmlNode) {
+      return {
+        ...(yield* decodeBaseAllowanceCharge(allowanceCharge)),
+        taxCategory: yield* decodeTaxCategory(allowanceCharge, 'cac:TaxCategory'),
+      } as RecursivePartial<PeppolAllowanceCharge>;
+    }),
+    ...path
   );
-}
+});

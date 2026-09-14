@@ -1,7 +1,9 @@
-import type { PeppolPaymentTerms } from '#/schemas/fields/payment-terms-schema';
+import { Effect, Predicate } from 'effect';
 
-export function encodePaymentTerms(paymentTerms: PeppolPaymentTerms | undefined) {
-  if (!paymentTerms) return undefined;
+import type { PeppolPaymentTerms } from '#/schemas/fields/peppol-payment-terms-schema.ts';
+
+export const encodePaymentTerms = Effect.fn(function* (paymentTerms: PeppolPaymentTerms | undefined) {
+  if (Predicate.isNullish(paymentTerms)) return undefined;
 
   return { 'cbc:Note': paymentTerms.note };
-}
+});

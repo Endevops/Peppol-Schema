@@ -1,13 +1,14 @@
 /**
  * @description Unit tests for SE-R-013 (Swedish org number Luhn).
  */
-import { describe, expect, it } from 'vitest';
+import { describe, it } from '@effect/vitest';
+import { Effect } from 'effect';
 
-import type { PeppolDocument } from '#/document';
+import type { PeppolDocument } from '#/schemas/peppol-document-schema.ts';
 
-import { decodeBaseExample } from '#/test/test-utils';
+import { decodeBaseExample } from '#/test/test-utils.ts';
 
-import { validateSeR013 } from './se-r-013';
+import { validateSeR013 } from './se-r-013.ts';
 
 async function withSupplierCountry(document: PeppolDocument, country: string, vatPrefix?: string): Promise<PeppolDocument> {
   const vat = vatPrefix ?? `${country}VAT123456789`;
@@ -22,20 +23,26 @@ async function withSupplierCountry(document: PeppolDocument, country: string, va
 }
 
 describe('SE-R-013 (Swedish org number Luhn)', () => {
-  it('passes when not applicable', async () => {
-    const document = await decodeBaseExample();
-    expect(validateSeR013(document).passed).toEqual(true);
-  });
+  it.effect(
+    'passes when not applicable',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => decodeBaseExample());
+      yield* validateSeR013(document);
+    })
+  );
 
-  it('passes for a valid Swedish org number', async () => {
-    const document = await withSupplierCountry(await decodeBaseExample(), 'SE');
-    const altered = {
-      ...document,
-      accountingSupplierParty: {
-        ...document.accountingSupplierParty,
-        partyLegalEntity: { ...document.accountingSupplierParty.partyLegalEntity, companyId: { id: '5561234567', schemeId: '0007' } },
-      },
-    } as unknown as PeppolDocument;
-    expect(validateSeR013(altered).passed).toEqual(true);
-  });
+  it.effect(
+    'passes for a valid Swedish org number',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => withSupplierCountry(await decodeBaseExample(), 'SE'));
+      const altered = {
+        ...document,
+        accountingSupplierParty: {
+          ...document.accountingSupplierParty,
+          partyLegalEntity: { ...document.accountingSupplierParty.partyLegalEntity, companyId: { id: '5561234567', schemeId: '0007' } },
+        },
+      } as unknown as PeppolDocument;
+      yield* validateSeR013(altered);
+    })
+  );
 });

@@ -1,13 +1,14 @@
 /**
  * @description Unit tests for IS-R-007 (payment means code 42 requires 12-digit account).
  */
-import { describe, expect, it } from 'vitest';
+import { assert, describe, it } from '@effect/vitest';
+import { Effect, Result } from 'effect';
 
-import type { PeppolDocument } from '#/document';
+import type { PeppolDocument } from '#/schemas/peppol-document-schema.ts';
 
-import { decodeBaseExample } from '#/test/test-utils';
+import { decodeBaseExample } from '#/test/test-utils.ts';
 
-import { validateIsR007 } from './is-r-007';
+import { validateIsR007 } from './is-r-007.ts';
 
 async function asIcelandic(document: PeppolDocument): Promise<PeppolDocument> {
   return {
@@ -26,26 +27,36 @@ async function asIcelandic(document: PeppolDocument): Promise<PeppolDocument> {
 }
 
 describe('IS-R-007 (payment means code 42 requires 12-digit account)', () => {
-  it('passes when not applicable', async () => {
-    const document = await decodeBaseExample();
-    expect(validateIsR007(document).passed).toEqual(true);
-  });
+  it.effect(
+    'passes when not applicable',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => decodeBaseExample());
+      yield* validateIsR007(document);
+    })
+  );
 
-  it('fails when an Icelandic document uses code 42 with a short account id', async () => {
-    const document = await asIcelandic(await decodeBaseExample());
-    const altered = {
-      ...document,
-      paymentMeans: [{ paymentMeansCode: { code: '42' }, payeeFinancialAccount: { id: '123' } }],
-    } as unknown as PeppolDocument;
-    expect(validateIsR007(altered).passed).toEqual(false);
-  });
+  it.effect(
+    'fails when an Icelandic document uses code 42 with a short account id',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => asIcelandic(await decodeBaseExample()));
+      const altered = {
+        ...document,
+        paymentMeans: [{ paymentMeansCode: { code: '42' }, payeeFinancialAccount: { id: '123' } }],
+      } as unknown as PeppolDocument;
+      const result = yield* validateIsR007(altered).pipe(Effect.result);
+      assert(Result.isFailure(result));
+    })
+  );
 
-  it('passes when an Icelandic document uses code 42 with a 12-digit account id', async () => {
-    const document = await asIcelandic(await decodeBaseExample());
-    const altered = {
-      ...document,
-      paymentMeans: [{ paymentMeansCode: { code: '42' }, payeeFinancialAccount: { id: '123456789012' } }],
-    } as unknown as PeppolDocument;
-    expect(validateIsR007(altered).passed).toEqual(true);
-  });
+  it.effect(
+    'passes when an Icelandic document uses code 42 with a 12-digit account id',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => asIcelandic(await decodeBaseExample()));
+      const altered = {
+        ...document,
+        paymentMeans: [{ paymentMeansCode: { code: '42' }, payeeFinancialAccount: { id: '123456789012' } }],
+      } as unknown as PeppolDocument;
+      yield* validateIsR007(altered);
+    })
+  );
 });

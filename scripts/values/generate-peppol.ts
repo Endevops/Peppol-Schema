@@ -7,11 +7,12 @@ import { promises as fs } from 'node:fs';
 import path from 'node:path';
 import pc from 'picocolors';
 
-import { generateKeyDeclarations } from './generate-key-declarations';
-import { Git } from './git';
+import { generateKeyDeclarations } from './generate-key-declarations.ts';
+import { Git } from './git.ts';
 
 const typescript = String.String.raw;
 const xmlParser = new XMLParser({
+  // @ts-ignore-error idk
   OutputBuilder: new CompactBuilderFactory({ tags: { valueParsers: ['entity'] }, attributes: { valueParsers: ['entity'] } }),
 });
 const assetsPath = path.join(import.meta.dirname, '..', '..', 'assets');
@@ -48,7 +49,7 @@ ${version ? ` * @version ${version}` : ''}
  * @enum
  * @category Peppol Values
  */
-export const ${variableName} = {
+export const ${variableName}: Record<${String.capitalize(`${variableName}Keys`)}, string> = {
 ${content}
 };
 

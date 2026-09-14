@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { addPIVA } from './add-piva';
+import { addPIVA } from './add-piva.ts';
 
 describe('addPIVA', () => {
   it.each([['01234567889', 0, 50]] as const)('should calculate weighted sum for PIVA validation', (arg, pari, expected) => {

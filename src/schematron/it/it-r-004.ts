@@ -1,8 +1,7 @@
-import type { PeppolDocument } from '#/document';
-import type { SchematronRule } from '#/schematron/helpers';
-import type { SchematronRuleResult } from '#/schematron/types';
+import type { PeppolDocument } from '#/schemas/peppol-document-schema.ts';
+import type { SchematronRule } from '#/schematron/helpers.ts';
 
-import { getSupplierCountry, schematronResult } from '#/schematron/helpers';
+import { getSupplierCountry, schematronRule } from '#/schematron/helpers.ts';
 
 const rule = {
   id: 'IT-R-004',
@@ -10,10 +9,12 @@ const rule = {
   message: '[IT-R-004] BT-38 (Seller post code) - Italian suppliers MUST provide the postal address post code',
 } as const satisfies SchematronRule;
 
-export function validateItR004(document: PeppolDocument): SchematronRuleResult {
+function evaluateItR004(document: PeppolDocument): boolean {
   if (getSupplierCountry(document) !== 'IT') {
-    return schematronResult(rule, true);
+    return true;
   }
   const postalZone = document.accountingSupplierParty.postalAddress.postalZone;
-  return schematronResult(rule, typeof postalZone === 'string' && postalZone.trim() !== '');
+  return typeof postalZone === 'string' && postalZone.trim() !== '';
 }
+
+export const validateItR004 = schematronRule(rule, evaluateItR004);

@@ -1,8 +1,7 @@
-import type { PeppolDocument } from '#/document';
-import type { SchematronRule } from '#/schematron/helpers';
-import type { SchematronRuleResult } from '#/schematron/types';
+import type { PeppolDocument } from '#/schemas/peppol-document-schema.ts';
+import type { SchematronRule } from '#/schematron/helpers.ts';
 
-import { getSupplierCountry, schematronResult } from '#/schematron/helpers';
+import { getSupplierCountry, schematronRule } from '#/schematron/helpers.ts';
 
 const rule = {
   id: 'SE-R-008',
@@ -10,9 +9,9 @@ const rule = {
   message: 'For Swedish suppliers using Bankgiro, the Account ID must be numeric ',
 } as const satisfies SchematronRule;
 
-export function validateSeR008(document: PeppolDocument): SchematronRuleResult {
+function evaluateSeR008(document: PeppolDocument): boolean {
   if (getSupplierCountry(document) !== 'SE') {
-    return schematronResult(rule, true);
+    return true;
   }
   const passed = (document.paymentMeans ?? []).every(payment => {
     if (payment.paymentMeansCode.code !== '30' || payment.payeeFinancialAccount?.financialInstitutionBranch?.id !== 'SE:BANKGIRO') {
@@ -21,5 +20,7 @@ export function validateSeR008(document: PeppolDocument): SchematronRuleResult {
     const accountId = payment.payeeFinancialAccount?.id;
     return accountId !== undefined && /^\d+$/.test(accountId.trim());
   });
-  return schematronResult(rule, passed);
+  return passed;
 }
+
+export const validateSeR008 = schematronRule(rule, evaluateSeR008);

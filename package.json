@@ -2,25 +2,65 @@
   "$schema": "https://raw.githubusercontent.com/SchemaStore/schemastore/refs/heads/master/src/schemas/json/package.json",
   "name": "@endevops/peppol-schema",
   "version": "0.0.1",
-  "description": "A simple example library built by tsdown",
-  "license": "MIT",
+  "description": "TypeScript Effect Schema models for PEPPOL BIS Billing 3.0 — decode, validate and encode Invoice, Credit Note, Invoice Response and Message Level Response XML, with generated code lists, Schematron rules and identifier validations",
+  "keywords": [
+    "bis-billing",
+    "credit-note",
+    "e-invoicing",
+    "e-procurement",
+    "effect",
+    "invoice",
+    "openpeppol",
+    "peppol",
+    "peppol-bis",
+    "schematron",
+    "typescript",
+    "ubl",
+    "validation",
+    "xml"
+  ],
+  "license": "Apache-2.0",
+  "contributors": [
+    {
+      "name": "TheYoxy",
+      "url": "https://github.com/TheYoxy"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Endevops/Peppol-Schema.git"
+  },
   "bin": {
     "generate-translations": "./scripts/generate-translations.ts"
   },
   "files": [
     "dist",
     "src/**/*.ts",
-    "!src/**/*.{spec,test}.ts"
+    "!src/**/*.{spec,test}.ts",
+    "NOTICE"
   ],
   "type": "module",
+  "imports": {
+    "#/*": "./src/*",
+    "#/test/*": "./test/*",
+    "#/assets/*": "./assets/*"
+  },
   "exports": {
     ".": {
       "development": "./src/index.ts",
       "default": "./dist/index.js"
     },
+    "./constants": {
+      "development": "./src/constants/index.ts",
+      "default": "./dist/constants.js"
+    },
     "./generate-translations": {
       "development": "./scripts/generate-translations.ts",
       "default": "./dist/bin/generate-translations.mjs"
+    },
+    "./invoice-response-codes": {
+      "development": "./src/invoice-response-codes/index.ts",
+      "default": "./dist/invoice-response-codes.js"
     },
     "./schematron": {
       "development": "./src/schematron/index.ts",
@@ -29,6 +69,10 @@
     "./validations": {
       "development": "./src/peppol-validations/index.ts",
       "default": "./dist/validations.js"
+    },
+    "./values": {
+      "development": "./src/values.ts",
+      "default": "./dist/values.js"
     },
     "./xml": {
       "development": "./src/xml.ts",
@@ -42,12 +86,18 @@
     },
     "exports": {
       ".": "./dist/index.js",
+      "./constants": "./dist/constants.js",
       "./generate-translations": "./dist/bin/generate-translations.mjs",
+      "./invoice-response-codes": "./dist/invoice-response-codes.js",
       "./schematron": "./dist/schematron.js",
       "./validations": "./dist/validations.js",
+      "./values": "./dist/values.js",
       "./xml": "./dist/xml.js",
       "./package.json": "./package.json"
-    }
+    },
+    "access": "public",
+    "provenance": true,
+    "registry": "https://registry.npmjs.org/"
   },
   "scripts": {
     "build": "tsdown",
@@ -56,46 +106,40 @@
     "generate": "bun scripts/values.ts",
     "lint": "oxlint . --type-aware",
     "prepack": "tsdown",
-    "prepare": "pnpm dlx husky",
+    "prepare": "pnpm dlx husky && effect-tsgo patch --oxlint",
     "test": "vitest run",
     "test:coverage": "vitest run --coverage"
   },
-  "dependencies": {
-    "@nodable/compact-builder": "^2.0.0",
-    "@nodable/flexible-xml-parser": "^1.11.3"
-  },
   "devDependencies": {
-    "@date-fns/tz": "^1.5.0",
-    "@types/bun": "^1.3.14",
-    "@types/node": "^26.2.0",
-    "@vitest/coverage-v8": "^4.1.10",
-    "date-fns": "^4.4.0",
-    "effect": "4.0.0-rc.110",
+    "@arethetypeswrong/core": "^0.18.5",
+    "@effect/tsgo": "^0.45.0",
+    "@effect/vitest": "^4.0.0-rc.113",
+    "@nodable/compact-builder": "^2.0.0",
+    "@nodable/flexible-xml-parser": "^1.11.3",
+    "@types/bun": "^1.4.2",
+    "@types/node": "^26.5.1",
+    "@vitest/coverage-v8": "^5.0.0",
+    "effect": "^4.0.0-rc.113",
     "fast-xml-builder": "^1.3.1",
-    "fast-xml-parser": "^5.11.0",
+    "fast-xml-parser": "^5.11.1",
     "husky": "^9.1.7",
-    "lint-staged": "^17.3.0",
-    "oxfmt": "^0.63.0",
-    "oxlint": "^1.78.0",
+    "lint-staged": "^17.5.1",
+    "oxfmt": "^0.67.0",
+    "oxlint": "^1.82.0",
     "oxlint-tsgolint": "^7.0.2001",
     "picocolors": "^1.1.1",
+    "publint": "^0.3.24",
     "semantic-release": "25.0.9",
     "simple-git": "^3.36.0",
     "testcontainers": "^12.1.0",
-    "ts-extras": "^1.3.0",
-    "tsdown": "^0.22.14",
-    "type-fest": "^5.8.0",
+    "tsdown": "^0.23.0",
     "typescript": "^7.0.2",
-    "vitest": "^4.1.10",
-    "zod": "^4.4.3"
+    "vitest": "^5.0.0"
   },
   "peerDependencies": {
-    "@date-fns/tz": "^1",
-    "date-fns": "^4",
-    "effect": "4.0.0-rc.110",
+    "effect": "^4.0.0-rc.113",
     "fast-xml-builder": "^1",
-    "fast-xml-parser": "^5",
-    "zod": "^4"
+    "fast-xml-parser": "^5"
   },
   "lint-staged": {
     "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx}": [
@@ -110,10 +154,8 @@
     "node": ">=26",
     "pnpm": ">=11"
   },
-  "packageManager": "pnpm@11.21.0",
+  "packageManager": "pnpm@12.4.1",
   "inlinedDependencies": {
-    "picocolors": "1.1.1",
-    "ts-extras": "1.3.0",
-    "type-fest": "5.8.0"
+    "picocolors": "1.1.1"
   }
 }

@@ -12,7 +12,7 @@
  *
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/UNCL5189/
  */
-export const allowanceChargeReasonCodes = {
+export const allowanceChargeReasonCodes: Record<AllowanceChargeReasonCodesKeys, string> = {
   '41': 'Bonus for works ahead of schedule',
 
   '42': 'Other bonus',

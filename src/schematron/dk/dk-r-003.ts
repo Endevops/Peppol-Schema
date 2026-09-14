@@ -1,8 +1,7 @@
-import type { PeppolDocument } from '#/document';
-import type { SchematronRule } from '#/schematron/helpers';
-import type { SchematronRuleResult } from '#/schematron/types';
+import type { PeppolDocument } from '#/schemas/peppol-document-schema.ts';
+import type { SchematronRule } from '#/schematron/helpers.ts';
 
-import { getCustomerCountry, getLines, getSupplierCountry, schematronResult } from '#/schematron/helpers';
+import { getLines, isDanishSupplierAndCustomer, schematronRule } from '#/schematron/helpers.ts';
 
 const rule = {
   id: 'DK-R-003',
@@ -12,9 +11,9 @@ const rule = {
 
 const ALLOWED_VERSIONS = new Set(['19.05.01', '19.0501', '26.08.01', '26.0801']);
 
-export function validateDkR003(document: PeppolDocument): SchematronRuleResult {
-  if (getSupplierCountry(document) !== 'DK' || getCustomerCountry(document) !== 'DK') {
-    return schematronResult(rule, true);
+function evaluateDkR003(document: PeppolDocument): boolean {
+  if (!isDanishSupplierAndCustomer(document)) {
+    return true;
   }
   const passed = getLines(document).every(line =>
     (line.item.commodityClassifications ?? []).every(classification => {
@@ -25,5 +24,7 @@ export function validateDkR003(document: PeppolDocument): SchematronRuleResult {
       );
     })
   );
-  return schematronResult(rule, passed);
+  return passed;
 }
+
+export const validateDkR003 = schematronRule(rule, evaluateDkR003);

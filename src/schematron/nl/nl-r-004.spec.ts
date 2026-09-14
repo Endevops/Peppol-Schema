@@ -1,13 +1,14 @@
 /**
  * @description Unit tests for NL-R-004 (Dutch customer address).
  */
-import { describe, expect, it } from 'vitest';
+import { assert, describe, it } from '@effect/vitest';
+import { Effect, Result } from 'effect';
 
-import type { PeppolDocument } from '#/document';
+import type { PeppolDocument } from '#/schemas/peppol-document-schema.ts';
 
-import { decodeBaseExample } from '#/test/test-utils';
+import { decodeBaseExample } from '#/test/test-utils.ts';
 
-import { validateNlR004 } from './nl-r-004';
+import { validateNlR004 } from './nl-r-004.ts';
 
 async function withCountry(
   document: PeppolDocument,
@@ -32,20 +33,27 @@ async function withCountry(
 }
 
 describe('NL-R-004 (Dutch customer address)', () => {
-  it('passes when not applicable', async () => {
-    const document = await decodeBaseExample();
-    expect(validateNlR004(document).passed).toEqual(true);
-  });
+  it.effect(
+    'passes when not applicable',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => decodeBaseExample());
+      yield* validateNlR004(document);
+    })
+  );
 
-  it('fails when Dutch parties and the customer has no street', async () => {
-    const document = await withCountry(await decodeBaseExample(), 'NL', 'NL');
-    const altered = {
-      ...document,
-      accountingCustomerParty: {
-        ...document.accountingCustomerParty,
-        postalAddress: { ...document.accountingCustomerParty.postalAddress, streetName: undefined },
-      },
-    } as unknown as PeppolDocument;
-    expect(validateNlR004(altered).passed).toEqual(false);
-  });
+  it.effect(
+    'fails when Dutch parties and the customer has no street',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => withCountry(await decodeBaseExample(), 'NL', 'NL'));
+      const altered = {
+        ...document,
+        accountingCustomerParty: {
+          ...document.accountingCustomerParty,
+          postalAddress: { ...document.accountingCustomerParty.postalAddress, streetName: undefined },
+        },
+      } as unknown as PeppolDocument;
+      const result = yield* validateNlR004(altered).pipe(Effect.result);
+      assert(Result.isFailure(result));
+    })
+  );
 });

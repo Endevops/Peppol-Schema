@@ -1,13 +1,14 @@
 /**
  * @description Unit tests for IS-R-003 (Icelandic seller address).
  */
-import { describe, expect, it } from 'vitest';
+import { assert, describe, it } from '@effect/vitest';
+import { Effect, Result } from 'effect';
 
-import type { PeppolDocument } from '#/document';
+import type { PeppolDocument } from '#/schemas/peppol-document-schema.ts';
 
-import { decodeBaseExample } from '#/test/test-utils';
+import { decodeBaseExample } from '#/test/test-utils.ts';
 
-import { validateIsR003 } from './is-r-003';
+import { validateIsR003 } from './is-r-003.ts';
 
 async function withCountry(
   document: PeppolDocument,
@@ -32,20 +33,27 @@ async function withCountry(
 }
 
 describe('IS-R-003 (Icelandic seller address)', () => {
-  it('passes when not applicable', async () => {
-    const document = await decodeBaseExample();
-    expect(validateIsR003(document).passed).toEqual(true);
-  });
+  it.effect(
+    'passes when not applicable',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => decodeBaseExample());
+      yield* validateIsR003(document);
+    })
+  );
 
-  it('fails when an Icelandic supplier has no post code', async () => {
-    const document = await withCountry(await decodeBaseExample(), 'IS', 'BE');
-    const altered = {
-      ...document,
-      accountingSupplierParty: {
-        ...document.accountingSupplierParty,
-        postalAddress: { ...document.accountingSupplierParty.postalAddress, postalZone: undefined },
-      },
-    } as unknown as PeppolDocument;
-    expect(validateIsR003(altered).passed).toEqual(false);
-  });
+  it.effect(
+    'fails when an Icelandic supplier has no post code',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => withCountry(await decodeBaseExample(), 'IS', 'BE'));
+      const altered = {
+        ...document,
+        accountingSupplierParty: {
+          ...document.accountingSupplierParty,
+          postalAddress: { ...document.accountingSupplierParty.postalAddress, postalZone: undefined },
+        },
+      } as unknown as PeppolDocument;
+      const result = yield* validateIsR003(altered).pipe(Effect.result);
+      assert(Result.isFailure(result));
+    })
+  );
 });

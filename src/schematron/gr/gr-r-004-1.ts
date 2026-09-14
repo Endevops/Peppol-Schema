@@ -1,8 +1,7 @@
-import type { PeppolDocument } from '#/document';
-import type { SchematronRule } from '#/schematron/helpers';
-import type { SchematronRuleResult } from '#/schematron/types';
+import type { PeppolDocument } from '#/schemas/peppol-document-schema.ts';
+import type { SchematronRule } from '#/schematron/helpers.ts';
 
-import { getSupplierCountry, schematronResult } from '#/schematron/helpers';
+import { getSupplierCountry, schematronRule } from '#/schematron/helpers.ts';
 
 const rule = {
   id: 'GR-R-004-1',
@@ -10,11 +9,13 @@ const rule = {
   message: ' When Supplier is Greek, there must be one MARK Number',
 } as const satisfies SchematronRule;
 
-export function validateGrR004_1(document: PeppolDocument): SchematronRuleResult {
+function evaluateGrR004_1(document: PeppolDocument): boolean {
   const isGreek = getSupplierCountry(document) === 'GR' || getSupplierCountry(document) === 'EL';
   if (!isGreek) {
-    return schematronResult(rule, true);
+    return true;
   }
   const markCount = (document.additionalDocumentReferences ?? []).filter(ref => ref.documentDescription === '##M.AR.K##').length;
-  return schematronResult(rule, markCount === 1);
+  return markCount === 1;
 }
+
+export const validateGrR004_1 = schematronRule(rule, evaluateGrR004_1);

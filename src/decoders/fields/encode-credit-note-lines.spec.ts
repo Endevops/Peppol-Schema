@@ -1,32 +1,33 @@
+import { Effect } from 'effect';
 import { describe, it, expect } from 'vitest';
 
-import { encodeCreditNoteLines } from './encode-credit-note-lines';
+import { encodeCreditNoteLines } from './encode-credit-note-lines.ts';
 
 const creditNoteLine = {
-  id: '1',
-  note: 'note',
-  creditedQuantity: { value: 2, unitCode: 'C62' },
-  lineExtensionAmount: { value: 10, currencyId: 'EUR' },
   accountingCost: 'AC',
+  creditedQuantity: { unitCode: 'C62', value: 2 },
+  id: '1',
   item: {
+    buyersItemIdentification: { id: 'b1' },
+    classifiedTaxCategory: { id: 'S', percent: '20', taxSchemeId: { id: 'VAT' } },
     description: 'desc',
     name: 'Item',
-    buyersItemIdentification: { id: 'b1' },
     sellersItemIdentification: { id: 's1' },
-    classifiedTaxCategory: { id: 'S', percent: '20', taxSchemeId: { id: 'VAT' } },
   },
-  price: { priceAmount: { value: 5, currencyId: 'EUR' } },
+  lineExtensionAmount: { currencyId: 'EUR', value: 10 },
+  note: 'note',
+  price: { priceAmount: { currencyId: 'EUR', value: 5 } },
 };
 
 describe('encodeCreditNoteLines', () => {
   it('returns undefined for an empty array', () => {
     // ❌ Negative: empty credit note lines array → undefined.
-    expect(encodeCreditNoteLines([])).toBeUndefined();
+    expect(Effect.runSync(encodeCreditNoteLines([]))).toBeUndefined();
   });
 
   it('maps each line of a non-empty array', () => {
     // ✅ Positive: a present line is encoded through the shared line encoder.
-    const result = encodeCreditNoteLines([creditNoteLine] as any);
+    const result = Effect.runSync(encodeCreditNoteLines([creditNoteLine] as any));
     expect(result).toHaveLength(1);
     expect(result?.[0]?.['cbc:ID']).toBe('1');
     expect(result?.[0]?.['cbc:CreditedQuantity']).toEqual({ '#text': 2, '@unitCode': 'C62' });

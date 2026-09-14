@@ -1,13 +1,14 @@
 /**
  * @description Unit tests for IT-R-003 (Italian seller city).
  */
-import { describe, expect, it } from 'vitest';
+import { assert, describe, it } from '@effect/vitest';
+import { Effect, Result } from 'effect';
 
-import type { PeppolDocument } from '#/document';
+import type { PeppolDocument } from '#/schemas/peppol-document-schema.ts';
 
-import { decodeBaseExample } from '#/test/test-utils';
+import { decodeBaseExample } from '#/test/test-utils.ts';
 
-import { validateItR003 } from './it-r-003';
+import { validateItR003 } from './it-r-003.ts';
 
 async function withSupplierCountry(document: PeppolDocument, country: string, vatPrefix?: string): Promise<PeppolDocument> {
   const vat = vatPrefix ?? `${country}VAT123456789`;
@@ -33,42 +34,59 @@ async function asItalian(document: PeppolDocument): Promise<PeppolDocument> {
 }
 
 describe('IT-R-003 (Italian seller city)', () => {
-  it('passes when not applicable', async () => {
-    const document = await decodeBaseExample();
-    expect(validateItR003(document).passed).toEqual(true);
-  });
+  it.effect(
+    'passes when not applicable',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => decodeBaseExample());
+      yield* validateItR003(document);
+    })
+  );
 
-  it('fails when an Italian supplier has no city', async () => {
-    const document = await withSupplierCountry(await decodeBaseExample(), 'IT');
-    const altered = {
-      ...document,
-      accountingSupplierParty: {
-        ...document.accountingSupplierParty,
-        postalAddress: { ...document.accountingSupplierParty.postalAddress, cityName: undefined },
-      },
-    } as unknown as PeppolDocument;
-    expect(validateItR003(altered).passed).toEqual(false);
-  });
+  it.effect(
+    'fails when an Italian supplier has no city',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => withSupplierCountry(await decodeBaseExample(), 'IT'));
+      const altered = {
+        ...document,
+        accountingSupplierParty: {
+          ...document.accountingSupplierParty,
+          postalAddress: { ...document.accountingSupplierParty.postalAddress, cityName: undefined },
+        },
+      } as unknown as PeppolDocument;
+      const result = yield* validateItR003(altered).pipe(Effect.result);
+      assert(Result.isFailure(result));
+    })
+  );
 
-  it('passes when the supplier is not Italian', async () => {
-    const document = await decodeBaseExample();
-    expect(validateItR003(document).passed).toEqual(true);
-  });
+  it.effect(
+    'passes when the supplier is not Italian',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => decodeBaseExample());
+      yield* validateItR003(document);
+    })
+  );
 
-  it('fails when an Italian supplier has no city', async () => {
-    const document = await asItalian(await decodeBaseExample());
-    const altered = {
-      ...document,
-      accountingSupplierParty: {
-        ...document.accountingSupplierParty,
-        postalAddress: { ...document.accountingSupplierParty.postalAddress, cityName: undefined },
-      },
-    } as unknown as PeppolDocument;
-    expect(validateItR003(altered).passed).toEqual(false);
-  });
+  it.effect(
+    'fails when an Italian supplier has no city',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => asItalian(await decodeBaseExample()));
+      const altered = {
+        ...document,
+        accountingSupplierParty: {
+          ...document.accountingSupplierParty,
+          postalAddress: { ...document.accountingSupplierParty.postalAddress, cityName: undefined },
+        },
+      } as unknown as PeppolDocument;
+      const result = yield* validateItR003(altered).pipe(Effect.result);
+      assert(Result.isFailure(result));
+    })
+  );
 
-  it('passes when an Italian supplier has a city', async () => {
-    const document = await asItalian(await decodeBaseExample());
-    expect(validateItR003(document).passed).toEqual(true);
-  });
+  it.effect(
+    'passes when an Italian supplier has a city',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => asItalian(await decodeBaseExample()));
+      yield* validateItR003(document);
+    })
+  );
 });

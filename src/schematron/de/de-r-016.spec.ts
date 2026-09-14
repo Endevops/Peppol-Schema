@@ -1,13 +1,14 @@
 /**
  * @description Unit tests for DE-R-016 (VAT codes require seller tax id).
  */
-import { describe, expect, it } from 'vitest';
+import { assert, describe, it } from '@effect/vitest';
+import { Effect, Result } from 'effect';
 
-import type { PeppolDocument } from '#/document';
+import type { PeppolDocument } from '#/schemas/peppol-document-schema.ts';
 
-import { decodeBaseExample } from '#/test/test-utils';
+import { decodeBaseExample } from '#/test/test-utils.ts';
 
-import { validateDeR016 } from './de-r-016';
+import { validateDeR016 } from './de-r-016.ts';
 
 async function asGerman(document: PeppolDocument): Promise<PeppolDocument> {
   return {
@@ -24,26 +25,36 @@ async function asGerman(document: PeppolDocument): Promise<PeppolDocument> {
 }
 
 describe('DE-R-016 (VAT codes require seller tax id)', () => {
-  it('passes when not applicable', async () => {
-    const document = await decodeBaseExample();
-    expect(validateDeR016(document).passed).toEqual(true);
-  });
+  it.effect(
+    'passes when not applicable',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => decodeBaseExample());
+      yield* validateDeR016(document);
+    })
+  );
 
-  it('fails when a German document uses VAT code S without a seller tax identifier', async () => {
-    const document = await asGerman(await decodeBaseExample());
-    const altered = {
-      ...document,
-      accountingSupplierParty: { ...document.accountingSupplierParty, partyTaxSchemes: undefined },
-    } as unknown as PeppolDocument;
-    expect(validateDeR016(altered).passed).toEqual(false);
-  });
+  it.effect(
+    'fails when a German document uses VAT code S without a seller tax identifier',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => asGerman(await decodeBaseExample()));
+      const altered = {
+        ...document,
+        accountingSupplierParty: { ...document.accountingSupplierParty, partyTaxSchemes: undefined },
+      } as unknown as PeppolDocument;
+      const result = yield* validateDeR016(altered).pipe(Effect.result);
+      assert(Result.isFailure(result));
+    })
+  );
 
-  it('passes when a German document uses VAT code S with a seller tax identifier', async () => {
-    const document = await asGerman(await decodeBaseExample());
-    const altered = {
-      ...document,
-      accountingSupplierParty: { ...document.accountingSupplierParty, partyTaxSchemes: [{ companyId: 'DE123456789', taxSchemeId: { id: 'VAT' } }] },
-    } as unknown as PeppolDocument;
-    expect(validateDeR016(altered).passed).toEqual(true);
-  });
+  it.effect(
+    'passes when a German document uses VAT code S with a seller tax identifier',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => asGerman(await decodeBaseExample()));
+      const altered = {
+        ...document,
+        accountingSupplierParty: { ...document.accountingSupplierParty, partyTaxSchemes: [{ companyId: 'DE123456789', taxSchemeId: { id: 'VAT' } }] },
+      } as unknown as PeppolDocument;
+      yield* validateDeR016(altered);
+    })
+  );
 });

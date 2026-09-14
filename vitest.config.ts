@@ -22,9 +22,10 @@ const projects = [
     resolve: { tsconfigPaths: true },
     test: {
       exclude: [`${import.meta.dirname}/src/**/*.*.{test,spec}.{ts,tsx}`],
+      fsModuleCache: true,
       hookTimeout,
       include: [`${import.meta.dirname}/src/**/*.{test,spec}.{ts,tsx}`],
-      includeSource: [`${import.meta.dirname}/{src,scripts}/**/*.{ts,tsx}`],
+      isolate: false,
       name: `${name} - unit`,
       setupFiles: [`${import.meta.dirname}/test/custom-matchers.ts`],
       tags: [{ description: 'All the unit test', name: 'unit' }],
@@ -34,8 +35,10 @@ const projects = [
   {
     resolve: { tsconfigPaths: true },
     test: {
+      fsModuleCache: true,
       hookTimeout: 10_000,
       include: [`${import.meta.dirname}/src/**/*.int.{test,spec}.{ts,tsx}`],
+      isolate: false,
       name: `${name} - integration`,
       setupFiles: [`${import.meta.dirname}/test/custom-matchers.ts`],
       testTimeout: 30_000,

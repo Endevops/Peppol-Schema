@@ -1,8 +1,7 @@
-import type { PeppolDocument } from '#/document';
-import type { SchematronRule } from '#/schematron/helpers';
-import type { SchematronRuleResult } from '#/schematron/types';
+import type { PeppolDocument } from '#/schemas/peppol-document-schema.ts';
+import type { SchematronRule } from '#/schematron/helpers.ts';
 
-import { getProfile, schematronResult } from '#/schematron/helpers';
+import { getProfile, schematronRule } from '#/schematron/helpers.ts';
 
 const rule = {
   id: 'PEPPOL-EN16931-P0101',
@@ -12,14 +11,16 @@ const rule = {
 
 const PROFILE_01_CREDIT_NOTE_TYPE_CODES = new Set(['381', '396', '81', '83', '532']);
 
-export function validatePeppolEn16931P0101(document: PeppolDocument): SchematronRuleResult {
+function evaluatePeppolEn16931P0101(document: PeppolDocument): boolean {
   const creditNoteTypeCode = 'creditNoteTypeCode' in document ? document.creditNoteTypeCode : undefined;
   if (creditNoteTypeCode === undefined) {
-    return schematronResult(rule, true);
+    return true;
   }
   const profile = getProfile(document);
   if (profile === 'Unknown' || profile !== '01') {
-    return schematronResult(rule, true);
+    return true;
   }
-  return schematronResult(rule, PROFILE_01_CREDIT_NOTE_TYPE_CODES.has(creditNoteTypeCode));
+  return PROFILE_01_CREDIT_NOTE_TYPE_CODES.has(creditNoteTypeCode);
 }
+
+export const validatePeppolEn16931P0101 = schematronRule(rule, evaluatePeppolEn16931P0101);

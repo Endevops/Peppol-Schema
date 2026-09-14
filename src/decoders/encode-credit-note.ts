@@ -1,22 +1,24 @@
-import type { PeppolCreditNote } from '#/schemas/credit-note';
+import { Effect } from 'effect';
 
-import { encodeAdditionalDocumentReferences } from '#/decoders/fields/encode-additional-document-references';
-import { encodeAllowanceCharges } from '#/decoders/fields/encode-allowance-charges';
-import { encodeBillingReferences } from '#/decoders/fields/encode-billing-references';
-import { encodeCreditNoteLines } from '#/decoders/fields/encode-credit-note-lines';
-import { encodeDelivery } from '#/decoders/fields/encode-delivery';
-import { encodeInvoicePeriod } from '#/decoders/fields/encode-invoice-period';
-import { encodeLegalMonetaryTotal } from '#/decoders/fields/encode-legal-monetary-total';
-import { encodeOrderReference } from '#/decoders/fields/encode-order-reference';
-import { encodeParty } from '#/decoders/fields/encode-party';
-import { encodePayeeParty } from '#/decoders/fields/encode-payee-party';
-import { encodePaymentMeans } from '#/decoders/fields/encode-payment-means';
-import { encodePaymentTerms } from '#/decoders/fields/encode-payment-terms';
-import { encodeSimpleIdentifier } from '#/decoders/fields/encode-simple-identifier';
-import { encodeTaxRepresentativeParty } from '#/decoders/fields/encode-tax-representative-party';
-import { encodeTaxTotals } from '#/decoders/fields/encode-tax-totals';
+import type { PeppolCreditNote } from '#/schemas/peppol-credit-note-schema.ts';
 
-export function encodeCreditNote(creditNote: PeppolCreditNote) {
+import { encodeAdditionalDocumentReferences } from '#/decoders/fields/encode-additional-document-references.ts';
+import { encodeAllowanceCharges } from '#/decoders/fields/encode-allowance-charges.ts';
+import { encodeBillingReferences } from '#/decoders/fields/encode-billing-references.ts';
+import { encodeCreditNoteLines } from '#/decoders/fields/encode-credit-note-lines.ts';
+import { encodeDelivery } from '#/decoders/fields/encode-delivery.ts';
+import { encodeInvoicePeriod } from '#/decoders/fields/encode-invoice-period.ts';
+import { encodeLegalMonetaryTotal } from '#/decoders/fields/encode-legal-monetary-total.ts';
+import { encodeOrderReference } from '#/decoders/fields/encode-order-reference.ts';
+import { encodeParty } from '#/decoders/fields/encode-party.ts';
+import { encodePayeeParty } from '#/decoders/fields/encode-payee-party.ts';
+import { encodePaymentMeans } from '#/decoders/fields/encode-payment-means.ts';
+import { encodePaymentTerms } from '#/decoders/fields/encode-payment-terms.ts';
+import { encodeSimpleIdentifier } from '#/decoders/fields/encode-simple-identifier.ts';
+import { encodeTaxRepresentativeParty } from '#/decoders/fields/encode-tax-representative-party.ts';
+import { encodeTaxTotals } from '#/decoders/fields/encode-tax-totals.ts';
+
+export const encodeCreditNote = Effect.fn(function* (creditNote: PeppolCreditNote) {
   return {
     '?xml': { '@version': '1.0', '@encoding': 'UTF-8' },
     CreditNote: {
@@ -39,25 +41,25 @@ export function encodeCreditNote(creditNote: PeppolCreditNote) {
       'cbc:TaxCurrencyCode': creditNote.taxCurrencyCode,
       'cbc:AccountingCost': creditNote.accountingCost,
       'cbc:BuyerReference': creditNote.buyerReference,
-      'cac:InvoicePeriod': encodeInvoicePeriod(creditNote.invoicePeriod),
-      'cac:OrderReference': encodeOrderReference(creditNote.orderReference),
-      'cac:BillingReference': encodeBillingReferences(creditNote.billingReferences),
-      'cac:DespatchDocumentReference': encodeSimpleIdentifier(creditNote.despatchDocumentReference),
-      'cac:ReceiptDocumentReference': encodeSimpleIdentifier(creditNote.receiptDocumentReference),
-      'cac:OriginatorDocumentReference': encodeSimpleIdentifier(creditNote.originatorDocumentReference),
-      'cac:ContractDocumentReference': encodeSimpleIdentifier(creditNote.contractDocumentReference),
-      'cac:AdditionalDocumentReference': encodeAdditionalDocumentReferences(creditNote.additionalDocumentReferences),
-      'cac:AccountingSupplierParty': encodeParty(creditNote.accountingSupplierParty),
-      'cac:AccountingCustomerParty': encodeParty(creditNote.accountingCustomerParty),
-      'cac:PayeeParty': encodePayeeParty(creditNote.payeeParty),
-      'cac:TaxRepresentativeParty': encodeTaxRepresentativeParty(creditNote.taxRepresentativeParty),
-      'cac:Delivery': encodeDelivery(creditNote.delivery),
-      'cac:PaymentMeans': encodePaymentMeans(creditNote.paymentMeans),
-      'cac:PaymentTerms': encodePaymentTerms(creditNote.paymentTerms),
-      'cac:AllowanceCharge': encodeAllowanceCharges(creditNote.allowanceCharges),
-      'cac:TaxTotal': encodeTaxTotals(creditNote.taxTotals),
-      'cac:LegalMonetaryTotal': encodeLegalMonetaryTotal(creditNote.legalMonetaryTotal),
-      'cac:CreditNoteLine': encodeCreditNoteLines(creditNote.creditNoteLines),
+      'cac:InvoicePeriod': yield* encodeInvoicePeriod(creditNote.invoicePeriod),
+      'cac:OrderReference': yield* encodeOrderReference(creditNote.orderReference),
+      'cac:BillingReference': yield* encodeBillingReferences(creditNote.billingReferences),
+      'cac:DespatchDocumentReference': yield* encodeSimpleIdentifier(creditNote.despatchDocumentReference),
+      'cac:ReceiptDocumentReference': yield* encodeSimpleIdentifier(creditNote.receiptDocumentReference),
+      'cac:OriginatorDocumentReference': yield* encodeSimpleIdentifier(creditNote.originatorDocumentReference),
+      'cac:ContractDocumentReference': yield* encodeSimpleIdentifier(creditNote.contractDocumentReference),
+      'cac:AdditionalDocumentReference': yield* encodeAdditionalDocumentReferences(creditNote.additionalDocumentReferences),
+      'cac:AccountingSupplierParty': yield* encodeParty(creditNote.accountingSupplierParty),
+      'cac:AccountingCustomerParty': yield* encodeParty(creditNote.accountingCustomerParty),
+      'cac:PayeeParty': yield* encodePayeeParty(creditNote.payeeParty),
+      'cac:TaxRepresentativeParty': yield* encodeTaxRepresentativeParty(creditNote.taxRepresentativeParty),
+      'cac:Delivery': yield* encodeDelivery(creditNote.delivery),
+      'cac:PaymentMeans': yield* encodePaymentMeans(creditNote.paymentMeans),
+      'cac:PaymentTerms': yield* encodePaymentTerms(creditNote.paymentTerms),
+      'cac:AllowanceCharge': yield* encodeAllowanceCharges(creditNote.allowanceCharges),
+      'cac:TaxTotal': yield* encodeTaxTotals(creditNote.taxTotals),
+      'cac:LegalMonetaryTotal': yield* encodeLegalMonetaryTotal(creditNote.legalMonetaryTotal),
+      'cac:CreditNoteLine': yield* encodeCreditNoteLines(creditNote.creditNoteLines),
     },
   };
-}
+});

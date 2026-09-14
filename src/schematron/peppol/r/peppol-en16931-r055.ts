@@ -1,8 +1,7 @@
-import type { PeppolDocument } from '#/document';
-import type { SchematronRule } from '#/schematron/helpers';
-import type { SchematronRuleResult } from '#/schematron/types';
+import type { PeppolDocument } from '#/schemas/peppol-document-schema.ts';
+import type { SchematronRule } from '#/schematron/helpers.ts';
 
-import { schematronResult } from '#/schematron/helpers';
+import { schematronRule } from '#/schematron/helpers.ts';
 
 const rule = {
   id: 'PEPPOL-EN16931-R055',
@@ -10,17 +9,19 @@ const rule = {
   message: 'Invoice total VAT amount and Invoice total VAT amount in accounting currency MUST have the same operational sign',
 } as const satisfies SchematronRule;
 
-export function validatePeppolEn16931R055(document: PeppolDocument): SchematronRuleResult {
+function evaluatePeppolEn16931R055(document: PeppolDocument): boolean {
   const taxCurrency = document.taxCurrencyCode;
   if (!taxCurrency) {
-    return schematronResult(rule, true);
+    return true;
   }
   const documentCurrencyAmount = document.taxTotals.find(total => total.taxAmount.currencyId === document.documentCurrencyCode)?.taxAmount.value;
   const taxCurrencyAmount = document.taxTotals.find(total => total.taxAmount.currencyId === taxCurrency)?.taxAmount.value;
   if (typeof documentCurrencyAmount !== 'number' || typeof taxCurrencyAmount !== 'number') {
-    return schematronResult(rule, false);
+    return false;
   }
   const bothNonPositive = documentCurrencyAmount <= 0 && taxCurrencyAmount <= 0;
   const bothNonNegative = documentCurrencyAmount >= 0 && taxCurrencyAmount >= 0;
-  return schematronResult(rule, bothNonPositive || bothNonNegative);
+  return bothNonPositive || bothNonNegative;
 }
+
+export const validatePeppolEn16931R055 = schematronRule(rule, evaluatePeppolEn16931R055);

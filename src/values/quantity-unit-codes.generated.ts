@@ -12,7 +12,7 @@
  *
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/UNECERec20/
  */
-export const quantityUnitCodes = {
+export const quantityUnitCodes: Record<QuantityUnitCodesKeys, string> = {
   /**
    * @description A unit of count defining the number of groups (group: set of items classified together).
    */

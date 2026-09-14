@@ -1,14 +1,12 @@
-import type { PeppolDocument } from '#/document';
-import type { SchematronRuleResult } from '#/schematron/types';
+import type { PeppolDocument } from '#/schemas/peppol-document-schema.ts';
+import type { SchematronRule } from '#/schematron/helpers.ts';
 
-const RULE_ID = 'PEPPOL-EN16931-R001';
-const RULE_LEVEL = 'fatal';
-const RULE_MESSAGE = 'Business process MUST be provided.';
+import { schematronRule } from '#/schematron/helpers.ts';
 
-/**
- * @description Validates the PEPPOL-EN16931-R001 rule: the document MUST contain a business process identifier (`cbc:ProfileID`).
- */
-export function validatePeppolEn16931R001(document: PeppolDocument): SchematronRuleResult {
-  const passed = typeof document.profileId === 'string' && document.profileId.trim() !== '';
-  return { id: RULE_ID, level: RULE_LEVEL, message: RULE_MESSAGE, passed };
+const rule = { id: 'PEPPOL-EN16931-R001', level: 'fatal', message: 'Business process MUST be provided.' } as const satisfies SchematronRule;
+
+function evaluatePeppolEn16931R001(document: PeppolDocument): boolean {
+  return typeof document.profileId === 'string' && document.profileId.trim() !== '';
 }
+
+export const validatePeppolEn16931R001 = schematronRule(rule, evaluatePeppolEn16931R001);

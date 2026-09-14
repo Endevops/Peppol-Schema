@@ -1,8 +1,7 @@
-import type { PeppolDocument } from '#/document';
-import type { SchematronRule } from '#/schematron/helpers';
-import type { SchematronRuleResult } from '#/schematron/types';
+import type { PeppolDocument } from '#/schemas/peppol-document-schema.ts';
+import type { SchematronRule } from '#/schematron/helpers.ts';
 
-import { amountsEqual, round2, schematronResult } from '#/schematron/helpers';
+import { amountsEqual, round2, schematronRule } from '#/schematron/helpers.ts';
 
 const rule = {
   id: 'CEN-EN16931-BR-CO-12',
@@ -10,7 +9,7 @@ const rule = {
   message: 'Sum of charges on document level (BT-108) = Σ Document level charge amount (BT-99).',
 } as const satisfies SchematronRule;
 
-export function validateCenEn16931BrCo12(document: PeppolDocument): SchematronRuleResult {
+function evaluateCenEn16931BrCo12(document: PeppolDocument): boolean {
   const passed = (() => {
     const charges = (document.allowanceCharges ?? []).filter(ac => ac.chargeIndicator);
     if (!document.legalMonetaryTotal.chargeTotalAmount) {
@@ -21,5 +20,7 @@ export function validateCenEn16931BrCo12(document: PeppolDocument): SchematronRu
       round2(charges.reduce((sum, ac) => sum + (ac.amount?.value ?? 0), 0))
     );
   })();
-  return schematronResult(rule, passed);
+  return passed;
 }
+
+export const validateCenEn16931BrCo12 = schematronRule(rule, evaluateCenEn16931BrCo12);

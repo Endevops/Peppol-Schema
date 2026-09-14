@@ -1,0 +1,52 @@
+// oxlint-disable vitest/expect-expect
+import { TestSchema } from 'effect/testing';
+import { describe, it } from 'vitest';
+
+import { PeppolPartySchema } from './peppol-party-base-schema.ts';
+
+const validParty = {
+  endpointId: { id: '7300010000001', schemeId: '0088' },
+  postalAddress: { cityName: 'London', countryCode: { identificationCode: 'GB' } },
+  partyLegalEntity: { registrationName: 'Seller Ltd' },
+};
+
+describe('PeppolPartyBase', () => {
+  const testSchema = new TestSchema.Asserts(PeppolPartySchema);
+  const decode = testSchema.decoding();
+
+  it('should parse a minimal party', async () => {
+    await decode.succeed(validParty);
+  });
+
+  it('should parse with all optional fields', async () => {
+    await decode.succeed({
+      ...validParty,
+      contact: { electronicMail: 'john@example.com', name: 'John', telephone: '123' },
+      partyIdentification: { id: { id: '5060012349998', schemeId: '0088' } },
+      partyName: { name: 'Trading Name' },
+      partyTaxSchemes: [{ companyId: 'GB123', taxSchemeId: { id: 'VAT' } }],
+    });
+  });
+
+  it('should reject a missing endpointId', async () => {
+    await decode.fail({ postalAddress: validParty.postalAddress, partyLegalEntity: validParty.partyLegalEntity }, 'Missing key\n  at ["endpointId"]');
+  });
+
+  it('should reject a missing postalAddress', async () => {
+    await decode.fail({ endpointId: validParty.endpointId, partyLegalEntity: validParty.partyLegalEntity }, 'Missing key\n  at ["postalAddress"]');
+  });
+
+  it('should reject more than two partyTaxSchemes', async () => {
+    await decode.fail(
+      {
+        ...validParty,
+        partyTaxSchemes: [
+          { companyId: '1', taxSchemeId: {} },
+          { companyId: '2', taxSchemeId: {} },
+          { companyId: '3', taxSchemeId: {} },
+        ],
+      },
+      'Expected a value with a length of at most 2\n  at ["partyTaxSchemes"]'
+    );
+  });
+});

@@ -12,7 +12,7 @@
  *
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/ISO4217/
  */
-export const currencyCodes = {
+export const currencyCodes: Record<CurrencyCodesKeys, string> = {
   AED: 'UAE Dirham',
 
   AFN: 'Afghani',

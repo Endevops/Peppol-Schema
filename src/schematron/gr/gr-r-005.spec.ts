@@ -1,13 +1,14 @@
 /**
  * @description Unit tests for GR-R-005 (Greek supplier buyer name).
  */
-import { describe, expect, it } from 'vitest';
+import { assert, describe, it } from '@effect/vitest';
+import { Effect, Result } from 'effect';
 
-import type { PeppolDocument } from '#/document';
+import type { PeppolDocument } from '#/schemas/peppol-document-schema.ts';
 
-import { decodeBaseExample } from '#/test/test-utils';
+import { decodeBaseExample } from '#/test/test-utils.ts';
 
-import { validateGrR005 } from './gr-r-005';
+import { validateGrR005 } from './gr-r-005.ts';
 
 async function withCountry(
   document: PeppolDocument,
@@ -32,17 +33,24 @@ async function withCountry(
 }
 
 describe('GR-R-005 (Greek supplier buyer name)', () => {
-  it('passes when not applicable', async () => {
-    const document = await decodeBaseExample();
-    expect(validateGrR005(document).passed).toEqual(true);
-  });
+  it.effect(
+    'passes when not applicable',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => decodeBaseExample());
+      yield* validateGrR005(document);
+    })
+  );
 
-  it('fails when a Greek supplier has no buyer party name', async () => {
-    const document = await withCountry(await decodeBaseExample(), 'GR', 'BE');
-    const altered = {
-      ...document,
-      accountingCustomerParty: { ...document.accountingCustomerParty, partyName: undefined },
-    } as unknown as PeppolDocument;
-    expect(validateGrR005(altered).passed).toEqual(false);
-  });
+  it.effect(
+    'fails when a Greek supplier has no buyer party name',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => withCountry(await decodeBaseExample(), 'GR', 'BE'));
+      const altered = {
+        ...document,
+        accountingCustomerParty: { ...document.accountingCustomerParty, partyName: undefined },
+      } as unknown as PeppolDocument;
+      const result = yield* validateGrR005(altered).pipe(Effect.result);
+      assert(Result.isFailure(result));
+    })
+  );
 });

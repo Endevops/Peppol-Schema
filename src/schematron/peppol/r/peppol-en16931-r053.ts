@@ -1,8 +1,7 @@
-import type { PeppolDocument } from '#/document';
-import type { SchematronRule } from '#/schematron/helpers';
-import type { SchematronRuleResult } from '#/schematron/types';
+import type { PeppolDocument } from '#/schemas/peppol-document-schema.ts';
+import type { SchematronRule } from '#/schematron/helpers.ts';
 
-import { schematronResult } from '#/schematron/helpers';
+import { schematronRule } from '#/schematron/helpers.ts';
 
 const rule = {
   id: 'PEPPOL-EN16931-R053',
@@ -10,7 +9,9 @@ const rule = {
   message: 'Only one tax total with tax subtotals MUST be provided.',
 } as const satisfies SchematronRule;
 
-export function validatePeppolEn16931R053(document: PeppolDocument): SchematronRuleResult {
+function evaluatePeppolEn16931R053(document: PeppolDocument): boolean {
   const withSubtotals = document.taxTotals.filter(total => (total.taxSubtotals?.length ?? 0) > 0);
-  return schematronResult(rule, withSubtotals.length === 1);
+  return withSubtotals.length === 1;
 }
+
+export const validatePeppolEn16931R053 = schematronRule(rule, evaluatePeppolEn16931R053);

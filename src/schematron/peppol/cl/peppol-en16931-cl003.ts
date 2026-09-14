@@ -1,8 +1,7 @@
-import type { PeppolDocument } from '#/document';
-import type { SchematronRule } from '#/schematron/helpers';
-import type { SchematronRuleResult } from '#/schematron/types';
+import type { PeppolDocument } from '#/schemas/peppol-document-schema.ts';
+import type { SchematronRule } from '#/schematron/helpers.ts';
 
-import { getAllAllowanceCharges, schematronResult } from '#/schematron/helpers';
+import { getAllAllowanceCharges, schematronRule } from '#/schematron/helpers.ts';
 import { chargeReasonCodesKeys } from '#/values/charge-reason-codes.generated';
 
 const rule = {
@@ -11,8 +10,10 @@ const rule = {
   message: 'Reason code MUST be according to UNCL 7161 D.16B.',
 } as const satisfies SchematronRule;
 
-export function validatePeppolEn16931CL003(document: PeppolDocument): SchematronRuleResult {
+function evaluatePeppolEn16931CL003(document: PeppolDocument): boolean {
   const charges = getAllAllowanceCharges(document).filter(ac => ac.chargeIndicator);
   const passed = charges.every(ac => ac.reasonCode === undefined || (chargeReasonCodesKeys as ReadonlyArray<string>).includes(ac.reasonCode));
-  return schematronResult(rule, passed);
+  return passed;
 }
+
+export const validatePeppolEn16931CL003 = schematronRule(rule, evaluatePeppolEn16931CL003);

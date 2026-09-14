@@ -1,13 +1,14 @@
 /**
  * @description Unit tests for GR-S-008-1 (exactly one invoice url).
  */
-import { describe, expect, it } from 'vitest';
+import { assert, describe, it } from '@effect/vitest';
+import { Effect, Result } from 'effect';
 
-import type { PeppolDocument } from '#/document';
+import type { PeppolDocument } from '#/schemas/peppol-document-schema.ts';
 
-import { decodeBaseExample } from '#/test/test-utils';
+import { decodeBaseExample } from '#/test/test-utils.ts';
 
-import { validateGrS008_1 } from './gr-s-008-1';
+import { validateGrS008_1 } from './gr-s-008-1.ts';
 
 async function asGreek(document: PeppolDocument): Promise<PeppolDocument> {
   return {
@@ -26,20 +27,27 @@ async function asGreek(document: PeppolDocument): Promise<PeppolDocument> {
 }
 
 describe('GR-S-008-1 (exactly one invoice url)', () => {
-  it('passes when not applicable', async () => {
-    const document = await decodeBaseExample();
-    expect(validateGrS008_1(document).passed).toEqual(true);
-  });
+  it.effect(
+    'passes when not applicable',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => decodeBaseExample());
+      yield* validateGrS008_1(document);
+    })
+  );
 
-  it('fails when a Greek document has two invoice urls', async () => {
-    const document = await asGreek(await decodeBaseExample());
-    const altered = {
-      ...document,
-      additionalDocumentReferences: [
-        { id: { id: 'a' }, documentDescription: '##INVOICE|URL##' },
-        { id: { id: 'b' }, documentDescription: '##INVOICE|URL##' },
-      ],
-    } as unknown as PeppolDocument;
-    expect(validateGrS008_1(altered).passed).toEqual(false);
-  });
+  it.effect(
+    'fails when a Greek document has two invoice urls',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => asGreek(await decodeBaseExample()));
+      const altered = {
+        ...document,
+        additionalDocumentReferences: [
+          { id: { id: 'a' }, documentDescription: '##INVOICE|URL##' },
+          { id: { id: 'b' }, documentDescription: '##INVOICE|URL##' },
+        ],
+      } as unknown as PeppolDocument;
+      const result = yield* validateGrS008_1(altered).pipe(Effect.result);
+      assert(Result.isFailure(result));
+    })
+  );
 });

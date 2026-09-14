@@ -1,8 +1,7 @@
-import type { PeppolDocument } from '#/document';
-import type { SchematronRule } from '#/schematron/helpers';
-import type { SchematronRuleResult } from '#/schematron/types';
+import type { PeppolDocument } from '#/schemas/peppol-document-schema.ts';
+import type { SchematronRule } from '#/schematron/helpers.ts';
 
-import { getSupplierCountry, schematronResult } from '#/schematron/helpers';
+import { getSupplierCountry, schematronRule } from '#/schematron/helpers.ts';
 
 const rule = {
   id: 'SE-R-011',
@@ -11,13 +10,15 @@ const rule = {
     'For Swedish suppliers using Swedish Bankgiro or Plusgiro, the proper way to indicate this is to use Code 30 for PaymentMeans and FinancialInstitutionBranch ID with code SE:BANKGIRO or SE:PLUSGIRO',
 } as const satisfies SchematronRule;
 
-export function validateSeR011(document: PeppolDocument): SchematronRuleResult {
+function evaluateSeR011(document: PeppolDocument): boolean {
   if (getSupplierCountry(document) !== 'SE') {
-    return schematronResult(rule, true);
+    return true;
   }
   const passed = (document.paymentMeans ?? []).every(payment => {
     const code = payment.paymentMeansCode.code;
     return code !== '50' && code !== '56';
   });
-  return schematronResult(rule, passed);
+  return passed;
 }
+
+export const validateSeR011 = schematronRule(rule, evaluateSeR011);

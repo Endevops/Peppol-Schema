@@ -1,22 +1,24 @@
-import type { PeppolInvoice } from '#/schemas/invoice';
+import { Effect } from 'effect';
 
-import { encodeAdditionalDocumentReferences } from '#/decoders/fields/encode-additional-document-references';
-import { encodeAllowanceCharges } from '#/decoders/fields/encode-allowance-charges';
-import { encodeBillingReferences } from '#/decoders/fields/encode-billing-references';
-import { encodeDelivery } from '#/decoders/fields/encode-delivery';
-import { encodeInvoiceLines } from '#/decoders/fields/encode-invoice-lines';
-import { encodeInvoicePeriod } from '#/decoders/fields/encode-invoice-period';
-import { encodeLegalMonetaryTotal } from '#/decoders/fields/encode-legal-monetary-total';
-import { encodeOrderReference } from '#/decoders/fields/encode-order-reference';
-import { encodeParty } from '#/decoders/fields/encode-party';
-import { encodePayeeParty } from '#/decoders/fields/encode-payee-party';
-import { encodePaymentMeans } from '#/decoders/fields/encode-payment-means';
-import { encodePaymentTerms } from '#/decoders/fields/encode-payment-terms';
-import { encodeSimpleIdentifier } from '#/decoders/fields/encode-simple-identifier';
-import { encodeTaxRepresentativeParty } from '#/decoders/fields/encode-tax-representative-party';
-import { encodeTaxTotals } from '#/decoders/fields/encode-tax-totals';
+import type { PeppolInvoice } from '#/schemas/peppol-invoice-schema.ts';
 
-export function encodeInvoice(invoice: PeppolInvoice) {
+import { encodeAdditionalDocumentReferences } from '#/decoders/fields/encode-additional-document-references.ts';
+import { encodeAllowanceCharges } from '#/decoders/fields/encode-allowance-charges.ts';
+import { encodeBillingReferences } from '#/decoders/fields/encode-billing-references.ts';
+import { encodeDelivery } from '#/decoders/fields/encode-delivery.ts';
+import { encodeInvoiceLines } from '#/decoders/fields/encode-invoice-lines.ts';
+import { encodeInvoicePeriod } from '#/decoders/fields/encode-invoice-period.ts';
+import { encodeLegalMonetaryTotal } from '#/decoders/fields/encode-legal-monetary-total.ts';
+import { encodeOrderReference } from '#/decoders/fields/encode-order-reference.ts';
+import { encodeParty } from '#/decoders/fields/encode-party.ts';
+import { encodePayeeParty } from '#/decoders/fields/encode-payee-party.ts';
+import { encodePaymentMeans } from '#/decoders/fields/encode-payment-means.ts';
+import { encodePaymentTerms } from '#/decoders/fields/encode-payment-terms.ts';
+import { encodeSimpleIdentifier } from '#/decoders/fields/encode-simple-identifier.ts';
+import { encodeTaxRepresentativeParty } from '#/decoders/fields/encode-tax-representative-party.ts';
+import { encodeTaxTotals } from '#/decoders/fields/encode-tax-totals.ts';
+
+export const encodeInvoice = Effect.fn(function* (invoice: PeppolInvoice) {
   return {
     '?xml': { '@version': '1.0', '@encoding': 'UTF-8' },
     Invoice: {
@@ -36,26 +38,26 @@ export function encodeInvoice(invoice: PeppolInvoice) {
       'cbc:TaxCurrencyCode': invoice.taxCurrencyCode,
       'cbc:AccountingCost': invoice.accountingCost,
       'cbc:BuyerReference': invoice.buyerReference,
-      'cac:InvoicePeriod': encodeInvoicePeriod(invoice.invoicePeriod),
-      'cac:OrderReference': encodeOrderReference(invoice.orderReference),
-      'cac:BillingReference': encodeBillingReferences(invoice.billingReferences),
-      'cac:DespatchDocumentReference': encodeSimpleIdentifier(invoice.despatchDocumentReference),
-      'cac:ReceiptDocumentReference': encodeSimpleIdentifier(invoice.receiptDocumentReference),
-      'cac:OriginatorDocumentReference': encodeSimpleIdentifier(invoice.originatorDocumentReference),
-      'cac:ContractDocumentReference': encodeSimpleIdentifier(invoice.contractDocumentReference),
-      'cac:AdditionalDocumentReference': encodeAdditionalDocumentReferences(invoice.additionalDocumentReferences),
-      'cac:ProjectReference': encodeSimpleIdentifier(invoice.projectReference),
-      'cac:AccountingSupplierParty': encodeParty(invoice.accountingSupplierParty),
-      'cac:AccountingCustomerParty': encodeParty(invoice.accountingCustomerParty),
-      'cac:PayeeParty': encodePayeeParty(invoice.payeeParty),
-      'cac:TaxRepresentativeParty': encodeTaxRepresentativeParty(invoice.taxRepresentativeParty),
-      'cac:Delivery': encodeDelivery(invoice.delivery),
-      'cac:PaymentMeans': encodePaymentMeans(invoice.paymentMeans),
-      'cac:PaymentTerms': encodePaymentTerms(invoice.paymentTerms),
-      'cac:AllowanceCharge': encodeAllowanceCharges(invoice.allowanceCharges),
-      'cac:TaxTotal': encodeTaxTotals(invoice.taxTotals),
-      'cac:LegalMonetaryTotal': encodeLegalMonetaryTotal(invoice.legalMonetaryTotal),
-      'cac:InvoiceLine': encodeInvoiceLines(invoice.invoiceLines),
+      'cac:InvoicePeriod': yield* encodeInvoicePeriod(invoice.invoicePeriod),
+      'cac:OrderReference': yield* encodeOrderReference(invoice.orderReference),
+      'cac:BillingReference': yield* encodeBillingReferences(invoice.billingReferences),
+      'cac:DespatchDocumentReference': yield* encodeSimpleIdentifier(invoice.despatchDocumentReference),
+      'cac:ReceiptDocumentReference': yield* encodeSimpleIdentifier(invoice.receiptDocumentReference),
+      'cac:OriginatorDocumentReference': yield* encodeSimpleIdentifier(invoice.originatorDocumentReference),
+      'cac:ContractDocumentReference': yield* encodeSimpleIdentifier(invoice.contractDocumentReference),
+      'cac:AdditionalDocumentReference': yield* encodeAdditionalDocumentReferences(invoice.additionalDocumentReferences),
+      'cac:ProjectReference': yield* encodeSimpleIdentifier(invoice.projectReference),
+      'cac:AccountingSupplierParty': yield* encodeParty(invoice.accountingSupplierParty),
+      'cac:AccountingCustomerParty': yield* encodeParty(invoice.accountingCustomerParty),
+      'cac:PayeeParty': yield* encodePayeeParty(invoice.payeeParty),
+      'cac:TaxRepresentativeParty': yield* encodeTaxRepresentativeParty(invoice.taxRepresentativeParty),
+      'cac:Delivery': yield* encodeDelivery(invoice.delivery),
+      'cac:PaymentMeans': yield* encodePaymentMeans(invoice.paymentMeans),
+      'cac:PaymentTerms': yield* encodePaymentTerms(invoice.paymentTerms),
+      'cac:AllowanceCharge': yield* encodeAllowanceCharges(invoice.allowanceCharges),
+      'cac:TaxTotal': yield* encodeTaxTotals(invoice.taxTotals),
+      'cac:LegalMonetaryTotal': yield* encodeLegalMonetaryTotal(invoice.legalMonetaryTotal),
+      'cac:InvoiceLine': yield* encodeInvoiceLines(invoice.invoiceLines),
     },
   };
-}
+});

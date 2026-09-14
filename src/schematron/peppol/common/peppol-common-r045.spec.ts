@@ -1,31 +1,42 @@
 /**
  * @description Unit tests for PEPPOL-COMMON-R045 (Codice Fiscale, scheme 0210).
  */
-import { describe, expect, it } from 'vitest';
+import { assert, describe, it } from '@effect/vitest';
+import { Effect, Result } from 'effect';
 
-import type { PeppolDocument } from '#/document';
+import type { PeppolDocument } from '#/schemas/peppol-document-schema.ts';
 
-import { decodeBaseExample } from '#/test/test-utils';
+import { decodeBaseExample } from '#/test/test-utils.ts';
 
-import { validatePeppolCommonR045 } from './peppol-common-r045';
+import { validatePeppolCommonR045 } from './peppol-common-r045.ts';
 
 async function withEndpointId(document: PeppolDocument, schemeId: string, id: string): Promise<PeppolDocument> {
   return { ...document, accountingSupplierParty: { ...document.accountingSupplierParty, endpointId: { id, schemeId } } } as unknown as PeppolDocument;
 }
 
 describe('PEPPOL-COMMON-R045 (Codice Fiscale, scheme 0210)', () => {
-  it('passes when no identifier uses the checked scheme', async () => {
-    const document = await decodeBaseExample();
-    expect(validatePeppolCommonR045(document).passed).toEqual(true);
-  });
+  it.effect(
+    'passes when no identifier uses the checked scheme',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => decodeBaseExample());
+      yield* validatePeppolCommonR045(document);
+    })
+  );
 
-  it('passes for a valid 16-char CF', async () => {
-    const document = await withEndpointId(await decodeBaseExample(), '0210', 'RSSMRA85M01H501Z');
-    expect(validatePeppolCommonR045(document).passed).toEqual(true);
-  });
+  it.effect(
+    'passes for a valid 16-char CF',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => withEndpointId(await decodeBaseExample(), '0210', 'RSSMRA85M01H501Z'));
+      yield* validatePeppolCommonR045(document);
+    })
+  );
 
-  it('fails for an invalid CF', async () => {
-    const document = await withEndpointId(await decodeBaseExample(), '0210', 'ABC');
-    expect(validatePeppolCommonR045(document).passed).toEqual(false);
-  });
+  it.effect(
+    'fails for an invalid CF',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => withEndpointId(await decodeBaseExample(), '0210', 'ABC'));
+      const result = yield* validatePeppolCommonR045(document).pipe(Effect.result);
+      assert(Result.isFailure(result));
+    })
+  );
 });

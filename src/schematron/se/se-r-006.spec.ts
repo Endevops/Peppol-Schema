@@ -1,13 +1,14 @@
 /**
  * @description Unit tests for SE-R-006 (standard VAT rate).
  */
-import { describe, expect, it } from 'vitest';
+import { assert, describe, expect, it } from '@effect/vitest';
+import { Effect, Result } from 'effect';
 
-import type { PeppolDocument } from '#/document';
+import type { PeppolDocument } from '#/schemas/peppol-document-schema.ts';
 
-import { decodeBaseExample } from '#/test/test-utils';
+import { decodeBaseExample } from '#/test/test-utils.ts';
 
-import { validateSeR006 } from './se-r-006';
+import { validateSeR006 } from './se-r-006.ts';
 
 async function asSwedish(document: PeppolDocument): Promise<PeppolDocument> {
   return {
@@ -26,42 +27,52 @@ async function asSwedish(document: PeppolDocument): Promise<PeppolDocument> {
 }
 
 describe('SE-R-006 (standard VAT rate)', () => {
-  it('passes when not applicable', async () => {
-    const document = await decodeBaseExample();
-    expect(validateSeR006(document).passed).toEqual(true);
-  });
+  it.effect(
+    'passes when not applicable',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => decodeBaseExample());
+      yield* validateSeR006(document);
+    })
+  );
 
-  it('fails when a Swedish supplier uses an unsupported VAT rate', async () => {
-    const document = await asSwedish(await decodeBaseExample());
-    const lines = (document as PeppolDocument & { invoiceLines: Array<{ item: unknown }> }).invoiceLines;
-    const line = lines[0];
-    if (!line) {
-      throw new Error('base example has no invoice line');
-    }
-    const altered = {
-      ...document,
-      invoiceLines: [
-        { ...line, item: { ...line.item, classifiedTaxCategory: { ...line.item.classifiedTaxCategory, percent: 17 } } },
-        ...lines.slice(1),
-      ],
-    } as unknown as PeppolDocument;
-    expect(validateSeR006(altered).passed).toEqual(false);
-  });
+  it.effect(
+    'fails when a Swedish supplier uses an unsupported VAT rate',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => asSwedish(await decodeBaseExample()));
+      const lines = (document as PeppolDocument & { invoiceLines: Array<{ item: unknown }> }).invoiceLines;
+      const line = lines[0];
+      if (!line) {
+        expect.unreachable('base example has no invoice line');
+      }
+      const altered = {
+        ...document,
+        invoiceLines: [
+          { ...line, item: { ...line.item, classifiedTaxCategory: { ...line.item.classifiedTaxCategory, percent: 17 } } },
+          ...lines.slice(1),
+        ],
+      } as unknown as PeppolDocument;
+      const result = yield* validateSeR006(altered).pipe(Effect.result);
+      assert(Result.isFailure(result));
+    })
+  );
 
-  it('passes when a Swedish supplier uses a standard VAT rate', async () => {
-    const document = await asSwedish(await decodeBaseExample());
-    const lines = (document as PeppolDocument & { invoiceLines: Array<{ item: unknown }> }).invoiceLines;
-    const line = lines[0];
-    if (!line) {
-      throw new Error('base example has no invoice line');
-    }
-    const altered = {
-      ...document,
-      invoiceLines: [
-        { ...line, item: { ...line.item, classifiedTaxCategory: { ...line.item.classifiedTaxCategory, percent: 25 } } },
-        ...lines.slice(1),
-      ],
-    } as unknown as PeppolDocument;
-    expect(validateSeR006(altered).passed).toEqual(true);
-  });
+  it.effect(
+    'passes when a Swedish supplier uses a standard VAT rate',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => asSwedish(await decodeBaseExample()));
+      const lines = (document as PeppolDocument & { invoiceLines: Array<{ item: unknown }> }).invoiceLines;
+      const line = lines[0];
+      if (!line) {
+        expect.unreachable('base example has no invoice line');
+      }
+      const altered = {
+        ...document,
+        invoiceLines: [
+          { ...line, item: { ...line.item, classifiedTaxCategory: { ...line.item.classifiedTaxCategory, percent: 25 } } },
+          ...lines.slice(1),
+        ],
+      } as unknown as PeppolDocument;
+      yield* validateSeR006(altered);
+    })
+  );
 });

@@ -1,13 +1,18 @@
-import type { XmlNode } from '#/helpers/get-prop';
-import type { PeppolPaymentTerms } from '#/schemas/fields/payment-terms-schema';
-import type { RecursivePartial } from '#/types';
+import { Effect, Predicate } from 'effect';
 
-import { getProp } from '#/helpers/get-prop';
-import { strOrUnd } from '#/helpers/str-or-und';
+import type { XmlNode } from '#/helpers/get-prop.ts';
+import type { PeppolPaymentTerms } from '#/schemas/fields/peppol-payment-terms-schema.ts';
+import type { RecursivePartial } from '#/types.ts';
 
-export function decodePaymentTerms(doc: XmlNode, ...path: Array<string>): RecursivePartial<PeppolPaymentTerms> | undefined {
-  const terms = getProp(doc, ...path);
-  if (!terms) return undefined;
-  const note = getProp(terms, 'cbc:Note');
-  return note ? { note: strOrUnd(note) } : undefined;
-}
+import { getProp } from '#/helpers/get-prop.ts';
+import { strOrUnd } from '#/helpers/str-or-und.ts';
+
+export const decodePaymentTerms = Effect.fn(function* (
+  doc: XmlNode,
+  ...path: Array<string>
+): Effect.fn.Return<RecursivePartial<PeppolPaymentTerms> | undefined> {
+  const terms = yield* getProp(doc, ...path);
+  if (Predicate.isNullish(terms)) return undefined;
+  const note = yield* getProp(terms, 'cbc:Note');
+  return Predicate.isNotNullish(note) ? { note: yield* strOrUnd(note) } : undefined;
+});

@@ -1,8 +1,7 @@
-import type { PeppolDocument } from '#/document';
-import type { SchematronRule } from '#/schematron/helpers';
-import type { SchematronRuleResult } from '#/schematron/types';
+import type { PeppolDocument } from '#/schemas/peppol-document-schema.ts';
+import type { SchematronRule } from '#/schematron/helpers.ts';
 
-import { getSupplierCountry, schematronResult } from '#/schematron/helpers';
+import { getSupplierCountry, schematronRule } from '#/schematron/helpers.ts';
 
 const rule = {
   id: 'SE-R-001',
@@ -10,10 +9,12 @@ const rule = {
   message: 'For Swedish suppliers, Swedish VAT-numbers must consist of 14 characters.',
 } as const satisfies SchematronRule;
 
-export function validateSeR001(document: PeppolDocument): SchematronRuleResult {
+function evaluateSeR001(document: PeppolDocument): boolean {
   if (getSupplierCountry(document) !== 'SE') {
-    return schematronResult(rule, true);
+    return true;
   }
   const vatCompanyId = document.accountingSupplierParty.partyTaxSchemes?.find(scheme => scheme.taxSchemeId.id === 'VAT')?.companyId;
-  return schematronResult(rule, vatCompanyId?.trim().length === 14);
+  return vatCompanyId?.trim().length === 14;
 }
+
+export const validateSeR001 = schematronRule(rule, evaluateSeR001);

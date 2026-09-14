@@ -1,8 +1,7 @@
-import type { PeppolDocument } from '#/document';
-import type { SchematronRule } from '#/schematron/helpers';
-import type { SchematronRuleResult } from '#/schematron/types';
+import type { PeppolDocument } from '#/schemas/peppol-document-schema.ts';
+import type { SchematronRule } from '#/schematron/helpers.ts';
 
-import { everyLineCategoryPercent, schematronResult } from '#/schematron/helpers';
+import { everyLineCategoryPercent, schematronRule } from '#/schematron/helpers.ts';
 
 const rule = {
   id: 'CEN-EN16931-BR-O-05',
@@ -11,7 +10,9 @@ const rule = {
     'An Invoice line (BG-25) where the VAT category code (BT-151) is "Not subject to VAT" shall not contain an Invoiced item VAT rate (BT-152).',
 } as const satisfies SchematronRule;
 
-export function validateCenEn16931BrO05(document: PeppolDocument): SchematronRuleResult {
+function evaluateCenEn16931BrO05(document: PeppolDocument): boolean {
   const passed = everyLineCategoryPercent(document, 'O', percent => percent === undefined);
-  return schematronResult(rule, passed);
+  return passed;
 }
+
+export const validateCenEn16931BrO05 = schematronRule(rule, evaluateCenEn16931BrO05);

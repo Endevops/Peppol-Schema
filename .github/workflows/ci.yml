@@ -12,17 +12,21 @@ jobs:
   build-test:
     name: Install, lint, test, build
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+      pull-requests: write
+      checks: write
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
-      - uses: pnpm/action-setup@v4
-        with:
-          version: 11.21.0
+      - uses: pnpm/action-setup@v6
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
           node-version: 26
           cache: pnpm
+          registry-url: 'https://registry.npmjs.org'
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
@@ -33,7 +37,27 @@ jobs:
         run: pnpm lint
 
       - name: Test
-        run: pnpm test
+        run: pnpm test --coverage
+
+      - name: Fallow report
+        id: fallow
+        uses: fallow-rs/fallow@v3
+        with:
+          format: sarif
+          score: true
+          coverage: coverage/coverage-final.json
+          type-aware: true
+          save-snapshot: true
+          fail-on-issues: ${{ github.event_name == 'pull_request' }}
+
+      - name: Alert on degraded scoping
+        if: steps.fallow.outputs.changed-files-unavailable == 'true'
+        run: echo "::warning::Fallow ran unscoped; PR scoping disabled by API failure"
+
+      # Not available for orgs
+      # - uses: github/codeql-action/upload-sarif@v4
+      #   with:
+      #     sarif_file: ${{ steps.fallow.outputs.sarif }}
 
       - name: Build
         run: pnpm build
@@ -49,18 +73,18 @@ jobs:
       pull-requests: write # comment on PRs closed by a release
       id-token: write # OIDC trusted publishing / npm provenance
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           fetch-depth: 0 # full history for version analysis
 
-      - uses: pnpm/action-setup@v4
-        with:
-          version: 11.21.0
+      - uses: pnpm/action-setup@v6
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
           node-version: 26
           cache: pnpm
+          registry-url: 'https://registry.npmjs.org'
+          scope: '@endevops'
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile

@@ -1,13 +1,14 @@
 /**
  * @description Unit tests for DK-R-008 (giro payment id and account).
  */
-import { describe, expect, it } from 'vitest';
+import { assert, describe, it } from '@effect/vitest';
+import { Effect, Result } from 'effect';
 
-import type { PeppolDocument } from '#/document';
+import type { PeppolDocument } from '#/schemas/peppol-document-schema.ts';
 
-import { decodeBaseExample } from '#/test/test-utils';
+import { decodeBaseExample } from '#/test/test-utils.ts';
 
-import { validateDkR008 } from './dk-r-008';
+import { validateDkR008 } from './dk-r-008.ts';
 
 async function asDanish(document: PeppolDocument): Promise<PeppolDocument> {
   return {
@@ -26,26 +27,36 @@ async function asDanish(document: PeppolDocument): Promise<PeppolDocument> {
 }
 
 describe('DK-R-008 (giro payment id and account)', () => {
-  it('passes when not applicable', async () => {
-    const document = await decodeBaseExample();
-    expect(validateDkR008(document).passed).toEqual(true);
-  });
+  it.effect(
+    'passes when not applicable',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => decodeBaseExample());
+      yield* validateDkR008(document);
+    })
+  );
 
-  it('fails when a Danish document uses code 50 with a wrong payment id prefix', async () => {
-    const document = await asDanish(await decodeBaseExample());
-    const altered = {
-      ...document,
-      paymentMeans: [{ paymentMeansCode: { code: '50' }, paymentId: '99#123', payeeFinancialAccount: { id: '1234567' } }],
-    } as unknown as PeppolDocument;
-    expect(validateDkR008(altered).passed).toEqual(false);
-  });
+  it.effect(
+    'fails when a Danish document uses code 50 with a wrong payment id prefix',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => asDanish(await decodeBaseExample()));
+      const altered = {
+        ...document,
+        paymentMeans: [{ paymentMeansCode: { code: '50' }, paymentId: '99#123', payeeFinancialAccount: { id: '1234567' } }],
+      } as unknown as PeppolDocument;
+      const result = yield* validateDkR008(altered).pipe(Effect.result);
+      assert(Result.isFailure(result));
+    })
+  );
 
-  it('passes when a Danish document uses code 50 with a valid payment id', async () => {
-    const document = await asDanish(await decodeBaseExample());
-    const altered = {
-      ...document,
-      paymentMeans: [{ paymentMeansCode: { code: '50' }, paymentId: '01#123', payeeFinancialAccount: { id: '1234567' } }],
-    } as unknown as PeppolDocument;
-    expect(validateDkR008(altered).passed).toEqual(true);
-  });
+  it.effect(
+    'passes when a Danish document uses code 50 with a valid payment id',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => asDanish(await decodeBaseExample()));
+      const altered = {
+        ...document,
+        paymentMeans: [{ paymentMeansCode: { code: '50' }, paymentId: '01#123', payeeFinancialAccount: { id: '1234567' } }],
+      } as unknown as PeppolDocument;
+      yield* validateDkR008(altered);
+    })
+  );
 });

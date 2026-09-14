@@ -1,8 +1,7 @@
-import type { PeppolDocument } from '#/document';
-import type { SchematronRule } from '#/schematron/helpers';
-import type { SchematronRuleResult } from '#/schematron/types';
+import type { PeppolDocument } from '#/schemas/peppol-document-schema.ts';
+import type { SchematronRule } from '#/schematron/helpers.ts';
 
-import { getSupplierCountry, schematronResult } from '#/schematron/helpers';
+import { getSupplierCountry, schematronRule } from '#/schematron/helpers.ts';
 
 const rule = {
   id: 'GR-R-001-1',
@@ -10,10 +9,12 @@ const rule = {
   message: ' When the Supplier is Greek, the Invoice Id should consist of 6 segments',
 } as const satisfies SchematronRule;
 
-export function validateGrR001_1(document: PeppolDocument): SchematronRuleResult {
+function evaluateGrR001_1(document: PeppolDocument): boolean {
   if (getSupplierCountry(document) !== 'GR' && getSupplierCountry(document) !== 'EL') {
-    return schematronResult(rule, true);
+    return true;
   }
   const segments = document.id.split('|');
-  return schematronResult(rule, segments.length === 6);
+  return segments.length === 6;
 }
+
+export const validateGrR001_1 = schematronRule(rule, evaluateGrR001_1);

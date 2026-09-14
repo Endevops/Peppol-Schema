@@ -1,19 +1,19 @@
-import type { XmlNode } from '#/helpers/get-prop';
-import type { PeppolLinePrice } from '#/schemas/fields/price-schema';
-import type { RecursivePartial } from '#/types';
+import { Effect, Predicate } from 'effect';
 
-import { decodeAmount } from '#/decoders/fields/decode-amount';
-import { decodePriceAllowanceCharge } from '#/decoders/fields/decode-price-allowance-charge';
-import { decodeQuantity } from '#/decoders/fields/decode-quantity';
-import { getProp } from '#/helpers/get-prop';
+import type { XmlNode } from '#/helpers/get-prop.ts';
 
-export function decodeLinePrice(price: XmlNode, ...path: Array<string>): RecursivePartial<PeppolLinePrice> | undefined {
-  const node = getProp(price, ...path);
-  if (!node) return undefined;
+import { decodeAmount } from '#/decoders/fields/decode-amount.ts';
+import { decodePriceAllowanceCharge } from '#/decoders/fields/decode-price-allowance-charge.ts';
+import { decodeQuantity } from '#/decoders/fields/decode-quantity.ts';
+import { getProp } from '#/helpers/get-prop.ts';
+
+export const decodeLinePrice = Effect.fn(function* (price: XmlNode, ...path: Array<string>) {
+  const node = yield* getProp(price, ...path);
+  if (Predicate.isNullish(node)) return undefined;
 
   return {
-    allowanceCharge: decodePriceAllowanceCharge(node, 'cac:AllowanceCharge'),
-    baseQuantity: decodeQuantity(node, 'cbc:BaseQuantity'),
-    priceAmount: decodeAmount(node, 'cbc:PriceAmount'),
+    allowanceCharge: yield* decodePriceAllowanceCharge(node, 'cac:AllowanceCharge'),
+    baseQuantity: yield* decodeQuantity(node, 'cbc:BaseQuantity'),
+    priceAmount: yield* decodeAmount(node, 'cbc:PriceAmount'),
   };
-}
+});

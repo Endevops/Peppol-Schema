@@ -1,45 +1,60 @@
 /**
  * @description Unit tests for PEPPOL-EN16931-R053 (only one tax total with subtotals).
  */
-import { describe, expect, it } from 'vitest';
+import { assert, describe, it } from '@effect/vitest';
+import { Effect, Result } from 'effect';
 
-import type { PeppolDocument } from '#/document';
+import type { PeppolDocument } from '#/schemas/peppol-document-schema.ts';
 
-import { decodeBaseExample } from '#/test/test-utils';
+import { decodeBaseExample } from '#/test/test-utils.ts';
 
-import { validatePeppolEn16931R053 } from './peppol-en16931-r053';
+import { validatePeppolEn16931R053 } from './peppol-en16931-r053.ts';
 
 describe('PEPPOL-EN16931-R053 (only one tax total with subtotals)', () => {
-  it('passes on the base example', async () => {
-    const document = await decodeBaseExample();
-    expect(validatePeppolEn16931R053(document).passed).toEqual(true);
-  });
+  it.effect(
+    'passes on the base example',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => decodeBaseExample());
+      yield* validatePeppolEn16931R053(document);
+    })
+  );
 
-  it('R053 should fail with two tax totals containing subtotals', async () => {
-    const document = await decodeBaseExample();
-    const altered = { ...document, taxTotals: [...document.taxTotals, ...document.taxTotals] };
-    expect(validatePeppolEn16931R053(altered).passed).toEqual(false);
-  });
+  it.effect(
+    'R053 should fail with two tax totals containing subtotals',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => decodeBaseExample());
+      const altered = { ...document, taxTotals: [...document.taxTotals, ...document.taxTotals] };
+      const result = yield* validatePeppolEn16931R053(altered).pipe(Effect.result);
+      assert(Result.isFailure(result));
+    })
+  );
 
-  it('passes when there is exactly one tax total with subtotals', async () => {
-    const document = await decodeBaseExample();
-    expect(validatePeppolEn16931R053(document).passed).toEqual(true);
-  });
+  it.effect(
+    'passes when there is exactly one tax total with subtotals',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => decodeBaseExample());
+      yield* validatePeppolEn16931R053(document);
+    })
+  );
 
-  it('fails when there are two tax totals with subtotals', async () => {
-    const document = await decodeBaseExample();
-    const subtotal = document.taxTotals[0]?.taxSubtotals?.[0];
-    const taxAmount = document.taxTotals[0]?.taxAmount;
-    if (!subtotal || !taxAmount) {
-      throw new Error('base example has no tax subtotal');
-    }
-    const altered = {
-      ...document,
-      taxTotals: [
-        { taxAmount, taxSubtotals: [subtotal] },
-        { taxAmount, taxSubtotals: [subtotal] },
-      ],
-    } as unknown as PeppolDocument;
-    expect(validatePeppolEn16931R053(altered).passed).toEqual(false);
-  });
+  it.effect(
+    'fails when there are two tax totals with subtotals',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => decodeBaseExample());
+      const subtotal = document.taxTotals[0]?.taxSubtotals?.[0];
+      const taxAmount = document.taxTotals[0]?.taxAmount;
+      if (!subtotal || !taxAmount) {
+        throw new Error('base example has no tax subtotal');
+      }
+      const altered = {
+        ...document,
+        taxTotals: [
+          { taxAmount, taxSubtotals: [subtotal] },
+          { taxAmount, taxSubtotals: [subtotal] },
+        ],
+      } as unknown as PeppolDocument;
+      const result = yield* validatePeppolEn16931R053(altered).pipe(Effect.result);
+      assert(Result.isFailure(result));
+    })
+  );
 });

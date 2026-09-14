@@ -1,10 +1,17 @@
-import type { XmlNode } from '#/helpers/get-prop';
-import type { PeppolPartyTaxSchema } from '#/schemas/fields/party-tax-schema';
+import { Effect, Predicate } from 'effect';
 
-import { encodePartyTaxScheme } from '#/decoders/fields/encode-party-tax-scheme';
+import type { XmlNode } from '#/helpers/get-prop.ts';
+import type { PeppolPartyTaxSchema } from '#/schemas/fields/peppol-party-tax-scheme-schema.ts';
 
-export function encodePartiesTaxScheme(partiesTaxScheme: Array<PeppolPartyTaxSchema> | undefined): XmlNode {
-  if (!partiesTaxScheme?.length) return undefined;
+import { encodePartyTaxScheme } from '#/decoders/fields/encode-party-tax-scheme.ts';
 
-  return partiesTaxScheme.map(partyTaxScheme => encodePartyTaxScheme(partyTaxScheme));
-}
+export const encodePartiesTaxScheme = Effect.fn(function* (partiesTaxScheme: Array<PeppolPartyTaxSchema> | undefined): Effect.fn.Return<XmlNode> {
+  if (Predicate.isNullish(partiesTaxScheme) || partiesTaxScheme.length === 0) return undefined;
+
+  return yield* Effect.forEach(
+    partiesTaxScheme,
+    Effect.fn(function* (partyTaxScheme: PeppolPartyTaxSchema) {
+      return yield* encodePartyTaxScheme(partyTaxScheme);
+    })
+  );
+});

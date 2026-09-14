@@ -1,8 +1,7 @@
-import type { PeppolDocument } from '#/document';
-import type { SchematronRule } from '#/schematron/helpers';
-import type { SchematronRuleResult } from '#/schematron/types';
+import type { PeppolDocument } from '#/schemas/peppol-document-schema.ts';
+import type { SchematronRule } from '#/schematron/helpers.ts';
 
-import { getCustomerCountry, getSupplierCountry, schematronResult } from '#/schematron/helpers';
+import { getCustomerCountry, getSupplierCountry, schematronRule } from '#/schematron/helpers.ts';
 
 const rule = {
   id: 'NL-R-008',
@@ -13,10 +12,12 @@ const rule = {
 
 const ALLOWED_CODES = new Set(['30', '48', '49', '57', '58', '59']);
 
-export function validateNlR008(document: PeppolDocument): SchematronRuleResult {
+function evaluateNlR008(document: PeppolDocument): boolean {
   if (getSupplierCountry(document) !== 'NL' || getCustomerCountry(document) !== 'NL') {
-    return schematronResult(rule, true);
+    return true;
   }
   const passed = (document.paymentMeans ?? []).every(payment => ALLOWED_CODES.has(payment.paymentMeansCode.code));
-  return schematronResult(rule, passed);
+  return passed;
 }
+
+export const validateNlR008 = schematronRule(rule, evaluateNlR008);

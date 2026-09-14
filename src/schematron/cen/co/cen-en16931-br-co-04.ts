@@ -1,8 +1,7 @@
-import type { PeppolDocument } from '#/document';
-import type { SchematronRule } from '#/schematron/helpers';
-import type { SchematronRuleResult } from '#/schematron/types';
+import type { PeppolDocument } from '#/schemas/peppol-document-schema.ts';
+import type { SchematronRule } from '#/schematron/helpers.ts';
 
-import { getLines, schematronResult } from '#/schematron/helpers';
+import { getLines, schematronRule } from '#/schematron/helpers.ts';
 
 const rule = {
   id: 'CEN-EN16931-BR-CO-04',
@@ -10,9 +9,11 @@ const rule = {
   message: 'Each Invoice line (BG-25) shall be categorized with an Invoiced item VAT category code (BT-151).',
 } as const satisfies SchematronRule;
 
-export function validateCenEn16931BrCo04(document: PeppolDocument): SchematronRuleResult {
+function evaluateCenEn16931BrCo04(document: PeppolDocument): boolean {
   const passed = getLines(document).every(
     line => typeof line.item.classifiedTaxCategory?.id === 'string' && line.item.classifiedTaxCategory.taxSchemeId.id.toUpperCase() === 'VAT'
   );
-  return schematronResult(rule, passed);
+  return passed;
 }
+
+export const validateCenEn16931BrCo04 = schematronRule(rule, evaluateCenEn16931BrCo04);

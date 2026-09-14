@@ -1,0 +1,106 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`encodeInvoiceResponse > should decode an invoice response > invoice-response 1`] = `
+{
+  "?xml": {
+    "@encoding": "UTF-8",
+    "@version": "1.0",
+  },
+  "ApplicationResponse": {
+    "@xmlns": "urn:oasis:names:specification:ubl:schema:xsd:ApplicationResponse-2",
+    "@xmlns:cac": "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2",
+    "@xmlns:cbc": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+    "@xmlns:xsi": "http://www.w3.org/2001/XMLSchema-instance",
+    "@xsi:schemaLocation": "urn:oasis:names:specification:ubl:schema:xsd:ApplicationResponse-2 https://docs.oasis-open.org/ubl/os-UBL-2.4/xsd/maindoc/UBL-ApplicationResponse-2.4.xsd urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2 https://docs.oasis-open.org/ubl/os-UBL-2.4/xsd/common/UBL-CommonAggregateComponents-2.4.xsd urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2 https://docs.oasis-open.org/ubl/os-UBL-2.4/xsd/common/UBL-CommonBasicComponents-2.4.xsd",
+    "cac:DocumentResponse": {
+      "cac:DocumentReference": {
+        "cbc:DocumentTypeCode": "380",
+        "cbc:ID": "inv021",
+        "cbc:IssueDate": "2018-09-22T00:00:00.000Z",
+      },
+      "cac:IssuerParty": {
+        "cac:Contact": undefined,
+        "cac:PartyIdentification": {
+          "cbc:ID": {
+            "#text": "123456785",
+            "@schemeID": "0192",
+          },
+        },
+        "cac:PartyLegalEntity": undefined,
+        "cac:PartyName": {
+          "cbc:Name": "Test Company AS",
+        },
+        "cbc:EndpointID": undefined,
+      },
+      "cac:RecipientParty": undefined,
+      "cac:Response": {
+        "cac:Status": [
+          {
+            "cac:Condition": [
+              {
+                "cbc:AttributeID": "BT-48",
+                "cbc:Description": "EU123456789",
+              },
+            ],
+            "cbc:StatusReason": "VAT Reference not found",
+            "cbc:StatusReasonCode": {
+              "#text": "NOA",
+              "@listID": "OPStatusAction",
+            },
+          },
+        ],
+        "cbc:EffectiveDate": "2018-09-24T00:00:00.000Z",
+        "cbc:ResponseCode": "RE",
+      },
+    },
+    "cac:ReceiverParty": {
+      "cac:Contact": undefined,
+      "cac:PartyIdentification": {
+        "cbc:ID": {
+          "#text": "987654325",
+          "@schemeID": "0192",
+        },
+      },
+      "cac:PartyLegalEntity": {
+        "cbc:CompanyID": undefined,
+        "cbc:CompanyLegalForm": undefined,
+        "cbc:RegistrationName": "Seller company",
+      },
+      "cac:PartyName": undefined,
+      "cbc:EndpointID": {
+        "#text": "7330001000000",
+        "@schemeID": "0088",
+      },
+    },
+    "cac:SenderParty": {
+      "cac:Contact": {
+        "cbc:ElectronicMail": "jj@test-company.dk",
+        "cbc:Name": "Jens Jensen",
+        "cbc:Telephone": "23232323",
+      },
+      "cac:PartyIdentification": {
+        "cbc:ID": {
+          "#text": "DK88776655",
+          "@schemeID": "0184",
+        },
+      },
+      "cac:PartyLegalEntity": {
+        "cbc:CompanyID": undefined,
+        "cbc:CompanyLegalForm": undefined,
+        "cbc:RegistrationName": "Buyer organization",
+      },
+      "cac:PartyName": undefined,
+      "cbc:EndpointID": {
+        "#text": "5798000012349",
+        "@schemeID": "0088",
+      },
+    },
+    "cbc:CustomizationID": "urn:fdc:peppol.eu:poacc:trns:invoice_response:3",
+    "cbc:ID": "imrid001",
+    "cbc:IssueDate": "2017-12-01T00:00:00.000Z",
+    "cbc:IssueTime": "2026-09-14T12:00:00.000Z",
+    "cbc:Note": "text",
+    "cbc:ProfileID": "urn:fdc:peppol.eu:poacc:bis:invoice_response:3",
+  },
+}
+`;

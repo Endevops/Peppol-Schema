@@ -1,19 +1,24 @@
-import type { XmlNode } from '#/helpers/get-prop';
-import type { PeppolTaxRepresentativeParty } from '#/schemas/fields/tax-representative-party-schema';
-import type { RecursivePartial } from '#/types';
+import { Effect, Predicate } from 'effect';
 
-import { decodeAddress } from '#/decoders/fields/decode-address';
-import { decodePartyTaxScheme } from '#/decoders/fields/decode-party-tax-scheme';
-import { getProp } from '#/helpers/get-prop';
-import { strOrUnd } from '#/helpers/str-or-und';
+import type { XmlNode } from '#/helpers/get-prop.ts';
+import type { PeppolTaxRepresentativeParty } from '#/schemas/fields/peppol-tax-representative-schema.ts';
+import type { RecursivePartial } from '#/types.ts';
 
-export function decodeTaxRepresentativeParty(doc: XmlNode, ...path: Array<string>): RecursivePartial<PeppolTaxRepresentativeParty> | undefined {
-  const taxRepresentative = getProp(doc, ...path);
-  if (!taxRepresentative) return undefined;
+import { decodeAddress } from '#/decoders/fields/decode-address.ts';
+import { decodePartyTaxScheme } from '#/decoders/fields/decode-party-tax-scheme.ts';
+import { getProp } from '#/helpers/get-prop.ts';
+import { strOrUnd } from '#/helpers/str-or-und.ts';
+
+export const decodeTaxRepresentativeParty = Effect.fn(function* (
+  doc: XmlNode,
+  ...path: Array<string>
+): Effect.fn.Return<RecursivePartial<PeppolTaxRepresentativeParty> | undefined> {
+  const taxRepresentative = yield* getProp(doc, ...path);
+  if (Predicate.isNullish(taxRepresentative)) return undefined;
 
   return {
-    name: strOrUnd(taxRepresentative, 'cac:PartyName', 'cbc:Name'),
-    partyTaxScheme: decodePartyTaxScheme(taxRepresentative, 'cac:PartyTaxScheme'),
-    postalAddress: decodeAddress(taxRepresentative, 'cac:PostalAddress'),
+    name: yield* strOrUnd(taxRepresentative, 'cac:PartyName', 'cbc:Name'),
+    partyTaxScheme: yield* decodePartyTaxScheme(taxRepresentative, 'cac:PartyTaxScheme'),
+    postalAddress: yield* decodeAddress(taxRepresentative, 'cac:PostalAddress'),
   };
-}
+});

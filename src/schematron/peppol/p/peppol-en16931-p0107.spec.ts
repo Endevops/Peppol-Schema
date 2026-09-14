@@ -1,13 +1,14 @@
 /**
  * @description Unit tests for PEPPOL-EN16931-P0107 (tax category AE for VATEX-EU-AE).
  */
-import { describe, expect, it } from 'vitest';
+import { assert, describe, it } from '@effect/vitest';
+import { Effect, Result } from 'effect';
 
-import type { PeppolDocument } from '#/document';
+import type { PeppolDocument } from '#/schemas/peppol-document-schema.ts';
 
-import { decodeBaseExample } from '#/test/test-utils';
+import { decodeBaseExample } from '#/test/test-utils.ts';
 
-import { validatePeppolEn16931P0107 } from './peppol-en16931-p0107';
+import { validatePeppolEn16931P0107 } from './peppol-en16931-p0107.ts';
 
 async function withExemptionReason(code: string, id: string): Promise<PeppolDocument> {
   const document = await decodeBaseExample();
@@ -27,23 +28,36 @@ async function withExemptionReason(code: string, id: string): Promise<PeppolDocu
 }
 
 describe('PEPPOL-EN16931-P0107 (tax category AE for VATEX-EU-AE)', () => {
-  it('passes on the base example', async () => {
-    const document = await decodeBaseExample();
-    expect(validatePeppolEn16931P0107(document).passed).toEqual(true);
-  });
+  it.effect(
+    'passes on the base example',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => decodeBaseExample());
+      yield* validatePeppolEn16931P0107(document);
+    })
+  );
 
-  it('fails when VATEX-EU-AE is paired with a non-AE category', async () => {
-    const document = await withExemptionReason('VATEX-EU-AE', 'S');
-    expect(validatePeppolEn16931P0107(document).passed).toEqual(false);
-  });
+  it.effect(
+    'fails when VATEX-EU-AE is paired with a non-AE category',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => withExemptionReason('VATEX-EU-AE', 'S'));
+      const result = yield* validatePeppolEn16931P0107(document).pipe(Effect.result);
+      assert(Result.isFailure(result));
+    })
+  );
 
-  it('passes when no VATEX-EU-AE exemption reason is used', async () => {
-    const document = await decodeBaseExample();
-    expect(validatePeppolEn16931P0107(document).passed).toEqual(true);
-  });
+  it.effect(
+    'passes when no VATEX-EU-AE exemption reason is used',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => decodeBaseExample());
+      yield* validatePeppolEn16931P0107(document);
+    })
+  );
 
-  it('passes when VATEX-EU-AE is paired with category AE', async () => {
-    const document = await withExemptionReason('VATEX-EU-AE', 'AE');
-    expect(validatePeppolEn16931P0107(document).passed).toEqual(true);
-  });
+  it.effect(
+    'passes when VATEX-EU-AE is paired with category AE',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => withExemptionReason('VATEX-EU-AE', 'AE'));
+      yield* validatePeppolEn16931P0107(document);
+    })
+  );
 });

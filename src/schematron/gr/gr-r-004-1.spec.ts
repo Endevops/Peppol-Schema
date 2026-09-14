@@ -1,13 +1,14 @@
 /**
  * @description Unit tests for GR-R-004-1 (Greek MARK number).
  */
-import { describe, expect, it } from 'vitest';
+import { assert, describe, it } from '@effect/vitest';
+import { Effect, Result } from 'effect';
 
-import type { PeppolDocument } from '#/document';
+import type { PeppolDocument } from '#/schemas/peppol-document-schema.ts';
 
-import { decodeBaseExample } from '#/test/test-utils';
+import { decodeBaseExample } from '#/test/test-utils.ts';
 
-import { validateGrR004_1 } from './gr-r-004-1';
+import { validateGrR004_1 } from './gr-r-004-1.ts';
 
 async function withCountry(
   document: PeppolDocument,
@@ -32,22 +33,32 @@ async function withCountry(
 }
 
 describe('GR-R-004-1 (Greek MARK number)', () => {
-  it('passes when not applicable', async () => {
-    const document = await decodeBaseExample();
-    expect(validateGrR004_1(document).passed).toEqual(true);
-  });
+  it.effect(
+    'passes when not applicable',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => decodeBaseExample());
+      yield* validateGrR004_1(document);
+    })
+  );
 
-  it('fails when a Greek supplier has no MARK number', async () => {
-    const document = await withCountry(await decodeBaseExample(), 'GR', 'BE');
-    expect(validateGrR004_1(document).passed).toEqual(false);
-  });
+  it.effect(
+    'fails when a Greek supplier has no MARK number',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => withCountry(await decodeBaseExample(), 'GR', 'BE'));
+      const result = yield* validateGrR004_1(document).pipe(Effect.result);
+      assert(Result.isFailure(result));
+    })
+  );
 
-  it('passes when a Greek supplier has exactly one MARK number', async () => {
-    const document = await withCountry(await decodeBaseExample(), 'GR', 'BE');
-    const altered = {
-      ...document,
-      additionalDocumentReferences: [{ id: { id: '123' }, documentDescription: '##M.AR.K##' }],
-    } as unknown as PeppolDocument;
-    expect(validateGrR004_1(altered).passed).toEqual(true);
-  });
+  it.effect(
+    'passes when a Greek supplier has exactly one MARK number',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => withCountry(await decodeBaseExample(), 'GR', 'BE'));
+      const altered = {
+        ...document,
+        additionalDocumentReferences: [{ id: { id: '123' }, documentDescription: '##M.AR.K##' }],
+      } as unknown as PeppolDocument;
+      yield* validateGrR004_1(altered);
+    })
+  );
 });

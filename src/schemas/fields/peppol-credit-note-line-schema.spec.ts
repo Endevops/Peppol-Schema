@@ -1,0 +1,35 @@
+// oxlint-disable vitest/expect-expect
+import { TestSchema } from 'effect/testing';
+import { describe, it } from 'vitest';
+
+import { PeppolCreditNoteLine } from './peppol-credit-note-line-schema.ts';
+
+const validCreditNoteLine = {
+  creditedQuantity: { unitCode: 'C62', value: 2 },
+  id: '1',
+  item: { classifiedTaxCategory: { id: 'S', percent: 20, taxSchemeId: { id: 'VAT' } }, name: 'Widget' },
+  lineExtensionAmount: { currencyId: 'EUR', value: 100 },
+  price: { priceAmount: { currencyId: 'EUR', value: 50 } },
+};
+
+describe('PeppolCreditNoteLine', () => {
+  const testSchema = new TestSchema.Asserts(PeppolCreditNoteLine);
+  const decode = testSchema.decoding();
+
+  it('should parse a credit note line', async () => {
+    await decode.succeed(validCreditNoteLine);
+  });
+
+  it('should reject a credit note line without a credited quantity', async () => {
+    const { creditedQuantity: _qty, ...noQty } = validCreditNoteLine;
+    await decode.fail(noQty, 'Missing key\n  at ["creditedQuantity"]');
+  });
+
+  it('should reject a credited quantity without a unit code', async () => {
+    await decode.fail({ ...validCreditNoteLine, creditedQuantity: { value: 2 } }, 'Missing key\n  at ["creditedQuantity"]["unitCode"]');
+  });
+
+  it('should reject a credited quantity without a value', async () => {
+    await decode.fail({ ...validCreditNoteLine, creditedQuantity: { unitCode: 'C62' } }, 'Missing key\n  at ["creditedQuantity"]["value"]');
+  });
+});

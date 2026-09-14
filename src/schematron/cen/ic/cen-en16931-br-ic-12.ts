@@ -1,8 +1,7 @@
-import type { PeppolDocument } from '#/document';
-import type { SchematronRule } from '#/schematron/helpers';
-import type { SchematronRuleResult } from '#/schematron/types';
+import type { PeppolDocument } from '#/schemas/peppol-document-schema.ts';
+import type { SchematronRule } from '#/schematron/helpers.ts';
 
-import { hasVatBreakdownCode, schematronResult } from '#/schematron/helpers';
+import { hasVatBreakdownCode, schematronRule } from '#/schematron/helpers.ts';
 
 const rule = {
   id: 'CEN-EN16931-BR-IC-12',
@@ -11,10 +10,12 @@ const rule = {
     'In an Invoice with a VAT breakdown (BG-23) where the VAT category code (BT-118) is "Intra-community supply" the Deliver to country code (BT-80) shall not be blank.',
 } as const satisfies SchematronRule;
 
-export function validateCenEn16931BrIc12(document: PeppolDocument): SchematronRuleResult {
+function evaluateCenEn16931BrIc12(document: PeppolDocument): boolean {
   const passed =
     !hasVatBreakdownCode(document, 'K') ||
     (typeof document.delivery?.deliveryLocation?.address?.countryCode.identificationCode === 'string' &&
       document.delivery.deliveryLocation.address.countryCode.identificationCode.trim() !== '');
-  return schematronResult(rule, passed);
+  return passed;
 }
+
+export const validateCenEn16931BrIc12 = schematronRule(rule, evaluateCenEn16931BrIc12);

@@ -1,8 +1,7 @@
-import type { PeppolDocument } from '#/document';
-import type { SchematronRule } from '#/schematron/helpers';
-import type { SchematronRuleResult } from '#/schematron/types';
+import type { PeppolDocument } from '#/schemas/peppol-document-schema.ts';
+import type { SchematronRule } from '#/schematron/helpers.ts';
 
-import { hasTaxRepresentativeVatCompanyId, schematronResult } from '#/schematron/helpers';
+import { hasTaxRepresentativeVatCompanyId, schematronRule } from '#/schematron/helpers.ts';
 
 const rule = {
   id: 'CEN-EN16931-BR-56',
@@ -10,7 +9,9 @@ const rule = {
   message: 'Each Seller tax representative party (BG-11) shall have a Seller tax representative VAT identifier (BT-63).',
 } as const satisfies SchematronRule;
 
-export function validateCenEn16931Br56(document: PeppolDocument): SchematronRuleResult {
+function evaluateCenEn16931Br56(document: PeppolDocument): boolean {
   const passed = !document.taxRepresentativeParty || hasTaxRepresentativeVatCompanyId(document);
-  return schematronResult(rule, passed);
+  return passed;
 }
+
+export const validateCenEn16931Br56 = schematronRule(rule, evaluateCenEn16931Br56);

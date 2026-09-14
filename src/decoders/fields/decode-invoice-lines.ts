@@ -1,17 +1,18 @@
-import type { XmlNode } from '#/helpers/get-prop';
-import type { PeppolInvoiceLine } from '#/schemas/fields/invoice-line-schema';
-import type { RecursivePartial } from '#/types';
+import { Effect } from 'effect';
 
-import { decodeLineShared } from '#/decoders/fields/decode-line-shared';
-import { decodeQuantity } from '#/decoders/fields/decode-quantity';
-import { getArray } from '#/helpers/get-array';
+import type { XmlNode } from '#/helpers/get-prop.ts';
 
-export function decodeInvoiceLines(doc: XmlNode, ...path: Array<string>): Array<RecursivePartial<PeppolInvoiceLine>> | undefined {
-  const arr = getArray(doc, ...path);
-  if (!arr.length) return undefined;
+import { decodeLineShared } from '#/decoders/fields/decode-line-shared.ts';
+import { decodeNodeList } from '#/decoders/fields/decode-node-list.ts';
+import { decodeQuantity } from '#/decoders/fields/decode-quantity.ts';
 
-  return arr.map(lineNode => {
-    const shared = decodeLineShared(lineNode);
-    return { ...shared, invoicedQuantity: decodeQuantity(lineNode, 'cbc:InvoicedQuantity') };
-  });
-}
+export const decodeInvoiceLines = Effect.fn('decode-invoice-lines')(function* (doc: XmlNode, ...path: Array<string>) {
+  return yield* decodeNodeList(
+    doc,
+    Effect.fn(function* (lineNode: XmlNode) {
+      const shared = yield* decodeLineShared(lineNode);
+      return { ...shared, invoicedQuantity: yield* decodeQuantity(lineNode, 'cbc:InvoicedQuantity') };
+    }),
+    ...path
+  );
+});

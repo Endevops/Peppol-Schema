@@ -1,8 +1,7 @@
-import type { PeppolDocument } from '#/document';
-import type { SchematronRule } from '#/schematron/helpers';
-import type { SchematronRuleResult } from '#/schematron/types';
+import type { PeppolDocument } from '#/schemas/peppol-document-schema.ts';
+import type { SchematronRule } from '#/schematron/helpers.ts';
 
-import { getSupplierCountry, schematronResult } from '#/schematron/helpers';
+import { getSupplierCountry, schematronRule } from '#/schematron/helpers.ts';
 
 const rule = {
   id: 'IS-R-009',
@@ -10,13 +9,15 @@ const rule = {
   message: '[IS-R-009]-If seller is icelandic and invoice contains supporting description EINDAGI invoice must have due date',
 } as const satisfies SchematronRule;
 
-export function validateIsR009(document: PeppolDocument): SchematronRuleResult {
+function evaluateIsR009(document: PeppolDocument): boolean {
   if (getSupplierCountry(document) !== 'IS') {
-    return schematronResult(rule, true);
+    return true;
   }
   const hasEindagi = (document.additionalDocumentReferences ?? []).some(ref => ref.documentDescription === 'EINDAGI');
   if (!hasEindagi) {
-    return schematronResult(rule, true);
+    return true;
   }
-  return schematronResult(rule, Boolean(document.dueDate));
+  return Boolean(document.dueDate);
 }
+
+export const validateIsR009 = schematronRule(rule, evaluateIsR009);

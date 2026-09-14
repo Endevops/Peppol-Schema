@@ -12,7 +12,7 @@
  *
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/ISO3166/
  */
-export const countryCodes = {
+export const countryCodes: Record<CountryCodesKeys, string> = {
   AD: 'Andorra',
 
   AE: 'United Arab Emirates',

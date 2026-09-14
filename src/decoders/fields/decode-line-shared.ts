@@ -1,70 +1,89 @@
-import type { PeppolDocumentLine } from '#/document';
-import type { XmlNode } from '#/helpers/get-prop';
-import type { PeppolBaseLine } from '#/schemas/fields/base-line-schema';
-import type { RecursivePartial } from '#/types';
+import { Effect, Predicate } from 'effect';
 
-import { decodeAmount } from '#/decoders/fields/decode-amount';
-import { decodeIdentifier } from '#/decoders/fields/decode-identifier';
-import { decodeInvoiceLinePeriod } from '#/decoders/fields/decode-invoice-line-period';
-import { decodeLineAllowanceCharges } from '#/decoders/fields/decode-line-allowance-charges';
-import { decodeLinePrice } from '#/decoders/fields/decode-line-price';
-import { decodeSimpleIdentifer } from '#/decoders/fields/decode-simple-identifier';
-import { decodeTaxCategory } from '#/decoders/fields/decode-tax-category';
-import { getArray } from '#/helpers/get-array';
-import { getProp } from '#/helpers/get-prop';
-import { strOrUnd } from '#/helpers/str-or-und';
+import type { XmlNode } from '#/helpers/get-prop.ts';
+import type { PeppolDocumentLine } from '#/schemas/peppol-document-schema.ts';
+import type { RecursivePartial } from '#/types.ts';
+
+import { decodeAmount } from '#/decoders/fields/decode-amount.ts';
+import { decodeIdentifier } from '#/decoders/fields/decode-identifier.ts';
+import { decodeInvoiceLinePeriod } from '#/decoders/fields/decode-invoice-line-period.ts';
+import { decodeLineAllowanceCharges } from '#/decoders/fields/decode-line-allowance-charges.ts';
+import { decodeLinePrice } from '#/decoders/fields/decode-line-price.ts';
+import { decodeSimpleIdentifer } from '#/decoders/fields/decode-simple-identifier.ts';
+import { decodeTaxCategory } from '#/decoders/fields/decode-tax-category.ts';
+import { getArray } from '#/helpers/get-array.ts';
+import { getProp } from '#/helpers/get-prop.ts';
+import { strOrUnd } from '#/helpers/str-or-und.ts';
 
 type PeppolDocumentLineItem = PeppolDocumentLine['item'];
 
-export function decodeLineShared(lineShared: XmlNode): RecursivePartial<PeppolBaseLine> {
-  const item = getProp(lineShared, 'cac:Item');
-  const orderLineReference = getProp(lineShared, 'cac:OrderLineReference');
+export const decodeLineShared = Effect.fn(function* (lineShared: XmlNode) {
+  const item = yield* getProp(lineShared, 'cac:Item');
+  const orderLineReference = yield* getProp(lineShared, 'cac:OrderLineReference');
 
   return {
-    accountingCost: strOrUnd(lineShared, 'cbc:AccountingCost'),
-    allowanceCharges: decodeLineAllowanceCharges(lineShared, 'cac:AllowanceCharge'),
-    documentReference: getArray(lineShared, 'cac:DocumentReference').map(documentReference => ({
-      documentTypeCode: strOrUnd(documentReference, 'cbc:DocumentTypeCode'),
-      id: strOrUnd(documentReference, 'cbc:ID'),
-      schemeId: strOrUnd(documentReference, 'cbc:ID', '@schemeID'),
-    })),
-    id: strOrUnd(lineShared, 'cbc:ID'),
-    invoicePeriod: decodeInvoiceLinePeriod(lineShared, 'cac:InvoicePeriod'),
+    accountingCost: yield* strOrUnd(lineShared, 'cbc:AccountingCost'),
+    allowanceCharges: yield* decodeLineAllowanceCharges(lineShared, 'cac:AllowanceCharge'),
+    documentReference: yield* Effect.forEach(
+      yield* getArray(lineShared, 'cac:DocumentReference'),
+      Effect.fn(function* (documentReference: XmlNode) {
+        return {
+          documentTypeCode: yield* strOrUnd(documentReference, 'cbc:DocumentTypeCode'),
+          id: yield* strOrUnd(documentReference, 'cbc:ID'),
+          schemeId: yield* strOrUnd(documentReference, 'cbc:ID', '@schemeID'),
+        };
+      })
+    ),
+    id: yield* strOrUnd(lineShared, 'cbc:ID'),
+    invoicePeriod: yield* decodeInvoiceLinePeriod(lineShared, 'cac:InvoicePeriod'),
     item: {
-      additionalItemProperties: getArray(item, 'cac:AdditionalItemProperty').map(n => ({
-        name: strOrUnd(n, 'cbc:Name'),
-        value: strOrUnd(n, 'cbc:Value'),
-      })),
-      buyersItemIdentification: decodeSimpleIdentifer(item, 'cac:BuyersItemIdentification'),
-      classifiedTaxCategory: decodeTaxCategory(item, 'cac:ClassifiedTaxCategory'),
-      commodityClassifications: getArray(item, 'cac:CommodityClassification').map(commodityClassification => ({
-        itemClassification: {
-          id: strOrUnd(commodityClassification, 'cbc:ItemClassificationCode'),
-          listId: strOrUnd(commodityClassification, 'cbc:ItemClassificationCode', '@listID'),
-          listVersionId: strOrUnd(commodityClassification, 'cbc:ItemClassificationCode', '@listVersionID'),
-        },
-      })),
-      description: strOrUnd(item, 'cbc:Description'),
-      name: strOrUnd(item, 'cbc:Name'),
-      originCountryCode: decodeOriginCountryCode(item, 'cac:OriginCountry'),
-      sellersItemIdentification: decodeSimpleIdentifer(item, 'cac:SellersItemIdentification'),
-      standardItemIdentification: decodeStandardItem(item, 'cac:StandardItemIdentification'),
+      additionalItemProperties: yield* Effect.forEach(
+        yield* getArray(item, 'cac:AdditionalItemProperty'),
+        Effect.fn(function* (n: XmlNode) {
+          return { name: yield* strOrUnd(n, 'cbc:Name'), value: yield* strOrUnd(n, 'cbc:Value') };
+        })
+      ),
+      buyersItemIdentification: yield* decodeSimpleIdentifer(item, 'cac:BuyersItemIdentification'),
+      classifiedTaxCategory: yield* decodeTaxCategory(item, 'cac:ClassifiedTaxCategory'),
+      commodityClassifications: yield* Effect.forEach(
+        yield* getArray(item, 'cac:CommodityClassification'),
+        Effect.fn(function* (commodityClassification: XmlNode) {
+          return {
+            itemClassification: {
+              id: yield* strOrUnd(commodityClassification, 'cbc:ItemClassificationCode'),
+              listId: yield* strOrUnd(commodityClassification, 'cbc:ItemClassificationCode', '@listID'),
+              listVersionId: yield* strOrUnd(commodityClassification, 'cbc:ItemClassificationCode', '@listVersionID'),
+            },
+          };
+        })
+      ),
+      description: yield* strOrUnd(item, 'cbc:Description'),
+      name: yield* strOrUnd(item, 'cbc:Name'),
+      originCountryCode: yield* decodeOriginCountryCode(item, 'cac:OriginCountry'),
+      sellersItemIdentification: yield* decodeSimpleIdentifer(item, 'cac:SellersItemIdentification'),
+      standardItemIdentification: yield* decodeStandardItem(item, 'cac:StandardItemIdentification'),
     },
-    lineExtensionAmount: decodeAmount(lineShared, 'cbc:LineExtensionAmount'),
-    note: strOrUnd(lineShared, 'cbc:Note'),
-    orderLineReference: orderLineReference ? { lineId: strOrUnd(orderLineReference, 'cbc:LineID') } : undefined,
-    price: decodeLinePrice(lineShared, 'cac:Price'),
+    lineExtensionAmount: yield* decodeAmount(lineShared, 'cbc:LineExtensionAmount'),
+    note: yield* strOrUnd(lineShared, 'cbc:Note'),
+    orderLineReference: Predicate.isNotNullish(orderLineReference) ? { lineId: yield* strOrUnd(orderLineReference, 'cbc:LineID') } : undefined,
+    price: yield* decodeLinePrice(lineShared, 'cac:Price'),
   };
-}
+});
 
-function decodeStandardItem(node: XmlNode, ...path: Array<string>): RecursivePartial<PeppolDocumentLineItem['standardItemIdentification']> {
-  const val = getProp(node, ...path);
-  if (!val) return;
-  return { id: decodeIdentifier(val, 'cbc:ID') };
-}
+const decodeStandardItem = Effect.fn(function* (
+  node: XmlNode,
+  ...path: Array<string>
+): Effect.fn.Return<RecursivePartial<PeppolDocumentLineItem['standardItemIdentification']>> {
+  const val = yield* getProp(node, ...path);
+  if (Predicate.isNullish(val)) return undefined;
+  return { id: yield* decodeIdentifier(val, 'cbc:ID') };
+});
 
-function decodeOriginCountryCode(node: XmlNode, ...path: Array<string>): RecursivePartial<PeppolDocumentLineItem['originCountryCode']> {
-  const country = getProp(node, ...path);
-  if (!country) return undefined;
-  return { identificationCode: strOrUnd(country, 'cbc:IdentificationCode') };
-}
+const decodeOriginCountryCode = Effect.fn(function* (
+  node: XmlNode,
+  ...path: Array<string>
+): Effect.fn.Return<RecursivePartial<PeppolDocumentLineItem['originCountryCode']>> {
+  const country = yield* getProp(node, ...path);
+  if (Predicate.isNullish(country)) return undefined;
+  return { identificationCode: yield* strOrUnd(country, 'cbc:IdentificationCode') };
+});

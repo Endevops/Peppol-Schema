@@ -1,32 +1,40 @@
 /**
  * @description Unit tests for CEN-EN16931-BR-AE-09.
  */
-import { describe, expect, it } from 'vitest';
+import { assert, describe, it } from '@effect/vitest';
+import { Effect, Result } from 'effect';
 
-import { decodeBaseExample } from '#/test/test-utils';
+import { decodeBaseExample } from '#/test/test-utils.ts';
 
-import { validateCenEn16931BrAe09 } from './cen-en16931-br-ae-09';
+import { validateCenEn16931BrAe09 } from './cen-en16931-br-ae-09.ts';
 
 describe('CEN-EN16931-BR-AE-09', () => {
-  it('passes on the base example', async () => {
-    const document = await decodeBaseExample();
-    expect(validateCenEn16931BrAe09(document).passed).toEqual(true);
-  });
+  it.effect(
+    'passes on the base example',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => decodeBaseExample());
+      yield* validateCenEn16931BrAe09(document);
+    })
+  );
 
-  it('fails when the rule is violated', async () => {
-    const document = (await decodeBaseExample()) as any;
-    document.taxTotals = [
-      {
-        taxAmount: { currencyId: 'EUR', value: 1 },
-        taxSubtotals: [
-          {
-            taxAmount: { currencyId: 'EUR', value: 1 },
-            taxableAmount: { currencyId: 'EUR', value: 100 },
-            taxCategory: { id: 'AE', percent: 0, taxExemptionReason: undefined, taxExemptionReasonCode: undefined, taxSchemeId: { id: 'VAT' } },
-          },
-        ],
-      },
-    ];
-    expect(validateCenEn16931BrAe09(document).passed).toEqual(false);
-  });
+  it.effect(
+    'fails when the rule is violated',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => (await decodeBaseExample()) as any);
+      document.taxTotals = [
+        {
+          taxAmount: { currencyId: 'EUR', value: 1 },
+          taxSubtotals: [
+            {
+              taxAmount: { currencyId: 'EUR', value: 1 },
+              taxableAmount: { currencyId: 'EUR', value: 100 },
+              taxCategory: { id: 'AE', percent: 0, taxExemptionReason: undefined, taxExemptionReasonCode: undefined, taxSchemeId: { id: 'VAT' } },
+            },
+          ],
+        },
+      ];
+      const result = yield* validateCenEn16931BrAe09(document).pipe(Effect.result);
+      assert(Result.isFailure(result));
+    })
+  );
 });

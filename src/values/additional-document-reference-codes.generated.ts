@@ -12,7 +12,7 @@
  *
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/UNCL1153/
  */
-export const additionalDocumentReferenceCodes = {
+export const additionalDocumentReferenceCodes: Record<AdditionalDocumentReferenceCodesKeys, string> = {
   /**
    * @description [1018] Reference number identifying the acknowledgement of an order.
    */
@@ -123,8 +123,7 @@ export const additionalDocumentReferenceCodes = {
    */
   ABA: 'Customs valuation decision number',
   /**
-   * @description Reference issued by a Customs administration authorizing a preferential rate of duty if a product is used for a specified purpose, see: 1001 =
-   * 990.
+   * @description Reference issued by a Customs administration authorizing a preferential rate of duty if a product is used for a specified purpose, see: 1001 = 990.
    */
   ABB: 'End use authorization number',
   /**

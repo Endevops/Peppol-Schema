@@ -1,13 +1,14 @@
 /**
  * @description Unit tests for IS-R-001 (invoice type 380 or 381).
  */
-import { describe, expect, it } from 'vitest';
+import { assert, describe, it } from '@effect/vitest';
+import { Effect, Result } from 'effect';
 
-import type { PeppolDocument } from '#/document';
+import type { PeppolDocument } from '#/schemas/peppol-document-schema.ts';
 
-import { decodeBaseExample } from '#/test/test-utils';
+import { decodeBaseExample } from '#/test/test-utils.ts';
 
-import { validateIsR001 } from './is-r-001';
+import { validateIsR001 } from './is-r-001.ts';
 
 async function asIcelandic(document: PeppolDocument): Promise<PeppolDocument> {
   return {
@@ -26,20 +27,30 @@ async function asIcelandic(document: PeppolDocument): Promise<PeppolDocument> {
 }
 
 describe('IS-R-001 (invoice type 380 or 381)', () => {
-  it('passes when not applicable', async () => {
-    const document = await decodeBaseExample();
-    expect(validateIsR001(document).passed).toEqual(true);
-  });
+  it.effect(
+    'passes when not applicable',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => decodeBaseExample());
+      yield* validateIsR001(document);
+    })
+  );
 
-  it('fails when an Icelandic document uses an unsupported invoice type', async () => {
-    const document = await asIcelandic(await decodeBaseExample());
-    const altered = { ...document, invoiceTypeCode: '999' } as unknown as PeppolDocument;
-    expect(validateIsR001(altered).passed).toEqual(false);
-  });
+  it.effect(
+    'fails when an Icelandic document uses an unsupported invoice type',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => asIcelandic(await decodeBaseExample()));
+      const altered = { ...document, invoiceTypeCode: '999' } as unknown as PeppolDocument;
+      const result = yield* validateIsR001(altered).pipe(Effect.result);
+      assert(Result.isFailure(result));
+    })
+  );
 
-  it('passes when an Icelandic document uses invoice type 380', async () => {
-    const document = await asIcelandic(await decodeBaseExample());
-    const altered = { ...document, invoiceTypeCode: '380' } as unknown as PeppolDocument;
-    expect(validateIsR001(altered).passed).toEqual(true);
-  });
+  it.effect(
+    'passes when an Icelandic document uses invoice type 380',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => asIcelandic(await decodeBaseExample()));
+      const altered = { ...document, invoiceTypeCode: '380' } as unknown as PeppolDocument;
+      yield* validateIsR001(altered);
+    })
+  );
 });

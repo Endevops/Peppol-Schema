@@ -1,8 +1,7 @@
-import type { PeppolDocument } from '#/document';
-import type { SchematronRule } from '#/schematron/helpers';
-import type { SchematronRuleResult } from '#/schematron/types';
+import type { PeppolDocument } from '#/schemas/peppol-document-schema.ts';
+import type { SchematronRule } from '#/schematron/helpers.ts';
 
-import { getSupplierCountry, schematronResult } from '#/schematron/helpers';
+import { getSupplierCountry, schematronRule } from '#/schematron/helpers.ts';
 
 const rule = {
   id: 'GR-R-001-6',
@@ -10,10 +9,12 @@ const rule = {
   message: 'When Supplier is Greek, the Invoice Id fifth segment must not be empty',
 } as const satisfies SchematronRule;
 
-export function validateGrR001_6(document: PeppolDocument): SchematronRuleResult {
+function evaluateGrR001_6(document: PeppolDocument): boolean {
   if (getSupplierCountry(document) !== 'GR' && getSupplierCountry(document) !== 'EL') {
-    return schematronResult(rule, true);
+    return true;
   }
   const segments = document.id.split('|');
-  return schematronResult(rule, (segments[4]?.length ?? 0) > 0);
+  return (segments[4]?.length ?? 0) > 0;
 }
+
+export const validateGrR001_6 = schematronRule(rule, evaluateGrR001_6);

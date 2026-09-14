@@ -1,38 +1,67 @@
-import { describe, expect, it } from 'vitest';
+import { assert, describe, expect, it } from '@effect/vitest';
+import { Effect, Result } from 'effect';
 
-import { bool } from './bool';
+import { bool } from './bool.ts';
 
 describe('bool', () => {
-  it('returns the value when it is a boolean', () => {
-    expect(bool({ flag: true }, 'flag')).toBe(true);
-    expect(bool({ flag: false }, 'flag')).toBe(false);
-  });
+  it.effect.each([true, false])(
+    'returns the value when it is a boolean (%s)',
+    Effect.fn(function* (value) {
+      expect(yield* bool({ flag: value }, 'flag')).toBe(value);
+    })
+  );
 
-  it('returns the text content when the value is an object with #text', () => {
-    expect(bool({ flag: { '#text': 'true' } }, 'flag')).toBe('true');
-  });
+  it.effect(
+    'returns the text content when the value is an object with #text',
+    Effect.fn(function* () {
+      expect(yield* bool({ flag: { '#text': 'true' } }, 'flag')).toBe('true');
+    })
+  );
 
-  it('throws when #text is undefined', () => {
-    expect(() => bool({ flag: { '#text': undefined } }, 'flag')).toThrow('Unable to find flag into [object Object]');
-  });
+  it.effect(
+    'throws when #text is undefined',
+    Effect.fn(function* () {
+      const result = yield* bool({ flag: { '#text': undefined } }, 'flag').pipe(Effect.result);
+      assert(Result.isFailure(result));
+    })
+  );
 
-  it('throws when the value is an object without #text', () => {
-    expect(() => bool({ flag: { other: 'x' } }, 'flag')).toThrow('Unable to find flag into [object Object]');
-  });
+  it.effect(
+    'throws when the value is an object without #text',
+    Effect.fn(function* () {
+      const result = yield* bool({ flag: { other: 'x' } }, 'flag').pipe(Effect.result);
+      assert(Result.isFailure(result));
+    })
+  );
 
-  it('throws when the value is a non-boolean primitive', () => {
-    expect(() => bool({ flag: 'true' }, 'flag')).toThrow('Unable to find flag into [object Object]');
-  });
+  it.effect(
+    'throws when the value is a non-boolean primitive',
+    Effect.fn(function* () {
+      const result = yield* bool({ flag: 'true' }, 'flag').pipe(Effect.result);
+      assert(Result.isFailure(result));
+    })
+  );
 
-  it('throws when the value is missing', () => {
-    expect(() => bool({}, 'flag')).toThrow('Unable to find flag into [object Object]');
-  });
+  it.effect(
+    'throws when the value is missing',
+    Effect.fn(function* () {
+      const result = yield* bool({}, 'flag').pipe(Effect.result);
+      assert(Result.isFailure(result));
+    })
+  );
 
-  it('throws when the node is undefined', () => {
-    expect(() => bool(undefined, 'flag')).toThrow();
-  });
+  it.effect(
+    'throws when the node is undefined',
+    Effect.fn(function* () {
+      const result = yield* bool(undefined, 'flag').pipe(Effect.result);
+      assert(Result.isFailure(result));
+    })
+  );
 
-  it('walks nested paths', () => {
-    expect(bool({ 'cac:Party': { '@notifyingParty': false } }, 'cac:Party', '@notifyingParty')).toBe(false);
-  });
+  it.effect(
+    'walks nested paths',
+    Effect.fn(function* () {
+      expect(yield* bool({ 'cac:Party': { '@notifyingParty': false } }, 'cac:Party', '@notifyingParty')).toBe(false);
+    })
+  );
 });

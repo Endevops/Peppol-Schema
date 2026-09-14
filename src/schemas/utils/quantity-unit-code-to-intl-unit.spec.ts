@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'vitest';
 
-import type { IntlUnit } from './quantity-unit-code-to-intl-unit';
+import type { IntlUnit } from './quantity-unit-code-to-intl-unit.ts';
 
-import { quantityUnitCodeToIntlUnit } from './quantity-unit-code-to-intl-unit';
+import { quantityUnitCodeToIntlUnit } from './quantity-unit-code-to-intl-unit.ts';
 
 describe('quantityUnitCodeToIntlUnit', () => {
   describe('length units', () => {

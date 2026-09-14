@@ -1,8 +1,7 @@
-import type { PeppolDocument } from '#/document';
-import type { SchematronRule } from '#/schematron/helpers';
-import type { SchematronRuleResult } from '#/schematron/types';
+import type { PeppolDocument } from '#/schemas/peppol-document-schema.ts';
+import type { SchematronRule } from '#/schematron/helpers.ts';
 
-import { isCustomerGermany, isSupplierGermany, schematronResult } from '#/schematron/helpers';
+import { isGermanSupplierAndCustomer, schematronRule } from '#/schematron/helpers.ts';
 
 const rule = {
   id: 'DE-R-005',
@@ -10,10 +9,12 @@ const rule = {
   message: 'The element "Seller contact point" (BT-41) shall be provided.',
 } as const satisfies SchematronRule;
 
-export function validateDeR005(document: PeppolDocument): SchematronRuleResult {
-  if (!isSupplierGermany(document) || !isCustomerGermany(document)) {
-    return schematronResult(rule, true);
+function evaluateDeR005(document: PeppolDocument): boolean {
+  if (!isGermanSupplierAndCustomer(document)) {
+    return true;
   }
   const name = document.accountingSupplierParty.contact?.name;
-  return schematronResult(rule, typeof name === 'string' && name.trim() !== '');
+  return typeof name === 'string' && name.trim() !== '';
 }
+
+export const validateDeR005 = schematronRule(rule, evaluateDeR005);

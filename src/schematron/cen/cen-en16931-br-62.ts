@@ -1,8 +1,7 @@
-import type { PeppolDocument } from '#/document';
-import type { SchematronRule } from '#/schematron/helpers';
-import type { SchematronRuleResult } from '#/schematron/types';
+import type { PeppolDocument } from '#/schemas/peppol-document-schema.ts';
+import type { SchematronRule } from '#/schematron/helpers.ts';
 
-import { schematronResult } from '#/schematron/helpers';
+import { schematronRule } from '#/schematron/helpers.ts';
 
 const rule = {
   id: 'CEN-EN16931-BR-62',
@@ -10,8 +9,10 @@ const rule = {
   message: 'The Seller electronic address (BT-34) shall have a Scheme identifier.',
 } as const satisfies SchematronRule;
 
-export function validateCenEn16931Br62(document: PeppolDocument): SchematronRuleResult {
+function evaluateCenEn16931Br62(document: PeppolDocument): boolean {
   const passed =
     typeof document.accountingSupplierParty.endpointId?.schemeId === 'string' && document.accountingSupplierParty.endpointId.schemeId.trim() !== '';
-  return schematronResult(rule, passed);
+  return passed;
 }
+
+export const validateCenEn16931Br62 = schematronRule(rule, evaluateCenEn16931Br62);

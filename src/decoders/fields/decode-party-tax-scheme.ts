@@ -1,14 +1,19 @@
-import type { XmlNode } from '#/helpers/get-prop';
-import type { PeppolPartyTaxSchema } from '#/schemas/fields/party-tax-schema';
-import type { RecursivePartial } from '#/types';
+import { Effect, Predicate } from 'effect';
 
-import { decodeSimpleIdentifer } from '#/decoders/fields/decode-simple-identifier';
-import { getProp } from '#/helpers/get-prop';
-import { strOrUnd } from '#/helpers/str-or-und';
+import type { XmlNode } from '#/helpers/get-prop.ts';
+import type { PeppolPartyTaxSchema } from '#/schemas/fields/peppol-party-tax-scheme-schema.ts';
+import type { RecursivePartial } from '#/types.ts';
 
-export function decodePartyTaxScheme(doc: XmlNode, ...path: Array<string>): RecursivePartial<PeppolPartyTaxSchema> | undefined {
-  const node = getProp(doc, ...path);
-  if (!node) return undefined;
+import { decodeSimpleIdentifer } from '#/decoders/fields/decode-simple-identifier.ts';
+import { getProp } from '#/helpers/get-prop.ts';
+import { strOrUnd } from '#/helpers/str-or-und.ts';
 
-  return { companyId: strOrUnd(node, 'cbc:CompanyID'), taxSchemeId: decodeSimpleIdentifer(node, 'cac:TaxScheme') };
-}
+export const decodePartyTaxScheme = Effect.fn(function* (
+  doc: XmlNode,
+  ...path: Array<string>
+): Effect.fn.Return<RecursivePartial<PeppolPartyTaxSchema> | undefined> {
+  const node = yield* getProp(doc, ...path);
+  if (Predicate.isNullish(node)) return undefined;
+
+  return { companyId: yield* strOrUnd(node, 'cbc:CompanyID'), taxSchemeId: yield* decodeSimpleIdentifer(node, 'cac:TaxScheme') };
+});

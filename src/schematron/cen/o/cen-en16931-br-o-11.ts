@@ -1,8 +1,7 @@
-import type { PeppolDocument } from '#/document';
-import type { SchematronRule } from '#/schematron/helpers';
-import type { SchematronRuleResult } from '#/schematron/types';
+import type { PeppolDocument } from '#/schemas/peppol-document-schema.ts';
+import type { SchematronRule } from '#/schematron/helpers.ts';
 
-import { hasVatBreakdownCode, countAllVatBreakdowns, countVatBreakdownCode, schematronResult } from '#/schematron/helpers';
+import { countAllVatBreakdowns, countVatBreakdownCode, hasVatBreakdownCode, schematronRule } from '#/schematron/helpers.ts';
 
 const rule = {
   id: 'CEN-EN16931-BR-O-11',
@@ -11,7 +10,9 @@ const rule = {
     'An Invoice that contains a VAT breakdown group (BG-23) with a VAT category code (BT-118) "Not subject to VAT" shall not contain other VAT breakdown groups (BG-23).',
 } as const satisfies SchematronRule;
 
-export function validateCenEn16931BrO11(document: PeppolDocument): SchematronRuleResult {
+function evaluateCenEn16931BrO11(document: PeppolDocument): boolean {
   const passed = !hasVatBreakdownCode(document, 'O') || countVatBreakdownCode(document, 'O') === countAllVatBreakdowns(document);
-  return schematronResult(rule, passed);
+  return passed;
 }
+
+export const validateCenEn16931BrO11 = schematronRule(rule, evaluateCenEn16931BrO11);

@@ -1,20 +1,22 @@
-import type { XmlNode } from '#/helpers/get-prop';
-import type { InvoiceDocumentResponseParty } from '#/schemas/invoice-response-schema';
-import type { RecursivePartial } from '#/types';
+import { Effect, Predicate } from 'effect';
 
-import { decodeIdentifier } from '#/decoders/fields/decode-identifier';
-import { getProp } from '#/helpers/get-prop';
-import { strOrUnd } from '#/helpers/str-or-und';
+import type { XmlNode } from '#/helpers/get-prop.ts';
+import type { PeppolInvoiceDocumentResponseParty } from '#/schemas/peppol-invoice-response-schema.ts';
+import type { RecursivePartial } from '#/types.ts';
 
-export function decodeInvoiceMessageDocumentParty(
+import { decodeIdentifier } from '#/decoders/fields/decode-identifier.ts';
+import { getProp } from '#/helpers/get-prop.ts';
+import { strOrUnd } from '#/helpers/str-or-und.ts';
+
+export const decodeInvoiceMessageDocumentParty = Effect.fn(function* (
   party: XmlNode,
   ...path: Array<string>
-): RecursivePartial<InvoiceDocumentResponseParty> | undefined {
-  const val = getProp(party, ...path);
-  if (!val) return undefined;
-  const partyName = getProp(val, 'cac:PartyName');
+): Effect.fn.Return<RecursivePartial<PeppolInvoiceDocumentResponseParty> | undefined> {
+  const val = yield* getProp(party, ...path);
+  if (Predicate.isNullish(val)) return undefined;
+  const partyName = yield* getProp(val, 'cac:PartyName');
   return {
-    partyIdentification: decodeIdentifier(val, 'cac:PartyIdentification', 'cbc:ID'),
-    partyName: partyName ? { name: strOrUnd(partyName, 'cbc:Name') } : undefined,
+    partyIdentification: yield* decodeIdentifier(val, 'cac:PartyIdentification', 'cbc:ID'),
+    partyName: Predicate.isNotNullish(partyName) ? { name: yield* strOrUnd(partyName, 'cbc:Name') } : undefined,
   };
-}
+});

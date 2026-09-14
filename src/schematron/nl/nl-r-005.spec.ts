@@ -1,13 +1,14 @@
 /**
  * @description Unit tests for NL-R-005 (Dutch customer legal entity scheme).
  */
-import { describe, expect, it } from 'vitest';
+import { assert, describe, it } from '@effect/vitest';
+import { Effect, Result } from 'effect';
 
-import type { PeppolDocument } from '#/document';
+import type { PeppolDocument } from '#/schemas/peppol-document-schema.ts';
 
-import { decodeBaseExample } from '#/test/test-utils';
+import { decodeBaseExample } from '#/test/test-utils.ts';
 
-import { validateNlR005 } from './nl-r-005';
+import { validateNlR005 } from './nl-r-005.ts';
 
 async function asDutch(document: PeppolDocument): Promise<PeppolDocument> {
   return {
@@ -26,32 +27,42 @@ async function asDutch(document: PeppolDocument): Promise<PeppolDocument> {
 }
 
 describe('NL-R-005 (Dutch customer legal entity scheme)', () => {
-  it('passes when not applicable', async () => {
-    const document = await decodeBaseExample();
-    expect(validateNlR005(document).passed).toEqual(true);
-  });
+  it.effect(
+    'passes when not applicable',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => decodeBaseExample());
+      yield* validateNlR005(document);
+    })
+  );
 
-  it('fails when both parties are Dutch and the customer legal entity uses a wrong scheme', async () => {
-    const document = await asDutch(await decodeBaseExample());
-    const altered = {
-      ...document,
-      accountingCustomerParty: {
-        ...document.accountingCustomerParty,
-        partyLegalEntity: { ...document.accountingCustomerParty.partyLegalEntity, companyId: { id: '12345678', schemeId: '0196' } },
-      },
-    } as unknown as PeppolDocument;
-    expect(validateNlR005(altered).passed).toEqual(false);
-  });
+  it.effect(
+    'fails when both parties are Dutch and the customer legal entity uses a wrong scheme',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => asDutch(await decodeBaseExample()));
+      const altered = {
+        ...document,
+        accountingCustomerParty: {
+          ...document.accountingCustomerParty,
+          partyLegalEntity: { ...document.accountingCustomerParty.partyLegalEntity, companyId: { id: '12345678', schemeId: '0196' } },
+        },
+      } as unknown as PeppolDocument;
+      const result = yield* validateNlR005(altered).pipe(Effect.result);
+      assert(Result.isFailure(result));
+    })
+  );
 
-  it('passes when both parties are Dutch and the customer legal entity uses scheme 0190', async () => {
-    const document = await asDutch(await decodeBaseExample());
-    const altered = {
-      ...document,
-      accountingCustomerParty: {
-        ...document.accountingCustomerParty,
-        partyLegalEntity: { ...document.accountingCustomerParty.partyLegalEntity, companyId: { id: '12345678', schemeId: '0190' } },
-      },
-    } as unknown as PeppolDocument;
-    expect(validateNlR005(altered).passed).toEqual(true);
-  });
+  it.effect(
+    'passes when both parties are Dutch and the customer legal entity uses scheme 0190',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => asDutch(await decodeBaseExample()));
+      const altered = {
+        ...document,
+        accountingCustomerParty: {
+          ...document.accountingCustomerParty,
+          partyLegalEntity: { ...document.accountingCustomerParty.partyLegalEntity, companyId: { id: '12345678', schemeId: '0190' } },
+        },
+      } as unknown as PeppolDocument;
+      yield* validateNlR005(altered);
+    })
+  );
 });

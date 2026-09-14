@@ -1,10 +1,11 @@
-import type * as z from 'zod/mini';
+import { Effect } from 'effect';
 
-import type { PeppolDocument, PeppolDocumentLine } from '#/document';
-import type { invoicePeriodSchema } from '#/schemas/fields/invoice-period-schema';
-import type { taxSubtotalSchema } from '#/schemas/fields/tax-subtotal-schema';
-import type { SchematronRuleLevel, SchematronRuleResult } from '#/schematron/types';
+import type { PeppolInvoicePeriod } from '#/schemas/fields/peppol-invoice-period-schema.ts';
+import type { PeppolTaxSubTotal } from '#/schemas/fields/peppol-tax-subtotal-schema.ts';
+import type { PeppolDocument, PeppolDocumentLine } from '#/schemas/peppol-document-schema.ts';
+import type { SchematronRuleLevel } from '#/schematron/types.ts';
 
+import { SchematronRuleError } from '#/schematron/errors.ts';
 import { chargeReasonCodesKeys } from '#/values/charge-reason-codes.generated';
 import { countryCodesKeys } from '#/values/country-code.generated';
 
@@ -20,10 +21,19 @@ export interface SchematronRule {
 }
 
 /**
- * @description Builds a `SchematronRuleResult` for the given rule.
+ * @description An effectful schematron rule validator. Fails with a `SchematronRuleError` when the document does not satisfy the rule.
  */
-export function schematronResult(rule: SchematronRule, passed: boolean): SchematronRuleResult {
-  return { id: rule.id, level: rule.level, message: rule.message, passed };
+export type SchematronDocumentValidator = (document: PeppolDocument) => Effect.Effect<void, SchematronRuleError>;
+
+/**
+ * @description Builds an effectful validator from rule metadata and a pure predicate.
+ */
+export function schematronRule(rule: SchematronRule, predicate: (document: PeppolDocument) => boolean): SchematronDocumentValidator {
+  return Effect.fn(`schematron.${rule.id}`)(function* (document: PeppolDocument) {
+    if (!predicate(document)) {
+      return yield* new SchematronRuleError({ id: rule.id, level: rule.level, message: rule.message });
+    }
+  });
 }
 
 /**
@@ -97,6 +107,21 @@ export function isSupplierGermany(document: PeppolDocument): boolean {
  */
 export function isCustomerGermany(document: PeppolDocument): boolean {
   return document.accountingCustomerParty.postalAddress.countryCode.identificationCode.toUpperCase() === 'DE';
+}
+
+/**
+ * @description Whether both the supplier and customer countries are Denmark, mirroring the schematron `$supplierCountryIsDK` and `$customerCountryIsDK` variables.
+ */
+export function isDanishSupplierAndCustomer(document: PeppolDocument): boolean {
+  return getSupplierCountry(document) === 'DK' && getCustomerCountry(document) === 'DK';
+}
+
+/**
+ * @description Whether both the supplier and customer postal address countries are Germany, mirroring the schematron `$supplierCountryIsDE` and
+ * `$customerCountryIsDE` variables.
+ */
+export function isGermanSupplierAndCustomer(document: PeppolDocument): boolean {
+  return isSupplierGermany(document) && isCustomerGermany(document);
 }
 
 /**
@@ -436,7 +461,7 @@ export function allVatCompanyIdsHaveValidPrefix(document: PeppolDocument): boole
  * @description Whether every invoice period / line period has an end date after or equal to its start date, used by BR-29 and BR-30.
  */
 export function everyPeriodEndAfterStart(document: PeppolDocument): boolean {
-  const ok = (period: z.infer<typeof invoicePeriodSchema> | undefined): boolean => {
+  const ok = (period: PeppolInvoicePeriod | undefined): boolean => {
     if (!period?.startDate || !period.endDate) {
       return true;
     }
@@ -450,7 +475,7 @@ export function everyPeriodEndAfterStart(document: PeppolDocument): boolean {
  * @description Whether every invoice period has a start/end date or a description code, used by BR-CO-19 and BR-CO-20.
  */
 export function everyPeriodHasDateOrDescriptionCode(document: PeppolDocument): boolean {
-  const ok = (period: z.infer<typeof invoicePeriodSchema> | undefined): boolean => {
+  const ok = (period: PeppolInvoicePeriod | undefined): boolean => {
     if (!period) {
       return true;
     }
@@ -500,7 +525,7 @@ export function withinSlackOne(a: number, b: number): boolean {
  * @description Whether the VAT category tax amount (BT-117) equals the VAT category taxable amount (BT-116) multiplied by the VAT category rate (BT-119), allowing
  * for a slack of 1, mirroring BR-CO-17.
  */
-export function vatCategoryTaxAmountMatchesRate(subtotal: z.infer<typeof taxSubtotalSchema>): boolean {
+export function vatCategoryTaxAmountMatchesRate(subtotal: PeppolTaxSubTotal): boolean {
   const percent = subtotal.taxCategory.percent;
   if (percent === undefined) {
     return Math.round(subtotal.taxAmount.value) === 0;
@@ -541,19 +566,17 @@ export function everyVatBreakdownTaxableMatchesRateSum(document: PeppolDocument)
  * @description Returns all identifiers carrying a scheme identifier, used by the PEPPOL-COMMON-R* rules.
  */
 export function getIdentifiersWithSchemeId(document: PeppolDocument): Array<{ id: string; schemeId: string }> {
-  const result: Array<{ id: string; schemeId: string }> = [];
-  const push = (id: string | undefined, schemeId: string | undefined) => {
-    if (id && schemeId) {
-      result.push({ id, schemeId });
-    }
-  };
+  const candidates: Array<{ id: string | undefined; schemeId: string | undefined }> = [];
   for (const party of [document.accountingSupplierParty, document.accountingCustomerParty]) {
-    push(party.endpointId?.id, party.endpointId?.schemeId);
-    push(party.partyIdentification?.id?.id, party.partyIdentification?.id?.schemeId);
-    push(party.partyLegalEntity.companyId?.id, party.partyLegalEntity.companyId?.schemeId);
+    candidates.push(
+      { id: party.endpointId?.id, schemeId: party.endpointId?.schemeId },
+      { id: party.partyIdentification?.id?.id, schemeId: party.partyIdentification?.id?.schemeId },
+      { id: party.partyLegalEntity.companyId?.id, schemeId: party.partyLegalEntity.companyId?.schemeId }
+    );
   }
-  if (document.payeeParty?.partyIdentification?.id) {
-    push(document.payeeParty.partyIdentification.id.id, document.payeeParty.partyIdentification.id.schemeId);
+  const payeeIdentification = document.payeeParty?.partyIdentification?.id;
+  if (payeeIdentification) {
+    candidates.push({ id: payeeIdentification.id, schemeId: payeeIdentification.schemeId });
   }
-  return result;
+  return candidates.filter((candidate): candidate is { id: string; schemeId: string } => Boolean(candidate.id) && Boolean(candidate.schemeId));
 }

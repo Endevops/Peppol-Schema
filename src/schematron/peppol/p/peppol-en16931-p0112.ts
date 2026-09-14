@@ -1,8 +1,7 @@
-import type { PeppolDocument } from '#/document';
-import type { SchematronRule } from '#/schematron/helpers';
-import type { SchematronRuleResult } from '#/schematron/types';
+import type { PeppolDocument } from '#/schemas/peppol-document-schema.ts';
+import type { SchematronRule } from '#/schematron/helpers.ts';
 
-import { isCustomerGermany, isSupplierGermany, schematronResult } from '#/schematron/helpers';
+import { isCustomerGermany, isSupplierGermany, schematronRule } from '#/schematron/helpers.ts';
 
 const rule = {
   id: 'PEPPOL-EN16931-P0112',
@@ -12,12 +11,14 @@ const rule = {
 
 const GERMAN_ONLY_CODES = new Set(['326', '384']);
 
-export function validatePeppolEn16931P0112(document: PeppolDocument): SchematronRuleResult {
+function evaluatePeppolEn16931P0112(document: PeppolDocument): boolean {
   const invoiceTypeCode = 'invoiceTypeCode' in document ? document.invoiceTypeCode : undefined;
   const creditNoteTypeCode = 'creditNoteTypeCode' in document ? document.creditNoteTypeCode : undefined;
   const code = invoiceTypeCode ?? creditNoteTypeCode;
   if (!code || !GERMAN_ONLY_CODES.has(code)) {
-    return schematronResult(rule, true);
+    return true;
   }
-  return schematronResult(rule, isSupplierGermany(document) && isCustomerGermany(document));
+  return isSupplierGermany(document) && isCustomerGermany(document);
 }
+
+export const validatePeppolEn16931P0112 = schematronRule(rule, evaluatePeppolEn16931P0112);

@@ -1,8 +1,7 @@
-import type { PeppolDocument } from '#/document';
-import type { SchematronRule } from '#/schematron/helpers';
-import type { SchematronRuleResult } from '#/schematron/types';
+import type { PeppolDocument } from '#/schemas/peppol-document-schema.ts';
+import type { SchematronRule } from '#/schematron/helpers.ts';
 
-import { getAllAllowanceCharges, schematronResult } from '#/schematron/helpers';
+import { getAllAllowanceCharges, schematronRule } from '#/schematron/helpers.ts';
 
 const rule = {
   id: 'PEPPOL-EN16931-R043',
@@ -10,8 +9,10 @@ const rule = {
   message: "Allowance/charge ChargeIndicator value MUST equal 'true' or 'false'",
 } as const satisfies SchematronRule;
 
-export function validatePeppolEn16931R043(document: PeppolDocument): SchematronRuleResult {
+function evaluatePeppolEn16931R043(document: PeppolDocument): boolean {
   const allowanceCharges = getAllAllowanceCharges(document);
   const passed = allowanceCharges.every(ac => typeof ac.chargeIndicator === 'boolean');
-  return schematronResult(rule, passed);
+  return passed;
 }
+
+export const validatePeppolEn16931R043 = schematronRule(rule, evaluatePeppolEn16931R043);
