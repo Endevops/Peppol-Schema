@@ -10,17 +10,28 @@ There is no manual version bumping and no GitVersion/.NET dependency.
 - **Version selection** is derived from commit messages. A commit that does not match a
   release rule triggers no release.
 - **Tags** are created automatically as `vMAJOR.MINOR.PATCH` (e.g. `v1.2.3`) and are the
-  only tags the repository uses.
-- **Changelog / GitHub releases** are generated from the same commits.
+  only tags the repository uses — except on `feature/*` branches, which are
+  npm-only: the tag is deleted right after publishing and no GitHub Release is
+  created.
+- **Changelog / GitHub releases** are generated from the same commits (stable,
+  beta and rc channels only).
 
 ## Branch → channel mapping
 
-| Branch      | Version channel              | Example         | npm dist-tag |
-| ----------- | ---------------------------- | --------------- | ------------ |
-| `master`    | Stable release               | `1.2.3`         | `latest`     |
-| `develop`   | Beta prerelease              | `1.2.3-beta.1`  | `beta`       |
-| `feature/*` | Alpha prerelease             | `1.2.3-alpha.1` | `alpha`      |
-| `hotfix/*`  | Release-candidate prerelease | `1.2.3-rc.1`    | `rc`         |
+| Branch      | Version channel                                | Example              | npm dist-tag     |
+| ----------- | ---------------------------------------------- | -------------------- | ---------------- |
+| `master`    | Stable release                                 | `1.2.3`              | `latest`         |
+| `develop`   | Beta prerelease                                | `1.2.3-beta.1`       | `beta`           |
+| `feature/*` | Feature-name prerelease (npm-only, no git tag) | `1.2.3-my-feature.1` | `<feature-name>` |
+| `hotfix/*`  | Release-candidate prerelease                   | `1.2.3-rc.1`         | `rc`             |
+
+The prerelease identifier (and npm dist-tag) for a `feature/*` branch is the
+sanitized branch name after `feature/`: lowercased, with runs of characters
+outside `[a-z0-9-]` collapsed to a single `-` and leading/trailing `-` stripped
+(e.g. `feature/My_Cool thing` → `my-cool-thing`). Keep feature branch names to
+lowercase alphanumerics and dashes — two branches that sanitize to the same
+identifier will conflict. If sanitization yields an empty string it falls back to
+`alpha`.
 
 Stable releases happen **only** on `master`. Pre-release channels never touch `latest`.
 Work that lands on a pre-release branch is re-analyzed when merged into `master`, so the
@@ -58,21 +69,23 @@ published `0.0.1`.
    - updates `package.json` in the packed artifact,
    - publishes to npm with OIDC **trusted publishing** and **provenance**
      (no `NPM_TOKEN` secret needed; the job carries `id-token: write`),
-   - pushes the `vX.Y.Z` tag,
-   - opens a GitHub Release with the generated changelog.
+   - pushes the `vX.Y.Z` tag — except on `feature/*`, where the tag is deleted
+     immediately after publishing so no git tag remains,
+   - opens a GitHub Release with the generated changelog — except on `feature/*`,
+     which skips the `@semantic-release/github` plugin entirely.
 
 If no release-worthy commit exists, `semantic-release` exits without releasing.
 
 ## Manual operations
 
-| Goal                | How                                                             |
-| ------------------- | --------------------------------------------------------------- |
-| Cut a patch release | Commit `fix:` on `master` (or merge a PR with one) and push.    |
-| Cut a minor release | Commit `feat:` on `master` and push.                            |
-| Cut a major release | Commit with `BREAKING CHANGE:` / `feat!:` on `master` and push. |
-| Release a beta      | Push to `develop`.                                              |
-| Release an alpha    | Push to a `feature/*` branch.                                   |
-| Publish no version  | Use `chore:`, `docs:`, `refactor:`, etc.                        |
+| Goal                    | How                                                                                                                              |
+| ----------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| Cut a patch release     | Commit `fix:` on `master` (or merge a PR with one) and push.                                                                     |
+| Cut a minor release     | Commit `feat:` on `master` and push.                                                                                             |
+| Cut a major release     | Commit with `BREAKING CHANGE:` / `feat!:` on `master` and push.                                                                  |
+| Release a beta          | Push to `develop`.                                                                                                               |
+| Release a feature preview | Push to a `feature/*` branch. Publishes `x.y.z-<feature-name>.n` to npm under the `<feature-name>` dist-tag; no git tag, no GitHub Release. |
+| Publish no version      | Use `chore:`, `docs:`, `refactor:`, etc.                                                                                         |
 
 Do **not** tag releases by hand. `v*` tags created manually bypass the changelog and
 provenance flow and can confuse the next analysis.
@@ -92,7 +105,7 @@ The old `GitVersion.yml` (Invoicify) maps as follows:
 | `mode: ContinuousDeployment`                     | release on every push to a release branch                                |
 | `branches.main` (`^master$`, release)            | `master` (stable)                                                        |
 | `branches.develop` (label `beta`)                | `develop` → `prerelease: beta`                                           |
-| `branches.feature` (label `alpha`)               | `feature/*` → `prerelease: alpha`                                        |
+| `branches.feature` (label `alpha`)               | `feature/*` → `prerelease:`/channel from sanitized branch name (npm-only, tag deleted) |
 | `branches.hotfix` (patch)                        | `hotfix/*` → `prerelease: rc`                                            |
 | `prevent-increment.when-current-commit-tagged`   | built-in: tagged commits are skipped                                     |
 | `mathieudutour/github-tag-action`                | tag created by `semantic-release` itself                                 |
@@ -102,7 +115,7 @@ The old `GitVersion.yml` (Invoicify) maps as follows:
 
 | File                       | Purpose                                  |
 | -------------------------- | ---------------------------------------- |
-| `.releaserc.yml`           | Branch → channel mapping and plugin list |
+| `release.config.mjs`         | Branch → channel mapping and plugin list |
 | `.github/workflows/ci.yml` | Build/test gate + `release` job          |
 | `package.json`             | `semantic-release` in `devDependencies`  |
 
