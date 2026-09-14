@@ -4,6 +4,8 @@ import { XMLParser } from '@nodable/flexible-xml-parser';
 
 import type { XmlNode } from '#/helpers/get-prop.ts';
 
+export type { XmlNode } from '#/helpers/get-prop.ts';
+
 const numberParser = new NumberValueParser({ eNotation: true, hex: false, leadingZeros: false });
 
 const compactFactory = new CompactBuilderFactory({

@@ -3,7 +3,7 @@ import { Schema } from 'effect';
 import { PeppolDocumentResponseLineResponseContent } from '#/schemas/peppol-document-response-line-response-content-schema.ts';
 import { opaque } from '#/schemas/utils/opaque.ts';
 
-class PeppolLineReference extends opaque<PeppolLineReference>()(
+export class PeppolLineReference extends opaque<PeppolLineReference>()(
   Schema.Struct({
     /**
      * @description Identifies the section of the document to which the reported issue applied. The LineID element mustbe used to indicate where in the business

@@ -3,7 +3,7 @@ import { Schema } from 'effect';
 import { opaque } from '#/schemas/utils/opaque.ts';
 import { applicationResponseTypeCodeSchema } from '#/schemas/values/application-response-type-code-schema.ts';
 
-class PeppolStatus extends opaque<PeppolStatus>()(
+export class PeppolStatus extends opaque<PeppolStatus>()(
   Schema.Struct({
     /**
      * @description A codified version of the issue description that describes the nature of the issue. e.g. Syntax violation, business rule violation, ...

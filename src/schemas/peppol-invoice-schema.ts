@@ -6,7 +6,7 @@ import { PeppolIsoDateString } from '#/schemas/peppol-iso-date-string.ts';
 import { opaque } from '#/schemas/utils/opaque.ts';
 import { invoiceTypeCodeSchema } from '#/schemas/values/invoice-type-code-schema.ts';
 
-class PeppolProjectReference extends opaque<PeppolProjectReference>()(Schema.Struct({ id: Schema.String })) {}
+export class PeppolProjectReference extends opaque<PeppolProjectReference>()(Schema.Struct({ id: Schema.String })) {}
 
 export class PeppolInvoice extends opaque<PeppolInvoice>()(
   Schema.Struct({
