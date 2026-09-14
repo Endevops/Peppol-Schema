@@ -1,9 +1,8 @@
-import { Schema } from 'effect';
+import { DateTime } from 'effect';
 
 import type { PeppolDocument } from '#/schemas/peppol-document-schema.ts';
 import type { SchematronRule } from '#/schematron/helpers.ts';
 
-import { PeppolIsoDateString } from '#/schemas/peppol-iso-date-string.ts';
 import { getSupplierCountry, schematronRule } from '#/schematron/helpers.ts';
 
 const rule = {
@@ -13,7 +12,15 @@ const rule = {
 } as const satisfies SchematronRule;
 
 const DATE_REGEX = /^(0?[1-9]|[12][0-9]|3[01])[-/]?(0?[1-9]|1[0-2])[-/]?((?:19|20)[0-9]{2})$/;
-const encodeDateSync = Schema.encodeSync(PeppolIsoDateString);
+const formatIssueDate = (value: unknown): string => {
+  if (typeof value === 'string') {
+    return value;
+  }
+  if (DateTime.isDateTime(value)) {
+    return DateTime.formatIsoDate(value);
+  }
+  return String(value);
+};
 
 function evaluateGrR001_3(document: PeppolDocument): boolean {
   if (getSupplierCountry(document) !== 'GR' && getSupplierCountry(document) !== 'EL') {
@@ -29,7 +36,7 @@ function evaluateGrR001_3(document: PeppolDocument): boolean {
     return false;
   }
   const [, day, month, year] = dateMatch;
-  const issueDate = encodeDateSync(document.issueDate);
+  const issueDate = formatIssueDate(document.issueDate);
   const issueDateSegments = issueDate.split('-');
   return day === issueDateSegments[2] && month === issueDateSegments[1] && year === issueDateSegments[0];
 }

@@ -67,6 +67,7 @@ describe('effect/document-parser', () => {
     it.effect(
       'should parse the document from the filesystem',
       Effect.fn(function* () {
+        // oxlint-disable-next-line effecttsgo/prefer-schema-over-json -- JSON round-trip normalises DateTime instances for a stable snapshot
         expect(JSON.parse(JSON.stringify(yield* decodeDocument(fileContent)))).toMatchSnapshot('decoded');
       })
     );
@@ -75,6 +76,7 @@ describe('effect/document-parser', () => {
       `should match the defined xml ${basename}`,
       Effect.fn(function* () {
         const content = yield* encodeDocument(yield* decodeDocument(fileContent));
+        // oxlint-disable-next-line effecttsgo/prefer-schema-over-json -- JSON round-trip normalises DateTime instances for a stable snapshot
         expect(JSON.parse(JSON.stringify(content))).toMatchSnapshot('encoded');
       })
     );

@@ -4,15 +4,15 @@ TypeScript library: PEPPOL BIS Billing 3.0 Effect Schema models for Invoice, Cre
 
 ## Commands
 
-| Task | Command |
-| ---- | ------- |
-| Install | `pnpm install --frozen-lockfile` (engines: node >= 26, pnpm >= 11) |
-| Build / watch | `pnpm build` / `pnpm dev` (tsdown) |
-| Lint | `pnpm lint` (= `oxlint . --type-aware`) |
-| Format | `pnpm format` (= `oxfmt`); check with `pnpm oxfmt --check .` |
-| Test | `pnpm test` (= `vitest run`); coverage: `pnpm test:coverage` |
-| Single test file | `pnpm vitest run src/<name>.spec.ts` |
-| Codegen | `pnpm generate` (= `bun scripts/values.ts`, requires bun) |
+| Task             | Command                                                            |
+| ---------------- | ------------------------------------------------------------------ |
+| Install          | `pnpm install --frozen-lockfile` (engines: node >= 26, pnpm >= 11) |
+| Build / watch    | `pnpm build` / `pnpm dev` (tsdown)                                 |
+| Lint             | `pnpm lint` (= `oxlint . --type-aware`)                            |
+| Format           | `pnpm format` (= `oxfmt`); check with `pnpm oxfmt --check .`       |
+| Test             | `pnpm test` (= `vitest run`); coverage: `pnpm test:coverage`       |
+| Single test file | `pnpm vitest run src/<name>.spec.ts`                               |
+| Codegen          | `pnpm generate` (= `bun scripts/values.ts`, requires bun)          |
 
 CI (`ci.yml`): `lint` → `test --coverage` → `build`. Release via semantic-release on push (master/develop/feature\/*/hotfix\*); do not hand-version.
 

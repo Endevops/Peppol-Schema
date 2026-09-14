@@ -5,7 +5,7 @@ import { encodeInvoice } from '#/decoders/encode-invoice.ts';
 import { PeppolInvoice } from '#/schemas/peppol-invoice-schema.ts';
 
 describe('encodeInvoice()', () => {
-  const decodePeppolInvoice = Schema.decodeSync(PeppolInvoice);
+  const decodePeppolInvoice = (input: any) => Effect.runSync(Schema.decodeEffect(PeppolInvoice)(input));
   const invoice = decodePeppolInvoice({
     accountingCost: '4025:123:4343',
     accountingCustomerParty: {

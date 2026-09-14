@@ -16,7 +16,7 @@ layer(Schematron.layer)('Schematron', it => {
       const document = yield* Effect.promise(() => decodeBaseExample());
       const result = yield* Schematron.use(schematron => schematron.run(document));
       assert(Result.isSuccess(result));
-    }).pipe()
+    })
   );
 
   it.effect('collects every failed rule in ruleValidators order', () =>

@@ -7,7 +7,7 @@ import { opaque } from '#/schemas/utils/opaque.ts';
 import { icdCodesSchema } from '#/schemas/values/icd-codes-schema.ts';
 import { peppolCountryCodeSchema } from '#/schemas/values/peppol-country-code-schema.ts';
 
-class PeppolAdditionalItemProperties extends opaque<PeppolAdditionalItemProperties>()(
+export class PeppolAdditionalItemProperties extends opaque<PeppolAdditionalItemProperties>()(
   Schema.Struct({
     /**
      * @description The name of the attribute or property of the item.
@@ -28,7 +28,7 @@ class PeppolAdditionalItemProperties extends opaque<PeppolAdditionalItemProperti
   })
 ) {}
 
-class PeppolCommodityClassifications extends opaque<PeppolCommodityClassifications>()(
+export class PeppolCommodityClassifications extends opaque<PeppolCommodityClassifications>()(
   Schema.Struct({
     /**
      * @description A code for classifying the item by its type or nature.
@@ -44,7 +44,7 @@ class PeppolCommodityClassifications extends opaque<PeppolCommodityClassificatio
   })
 ) {}
 
-class PeppolOriginCountryCode extends opaque<PeppolOriginCountryCode>()(
+export class PeppolOriginCountryCode extends opaque<PeppolOriginCountryCode>()(
   Schema.Struct({
     /**
      * @description The code identifying the country from which the item originates.
@@ -57,7 +57,7 @@ class PeppolOriginCountryCode extends opaque<PeppolOriginCountryCode>()(
   })
 ) {}
 
-class PeppolStandardItemIdentification extends opaque<PeppolStandardItemIdentification>()(
+export class PeppolStandardItemIdentification extends opaque<PeppolStandardItemIdentification>()(
   Schema.Struct({
     /**
      * @description An item identifier based on a registered scheme.
@@ -89,7 +89,7 @@ class PeppolStandardItemIdentification extends opaque<PeppolStandardItemIdentifi
   })
 ) {}
 
-class PeppolSellersItemIdentification extends opaque<PeppolSellersItemIdentification>()(
+export class PeppolSellersItemIdentification extends opaque<PeppolSellersItemIdentification>()(
   Schema.Struct({
     /**
      * @description An identifier, assigned by the Seller, for the item.
@@ -105,7 +105,7 @@ class PeppolSellersItemIdentification extends opaque<PeppolSellersItemIdentifica
   })
 ) {}
 
-class PeppolBuyersItemIdentification extends opaque<PeppolBuyersItemIdentification>()(
+export class PeppolBuyersItemIdentification extends opaque<PeppolBuyersItemIdentification>()(
   Schema.Struct({
     /**
      * @description An identifier, assigned by the Buyer, for the item.

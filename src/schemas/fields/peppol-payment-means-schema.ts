@@ -4,7 +4,7 @@ import { PeppolIsoDateString } from '#/schemas/peppol-iso-date-string.ts';
 import { opaque } from '#/schemas/utils/opaque.ts';
 import { paymentMeansCodeSchema } from '#/schemas/values/payment-means-code-schema.ts';
 
-class PeppolPaymentMandatePayerFinancialAccountId extends opaque<PeppolPaymentMandatePayerFinancialAccountId>()(
+export class PeppolPaymentMandatePayerFinancialAccountId extends opaque<PeppolPaymentMandatePayerFinancialAccountId>()(
   Schema.Struct({
     /**
      * @description The account to be debited by the direct debit.
@@ -20,7 +20,7 @@ class PeppolPaymentMandatePayerFinancialAccountId extends opaque<PeppolPaymentMa
   })
 ) {}
 
-class PeppolPaymentMandate extends opaque<PeppolPaymentMandate>()(
+export class PeppolPaymentMandate extends opaque<PeppolPaymentMandate>()(
   Schema.Struct({
     /**
      * @description Unique identifier assigned by the Payee for referencing the direct debit mandate. Used in order to pre-notify the Buyer of a SEPA direct debit.
@@ -44,7 +44,7 @@ class PeppolPaymentMandate extends opaque<PeppolPaymentMandate>()(
   })
 ) {}
 
-class PeppolPayeeFinancialAccountFinancialInstitutionBranch extends opaque<PeppolPayeeFinancialAccountFinancialInstitutionBranch>()(
+export class PeppolPayeeFinancialAccountFinancialInstitutionBranch extends opaque<PeppolPayeeFinancialAccountFinancialInstitutionBranch>()(
   Schema.Struct({
     /**
      * @description An identifier for the payment service provider where a payment account is located. Such as a BIC or a national clearing code where required. No
@@ -61,7 +61,7 @@ class PeppolPayeeFinancialAccountFinancialInstitutionBranch extends opaque<Peppo
   })
 ) {}
 
-class PeppolPayeeFinancialAccount extends opaque<PeppolPayeeFinancialAccount>()(
+export class PeppolPayeeFinancialAccount extends opaque<PeppolPayeeFinancialAccount>()(
   Schema.Struct({
     /**
      * @description An identifier for the payment service provider where a payment account is located. Such as a BIC or a national clearing code where required. No
@@ -94,7 +94,7 @@ class PeppolPayeeFinancialAccount extends opaque<PeppolPayeeFinancialAccount>()(
   })
 ) {}
 
-class PeppolCardAccount extends opaque<PeppolCardAccount>()(
+export class PeppolCardAccount extends opaque<PeppolCardAccount>()(
   Schema.Struct({
     /**
      * @description The name of the payment card holder.
@@ -125,7 +125,7 @@ class PeppolCardAccount extends opaque<PeppolCardAccount>()(
   })
 ) {}
 
-class PeppolPaymentMeansCode extends opaque<PeppolPaymentMeansCode>()(
+export class PeppolPaymentMeansCode extends opaque<PeppolPaymentMeansCode>()(
   Schema.Struct({
     /**
      * @description The means, expressed as code, for how a payment is expected to be or has been settled.

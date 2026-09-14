@@ -3,7 +3,7 @@ import { Schema } from 'effect';
 import { opaque } from '#/schemas/utils/opaque.ts';
 import { peppolCountryCodeSchema } from '#/schemas/values/peppol-country-code-schema.ts';
 
-class PeppolAddressLine extends opaque<PeppolAddressLine>()(
+export class PeppolAddressLine extends opaque<PeppolAddressLine>()(
   Schema.Struct({
     /**
      * @description An additional address line in an address that can be used to give further details supplementing the main line.
@@ -16,7 +16,7 @@ class PeppolAddressLine extends opaque<PeppolAddressLine>()(
   })
 ) {}
 
-class PeppolCountryCode extends opaque<PeppolCountryCode>()(
+export class PeppolCountryCode extends opaque<PeppolCountryCode>()(
   Schema.Struct({
     /**
      * @description A code that identifies the country.

@@ -25,7 +25,7 @@ describe('decodeCreditNoteLines', () => {
   it.effect(
     'wraps a single (non-array) credit note line node into an array',
     Effect.fn(function* () {
-      const result = Effect.runSync(decodeCreditNoteLines({ 'cac:CreditNoteLine': { 'cbc:CreditedQuantity': '3' } }, 'cac:CreditNoteLine'));
+      const result = yield* decodeCreditNoteLines({ 'cac:CreditNoteLine': { 'cbc:CreditedQuantity': '3' } }, 'cac:CreditNoteLine');
 
       expect(result).toEqual([expect.objectContaining({ creditedQuantity: { value: 3 } })]);
     })

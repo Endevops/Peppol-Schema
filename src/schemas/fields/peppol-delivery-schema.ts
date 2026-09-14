@@ -7,7 +7,7 @@ import { icdCodesSchema } from '#/schemas/values/icd-codes-schema.ts';
 import { PeppolAddress } from './peppol-address-schema.ts';
 import { PeppolIdentifier } from './peppol-identifier-schema.ts';
 
-class PeppolDeliveryPartyPartyName extends opaque<PeppolDeliveryPartyPartyName>()(
+export class PeppolDeliveryPartyPartyName extends opaque<PeppolDeliveryPartyPartyName>()(
   Schema.Struct({
     /**
      * @description The name of the party to which the goods and services are delivered.
@@ -20,7 +20,7 @@ class PeppolDeliveryPartyPartyName extends opaque<PeppolDeliveryPartyPartyName>(
   })
 ) {}
 
-class PeppolDeliveryParty extends opaque<PeppolDeliveryParty>()(
+export class PeppolDeliveryParty extends opaque<PeppolDeliveryParty>()(
   Schema.Struct({
     /**
      * @summary PARTY NAME
@@ -31,7 +31,7 @@ class PeppolDeliveryParty extends opaque<PeppolDeliveryParty>()(
   })
 ) {}
 
-class PeppolDeliveryLocation extends opaque<PeppolDeliveryLocation>()(
+export class PeppolDeliveryLocation extends opaque<PeppolDeliveryLocation>()(
   Schema.Struct({
     /**
      * @description An identifier for the location at which the goods and services are delivered.
