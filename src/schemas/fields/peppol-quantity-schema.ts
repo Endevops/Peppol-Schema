@@ -1,7 +1,7 @@
 import { Schema } from 'effect';
 
 import { opaque } from '#/schemas/utils/opaque.ts';
-import { quantityUnitCodesSchema } from '#/schemas/values/quantity-unit-codes-schema.ts';
+import { PeppolQuantityUnitCode } from '#/schemas/values/quantity-unit-codes-schema.ts';
 
 /**
  * @summary Quantity with optional unit code
@@ -13,7 +13,7 @@ export class PeppolQuantity extends opaque<PeppolQuantity>()(
     /**
      * @name `@unitCode`
      */
-    unitCode: Schema.optional(quantityUnitCodesSchema),
+    unitCode: Schema.optional(PeppolQuantityUnitCode),
     /**
      * @name `#text (value)`
      */

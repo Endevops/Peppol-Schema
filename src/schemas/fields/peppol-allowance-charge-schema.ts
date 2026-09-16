@@ -3,9 +3,9 @@ import { Effect, Schema } from 'effect';
 import { BaseLineAllowanceCharge } from '#/schemas/fields/peppol-line-allowance-charge-schema.ts';
 import { PeppolTaxCategory } from '#/schemas/fields/peppol-tax-category-schema.ts';
 import { opaque } from '#/schemas/utils/opaque.ts';
-import { allowanceChargeReasonCodeSchema } from '#/schemas/values/allowance-charge-reason-code-schema.ts';
-import { chargeReasonCodeSchema } from '#/schemas/values/charge-reason-code-schema.ts';
-import { peppolDutyTaxFeeCategorySchema } from '#/schemas/values/duty-tax-fee-category-schema.ts';
+import { PeppolAllowanceChargeReasonCode } from '#/schemas/values/allowance-charge-reason-code-schema.ts';
+import { PeppolChargeReasonCode } from '#/schemas/values/charge-reason-code-schema.ts';
+import { PeppolDutyTaxFeeCategoryCode } from '#/schemas/values/duty-tax-fee-category-schema.ts';
 
 export class PeppolTaxCategoryTaxSchemeId extends opaque<PeppolTaxCategoryTaxSchemeId>()(
   Schema.Struct({
@@ -36,7 +36,7 @@ export class BaseAllowanceCharge extends opaque<BaseAllowanceCharge>()(
            *
            * @name `cbc:ID`
            */
-          id: peppolDutyTaxFeeCategorySchema,
+          id: PeppolDutyTaxFeeCategoryCode,
           /**
            * @description The VAT rate, represented as percentage that applies to the document level allowance or charge.
            *
@@ -63,7 +63,7 @@ export class PeppolAllowance extends opaque<PeppolAllowance>()(
     /**
      * @name cbc:AllowanceChargeReasonCode
      */
-    allowanceChargeReasonCode: Schema.optional(allowanceChargeReasonCodeSchema),
+    allowanceChargeReasonCode: Schema.optional(PeppolAllowanceChargeReasonCode),
     /**
      * @name cbc:ChargeIndicator
      *
@@ -81,7 +81,7 @@ export class PeppolCharge extends opaque<PeppolCharge>()(
     /**
      * @name cbc:AllowanceChargeReasonCode
      */
-    allowanceChargeReasonCode: Schema.optional(chargeReasonCodeSchema),
+    allowanceChargeReasonCode: Schema.optional(PeppolChargeReasonCode),
     /**
      * @name cbc:ChargeIndicator
      *
@@ -98,7 +98,8 @@ export class PeppolCharge extends opaque<PeppolCharge>()(
  *
  * @name cac:AllowanceCharge
  */
-export const peppolAllowanceChargeSchema = Schema.Union([PeppolAllowance, PeppolCharge]).annotate({ message: 'unable to decode allowance charge' });
+export class PeppolAllowanceCharge extends opaque<PeppolAllowanceCharge>()(
+  Schema.Union([PeppolAllowance, PeppolCharge]).annotate({ message: 'unable to decode allowance charge' })
+) {}
 
-export type PeppolAllowanceCharge = Schema.Schema.Type<typeof peppolAllowanceChargeSchema>;
-export type PeppolAllowanceChargeEncoded = Schema.Codec.Encoded<typeof peppolAllowanceChargeSchema>;
+export type PeppolAllowanceChargeEncoded = Schema.Codec.Encoded<typeof PeppolAllowanceCharge>;

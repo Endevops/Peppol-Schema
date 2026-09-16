@@ -3,7 +3,7 @@ import { Schema } from 'effect';
 import { PeppolBaseLine } from '#/schemas/fields/peppol-base-line-schema.ts';
 import { PeppolQuantity } from '#/schemas/fields/peppol-quantity-schema.ts';
 import { opaque } from '#/schemas/utils/opaque.ts';
-import { quantityUnitCodesSchema } from '#/schemas/values/quantity-unit-codes-schema.ts';
+import { PeppolQuantityUnitCode } from '#/schemas/values/quantity-unit-codes-schema.ts';
 
 /**
  * @summary Invoice line
@@ -38,7 +38,7 @@ export class PeppolInvoiceLine extends opaque<PeppolInvoiceLine>()(
          *
          * @see {@link quantityUnitCodes}
          */
-        unitCode: quantityUnitCodesSchema,
+        unitCode: PeppolQuantityUnitCode,
       })
     ),
   })

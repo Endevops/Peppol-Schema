@@ -7,14 +7,8 @@
  */
 import { Schema } from 'effect';
 
+import { opaque } from '#/schemas/utils/opaque.ts';
 import { electronicAddressCodesKeys } from '#/values/eas-codes.generated';
-
-/**
- * @description An electronic address scheme (EAS) code, identifying the scheme of an electronic address (e.g. `0088` for GLN).
- *
- * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/eas/
- */
-export type PeppolElectronicAddressCode = typeof electronicCodesSchema.Type;
 
 /**
  * @description Validates an electronic address scheme (EAS) code against the PEPPOL Electronic Address Identifier Scheme codelist.
@@ -28,4 +22,6 @@ export type PeppolElectronicAddressCode = typeof electronicCodesSchema.Type;
  *
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/eas/
  */
-export const electronicCodesSchema = Schema.Literals(electronicAddressCodesKeys).pipe(Schema.brand('PeppolElectronicAddressCode'));
+export class PeppolElectronicAddressCode extends opaque<PeppolElectronicAddressCode>()(
+  Schema.Literals(electronicAddressCodesKeys).pipe(Schema.brand('PeppolElectronicAddressCode'))
+) {}

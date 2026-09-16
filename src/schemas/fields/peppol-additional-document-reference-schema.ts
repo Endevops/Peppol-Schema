@@ -3,7 +3,7 @@ import { Schema } from 'effect';
 import { PeppolBinaryObject } from '#/schemas/fields/peppol-binary-object-schema.ts';
 import { PeppolIdentifier } from '#/schemas/fields/peppol-identifier-schema.ts';
 import { opaque } from '#/schemas/utils/opaque.ts';
-import { additionalDocumentReferenceCodeSchema } from '#/schemas/values/additional-document-reference-code-schema.ts';
+import { PeppolAdditionalDocumentReferenceCode } from '#/schemas/values/additional-document-reference-code-schema.ts';
 
 export class PeppolAttachmentExternalReference extends opaque<PeppolAttachmentExternalReference>()(
   Schema.Struct({
@@ -64,7 +64,7 @@ export class PeppolId extends opaque<PeppolId>()(
      *
      * @name `@schemeID`
      */
-    schemeId: Schema.optional(additionalDocumentReferenceCodeSchema),
+    schemeId: Schema.optional(PeppolAdditionalDocumentReferenceCode),
   })
 ) {}
 

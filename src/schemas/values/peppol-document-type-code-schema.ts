@@ -1,13 +1,7 @@
 import { Schema } from 'effect';
 
+import { opaque } from '#/schemas/utils/opaque.ts';
 import { documentTypeCodesKeys } from '#/values/document-type-codes.generated';
-
-/**
- * @description A document type code as defined by the PEPPOL subset of UNCL 1001 (document/message name code).
- *
- * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/UNCL1001/
- */
-export type PeppolDocumentTypeCode = typeof peppolDocumentTypeCodeSchema.Type;
 
 /**
  * @description Validates a document type code against the PEPPOL subset of UNCL 1001.
@@ -18,4 +12,6 @@ export type PeppolDocumentTypeCode = typeof peppolDocumentTypeCodeSchema.Type;
  *
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/UNCL1001/
  */
-export const peppolDocumentTypeCodeSchema = Schema.Literals(documentTypeCodesKeys).pipe(Schema.brand('PeppolDocumentTypeCode'));
+export class PeppolDocumentTypeCode extends opaque<PeppolDocumentTypeCode>()(
+  Schema.Literals(documentTypeCodesKeys).pipe(Schema.brand('PeppolDocumentTypeCode'))
+) {}

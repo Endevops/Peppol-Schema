@@ -7,20 +7,8 @@
 
 import { Schema } from 'effect';
 
+import { opaque } from '#/schemas/utils/opaque.ts';
 import { currencyCodesKeys } from '#/values/currency-code.generated';
-
-/**
- * @description An ISO 4217 currency code as defined by the PEPPOL subset.
- *
- * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/ISO4217/
- */
-export type PeppolCurrencyCode = Schema.Schema.Type<typeof currencyCodeSchema>;
-/**
- * @description An ISO 4217 currency code as defined by the PEPPOL subset.
- *
- * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/ISO4217/
- */
-export type PeppolCurrencyCodeEncoded = Schema.Codec.Encoded<typeof currencyCodeSchema>;
 
 /**
  * @description Validates an ISO 4217 currency code against the PEPPOL codelist.
@@ -34,4 +22,11 @@ export type PeppolCurrencyCodeEncoded = Schema.Codec.Encoded<typeof currencyCode
  *
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/ISO4217/
  */
-export const currencyCodeSchema = Schema.Literals(currencyCodesKeys).pipe(Schema.brand('PeppolCurrencyCode'));
+export class PeppolCurrencyCode extends opaque<PeppolCurrencyCode>()(Schema.Literals(currencyCodesKeys).pipe(Schema.brand('PeppolCurrencyCode'))) {}
+
+/**
+ * @description An ISO 4217 currency code as defined by the PEPPOL subset.
+ *
+ * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/ISO4217/
+ */
+export type PeppolCurrencyCodeEncoded = Schema.Codec.Encoded<typeof PeppolCurrencyCode>;

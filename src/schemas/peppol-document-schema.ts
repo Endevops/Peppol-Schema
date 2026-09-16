@@ -22,6 +22,7 @@ import { PeppolCreditNote } from '#/schemas/peppol-credit-note-schema.ts';
 import { PeppolInvoiceResponse } from '#/schemas/peppol-invoice-response-schema.ts';
 import { PeppolInvoice } from '#/schemas/peppol-invoice-schema.ts';
 import { PeppolMessageLevelResponse } from '#/schemas/peppol-message-level-response-schema.ts';
+import { opaque } from '#/schemas/utils/opaque.ts';
 import { builderOptions } from '#/xml/builder-options.ts';
 import { parseXmlNodable } from '#/xml/nodable-parser.ts';
 
@@ -96,15 +97,17 @@ const encodeDocumentXml = Effect.fn('encode-peppol-document-xml')(function* (val
  * @description Union of every supported PEPPOL business document. Members discriminate cleanly: invoice vs credit note via `invoiceLines`/`creditNoteLines`,
  * message-level vs invoice response via the `profileId` literal.
  */
-export const peppolDocumentSchema = peppolDocumentObjectSchema.pipe(
-  Schema.encodeTo(Schema.String, {
-    encode: SchemaGetter.transformEffect((value, options) => encodeDocumentXml(value, options)),
-    decode: SchemaGetter.transformEffect((value, options) => decodeDocumentXml(value, options)),
-  })
-);
+export class PeppolDocumentSchema extends opaque<PeppolDocumentSchema>()(
+  peppolDocumentObjectSchema.pipe(
+    Schema.encodeTo(Schema.String, {
+      encode: SchemaGetter.transformEffect((value, options) => encodeDocumentXml(value, options)),
+      decode: SchemaGetter.transformEffect((value, options) => decodeDocumentXml(value, options)),
+    })
+  )
+) {}
 
-export type PeppolDocumentEncoded = Schema.Codec.Encoded<typeof peppolDocumentSchema>;
-export type PeppolDocumentDecoded = Schema.Schema.Type<typeof peppolDocumentSchema>;
+export type PeppolDocumentEncoded = Schema.Codec.Encoded<typeof PeppolDocumentSchema>;
+export type PeppolDocumentDecoded = Schema.Schema.Type<typeof PeppolDocumentSchema>;
 
 /**
  * @description This defines the types of documents that are sent/received through the peppol network.

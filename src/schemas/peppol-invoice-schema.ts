@@ -4,7 +4,7 @@ import { PeppolInvoiceLine } from '#/schemas/fields/peppol-invoice-line-schema.t
 import { PeppolBillingBase } from '#/schemas/peppol-billing-base-schema.ts';
 import { PeppolIsoDateString } from '#/schemas/peppol-iso-date-string.ts';
 import { opaque } from '#/schemas/utils/opaque.ts';
-import { invoiceTypeCodeSchema } from '#/schemas/values/invoice-type-code-schema.ts';
+import { PeppolInvoiceTypeCode } from '#/schemas/values/invoice-type-code-schema.ts';
 
 export class PeppolProjectReference extends opaque<PeppolProjectReference>()(Schema.Struct({ id: Schema.String })) {}
 
@@ -34,7 +34,7 @@ export class PeppolInvoice extends opaque<PeppolInvoice>()(
      *
      * @name cbc:InvoiceTypeCode
      */
-    invoiceTypeCode: invoiceTypeCodeSchema,
+    invoiceTypeCode: PeppolInvoiceTypeCode,
     /**
      * @summary PROJECT REFERENCE
      *

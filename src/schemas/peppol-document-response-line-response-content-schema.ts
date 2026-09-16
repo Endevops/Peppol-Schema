@@ -1,7 +1,7 @@
 import { Schema } from 'effect';
 
 import { opaque } from '#/schemas/utils/opaque.ts';
-import { applicationResponseTypeCodeSchema } from '#/schemas/values/application-response-type-code-schema.ts';
+import { PeppolApplicationResponseTypeCode } from '#/schemas/values/application-response-type-code-schema.ts';
 
 export class PeppolStatus extends opaque<PeppolStatus>()(
   Schema.Struct({
@@ -29,7 +29,7 @@ export class PeppolDocumentResponseLineResponseContent extends opaque<PeppolDocu
      *
      * @name `cbc:ResponseCode`
      */
-    responseCode: applicationResponseTypeCodeSchema,
+    responseCode: PeppolApplicationResponseTypeCode,
     /**
      * @description The description of the issued identifier in the transaction document.
      *

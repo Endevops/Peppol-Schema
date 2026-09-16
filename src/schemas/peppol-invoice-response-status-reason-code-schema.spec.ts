@@ -2,10 +2,10 @@
 import { TestSchema } from 'effect/testing';
 import { describe, it } from 'vitest';
 
-import { peppolInvoiceResponseStatusReasonCodeSchema } from './peppol-invoice-response-status-reason-code-schema.ts';
+import { PeppolInvoiceResponseStatusReasonCode } from './peppol-invoice-response-status-reason-code-schema.ts';
 
-describe('peppolInvoiceResponseStatusReasonCodeSchema', () => {
-  const testSchema = new TestSchema.Asserts(peppolInvoiceResponseStatusReasonCodeSchema);
+describe('PeppolInvoiceResponseStatusReasonCode', () => {
+  const testSchema = new TestSchema.Asserts(PeppolInvoiceResponseStatusReasonCode);
   const decode = testSchema.decoding();
 
   it('should decode an operation status action code', async () => {

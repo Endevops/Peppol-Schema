@@ -1,7 +1,7 @@
 import { Schema } from 'effect';
 
 import { opaque } from '#/schemas/utils/opaque.ts';
-import { applicationResponseTypeCodeSchema } from '#/schemas/values/application-response-type-code-schema.ts';
+import { PeppolApplicationResponseTypeCode } from '#/schemas/values/application-response-type-code-schema.ts';
 
 /**
  * @summary Response information
@@ -10,7 +10,7 @@ import { applicationResponseTypeCodeSchema } from '#/schemas/values/application-
  *
  * @cardinality (1..1)
  *
- * @see {@link messageLevelResponseDocumentResponseSchema}
+ * @see {@link PeppolMessageLevelResponseDocumentResponse}
  */
 export class PeppolDocumentResponseDocument extends opaque<PeppolDocumentResponseDocument>()(
   Schema.Struct({
@@ -25,7 +25,7 @@ export class PeppolDocumentResponseDocument extends opaque<PeppolDocumentRespons
      *
      * @name `cbc:ResponseCode`
      */
-    responseCode: applicationResponseTypeCodeSchema,
+    responseCode: PeppolApplicationResponseTypeCode,
     /**
      * @description Used to meake any comments or instructions relevant to the response. The use of this element requires manual assessment by the receiver.
      *

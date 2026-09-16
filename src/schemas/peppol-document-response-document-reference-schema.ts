@@ -1,7 +1,7 @@
 import { Schema } from 'effect';
 
 import { opaque } from '#/schemas/utils/opaque.ts';
-import { peppolDocumentTypeCodeSchema } from '#/schemas/values/peppol-document-type-code-schema.ts';
+import { PeppolDocumentTypeCode } from '#/schemas/values/peppol-document-type-code-schema.ts';
 
 export class PeppolDocumentResponseDocumentReference extends opaque<PeppolDocumentResponseDocumentReference>()(
   Schema.Struct({
@@ -23,7 +23,7 @@ export class PeppolDocumentResponseDocumentReference extends opaque<PeppolDocume
      *
      * @name `cbc:DocumentTypeCode`
      */
-    documentTypeCode: Schema.optional(peppolDocumentTypeCodeSchema),
+    documentTypeCode: Schema.optional(PeppolDocumentTypeCode),
     /**
      * @description The version of the document that has been identifier with the document identifier.
      *

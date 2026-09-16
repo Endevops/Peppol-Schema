@@ -1,8 +1,8 @@
 import { Schema } from 'effect';
 
 import { opaque } from '#/schemas/utils/opaque.ts';
-import { peppolBase64Schema } from '#/schemas/utils/peppol-base-64-schema.ts';
-import { mimeCodesSchema } from '#/schemas/values/mime-codes-schema.ts';
+import { PeppolBase64 } from '#/schemas/utils/peppol-base-64-schema.ts';
+import { PeppolMimeCode } from '#/schemas/values/mime-codes-schema.ts';
 
 // RFC 4648 §5 — Base64url Encoding: URL/file-safe alphabet (A-Z a-z 0-9 - _), optional `=` padding.
 // Effect port of `z.base64url()`: keeps the value as a plain string and only validates the shape.
@@ -25,7 +25,7 @@ export class PeppolBinaryObject extends opaque<PeppolBinaryObject>()(
      *
      * @name `#text` (Base64 content)
      */
-    content: Schema.Union([peppolBase64Schema, base64UrlSchema]),
+    content: Schema.Union([PeppolBase64, base64UrlSchema]),
     /**
      * @description The mime code of the attached document.
      *
@@ -36,7 +36,7 @@ export class PeppolBinaryObject extends opaque<PeppolBinaryObject>()(
      *
      * @name `@mimeCode`
      */
-    mimeCode: mimeCodesSchema,
+    mimeCode: PeppolMimeCode,
     /**
      * @description The file name of the attached document.
      *

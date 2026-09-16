@@ -1,6 +1,6 @@
 import { Schema } from 'effect';
 
-import { peppolInvoiceResponseStatusReasonCodeSchema } from '#/schemas/peppol-invoice-response-status-reason-code-schema.ts';
+import { PeppolInvoiceResponseStatusReasonCode } from '#/schemas/peppol-invoice-response-status-reason-code-schema.ts';
 import { opaque } from '#/schemas/utils/opaque.ts';
 
 export class PeppolInvoiceResponseCondition extends opaque<PeppolInvoiceResponseCondition>()(
@@ -39,7 +39,7 @@ export class PeppolInvoiceResponseDocumentActualResponseStatus extends opaque<Pe
      *
      * @name `cbc:StatusReasonCode`
      */
-    statusReasonCode: Schema.optional(peppolInvoiceResponseStatusReasonCodeSchema),
+    statusReasonCode: Schema.optional(PeppolInvoiceResponseStatusReasonCode),
     /**
      * @description The description of the clarification given for the invoice status.
      *

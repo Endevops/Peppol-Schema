@@ -1,13 +1,7 @@
 import { Schema } from 'effect';
 
+import { opaque } from '#/schemas/utils/opaque.ts';
 import { icdCodesKeys } from '#/values/icd-codes.generated';
-
-/**
- * @description An ISO 6523 ICD (International Code Designator) code identifying an identifier scheme.
- *
- * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/ICD/
- */
-export type PeppolIcdCode = typeof icdCodesSchema.Type;
 
 /**
  * @description Validates an ISO 6523 ICD code against the PEPPOL codelist.
@@ -21,4 +15,4 @@ export type PeppolIcdCode = typeof icdCodesSchema.Type;
  *
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/ICD/
  */
-export const icdCodesSchema = Schema.Literals(icdCodesKeys).pipe(Schema.brand('PeppolIcdCode'));
+export class PeppolIcdCode extends opaque<PeppolIcdCode>()(Schema.Literals(icdCodesKeys).pipe(Schema.brand('PeppolIcdCode'))) {}

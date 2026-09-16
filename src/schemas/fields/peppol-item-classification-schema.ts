@@ -1,7 +1,7 @@
 import { Schema } from 'effect';
 
 import { opaque } from '#/schemas/utils/opaque.ts';
-import { itemClassificationCodesSchema } from '#/schemas/values/item-classification-codes-schema.ts';
+import { PeppolItemClassificationCode } from '#/schemas/values/item-classification-codes-schema.ts';
 
 /**
  * @description A code for classifying the item by its type or nature.
@@ -30,7 +30,7 @@ export class PeppolItemClassification extends opaque<PeppolItemClassification>()
      *
      * @name `@listID`
      */
-    listId: itemClassificationCodesSchema,
+    listId: PeppolItemClassificationCode,
     /**
      * @description The identification scheme version identifier of the Item classification identifier.
      *

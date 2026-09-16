@@ -2,8 +2,8 @@ import { Schema } from 'effect';
 
 import { PriceAllowanceCharge } from '#/schemas/fields/peppol-line-price-allowance-charge-schema.ts';
 import { opaque } from '#/schemas/utils/opaque.ts';
-import { allowanceChargeReasonCodeSchema } from '#/schemas/values/allowance-charge-reason-code-schema.ts';
-import { chargeReasonCodeSchema } from '#/schemas/values/charge-reason-code-schema.ts';
+import { PeppolAllowanceChargeReasonCode } from '#/schemas/values/allowance-charge-reason-code-schema.ts';
+import { PeppolChargeReasonCode } from '#/schemas/values/charge-reason-code-schema.ts';
 
 export class BaseLineAllowanceCharge extends opaque<BaseLineAllowanceCharge>()(
   Schema.Struct({
@@ -30,7 +30,7 @@ export class PeppolLineAllowance extends opaque<PeppolLineAllowance>()(
     /**
      * @name cbc:AllowanceChargeReasonCode
      */
-    allowanceChargeReasonCode: Schema.optional(allowanceChargeReasonCodeSchema),
+    allowanceChargeReasonCode: Schema.optional(PeppolAllowanceChargeReasonCode),
     /**
      * @name cbc:ChargeIndicator
      *
@@ -48,7 +48,7 @@ export class PeppolLineCharge extends opaque<PeppolLineCharge>()(
     /**
      * @name cbc:AllowanceChargeReasonCode
      */
-    allowanceChargeReasonCode: Schema.optional(chargeReasonCodeSchema),
+    allowanceChargeReasonCode: Schema.optional(PeppolChargeReasonCode),
     /**
      * @name cbc:ChargeIndicator
      *
@@ -60,9 +60,8 @@ export class PeppolLineCharge extends opaque<PeppolLineCharge>()(
   })
 ) {}
 
-export const peppolLineAllowanceChargeSchema = Schema.Union([PeppolLineAllowance, PeppolLineCharge]).annotate({
-  message: 'unable to decode line allowance charge',
-});
+export class PeppolLineAllowanceCharge extends opaque<PeppolLineAllowanceCharge>()(
+  Schema.Union([PeppolLineAllowance, PeppolLineCharge]).annotate({ message: 'unable to decode line allowance charge' })
+) {}
 
-export type PeppolLineAllowanceCharge = typeof peppolLineAllowanceChargeSchema.Type;
-export type PeppolLineAllowanceChargeEncoded = typeof peppolLineAllowanceChargeSchema.Encoded;
+export type PeppolLineAllowanceChargeEncoded = Schema.Codec.Encoded<typeof PeppolLineAllowanceCharge>;

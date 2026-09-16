@@ -16,9 +16,9 @@ Decode any PEPPOL document from an XML string (dispatches on the root element; `
 
 ```ts
 import { Schema } from 'effect';
-import { PeppolCreditNote, PeppolInvoice, PeppolInvoiceResponse, PeppolMessageLevelResponse, peppolDocumentSchema } from '@endevops/peppol-schema';
+import { PeppolCreditNote, PeppolDocumentSchema, PeppolInvoice, PeppolInvoiceResponse, PeppolMessageLevelResponse } from '@endevops/peppol-schema';
 
-const doc = Schema.decodeUnknownSync(peppolDocumentSchema)(xmlString);
+const doc = Schema.decodeUnknownSync(PeppolDocumentSchema)(xmlString);
 if (Schema.is(PeppolInvoice)(doc)) {
   /* doc.invoiceLines … */
 } else if (Schema.is(PeppolCreditNote)(doc)) {
@@ -30,7 +30,7 @@ if (Schema.is(PeppolInvoice)(doc)) {
 }
 
 // Round-trip back to XML:
-const xml = Schema.encodeUnknownSync(peppolDocumentSchema)(doc);
+const xml = Schema.encodeUnknownSync(PeppolDocumentSchema)(doc);
 ```
 
 Run the Schematron rule set or a single rule:
@@ -59,7 +59,7 @@ invoiceTypeCodes['380']; // 'Commercial invoice'
 
 ## Features
 
-- **4 document types**: Invoice, Credit Note, Invoice Response, Message Level Response (UBL 2.1, BIS Billing 3.0) with XML round-trip via `peppolDocumentSchema`
+- **4 document types**: Invoice, Credit Note, Invoice Response, Message Level Response (UBL 2.1, BIS Billing 3.0) with XML round-trip via `PeppolDocumentSchema`
 - **Effect Schema** models with typed decode/encode and `isPeppol*` type guards
 - **Generated code lists** (`/values`): currencies, countries, tax schemes, UNCL, UNTDID, EAS, ICD etc. from OpenPEPPOL
 - **Schematron rules** (`/schematron`): shared PEPPOL + CEN rules and per-country overlays (`de`, `dk`, `gr`, `is`, `it`, `nl`, `no`, `se`), runnable as an Effect service or one rule at a time
@@ -71,7 +71,7 @@ invoiceTypeCodes['380']; // 'Commercial invoice'
 
 | Import path                                      | Description                                              |
 | ------------------------------------------------ | -------------------------------------------------------- |
-| `@endevops/peppol-schema`                        | Document schemas, `peppolDocumentSchema`, types          |
+| `@endevops/peppol-schema`                        | Document schemas, `PeppolDocumentSchema`, types          |
 | `@endevops/peppol-schema/generate-translations`  | CLI that generates translation files                     |
 | `@endevops/peppol-schema/schematron`             | PEPPOL + CEN + per-country Schematron rules              |
 | `@endevops/peppol-schema/validations`            | Identifier and checksum validation rules                 |

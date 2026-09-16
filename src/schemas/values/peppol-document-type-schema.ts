@@ -2,14 +2,8 @@ import { Predicate, Schema } from 'effect';
 
 import type { DocumentTypesTableKeys } from '#/values/document-type.generated';
 
+import { opaque } from '#/schemas/utils/opaque.ts';
 import { documentTypesTable, documentTypesTableKeys } from '#/values/document-type.generated';
-
-/**
- * @description One of the PEPPOL document type schemes (e.g. `busdox-docid-qns`, `peppol-doctype-wildcard`).
- *
- * @see {@link documentTypesTable}
- */
-export type PeppolDocumentType = typeof peppolDocumentTypeSchema.Type;
 
 /**
  * @description Validates a full PEPPOL document type identifier (`<scheme>::<value>`) against the known document type table. The scheme prefix must be a known key
@@ -21,11 +15,13 @@ export type PeppolDocumentType = typeof peppolDocumentTypeSchema.Type;
  *
  * @see {@link documentTypesTable}
  */
-export const peppolDocumentTypeSchema = Schema.TemplateLiteral([Schema.Literals(documentTypesTableKeys), Schema.Literal('::'), Schema.String]).check(
-  Schema.makeFilter((val: string) => {
-    const [prefix, ...suffix] = val.split('::');
-    if (Predicate.isNullish(prefix) || !documentTypesTableKeys.includes(prefix as never)) return false;
-    const info = documentTypesTable[prefix as DocumentTypesTableKeys];
-    return Predicate.isNotNullish(info) && info.some(v => v === suffix.join('::'));
-  })
-);
+export class PeppolDocumentType extends opaque<PeppolDocumentType>()(
+  Schema.TemplateLiteral([Schema.Literals(documentTypesTableKeys), Schema.Literal('::'), Schema.String]).check(
+    Schema.makeFilter((val: string) => {
+      const [prefix, ...suffix] = val.split('::');
+      if (Predicate.isNullish(prefix) || !documentTypesTableKeys.includes(prefix as never)) return false;
+      const info = documentTypesTable[prefix as DocumentTypesTableKeys];
+      return Predicate.isNotNullish(info) && info.some(v => v === suffix.join('::'));
+    })
+  )
+) {}

@@ -1,9 +1,9 @@
 import { Schema } from 'effect';
 import { describe, expect, it } from 'vitest';
 
-import { peppolVatRegexSchema } from './peppol-vat-regex-schema.ts';
+import { PeppolVatRegex } from './peppol-vat-regex-schema.ts';
 
-describe('peppolVatRegexSchema', () => {
+describe('PeppolVatRegex', () => {
   it.each([
     ['BE0208158634', 'Belgium'],
     ['ATU12345678', 'Austria'],
@@ -38,7 +38,7 @@ describe('peppolVatRegexSchema', () => {
     ['SI12345678', 'Slovenia'],
     ['SK1234567890', 'Slovakia'],
   ])('should accept %s (%s) as a VAT number', (value, _label) => {
-    expect(Schema.is(peppolVatRegexSchema)(value)).toBe(true);
+    expect(Schema.is(PeppolVatRegex)(value)).toBe(true);
   });
 
   it.each([
@@ -75,20 +75,20 @@ describe('peppolVatRegexSchema', () => {
     ['XX123456789', 'unknown prefix'],
     ['', 'empty string'],
   ])('should reject %s (%s)', (value, _label) => {
-    expect(Schema.is(peppolVatRegexSchema)(value)).toBe(false);
+    expect(Schema.is(PeppolVatRegex)(value)).toBe(false);
   });
 
   it('rejects non-string inputs', () => {
-    expect(Schema.is(peppolVatRegexSchema)(123)).toBe(false);
+    expect(Schema.is(PeppolVatRegex)(123)).toBe(false);
   });
 
   describe('Belgian mod97 filter', () => {
     it('accepts a Belgian VAT number passing the mod97 check', () => {
-      expect(Schema.is(peppolVatRegexSchema)('BE0208158634')).toBe(true);
+      expect(Schema.is(PeppolVatRegex)('BE0208158634')).toBe(true);
     });
 
     it('adds an issue when the mod97 check fails', () => {
-      expect(Schema.is(peppolVatRegexSchema)('BE0208158641')).toBe(false);
+      expect(Schema.is(PeppolVatRegex)('BE0208158641')).toBe(false);
     });
   });
 });

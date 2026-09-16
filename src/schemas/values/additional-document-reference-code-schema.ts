@@ -1,14 +1,7 @@
 import { Schema } from 'effect';
 
+import { opaque } from '#/schemas/utils/opaque.ts';
 import { additionalDocumentReferenceCodesKeys } from '#/values/additional-document-reference-codes.generated';
-
-/**
- * @description Additional document reference.
- *
- * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/UNCL1153/
- * @see {@link additionalDocumentReferenceCodesKeys}
- */
-export type PeppolAdditionalDocumentReferenceCode = typeof additionalDocumentReferenceCodeSchema.Type;
 
 /**
  * @description Validates an additional document reference code against the PEPPOL subset of UNCL 1153 (reference qualifiers).
@@ -20,6 +13,6 @@ export type PeppolAdditionalDocumentReferenceCode = typeof additionalDocumentRef
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/UNCL1153/
  * @see {@link additionalDocumentReferenceCodesKeys}
  */
-export const additionalDocumentReferenceCodeSchema = Schema.Literals(additionalDocumentReferenceCodesKeys).pipe(
-  Schema.brand('PeppolAdditionalDocumentReferenceCode')
-);
+export class PeppolAdditionalDocumentReferenceCode extends opaque<PeppolAdditionalDocumentReferenceCode>()(
+  Schema.Literals(additionalDocumentReferenceCodesKeys).pipe(Schema.brand('PeppolAdditionalDocumentReferenceCode'))
+) {}

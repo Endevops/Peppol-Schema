@@ -1,13 +1,7 @@
 import { Schema } from 'effect';
 
+import { opaque } from '#/schemas/utils/opaque.ts';
 import { itemClassificationCodesKeys } from '#/values/item-classification-code.generated';
-
-/**
- * @description An item classification code as defined by the PEPPOL subset of UNCL 7143.
- *
- * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/UNCL7143/
- */
-export type PeppolItemClassificationCode = typeof itemClassificationCodesSchema.Type;
 
 /**
  * @description Validates an item classification code against the PEPPOL subset of UNCL 7143.
@@ -21,4 +15,6 @@ export type PeppolItemClassificationCode = typeof itemClassificationCodesSchema.
  *
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/UNCL7143/
  */
-export const itemClassificationCodesSchema = Schema.Literals(itemClassificationCodesKeys).pipe(Schema.brand('PeppolItemClassificationCode'));
+export class PeppolItemClassificationCode extends opaque<PeppolItemClassificationCode>()(
+  Schema.Literals(itemClassificationCodesKeys).pipe(Schema.brand('PeppolItemClassificationCode'))
+) {}

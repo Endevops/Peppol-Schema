@@ -74,9 +74,8 @@ export class PeppolInvoiceResponseDocumentActualResponseWithStatus extends opaqu
   })
 ) {}
 
-export const peppolInvoiceResponseDocumentActualResponseSchema = Schema.Union([
-  PeppolInvoiceResponseDocumentActualResponseWithStatus,
-  PeppolInvoiceResponseDocumentActualResponseWithoutStatus,
-]);
+export class PeppolInvoiceResponseDocumentActualResponse extends opaque<PeppolInvoiceResponseDocumentActualResponse>()(
+  Schema.Union([PeppolInvoiceResponseDocumentActualResponseWithStatus, PeppolInvoiceResponseDocumentActualResponseWithoutStatus])
+) {}
 
-export type InvoiceResponseDocumentActualResponse = typeof peppolInvoiceResponseDocumentActualResponseSchema.Type;
+export type InvoiceResponseDocumentActualResponse = PeppolInvoiceResponseDocumentActualResponse;

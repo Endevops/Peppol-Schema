@@ -6,8 +6,8 @@ import { PeppolIdentifier } from '#/schemas/fields/peppol-identifier-schema.ts';
 import { PeppolPartyLegalEntity } from '#/schemas/fields/peppol-party-legal-entity-schema.ts';
 import { PeppolPartyTaxScheme } from '#/schemas/fields/peppol-party-tax-scheme-schema.ts';
 import { opaque } from '#/schemas/utils/opaque.ts';
-import { electronicCodesSchema } from '#/schemas/values/electronic-codes-schema.ts';
-import { icdCodesSchema } from '#/schemas/values/icd-codes-schema.ts';
+import { PeppolElectronicAddressCode } from '#/schemas/values/electronic-codes-schema.ts';
+import { PeppolIcdCode } from '#/schemas/values/icd-codes-schema.ts';
 
 export class PeppolPartyName extends opaque<PeppolPartyName>()(
   Schema.Struct({
@@ -52,7 +52,7 @@ export class PeppolPartyIdentification extends opaque<PeppolPartyIdentification>
          *
          * @name `@schemeID`
          */
-        schemeId: Schema.optional(icdCodesSchema),
+        schemeId: Schema.optional(PeppolIcdCode),
       })
     ),
   })
@@ -79,7 +79,7 @@ export class PeppolPartyEndpointId extends opaque<PeppolPartyEndpointId>()(
        *
        * @name `@schemeID`
        */
-      schemeId: electronicCodesSchema,
+      schemeId: PeppolElectronicAddressCode,
     })
   )
 ) {}

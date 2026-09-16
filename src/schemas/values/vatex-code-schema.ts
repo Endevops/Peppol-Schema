@@ -1,13 +1,7 @@
 import { Schema } from 'effect';
 
+import { opaque } from '#/schemas/utils/opaque.ts';
 import { vatexCodesKeys } from '#/values/vatex-codes.generated';
-
-/**
- * @description A VAT exemption reason code as defined by the CEF VATEX codelist.
- *
- * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/vatex/
- */
-export type PeppolVatexCode = typeof vatexCodeSchema.Type;
 
 /**
  * @description Validates a VAT exemption reason code against the CEF VATEX codelist.
@@ -21,4 +15,4 @@ export type PeppolVatexCode = typeof vatexCodeSchema.Type;
  *
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/vatex/
  */
-export const vatexCodeSchema = Schema.Literals(vatexCodesKeys).pipe(Schema.brand('PeppolVatexCode'));
+export class PeppolVatexCode extends opaque<PeppolVatexCode>()(Schema.Literals(vatexCodesKeys).pipe(Schema.brand('PeppolVatexCode'))) {}

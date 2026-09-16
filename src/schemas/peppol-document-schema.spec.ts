@@ -3,14 +3,14 @@ import { Effect, Result, Schema } from 'effect';
 import path from 'node:path';
 
 import { PeppolCreditNote } from '#/schemas/peppol-credit-note-schema.ts';
-import { peppolDocumentSchema } from '#/schemas/peppol-document-schema.ts';
+import { PeppolDocumentSchema } from '#/schemas/peppol-document-schema.ts';
 import { PeppolInvoiceResponse } from '#/schemas/peppol-invoice-response-schema.ts';
 import { PeppolInvoice } from '#/schemas/peppol-invoice-schema.ts';
 import { PeppolMessageLevelResponse } from '#/schemas/peppol-message-level-response-schema.ts';
 
 describe('effect/document-parser', () => {
-  const decodeDocument = Schema.decodeEffect(peppolDocumentSchema, { reportInput: true, errors: 'all', concurrency: 'unbounded' });
-  const encodeDocument = Schema.encodeEffect(peppolDocumentSchema, { reportInput: true, errors: 'all', concurrency: 'unbounded' });
+  const decodeDocument = Schema.decodeEffect(PeppolDocumentSchema, { reportInput: true, errors: 'all', concurrency: 'unbounded' });
+  const encodeDocument = Schema.encodeEffect(PeppolDocumentSchema, { reportInput: true, errors: 'all', concurrency: 'unbounded' });
 
   it.effect.each([
     ['#/test/files/v3/invoice/base-example.xml', PeppolInvoice],

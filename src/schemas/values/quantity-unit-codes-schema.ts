@@ -1,13 +1,7 @@
 import { Schema } from 'effect';
 
+import { opaque } from '#/schemas/utils/opaque.ts';
 import { quantityUnitCodesKeys } from '#/values/quantity-unit-codes.generated';
-
-/**
- * @description A unit of measure code as defined by the PEPPOL subset of UN/ECE Recommendation 20.
- *
- * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/UNECERec20/
- */
-export type PeppolQuantityUnitCode = typeof quantityUnitCodesSchema.Type;
 
 /**
  * @description Validates a unit of measure code against the PEPPOL subset of UN/ECE Recommendation 20.
@@ -21,4 +15,6 @@ export type PeppolQuantityUnitCode = typeof quantityUnitCodesSchema.Type;
  *
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/UNECERec20/
  */
-export const quantityUnitCodesSchema = Schema.Literals(quantityUnitCodesKeys).pipe(Schema.brand('PeppolQuantityUnitCode'));
+export class PeppolQuantityUnitCode extends opaque<PeppolQuantityUnitCode>()(
+  Schema.Literals(quantityUnitCodesKeys).pipe(Schema.brand('PeppolQuantityUnitCode'))
+) {}

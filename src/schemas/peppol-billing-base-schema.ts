@@ -3,7 +3,7 @@ import { Effect, Schema } from 'effect';
 import { DEFAULT_CUSTOMIZATION_ID } from '#/schemas/fields/default-customization-id.ts';
 import { DEFAULT_PROFILE_ID } from '#/schemas/fields/default-profile-id.ts';
 import { PeppolAdditionalDocumentReference } from '#/schemas/fields/peppol-additional-document-reference-schema.ts';
-import { peppolAllowanceChargeSchema } from '#/schemas/fields/peppol-allowance-charge-schema.ts';
+import { PeppolAllowanceCharge } from '#/schemas/fields/peppol-allowance-charge-schema.ts';
 import { PeppolBillingReference } from '#/schemas/fields/peppol-billing-reference-schema.ts';
 import { PeppolDelivery } from '#/schemas/fields/peppol-delivery-schema.ts';
 import { PeppolInvoicePeriod } from '#/schemas/fields/peppol-invoice-period-schema.ts';
@@ -17,7 +17,7 @@ import { PeppolTaxRepresentative } from '#/schemas/fields/peppol-tax-representat
 import { PeppolTaxTotalsBase } from '#/schemas/fields/peppol-tax-totals-base-schema.ts';
 import { PeppolIsoDateString } from '#/schemas/peppol-iso-date-string.ts';
 import { opaque } from '#/schemas/utils/opaque.ts';
-import { currencyCodeSchema } from '#/schemas/values/currency-code-schema.ts';
+import { PeppolCurrencyCode } from '#/schemas/values/currency-code-schema.ts';
 
 export class PeppolContractDocumentReference extends opaque<PeppolContractDocumentReference>()(
   Schema.Struct({
@@ -86,8 +86,8 @@ export class PeppolDespatchDocumentReference extends opaque<PeppolDespatchDocume
 /**
  * @description Base schema for a billing document.
  *
- * @see {@link creditNoteSchema} - the credit note schema
- * @see {@link invoiceSchema} - the invoice schema
+ * @see {@link PeppolCreditNote} - the credit note schema
+ * @see {@link PeppolInvoice} - the invoice schema
  */
 export class PeppolBillingBase extends opaque<PeppolBillingBase>()(
   Schema.Struct({
@@ -182,7 +182,7 @@ export class PeppolBillingBase extends opaque<PeppolBillingBase>()(
      *
      * @name `cbc:DocumentCurrencyCode`
      */
-    documentCurrencyCode: currencyCodeSchema,
+    documentCurrencyCode: PeppolCurrencyCode,
     /**
      * @description The currency used for VAT accounting and reporting purposes as accepted or required in the country of the Seller. Shall be used in combination
      * with the Invoice total VAT amount in accounting currency (BT-111), when the VAT accounting currency code differs from the Invoice currency
@@ -195,7 +195,7 @@ export class PeppolBillingBase extends opaque<PeppolBillingBase>()(
      *
      * @name `cbc:TaxCurrencyCode`
      */
-    taxCurrencyCode: Schema.optional(currencyCodeSchema),
+    taxCurrencyCode: Schema.optional(PeppolCurrencyCode),
     /**
      * @description A textual value that specifies where to book the relevant data into the Buyer's financial accounts.
      *
@@ -345,7 +345,7 @@ export class PeppolBillingBase extends opaque<PeppolBillingBase>()(
      *
      * @name cac:AllowanceCharge
      */
-    allowanceCharges: Schema.optional(Schema.Array(peppolAllowanceChargeSchema)),
+    allowanceCharges: Schema.optional(Schema.Array(PeppolAllowanceCharge)),
 
     /**
      * @description When tax currency code is provided, two instances of the tax total must be present, but only one with tax subtotal.

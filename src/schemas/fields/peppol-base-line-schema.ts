@@ -3,7 +3,7 @@ import { Effect, Schema } from 'effect';
 import { PeppolAmount } from '#/schemas/fields/peppol-amount-schema.ts';
 import { PeppolIdentifier } from '#/schemas/fields/peppol-identifier-schema.ts';
 import { PeppolInvoiceLinePeriod } from '#/schemas/fields/peppol-invoice-line-period-schema.ts';
-import { peppolLineAllowanceChargeSchema } from '#/schemas/fields/peppol-line-allowance-charge-schema.ts';
+import { PeppolLineAllowanceCharge } from '#/schemas/fields/peppol-line-allowance-charge-schema.ts';
 import { PeppolLineItem } from '#/schemas/fields/peppol-line-item-schema.ts';
 import { PeppolLinePrice } from '#/schemas/fields/peppol-line-price-schema.ts';
 import { opaque } from '#/schemas/utils/opaque.ts';
@@ -37,7 +37,7 @@ export class PeppolBaseLine extends opaque<PeppolBaseLine>()(
      *
      * @cardinality 0..n
      */
-    allowanceCharges: Schema.optional(Schema.Array(peppolLineAllowanceChargeSchema)),
+    allowanceCharges: Schema.optional(Schema.Array(PeppolLineAllowanceCharge)),
     /**
      * @summary Line object identifier
      *

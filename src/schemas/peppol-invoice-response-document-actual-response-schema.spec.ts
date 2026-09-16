@@ -3,10 +3,10 @@ import { DateTime } from 'effect';
 import { TestSchema } from 'effect/testing';
 import { describe, it } from 'vitest';
 
-import { peppolInvoiceResponseDocumentActualResponseSchema } from './peppol-invoice-response-document-actual-response-schema.ts';
+import { PeppolInvoiceResponseDocumentActualResponse } from './peppol-invoice-response-document-actual-response-schema.ts';
 
-describe('peppolInvoiceResponseDocumentActualResponseSchema', () => {
-  const testSchema = new TestSchema.Asserts(peppolInvoiceResponseDocumentActualResponseSchema);
+describe('PeppolInvoiceResponseDocumentActualResponse', () => {
+  const testSchema = new TestSchema.Asserts(PeppolInvoiceResponseDocumentActualResponse);
   const decode = testSchema.decoding();
 
   it('should decode a response code that requires clarification with a status', async () => {

@@ -2,10 +2,10 @@
 import { TestSchema } from 'effect/testing';
 import { describe, it } from 'vitest';
 
-import { peppolAllowanceChargeSchema } from './peppol-allowance-charge-schema.ts';
+import { PeppolAllowanceCharge } from './peppol-allowance-charge-schema.ts';
 
-describe('peppolAllowanceChargeSchema', () => {
-  const testSchema = new TestSchema.Asserts(peppolAllowanceChargeSchema);
+describe('PeppolAllowanceCharge', () => {
+  const testSchema = new TestSchema.Asserts(PeppolAllowanceCharge);
   const decode = testSchema.decoding();
 
   it('should parse a document level allowance', async () => {

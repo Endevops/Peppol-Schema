@@ -1,7 +1,7 @@
 import { Schema } from 'effect';
 
 import { opaque } from '#/schemas/utils/opaque.ts';
-import { peppolCountryCodeSchema } from '#/schemas/values/peppol-country-code-schema.ts';
+import { PeppolCountryCodeValue } from '#/schemas/values/peppol-country-code-schema.ts';
 
 export class PeppolAddressLine extends opaque<PeppolAddressLine>()(
   Schema.Struct({
@@ -28,7 +28,7 @@ export class PeppolCountryCode extends opaque<PeppolCountryCode>()(
      *
      * @name `cbc:IdentificationCode`
      */
-    identificationCode: peppolCountryCodeSchema,
+    identificationCode: PeppolCountryCodeValue,
   })
 ) {}
 

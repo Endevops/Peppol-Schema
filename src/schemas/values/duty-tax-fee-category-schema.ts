@@ -1,14 +1,7 @@
 import { Schema } from 'effect';
 
+import { opaque } from '#/schemas/utils/opaque.ts';
 import { dutyTaxFeeCategoriesKeys } from '#/values/duty-tax-fee-categories.generated';
-
-/**
- * @description A duty, tax or fee category code as defined by the PEPPOL subset of UNCL 5305 (VAT category code).
- *
- * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/UNCL5305/
- */
-export type PeppolDutyTaxFeeCategoryCode = typeof peppolDutyTaxFeeCategorySchema.Type;
-export type PeppolDutyTaxFeeCategoryCodeEncoded = typeof peppolDutyTaxFeeCategorySchema.Encoded;
 
 /**
  * @description Validates a duty, tax or fee category code against the PEPPOL subset of UNCL 5305 (VAT category code).
@@ -22,4 +15,8 @@ export type PeppolDutyTaxFeeCategoryCodeEncoded = typeof peppolDutyTaxFeeCategor
  *
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/UNCL5305/
  */
-export const peppolDutyTaxFeeCategorySchema = Schema.Literals(dutyTaxFeeCategoriesKeys).pipe(Schema.brand('PeppolDutyTaxFeeCategoryCode'));
+export class PeppolDutyTaxFeeCategoryCode extends opaque<PeppolDutyTaxFeeCategoryCode>()(
+  Schema.Literals(dutyTaxFeeCategoriesKeys).pipe(Schema.brand('PeppolDutyTaxFeeCategoryCode'))
+) {}
+
+export type PeppolDutyTaxFeeCategoryCodeEncoded = Schema.Codec.Encoded<typeof PeppolDutyTaxFeeCategoryCode>;

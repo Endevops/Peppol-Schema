@@ -2,7 +2,7 @@ import { Schema } from 'effect';
 
 import { PeppolIsoDateString } from '#/schemas/peppol-iso-date-string.ts';
 import { opaque } from '#/schemas/utils/opaque.ts';
-import { icdCodesSchema } from '#/schemas/values/icd-codes-schema.ts';
+import { PeppolIcdCode } from '#/schemas/values/icd-codes-schema.ts';
 
 import { PeppolAddress } from './peppol-address-schema.ts';
 import { PeppolIdentifier } from './peppol-identifier-schema.ts';
@@ -64,7 +64,7 @@ export class PeppolDeliveryLocation extends opaque<PeppolDeliveryLocation>()(
            *
            * @name `@schemeID`
            */
-          schemeId: Schema.optional(icdCodesSchema),
+          schemeId: Schema.optional(PeppolIcdCode),
         })
       )
     ),

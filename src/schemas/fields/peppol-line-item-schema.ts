@@ -4,8 +4,8 @@ import { PeppolIdentifier } from '#/schemas/fields/peppol-identifier-schema.ts';
 import { PeppolItemClassification } from '#/schemas/fields/peppol-item-classification-schema.ts';
 import { PeppolTaxCategory } from '#/schemas/fields/peppol-tax-category-schema.ts';
 import { opaque } from '#/schemas/utils/opaque.ts';
-import { icdCodesSchema } from '#/schemas/values/icd-codes-schema.ts';
-import { peppolCountryCodeSchema } from '#/schemas/values/peppol-country-code-schema.ts';
+import { PeppolIcdCode } from '#/schemas/values/icd-codes-schema.ts';
+import { PeppolCountryCodeValue } from '#/schemas/values/peppol-country-code-schema.ts';
 
 export class PeppolAdditionalItemProperties extends opaque<PeppolAdditionalItemProperties>()(
   Schema.Struct({
@@ -53,7 +53,7 @@ export class PeppolOriginCountryCode extends opaque<PeppolOriginCountryCode>()(
      *
      * @name `cbc:IdentificationCode`
      */
-    identificationCode: peppolCountryCodeSchema,
+    identificationCode: PeppolCountryCodeValue,
   })
 ) {}
 
@@ -83,7 +83,7 @@ export class PeppolStandardItemIdentification extends opaque<PeppolStandardItemI
          *
          * @name `@schemeID`
          */
-        schemeId: icdCodesSchema,
+        schemeId: PeppolIcdCode,
       })
     ),
   })

@@ -3,7 +3,7 @@ import { Schema } from 'effect';
 import { PeppolBaseLine } from '#/schemas/fields/peppol-base-line-schema.ts';
 import { PeppolQuantity } from '#/schemas/fields/peppol-quantity-schema.ts';
 import { opaque } from '#/schemas/utils/opaque.ts';
-import { quantityUnitCodesSchema } from '#/schemas/values/quantity-unit-codes-schema.ts';
+import { PeppolQuantityUnitCode } from '#/schemas/values/quantity-unit-codes-schema.ts';
 
 /**
  * @description Credit note line is identical to Invoice line except the quantity element name.
@@ -35,7 +35,7 @@ export class PeppolCreditNoteLine extends opaque<PeppolCreditNoteLine>()(
            *
            * @see {@link quantityUnitCodes}
            */
-          unitCode: quantityUnitCodesSchema,
+          unitCode: PeppolQuantityUnitCode,
         })
       ),
     })

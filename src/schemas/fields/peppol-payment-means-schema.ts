@@ -2,7 +2,7 @@ import { Schema } from 'effect';
 
 import { PeppolIsoDateString } from '#/schemas/peppol-iso-date-string.ts';
 import { opaque } from '#/schemas/utils/opaque.ts';
-import { paymentMeansCodeSchema } from '#/schemas/values/payment-means-code-schema.ts';
+import { PeppolPaymentMeansCodeValue } from '#/schemas/values/payment-means-code-schema.ts';
 
 export class PeppolPaymentMandatePayerFinancialAccountId extends opaque<PeppolPaymentMandatePayerFinancialAccountId>()(
   Schema.Struct({
@@ -137,7 +137,7 @@ export class PeppolPaymentMeansCode extends opaque<PeppolPaymentMeansCode>()(
      *
      * @name `#text`
      */
-    code: paymentMeansCodeSchema,
+    code: PeppolPaymentMeansCodeValue,
     /**
      * @description The means, expressed as text, for how a payment is expected to be or has been settled.
      *

@@ -4,12 +4,12 @@ import { INVOICE_RESPONSE_PROFILE_ID } from '#/constants/invoice-response-profil
 import { PeppolContact } from '#/schemas/fields/peppol-contact-schema.ts';
 import { PeppolIdentifier } from '#/schemas/fields/peppol-identifier-schema.ts';
 import { PeppolPartyLegalEntity } from '#/schemas/fields/peppol-party-legal-entity-schema.ts';
-import { peppolInvoiceResponseDocumentActualResponseSchema } from '#/schemas/peppol-invoice-response-document-actual-response-schema.ts';
+import { PeppolInvoiceResponseDocumentActualResponse } from '#/schemas/peppol-invoice-response-document-actual-response-schema.ts';
 import { PeppolIsoDateString } from '#/schemas/peppol-iso-date-string.ts';
 import { PeppolMessageLevelResponseParty } from '#/schemas/peppol-message-level-response-party-schema.ts';
 import { PeppolMessageLevelResponse } from '#/schemas/peppol-message-level-response-schema.ts';
 import { opaque } from '#/schemas/utils/opaque.ts';
-import { peppolDocumentTypeCodeSchema } from '#/schemas/values/peppol-document-type-code-schema.ts';
+import { PeppolDocumentTypeCode } from '#/schemas/values/peppol-document-type-code-schema.ts';
 
 export class PeppolInvoiceResponseDocumentResponsePartyName extends opaque<PeppolInvoiceResponseDocumentResponsePartyName>()(
   Schema.Struct({
@@ -102,7 +102,7 @@ export class PeppolInvoiceResponseDocumentReference extends opaque<PeppolInvoice
      *
      * @summary Identifier type code
      */
-    documentTypeCode: peppolDocumentTypeCodeSchema,
+    documentTypeCode: PeppolDocumentTypeCode,
   })
 ) {}
 
@@ -115,7 +115,7 @@ export class PeppolInvoiceResponseDocumentResponse extends opaque<PeppolInvoiceR
      *
      * @cardinality (1..1)
      */
-    response: peppolInvoiceResponseDocumentActualResponseSchema,
+    response: PeppolInvoiceResponseDocumentActualResponse,
     /**
      * @summary Document reference
      *

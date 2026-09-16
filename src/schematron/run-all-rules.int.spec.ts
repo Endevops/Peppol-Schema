@@ -2,7 +2,7 @@ import { describe, expect, it } from '@effect/vitest';
 import { Effect, Schema } from 'effect';
 import { GenericContainer } from 'testcontainers';
 
-import { peppolDocumentSchema } from '#/schemas/peppol-document-schema.ts';
+import { PeppolDocumentSchema } from '#/schemas/peppol-document-schema.ts';
 import { Schematron } from '#/schematron/schematron.ts';
 import { decodeBaseExample } from '#/test/test-utils.ts';
 
@@ -20,7 +20,7 @@ describe.todo('schematron.run-all-rules', () => {
       await using container = await new GenericContainer('theyoxy/peppol-validation:develop').withExposedPorts(8080).start();
       console.log('Container started');
       const baseDocument = await decodeBaseExample();
-      const baseDocumentXml = Effect.runSync(Schema.encodeEffect(peppolDocumentSchema)(baseDocument as any));
+      const baseDocumentXml = Effect.runSync(Schema.encodeEffect(PeppolDocumentSchema)(baseDocument as any));
 
       console.log('Sending validation request to', `http://${container.getHost()}:${container.getMappedPort(8080)}/validate/invoice`);
       const result = await fetch(`http://${container.getHost()}:${container.getMappedPort(8080)}/validate/invoice`, {

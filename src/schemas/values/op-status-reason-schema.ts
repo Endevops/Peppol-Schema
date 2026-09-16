@@ -1,13 +1,7 @@
 import { Schema } from 'effect';
 
+import { opaque } from '#/schemas/utils/opaque.ts';
 import { opStatusReasonKeys } from '#/values/op-status-reason.generated';
-
-/**
- * @description An OpenPeppol operation status reason code (e.g. the reason for a message response outcome).
- *
- * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/OPStatusReason/
- */
-export type PeppolOpStatusReason = typeof opStatusReasonSchema.Type;
 
 /**
  * @description Validates an OpenPeppol operation status reason code against the OPStatusReason codelist.
@@ -18,4 +12,6 @@ export type PeppolOpStatusReason = typeof opStatusReasonSchema.Type;
  *
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/OPStatusReason/
  */
-export const opStatusReasonSchema = Schema.Literals(opStatusReasonKeys).pipe(Schema.brand('PeppolOpStatusReason'));
+export class PeppolOpStatusReason extends opaque<PeppolOpStatusReason>()(
+  Schema.Literals(opStatusReasonKeys).pipe(Schema.brand('PeppolOpStatusReason'))
+) {}

@@ -2,7 +2,7 @@ import { Schema } from 'effect';
 
 import { PeppolIdentifier } from '#/schemas/fields/peppol-identifier-schema.ts';
 import { opaque } from '#/schemas/utils/opaque.ts';
-import { icdCodesSchema } from '#/schemas/values/icd-codes-schema.ts';
+import { PeppolIcdCode } from '#/schemas/values/icd-codes-schema.ts';
 
 class PeppolPartyName extends opaque<PeppolPartyName>()(Schema.Struct({ name: Schema.String })) {}
 
@@ -39,7 +39,7 @@ class PeppolPartyLegalEntity extends opaque<PeppolPartyLegalEntity>()(
            *
            * @name `@schemeID`
            */
-          schemeId: Schema.optional(icdCodesSchema),
+          schemeId: Schema.optional(PeppolIcdCode),
         })
       )
     ),

@@ -1,5 +1,6 @@
 import { Schema } from 'effect';
 
+import { opaque } from '#/schemas/utils/opaque.ts';
 import { documentTypesScheme } from '#/values/document-type.generated';
 
 /**
@@ -11,4 +12,6 @@ import { documentTypesScheme } from '#/values/document-type.generated';
  *
  * @see {@link documentTypesScheme}
  */
-export const documentTypeSchemesSchema = Schema.Literals(documentTypesScheme as [string, ...Array<string>]);
+export class PeppolDocumentTypeScheme extends opaque<PeppolDocumentTypeScheme>()(
+  Schema.Literals(documentTypesScheme as [string, ...Array<string>])
+) {}

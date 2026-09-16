@@ -1,13 +1,7 @@
 import { Schema } from 'effect';
 
+import { opaque } from '#/schemas/utils/opaque.ts';
 import { invoiceTypeCodesKeys } from '#/values/invoice-type-codes.generated';
-
-/**
- * @description An invoice type code as defined by the PEPPOL subset of UNCL 1001 (invoice).
- *
- * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/UNCL1001-inv/
- */
-export type PeppolInvoiceTypeCode = typeof invoiceTypeCodeSchema.Type;
 
 /**
  * @description Validates an invoice type code against the PEPPOL subset of UNCL 1001 (invoice).
@@ -18,4 +12,6 @@ export type PeppolInvoiceTypeCode = typeof invoiceTypeCodeSchema.Type;
  *
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/UNCL1001-inv/
  */
-export const invoiceTypeCodeSchema = Schema.Literals(invoiceTypeCodesKeys).pipe(Schema.brand('PeppolInvoiceTypeCode'));
+export class PeppolInvoiceTypeCode extends opaque<PeppolInvoiceTypeCode>()(
+  Schema.Literals(invoiceTypeCodesKeys).pipe(Schema.brand('PeppolInvoiceTypeCode'))
+) {}

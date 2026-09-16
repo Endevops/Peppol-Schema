@@ -6,4 +6,4 @@ export class PeppolReferenceId extends opaque<PeppolReferenceId>()(Schema.Struct
 
 export const peppolReferenceSchema = Schema.Union([PeppolReferenceId, Schema.Undefined]);
 
-export type PeppolReferenceSchema = typeof peppolReferenceSchema.Type;
+export type PeppolReferenceSchema = Schema.Schema.Type<typeof peppolReferenceSchema>;

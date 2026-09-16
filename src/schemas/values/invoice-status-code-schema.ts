@@ -1,13 +1,7 @@
 import { Schema } from 'effect';
 
+import { opaque } from '#/schemas/utils/opaque.ts';
 import { invoiceStatusCodesKeys } from '#/values/invoice-status-codes.generated';
-
-/**
- * @description An invoice status code as defined by the PEPPOL subset of UNCL 4343 (T111).
- *
- * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/UNCL4343-T111/
- */
-export type PeppolInvoiceStatusCodes = typeof invoiceStatusCodeSchema.Type;
 
 /**
  * @description Validates an invoice status code against the PEPPOL subset of UNCL 4343 (T111).
@@ -18,4 +12,6 @@ export type PeppolInvoiceStatusCodes = typeof invoiceStatusCodeSchema.Type;
  *
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/UNCL4343-T111/
  */
-export const invoiceStatusCodeSchema = Schema.Literals(invoiceStatusCodesKeys).pipe(Schema.brand('PeppolInvoiceStatusCodes'));
+export class PeppolInvoiceStatusCodes extends opaque<PeppolInvoiceStatusCodes>()(
+  Schema.Literals(invoiceStatusCodesKeys).pipe(Schema.brand('PeppolInvoiceStatusCodes'))
+) {}

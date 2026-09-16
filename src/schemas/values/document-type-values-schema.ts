@@ -1,5 +1,6 @@
 import { Record, Schema } from 'effect';
 
+import { opaque } from '#/schemas/utils/opaque.ts';
 import { documentTypesTable } from '#/values/document-type.generated';
 
 const values = Record.values(documentTypesTable).flat();
@@ -13,4 +14,6 @@ const values = Record.values(documentTypesTable).flat();
  *
  * @see {@link documentTypesTable}
  */
-export const documentTypeValuesSchema = Schema.String.check(Schema.makeFilter((val: string) => values.includes(val as never)));
+export class PeppolDocumentTypeValue extends opaque<PeppolDocumentTypeValue>()(
+  Schema.String.check(Schema.makeFilter((val: string) => values.includes(val as never)))
+) {}

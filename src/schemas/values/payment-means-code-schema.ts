@@ -8,14 +8,8 @@
 
 import { Schema } from 'effect';
 
+import { opaque } from '#/schemas/utils/opaque.ts';
 import { paymentMeansCodesKeys } from '#/values/payment-means-codes.generated';
-
-/**
- * @description A payment means code as defined by the PEPPOL subset of UNCL 4461.
- *
- * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/UNCL4461/
- */
-export type PeppolPaymentMeansCode = typeof paymentMeansCodeSchema.Type;
 
 /**
  * @description Validates a payment means code against the PEPPOL subset of UNCL 4461.
@@ -29,4 +23,6 @@ export type PeppolPaymentMeansCode = typeof paymentMeansCodeSchema.Type;
  *
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/UNCL4461/
  */
-export const paymentMeansCodeSchema = Schema.Literals(paymentMeansCodesKeys).pipe(Schema.brand('PeppolPaymentMeansCode'));
+export class PeppolPaymentMeansCodeValue extends opaque<PeppolPaymentMeansCodeValue>()(
+  Schema.Literals(paymentMeansCodesKeys).pipe(Schema.brand('PeppolPaymentMeansCodeValue'))
+) {}
