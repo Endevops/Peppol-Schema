@@ -1,12 +1,12 @@
-import { describe, expect, it } from '@effect/vitest';
-import { Effect, Schema } from 'effect';
+import { expect, layer } from '@effect/vitest';
+import { Effect, Layer, Schema } from 'effect';
 
 import { PeppolInvoiceResponse } from '#/schemas/peppol-invoice-response-schema.ts';
 
 import { encodeInvoiceResponse } from './encode-invoice-response.ts';
 
-describe('encodeInvoiceResponse', () => {
-  const decodeInvoiceResponse = (input: any) => Effect.runSync(Schema.decodeEffect(PeppolInvoiceResponse)(input));
+layer(Layer.empty)('encodeInvoiceResponse', it => {
+  const decodeInvoiceResponse = Schema.decodeEffect(PeppolInvoiceResponse);
   const invoiceResponse = decodeInvoiceResponse({
     customizationId: 'urn:fdc:peppol.eu:poacc:trns:invoice_response:3',
     documentResponse: {
@@ -43,9 +43,9 @@ describe('encodeInvoiceResponse', () => {
   });
 
   it.effect(
-    'should decode an invoice response',
+    'should encode an invoice response',
     Effect.fn(function* () {
-      const out = yield* encodeInvoiceResponse(invoiceResponse);
+      const out = yield* encodeInvoiceResponse(yield* invoiceResponse);
       expect(out).toMatchSnapshot('invoice-response');
     })
   );

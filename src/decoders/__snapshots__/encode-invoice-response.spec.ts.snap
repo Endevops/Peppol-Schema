@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`encodeInvoiceResponse > should decode an invoice response > invoice-response 1`] = `
+exports[`encodeInvoiceResponse > should encode an invoice response > invoice-response 1`] = `
 {
   "?xml": {
     "@encoding": "UTF-8",
@@ -98,7 +98,7 @@ exports[`encodeInvoiceResponse > should decode an invoice response > invoice-res
     "cbc:CustomizationID": "urn:fdc:peppol.eu:poacc:trns:invoice_response:3",
     "cbc:ID": "imrid001",
     "cbc:IssueDate": "2017-12-01T00:00:00.000Z",
-    "cbc:IssueTime": "2026-09-14T12:00:00.000Z",
+    "cbc:IssueTime": "1970-01-01T12:00:00.000Z",
     "cbc:Note": "text",
     "cbc:ProfileID": "urn:fdc:peppol.eu:poacc:bis:invoice_response:3",
   },

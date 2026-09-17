@@ -60,7 +60,7 @@ exports[`encodeMessageLevelResponse() > should encode an invoice to the xml stru
     "cbc:CustomizationID": "urn:fdc:peppol.eu:poacc:trns:mlr:3",
     "cbc:ID": "MLR-ID123",
     "cbc:IssueDate": "2016-08-15T00:00:00.000Z",
-    "cbc:IssueTime": "2026-09-14T12:00:00.000Z",
+    "cbc:IssueTime": "1970-01-01T12:00:00.000Z",
     "cbc:ProfileID": "urn:fdc:peppol.eu:poacc:bis:mlr:3",
   },
 }

@@ -5,7 +5,7 @@ import { encodeMessageLevelResponse } from '#/decoders/encode-message-level-resp
 import { PeppolMessageLevelResponse } from '#/schemas/peppol-message-level-response-schema.ts';
 
 describe('encodeMessageLevelResponse()', () => {
-  const decodeMessageLevelResponse = (input: any) => Effect.runSync(Schema.decodeEffect(PeppolMessageLevelResponse)(input));
+  const decodeMessageLevelResponse = Schema.decodeEffect(PeppolMessageLevelResponse);
   const invoice = decodeMessageLevelResponse({
     customizationId: 'urn:fdc:peppol.eu:poacc:trns:mlr:3',
     documentResponse: {
@@ -33,7 +33,7 @@ describe('encodeMessageLevelResponse()', () => {
   it.effect(
     'should encode an invoice to the xml structure',
     Effect.fn(function* () {
-      const result = yield* encodeMessageLevelResponse(invoice).pipe(Effect.mapError(issue => new Schema.SchemaError(issue)));
+      const result = yield* encodeMessageLevelResponse(yield* invoice).pipe(Effect.mapError(issue => new Schema.SchemaError(issue)));
       expect(result).toMatchSnapshot();
     })
   );
