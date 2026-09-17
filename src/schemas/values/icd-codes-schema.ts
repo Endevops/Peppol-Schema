@@ -17,4 +17,6 @@ import { icdCodesKeys } from '#/values/icd-codes.generated';
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/ICD/
  * @see {@link icdCodesKeys}
  */
-export class PeppolIcdCode extends opaque<PeppolIcdCode>()(Schema.Literals(icdCodesKeys).pipe(Schema.brand('PeppolIcdCode'))) {}
+export class PeppolIcdCode extends opaque<PeppolIcdCode>()(
+  Schema.Literals(icdCodesKeys).pipe(Schema.brand('PeppolIcdCode'), Schema.toStandardSchemaV1)
+) {}

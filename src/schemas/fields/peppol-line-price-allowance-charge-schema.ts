@@ -35,7 +35,7 @@ class PriceAllowanceCharge extends opaque<PriceAllowanceCharge>()(
      * @value false
      */
     chargeIndicator: Schema.Boolean,
-  })
+  }).pipe(Schema.toStandardSchemaV1)
 ) {}
 
 /**
@@ -54,7 +54,8 @@ export class PeppolLinePriceAllowanceCharge extends opaque<PeppolLinePriceAllowa
       chargeIndicator: Schema.Literal(false).annotate({
         message: "PEPPOL-EN16931-R044: Charge on price level is NOT allowed. Only value 'false' allowed.",
       }),
-    })
+    }),
+    Schema.toStandardSchemaV1
   )
 ) {}
 

@@ -37,7 +37,7 @@ export class PeppolInvoiceResponseCondition extends opaque<PeppolInvoiceResponse
      * @name `cbc:Description`
      */
     description: Schema.optional(Schema.String),
-  })
+  }).pipe(Schema.toStandardSchemaV1)
 ) {}
 
 /**
@@ -77,5 +77,5 @@ export class PeppolInvoiceResponseDocumentActualResponseStatus extends opaque<Pe
      * @name `cac:Condition`
      */
     condition: Schema.optional(Schema.Array(PeppolInvoiceResponseCondition)),
-  })
+  }).pipe(Schema.toStandardSchemaV1)
 ) {}

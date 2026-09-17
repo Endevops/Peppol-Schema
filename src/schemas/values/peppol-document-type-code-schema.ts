@@ -15,5 +15,5 @@ import { documentTypeCodesKeys } from '#/values/document-type-codes.generated';
  * @see {@link documentTypeCodesKeys}
  */
 export class PeppolDocumentTypeCode extends opaque<PeppolDocumentTypeCode>()(
-  Schema.Literals(documentTypeCodesKeys).pipe(Schema.brand('PeppolDocumentTypeCode'))
+  Schema.Literals(documentTypeCodesKeys).pipe(Schema.brand('PeppolDocumentTypeCode'), Schema.toStandardSchemaV1)
 ) {}

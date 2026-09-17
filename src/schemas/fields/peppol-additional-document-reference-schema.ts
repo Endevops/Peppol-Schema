@@ -30,7 +30,7 @@ export class PeppolAttachmentExternalReference extends opaque<PeppolAttachmentEx
      * @name `cbc:URI`
      */
     uri: Schema.String,
-  })
+  }).pipe(Schema.toStandardSchemaV1)
 ) {}
 
 /**
@@ -71,7 +71,7 @@ export class PeppolAttachment extends opaque<PeppolAttachment>()(
      * @name `cac:ExternalReference`
      */
     externalReference: Schema.optional(PeppolAttachmentExternalReference),
-  })
+  }).pipe(Schema.toStandardSchemaV1)
 ) {}
 
 /**
@@ -105,7 +105,8 @@ export class PeppolId extends opaque<PeppolId>()(
        * @name `@schemeID`
        */
       schemeId: Schema.optional(PeppolAdditionalDocumentReferenceCode),
-    })
+    }),
+    Schema.toStandardSchemaV1
   )
 ) {}
 
@@ -159,6 +160,7 @@ export class PeppolAdditionalDocumentReference extends opaque<PeppolAdditionalDo
        * @name `cac:Attachment`
        */
       attachment: Schema.optional(PeppolAttachment),
-    })
+    }),
+    Schema.toStandardSchemaV1
   )
 ) {}

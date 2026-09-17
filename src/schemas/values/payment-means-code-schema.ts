@@ -26,5 +26,5 @@ import { paymentMeansCodesKeys } from '#/values/payment-means-codes.generated';
  * @see {@link paymentMeansCodesKeys}
  */
 export class PeppolPaymentMeansCodeValue extends opaque<PeppolPaymentMeansCodeValue>()(
-  Schema.Literals(paymentMeansCodesKeys).pipe(Schema.brand('PeppolPaymentMeansCodeValue'))
+  Schema.Literals(paymentMeansCodesKeys).pipe(Schema.brand('PeppolPaymentMeansCodeValue'), Schema.toStandardSchemaV1)
 ) {}

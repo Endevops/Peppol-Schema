@@ -15,5 +15,5 @@ import { applicationResponseTypeCodesKeys } from '#/values/application-response-
  * @see {@link applicationResponseTypeCodesKeys}
  */
 export class PeppolApplicationResponseTypeCode extends opaque<PeppolApplicationResponseTypeCode>()(
-  Schema.Literals(applicationResponseTypeCodesKeys)
+  Schema.Literals(applicationResponseTypeCodesKeys).pipe(Schema.toStandardSchemaV1)
 ) {}

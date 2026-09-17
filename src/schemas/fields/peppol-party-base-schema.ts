@@ -30,7 +30,7 @@ export class PeppolPartyName extends opaque<PeppolPartyName>()(
      * @summary Buyer/Seller trading name
      */
     name: Schema.String,
-  })
+  }).pipe(Schema.toStandardSchemaV1)
 ) {}
 
 /**
@@ -75,7 +75,7 @@ export class PeppolPartyIdentification extends opaque<PeppolPartyIdentification>
         schemeId: Schema.optional(PeppolIcdCode),
       })
     ),
-  })
+  }).pipe(Schema.toStandardSchemaV1)
 ) {}
 
 /**
@@ -110,7 +110,8 @@ export class PeppolPartyEndpointId extends opaque<PeppolPartyEndpointId>()(
        * @name `@schemeID`
        */
       schemeId: PeppolElectronicAddressCode,
-    })
+    }),
+    Schema.toStandardSchemaV1
   )
 ) {}
 
@@ -173,5 +174,5 @@ export class PeppolPartySchema extends opaque<PeppolPartySchema>()(
      * @name cac:Contact
      */
     contact: Schema.optional(PeppolContact),
-  })
+  }).pipe(Schema.toStandardSchemaV1)
 ) {}

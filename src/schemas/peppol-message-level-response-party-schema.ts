@@ -26,5 +26,5 @@ export class PeppolMessageLevelResponseParty extends opaque<PeppolMessageLevelRe
      * @name `cbc:EndpointID (+ @schemeID)`
      */
     endpointId: Schema.optional(PeppolIdentifier),
-  })
+  }).pipe(Schema.toStandardSchemaV1)
 ) {}

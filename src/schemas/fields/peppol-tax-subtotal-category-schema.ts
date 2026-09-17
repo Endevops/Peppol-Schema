@@ -25,7 +25,7 @@ export class PeppolTaxSubTotalCategory extends opaque<PeppolTaxSubTotalCategory>
      * @name cbc:TaxExemptionReasonCode
      */
     taxExemptionReasonCode: Schema.optional(Schema.String),
-  })
+  }).pipe(Schema.toStandardSchemaV1)
 ) {}
 
 /**

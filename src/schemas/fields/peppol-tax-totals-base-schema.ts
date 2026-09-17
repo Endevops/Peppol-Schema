@@ -24,5 +24,5 @@ export class PeppolTaxTotal extends opaque<PeppolTaxTotal>()(
      * @name cac:TaxSubtotal (0..n)
      */
     taxSubtotals: Schema.optional(Schema.Array(PeppolTaxSubTotal)),
-  })
+  }).pipe(Schema.toStandardSchemaV1)
 ) {}

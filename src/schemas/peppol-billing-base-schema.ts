@@ -42,7 +42,7 @@ export class PeppolContractDocumentReference extends opaque<PeppolContractDocume
      * @name `cbc:ID`
      */
     id: Schema.String,
-  })
+  }).pipe(Schema.toStandardSchemaV1)
 ) {}
 
 /**
@@ -68,7 +68,7 @@ export class PeppolOriginatorDocumentReference extends opaque<PeppolOriginatorDo
      * @name `cbc:ID`
      */
     id: Schema.String,
-  })
+  }).pipe(Schema.toStandardSchemaV1)
 ) {}
 
 /**
@@ -94,7 +94,7 @@ export class PeppolReceiptDocumentReference extends opaque<PeppolReceiptDocument
      * @name `cbc:ID`
      */
     id: Schema.String,
-  })
+  }).pipe(Schema.toStandardSchemaV1)
 ) {}
 
 /**
@@ -120,7 +120,7 @@ export class PeppolDespatchDocumentReference extends opaque<PeppolDespatchDocume
      * @name `cbc:ID`
      */
     id: Schema.String,
-  })
+  }).pipe(Schema.toStandardSchemaV1)
 ) {}
 
 /**
@@ -402,5 +402,5 @@ export class PeppolBillingBase extends opaque<PeppolBillingBase>()(
      * @name cac:LegalMonetaryTotal
      */
     legalMonetaryTotal: PeppolLegalMonetaryTotal,
-  })
+  }).pipe(Schema.toStandardSchemaV1)
 ) {}

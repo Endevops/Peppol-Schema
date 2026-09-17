@@ -25,5 +25,5 @@ import { electronicAddressCodesKeys } from '#/values/eas-codes.generated';
  * @see {@link electronicAddressCodesKeys}
  */
 export class PeppolElectronicAddressCode extends opaque<PeppolElectronicAddressCode>()(
-  Schema.Literals(electronicAddressCodesKeys).pipe(Schema.brand('PeppolElectronicAddressCode'))
+  Schema.Literals(electronicAddressCodesKeys).pipe(Schema.brand('PeppolElectronicAddressCode'), Schema.toStandardSchemaV1)
 ) {}

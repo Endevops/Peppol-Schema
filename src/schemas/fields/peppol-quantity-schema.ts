@@ -20,5 +20,5 @@ export class PeppolQuantity extends opaque<PeppolQuantity>()(
      * @name `#text (value)`
      */
     value: Schema.Finite,
-  })
+  }).pipe(Schema.toStandardSchemaV1)
 ) {}

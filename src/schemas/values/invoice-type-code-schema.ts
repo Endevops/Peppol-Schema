@@ -15,5 +15,5 @@ import { invoiceTypeCodesKeys } from '#/values/invoice-type-codes.generated';
  * @see {@link invoiceTypeCodesKeys}
  */
 export class PeppolInvoiceTypeCode extends opaque<PeppolInvoiceTypeCode>()(
-  Schema.Literals(invoiceTypeCodesKeys).pipe(Schema.brand('PeppolInvoiceTypeCode'))
+  Schema.Literals(invoiceTypeCodesKeys).pipe(Schema.brand('PeppolInvoiceTypeCode'), Schema.toStandardSchemaV1)
 ) {}

@@ -36,5 +36,5 @@ export class PeppolPartyLegalEntity extends opaque<PeppolPartyLegalEntity>()(
      * @name cbc:RegistrationName
      */
     registrationName: Schema.String,
-  })
+  }).pipe(Schema.toStandardSchemaV1)
 ) {}

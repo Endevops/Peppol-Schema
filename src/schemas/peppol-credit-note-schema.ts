@@ -27,5 +27,5 @@ export class PeppolCreditNote extends opaque<PeppolCreditNote>()(
      * @name cbc:CreditNoteTypeCode
      */
     creditNoteTypeCode: PeppolCreditNoteTypeCode,
-  })
+  }).pipe(Schema.toStandardSchemaV1)
 ) {}

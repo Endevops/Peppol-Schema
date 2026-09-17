@@ -42,5 +42,5 @@ export class PeppolItemClassification extends opaque<PeppolItemClassification>()
      * @name `@listVersionID`
      */
     listVersionId: Schema.optional(Schema.String),
-  })
+  }).pipe(Schema.toStandardSchemaV1)
 ) {}

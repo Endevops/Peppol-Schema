@@ -112,5 +112,5 @@ export class PeppolMessageLevelResponse extends opaque<PeppolMessageLevelRespons
      * @name `cac:DocumentResponse`
      */
     documentResponse: PeppolMessageLevelResponseDocumentResponse,
-  })
+  }).pipe(Schema.toStandardSchemaV1)
 ) {}

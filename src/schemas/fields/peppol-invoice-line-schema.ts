@@ -43,7 +43,7 @@ export class PeppolInvoiceLine extends opaque<PeppolInvoiceLine>()(
         unitCode: PeppolQuantityUnitCode,
       })
     ),
-  })
+  }).pipe(Schema.toStandardSchemaV1)
 ) {}
 /**
  * @description Encoded form of {@link PeppolInvoiceLine} produced by the Effect Schema codec. Fields mirror the decoded structure.

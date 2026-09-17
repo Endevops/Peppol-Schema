@@ -27,7 +27,7 @@ export class PeppolLineReference extends opaque<PeppolLineReference>()(
      * @summary Section identifier
      */
     lineId: Schema.String,
-  })
+  }).pipe(Schema.toStandardSchemaV1)
 ) {}
 
 /**
@@ -57,5 +57,5 @@ export class PeppolDocumentResponseLineResponse extends opaque<PeppolDocumentRes
      * @summary Line response information
      */
     response: PeppolDocumentResponseLineResponseContent,
-  })
+  }).pipe(Schema.toStandardSchemaV1)
 ) {}

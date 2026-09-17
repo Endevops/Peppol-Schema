@@ -15,5 +15,5 @@ import { opStatusReasonKeys } from '#/values/op-status-reason.generated';
  * @see {@link opStatusReasonKeys}
  */
 export class PeppolOpStatusReason extends opaque<PeppolOpStatusReason>()(
-  Schema.Literals(opStatusReasonKeys).pipe(Schema.brand('PeppolOpStatusReason'))
+  Schema.Literals(opStatusReasonKeys).pipe(Schema.brand('PeppolOpStatusReason'), Schema.toStandardSchemaV1)
 ) {}

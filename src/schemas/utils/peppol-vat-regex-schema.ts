@@ -53,5 +53,5 @@ export class PeppolVatRegex extends opaque<PeppolVatRegex>()(
     Schema.String.check(Schema.isStartsWith('SE'), Schema.isPattern(/^SE\d{12}$/)),
     Schema.String.check(Schema.isStartsWith('SI'), Schema.isPattern(/^SI\d{8}$/)),
     Schema.String.check(Schema.isStartsWith('SK'), Schema.isPattern(/^SK\d{10}$/)),
-  ])
+  ]).pipe(Schema.toStandardSchemaV1)
 ) {}

@@ -23,5 +23,5 @@ export class PeppolPaymentTerms extends opaque<PeppolPaymentTerms>()(
      * @name cbc:Note
      */
     note: Schema.String,
-  })
+  }).pipe(Schema.toStandardSchemaV1)
 ) {}

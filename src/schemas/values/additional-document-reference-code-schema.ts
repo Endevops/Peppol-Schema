@@ -15,5 +15,5 @@ import { additionalDocumentReferenceCodesKeys } from '#/values/additional-docume
  * @see {@link additionalDocumentReferenceCodesKeys}
  */
 export class PeppolAdditionalDocumentReferenceCode extends opaque<PeppolAdditionalDocumentReferenceCode>()(
-  Schema.Literals(additionalDocumentReferenceCodesKeys).pipe(Schema.brand('PeppolAdditionalDocumentReferenceCode'))
+  Schema.Literals(additionalDocumentReferenceCodesKeys).pipe(Schema.brand('PeppolAdditionalDocumentReferenceCode'), Schema.toStandardSchemaV1)
 ) {}

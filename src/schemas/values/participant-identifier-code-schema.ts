@@ -14,5 +14,5 @@ import { participantIdentifierSchemesKeys } from '#/values/participant-identifie
  * @see {@link participantIdentifierSchemesKeys}
  */
 export class PeppolParticipantIdentifierCode extends opaque<PeppolParticipantIdentifierCode>()(
-  Schema.Literals(participantIdentifierSchemesKeys).pipe(Schema.brand('PeppolParticipantIdentifierCode'))
+  Schema.Literals(participantIdentifierSchemesKeys).pipe(Schema.brand('PeppolParticipantIdentifierCode'), Schema.toStandardSchemaV1)
 ) {}

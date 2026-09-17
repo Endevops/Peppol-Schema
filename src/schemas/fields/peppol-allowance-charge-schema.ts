@@ -25,7 +25,7 @@ export class PeppolTaxCategoryTaxSchemeId extends opaque<PeppolTaxCategoryTaxSch
      * @name `cbc:ID`
      */
     id: Schema.String.pipe(Schema.withDecodingDefaultType(Effect.succeed('VAT'))),
-  })
+  }).pipe(Schema.toStandardSchemaV1)
 ) {}
 
 /**
@@ -80,7 +80,7 @@ export class BaseAllowanceCharge extends opaque<BaseAllowanceCharge>()(
         })
       )
     ),
-  })
+  }).pipe(Schema.toStandardSchemaV1)
 ) {}
 
 /**
@@ -109,7 +109,7 @@ export class PeppolAllowance extends opaque<PeppolAllowance>()(
     chargeIndicator: Schema.Literal(false).annotate({
       message: "PEPPOL-EN16931-R043: Allowance/charge ChargeIndicator value MUST equal 'true' or 'false'",
     }),
-  })
+  }).pipe(Schema.toStandardSchemaV1)
 ) {}
 
 /**
@@ -138,7 +138,7 @@ export class PeppolCharge extends opaque<PeppolCharge>()(
     chargeIndicator: Schema.Literal(true).annotate({
       message: "PEPPOL-EN16931-R043: Allowance/charge ChargeIndicator value MUST equal 'true' or 'false'",
     }),
-  })
+  }).pipe(Schema.toStandardSchemaV1)
 ) {}
 
 /**
@@ -148,7 +148,9 @@ export class PeppolCharge extends opaque<PeppolCharge>()(
  *
  * @name cac:AllowanceCharge
  */
-export class PeppolAllowanceCharge extends Schema.Union([PeppolAllowance, PeppolCharge]).annotate({ message: 'unable to decode allowance charge' }) {}
+export class PeppolAllowanceCharge extends Schema.Union([PeppolAllowance, PeppolCharge])
+  .annotate({ message: 'unable to decode allowance charge' })
+  .pipe(Schema.toStandardSchemaV1) {}
 
 /**
  * @description Encoded form of {@link PeppolAllowanceCharge} produced by the Effect Schema codec.

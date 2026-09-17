@@ -22,5 +22,5 @@ export class PeppolTaxRepresentative extends opaque<PeppolTaxRepresentative>()(
      */
     postalAddress: PeppolAddress,
     partyTaxScheme: PeppolPartyTaxScheme,
-  })
+  }).pipe(Schema.toStandardSchemaV1)
 ) {}

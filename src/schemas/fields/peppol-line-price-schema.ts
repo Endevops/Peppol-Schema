@@ -30,5 +30,5 @@ export class PeppolLinePrice extends opaque<PeppolLinePrice>()(
      * @name cbc:PriceAmount (+ @currencyID)
      */
     priceAmount: PeppolAmount,
-  })
+  }).pipe(Schema.toStandardSchemaV1)
 ) {}

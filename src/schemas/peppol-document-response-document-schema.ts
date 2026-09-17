@@ -34,5 +34,5 @@ export class PeppolDocumentResponseDocument extends opaque<PeppolDocumentRespons
      * @summary Response textual notes
      */
     description: Schema.optional(Schema.String),
-  })
+  }).pipe(Schema.toStandardSchemaV1)
 ) {}

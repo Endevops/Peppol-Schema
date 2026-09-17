@@ -45,5 +45,5 @@ export class PeppolDocumentResponseDocumentReference extends opaque<PeppolDocume
      * @name `cbc:VersionID`
      */
     versionId: Schema.optional(Schema.String),
-  })
+  }).pipe(Schema.toStandardSchemaV1)
 ) {}

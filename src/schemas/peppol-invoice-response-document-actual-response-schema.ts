@@ -16,7 +16,7 @@ import { opaque } from '#/schemas/utils/opaque.ts';
  *
  * @see {@link PeppolInvoiceResponseDocumentActualResponseWithStatus}
  */
-export const withStatusCodes = Schema.Literals(invoiceResponseCodeNeedsSchema);
+export const withStatusCodes = Schema.Literals(invoiceResponseCodeNeedsSchema).pipe(Schema.toStandardSchemaV1);
 
 /**
  * @description Response codes that do not require a clarification in `cac:Status`: `AB`, `AP`, `IP` and `PD`.
@@ -28,7 +28,7 @@ export const withStatusCodes = Schema.Literals(invoiceResponseCodeNeedsSchema);
  *
  * @see {@link PeppolInvoiceResponseDocumentActualResponseWithoutStatus}
  */
-export const withoutStatusCodes = Schema.Literals(invoiceResponseCodeNotNeedsSchema);
+export const withoutStatusCodes = Schema.Literals(invoiceResponseCodeNotNeedsSchema).pipe(Schema.toStandardSchemaV1);
 
 /**
  * @description Invoice response for statuses that do not require a clarification; the `cac:Status` group is optional.
@@ -68,7 +68,7 @@ export class PeppolInvoiceResponseDocumentActualResponseWithoutStatus extends op
      * @name `cac:Status`
      */
     status: Schema.optional(Schema.Array(PeppolInvoiceResponseDocumentActualResponseStatus)),
-  })
+  }).pipe(Schema.toStandardSchemaV1)
 ) {}
 
 /**
@@ -112,7 +112,7 @@ export class PeppolInvoiceResponseDocumentActualResponseWithStatus extends opaqu
      * @name `cac:Status`
      */
     status: Schema.Array(PeppolInvoiceResponseDocumentActualResponseStatus).check(Schema.isMinLength(1)),
-  })
+  }).pipe(Schema.toStandardSchemaV1)
 ) {}
 
 /**
@@ -128,4 +128,4 @@ export class PeppolInvoiceResponseDocumentActualResponseWithStatus extends opaqu
 export class PeppolInvoiceResponseDocumentActualResponse extends Schema.Union([
   PeppolInvoiceResponseDocumentActualResponseWithStatus,
   PeppolInvoiceResponseDocumentActualResponseWithoutStatus,
-]) {}
+]).pipe(Schema.toStandardSchemaV1) {}

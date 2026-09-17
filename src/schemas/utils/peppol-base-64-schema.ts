@@ -31,6 +31,6 @@ const BASE64_RE = /^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=
  *   const value = 'SGVsbG8=';
  *   ```;
  */
-export class PeppolBase64 extends Schema.String.check(Schema.makeFilter((val: string) => BASE64_RE.test(val.replace(/\r?\n/g, '')))).annotate({
-  message: 'Invalid base64',
-}) {}
+export class PeppolBase64 extends Schema.String.check(Schema.makeFilter((val: string) => BASE64_RE.test(val.replace(/\r?\n/g, ''))))
+  .annotate({ message: 'Invalid base64' })
+  .pipe(Schema.toStandardSchemaV1) {}

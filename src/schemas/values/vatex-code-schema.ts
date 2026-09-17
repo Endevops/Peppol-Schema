@@ -17,4 +17,6 @@ import { vatexCodesKeys } from '#/values/vatex-codes.generated';
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/vatex/
  * @see {@link vatexCodesKeys}
  */
-export class PeppolVatexCode extends opaque<PeppolVatexCode>()(Schema.Literals(vatexCodesKeys).pipe(Schema.brand('PeppolVatexCode'))) {}
+export class PeppolVatexCode extends opaque<PeppolVatexCode>()(
+  Schema.Literals(vatexCodesKeys).pipe(Schema.brand('PeppolVatexCode'), Schema.toStandardSchemaV1)
+) {}

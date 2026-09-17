@@ -25,5 +25,5 @@ export class PeppolIdentifier extends opaque<PeppolIdentifier>()(
      * @name `@schemeID`
      */
     schemeId: Schema.optional(Schema.String),
-  })
+  }).pipe(Schema.toStandardSchemaV1)
 ) {}

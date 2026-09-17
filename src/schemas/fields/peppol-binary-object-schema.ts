@@ -56,5 +56,5 @@ export class PeppolBinaryObject extends opaque<PeppolBinaryObject>()(
      * @name `@filename`
      */
     filename: Schema.String,
-  })
+  }).pipe(Schema.toStandardSchemaV1)
 ) {}

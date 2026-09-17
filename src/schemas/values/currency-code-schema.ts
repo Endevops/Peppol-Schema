@@ -24,7 +24,9 @@ import { currencyCodesKeys } from '#/values/currency-code.generated';
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/ISO4217/
  * @see {@link currencyCodesKeys}
  */
-export class PeppolCurrencyCode extends opaque<PeppolCurrencyCode>()(Schema.Literals(currencyCodesKeys).pipe(Schema.brand('PeppolCurrencyCode'))) {}
+export class PeppolCurrencyCode extends opaque<PeppolCurrencyCode>()(
+  Schema.Literals(currencyCodesKeys).pipe(Schema.brand('PeppolCurrencyCode'), Schema.toStandardSchemaV1)
+) {}
 
 /**
  * @description An ISO 4217 currency code as defined by the PEPPOL subset.

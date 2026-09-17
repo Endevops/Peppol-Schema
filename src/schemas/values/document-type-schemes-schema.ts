@@ -14,5 +14,5 @@ import { documentTypesScheme } from '#/values/document-type.generated';
  * @see {@link documentTypesScheme}
  */
 export class PeppolDocumentTypeScheme extends opaque<PeppolDocumentTypeScheme>()(
-  Schema.Literals(documentTypesScheme as [string, ...Array<string>])
+  Schema.Literals(documentTypesScheme as [string, ...Array<string>]).pipe(Schema.toStandardSchemaV1)
 ) {}

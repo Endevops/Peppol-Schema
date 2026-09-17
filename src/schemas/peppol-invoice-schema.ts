@@ -16,7 +16,7 @@ import { PeppolInvoiceTypeCode } from '#/schemas/values/invoice-type-code-schema
  *
  * @see {@link PeppolInvoice}
  */
-export class PeppolProjectReference extends opaque<PeppolProjectReference>()(Schema.Struct({ id: Schema.String })) {}
+export class PeppolProjectReference extends opaque<PeppolProjectReference>()(Schema.Struct({ id: Schema.String }).pipe(Schema.toStandardSchemaV1)) {}
 
 /**
  * @description UBL `Invoice` for PEPPOL BIS Billing 3.0. Extends {@link PeppolBillingBase} with the due date, type code, lines and project reference.
@@ -69,5 +69,5 @@ export class PeppolInvoice extends opaque<PeppolInvoice>()(
      * @name cac:ProjectReference
      */
     projectReference: Schema.optional(PeppolProjectReference),
-  })
+  }).pipe(Schema.toStandardSchemaV1)
 ) {}

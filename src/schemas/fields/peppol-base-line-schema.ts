@@ -18,7 +18,9 @@ import { opaque } from '#/schemas/utils/opaque.ts';
  *
  * @see {@link PeppolBaseLine}
  */
-export class PeppolOrderLineReference extends opaque<PeppolOrderLineReference>()(Schema.Struct({ lineId: Schema.String })) {}
+export class PeppolOrderLineReference extends opaque<PeppolOrderLineReference>()(
+  Schema.Struct({ lineId: Schema.String }).pipe(Schema.toStandardSchemaV1)
+) {}
 
 /**
  * @description Base of the invoice line and credit note line schemas.
@@ -147,5 +149,5 @@ export class PeppolBaseLine extends opaque<PeppolBaseLine>()(
      * @cardinality 1..1
      */
     price: PeppolLinePrice,
-  })
+  }).pipe(Schema.toStandardSchemaV1)
 ) {}

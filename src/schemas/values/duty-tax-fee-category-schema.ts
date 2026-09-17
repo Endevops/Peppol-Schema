@@ -18,7 +18,7 @@ import { dutyTaxFeeCategoriesKeys } from '#/values/duty-tax-fee-categories.gener
  * @see {@link dutyTaxFeeCategoriesKeys}
  */
 export class PeppolDutyTaxFeeCategoryCode extends opaque<PeppolDutyTaxFeeCategoryCode>()(
-  Schema.Literals(dutyTaxFeeCategoriesKeys).pipe(Schema.brand('PeppolDutyTaxFeeCategoryCode'))
+  Schema.Literals(dutyTaxFeeCategoriesKeys).pipe(Schema.brand('PeppolDutyTaxFeeCategoryCode'), Schema.toStandardSchemaV1)
 ) {}
 
 /**

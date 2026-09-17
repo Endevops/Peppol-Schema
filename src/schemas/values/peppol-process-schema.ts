@@ -16,14 +16,16 @@ import { processes, processesKeys } from '#/values/processes.generated';
  * @see {@link processes}
  */
 export class PeppolProcess extends opaque<PeppolProcess>()(
-  Schema.TemplateLiteral([Schema.Literals(processesKeys), Schema.Literal('::'), Schema.String]).check(
-    Schema.makeFilter((val: string) => {
-      const [prefix, suffix] = val.split('::');
-      if (prefix === undefined || suffix === undefined) return false;
-      const info = processes[prefix as ProcessesKeys];
-      return info !== undefined && info.some(v => v === suffix);
-    })
-  )
+  Schema.TemplateLiteral([Schema.Literals(processesKeys), Schema.Literal('::'), Schema.String])
+    .check(
+      Schema.makeFilter((val: string) => {
+        const [prefix, suffix] = val.split('::');
+        if (prefix === undefined || suffix === undefined) return false;
+        const info = processes[prefix as ProcessesKeys];
+        return info !== undefined && info.some(v => v === suffix);
+      })
+    )
+    .pipe(Schema.toStandardSchemaV1)
 ) {}
 
 /**

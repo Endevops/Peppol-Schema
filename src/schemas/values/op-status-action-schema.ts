@@ -15,5 +15,5 @@ import { opStatusActionKeys } from '#/values/op-status-action.generated';
  * @see {@link opStatusActionKeys}
  */
 export class PeppolOpStatusAction extends opaque<PeppolOpStatusAction>()(
-  Schema.Literals(opStatusActionKeys).pipe(Schema.brand('PeppolOpStatusAction'))
+  Schema.Literals(opStatusActionKeys).pipe(Schema.brand('PeppolOpStatusAction'), Schema.toStandardSchemaV1)
 ) {}

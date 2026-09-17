@@ -35,7 +35,7 @@ export class PeppolAdditionalItemProperties extends opaque<PeppolAdditionalItemP
      * @name cbc:Value
      */
     value: Schema.String,
-  })
+  }).pipe(Schema.toStandardSchemaV1)
 ) {}
 
 /**
@@ -61,7 +61,7 @@ export class PeppolCommodityClassifications extends opaque<PeppolCommodityClassi
      * @name `cbc:ItemClassificationCode`
      */
     itemClassification: PeppolItemClassification,
-  })
+  }).pipe(Schema.toStandardSchemaV1)
 ) {}
 
 /**
@@ -84,7 +84,7 @@ export class PeppolOriginCountryCode extends opaque<PeppolOriginCountryCode>()(
      * @name `cbc:IdentificationCode`
      */
     identificationCode: PeppolCountryCodeValue,
-  })
+  }).pipe(Schema.toStandardSchemaV1)
 ) {}
 
 /**
@@ -126,7 +126,7 @@ export class PeppolStandardItemIdentification extends opaque<PeppolStandardItemI
         schemeId: PeppolIcdCode,
       })
     ),
-  })
+  }).pipe(Schema.toStandardSchemaV1)
 ) {}
 
 /**
@@ -152,7 +152,7 @@ export class PeppolSellersItemIdentification extends opaque<PeppolSellersItemIde
      * @name `cbc:ID`
      */
     id: Schema.String,
-  })
+  }).pipe(Schema.toStandardSchemaV1)
 ) {}
 
 /**
@@ -178,7 +178,7 @@ export class PeppolBuyersItemIdentification extends opaque<PeppolBuyersItemIdent
      * @name `cbc:ID`
      */
     id: Schema.String,
-  })
+  }).pipe(Schema.toStandardSchemaV1)
 ) {}
 
 /**
@@ -252,5 +252,5 @@ export class PeppolLineItem extends opaque<PeppolLineItem>()(
      * @name cac:AdditionalItemProperty
      */
     additionalItemProperties: Schema.optional(Schema.Array(PeppolAdditionalItemProperties)),
-  })
+  }).pipe(Schema.toStandardSchemaV1)
 ) {}

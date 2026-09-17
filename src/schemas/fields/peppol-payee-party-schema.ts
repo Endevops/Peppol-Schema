@@ -4,7 +4,7 @@ import { PeppolIdentifier } from '#/schemas/fields/peppol-identifier-schema.ts';
 import { opaque } from '#/schemas/utils/opaque.ts';
 import { PeppolIcdCode } from '#/schemas/values/icd-codes-schema.ts';
 
-export class PeppolPayeePartyName extends opaque<PeppolPayeePartyName>()(Schema.Struct({ name: Schema.String })) {}
+export class PeppolPayeePartyName extends opaque<PeppolPayeePartyName>()(Schema.Struct({ name: Schema.String }).pipe(Schema.toStandardSchemaV1)) {}
 
 export class PeppolPayeePartyLegalEntity extends opaque<PeppolPayeePartyLegalEntity>()(
   Schema.Struct({
@@ -43,7 +43,7 @@ export class PeppolPayeePartyLegalEntity extends opaque<PeppolPayeePartyLegalEnt
         })
       )
     ),
-  })
+  }).pipe(Schema.toStandardSchemaV1)
 ) {}
 
 export class PeppolPayeePartyIdentification extends opaque<PeppolPayeePartyIdentification>()(
@@ -79,7 +79,7 @@ export class PeppolPayeePartyIdentification extends opaque<PeppolPayeePartyIdent
         })
       )
     ),
-  })
+  }).pipe(Schema.toStandardSchemaV1)
 ) {}
 
 /**
@@ -115,5 +115,5 @@ export class PeppolPayeeParty extends opaque<PeppolPayeeParty>()(
      * @name `cac:PartyName`
      */
     partyName: PeppolPayeePartyName,
-  })
+  }).pipe(Schema.toStandardSchemaV1)
 ) {}

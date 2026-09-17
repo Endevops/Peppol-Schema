@@ -11,5 +11,5 @@ const values = Record.values(documentTypesTable).flat();
  * @see {@link documentTypesTable}
  */
 export class PeppolDocumentTypeValue extends opaque<PeppolDocumentTypeValue>()(
-  Schema.String.check(Schema.makeFilter((val: string) => values.includes(val as never)))
+  Schema.String.check(Schema.makeFilter((val: string) => values.includes(val as never))).pipe(Schema.toStandardSchemaV1)
 ) {}

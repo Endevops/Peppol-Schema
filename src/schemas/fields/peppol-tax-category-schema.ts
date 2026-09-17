@@ -19,7 +19,7 @@ export class PeppolTaxSchemeId extends opaque<PeppolTaxSchemeId>()(
      * @name `cbc:ID`
      */
     id: Schema.String.pipe(Schema.withDecodingDefaultType(Effect.succeed('VAT'))),
-  })
+  }).pipe(Schema.toStandardSchemaV1)
 ) {}
 
 /**
@@ -53,5 +53,5 @@ export class PeppolTaxCategory extends opaque<PeppolTaxCategory>()(
      * @name `cac:TaxScheme`
      */
     taxSchemeId: PeppolTaxSchemeId,
-  })
+  }).pipe(Schema.toStandardSchemaV1)
 ) {}

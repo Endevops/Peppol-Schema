@@ -26,7 +26,7 @@ export class PeppolAmount extends opaque<PeppolAmount>()(
      * @name #text (value)
      */
     value: Schema.Finite,
-  })
+  }).pipe(Schema.toStandardSchemaV1)
 ) {}
 /**
  * @description Encoded form of {@link PeppolAmount} produced by the Effect Schema codec. Fields mirror the decoded shape.

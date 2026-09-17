@@ -25,7 +25,7 @@ export class PeppolInvoiceResponseStatusReasonCodeReason extends opaque<PeppolIn
      * @name `@listId`
      */
     listId: Schema.Literal('OPStatusReason'),
-  })
+  }).pipe(Schema.toStandardSchemaV1)
 ) {}
 
 /**
@@ -49,7 +49,7 @@ export class PeppolInvoiceResponseStatusReasonCodeAction extends opaque<PeppolIn
      * @name `@listId`
      */
     listId: Schema.Literal('OPStatusAction'),
-  })
+  }).pipe(Schema.toStandardSchemaV1)
 ) {}
 
 /**
@@ -65,4 +65,4 @@ export class PeppolInvoiceResponseStatusReasonCodeAction extends opaque<PeppolIn
 export class PeppolInvoiceResponseStatusReasonCode extends Schema.Union([
   PeppolInvoiceResponseStatusReasonCodeAction,
   PeppolInvoiceResponseStatusReasonCodeReason,
-]) {}
+]).pipe(Schema.toStandardSchemaV1) {}

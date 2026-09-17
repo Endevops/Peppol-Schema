@@ -87,4 +87,5 @@ export class PeppolXsdTime extends opaque<PeppolXsdTime>()(
       })
     )
     .annotate({ message: 'Invalid ISO time' })
+    .pipe(Schema.toStandardSchemaV1)
 ) {}

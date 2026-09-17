@@ -32,7 +32,7 @@ export class BaseLineAllowanceCharge extends opaque<BaseLineAllowanceCharge>()(
      * @name cbc:MultiplierFactorNumeric
      */
     multiplierFactorNumeric: Schema.optional(Schema.Finite),
-  })
+  }).pipe(Schema.toStandardSchemaV1)
 ) {}
 
 /**
@@ -61,7 +61,7 @@ export class PeppolLineAllowance extends opaque<PeppolLineAllowance>()(
     chargeIndicator: Schema.Literal(false).annotate({
       message: "PEPPOL-EN16931-R043: Allowance/charge ChargeIndicator value MUST equal 'true' or 'false'",
     }),
-  })
+  }).pipe(Schema.toStandardSchemaV1)
 ) {}
 
 /**
@@ -90,7 +90,7 @@ export class PeppolLineCharge extends opaque<PeppolLineCharge>()(
     chargeIndicator: Schema.Literal(true).annotate({
       message: "PEPPOL-EN16931-R043: Allowance/charge ChargeIndicator value MUST equal 'true' or 'false'",
     }),
-  })
+  }).pipe(Schema.toStandardSchemaV1)
 ) {}
 
 /**
@@ -104,9 +104,9 @@ export class PeppolLineCharge extends opaque<PeppolLineCharge>()(
  *
  * @see {@link PeppolLineAllowance}
  */
-export class PeppolLineAllowanceCharge extends Schema.Union([PeppolLineAllowance, PeppolLineCharge]).annotate({
-  message: 'unable to decode line allowance charge',
-}) {}
+export class PeppolLineAllowanceCharge extends Schema.Union([PeppolLineAllowance, PeppolLineCharge])
+  .annotate({ message: 'unable to decode line allowance charge' })
+  .pipe(Schema.toStandardSchemaV1) {}
 
 /**
  * @description Encoded form of {@link PeppolLineAllowanceCharge} produced by the Effect Schema codec.

@@ -27,7 +27,7 @@ export class PeppolPaymentMandatePayerFinancialAccountId extends opaque<PeppolPa
      * @name `cbc:ID`
      */
     id: Schema.String,
-  })
+  }).pipe(Schema.toStandardSchemaV1)
 ) {}
 
 /**
@@ -61,7 +61,7 @@ export class PeppolPaymentMandate extends opaque<PeppolPaymentMandate>()(
      * @name `cac:PayerFinancialAccount`
      */
     payerFinancialAccountId: Schema.optional(PeppolPaymentMandatePayerFinancialAccountId),
-  })
+  }).pipe(Schema.toStandardSchemaV1)
 ) {}
 
 /**
@@ -88,7 +88,7 @@ export class PeppolPayeeFinancialAccountFinancialInstitutionBranch extends opaqu
      * @name `cac:FinancialInstitutionBranch`
      */
     id: Schema.String,
-  })
+  }).pipe(Schema.toStandardSchemaV1)
 ) {}
 
 /**
@@ -131,7 +131,7 @@ export class PeppolPayeeFinancialAccount extends opaque<PeppolPayeeFinancialAcco
      * @name cbc:Name
      */
     name: Schema.optional(Schema.String),
-  })
+  }).pipe(Schema.toStandardSchemaV1)
 ) {}
 
 /**
@@ -172,7 +172,7 @@ export class PeppolCardAccount extends opaque<PeppolCardAccount>()(
      * @name cbc:PrimaryAccountNumberID
      */
     primaryAccountNumberId: Schema.String,
-  })
+  }).pipe(Schema.toStandardSchemaV1)
 ) {}
 
 /**
@@ -209,7 +209,7 @@ export class PeppolPaymentMeansCode extends opaque<PeppolPaymentMeansCode>()(
      * @name `@name`
      */
     name: Schema.optional(Schema.String),
-  })
+  }).pipe(Schema.toStandardSchemaV1)
 ) {}
 
 /**
@@ -280,5 +280,5 @@ export class PeppolPaymentMeans extends opaque<PeppolPaymentMeans>()(
      * @name cac:PaymentMandate
      */
     paymentMandate: Schema.optional(PeppolPaymentMandate),
-  })
+  }).pipe(Schema.toStandardSchemaV1)
 ) {}

@@ -23,7 +23,7 @@ export class PeppolAddressLine extends opaque<PeppolAddressLine>()(
      * @name `cbc:Line`
      */
     line: Schema.String,
-  })
+  }).pipe(Schema.toStandardSchemaV1)
 ) {}
 
 /**
@@ -49,7 +49,7 @@ export class PeppolCountryCode extends opaque<PeppolCountryCode>()(
      * @name `cbc:IdentificationCode`
      */
     identificationCode: PeppolCountryCodeValue,
-  })
+  }).pipe(Schema.toStandardSchemaV1)
 ) {}
 
 /**
@@ -131,5 +131,5 @@ export class PeppolAddress extends opaque<PeppolAddress>()(
      * @name `cac:AddressLine`
      */
     addressLine: Schema.optional(PeppolAddressLine),
-  })
+  }).pipe(Schema.toStandardSchemaV1)
 ) {}

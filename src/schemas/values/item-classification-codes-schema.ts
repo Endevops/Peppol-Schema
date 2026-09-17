@@ -18,5 +18,5 @@ import { itemClassificationCodesKeys } from '#/values/item-classification-code.g
  * @see {@link itemClassificationCodesKeys}
  */
 export class PeppolItemClassificationCode extends opaque<PeppolItemClassificationCode>()(
-  Schema.Literals(itemClassificationCodesKeys).pipe(Schema.brand('PeppolItemClassificationCode'))
+  Schema.Literals(itemClassificationCodesKeys).pipe(Schema.brand('PeppolItemClassificationCode'), Schema.toStandardSchemaV1)
 ) {}

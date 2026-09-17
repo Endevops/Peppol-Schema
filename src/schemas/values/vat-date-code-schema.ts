@@ -17,4 +17,4 @@ import { vatDateCodesKeys } from '#/values/vat-dates.generated';
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/UNCL2005/
  * @see {@link vatDateCodesKeys}
  */
-export class PeppolVatDateCode extends opaque<PeppolVatDateCode>()(Schema.Literals(vatDateCodesKeys)) {}
+export class PeppolVatDateCode extends opaque<PeppolVatDateCode>()(Schema.Literals(vatDateCodesKeys).pipe(Schema.toStandardSchemaV1)) {}

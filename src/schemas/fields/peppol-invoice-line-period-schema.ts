@@ -42,5 +42,5 @@ export class PeppolInvoiceLinePeriod extends opaque<PeppolInvoiceLinePeriod>()(
      * @name `cbc:StartDate`
      */
     startDate: Schema.optional(PeppolIsoDateString),
-  })
+  }).pipe(Schema.toStandardSchemaV1)
 ) {}

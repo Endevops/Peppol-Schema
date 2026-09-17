@@ -40,7 +40,7 @@ export class PeppolInvoiceDocumentReference extends opaque<PeppolInvoiceDocument
      * @name `cbc:IssueDate`
      */
     issueDate: Schema.optional(PeppolIsoDateString),
-  })
+  }).pipe(Schema.toStandardSchemaV1)
 ) {}
 
 /**
@@ -61,5 +61,5 @@ export class PeppolBillingReference extends opaque<PeppolBillingReference>()(
      * @name `cac:InvoiceDocumentReference`
      */
     invoiceDocumentReference: PeppolInvoiceDocumentReference,
-  })
+  }).pipe(Schema.toStandardSchemaV1)
 ) {}

@@ -41,5 +41,5 @@ export class PeppolMessageLevelResponseDocumentResponse extends opaque<PeppolMes
      * @summary Line response information
      */
     lineResponse: Schema.Array(PeppolDocumentResponseLineResponse),
-  })
+  }).pipe(Schema.toStandardSchemaV1)
 ) {}

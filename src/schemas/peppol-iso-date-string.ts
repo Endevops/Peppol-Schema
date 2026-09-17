@@ -15,6 +15,7 @@ export class PeppolIsoDateString extends opaque<PeppolIsoDateString>()(
     Schema.decodeTo(Schema.DateTimeUtc, {
       decode: SchemaGetter.dateTimeUtcFromInput().map(DateTime.removeTime),
       encode: SchemaGetter.transform(DateTime.formatIsoDate),
-    })
+    }),
+    Schema.toStandardSchemaV1
   )
 ) {}

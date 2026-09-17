@@ -38,7 +38,8 @@ export class PeppolCreditNoteLine extends opaque<PeppolCreditNoteLine>()(
           unitCode: PeppolQuantityUnitCode,
         })
       ),
-    })
+    }),
+    Schema.toStandardSchemaV1
   )
 ) {}
 /**

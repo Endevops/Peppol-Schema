@@ -32,7 +32,7 @@ export class PeppolInvoiceResponseDocumentResponsePartyName extends opaque<Peppo
      * @name `cbc:Name`
      */
     name: Schema.String,
-  })
+  }).pipe(Schema.toStandardSchemaV1)
 ) {}
 
 /**
@@ -53,7 +53,8 @@ export class PeppolInvoiceResponseParty extends opaque<PeppolInvoiceResponsePart
        */
       partyIdentification: Schema.optional(PeppolIdentifier),
       partyLegalEntity: PeppolPartyLegalEntity.mapFields(Struct.pick(['registrationName'])),
-    })
+    }),
+    Schema.toStandardSchemaV1
   )
 ) {}
 
@@ -76,7 +77,8 @@ export class PeppolInvoiceResponseSenderParty extends opaque<PeppolInvoiceRespon
        * @name `cac:Contact`
        */
       contact: Schema.optional(PeppolContact),
-    })
+    }),
+    Schema.toStandardSchemaV1
   )
 ) {}
 
@@ -96,7 +98,7 @@ export class PeppolInvoiceResponseDocumentResponseParty extends opaque<PeppolInv
      * @name cac:PartyName
      */
     partyName: PeppolInvoiceResponseDocumentResponsePartyName,
-  })
+  }).pipe(Schema.toStandardSchemaV1)
 ) {}
 
 /**
@@ -141,7 +143,7 @@ export class PeppolInvoiceResponseDocumentReference extends opaque<PeppolInvoice
      * @summary Identifier type code
      */
     documentTypeCode: PeppolDocumentTypeCode,
-  })
+  }).pipe(Schema.toStandardSchemaV1)
 ) {}
 
 /**
@@ -182,7 +184,7 @@ export class PeppolInvoiceResponseDocumentResponse extends opaque<PeppolInvoiceR
      * @name `cac:RecipientParty`
      */
     recipientParty: Schema.optional(PeppolInvoiceResponseDocumentResponseParty),
-  })
+  }).pipe(Schema.toStandardSchemaV1)
 ) {}
 
 /**
@@ -220,5 +222,5 @@ export class PeppolInvoiceResponse extends opaque<PeppolInvoiceResponse>()(
      * @summary Document response
      */
     documentResponse: PeppolInvoiceResponseDocumentResponse,
-  })
+  }).pipe(Schema.toStandardSchemaV1)
 ) {}

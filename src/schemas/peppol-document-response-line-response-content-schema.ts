@@ -23,7 +23,7 @@ export class PeppolStatus extends opaque<PeppolStatus>()(
      * @name `cbc:StatusReasonCode`
      */
     statusReasonCode: Schema.Literals(['BV', 'BW', 'SV']),
-  })
+  }).pipe(Schema.toStandardSchemaV1)
 ) {}
 
 /**
@@ -65,5 +65,5 @@ export class PeppolDocumentResponseLineResponseContent extends opaque<PeppolDocu
      * @name `cac:Status`
      */
     status: PeppolStatus,
-  })
+  }).pipe(Schema.toStandardSchemaV1)
 ) {}

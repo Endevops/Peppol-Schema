@@ -27,5 +27,5 @@ export class PeppolContact extends opaque<PeppolContact>()(
      * @name cbc:Telephone
      */
     telephone: Schema.optional(Schema.String),
-  })
+  }).pipe(Schema.toStandardSchemaV1)
 ) {}

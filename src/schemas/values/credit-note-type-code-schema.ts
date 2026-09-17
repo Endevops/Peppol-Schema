@@ -14,4 +14,6 @@ import { creditNoteTypeCodesKeys } from '#/values/credit-notes-type-codes.genera
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/UNCL1001-cn/
  * @see {@link creditNoteTypeCodesKeys}
  */
-export class PeppolCreditNoteTypeCode extends opaque<PeppolCreditNoteTypeCode>()(Schema.Literals(creditNoteTypeCodesKeys)) {}
+export class PeppolCreditNoteTypeCode extends opaque<PeppolCreditNoteTypeCode>()(
+  Schema.Literals(creditNoteTypeCodesKeys).pipe(Schema.toStandardSchemaV1)
+) {}

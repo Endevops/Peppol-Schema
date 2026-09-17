@@ -123,5 +123,5 @@ export class PeppolLegalMonetaryTotal extends opaque<PeppolLegalMonetaryTotal>()
      * @name `cbc:TaxInclusiveAmount (+ @currencyID)`
      */
     taxInclusiveAmount: PeppolAmount,
-  })
+  }).pipe(Schema.toStandardSchemaV1)
 ) {}

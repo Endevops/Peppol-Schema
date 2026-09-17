@@ -25,4 +25,7 @@ import { countryCodesKeys } from '#/values/country-code.generated';
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/ISO3166/
  * @see {@link countryCodesKeys}
  */
-export class PeppolCountryCodeValue extends Schema.Literals(countryCodesKeys).pipe(Schema.brand('PeppolCountryCodeValue')) {}
+export class PeppolCountryCodeValue extends Schema.Literals(countryCodesKeys).pipe(
+  Schema.brand('PeppolCountryCodeValue'),
+  Schema.toStandardSchemaV1
+) {}

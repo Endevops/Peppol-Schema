@@ -18,5 +18,5 @@ import { quantityUnitCodesKeys } from '#/values/quantity-unit-codes.generated';
  * @see {@link quantityUnitCodesKeys}
  */
 export class PeppolQuantityUnitCode extends opaque<PeppolQuantityUnitCode>()(
-  Schema.Literals(quantityUnitCodesKeys).pipe(Schema.brand('PeppolQuantityUnitCode'))
+  Schema.Literals(quantityUnitCodesKeys).pipe(Schema.brand('PeppolQuantityUnitCode'), Schema.toStandardSchemaV1)
 ) {}

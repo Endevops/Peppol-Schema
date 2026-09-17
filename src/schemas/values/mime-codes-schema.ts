@@ -21,4 +21,5 @@ export class PeppolMimeCode extends opaque<PeppolMimeCode>()(
   Schema.Literals(mimeCodesKeys)
     .pipe(Schema.brand('PeppolMimeCode'))
     .annotate({ documentation: 'PEPPOL-EN16931-CL001: Mime code must be according to subset of IANA code list.' })
+    .pipe(Schema.toStandardSchemaV1)
 ) {}

@@ -36,5 +36,5 @@ export class PeppolOrderReference extends opaque<PeppolOrderReference>()(
      * @name `cbc:SalesOrderID`
      */
     salesOrderId: Schema.optional(Schema.String),
-  })
+  }).pipe(Schema.toStandardSchemaV1)
 ) {}

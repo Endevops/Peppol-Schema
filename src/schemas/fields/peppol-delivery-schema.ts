@@ -27,7 +27,7 @@ export class PeppolDeliveryPartyPartyName extends opaque<PeppolDeliveryPartyPart
      * @name `cbc:Name`
      */
     name: Schema.String,
-  })
+  }).pipe(Schema.toStandardSchemaV1)
 ) {}
 
 /**
@@ -48,7 +48,7 @@ export class PeppolDeliveryParty extends opaque<PeppolDeliveryParty>()(
      * @name `cac:PartyName`
      */
     partyName: PeppolDeliveryPartyPartyName,
-  })
+  }).pipe(Schema.toStandardSchemaV1)
 ) {}
 
 /**
@@ -107,7 +107,7 @@ export class PeppolDeliveryLocation extends opaque<PeppolDeliveryLocation>()(
      * @name `cac:Address`
      */
     address: Schema.optional(PeppolAddress),
-  })
+  }).pipe(Schema.toStandardSchemaV1)
 ) {}
 
 /**
@@ -147,5 +147,5 @@ export class PeppolDelivery extends opaque<PeppolDelivery>()(
      * @name `cac:DeliveryParty`
      */
     deliveryParty: Schema.optional(PeppolDeliveryParty),
-  })
+  }).pipe(Schema.toStandardSchemaV1)
 ) {}

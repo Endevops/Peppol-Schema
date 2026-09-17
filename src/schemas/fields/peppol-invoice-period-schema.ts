@@ -26,6 +26,7 @@ export class PeppolInvoicePeriod extends opaque<PeppolInvoicePeriod>()(
        * @name `cbc:DescriptionCode`
        */
       descriptionCode: Schema.optional(PeppolVatDateCode),
-    })
+    }),
+    Schema.toStandardSchemaV1
   )
 ) {}

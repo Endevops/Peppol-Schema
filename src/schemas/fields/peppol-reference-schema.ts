@@ -10,7 +10,7 @@ import { opaque } from '#/schemas/utils/opaque.ts';
  *   { id: '123' }
  *   ```;
  */
-export class PeppolReferenceId extends opaque<PeppolReferenceId>()(Schema.Struct({ id: Schema.String })) {}
+export class PeppolReferenceId extends opaque<PeppolReferenceId>()(Schema.Struct({ id: Schema.String }).pipe(Schema.toStandardSchemaV1)) {}
 
 /**
  * @description A schema for an optional reference identifier, accepting either {@link PeppolReferenceId} or `undefined`.
@@ -20,7 +20,7 @@ export class PeppolReferenceId extends opaque<PeppolReferenceId>()(Schema.Struct
  *   peppolReferenceSchema; // Schema.Union([PeppolReferenceId, Schema.Undefined])
  *   ```;
  */
-export const peppolReferenceSchema = Schema.Union([PeppolReferenceId, Schema.Undefined]);
+export const peppolReferenceSchema = Schema.Union([PeppolReferenceId, Schema.Undefined]).pipe(Schema.toStandardSchemaV1);
 
 /**
  * @description The decoded type of {@link peppolReferenceSchema}, either a {@link PeppolReferenceId} or `undefined`.

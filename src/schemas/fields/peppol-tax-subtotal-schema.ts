@@ -31,5 +31,5 @@ export class PeppolTaxSubTotal extends opaque<PeppolTaxSubTotal>()(
      * @name `cbc:TaxableAmount (+ @currencyID)`
      */
     taxableAmount: PeppolAmount,
-  })
+  }).pipe(Schema.toStandardSchemaV1)
 ) {}

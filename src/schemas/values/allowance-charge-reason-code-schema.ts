@@ -21,4 +21,5 @@ export class PeppolAllowanceChargeReasonCode extends opaque<PeppolAllowanceCharg
   Schema.Literals(allowanceChargeReasonCodesKeys)
     .pipe(Schema.brand('PeppolAllowanceChargeReasonCode'))
     .annotate({ documentation: 'PEPPOL-EN16931-CL002: Reason code MUST be according to subset of UNCL 5189 D.16B.' })
+    .pipe(Schema.toStandardSchemaV1)
 ) {}

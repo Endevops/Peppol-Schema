@@ -150,7 +150,8 @@ export class PeppolDocumentSchema extends peppolDocumentObjectSchema.pipe(
   Schema.encodeTo(Schema.String, {
     encode: SchemaGetter.transformEffect((value, options) => encodeDocumentXml(value, options)),
     decode: SchemaGetter.transformEffect((value, options) => decodeDocumentXml(value, options)),
-  })
+  }),
+  Schema.toStandardSchemaV1
 ) {}
 
 /**
