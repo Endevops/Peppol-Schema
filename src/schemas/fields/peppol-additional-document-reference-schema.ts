@@ -86,25 +86,27 @@ export class PeppolAttachment extends opaque<PeppolAttachment>()(
  * @see {@link PeppolAdditionalDocumentReference}
  */
 export class PeppolId extends opaque<PeppolId>()(
-  Schema.Struct({
-    /**
-     * @description An identifier for an object on which the invoice is based (with DocumentTypeCode=130), given by the Seller, the identifier for the supporting
-     * document or the project reference identifier (DocumentTypeCode=50).
-     *
-     * @summary Invoiced object identifier, Supporting document reference or project reference
-     *
-     * @name `#text`
-     */
-    id: Schema.String,
-    /**
-     * @description The identification scheme identifier of the Invoiced object identifier.
-     *
-     * @summary Scheme identifier
-     *
-     * @name `@schemeID`
-     */
-    schemeId: Schema.optional(PeppolAdditionalDocumentReferenceCode),
-  })
+  PeppolIdentifier.pipe(
+    Schema.fieldsAssign({
+      /**
+       * @description An identifier for an object on which the invoice is based (with DocumentTypeCode=130), given by the Seller, the identifier for the supporting
+       * document or the project reference identifier (DocumentTypeCode=50).
+       *
+       * @summary Invoiced object identifier, Supporting document reference or project reference
+       *
+       * @name `#text`
+       */
+      id: Schema.String,
+      /**
+       * @description The identification scheme identifier of the Invoiced object identifier.
+       *
+       * @summary Scheme identifier
+       *
+       * @name `@schemeID`
+       */
+      schemeId: Schema.optional(PeppolAdditionalDocumentReferenceCode),
+    })
+  )
 ) {}
 
 /**

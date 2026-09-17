@@ -148,9 +148,7 @@ export class PeppolCharge extends opaque<PeppolCharge>()(
  *
  * @name cac:AllowanceCharge
  */
-export class PeppolAllowanceCharge extends opaque<PeppolAllowanceCharge>()(
-  Schema.Union([PeppolAllowance, PeppolCharge]).annotate({ message: 'unable to decode allowance charge' })
-) {}
+export class PeppolAllowanceCharge extends Schema.Union([PeppolAllowance, PeppolCharge]).annotate({ message: 'unable to decode allowance charge' }) {}
 
 /**
  * @description Encoded form of {@link PeppolAllowanceCharge} produced by the Effect Schema codec.

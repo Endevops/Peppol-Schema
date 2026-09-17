@@ -12,7 +12,7 @@ import { strOrUnd } from '#/helpers/str-or-und.ts';
 export const decodeTaxCategory = Effect.fn(function* (
   doc: XmlNode,
   ...path: Array<string>
-): Effect.fn.Return<RecursivePartial<PeppolAllowanceCharge['taxCategory']> | undefined> {
+): Effect.fn.Return<RecursivePartial<(typeof PeppolAllowanceCharge.Type)['taxCategory']> | undefined> {
   const taxCategory = yield* getProp(doc, ...path);
   if (Predicate.isNullish(taxCategory)) {
     return undefined;

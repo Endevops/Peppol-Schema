@@ -104,9 +104,9 @@ export class PeppolLineCharge extends opaque<PeppolLineCharge>()(
  *
  * @see {@link PeppolLineAllowance}
  */
-export class PeppolLineAllowanceCharge extends opaque<PeppolLineAllowanceCharge>()(
-  Schema.Union([PeppolLineAllowance, PeppolLineCharge]).annotate({ message: 'unable to decode line allowance charge' })
-) {}
+export class PeppolLineAllowanceCharge extends Schema.Union([PeppolLineAllowance, PeppolLineCharge]).annotate({
+  message: 'unable to decode line allowance charge',
+}) {}
 
 /**
  * @description Encoded form of {@link PeppolLineAllowanceCharge} produced by the Effect Schema codec.

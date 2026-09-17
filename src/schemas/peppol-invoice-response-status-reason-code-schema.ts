@@ -62,6 +62,7 @@ export class PeppolInvoiceResponseStatusReasonCodeAction extends opaque<PeppolIn
  *
  * @see {@link PeppolInvoiceResponseDocumentActualResponseStatus}
  */
-export class PeppolInvoiceResponseStatusReasonCode extends opaque<PeppolInvoiceResponseStatusReasonCode>()(
-  Schema.Union([PeppolInvoiceResponseStatusReasonCodeAction, PeppolInvoiceResponseStatusReasonCodeReason])
-) {}
+export class PeppolInvoiceResponseStatusReasonCode extends Schema.Union([
+  PeppolInvoiceResponseStatusReasonCodeAction,
+  PeppolInvoiceResponseStatusReasonCodeReason,
+]) {}

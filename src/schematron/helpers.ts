@@ -1,4 +1,4 @@
-import { Effect, String } from 'effect';
+import { Effect, Predicate, String } from 'effect';
 
 import type { PeppolInvoicePeriod } from '#/schemas/fields/peppol-invoice-period-schema.ts';
 import type { PeppolTaxSubTotal } from '#/schemas/fields/peppol-tax-subtotal-schema.ts';
@@ -781,8 +781,8 @@ export function everyCountryCodeIs(document: PeppolDocument, code: string): bool
     document.delivery?.deliveryLocation?.address?.countryCode.identificationCode,
     ...getLines(document)
       .map(line => line.item.originCountryCode?.identificationCode)
-      .filter((v): v is string => typeof v === 'string'),
-  ].filter((v): v is string => typeof v === 'string' && v.trim() !== '');
+      .filter(v => Predicate.isString(v)),
+  ].filter(<T>(v: T): v is NonNullable<T> => Predicate.isString(v) && String.isNonEmpty(String.trim(v)));
   return codes.every(value => value.toUpperCase() === code);
 }
 

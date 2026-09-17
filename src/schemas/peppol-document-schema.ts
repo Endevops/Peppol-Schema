@@ -22,7 +22,6 @@ import { PeppolCreditNote } from '#/schemas/peppol-credit-note-schema.ts';
 import { PeppolInvoiceResponse } from '#/schemas/peppol-invoice-response-schema.ts';
 import { PeppolInvoice } from '#/schemas/peppol-invoice-schema.ts';
 import { PeppolMessageLevelResponse } from '#/schemas/peppol-message-level-response-schema.ts';
-import { opaque } from '#/schemas/utils/opaque.ts';
 import { builderOptions } from '#/xml/builder-options.ts';
 import { parseXmlNodable } from '#/xml/nodable-parser.ts';
 
@@ -126,7 +125,8 @@ const encodeDocumentXml = Effect.fn('encode-peppol-document-xml')(function* (val
   } else {
     const rootNodes = Object.keys(value);
     return yield* Effect.fail(
-      new SchemaIssue.InvalidValue({ message: `Unsupported document type: ${value.profileId}\n${rootNodes.join(',')}` }, value, options)
+      // oxlint-disable-next-line typescript/no-explicit-any this is safe since it is only for logging purposes
+      new SchemaIssue.InvalidValue({ message: `Unsupported document type: ${(value as any)?.profileId}\n${rootNodes.join(',')}` }, value, options)
     );
   }
 
@@ -146,13 +146,11 @@ const encodeDocumentXml = Effect.fn('encode-peppol-document-xml')(function* (val
  * @see {@link PeppolDocumentDecoded}
  * @see {@link PeppolDocumentEncoded}
  */
-export class PeppolDocumentSchema extends opaque<PeppolDocumentSchema>()(
-  peppolDocumentObjectSchema.pipe(
-    Schema.encodeTo(Schema.String, {
-      encode: SchemaGetter.transformEffect((value, options) => encodeDocumentXml(value, options)),
-      decode: SchemaGetter.transformEffect((value, options) => decodeDocumentXml(value, options)),
-    })
-  )
+export class PeppolDocumentSchema extends peppolDocumentObjectSchema.pipe(
+  Schema.encodeTo(Schema.String, {
+    encode: SchemaGetter.transformEffect((value, options) => encodeDocumentXml(value, options)),
+    decode: SchemaGetter.transformEffect((value, options) => decodeDocumentXml(value, options)),
+  })
 ) {}
 
 /**
