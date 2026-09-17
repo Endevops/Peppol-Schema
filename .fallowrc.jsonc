@@ -47,13 +47,7 @@
     "picocolors",
     "simple-git",
   ],
-  // `private-type-leaks` is opt-in upstream, but fallow 3.27+ enables it by
-  // default. This codebase deliberately keeps most opaque Schema classes
-  // file-private, and several of the referenced types cannot be exported
-  // without silently dropping identically named schemas from the `export *`
-  // barrel in src/index.ts (PeppolPartyName, PeppolPartyLegalEntity,
-  // PeppolPartyIdentification, PeppolTaxSchemeId). Keep the repo-wide gate off.
-  "rules": { "circular-dependencies": "error", "unused-dependencies": "error", "private-type-leaks": "off" },
+  "rules": { "circular-dependencies": "error", "unused-dependencies": "error", "private-type-leaks": "error" },
   // Test suites are not published (see package.json `files`) and the
   // `scripts/values` codegen tools are offline-only. Their long `describe`
   // blocks and template literals dominate the unit-size signal without
