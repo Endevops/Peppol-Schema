@@ -38,9 +38,49 @@ type PeppolDocumentObject = typeof peppolDocumentObjectSchema.Encoded;
 
 const parseXml = (value: string): XmlNode => parseXmlNodable(value);
 
+/**
+ * @description Type guard that returns `true` when a decoded value is a {@link PeppolInvoice}.
+ *
+ * @example
+ *   ```ts
+ *   isPeppolInvoice(doc); // true for a UBL Invoice
+ *   ```;
+ *
+ * @see {@link PeppolDocumentSchema}
+ */
 export const isPeppolInvoice = Schema.is(PeppolInvoice);
+/**
+ * @description Type guard that returns `true` when a decoded value is a {@link PeppolCreditNote}.
+ *
+ * @example
+ *   ```ts
+ *   isPeppolCreditNote(doc); // true for a UBL CreditNote
+ *   ```;
+ *
+ * @see {@link PeppolDocumentSchema}
+ */
 export const isPeppolCreditNote = Schema.is(PeppolCreditNote);
+/**
+ * @description Type guard that returns `true` when a decoded value is a {@link PeppolMessageLevelResponse}.
+ *
+ * @example
+ *   ```ts
+ *   isPeppolMessageLevelResponse(doc); // true for an MLR ApplicationResponse
+ *   ```;
+ *
+ * @see {@link PeppolDocumentSchema}
+ */
 export const isPeppolMessageLevelResponse = Schema.is(PeppolMessageLevelResponse);
+/**
+ * @description Type guard that returns `true` when a decoded value is a {@link PeppolInvoiceResponse}.
+ *
+ * @example
+ *   ```ts
+ *   isPeppolInvoiceResponse(doc); // true for an invoice response ApplicationResponse
+ *   ```;
+ *
+ * @see {@link PeppolDocumentSchema}
+ */
 export const isPeppolInvoiceResponse = Schema.is(PeppolInvoiceResponse);
 
 /**
@@ -95,7 +135,16 @@ const encodeDocumentXml = Effect.fn('encode-peppol-document-xml')(function* (val
 
 /**
  * @description Union of every supported PEPPOL business document. Members discriminate cleanly: invoice vs credit note via `invoiceLines`/`creditNoteLines`,
- * message-level vs invoice response via the `profileId` literal.
+ * message-level vs invoice response via the `profileId` literal. Decodes and encodes XML strings by dispatching on the root element;
+ * `ApplicationResponse` is split on `cbc:ProfileID`.
+ *
+ * @example
+ *   ```ts
+ *   const doc = Schema.decodeUnknownSync(PeppolDocumentSchema)(xml); // decoded document union
+ *   ```;
+ *
+ * @see {@link PeppolDocumentDecoded}
+ * @see {@link PeppolDocumentEncoded}
  */
 export class PeppolDocumentSchema extends opaque<PeppolDocumentSchema>()(
   peppolDocumentObjectSchema.pipe(
@@ -106,7 +155,14 @@ export class PeppolDocumentSchema extends opaque<PeppolDocumentSchema>()(
   )
 ) {}
 
+/**
+ * @description Encoded form of {@link PeppolDocumentSchema}: the XML string representation.
+ */
 export type PeppolDocumentEncoded = Schema.Codec.Encoded<typeof PeppolDocumentSchema>;
+
+/**
+ * @description Decoded form of {@link PeppolDocumentSchema}: the union of supported document classes.
+ */
 export type PeppolDocumentDecoded = Schema.Schema.Type<typeof PeppolDocumentSchema>;
 
 /**
@@ -117,5 +173,11 @@ export type PeppolDocument = PeppolInvoice | PeppolCreditNote;
  * @description This defines the types of message that are sent/received through the peppol network.
  */
 export type PeppolMessage = PeppolMessageLevelResponse | PeppolInvoiceResponse;
+/**
+ * @description Every document type supported by {@link PeppolDocumentSchema}: the billing documents and the response messages.
+ */
 export type PeppolAllDocuments = PeppolDocument | PeppolMessage;
+/**
+ * @description A line from either a {@link PeppolInvoice} or a {@link PeppolCreditNote}.
+ */
 export type PeppolDocumentLine = PeppolInvoiceLine | PeppolCreditNoteLine;

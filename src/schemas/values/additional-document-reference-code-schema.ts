@@ -4,11 +4,12 @@ import { opaque } from '#/schemas/utils/opaque.ts';
 import { additionalDocumentReferenceCodesKeys } from '#/values/additional-document-reference-codes.generated';
 
 /**
- * @description Validates an additional document reference code against the PEPPOL subset of UNCL 1153 (reference qualifiers).
+ * @description An additional document reference code from the PEPPOL subset of UNCL 1153 (invoiced object identifier scheme).
  *
- * @param error - The custom error message to use when validation fails. Defaults to the generic message.
- *
- * @returns An Effect schema that accepts only valid additional document reference codes.
+ * @example
+ *   ```ts
+ *   'AAA';
+ *   ```;
  *
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/UNCL1153/
  * @see {@link additionalDocumentReferenceCodesKeys}

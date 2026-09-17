@@ -1,5 +1,14 @@
 /**
  * @description Greek TIN verification.
+ *
+ * @example
+ *   ```ts
+ *   greekTinVerification('123456783'); // true
+ *   ```;
+ *
+ * @param val - The nine digit Greek tax identification number.
+ *
+ * @returns `true` when the value is nine digits and the computed checksum matches the last digit, otherwise `false`.
  */
 export function greekTinVerification(val: string): boolean {
   if (!/^\d{9}$/.test(val)) return false;

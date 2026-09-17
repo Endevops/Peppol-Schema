@@ -2,6 +2,15 @@ import { normalizeSpace } from './normalize-space.ts';
 
 /**
  * @description Australian Business Number (ABN) validation.
+ *
+ * @example
+ *   ```ts
+ *   isValidABN('51 824 753 556'); // true
+ *   ```;
+ *
+ * @param val - The ABN to validate. Whitespace is normalised first.
+ *
+ * @returns `true` when the normalised value is 11 digits and the weighted checksum is divisible by 89, otherwise `false`.
  */
 export function isValidABN(val: string): boolean {
   const s = normalizeSpace(val);

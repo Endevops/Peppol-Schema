@@ -4,6 +4,8 @@ import { opaque } from '#/schemas/utils/opaque.ts';
 import { PeppolApplicationResponseTypeCode } from '#/schemas/values/application-response-type-code-schema.ts';
 
 /**
+ * @description Wraps `cac:Response` inside a message level response: the overall response code and an optional textual note.
+ *
  * @summary Response information
  *
  * @name `cac:Response`
@@ -35,4 +37,7 @@ export class PeppolDocumentResponseDocument extends opaque<PeppolDocumentRespons
   })
 ) {}
 
+/**
+ * @description Alias of {@link PeppolDocumentResponseDocument} under the message level response naming.
+ */
 export type PeppolMessageLevelResponseDocumentResponseDocument = PeppolDocumentResponseDocument;

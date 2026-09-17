@@ -3,6 +3,16 @@ import { Effect, Schema } from 'effect';
 import { opaque } from '#/schemas/utils/opaque.ts';
 import { PeppolDutyTaxFeeCategoryCode } from '#/schemas/values/duty-tax-fee-category-schema.ts';
 
+/**
+ * @description The tax scheme identifier for a tax category, defaulting to `VAT` when the element is absent.
+ *
+ * @example
+ *   ```ts
+ *   { id: 'VAT' }
+ *   ```;
+ *
+ * @see {@link PeppolTaxCategory}
+ */
 export class PeppolTaxSchemeId extends opaque<PeppolTaxSchemeId>()(
   Schema.Struct({
     /**

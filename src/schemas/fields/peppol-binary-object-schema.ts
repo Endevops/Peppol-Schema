@@ -9,6 +9,14 @@ import { PeppolMimeCode } from '#/schemas/values/mime-codes-schema.ts';
 const base64UrlSchema = Schema.String.check(Schema.isPattern(/^[A-Za-z0-9\-_]+={0,2}$/)).annotate({ message: 'Invalid base64url' });
 
 /**
+ * @description An attached document embedded in the Invoice as a Base64 encoded binary object, together with its MIME type and file name. Wraps the
+ * `cbc:EmbeddedDocumentBinaryObject` element.
+ *
+ * @example
+ *   ```ts
+ *   { content: 'aHR0cHM6Ly90ZXN0LXZlZmEuZGlmaS5uby9wZXBwb2xiaXM=', mimeCode: 'text/csv', filename: 'Hours - spent.csv' }
+ *   ```;
+ *
  * @summary Binary object for attachments
  *
  * @name cbc:EmbeddedDocumentBinaryObject (+ @mimeCode, @filename)

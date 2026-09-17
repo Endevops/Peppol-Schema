@@ -8,6 +8,16 @@ import { PeppolLineItem } from '#/schemas/fields/peppol-line-item-schema.ts';
 import { PeppolLinePrice } from '#/schemas/fields/peppol-line-price-schema.ts';
 import { opaque } from '#/schemas/utils/opaque.ts';
 
+/**
+ * @description A reference to the order line that the Invoice line fulfils. Wraps the `cac:OrderLineReference` element and its `cbc:LineID`.
+ *
+ * @example
+ *   ```ts
+ *   { lineId: '123' }
+ *   ```;
+ *
+ * @see {@link PeppolBaseLine}
+ */
 export class PeppolOrderLineReference extends opaque<PeppolOrderLineReference>()(Schema.Struct({ lineId: Schema.String })) {}
 
 /**

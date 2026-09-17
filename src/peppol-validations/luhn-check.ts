@@ -2,6 +2,15 @@ import { normalizeSpace } from './normalize-space.ts';
 
 /**
  * @description Luhn algorithm check (used for credit card validation)
+ *
+ * @example
+ *   ```ts
+ *   luhnCheck('4242424242424242'); // true
+ *   ```;
+ *
+ * @param number - The numeric string to check. Whitespace is normalised first.
+ *
+ * @returns `true` when the value contains only digits and its Luhn checksum is divisible by 10, otherwise `false`.
  */
 export function luhnCheck(number: string): boolean {
   const s = normalizeSpace(number);

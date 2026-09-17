@@ -3,6 +3,8 @@ import { Schema } from 'effect';
 import { opaque } from '#/schemas/utils/opaque.ts';
 
 /**
+ * @description A textual description of the payment terms that apply to the amount due for payment.
+ *
  * @summary PAYMENT TERMS
  *
  * @name cac:PaymentTerms

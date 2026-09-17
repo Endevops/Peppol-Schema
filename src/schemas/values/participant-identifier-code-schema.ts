@@ -4,11 +4,14 @@ import { opaque } from '#/schemas/utils/opaque.ts';
 import { participantIdentifierSchemesKeys } from '#/values/participant-identifier-schemes.generated';
 
 /**
- * @description Validates a PEPPOL participant identifier scheme against the participant identifier schemes list.
+ * @description A PEPPOL participant identifier scheme from the participant identifier schemes codelist.
  *
- * @param error - The custom error message to use when validation fails.
+ * @example
+ *   ```ts
+ *   '0002';
+ *   ```;
  *
- * @returns An Effect schema that accepts only valid participant identifier schemes.
+ * @see {@link participantIdentifierSchemesKeys}
  */
 export class PeppolParticipantIdentifierCode extends opaque<PeppolParticipantIdentifierCode>()(
   Schema.Literals(participantIdentifierSchemesKeys).pipe(Schema.brand('PeppolParticipantIdentifierCode'))

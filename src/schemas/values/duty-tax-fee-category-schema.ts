@@ -4,19 +4,24 @@ import { opaque } from '#/schemas/utils/opaque.ts';
 import { dutyTaxFeeCategoriesKeys } from '#/values/duty-tax-fee-categories.generated';
 
 /**
- * @description Validates a duty, tax or fee category code against the PEPPOL subset of UNCL 5305 (VAT category code).
+ * @description A duty, tax or fee category code from the PEPPOL subset of UNCL 5305 (VAT category code).
  *
- * @param error - The custom error message to use when validation fails.
- *
- * @returns An Effect schema that accepts only valid duty/tax/fee category codes.
+ * @example
+ *   ```ts
+ *   'AE';
+ *   ```;
  *
  * @validations
  * - BR-CL-17 / BR-CL-18: VAT category code MUST be a valid UNCL 5305 code.
  *
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/UNCL5305/
+ * @see {@link dutyTaxFeeCategoriesKeys}
  */
 export class PeppolDutyTaxFeeCategoryCode extends opaque<PeppolDutyTaxFeeCategoryCode>()(
   Schema.Literals(dutyTaxFeeCategoriesKeys).pipe(Schema.brand('PeppolDutyTaxFeeCategoryCode'))
 ) {}
 
+/**
+ * @description The encoded form of {@link PeppolDutyTaxFeeCategoryCode}, a string literal union.
+ */
 export type PeppolDutyTaxFeeCategoryCodeEncoded = Schema.Codec.Encoded<typeof PeppolDutyTaxFeeCategoryCode>;

@@ -2,6 +2,13 @@ import { Schema } from 'effect';
 
 /**
  * @description Failure of a single schematron rule against a document.
+ *
+ * @example
+ *   ```ts
+ *   new SchematronRuleError({ id: 'PEPPOL-EN16931-R001', level: 'fatal', message: 'The document must carry a number.' });
+ *   ```;
+ *
+ * @see {@link SchematronValidationError}
  */
 export class SchematronRuleError extends Schema.TaggedError<SchematronRuleError>()('SchematronRuleError', {
   id: Schema.String,
@@ -11,6 +18,13 @@ export class SchematronRuleError extends Schema.TaggedError<SchematronRuleError>
 
 /**
  * @description Failure of a schematron validation run, wrapping every rule that failed.
+ *
+ * @example
+ *   ```ts
+ *   new SchematronValidationError({ errors: [ruleError] });
+ *   ```;
+ *
+ * @see {@link SchematronRuleError}
  */
 export class SchematronValidationError extends Schema.TaggedError<SchematronValidationError>()('SchematronValidationError', {
   errors: Schema.Array(SchematronRuleError),

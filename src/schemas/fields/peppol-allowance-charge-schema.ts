@@ -7,6 +7,16 @@ import { PeppolAllowanceChargeReasonCode } from '#/schemas/values/allowance-char
 import { PeppolChargeReasonCode } from '#/schemas/values/charge-reason-code-schema.ts';
 import { PeppolDutyTaxFeeCategoryCode } from '#/schemas/values/duty-tax-fee-category-schema.ts';
 
+/**
+ * @description The identifier of the tax scheme that applies to a document level allowance or charge. Defaults to `VAT` when the value is absent.
+ *
+ * @example
+ *   ```ts
+ *   { id: 'VAT' }
+ *   ```;
+ *
+ * @see {@link PeppolTaxCategory}
+ */
 export class PeppolTaxCategoryTaxSchemeId extends opaque<PeppolTaxCategoryTaxSchemeId>()(
   Schema.Struct({
     /**
@@ -18,6 +28,22 @@ export class PeppolTaxCategoryTaxSchemeId extends opaque<PeppolTaxCategoryTaxSch
   })
 ) {}
 
+/**
+ * @description Shared fields for a document level allowance or charge. Combines the common line allowance and charge fields with the tax category that applies to
+ * the document level amount.
+ *
+ * @example
+ *   ```ts
+ *   {
+ *     amount: { value: 25, currencyId: 'EUR' },
+ *     chargeIndicator: true,
+ *     allowanceChargeReason: 'Insurance',
+ *     taxCategory: { id: 'S', percent: 25, taxSchemeId: { id: 'VAT' } }
+ *   }
+ *   ```;
+ *
+ * @see {@link PeppolAllowanceCharge}
+ */
 export class BaseAllowanceCharge extends opaque<BaseAllowanceCharge>()(
   Schema.Struct({
     ...BaseLineAllowanceCharge.fields,
@@ -57,6 +83,17 @@ export class BaseAllowanceCharge extends opaque<BaseAllowanceCharge>()(
   })
 ) {}
 
+/**
+ * @description A document level allowance, marked by a `cbc:ChargeIndicator` of `false`. Adds an allowance reason code to the shared document level allowance and
+ * charge fields.
+ *
+ * @example
+ *   ```ts
+ *   { amount: { value: 200, currencyId: 'EUR' }, chargeIndicator: false, allowanceChargeReasonCode: '95' }
+ *   ```;
+ *
+ * @see {@link PeppolAllowanceCharge}
+ */
 export class PeppolAllowance extends opaque<PeppolAllowance>()(
   Schema.Struct({
     ...BaseAllowanceCharge.fields,
@@ -75,6 +112,17 @@ export class PeppolAllowance extends opaque<PeppolAllowance>()(
   })
 ) {}
 
+/**
+ * @description A document level charge, marked by a `cbc:ChargeIndicator` of `true`. Adds a charge reason code to the shared document level allowance and charge
+ * fields.
+ *
+ * @example
+ *   ```ts
+ *   { amount: { value: 25, currencyId: 'EUR' }, chargeIndicator: true, allowanceChargeReasonCode: 'AA' }
+ *   ```;
+ *
+ * @see {@link PeppolAllowanceCharge}
+ */
 export class PeppolCharge extends opaque<PeppolCharge>()(
   Schema.Struct({
     ...BaseAllowanceCharge.fields,
@@ -94,6 +142,8 @@ export class PeppolCharge extends opaque<PeppolCharge>()(
 ) {}
 
 /**
+ * @description A document level allowance or charge, selected by the `cbc:ChargeIndicator` value: `false` selects an allowance, `true` selects a charge.
+ *
  * @summary Allowance/Charge
  *
  * @name cac:AllowanceCharge
@@ -102,4 +152,9 @@ export class PeppolAllowanceCharge extends opaque<PeppolAllowanceCharge>()(
   Schema.Union([PeppolAllowance, PeppolCharge]).annotate({ message: 'unable to decode allowance charge' })
 ) {}
 
+/**
+ * @description Encoded form of {@link PeppolAllowanceCharge} produced by the Effect Schema codec.
+ *
+ * @see {@link PeppolAllowanceCharge}
+ */
 export type PeppolAllowanceChargeEncoded = Schema.Codec.Encoded<typeof PeppolAllowanceCharge>;

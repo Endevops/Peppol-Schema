@@ -41,4 +41,9 @@ export class PeppolCreditNoteLine extends opaque<PeppolCreditNoteLine>()(
     })
   )
 ) {}
+/**
+ * @description Encoded form of {@link PeppolCreditNoteLine} produced by the Effect Schema codec. Fields mirror the decoded structure.
+ *
+ * @see {@link PeppolCreditNoteLine}
+ */
 export interface PeppolCreditNoteLineEncoded extends Schema.Codec.Encoded<typeof PeppolCreditNoteLine> {}

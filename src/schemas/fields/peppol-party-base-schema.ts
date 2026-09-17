@@ -9,6 +9,16 @@ import { opaque } from '#/schemas/utils/opaque.ts';
 import { PeppolElectronicAddressCode } from '#/schemas/values/electronic-codes-schema.ts';
 import { PeppolIcdCode } from '#/schemas/values/icd-codes-schema.ts';
 
+/**
+ * @description A name by which the Buyer or Seller is known, other than its registered name.
+ *
+ * @example
+ *   ```ts
+ *   { name: 'SupplierTradingName Ltd.' }
+ *   ```;
+ *
+ * @see {@link PeppolPartySchema}
+ */
 export class PeppolPartyName extends opaque<PeppolPartyName>()(
   Schema.Struct({
     /**
@@ -23,6 +33,16 @@ export class PeppolPartyName extends opaque<PeppolPartyName>()(
   })
 ) {}
 
+/**
+ * @description An identifier of the Buyer or Seller, with an optional identification scheme.
+ *
+ * @example
+ *   ```ts
+ *   { id: { id: '99887766', schemeId: '0088' } }
+ *   ```;
+ *
+ * @see {@link PeppolPartySchema}
+ */
 export class PeppolPartyIdentification extends opaque<PeppolPartyIdentification>()(
   Schema.Struct({
     /**
@@ -58,6 +78,16 @@ export class PeppolPartyIdentification extends opaque<PeppolPartyIdentification>
   })
 ) {}
 
+/**
+ * @description The Buyer or Seller electronic address to which the application level response to the invoice may be delivered.
+ *
+ * @example
+ *   ```ts
+ *   { id: '9482348239847239874', schemeId: '0088' }
+ *   ```;
+ *
+ * @see {@link PeppolPartySchema}
+ */
 export class PeppolPartyEndpointId extends opaque<PeppolPartyEndpointId>()(
   PeppolIdentifier.pipe(
     Schema.fieldsAssign({
@@ -85,6 +115,8 @@ export class PeppolPartyEndpointId extends opaque<PeppolPartyEndpointId>()(
 ) {}
 
 /**
+ * @description The common party substructure shared by the supplier, customer, and other party roles.
+ *
  * @summary Party common substructure
  *
  * @name cac:Party

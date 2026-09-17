@@ -3,6 +3,17 @@ import { Schema } from 'effect';
 import { PeppolIsoDateString } from '#/schemas/peppol-iso-date-string.ts';
 import { opaque } from '#/schemas/utils/opaque.ts';
 
+/**
+ * @description A reference to an Invoice that was previously sent by the Seller, carrying the preceding invoice number and, when the number is not unique, its
+ * issue date. Wraps the `cac:InvoiceDocumentReference` element.
+ *
+ * @example
+ *   ```ts
+ *   { id: 'inv123', issueDate: '2017-09-15' }
+ *   ```;
+ *
+ * @see {@link PeppolBillingReference}
+ */
 export class PeppolInvoiceDocumentReference extends opaque<PeppolInvoiceDocumentReference>()(
   Schema.Struct({
     /**
@@ -33,6 +44,8 @@ export class PeppolInvoiceDocumentReference extends opaque<PeppolInvoiceDocument
 ) {}
 
 /**
+ * @description A reference to a preceding Invoice, used when the Invoice corrects or replaces an earlier one. Wraps the `cac:BillingReference` element.
+ *
  * @summary PRECEDING INVOICE REFERENCE (0..n)
  *
  * @name cac:BillingReference

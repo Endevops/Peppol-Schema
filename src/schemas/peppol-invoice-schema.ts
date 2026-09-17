@@ -6,8 +6,36 @@ import { PeppolIsoDateString } from '#/schemas/peppol-iso-date-string.ts';
 import { opaque } from '#/schemas/utils/opaque.ts';
 import { PeppolInvoiceTypeCode } from '#/schemas/values/invoice-type-code-schema.ts';
 
+/**
+ * @description Wraps the `cac:ProjectReference` element on an invoice: an identifier of the project the invoice relates to.
+ *
+ * @example
+ *   ```ts
+ *   { id: 'project-123' }
+ *   ```;
+ *
+ * @see {@link PeppolInvoice}
+ */
 export class PeppolProjectReference extends opaque<PeppolProjectReference>()(Schema.Struct({ id: Schema.String })) {}
 
+/**
+ * @description UBL `Invoice` for PEPPOL BIS Billing 3.0. Extends {@link PeppolBillingBase} with the due date, type code, lines and project reference.
+ *
+ * @example
+ *   ```ts
+ *   {
+ *     customizationId: 'urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0',
+ *     profileId: 'urn:fdc:peppol.eu:2017:poacc:billing:01:1.0',
+ *     id: '33445566',
+ *     issueDate: '2017-11-01',
+ *     documentCurrencyCode: 'EUR',
+ *     invoiceTypeCode: '380'
+ *   }
+ *   ```;
+ *
+ * @see {@link PeppolBillingBase}
+ * @see {@link PeppolCreditNote}
+ */
 export class PeppolInvoice extends opaque<PeppolInvoice>()(
   Schema.Struct({
     ...PeppolBillingBase.fields,

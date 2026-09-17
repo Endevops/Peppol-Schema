@@ -3,6 +3,17 @@ import { Schema } from 'effect';
 import { PeppolIsoDateString } from '#/schemas/peppol-iso-date-string.ts';
 import { opaque } from '#/schemas/utils/opaque.ts';
 
+/**
+ * @description The period relevant for an Invoice line, given by an optional start date and end date. Wraps the `cac:InvoicePeriod` element as used on a line; the
+ * document level period extends this shape in {@link PeppolInvoicePeriod}.
+ *
+ * @example
+ *   ```ts
+ *   { startDate: '2017-10-01', endDate: '2017-10-31' }
+ *   ```;
+ *
+ * @see {@link PeppolInvoicePeriod}
+ */
 export class PeppolInvoiceLinePeriod extends opaque<PeppolInvoiceLinePeriod>()(
   Schema.Struct({
     /**

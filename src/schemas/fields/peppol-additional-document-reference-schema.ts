@@ -5,6 +5,17 @@ import { PeppolIdentifier } from '#/schemas/fields/peppol-identifier-schema.ts';
 import { opaque } from '#/schemas/utils/opaque.ts';
 import { PeppolAdditionalDocumentReferenceCode } from '#/schemas/values/additional-document-reference-code-schema.ts';
 
+/**
+ * @description A reference to a supporting document that is stored outside the Invoice, identified by a URI. Wraps the `cac:ExternalReference` element of an
+ * attachment group.
+ *
+ * @example
+ *   ```ts
+ *   { uri: 'http://www.example.com/index.html' }
+ *   ```;
+ *
+ * @see {@link PeppolAttachment}
+ */
 export class PeppolAttachmentExternalReference extends opaque<PeppolAttachmentExternalReference>()(
   Schema.Struct({
     /**
@@ -22,6 +33,23 @@ export class PeppolAttachmentExternalReference extends opaque<PeppolAttachmentEx
   })
 ) {}
 
+/**
+ * @description The attachment of a supporting document to the Invoice, either embedded as a Base64 binary object or referenced by URI. Wraps the `cac:Attachment`
+ * element of an additional supporting document.
+ *
+ * @example
+ *   ```ts
+ *   {
+ *     embeddedDocumentBinaryObject: {
+ *       content: 'aHR0cHM6Ly90ZXN0LXZlZmEuZGlmaS5uby9wZXBwb2xiaXM=',
+ *       mimeCode: 'text/csv',
+ *       filename: 'Hours - spent.csv'
+ *     }
+ *   }
+ *   ```;
+ *
+ * @see {@link PeppolAdditionalDocumentReference}
+ */
 export class PeppolAttachment extends opaque<PeppolAttachment>()(
   Schema.Struct({
     /**
@@ -46,6 +74,17 @@ export class PeppolAttachment extends opaque<PeppolAttachment>()(
   })
 ) {}
 
+/**
+ * @description The identifier of an additional supporting document, an invoiced object reference or a project reference, together with an optional identification
+ * scheme identifier.
+ *
+ * @example
+ *   ```ts
+ *   { id: '9873242' }
+ *   ```;
+ *
+ * @see {@link PeppolAdditionalDocumentReference}
+ */
 export class PeppolId extends opaque<PeppolId>()(
   Schema.Struct({
     /**

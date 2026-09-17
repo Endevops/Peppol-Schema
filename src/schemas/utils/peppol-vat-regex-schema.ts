@@ -17,6 +17,11 @@ const belgianVat = Schema.String.check(
 /**
  * @description EU VAT identification number (one member per member-state prefix/pattern). Effect port of `vatRegexSchema` (`z.union([...])` of
  * `z.string().check(...)` members): each member keeps its original prefix + pattern checks as `Schema.String.check` filters.
+ *
+ * @example
+ *   ```ts
+ *   const value = 'DE123456789';
+ *   ```;
  */
 export class PeppolVatRegex extends opaque<PeppolVatRegex>()(
   Schema.Union([

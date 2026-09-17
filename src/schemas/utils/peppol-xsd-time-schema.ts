@@ -17,9 +17,14 @@ const numberFromString = (value: string | undefined): number => {
 /**
  * @description Parse a timezone offset from a string. The string must be in the format `(+|-)HH:MM` where `HH` and `MM` are two digits.
  *
- * @param tz - The timzeone offset string.
+ * @example
+ *   ```ts
+ *   parseZoneOffsetFromString('+01:00'); // a +01:00 zone offset
+ *   ```;
  *
- * @returns
+ * @param tz - The timezone offset string.
+ *
+ * @returns A `DateTime.Zone` offset built from the parsed hours and minutes, or `undefined` when `tz` does not match the offset pattern.
  *
  * @internal
  */
@@ -36,6 +41,11 @@ export const parseZoneOffsetFromString = (tz: `+${number}:${number}` | `-${numbe
 /**
  * @description XSD `time` lexical value (`HH:MM:SS` with optional fractional seconds and timezone). Effect port of `xsdTime` (`z.string().check(z.regex(...))`):
  * keeps the value as a plain string and only validates the shape.
+ *
+ * @example
+ *   ```ts
+ *   const value = '12:30:45+01:00';
+ *   ```;
  */
 export class PeppolXsdTime extends opaque<PeppolXsdTime>()(
   Schema.String.check(

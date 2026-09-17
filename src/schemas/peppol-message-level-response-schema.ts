@@ -7,6 +7,24 @@ import { PeppolMessageLevelResponseParty } from '#/schemas/peppol-message-level-
 import { opaque } from '#/schemas/utils/opaque.ts';
 import { PeppolXsdTime } from '#/schemas/utils/peppol-xsd-time-schema.ts';
 
+/**
+ * @description UBL `ApplicationResponse` message level response for PEPPOL BIS Billing 3.0 (profile `urn:fdc:peppol.eu:poacc:bis:mlr:3`).
+ *
+ * @example
+ *   ```ts
+ *   {
+ *     customizationId: 'urn:fdc:peppol.eu:poacc:trns:mlr:3',
+ *     profileId: 'urn:fdc:peppol.eu:poacc:bis:mlr:3',
+ *     id: '23',
+ *     issueDate: '2017-11-01',
+ *     senderParty: {},
+ *     receiverParty: {},
+ *     documentResponse: { response: { responseCode: 'RE' }, documentReference: { id: 'EnvelopeID-12345' }, lineResponse: [] }
+ *   }
+ *   ```;
+ *
+ * @see {@link PeppolInvoiceResponse}
+ */
 export class PeppolMessageLevelResponse extends opaque<PeppolMessageLevelResponse>()(
   Schema.Struct({
     /**

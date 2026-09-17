@@ -14,6 +14,8 @@ class PeppolTaxSchemeId extends opaque<PeppolTaxSchemeId>()(
 ) {}
 
 /**
+ * @description The Seller tax registration details, combining a tax identifier such as a VAT number with the tax scheme.
+ *
  * @name cac:PartyTaxScheme (0..2)
  */
 export class PeppolPartyTaxScheme extends opaque<PeppolPartyTaxScheme>()(
@@ -38,4 +40,7 @@ export class PeppolPartyTaxScheme extends opaque<PeppolPartyTaxScheme>()(
   })
 ) {}
 
+/**
+ * @description Alias for {@link PeppolPartyTaxScheme}.
+ */
 export type PeppolPartyTaxSchema = PeppolPartyTaxScheme;

@@ -6,9 +6,40 @@ import { PeppolInvoiceResponseDocumentActualResponseStatus } from '#/schemas/pep
 import { PeppolIsoDateString } from '#/schemas/peppol-iso-date-string.ts';
 import { opaque } from '#/schemas/utils/opaque.ts';
 
+/**
+ * @description Response codes that require a clarification in `cac:Status`: `UQ`, `RE` and `CA`.
+ *
+ * @example
+ *   ```ts
+ *   withStatusCodes; // Schema.Literals(['UQ', 'RE', 'CA'])
+ *   ```;
+ *
+ * @see {@link PeppolInvoiceResponseDocumentActualResponseWithStatus}
+ */
 export const withStatusCodes = Schema.Literals(invoiceResponseCodeNeedsSchema);
+
+/**
+ * @description Response codes that do not require a clarification in `cac:Status`: `AB`, `AP`, `IP` and `PD`.
+ *
+ * @example
+ *   ```ts
+ *   withoutStatusCodes; // Schema.Literals(['AB', 'AP', 'IP', 'PD'])
+ *   ```;
+ *
+ * @see {@link PeppolInvoiceResponseDocumentActualResponseWithoutStatus}
+ */
 export const withoutStatusCodes = Schema.Literals(invoiceResponseCodeNotNeedsSchema);
 
+/**
+ * @description Invoice response for statuses that do not require a clarification; the `cac:Status` group is optional.
+ *
+ * @example
+ *   ```ts
+ *   { responseCode: 'AP', effectiveDate: '2018-08-02' }
+ *   ```;
+ *
+ * @see {@link PeppolInvoiceResponseDocumentActualResponse}
+ */
 export class PeppolInvoiceResponseDocumentActualResponseWithoutStatus extends opaque<PeppolInvoiceResponseDocumentActualResponseWithoutStatus>()(
   Schema.Struct({
     /**
@@ -40,6 +71,16 @@ export class PeppolInvoiceResponseDocumentActualResponseWithoutStatus extends op
   })
 ) {}
 
+/**
+ * @description Invoice response for statuses that require a clarification; at least one `cac:Status` group is mandatory.
+ *
+ * @example
+ *   ```ts
+ *   { responseCode: 'RE', status: [{ statusReason: 'TAX reference not found' }] }
+ *   ```;
+ *
+ * @see {@link PeppolInvoiceResponseDocumentActualResponse}
+ */
 export class PeppolInvoiceResponseDocumentActualResponseWithStatus extends opaque<PeppolInvoiceResponseDocumentActualResponseWithStatus>()(
   Schema.Struct({
     /**
@@ -74,8 +115,21 @@ export class PeppolInvoiceResponseDocumentActualResponseWithStatus extends opaqu
   })
 ) {}
 
+/**
+ * @description Union of the invoice response variants selected by `cbc:ResponseCode`: one that requires a clarification and one that does not.
+ *
+ * @example
+ *   ```ts
+ *   { responseCode: 'AP', effectiveDate: '2018-08-02' }
+ *   ```;
+ *
+ * @see {@link PeppolInvoiceResponseDocumentResponse}
+ */
 export class PeppolInvoiceResponseDocumentActualResponse extends opaque<PeppolInvoiceResponseDocumentActualResponse>()(
   Schema.Union([PeppolInvoiceResponseDocumentActualResponseWithStatus, PeppolInvoiceResponseDocumentActualResponseWithoutStatus])
 ) {}
 
+/**
+ * @description Alias of {@link PeppolInvoiceResponseDocumentActualResponse}.
+ */
 export type InvoiceResponseDocumentActualResponse = PeppolInvoiceResponseDocumentActualResponse;

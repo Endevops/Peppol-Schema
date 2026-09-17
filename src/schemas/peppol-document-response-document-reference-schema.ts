@@ -3,6 +3,16 @@ import { Schema } from 'effect';
 import { opaque } from '#/schemas/utils/opaque.ts';
 import { PeppolDocumentTypeCode } from '#/schemas/values/peppol-document-type-code-schema.ts';
 
+/**
+ * @description Wraps `cac:DocumentReference` inside a message level response: identifies the business document the response is based on.
+ *
+ * @example
+ *   ```ts
+ *   { id: 'EnvelopeID-12345', versionId: '2' }
+ *   ```;
+ *
+ * @see {@link PeppolMessageLevelResponseDocumentResponse}
+ */
 export class PeppolDocumentResponseDocumentReference extends opaque<PeppolDocumentResponseDocumentReference>()(
   Schema.Struct({
     /**
@@ -38,4 +48,7 @@ export class PeppolDocumentResponseDocumentReference extends opaque<PeppolDocume
   })
 ) {}
 
+/**
+ * @description Alias of {@link PeppolDocumentResponseDocumentReference} under the message level response naming.
+ */
 export type PeppolMessageLevelDocumentResponseDocumentReference = PeppolDocumentResponseDocumentReference;

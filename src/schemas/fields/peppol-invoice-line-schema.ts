@@ -6,6 +6,8 @@ import { opaque } from '#/schemas/utils/opaque.ts';
 import { PeppolQuantityUnitCode } from '#/schemas/values/quantity-unit-codes-schema.ts';
 
 /**
+ * @description A line of the Invoice, extending the common line fields with the invoiced quantity. Wraps the `cac:InvoiceLine` element.
+ *
  * @summary Invoice line
  *
  * @name cac:InvoiceLine
@@ -43,4 +45,9 @@ export class PeppolInvoiceLine extends opaque<PeppolInvoiceLine>()(
     ),
   })
 ) {}
+/**
+ * @description Encoded form of {@link PeppolInvoiceLine} produced by the Effect Schema codec. Fields mirror the decoded structure.
+ *
+ * @see {@link PeppolInvoiceLine}
+ */
 export interface PeppolInvoiceLineEncoded extends Schema.Codec.Encoded<typeof PeppolInvoiceLine> {}

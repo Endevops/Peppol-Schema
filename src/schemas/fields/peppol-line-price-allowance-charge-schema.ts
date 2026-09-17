@@ -3,6 +3,16 @@ import { Schema } from 'effect';
 import { PeppolAmount } from '#/schemas/fields/peppol-amount-schema.ts';
 import { opaque } from '#/schemas/utils/opaque.ts';
 
+/**
+ * @description A price level allowance or charge applied to the item price, expressed as an amount and a charge indicator.
+ *
+ * @example
+ *   ```ts
+ *   { amount: { value: 200, currencyId: 'EUR' }, chargeIndicator: false }
+ *   ```;
+ *
+ * @see {@link PeppolLinePriceAllowanceCharge}
+ */
 class PriceAllowanceCharge extends opaque<PriceAllowanceCharge>()(
   Schema.Struct({
     /**
@@ -28,6 +38,16 @@ class PriceAllowanceCharge extends opaque<PriceAllowanceCharge>()(
   })
 ) {}
 
+/**
+ * @description A price level allowance on the item price. Only allowances are allowed at price level, so the charge indicator is fixed to false.
+ *
+ * @example
+ *   ```ts
+ *   { amount: { value: 200, currencyId: 'EUR' }, chargeIndicator: false }
+ *   ```;
+ *
+ * @see {@link PeppolLinePrice}
+ */
 export class PeppolLinePriceAllowanceCharge extends opaque<PeppolLinePriceAllowanceCharge>()(
   PriceAllowanceCharge.pipe(
     Schema.fieldsAssign({

@@ -6,6 +6,8 @@ import { PeppolQuantity } from '#/schemas/fields/peppol-quantity-schema.ts';
 import { opaque } from '#/schemas/utils/opaque.ts';
 
 /**
+ * @description The price details of an invoice or credit note line, including the price amount and any price level allowance.
+ *
  * @summary Price details on invoice line
  *
  * @name cac:Price

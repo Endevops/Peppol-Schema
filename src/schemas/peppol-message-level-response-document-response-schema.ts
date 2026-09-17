@@ -5,6 +5,16 @@ import { PeppolDocumentResponseDocument } from '#/schemas/peppol-document-respon
 import { PeppolDocumentResponseLineResponse } from '#/schemas/peppol-document-response-line-response-schema.ts';
 import { opaque } from '#/schemas/utils/opaque.ts';
 
+/**
+ * @description Wraps `cac:DocumentResponse` inside a message level response: the response, the document reference and any per-line responses.
+ *
+ * @example
+ *   ```ts
+ *   { response: { responseCode: 'RE' }, documentReference: { id: 'EnvelopeID-12345' }, lineResponse: [] }
+ *   ```;
+ *
+ * @see {@link PeppolMessageLevelResponse}
+ */
 export class PeppolMessageLevelResponseDocumentResponse extends opaque<PeppolMessageLevelResponseDocumentResponse>()(
   Schema.Struct({
     /**

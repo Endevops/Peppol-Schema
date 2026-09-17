@@ -6,11 +6,12 @@ import { opaque } from '#/schemas/utils/opaque.ts';
 import { processes, processesKeys } from '#/values/processes.generated';
 
 /**
- * @description Validates a full PEPPOL business process identifier (`<scheme>::<value>`) against the known processes.
+ * @description A full PEPPOL business process identifier in `<scheme>::<value>` form from the known processes table.
  *
- * @param error - The custom error message to use when validation fails. Defaults to `'invalid peppol process identifier'`.
- *
- * @returns An Effect schema that matches a valid `scheme::value` process identifier.
+ * @example
+ *   ```ts
+ *   'cenbii-procid-ubl::urn:fdc:peppol.eu:2017:poacc:billing:01:1.0';
+ *   ```;
  *
  * @see {@link processes}
  */

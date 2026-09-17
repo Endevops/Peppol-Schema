@@ -361,6 +361,16 @@ import { validateSeR011 } from '#/schematron/se/se-r-011.ts';
 import { validateSeR012 } from '#/schematron/se/se-r-012.ts';
 import { validateSeR013 } from '#/schematron/se/se-r-013.ts';
 
+/**
+ * @description Every schematron rule validator of this library, in evaluation order.
+ *
+ * @example
+ *   ```ts
+ *   ruleValidators.length; // 360
+ *   ```;
+ *
+ * @see {@link SchematronDocumentValidator}
+ */
 export const ruleValidators: ReadonlyArray<SchematronDocumentValidator> = [
   validateCenEn16931BrAe01,
   validateCenEn16931BrAe02,

@@ -19,6 +19,18 @@ const nodableParser = new XMLParser({
   skip: { attributes: false, nsPrefix: true },
 });
 
+/**
+ * @description Parses an XML string into an {@link XmlNode} tree with the nodable compact builder, coercing values and removing `@xmlns`.
+ *
+ * @example
+ *   ```ts
+ *   parseXmlNodable('<root xmlns="urn:x"><a>1</a></root>'); // { root: { a: 1 } }
+ *   ```;
+ *
+ * @param value - The XML document to parse.
+ *
+ * @returns The parsed {@link XmlNode} tree with `@xmlns` stripped.
+ */
 export function parseXmlNodable(value: string): XmlNode {
   const parsed = nodableParser.parse(value) as XmlNode;
   stripDefaultXmlns(parsed);

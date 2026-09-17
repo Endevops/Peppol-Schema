@@ -6,11 +6,7 @@ import { documentTypesTable } from '#/values/document-type.generated';
 const values = Record.values(documentTypesTable).flat();
 
 /**
- * @description Validates the value part of a PEPPOL document type identifier (the portion after the scheme prefix) against the known document type table.
- *
- * @param error - The error message to use when validation fails. Defaults to `'invalid Peppol document type value'`.
- *
- * @returns An Effect schema that accepts only valid document type values.
+ * @description The value part of a PEPPOL document type identifier (the portion after the scheme prefix) from the known document type table.
  *
  * @see {@link documentTypesTable}
  */

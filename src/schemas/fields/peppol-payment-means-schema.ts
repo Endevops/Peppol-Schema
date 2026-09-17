@@ -4,6 +4,16 @@ import { PeppolIsoDateString } from '#/schemas/peppol-iso-date-string.ts';
 import { opaque } from '#/schemas/utils/opaque.ts';
 import { PeppolPaymentMeansCodeValue } from '#/schemas/values/payment-means-code-schema.ts';
 
+/**
+ * @description The account to be debited by a direct debit.
+ *
+ * @example
+ *   ```ts
+ *   { id: '12345676543' }
+ *   ```;
+ *
+ * @see {@link PeppolPaymentMandate}
+ */
 export class PeppolPaymentMandatePayerFinancialAccountId extends opaque<PeppolPaymentMandatePayerFinancialAccountId>()(
   Schema.Struct({
     /**
@@ -20,6 +30,16 @@ export class PeppolPaymentMandatePayerFinancialAccountId extends opaque<PeppolPa
   })
 ) {}
 
+/**
+ * @description A group of business terms to specify a direct debit, including the mandate reference and the debited account.
+ *
+ * @example
+ *   ```ts
+ *   { id: 'MandateReference', payerFinancialAccountId: { id: '12345676543' } }
+ *   ```;
+ *
+ * @see {@link PeppolPaymentMeans}
+ */
 export class PeppolPaymentMandate extends opaque<PeppolPaymentMandate>()(
   Schema.Struct({
     /**
@@ -44,6 +64,16 @@ export class PeppolPaymentMandate extends opaque<PeppolPaymentMandate>()(
   })
 ) {}
 
+/**
+ * @description The payment service provider where the payee payment account is held, such as a BIC or national clearing code.
+ *
+ * @example
+ *   ```ts
+ *   { id: 'BIC324098' }
+ *   ```;
+ *
+ * @see {@link PeppolPayeeFinancialAccount}
+ */
 export class PeppolPayeeFinancialAccountFinancialInstitutionBranch extends opaque<PeppolPayeeFinancialAccountFinancialInstitutionBranch>()(
   Schema.Struct({
     /**
@@ -61,6 +91,16 @@ export class PeppolPayeeFinancialAccountFinancialInstitutionBranch extends opaqu
   })
 ) {}
 
+/**
+ * @description The payment account to which payment should be made, such as an IBAN or BBAN, including the financial institution branch.
+ *
+ * @example
+ *   ```ts
+ *   { id: 'IBAN32423940', name: 'AccountName' }
+ *   ```;
+ *
+ * @see {@link PeppolPaymentMeans}
+ */
 export class PeppolPayeeFinancialAccount extends opaque<PeppolPayeeFinancialAccount>()(
   Schema.Struct({
     /**
@@ -94,6 +134,16 @@ export class PeppolPayeeFinancialAccount extends opaque<PeppolPayeeFinancialAcco
   })
 ) {}
 
+/**
+ * @description The card used for payment, including the card holder name and the primary account number.
+ *
+ * @example
+ *   ```ts
+ *   { networkId: 'VISA', primaryAccountNumberId: '1234' }
+ *   ```;
+ *
+ * @see {@link PeppolPaymentMeans}
+ */
 export class PeppolCardAccount extends opaque<PeppolCardAccount>()(
   Schema.Struct({
     /**
@@ -125,6 +175,16 @@ export class PeppolCardAccount extends opaque<PeppolCardAccount>()(
   })
 ) {}
 
+/**
+ * @description The means by which a payment is expected to be or has been settled, expressed as a UNCL 4461 code and optional text.
+ *
+ * @example
+ *   ```ts
+ *   { code: '30', name: 'Credit transfer' }
+ *   ```;
+ *
+ * @see {@link PeppolPaymentMeans}
+ */
 export class PeppolPaymentMeansCode extends opaque<PeppolPaymentMeansCode>()(
   Schema.Struct({
     /**

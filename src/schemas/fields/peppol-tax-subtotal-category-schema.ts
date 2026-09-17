@@ -28,4 +28,7 @@ export class PeppolTaxSubTotalCategory extends opaque<PeppolTaxSubTotalCategory>
   })
 ) {}
 
+/**
+ * @description The encoded form of {@link PeppolTaxSubTotalCategory}, accepted by the decoder before branded code values are applied.
+ */
 export interface PeppolTaxSubTotalCategoryEncoded extends Schema.Codec.Encoded<typeof PeppolTaxSubTotalCategory> {}

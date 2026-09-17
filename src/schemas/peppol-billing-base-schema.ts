@@ -19,6 +19,16 @@ import { PeppolIsoDateString } from '#/schemas/peppol-iso-date-string.ts';
 import { opaque } from '#/schemas/utils/opaque.ts';
 import { PeppolCurrencyCode } from '#/schemas/values/currency-code-schema.ts';
 
+/**
+ * @description Wraps the `cac:ContractDocumentReference` element: an identifier of a contract that the billing document references.
+ *
+ * @example
+ *   ```ts
+ *   { id: '123Contractref' }
+ *   ```;
+ *
+ * @see {@link PeppolBillingBase}
+ */
 export class PeppolContractDocumentReference extends opaque<PeppolContractDocumentReference>()(
   Schema.Struct({
     /**
@@ -35,6 +45,16 @@ export class PeppolContractDocumentReference extends opaque<PeppolContractDocume
   })
 ) {}
 
+/**
+ * @description Wraps the `cac:OriginatorDocumentReference` element: the identification of the call for tender or lot the invoice relates to.
+ *
+ * @example
+ *   ```ts
+ *   { id: 'PPID-123' }
+ *   ```;
+ *
+ * @see {@link PeppolBillingBase}
+ */
 export class PeppolOriginatorDocumentReference extends opaque<PeppolOriginatorDocumentReference>()(
   Schema.Struct({
     /**
@@ -51,6 +71,16 @@ export class PeppolOriginatorDocumentReference extends opaque<PeppolOriginatorDo
   })
 ) {}
 
+/**
+ * @description Wraps the `cac:ReceiptDocumentReference` element: an identifier of a referenced receiving advice.
+ *
+ * @example
+ *   ```ts
+ *   { id: 'rec98' }
+ *   ```;
+ *
+ * @see {@link PeppolBillingBase}
+ */
 export class PeppolReceiptDocumentReference extends opaque<PeppolReceiptDocumentReference>()(
   Schema.Struct({
     /**
@@ -67,6 +97,16 @@ export class PeppolReceiptDocumentReference extends opaque<PeppolReceiptDocument
   })
 ) {}
 
+/**
+ * @description Wraps the `cac:DespatchDocumentReference` element: an identifier of a referenced despatch advice.
+ *
+ * @example
+ *   ```ts
+ *   { id: 'desp98' }
+ *   ```;
+ *
+ * @see {@link PeppolBillingBase}
+ */
 export class PeppolDespatchDocumentReference extends opaque<PeppolDespatchDocumentReference>()(
   Schema.Struct({
     /**

@@ -11,6 +11,16 @@ import { PeppolMessageLevelResponse } from '#/schemas/peppol-message-level-respo
 import { opaque } from '#/schemas/utils/opaque.ts';
 import { PeppolDocumentTypeCode } from '#/schemas/values/peppol-document-type-code-schema.ts';
 
+/**
+ * @description Wraps `cac:PartyName` for the seller or buyer on an invoice response: the party's legal or trading name.
+ *
+ * @example
+ *   ```ts
+ *   { name: 'Seller Business Name AS' }
+ *   ```;
+ *
+ * @see {@link PeppolInvoiceResponseDocumentResponseParty}
+ */
 export class PeppolInvoiceResponseDocumentResponsePartyName extends opaque<PeppolInvoiceResponseDocumentResponsePartyName>()(
   Schema.Struct({
     /**
@@ -25,6 +35,16 @@ export class PeppolInvoiceResponseDocumentResponsePartyName extends opaque<Peppo
   })
 ) {}
 
+/**
+ * @description Party used for the sender and receiver of an invoice response. Extends {@link PeppolMessageLevelResponseParty}.
+ *
+ * @example
+ *   ```ts
+ *   { partyLegalEntity: { registrationName: 'Seller Business Name AS' } }
+ *   ```;
+ *
+ * @see {@link PeppolInvoiceResponse}
+ */
 export class PeppolInvoiceResponseParty extends opaque<PeppolInvoiceResponseParty>()(
   PeppolMessageLevelResponseParty.pipe(
     Schema.fieldsAssign({
@@ -37,6 +57,16 @@ export class PeppolInvoiceResponseParty extends opaque<PeppolInvoiceResponsePart
   )
 ) {}
 
+/**
+ * @description Sender party of an invoice response. Extends {@link PeppolInvoiceResponseParty} with optional `cac:Contact` details.
+ *
+ * @example
+ *   ```ts
+ *   { partyLegalEntity: { registrationName: 'Seller Business Name AS' } }
+ *   ```;
+ *
+ * @see {@link PeppolInvoiceResponse}
+ */
 export class PeppolInvoiceResponseSenderParty extends opaque<PeppolInvoiceResponseSenderParty>()(
   PeppolInvoiceResponseParty.pipe(
     Schema.fieldsAssign({
@@ -69,8 +99,21 @@ export class PeppolInvoiceResponseDocumentResponseParty extends opaque<PeppolInv
   })
 ) {}
 
+/**
+ * @description Alias of {@link PeppolInvoiceResponseDocumentResponseParty}.
+ */
 export type PeppolInvoiceDocumentResponseParty = PeppolInvoiceResponseDocumentResponseParty;
 
+/**
+ * @description Wraps `cac:DocumentReference` inside an invoice response: identifies the invoice the status applies to.
+ *
+ * @example
+ *   ```ts
+ *   { id: 'inv-99876', issueDate: '2018-08-01', documentTypeCode: '380' }
+ *   ```;
+ *
+ * @see {@link PeppolInvoiceResponseDocumentResponse}
+ */
 export class PeppolInvoiceResponseDocumentReference extends opaque<PeppolInvoiceResponseDocumentReference>()(
   Schema.Struct({
     /**
@@ -106,6 +149,16 @@ export class PeppolInvoiceResponseDocumentReference extends opaque<PeppolInvoice
   })
 ) {}
 
+/**
+ * @description Wraps `cac:DocumentResponse` inside an invoice response: the response, the referenced invoice and optional parties.
+ *
+ * @example
+ *   ```ts
+ *   { response: { responseCode: 'AP', effectiveDate: '2018-08-02' }, documentReference: { id: 'inv-99876', documentTypeCode: '380' } }
+ *   ```;
+ *
+ * @see {@link PeppolInvoiceResponse}
+ */
 export class PeppolInvoiceResponseDocumentResponse extends opaque<PeppolInvoiceResponseDocumentResponse>()(
   Schema.Struct({
     /**

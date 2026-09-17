@@ -4,11 +4,12 @@ import { opaque } from '#/schemas/utils/opaque.ts';
 import { documentTypesScheme } from '#/values/document-type.generated';
 
 /**
- * @description Validates a PEPPOL document type scheme (e.g. `busdox-docid-qns`, `peppol-doctype-wildcard`).
+ * @description A PEPPOL document type scheme, for example `busdox-docid-qns` or `peppol-doctype-wildcard`.
  *
- * @param error - The error message to use when validation fails. Defaults to `'invalid Peppol document type scheme'`.
- *
- * @returns An Effect schema that accepts only valid document type schemes.
+ * @example
+ *   ```ts
+ *   'busdox-docid-qns';
+ *   ```;
  *
  * @see {@link documentTypesScheme}
  */

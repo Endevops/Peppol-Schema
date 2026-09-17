@@ -5,6 +5,8 @@ import { PeppolPartyTaxScheme } from '#/schemas/fields/peppol-party-tax-scheme-s
 import { opaque } from '#/schemas/utils/opaque.ts';
 
 /**
+ * @description The party acting as the Seller tax representative, including its name, postal address, and tax scheme.
+ *
  * @summary SELLER TAX REPRESENTATIVE PARTY
  *
  * @name cac:TaxRepresentativeParty
@@ -23,4 +25,7 @@ export class PeppolTaxRepresentative extends opaque<PeppolTaxRepresentative>()(
   })
 ) {}
 
+/**
+ * @description Alias for {@link PeppolTaxRepresentative}.
+ */
 export type PeppolTaxRepresentativeParty = PeppolTaxRepresentative;

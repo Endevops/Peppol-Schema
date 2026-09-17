@@ -2,6 +2,15 @@ import { normalizeSpace } from './normalize-space.ts';
 
 /**
  * @description Validates Swedish organization numbers (0007)
+ *
+ * @example
+ *   ```ts
+ *   checkSEOrgnr('5560160680'); // true
+ *   ```;
+ *
+ * @param number - The organization number to validate. Whitespace is normalised first.
+ *
+ * @returns `true` when the normalised number is 10 digits and its Luhn check digit matches, otherwise `false`.
  */
 export function checkSEOrgnr(number: string): boolean {
   const s = normalizeSpace(number);

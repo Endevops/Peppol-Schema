@@ -7,6 +7,16 @@ import { PeppolIcdCode } from '#/schemas/values/icd-codes-schema.ts';
 import { PeppolAddress } from './peppol-address-schema.ts';
 import { PeppolIdentifier } from './peppol-identifier-schema.ts';
 
+/**
+ * @description The name of the party to which the goods and services are delivered. Wraps the `cac:PartyName` element of the delivery party.
+ *
+ * @example
+ *   ```ts
+ *   { name: 'Delivery party Name' }
+ *   ```;
+ *
+ * @see {@link PeppolDeliveryParty}
+ */
 export class PeppolDeliveryPartyPartyName extends opaque<PeppolDeliveryPartyPartyName>()(
   Schema.Struct({
     /**
@@ -20,6 +30,16 @@ export class PeppolDeliveryPartyPartyName extends opaque<PeppolDeliveryPartyPart
   })
 ) {}
 
+/**
+ * @description The party to which the goods and services are delivered, when it differs from the Buyer. Wraps the `cac:DeliveryParty` element.
+ *
+ * @example
+ *   ```ts
+ *   { partyName: { name: 'Delivery party Name' } }
+ *   ```;
+ *
+ * @see {@link PeppolDelivery}
+ */
 export class PeppolDeliveryParty extends opaque<PeppolDeliveryParty>()(
   Schema.Struct({
     /**
@@ -31,6 +51,17 @@ export class PeppolDeliveryParty extends opaque<PeppolDeliveryParty>()(
   })
 ) {}
 
+/**
+ * @description The location at which the goods and services are delivered, identified by an identifier and an optional address. Wraps the `cac:DeliveryLocation`
+ * element.
+ *
+ * @example
+ *   ```ts
+ *   { id: { id: '9483759475923478', schemeId: '0088' }, address: { cityName: 'Stockholm', countryCode: { identificationCode: 'SE' } } }
+ *   ```;
+ *
+ * @see {@link PeppolDelivery}
+ */
 export class PeppolDeliveryLocation extends opaque<PeppolDeliveryLocation>()(
   Schema.Struct({
     /**
@@ -79,6 +110,17 @@ export class PeppolDeliveryLocation extends opaque<PeppolDeliveryLocation>()(
   })
 ) {}
 
+/**
+ * @description Information about the delivery of the goods and services, such as the actual delivery date, the delivery location and the delivery party. Wraps the
+ * `cac:Delivery` element.
+ *
+ * @example
+ *   ```ts
+ *   { actualDeliveryDate: '2017-11-01', deliveryLocation: { id: { id: '9483759475923478' } } }
+ *   ```;
+ *
+ * @see {@link PeppolDeliveryLocation}
+ */
 export class PeppolDelivery extends opaque<PeppolDelivery>()(
   Schema.Struct({
     /**

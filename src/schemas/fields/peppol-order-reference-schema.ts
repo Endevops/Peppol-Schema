@@ -3,6 +3,8 @@ import { Schema } from 'effect';
 import { opaque } from '#/schemas/utils/opaque.ts';
 
 /**
+ * @description A reference to the purchase order or sales order that the invoice relates to.
+ *
  * @summary ORDER AND SALES ORDER REFERENCE
  *
  * @name cac:OrderReference

@@ -3,6 +3,16 @@ import { Schema } from 'effect';
 import { opaque } from '#/schemas/utils/opaque.ts';
 import { PeppolApplicationResponseTypeCode } from '#/schemas/values/application-response-type-code-schema.ts';
 
+/**
+ * @description Wraps `cac:Status` inside a line response: the coded reason for an issue found in the document.
+ *
+ * @example
+ *   ```ts
+ *   { statusReasonCode: 'SV' }
+ *   ```;
+ *
+ * @see {@link PeppolDocumentResponseLineResponseContent}
+ */
 export class PeppolStatus extends opaque<PeppolStatus>()(
   Schema.Struct({
     /**
@@ -16,6 +26,16 @@ export class PeppolStatus extends opaque<PeppolStatus>()(
   })
 ) {}
 
+/**
+ * @description A response to a particular line in the business document: the line response code, a description of the issue and its coded status.
+ *
+ * @example
+ *   ```ts
+ *   { responseCode: 'RE', description: 'Validation gives error [CL-T77-R0002]', status: { statusReasonCode: 'SV' } }
+ *   ```;
+ *
+ * @see {@link PeppolDocumentResponseLineResponse}
+ */
 export class PeppolDocumentResponseLineResponseContent extends opaque<PeppolDocumentResponseLineResponseContent>()(
   Schema.Struct({
     /**

@@ -5,6 +5,8 @@ import { PeppolTaxSubTotalCategory } from '#/schemas/fields/peppol-tax-subtotal-
 import { opaque } from '#/schemas/utils/opaque.ts';
 
 /**
+ * @description A VAT breakdown line for a single tax category, giving the taxable amount and the tax amount.
+ *
  * @summary VAT breakdown (TaxSubtotal)
  *
  * @name cac:TaxSubtotal

@@ -1,5 +1,15 @@
 /**
  * @description [GLN](https://en.wikipedia.org/wiki/Global_Location_Number) check (GS1)
+ *
+ * @example
+ *   ```ts
+ *   isValidGLN('1234567890128'); // { success: true }
+ *   ```;
+ *
+ * @param val - The GLN to validate. Whitespace is stripped first.
+ *
+ * @returns `{ success: true }` when the computed check digit matches the last digit, otherwise `{ success: false, expected, actual }` with the
+ *   computed and supplied check digits.
  */
 export function isValidGLN(val: string): { success: true } | { success: false; expected: number; actual: number } {
   const value = (val ?? '').replace(/\s+/g, '');

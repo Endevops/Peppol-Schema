@@ -11,16 +11,18 @@ import { opaque } from '#/schemas/utils/opaque.ts';
 import { electronicAddressCodesKeys } from '#/values/eas-codes.generated';
 
 /**
- * @description Validates an electronic address scheme (EAS) code against the PEPPOL Electronic Address Identifier Scheme codelist.
+ * @description An electronic address scheme (EAS) code from the PEPPOL Electronic Address Identifier Scheme codelist.
  *
- * @param error - The custom error message to use when validation fails.
- *
- * @returns An Effect schema that accepts only valid electronic address scheme codes.
+ * @example
+ *   ```ts
+ *   '0002';
+ *   ```;
  *
  * @validations
  * - PEPPOL-EN16931-CL008: Electronic address identifier scheme MUST be from the codelist "Electronic Address Identifier Scheme".
  *
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/eas/
+ * @see {@link electronicAddressCodesKeys}
  */
 export class PeppolElectronicAddressCode extends opaque<PeppolElectronicAddressCode>()(
   Schema.Literals(electronicAddressCodesKeys).pipe(Schema.brand('PeppolElectronicAddressCode'))

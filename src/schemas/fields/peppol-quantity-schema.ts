@@ -4,6 +4,8 @@ import { opaque } from '#/schemas/utils/opaque.ts';
 import { PeppolQuantityUnitCode } from '#/schemas/values/quantity-unit-codes-schema.ts';
 
 /**
+ * @description A quantity value with an optional unit of measure code.
+ *
  * @summary Quantity with optional unit code
  *
  * @name `cbc:* (+ @unitCode)`

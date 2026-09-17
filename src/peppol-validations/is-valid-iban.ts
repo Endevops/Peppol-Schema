@@ -2,6 +2,16 @@ import { normalizeSpace } from './normalize-space.ts';
 
 /**
  * @description IBAN validation using mod 97 algorithm.
+ *
+ * @example
+ *   ```ts
+ *   isValidIBAN('GB82 WEST 1234 5698 7654 32'); // true
+ *   ```;
+ *
+ * @param iban - The IBAN to validate, with or without spaces.
+ *
+ * @returns `true` when the normalised value matches the `{2 letters}{2 digits}{up to 30 alphanumerics}` shape and its mod 97 remainder is 1,
+ *   otherwise `false`.
  */
 export function isValidIBAN(iban: string): boolean {
   const s = normalizeSpace(iban).replace(/[ \t\r\n]/g, '');

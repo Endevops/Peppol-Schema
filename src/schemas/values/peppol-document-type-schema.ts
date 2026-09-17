@@ -6,12 +6,7 @@ import { opaque } from '#/schemas/utils/opaque.ts';
 import { documentTypesTable, documentTypesTableKeys } from '#/values/document-type.generated';
 
 /**
- * @description Validates a full PEPPOL document type identifier (`<scheme>::<value>`) against the known document type table. The scheme prefix must be a known key
- * and the full identifier must exist in the document type table (checked via a filter).
- *
- * @param error - The custom error message to use when validation fails. Defaults to `'invalid peppol document type'`.
- *
- * @returns An Effect schema that matches a valid `scheme::value` document type identifier.
+ * @description A full PEPPOL document type identifier in `<scheme>::<value>` form. The scheme prefix and value must both be known.
  *
  * @see {@link documentTypesTable}
  */

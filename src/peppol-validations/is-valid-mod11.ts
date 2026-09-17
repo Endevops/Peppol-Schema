@@ -2,6 +2,15 @@ import { normalizeSpace } from './normalize-space.ts';
 
 /**
  * @description Validates Norwegian organization numbers using mod11 algorithm.
+ *
+ * @example
+ *   ```ts
+ *   isValidMod11('923609016'); // true
+ *   ```;
+ *
+ * @param val - The organization number to validate. Whitespace is normalised first.
+ *
+ * @returns `true` when the normalised value is at least two digits and its mod 11 check digit matches, otherwise `false`.
  */
 export function isValidMod11(val: string): boolean {
   const s = normalizeSpace(val);

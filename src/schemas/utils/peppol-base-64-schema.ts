@@ -27,9 +27,17 @@ const BASE64_RE = /^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=
 /**
  * @description RFC 4648 base64 string (PEM / MIME / XML line endings tolerated). Effect port of `base64Schema` (`z.string().check(z.refine(...))`): strips CRLF /
  * LF line endings before testing the quantum regex.
+ *
+ * @example
+ *   ```ts
+ *   const value = 'SGVsbG8=';
+ *   ```;
  */
 export class PeppolBase64 extends opaque<PeppolBase64>()(
   Schema.String.check(Schema.makeFilter((val: string) => BASE64_RE.test(val.replace(/\r?\n/g, '')))).annotate({ message: 'Invalid base64' })
 ) {}
 
+/**
+ * @description Alias of {@link PeppolBase64} for callers that prefer the shorter name.
+ */
 export type Base64 = PeppolBase64;

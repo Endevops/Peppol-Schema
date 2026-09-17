@@ -7,6 +7,16 @@ import { opaque } from '#/schemas/utils/opaque.ts';
 import { PeppolIcdCode } from '#/schemas/values/icd-codes-schema.ts';
 import { PeppolCountryCodeValue } from '#/schemas/values/peppol-country-code-schema.ts';
 
+/**
+ * @description An additional property of the item, expressed as an attribute name and value pair.
+ *
+ * @example
+ *   ```ts
+ *   { name: 'Colour', value: 'Blue' }
+ *   ```;
+ *
+ * @see {@link PeppolLineItem}
+ */
 export class PeppolAdditionalItemProperties extends opaque<PeppolAdditionalItemProperties>()(
   Schema.Struct({
     /**
@@ -28,6 +38,16 @@ export class PeppolAdditionalItemProperties extends opaque<PeppolAdditionalItemP
   })
 ) {}
 
+/**
+ * @description A code classifying the item by its type or nature, identified by a scheme such as CPV.
+ *
+ * @example
+ *   ```ts
+ *   { itemClassification: { id: '09348023', listId: 'STI' } }
+ *   ```;
+ *
+ * @see {@link PeppolItemClassification}
+ */
 export class PeppolCommodityClassifications extends opaque<PeppolCommodityClassifications>()(
   Schema.Struct({
     /**
@@ -44,6 +64,16 @@ export class PeppolCommodityClassifications extends opaque<PeppolCommodityClassi
   })
 ) {}
 
+/**
+ * @description The country from which the item originates, identified by an ISO 3166-1 country code.
+ *
+ * @example
+ *   ```ts
+ *   { identificationCode: 'NO' }
+ *   ```;
+ *
+ * @see {@link PeppolLineItem}
+ */
 export class PeppolOriginCountryCode extends opaque<PeppolOriginCountryCode>()(
   Schema.Struct({
     /**
@@ -57,6 +87,16 @@ export class PeppolOriginCountryCode extends opaque<PeppolOriginCountryCode>()(
   })
 ) {}
 
+/**
+ * @description An item identifier based on a registered scheme, such as a GTIN or EAN.
+ *
+ * @example
+ *   ```ts
+ *   { id: { id: '21382183120983', schemeId: '0088' } }
+ *   ```;
+ *
+ * @see {@link PeppolIdentifier}
+ */
 export class PeppolStandardItemIdentification extends opaque<PeppolStandardItemIdentification>()(
   Schema.Struct({
     /**
@@ -89,6 +129,16 @@ export class PeppolStandardItemIdentification extends opaque<PeppolStandardItemI
   })
 ) {}
 
+/**
+ * @description An identifier assigned by the Seller for the item.
+ *
+ * @example
+ *   ```ts
+ *   { id: '987323' }
+ *   ```;
+ *
+ * @see {@link PeppolLineItem}
+ */
 export class PeppolSellersItemIdentification extends opaque<PeppolSellersItemIdentification>()(
   Schema.Struct({
     /**
@@ -105,6 +155,16 @@ export class PeppolSellersItemIdentification extends opaque<PeppolSellersItemIde
   })
 ) {}
 
+/**
+ * @description An identifier assigned by the Buyer for the item.
+ *
+ * @example
+ *   ```ts
+ *   { id: '12345' }
+ *   ```;
+ *
+ * @see {@link PeppolLineItem}
+ */
 export class PeppolBuyersItemIdentification extends opaque<PeppolBuyersItemIdentification>()(
   Schema.Struct({
     /**
@@ -122,6 +182,8 @@ export class PeppolBuyersItemIdentification extends opaque<PeppolBuyersItemIdent
 ) {}
 
 /**
+ * @description The item details for an invoice or credit note line, including its name, identifiers, classification, and line VAT category.
+ *
  * @summary Item details on invoice/credit-note line
  *
  * @name cac:Item
@@ -193,4 +255,7 @@ export class PeppolLineItem extends opaque<PeppolLineItem>()(
   })
 ) {}
 
+/**
+ * @description Alias for {@link PeppolLineItem}.
+ */
 export type PeppolItem = PeppolLineItem;

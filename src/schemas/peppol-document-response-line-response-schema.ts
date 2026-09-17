@@ -3,6 +3,16 @@ import { Schema } from 'effect';
 import { PeppolDocumentResponseLineResponseContent } from '#/schemas/peppol-document-response-line-response-content-schema.ts';
 import { opaque } from '#/schemas/utils/opaque.ts';
 
+/**
+ * @description Wraps `cac:LineReference` inside a line response: an XPath pointing at the element that caused the reported issue.
+ *
+ * @example
+ *   ```ts
+ *   { lineId: '/Invoice/cac:InvoiceLine[1]' }
+ *   ```;
+ *
+ * @see {@link PeppolDocumentResponseLineResponse}
+ */
 export class PeppolLineReference extends opaque<PeppolLineReference>()(
   Schema.Struct({
     /**
@@ -20,6 +30,19 @@ export class PeppolLineReference extends opaque<PeppolLineReference>()(
   })
 ) {}
 
+/**
+ * @description Wraps `cac:LineResponse` inside a message level response: pairs a line reference with the response for that line.
+ *
+ * @example
+ *   ```ts
+ *   {
+ *     lineReference: { lineId: '/Invoice/cac:InvoiceLine[1]' },
+ *     response: { responseCode: 'RE', description: 'Invalid tax category', status: { statusReasonCode: 'SV' } }
+ *   }
+ *   ```;
+ *
+ * @see {@link PeppolMessageLevelResponseDocumentResponse}
+ */
 export class PeppolDocumentResponseLineResponse extends opaque<PeppolDocumentResponseLineResponse>()(
   Schema.Struct({
     /**
@@ -37,4 +60,7 @@ export class PeppolDocumentResponseLineResponse extends opaque<PeppolDocumentRes
   })
 ) {}
 
+/**
+ * @description Alias of {@link PeppolDocumentResponseLineResponse} under the message level response naming.
+ */
 export type PeppolMessageLevelDocumentResponseLineResponse = PeppolDocumentResponseLineResponse;
