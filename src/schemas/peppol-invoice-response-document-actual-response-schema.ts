@@ -125,11 +125,7 @@ export class PeppolInvoiceResponseDocumentActualResponseWithStatus extends opaqu
  *
  * @see {@link PeppolInvoiceResponseDocumentResponse}
  */
-export class PeppolInvoiceResponseDocumentActualResponse extends opaque<PeppolInvoiceResponseDocumentActualResponse>()(
-  Schema.Union([PeppolInvoiceResponseDocumentActualResponseWithStatus, PeppolInvoiceResponseDocumentActualResponseWithoutStatus])
-) {}
-
-/**
- * @description Alias of {@link PeppolInvoiceResponseDocumentActualResponse}.
- */
-export type InvoiceResponseDocumentActualResponse = PeppolInvoiceResponseDocumentActualResponse;
+export class PeppolInvoiceResponseDocumentActualResponse extends Schema.Union([
+  PeppolInvoiceResponseDocumentActualResponseWithStatus,
+  PeppolInvoiceResponseDocumentActualResponseWithoutStatus,
+]) {}

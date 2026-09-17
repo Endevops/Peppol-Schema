@@ -47,8 +47,3 @@ export class PeppolDocumentResponseDocumentReference extends opaque<PeppolDocume
     versionId: Schema.optional(Schema.String),
   })
 ) {}
-
-/**
- * @description Alias of {@link PeppolDocumentResponseDocumentReference} under the message level response naming.
- */
-export type PeppolMessageLevelDocumentResponseDocumentReference = PeppolDocumentResponseDocumentReference;

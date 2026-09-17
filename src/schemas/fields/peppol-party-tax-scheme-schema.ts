@@ -2,7 +2,7 @@ import { Effect, Schema } from 'effect';
 
 import { opaque } from '#/schemas/utils/opaque.ts';
 
-class PeppolTaxSchemeId extends opaque<PeppolTaxSchemeId>()(
+export class PeppolPartyTaxSchemeId extends opaque<PeppolPartyTaxSchemeId>()(
   Schema.Struct({
     /**
      * @description Mandatory element. For Seller VAT identifier (BT-31), use value “VAT”, for the seller tax registration identifier (BT-32), use != "VAT"
@@ -36,11 +36,6 @@ export class PeppolPartyTaxScheme extends opaque<PeppolPartyTaxScheme>()(
      *
      * @name `cac:TaxScheme`
      */
-    taxSchemeId: PeppolTaxSchemeId,
+    taxSchemeId: PeppolPartyTaxSchemeId,
   })
 ) {}
-
-/**
- * @description Alias for {@link PeppolPartyTaxScheme}.
- */
-export type PeppolPartyTaxSchema = PeppolPartyTaxScheme;

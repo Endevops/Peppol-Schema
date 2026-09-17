@@ -100,11 +100,6 @@ export class PeppolInvoiceResponseDocumentResponseParty extends opaque<PeppolInv
 ) {}
 
 /**
- * @description Alias of {@link PeppolInvoiceResponseDocumentResponseParty}.
- */
-export type PeppolInvoiceDocumentResponseParty = PeppolInvoiceResponseDocumentResponseParty;
-
-/**
  * @description Wraps `cac:DocumentReference` inside an invoice response: identifies the invoice the status applies to.
  *
  * @example

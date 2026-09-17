@@ -38,8 +38,3 @@ export class PeppolPartyLegalEntity extends opaque<PeppolPartyLegalEntity>()(
     registrationName: Schema.String,
   })
 ) {}
-
-/**
- * @description Alias for {@link PeppolPartyLegalEntity}.
- */
-export type PeppolPartyLegalEntitySchema = PeppolPartyLegalEntity;

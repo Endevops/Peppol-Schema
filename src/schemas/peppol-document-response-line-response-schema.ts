@@ -59,8 +59,3 @@ export class PeppolDocumentResponseLineResponse extends opaque<PeppolDocumentRes
     response: PeppolDocumentResponseLineResponseContent,
   })
 ) {}
-
-/**
- * @description Alias of {@link PeppolDocumentResponseLineResponse} under the message level response naming.
- */
-export type PeppolMessageLevelDocumentResponseLineResponse = PeppolDocumentResponseLineResponse;

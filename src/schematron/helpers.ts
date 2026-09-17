@@ -1,4 +1,4 @@
-import { Effect } from 'effect';
+import { Effect, String } from 'effect';
 
 import type { PeppolInvoicePeriod } from '#/schemas/fields/peppol-invoice-period-schema.ts';
 import type { PeppolTaxSubTotal } from '#/schemas/fields/peppol-tax-subtotal-schema.ts';
@@ -8,11 +8,6 @@ import type { SchematronRuleLevel } from '#/schematron/types.ts';
 import { SchematronRuleError } from '#/schematron/errors.ts';
 import { chargeReasonCodesKeys } from '#/values/charge-reason-codes.generated';
 import { countryCodesKeys } from '#/values/country-code.generated';
-
-/**
- * @description Alias for a single line of a {@link PeppolDocument}, either an invoice line (BG-25) or a credit note line (BG-31).
- */
-export type PeppolLine = PeppolDocumentLine;
 
 /**
  * @description Rule metadata shared by all schematron rules.
@@ -149,7 +144,7 @@ export function getSupplierCountry(document: PeppolDocument): string {
     }
   }
   const country = document.accountingSupplierParty.postalAddress.countryCode.identificationCode;
-  return country ? country.toUpperCase() : 'XX';
+  return country ? String.toUpperCase(country) : 'XX';
 }
 
 /**
@@ -171,7 +166,7 @@ export function getCustomerCountry(document: PeppolDocument): string {
     return prefix.toUpperCase();
   }
   const country = document.accountingCustomerParty.postalAddress.countryCode.identificationCode;
-  return country ? country.toUpperCase() : 'XX';
+  return country ? String.toUpperCase(country) : 'XX';
 }
 
 /**
@@ -251,12 +246,12 @@ export function isGermanSupplierAndCustomer(document: PeppolDocument): boolean {
  *
  * @returns The `invoiceLines` or `creditNoteLines` array, or an empty array when the document carries neither.
  */
-export function getLines(document: PeppolDocument): Array<PeppolLine> {
+export function getLines(document: PeppolDocument): Array<PeppolDocumentLine> {
   if ('invoiceLines' in document && Array.isArray(document.invoiceLines)) {
-    return document.invoiceLines as Array<PeppolLine>;
+    return document.invoiceLines as Array<PeppolDocumentLine>;
   }
   if ('creditNoteLines' in document && Array.isArray(document.creditNoteLines)) {
-    return document.creditNoteLines as Array<PeppolLine>;
+    return document.creditNoteLines as Array<PeppolDocumentLine>;
   }
   return [];
 }
@@ -273,7 +268,7 @@ export function getLines(document: PeppolDocument): Array<PeppolLine> {
  *
  * @returns The `invoicedQuantity` or `creditedQuantity` value, or `1` when the line carries neither.
  */
-export function getLineQuantity(line: PeppolLine): number {
+export function getLineQuantity(line: PeppolDocumentLine): number {
   const quantity = 'invoicedQuantity' in line ? line.invoicedQuantity : 'creditedQuantity' in line ? line.creditedQuantity : undefined;
   return quantity ? quantity.value : 1;
 }

@@ -79,8 +79,3 @@ export class PeppolInvoiceResponseDocumentActualResponseStatus extends opaque<Pe
     condition: Schema.optional(Schema.Array(PeppolInvoiceResponseCondition)),
   })
 ) {}
-
-/**
- * @description Alias of {@link PeppolInvoiceResponseDocumentActualResponseStatus}.
- */
-export type InvoiceResponseDocumentActualResponseStatus = PeppolInvoiceResponseDocumentActualResponseStatus;

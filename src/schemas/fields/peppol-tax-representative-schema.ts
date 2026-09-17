@@ -24,8 +24,3 @@ export class PeppolTaxRepresentative extends opaque<PeppolTaxRepresentative>()(
     partyTaxScheme: PeppolPartyTaxScheme,
   })
 ) {}
-
-/**
- * @description Alias for {@link PeppolTaxRepresentative}.
- */
-export type PeppolTaxRepresentativeParty = PeppolTaxRepresentative;

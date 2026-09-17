@@ -254,8 +254,3 @@ export class PeppolLineItem extends opaque<PeppolLineItem>()(
     additionalItemProperties: Schema.optional(Schema.Array(PeppolAdditionalItemProperties)),
   })
 ) {}
-
-/**
- * @description Alias for {@link PeppolLineItem}.
- */
-export type PeppolItem = PeppolLineItem;

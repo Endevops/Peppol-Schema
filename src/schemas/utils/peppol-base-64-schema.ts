@@ -1,7 +1,5 @@
 import { Schema } from 'effect';
 
-import { opaque } from '#/schemas/utils/opaque.ts';
-
 // RFC 4648 §4 — Base 64 Encoding
 //
 // Alphabet: A-Z a-z 0-9 + /  (pad: =)
@@ -33,11 +31,6 @@ const BASE64_RE = /^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=
  *   const value = 'SGVsbG8=';
  *   ```;
  */
-export class PeppolBase64 extends opaque<PeppolBase64>()(
-  Schema.String.check(Schema.makeFilter((val: string) => BASE64_RE.test(val.replace(/\r?\n/g, '')))).annotate({ message: 'Invalid base64' })
-) {}
-
-/**
- * @description Alias of {@link PeppolBase64} for callers that prefer the shorter name.
- */
-export type Base64 = PeppolBase64;
+export class PeppolBase64 extends Schema.String.check(Schema.makeFilter((val: string) => BASE64_RE.test(val.replace(/\r?\n/g, '')))).annotate({
+  message: 'Invalid base64',
+}) {}

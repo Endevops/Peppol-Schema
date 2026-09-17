@@ -11,7 +11,7 @@ import { opaque } from '#/schemas/utils/opaque.ts';
  *
  * @name cac:TaxTotal (1..2)
  */
-export class PeppolTaxTotalsBase extends opaque<PeppolTaxTotalsBase>()(
+export class PeppolTaxTotal extends opaque<PeppolTaxTotal>()(
   Schema.Struct({
     /**
      * @example
@@ -26,8 +26,3 @@ export class PeppolTaxTotalsBase extends opaque<PeppolTaxTotalsBase>()(
     taxSubtotals: Schema.optional(Schema.Array(PeppolTaxSubTotal)),
   })
 ) {}
-
-/**
- * @description Alias for {@link PeppolTaxTotalsBase}.
- */
-export type PeppolTaxTotal = PeppolTaxTotalsBase;

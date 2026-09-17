@@ -2,14 +2,14 @@ import { Effect, Predicate } from 'effect';
 
 import type { PeppolContact } from '#/schemas/fields/peppol-contact-schema.ts';
 import type { PeppolIdentifier } from '#/schemas/fields/peppol-identifier-schema.ts';
-import type { PeppolInvoiceDocumentResponseParty, PeppolInvoiceResponseParty } from '#/schemas/peppol-invoice-response-schema.ts';
+import type { PeppolInvoiceResponseDocumentResponseParty, PeppolInvoiceResponseParty } from '#/schemas/peppol-invoice-response-schema.ts';
 import type { PeppolMessageLevelResponseParty } from '#/schemas/peppol-message-level-response-party-schema.ts';
 
 import { encodeContact } from '#/decoders/fields/encode-contact.ts';
 import { encodeIdentifier } from '#/decoders/fields/encode-identifier.ts';
 import { encodePartyLegalEntity } from '#/decoders/fields/encode-party-legal-entity.ts';
 
-type ResponseParty = PeppolMessageLevelResponseParty | PeppolInvoiceResponseParty | PeppolInvoiceDocumentResponseParty;
+type ResponseParty = PeppolMessageLevelResponseParty | PeppolInvoiceResponseParty | PeppolInvoiceResponseDocumentResponseParty;
 
 /**
  * @description The response party union exposes different fields per variant; reading the optional ones through a shared view keeps the encoder branch-free.

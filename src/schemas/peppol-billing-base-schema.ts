@@ -14,7 +14,7 @@ import { PeppolPayeeParty } from '#/schemas/fields/peppol-payee-party-schema.ts'
 import { PeppolPaymentMeans } from '#/schemas/fields/peppol-payment-means-schema.ts';
 import { PeppolPaymentTerms } from '#/schemas/fields/peppol-payment-terms-schema.ts';
 import { PeppolTaxRepresentative } from '#/schemas/fields/peppol-tax-representative-schema.ts';
-import { PeppolTaxTotalsBase } from '#/schemas/fields/peppol-tax-totals-base-schema.ts';
+import { PeppolTaxTotal } from '#/schemas/fields/peppol-tax-totals-base-schema.ts';
 import { PeppolIsoDateString } from '#/schemas/peppol-iso-date-string.ts';
 import { opaque } from '#/schemas/utils/opaque.ts';
 import { PeppolCurrencyCode } from '#/schemas/values/currency-code-schema.ts';
@@ -394,7 +394,7 @@ export class PeppolBillingBase extends opaque<PeppolBillingBase>()(
      *
      * @name cac:TaxTotal
      */
-    taxTotals: Schema.Array(PeppolTaxTotalsBase).check(Schema.isMinLength(1), Schema.isMaxLength(2)),
+    taxTotals: Schema.Array(PeppolTaxTotal).check(Schema.isMinLength(1), Schema.isMaxLength(2)),
 
     /**
      * @summary DOCUMENT TOTALS

@@ -2,10 +2,10 @@
 import { TestSchema } from 'effect/testing';
 import { describe, it } from 'vitest';
 
-import { PeppolTaxTotalsBase } from './peppol-tax-totals-base-schema.ts';
+import { PeppolTaxTotal } from './peppol-tax-totals-base-schema.ts';
 
 describe('PeppolTaxTotalsBase', () => {
-  const testSchema = new TestSchema.Asserts(PeppolTaxTotalsBase);
+  const testSchema = new TestSchema.Asserts(PeppolTaxTotal);
   const decode = testSchema.decoding();
 
   it('should parse a tax total without subtotals', async () => {
