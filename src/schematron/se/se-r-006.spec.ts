@@ -39,7 +39,7 @@ describe('SE-R-006 (standard VAT rate)', () => {
     'fails when a Swedish supplier uses an unsupported VAT rate',
     Effect.fn(function* () {
       const document = yield* Effect.promise(async () => asSwedish(await decodeBaseExample()));
-      const lines = (document as PeppolDocument & { invoiceLines: Array<{ item: unknown }> }).invoiceLines;
+      const lines = (document as PeppolDocument & { invoiceLines: Array<{ item: any }> }).invoiceLines;
       const line = lines[0];
       if (!line) {
         expect.unreachable('base example has no invoice line');
@@ -60,7 +60,7 @@ describe('SE-R-006 (standard VAT rate)', () => {
     'passes when a Swedish supplier uses a standard VAT rate',
     Effect.fn(function* () {
       const document = yield* Effect.promise(async () => asSwedish(await decodeBaseExample()));
-      const lines = (document as PeppolDocument & { invoiceLines: Array<{ item: unknown }> }).invoiceLines;
+      const lines = (document as PeppolDocument & { invoiceLines: Array<{ item: any }> }).invoiceLines;
       const line = lines[0];
       if (!line) {
         expect.unreachable('base example has no invoice line');

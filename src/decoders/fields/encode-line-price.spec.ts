@@ -17,7 +17,7 @@ describe('encodeLinePrice', () => {
           priceAmount: { value: 10, currencyId: 'EUR' },
           baseQuantity: { value: 2, unitCode: 'C62' },
           allowanceCharge: { chargeIndicator: false, amount: { value: 2, currencyId: 'EUR' }, baseAmount: { value: 10, currencyId: 'EUR' } },
-        })
+        } as any)
       )
     ).toEqual({
       'cbc:PriceAmount': { '#text': 10, '@currencyID': 'EUR' },

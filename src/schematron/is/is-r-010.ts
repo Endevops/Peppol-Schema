@@ -17,13 +17,16 @@ function evaluateIsR010(document: PeppolDocument): boolean {
   if (eindagiReferences.length === 0) {
     return true;
   }
+  if (!('dueDate' in document)) {
+    return false;
+  }
   const dueDate = document.dueDate;
   if (!dueDate) {
     return false;
   }
   const passed = eindagiReferences.every(ref => {
     const id = ref.id.id;
-    return id >= dueDate;
+    return id >= String(dueDate);
   });
   return passed;
 }

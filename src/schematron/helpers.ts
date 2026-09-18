@@ -800,7 +800,7 @@ export function everyCountryCodeIs(document: PeppolDocument, code: string): bool
  */
 export function allVatCompanyIdsHaveValidPrefix(document: PeppolDocument): boolean {
   const companyIds: Array<string> = [];
-  const pushVatIds = (schemes: Array<{ companyId: string; taxSchemeId: { id: string } }> | undefined) => {
+  const pushVatIds = (schemes: ReadonlyArray<{ companyId: string; taxSchemeId: { id: string } }> | undefined) => {
     for (const scheme of schemes ?? []) {
       if (scheme.taxSchemeId.id.toUpperCase() === 'VAT' && scheme.companyId.trim() !== '') {
         companyIds.push(scheme.companyId.trim());

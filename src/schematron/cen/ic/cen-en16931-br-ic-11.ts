@@ -12,9 +12,7 @@ const rule = {
 
 function evaluateCenEn16931BrIc11(document: PeppolDocument): boolean {
   const passed =
-    !hasVatBreakdownCode(document, 'K') ||
-    (typeof document.delivery?.actualDeliveryDate === 'string' && document.delivery.actualDeliveryDate.trim() !== '') ||
-    typeof document.invoicePeriod === 'object';
+    !hasVatBreakdownCode(document, 'K') || document.delivery?.actualDeliveryDate !== undefined || typeof document.invoicePeriod === 'object';
   return passed;
 }
 

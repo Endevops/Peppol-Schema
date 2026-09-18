@@ -1,6 +1,5 @@
 import { Schema } from 'effect';
 
-import { opaque } from '#/schemas/utils/opaque.ts';
 import { vatDateCodesKeys } from '#/values/vat-dates.generated';
 
 /**
@@ -17,4 +16,9 @@ import { vatDateCodesKeys } from '#/values/vat-dates.generated';
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/UNCL2005/
  * @see {@link vatDateCodesKeys}
  */
-export class PeppolVatDateCode extends opaque<PeppolVatDateCode>()(Schema.Literals(vatDateCodesKeys).pipe(Schema.toStandardSchemaV1)) {}
+export const PeppolVatDateCode = Schema.Literals(vatDateCodesKeys).pipe(Schema.toStandardSchemaV1);
+
+/**
+ * @description Decoded form of {@link PeppolVatDateCode}.
+ */
+export type PeppolVatDateCode = Schema.Schema.Type<typeof PeppolVatDateCode>;

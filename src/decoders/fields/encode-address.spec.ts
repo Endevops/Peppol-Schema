@@ -21,7 +21,7 @@ describe('encodeAddress', () => {
           countrySubentity: 'Region A',
           postalZone: 'W1G 8LZ',
           streetName: 'Main Street 1',
-        })
+        } as any)
       )
     ).toEqual({
       'cac:AddressLine': { 'cbc:Line': 'Building 23' },
@@ -36,6 +36,6 @@ describe('encodeAddress', () => {
 
   it('omits the address line when addressLine is absent', () => {
     // ❌ Negative: address present but without addressLine → no cac:AddressLine.
-    expect(Effect.runSync(encodeAddress({ countryCode: { identificationCode: 'GB' } }))?.['cac:AddressLine']).toBeUndefined();
+    expect(Effect.runSync(encodeAddress({ countryCode: { identificationCode: 'GB' } } as any))?.['cac:AddressLine']).toBeUndefined();
   });
 });

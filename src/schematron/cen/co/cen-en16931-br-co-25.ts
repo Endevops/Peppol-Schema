@@ -12,7 +12,9 @@ const rule = {
 
 function evaluateCenEn16931BrCo25(document: PeppolDocument): boolean {
   const passed =
-    document.legalMonetaryTotal.payableAmount.value <= 0 || typeof document.dueDate === 'string' || typeof document.paymentTerms?.note === 'string';
+    document.legalMonetaryTotal.payableAmount.value <= 0 ||
+    ('dueDate' in document && typeof document.dueDate === 'string') ||
+    typeof document.paymentTerms?.note === 'string';
   return passed;
 }
 

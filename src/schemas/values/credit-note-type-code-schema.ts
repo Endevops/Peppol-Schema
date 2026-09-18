@@ -1,6 +1,5 @@
 import { Schema } from 'effect';
 
-import { opaque } from '#/schemas/utils/opaque.ts';
 import { creditNoteTypeCodesKeys } from '#/values/credit-notes-type-codes.generated';
 
 /**
@@ -14,6 +13,9 @@ import { creditNoteTypeCodesKeys } from '#/values/credit-notes-type-codes.genera
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/UNCL1001-cn/
  * @see {@link creditNoteTypeCodesKeys}
  */
-export class PeppolCreditNoteTypeCode extends opaque<PeppolCreditNoteTypeCode>()(
-  Schema.Literals(creditNoteTypeCodesKeys).pipe(Schema.toStandardSchemaV1)
-) {}
+export const PeppolCreditNoteTypeCode = Schema.Literals(creditNoteTypeCodesKeys).pipe(Schema.toStandardSchemaV1);
+
+/**
+ * @description Decoded form of {@link PeppolCreditNoteTypeCode}.
+ */
+export type PeppolCreditNoteTypeCode = Schema.Schema.Type<typeof PeppolCreditNoteTypeCode>;

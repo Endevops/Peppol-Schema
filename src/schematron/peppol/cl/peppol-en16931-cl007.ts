@@ -19,7 +19,7 @@ const collectCurrencies = (document: PeppolDocument): Array<string> => {
     total.chargeTotalAmount?.currencyId,
     total.prepaidAmount?.currencyId,
     total.payableRoundingAmount?.currencyId,
-  ].filter((code): code is string => code !== undefined);
+  ].filter((code): code is NonNullable<typeof code> => code !== undefined);
 
   return [
     document.documentCurrencyCode,

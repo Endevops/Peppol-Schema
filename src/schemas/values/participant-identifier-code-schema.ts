@@ -1,6 +1,5 @@
 import { Schema } from 'effect';
 
-import { opaque } from '#/schemas/utils/opaque.ts';
 import { participantIdentifierSchemesKeys } from '#/values/participant-identifier-schemes.generated';
 
 /**
@@ -13,6 +12,12 @@ import { participantIdentifierSchemesKeys } from '#/values/participant-identifie
  *
  * @see {@link participantIdentifierSchemesKeys}
  */
-export class PeppolParticipantIdentifierCode extends opaque<PeppolParticipantIdentifierCode>()(
-  Schema.Literals(participantIdentifierSchemesKeys).pipe(Schema.brand('PeppolParticipantIdentifierCode'), Schema.toStandardSchemaV1)
-) {}
+export const PeppolParticipantIdentifierCode = Schema.Literals(participantIdentifierSchemesKeys).pipe(
+  Schema.brand('PeppolParticipantIdentifierCode'),
+  Schema.toStandardSchemaV1
+);
+
+/**
+ * @description Decoded form of {@link PeppolParticipantIdentifierCode}.
+ */
+export type PeppolParticipantIdentifierCode = Schema.Schema.Type<typeof PeppolParticipantIdentifierCode>;

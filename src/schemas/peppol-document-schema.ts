@@ -146,13 +146,21 @@ const encodeDocumentXml = Effect.fn('encode-peppol-document-xml')(function* (val
  * @see {@link PeppolDocumentDecoded}
  * @see {@link PeppolDocumentEncoded}
  */
-export class PeppolDocumentSchema extends peppolDocumentObjectSchema.pipe(
+export const PeppolDocumentSchema = peppolDocumentObjectSchema.pipe(
   Schema.encodeTo(Schema.String, {
     encode: SchemaGetter.transformEffect((value, options) => encodeDocumentXml(value, options)),
-    decode: SchemaGetter.transformEffect((value, options) => decodeDocumentXml(value, options)),
+    decode: SchemaGetter.transformEffect(
+      (value, options) =>
+        decodeDocumentXml(value, options) as Effect.Effect<Schema.Codec.Encoded<typeof peppolDocumentObjectSchema>, SchemaIssue.Issue>
+    ),
   }),
   Schema.toStandardSchemaV1
-) {}
+);
+
+/**
+ * @description Decoded form of {@link PeppolDocumentSchema}: the union of supported document classes.
+ */
+export type PeppolDocumentSchema = Schema.Schema.Type<typeof PeppolDocumentSchema>;
 
 /**
  * @description Encoded form of {@link PeppolDocumentSchema}: the XML string representation.

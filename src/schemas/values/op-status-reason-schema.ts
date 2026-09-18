@@ -1,6 +1,5 @@
 import { Schema } from 'effect';
 
-import { opaque } from '#/schemas/utils/opaque.ts';
 import { opStatusReasonKeys } from '#/values/op-status-reason.generated';
 
 /**
@@ -14,6 +13,9 @@ import { opStatusReasonKeys } from '#/values/op-status-reason.generated';
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/OPStatusReason/
  * @see {@link opStatusReasonKeys}
  */
-export class PeppolOpStatusReason extends opaque<PeppolOpStatusReason>()(
-  Schema.Literals(opStatusReasonKeys).pipe(Schema.brand('PeppolOpStatusReason'), Schema.toStandardSchemaV1)
-) {}
+export const PeppolOpStatusReason = Schema.Literals(opStatusReasonKeys).pipe(Schema.brand('PeppolOpStatusReason'), Schema.toStandardSchemaV1);
+
+/**
+ * @description Decoded form of {@link PeppolOpStatusReason}.
+ */
+export type PeppolOpStatusReason = Schema.Schema.Type<typeof PeppolOpStatusReason>;

@@ -69,7 +69,7 @@ describe('PEPPOL-EN16931-R051 (all currency IDs equal document currency)', () =>
         ...document,
         legalMonetaryTotal: { ...document.legalMonetaryTotal, payableAmount: { ...document.legalMonetaryTotal.payableAmount, currencyId: 'USD' } },
       };
-      const result = yield* validatePeppolEn16931R051(altered).pipe(Effect.result);
+      const result = yield* validatePeppolEn16931R051(altered as PeppolDocument).pipe(Effect.result);
       assert(Result.isFailure(result));
     })
   );

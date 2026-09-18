@@ -3,7 +3,7 @@ import { describe, it, expect } from 'vitest';
 
 import { encodePaymentMeans } from './encode-payment-means.ts';
 
-const allFields = {
+const allFields: any = {
   cardAccount: { holderName: 'Jane Doe', networkId: 'VISA', primaryAccountNumberId: '1234' },
   payeeFinancialAccount: { financialInstitutionBranch: { id: '9998' }, id: 'IBAN-1', name: 'Main' },
   paymentDueDate: '2026-01-01',

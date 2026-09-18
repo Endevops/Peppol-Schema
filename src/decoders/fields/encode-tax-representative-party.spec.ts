@@ -17,7 +17,7 @@ describe('encodeTaxRepresentativeParty', () => {
           name: 'Tax Rep Ltd',
           postalAddress: { countryCode: { identificationCode: 'GB' } },
           partyTaxScheme: { companyId: 'C', taxSchemeId: { id: 'VAT' } },
-        })
+        } as any)
       )
     ).toEqual({
       'cac:PartyName': { 'cbc:Name': 'Tax Rep Ltd' },

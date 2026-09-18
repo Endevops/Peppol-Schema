@@ -26,7 +26,7 @@ describe('PEPPOL-EN16931-R046 (item net price = gross price - allowance amount)'
     'fails when the price amount differs from base amount minus allowance amount',
     Effect.fn(function* () {
       const document = yield* Effect.promise(async () => decodeBaseExample());
-      const lines = (document as PeppolDocument & { invoiceLines: Array<{ price: unknown }> }).invoiceLines;
+      const lines = (document as PeppolDocument & { invoiceLines: Array<{ price: any }> }).invoiceLines;
       const line = lines[0];
       if (!line) {
         throw new Error('base example has no invoice line');

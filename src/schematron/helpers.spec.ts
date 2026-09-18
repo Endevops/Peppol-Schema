@@ -179,7 +179,7 @@ describe('schematron helpers', () => {
 
     it('returns an empty array when the document has no lines', async () => {
       const document = await decodeBaseExample();
-      const { invoiceLines: _invoiceLines, creditNoteLines: _creditNoteLines, ...rest } = document;
+      const { invoiceLines: _invoiceLines, creditNoteLines: _creditNoteLines, ...rest } = document as any;
       expect(getLines(rest as unknown as PeppolDocument)).toEqual([]);
     });
 

@@ -1,6 +1,5 @@
 import { Schema } from 'effect';
 
-import { opaque } from '#/schemas/utils/opaque.ts';
 import { quantityUnitCodesKeys } from '#/values/quantity-unit-codes.generated';
 
 /**
@@ -17,6 +16,9 @@ import { quantityUnitCodesKeys } from '#/values/quantity-unit-codes.generated';
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/UNECERec20/
  * @see {@link quantityUnitCodesKeys}
  */
-export class PeppolQuantityUnitCode extends opaque<PeppolQuantityUnitCode>()(
-  Schema.Literals(quantityUnitCodesKeys).pipe(Schema.brand('PeppolQuantityUnitCode'), Schema.toStandardSchemaV1)
-) {}
+export const PeppolQuantityUnitCode = Schema.Literals(quantityUnitCodesKeys).pipe(Schema.brand('PeppolQuantityUnitCode'), Schema.toStandardSchemaV1);
+
+/**
+ * @description Decoded form of {@link PeppolQuantityUnitCode}.
+ */
+export type PeppolQuantityUnitCode = Schema.Schema.Type<typeof PeppolQuantityUnitCode>;

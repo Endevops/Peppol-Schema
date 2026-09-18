@@ -1,3 +1,5 @@
+import type { BaseOutputBuilderFactory } from '@nodable/base-output-builder';
+
 import { NumberValueParser } from '@nodable/base-output-builder';
 import { CompactBuilderFactory } from '@nodable/compact-builder';
 import { XMLParser } from '@nodable/flexible-xml-parser';
@@ -14,7 +16,7 @@ const compactFactory = new CompactBuilderFactory({
 });
 
 const nodableParser = new XMLParser({
-  OutputBuilder: compactFactory,
+  OutputBuilder: compactFactory as unknown as BaseOutputBuilderFactory,
   attributes: { booleanType: 'allow', prefix: '@' },
   skip: { attributes: false, nsPrefix: true },
 });

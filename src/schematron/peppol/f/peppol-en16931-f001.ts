@@ -27,7 +27,7 @@ const collectDates = (document: PeppolDocument): Array<string> => {
     document.invoicePeriod?.endDate,
     document.delivery?.actualDeliveryDate,
     ...getLines(document).flatMap(line => [line.invoicePeriod?.startDate, line.invoicePeriod?.endDate]),
-  ].filter((date): date is string => date !== undefined);
+  ].filter((date): date is NonNullable<typeof date> => date !== undefined);
 
   const dates = [document.issueDate, ...optionalDates].map(date => formatDate(date));
   if (Predicate.hasProperty(document, 'dueDate') && isDate(document.dueDate)) {

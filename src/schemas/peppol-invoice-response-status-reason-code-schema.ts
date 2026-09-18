@@ -62,7 +62,12 @@ export class PeppolInvoiceResponseStatusReasonCodeAction extends opaque<PeppolIn
  *
  * @see {@link PeppolInvoiceResponseDocumentActualResponseStatus}
  */
-export class PeppolInvoiceResponseStatusReasonCode extends Schema.Union([
+export const PeppolInvoiceResponseStatusReasonCode = Schema.Union([
   PeppolInvoiceResponseStatusReasonCodeAction,
   PeppolInvoiceResponseStatusReasonCodeReason,
-]).pipe(Schema.toStandardSchemaV1) {}
+]).pipe(Schema.toStandardSchemaV1);
+
+/**
+ * @description Decoded form of {@link PeppolInvoiceResponseStatusReasonCode}: a status clarification reason or action.
+ */
+export type PeppolInvoiceResponseStatusReasonCode = Schema.Schema.Type<typeof PeppolInvoiceResponseStatusReasonCode>;

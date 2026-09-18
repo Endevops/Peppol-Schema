@@ -17,7 +17,7 @@ describe('encodeDelivery', () => {
           actualDeliveryDate: '2026-01-01',
           deliveryLocation: { id: { id: 'LOC-1', schemeId: 'GLN' }, address: { countryCode: { identificationCode: 'GB' }, cityName: 'London' } },
           deliveryParty: { partyName: { name: 'Deliver To Ltd' } },
-        })
+        } as any)
       )
     ).toEqual({
       'cbc:ActualDeliveryDate': '2026-01-01',
@@ -32,14 +32,16 @@ describe('encodeDelivery', () => {
   it('omits the delivery party when it has no party name', () => {
     // ❌ Negative: delivery without deliveryParty → no cac:DeliveryParty.
     expect(
-      Effect.runSync(encodeDelivery({ actualDeliveryDate: '2026-01-01', deliveryLocation: { id: { id: 'LOC-1' } } }))?.['cac:DeliveryParty']
+      Effect.runSync(encodeDelivery({ actualDeliveryDate: '2026-01-01', deliveryLocation: { id: { id: 'LOC-1' } } } as any))?.['cac:DeliveryParty']
     ).toBeUndefined();
   });
 
   it('omits the delivery location when absent', () => {
     // ❌ Negative: delivery without deliveryLocation → no cac:DeliveryLocation.
     expect(
-      Effect.runSync(encodeDelivery({ actualDeliveryDate: '2026-01-01', deliveryParty: { partyName: { name: 'X' } } }))?.['cac:DeliveryLocation']
+      Effect.runSync(encodeDelivery({ actualDeliveryDate: '2026-01-01', deliveryParty: { partyName: { name: 'X' } } } as any))?.[
+        'cac:DeliveryLocation'
+      ]
     ).toBeUndefined();
   });
 });

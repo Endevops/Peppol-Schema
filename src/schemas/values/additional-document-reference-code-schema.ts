@@ -1,6 +1,5 @@
 import { Schema } from 'effect';
 
-import { opaque } from '#/schemas/utils/opaque.ts';
 import { additionalDocumentReferenceCodesKeys } from '#/values/additional-document-reference-codes.generated';
 
 /**
@@ -14,6 +13,12 @@ import { additionalDocumentReferenceCodesKeys } from '#/values/additional-docume
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/UNCL1153/
  * @see {@link additionalDocumentReferenceCodesKeys}
  */
-export class PeppolAdditionalDocumentReferenceCode extends opaque<PeppolAdditionalDocumentReferenceCode>()(
-  Schema.Literals(additionalDocumentReferenceCodesKeys).pipe(Schema.brand('PeppolAdditionalDocumentReferenceCode'), Schema.toStandardSchemaV1)
-) {}
+export const PeppolAdditionalDocumentReferenceCode = Schema.Literals(additionalDocumentReferenceCodesKeys).pipe(
+  Schema.brand('PeppolAdditionalDocumentReferenceCode'),
+  Schema.toStandardSchemaV1
+);
+
+/**
+ * @description Decoded form of {@link PeppolAdditionalDocumentReferenceCode}.
+ */
+export type PeppolAdditionalDocumentReferenceCode = Schema.Schema.Type<typeof PeppolAdditionalDocumentReferenceCode>;

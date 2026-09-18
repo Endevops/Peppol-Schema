@@ -1,6 +1,5 @@
 import { Schema } from 'effect';
 
-import { opaque } from '#/schemas/utils/opaque.ts';
 import { chargeReasonCodesKeys } from '#/values/charge-reason-codes.generated';
 
 /**
@@ -17,9 +16,12 @@ import { chargeReasonCodesKeys } from '#/values/charge-reason-codes.generated';
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/UNCL7161/
  * @see {@link chargeReasonCodesKeys}
  */
-export class PeppolChargeReasonCode extends opaque<PeppolChargeReasonCode>()(
-  Schema.Literals(chargeReasonCodesKeys)
-    .pipe(Schema.brand('PeppolChargeReasonCode'))
-    .annotate({ documentation: 'PEPPOL-EN16931-CL003: Reason code MUST be according to UNCL 7161 D.16B.' })
-    .pipe(Schema.toStandardSchemaV1)
-) {}
+export const PeppolChargeReasonCode = Schema.Literals(chargeReasonCodesKeys)
+  .pipe(Schema.brand('PeppolChargeReasonCode'))
+  .annotate({ documentation: 'PEPPOL-EN16931-CL003: Reason code MUST be according to UNCL 7161 D.16B.' })
+  .pipe(Schema.toStandardSchemaV1);
+
+/**
+ * @description Decoded form of {@link PeppolChargeReasonCode}.
+ */
+export type PeppolChargeReasonCode = Schema.Schema.Type<typeof PeppolChargeReasonCode>;

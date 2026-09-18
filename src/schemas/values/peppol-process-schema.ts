@@ -2,7 +2,6 @@ import { Schema } from 'effect';
 
 import type { ProcessesKeys } from '#/values/processes.generated';
 
-import { opaque } from '#/schemas/utils/opaque.ts';
 import { processes, processesKeys } from '#/values/processes.generated';
 
 /**
@@ -15,18 +14,21 @@ import { processes, processesKeys } from '#/values/processes.generated';
  *
  * @see {@link processes}
  */
-export class PeppolProcess extends opaque<PeppolProcess>()(
-  Schema.TemplateLiteral([Schema.Literals(processesKeys), Schema.Literal('::'), Schema.String])
-    .check(
-      Schema.makeFilter((val: string) => {
-        const [prefix, suffix] = val.split('::');
-        if (prefix === undefined || suffix === undefined) return false;
-        const info = processes[prefix as ProcessesKeys];
-        return info !== undefined && info.some(v => v === suffix);
-      })
-    )
-    .pipe(Schema.toStandardSchemaV1)
-) {}
+export const PeppolProcess = Schema.TemplateLiteral([Schema.Literals(processesKeys), Schema.Literal('::'), Schema.String])
+  .check(
+    Schema.makeFilter((val: string) => {
+      const [prefix, suffix] = val.split('::');
+      if (prefix === undefined || suffix === undefined) return false;
+      const info = processes[prefix as ProcessesKeys];
+      return info !== undefined && info.some(v => v === suffix);
+    })
+  )
+  .pipe(Schema.toStandardSchemaV1);
+
+/**
+ * @description Decoded form of {@link PeppolProcess}.
+ */
+export type PeppolProcess = Schema.Schema.Type<typeof PeppolProcess>;
 
 /**
  * @description A PEPPOL business process identifier key as defined by the processes codelist.

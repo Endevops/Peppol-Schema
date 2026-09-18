@@ -17,7 +17,7 @@ function evaluateIsR009(document: PeppolDocument): boolean {
   if (!hasEindagi) {
     return true;
   }
-  return Boolean(document.dueDate);
+  return 'dueDate' in document && Boolean(document.dueDate);
 }
 
 export const validateIsR009 = schematronRule(rule, evaluateIsR009);

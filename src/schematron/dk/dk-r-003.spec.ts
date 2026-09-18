@@ -39,7 +39,7 @@ describe('DK-R-003 (UNSPSC version)', () => {
     'fails when a Danish line uses listID TST with an unsupported version',
     Effect.fn(function* () {
       const document = yield* Effect.promise(async () => asDanish(await decodeBaseExample()));
-      const lines = (document as PeppolDocument & { invoiceLines: Array<{ item: unknown }> }).invoiceLines;
+      const lines = (document as PeppolDocument & { invoiceLines: Array<{ item: any }> }).invoiceLines;
       const line = lines[0];
       if (!line) {
         throw new Error('base example has no invoice line');
@@ -60,7 +60,7 @@ describe('DK-R-003 (UNSPSC version)', () => {
     'passes when a Danish line uses listID TST with a supported version',
     Effect.fn(function* () {
       const document = yield* Effect.promise(async () => asDanish(await decodeBaseExample()));
-      const lines = (document as PeppolDocument & { invoiceLines: Array<{ item: unknown }> }).invoiceLines;
+      const lines = (document as PeppolDocument & { invoiceLines: Array<{ item: any }> }).invoiceLines;
       const line = lines[0];
       if (!line) {
         throw new Error('base example has no invoice line');

@@ -1,6 +1,5 @@
 import { Schema } from 'effect';
 
-import { opaque } from '#/schemas/utils/opaque.ts';
 import { applicationResponseTypeCodesKeys } from '#/values/application-response-type-codes.generated';
 
 /**
@@ -14,6 +13,9 @@ import { applicationResponseTypeCodesKeys } from '#/values/application-response-
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/UNCL4343/
  * @see {@link applicationResponseTypeCodesKeys}
  */
-export class PeppolApplicationResponseTypeCode extends opaque<PeppolApplicationResponseTypeCode>()(
-  Schema.Literals(applicationResponseTypeCodesKeys).pipe(Schema.toStandardSchemaV1)
-) {}
+export const PeppolApplicationResponseTypeCode = Schema.Literals(applicationResponseTypeCodesKeys).pipe(Schema.toStandardSchemaV1);
+
+/**
+ * @description Decoded form of {@link PeppolApplicationResponseTypeCode}.
+ */
+export type PeppolApplicationResponseTypeCode = Schema.Schema.Type<typeof PeppolApplicationResponseTypeCode>;

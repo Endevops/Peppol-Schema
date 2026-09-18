@@ -1,6 +1,5 @@
 import { Schema } from 'effect';
 
-import { opaque } from '#/schemas/utils/opaque.ts';
 import { vatexCodesKeys } from '#/values/vatex-codes.generated';
 
 /**
@@ -17,6 +16,9 @@ import { vatexCodesKeys } from '#/values/vatex-codes.generated';
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/vatex/
  * @see {@link vatexCodesKeys}
  */
-export class PeppolVatexCode extends opaque<PeppolVatexCode>()(
-  Schema.Literals(vatexCodesKeys).pipe(Schema.brand('PeppolVatexCode'), Schema.toStandardSchemaV1)
-) {}
+export const PeppolVatexCode = Schema.Literals(vatexCodesKeys).pipe(Schema.brand('PeppolVatexCode'), Schema.toStandardSchemaV1);
+
+/**
+ * @description Decoded form of {@link PeppolVatexCode}.
+ */
+export type PeppolVatexCode = Schema.Schema.Type<typeof PeppolVatexCode>;

@@ -1,6 +1,5 @@
 import { Schema } from 'effect';
 
-import { opaque } from '#/schemas/utils/opaque.ts';
 import { opStatusActionKeys } from '#/values/op-status-action.generated';
 
 /**
@@ -14,6 +13,9 @@ import { opStatusActionKeys } from '#/values/op-status-action.generated';
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/OPStatusAction/
  * @see {@link opStatusActionKeys}
  */
-export class PeppolOpStatusAction extends opaque<PeppolOpStatusAction>()(
-  Schema.Literals(opStatusActionKeys).pipe(Schema.brand('PeppolOpStatusAction'), Schema.toStandardSchemaV1)
-) {}
+export const PeppolOpStatusAction = Schema.Literals(opStatusActionKeys).pipe(Schema.brand('PeppolOpStatusAction'), Schema.toStandardSchemaV1);
+
+/**
+ * @description Decoded form of {@link PeppolOpStatusAction}.
+ */
+export type PeppolOpStatusAction = Schema.Schema.Type<typeof PeppolOpStatusAction>;

@@ -1,6 +1,5 @@
 import { Schema } from 'effect';
 
-import { opaque } from '#/schemas/utils/opaque.ts';
 import { itemClassificationCodesKeys } from '#/values/item-classification-code.generated';
 
 /**
@@ -17,6 +16,12 @@ import { itemClassificationCodesKeys } from '#/values/item-classification-code.g
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/UNCL7143/
  * @see {@link itemClassificationCodesKeys}
  */
-export class PeppolItemClassificationCode extends opaque<PeppolItemClassificationCode>()(
-  Schema.Literals(itemClassificationCodesKeys).pipe(Schema.brand('PeppolItemClassificationCode'), Schema.toStandardSchemaV1)
-) {}
+export const PeppolItemClassificationCode = Schema.Literals(itemClassificationCodesKeys).pipe(
+  Schema.brand('PeppolItemClassificationCode'),
+  Schema.toStandardSchemaV1
+);
+
+/**
+ * @description Decoded form of {@link PeppolItemClassificationCode}.
+ */
+export type PeppolItemClassificationCode = Schema.Schema.Type<typeof PeppolItemClassificationCode>;

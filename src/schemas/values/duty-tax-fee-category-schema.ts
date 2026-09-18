@@ -1,6 +1,5 @@
 import { Schema } from 'effect';
 
-import { opaque } from '#/schemas/utils/opaque.ts';
 import { dutyTaxFeeCategoriesKeys } from '#/values/duty-tax-fee-categories.generated';
 
 /**
@@ -17,9 +16,15 @@ import { dutyTaxFeeCategoriesKeys } from '#/values/duty-tax-fee-categories.gener
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/UNCL5305/
  * @see {@link dutyTaxFeeCategoriesKeys}
  */
-export class PeppolDutyTaxFeeCategoryCode extends opaque<PeppolDutyTaxFeeCategoryCode>()(
-  Schema.Literals(dutyTaxFeeCategoriesKeys).pipe(Schema.brand('PeppolDutyTaxFeeCategoryCode'), Schema.toStandardSchemaV1)
-) {}
+export const PeppolDutyTaxFeeCategoryCode = Schema.Literals(dutyTaxFeeCategoriesKeys).pipe(
+  Schema.brand('PeppolDutyTaxFeeCategoryCode'),
+  Schema.toStandardSchemaV1
+);
+
+/**
+ * @description Decoded form of {@link PeppolDutyTaxFeeCategoryCode}.
+ */
+export type PeppolDutyTaxFeeCategoryCode = Schema.Schema.Type<typeof PeppolDutyTaxFeeCategoryCode>;
 
 /**
  * @description The encoded form of {@link PeppolDutyTaxFeeCategoryCode}, a string literal union.

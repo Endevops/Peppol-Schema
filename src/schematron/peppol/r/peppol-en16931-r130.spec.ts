@@ -23,7 +23,7 @@ describe('PEPPOL-EN16931-R130 (unit code of base quantity matches quantity)', ()
     'fails when the base quantity unit code differs from the invoiced quantity unit code',
     Effect.fn(function* () {
       const document = yield* Effect.promise(async () => decodeBaseExample());
-      const lines = (document as PeppolDocument & { invoiceLines: Array<{ price: unknown }> }).invoiceLines;
+      const lines = (document as PeppolDocument & { invoiceLines: Array<{ price: any }> }).invoiceLines;
       const line = lines[0];
       if (!line) {
         throw new Error('base example has no invoice line');

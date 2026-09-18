@@ -8,7 +8,6 @@
 
 import { Schema } from 'effect';
 
-import { opaque } from '#/schemas/utils/opaque.ts';
 import { paymentMeansCodesKeys } from '#/values/payment-means-codes.generated';
 
 /**
@@ -25,6 +24,12 @@ import { paymentMeansCodesKeys } from '#/values/payment-means-codes.generated';
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/UNCL4461/
  * @see {@link paymentMeansCodesKeys}
  */
-export class PeppolPaymentMeansCodeValue extends opaque<PeppolPaymentMeansCodeValue>()(
-  Schema.Literals(paymentMeansCodesKeys).pipe(Schema.brand('PeppolPaymentMeansCodeValue'), Schema.toStandardSchemaV1)
-) {}
+export const PeppolPaymentMeansCodeValue = Schema.Literals(paymentMeansCodesKeys).pipe(
+  Schema.brand('PeppolPaymentMeansCodeValue'),
+  Schema.toStandardSchemaV1
+);
+
+/**
+ * @description Decoded form of {@link PeppolPaymentMeansCodeValue}.
+ */
+export type PeppolPaymentMeansCodeValue = Schema.Schema.Type<typeof PeppolPaymentMeansCodeValue>;

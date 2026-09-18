@@ -1,6 +1,5 @@
 import { Schema } from 'effect';
 
-import { opaque } from '#/schemas/utils/opaque.ts';
 import { icdCodesKeys } from '#/values/icd-codes.generated';
 
 /**
@@ -17,6 +16,9 @@ import { icdCodesKeys } from '#/values/icd-codes.generated';
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/ICD/
  * @see {@link icdCodesKeys}
  */
-export class PeppolIcdCode extends opaque<PeppolIcdCode>()(
-  Schema.Literals(icdCodesKeys).pipe(Schema.brand('PeppolIcdCode'), Schema.toStandardSchemaV1)
-) {}
+export const PeppolIcdCode = Schema.Literals(icdCodesKeys).pipe(Schema.brand('PeppolIcdCode'), Schema.toStandardSchemaV1);
+
+/**
+ * @description Decoded form of {@link PeppolIcdCode}.
+ */
+export type PeppolIcdCode = Schema.Schema.Type<typeof PeppolIcdCode>;

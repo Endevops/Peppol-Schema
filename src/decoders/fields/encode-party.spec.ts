@@ -3,7 +3,7 @@ import { describe, it, expect } from 'vitest';
 
 import { encodeParty } from './encode-party.ts';
 
-const fullParty = {
+const fullParty: any = {
   contact: { electronicMail: 'jane@example.com', name: 'Jane', telephone: '555' },
   endpointId: { id: '7300010000001', schemeId: '0088' },
   partyIdentification: { id: { id: '5060012349998', schemeId: '0088' } },

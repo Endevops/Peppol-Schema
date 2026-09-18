@@ -2,7 +2,6 @@ import { Predicate, Schema } from 'effect';
 
 import type { DocumentTypesTableKeys } from '#/values/document-type.generated';
 
-import { opaque } from '#/schemas/utils/opaque.ts';
 import { documentTypesTable, documentTypesTableKeys } from '#/values/document-type.generated';
 
 /**
@@ -10,15 +9,18 @@ import { documentTypesTable, documentTypesTableKeys } from '#/values/document-ty
  *
  * @see {@link documentTypesTable}
  */
-export class PeppolDocumentType extends opaque<PeppolDocumentType>()(
-  Schema.TemplateLiteral([Schema.Literals(documentTypesTableKeys), Schema.Literal('::'), Schema.String])
-    .check(
-      Schema.makeFilter((val: string) => {
-        const [prefix, ...suffix] = val.split('::');
-        if (Predicate.isNullish(prefix) || !documentTypesTableKeys.includes(prefix as never)) return false;
-        const info = documentTypesTable[prefix as DocumentTypesTableKeys];
-        return Predicate.isNotNullish(info) && info.some(v => v === suffix.join('::'));
-      })
-    )
-    .pipe(Schema.toStandardSchemaV1)
-) {}
+export const PeppolDocumentType = Schema.TemplateLiteral([Schema.Literals(documentTypesTableKeys), Schema.Literal('::'), Schema.String])
+  .check(
+    Schema.makeFilter((val: string) => {
+      const [prefix, ...suffix] = val.split('::');
+      if (Predicate.isNullish(prefix) || !documentTypesTableKeys.includes(prefix as never)) return false;
+      const info = documentTypesTable[prefix as DocumentTypesTableKeys];
+      return Predicate.isNotNullish(info) && info.some(v => v === suffix.join('::'));
+    })
+  )
+  .pipe(Schema.toStandardSchemaV1);
+
+/**
+ * @description Decoded form of {@link PeppolDocumentType}.
+ */
+export type PeppolDocumentType = Schema.Schema.Type<typeof PeppolDocumentType>;

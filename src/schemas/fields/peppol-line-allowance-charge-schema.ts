@@ -104,9 +104,14 @@ export class PeppolLineCharge extends opaque<PeppolLineCharge>()(
  *
  * @see {@link PeppolLineAllowance}
  */
-export class PeppolLineAllowanceCharge extends Schema.Union([PeppolLineAllowance, PeppolLineCharge])
+export const PeppolLineAllowanceCharge = Schema.Union([PeppolLineAllowance, PeppolLineCharge])
   .annotate({ message: 'unable to decode line allowance charge' })
-  .pipe(Schema.toStandardSchemaV1) {}
+  .pipe(Schema.toStandardSchemaV1);
+
+/**
+ * @description Decoded form of {@link PeppolLineAllowanceCharge}: a line level allowance or charge.
+ */
+export type PeppolLineAllowanceCharge = Schema.Schema.Type<typeof PeppolLineAllowanceCharge>;
 
 /**
  * @description Encoded form of {@link PeppolLineAllowanceCharge} produced by the Effect Schema codec.

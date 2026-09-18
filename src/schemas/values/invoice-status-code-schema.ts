@@ -1,6 +1,5 @@
 import { Schema } from 'effect';
 
-import { opaque } from '#/schemas/utils/opaque.ts';
 import { invoiceStatusCodesKeys } from '#/values/invoice-status-codes.generated';
 
 /**
@@ -14,6 +13,12 @@ import { invoiceStatusCodesKeys } from '#/values/invoice-status-codes.generated'
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/UNCL4343-T111/
  * @see {@link invoiceStatusCodesKeys}
  */
-export class PeppolInvoiceStatusCodes extends opaque<PeppolInvoiceStatusCodes>()(
-  Schema.Literals(invoiceStatusCodesKeys).pipe(Schema.brand('PeppolInvoiceStatusCodes'), Schema.toStandardSchemaV1)
-) {}
+export const PeppolInvoiceStatusCodes = Schema.Literals(invoiceStatusCodesKeys).pipe(
+  Schema.brand('PeppolInvoiceStatusCodes'),
+  Schema.toStandardSchemaV1
+);
+
+/**
+ * @description Decoded form of {@link PeppolInvoiceStatusCodes}.
+ */
+export type PeppolInvoiceStatusCodes = Schema.Schema.Type<typeof PeppolInvoiceStatusCodes>;

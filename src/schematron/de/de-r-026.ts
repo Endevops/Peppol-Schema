@@ -16,7 +16,7 @@ function evaluateDeR026(document: PeppolDocument): boolean {
   }
   const invoiceTypeCode = 'invoiceTypeCode' in document ? document.invoiceTypeCode : undefined;
   const creditNoteTypeCode = 'creditNoteTypeCode' in document ? document.creditNoteTypeCode : undefined;
-  if (invoiceTypeCode !== '384' && creditNoteTypeCode !== '384') {
+  if (invoiceTypeCode !== '384' && (creditNoteTypeCode as string | undefined) !== '384') {
     return true;
   }
   const hasPrecedingInvoiceReference = (document.billingReferences?.length ?? 0) > 0;

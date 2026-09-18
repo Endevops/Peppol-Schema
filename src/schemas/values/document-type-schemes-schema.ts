@@ -1,6 +1,5 @@
 import { Schema } from 'effect';
 
-import { opaque } from '#/schemas/utils/opaque.ts';
 import { documentTypesScheme } from '#/values/document-type.generated';
 
 /**
@@ -13,6 +12,9 @@ import { documentTypesScheme } from '#/values/document-type.generated';
  *
  * @see {@link documentTypesScheme}
  */
-export class PeppolDocumentTypeScheme extends opaque<PeppolDocumentTypeScheme>()(
-  Schema.Literals(documentTypesScheme as [string, ...Array<string>]).pipe(Schema.toStandardSchemaV1)
-) {}
+export const PeppolDocumentTypeScheme = Schema.Literals(documentTypesScheme as [string, ...Array<string>]).pipe(Schema.toStandardSchemaV1);
+
+/**
+ * @description Decoded form of {@link PeppolDocumentTypeScheme}.
+ */
+export type PeppolDocumentTypeScheme = Schema.Schema.Type<typeof PeppolDocumentTypeScheme>;
