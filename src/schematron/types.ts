@@ -4,6 +4,25 @@
 export type SchematronRuleLevel = 'fatal' | 'warning';
 
 /**
+ * @description A single field compared by a schematron rule, with the required and found values.
+ */
+export interface SchematronFieldIssue {
+  /**
+   * @description Path to the field within the PeppolDocument, using dotted property names and `[i]` array indices, e.g.
+   * `taxTotals[0].taxSubtotals[1].taxableAmount.value`.
+   */
+  path: string;
+  /**
+   * @description The value the rule requires at `path`; `null` for an input operand that has no single required value.
+   */
+  expected: number | string | boolean | null;
+  /**
+   * @description The value found at `path`; `null` when the field is absent.
+   */
+  actual: number | string | boolean | null;
+}
+
+/**
  * @description The result of validating a single schematron rule against a document.
  */
 export interface SchematronRuleResult {
@@ -23,4 +42,8 @@ export interface SchematronRuleResult {
    * @description Whether the document satisfies the rule.
    */
   passed: boolean;
+  /**
+   * @description The field level details of the failure; empty when the rule reports no field details.
+   */
+  fields: ReadonlyArray<SchematronFieldIssue>;
 }

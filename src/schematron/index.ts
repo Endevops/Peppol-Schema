@@ -359,7 +359,7 @@ export { validateSeR011 } from './se/se-r-011.ts';
 export { validateSeR012 } from './se/se-r-012.ts';
 export { validateSeR013 } from './se/se-r-013.ts';
 
-export { SchematronRuleError, SchematronValidationError } from './errors.ts';
+export { SchematronFieldIssueSchema, SchematronRuleError, SchematronValidationError } from './errors.ts';
 export type { SchematronDocumentValidator } from './helpers.ts';
 export { ruleValidators } from './run-all-rules.ts';
 export { Schematron } from './schematron.ts';

@@ -24,6 +24,13 @@ describe('CEN-EN16931-BR-CO-16', () => {
       document.legalMonetaryTotal.payableAmount = { ...document.legalMonetaryTotal.payableAmount, value: 1 };
       const result = yield* validateCenEn16931BrCo16(document).pipe(Effect.result);
       assert(Result.isFailure(result));
+      assert(result.failure.fields.length > 0);
+      assert.deepStrictEqual(result.failure.fields, [
+        { path: 'legalMonetaryTotal.payableAmount.value', expected: 1656.25, actual: 1 },
+        { path: 'legalMonetaryTotal.taxInclusiveAmount.value', expected: null, actual: 1656.25 },
+        { path: 'legalMonetaryTotal.prepaidAmount.value', expected: null, actual: null },
+        { path: 'legalMonetaryTotal.payableRoundingAmount.value', expected: null, actual: null },
+      ]);
     })
   );
 });

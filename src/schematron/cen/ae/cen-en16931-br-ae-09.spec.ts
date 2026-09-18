@@ -35,6 +35,13 @@ describe('CEN-EN16931-BR-AE-09', () => {
       ];
       const result = yield* validateCenEn16931BrAe09(document).pipe(Effect.result);
       assert(Result.isFailure(result));
+      if (Result.isFailure(result)) {
+        const fields = result.failure.fields ?? [];
+        assert(fields.length > 0);
+        assert(fields[0]?.path === 'taxTotals[0].taxSubtotals[0].taxAmount.value');
+        assert(fields[0]?.expected === 0);
+        assert(fields[0]?.actual === 1);
+      }
     })
   );
 });

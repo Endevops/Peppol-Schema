@@ -24,6 +24,12 @@ describe('CEN-EN16931-BR-CO-10', () => {
       document.legalMonetaryTotal.lineExtensionAmount = { ...document.legalMonetaryTotal.lineExtensionAmount, value: 1 };
       const result = yield* validateCenEn16931BrCo10(document).pipe(Effect.result);
       assert(Result.isFailure(result));
+      assert(result.failure.fields.length > 0);
+      assert.deepStrictEqual(result.failure.fields, [
+        { path: 'legalMonetaryTotal.lineExtensionAmount.value', expected: 1300, actual: 1 },
+        { path: 'invoiceLines[0].lineExtensionAmount.value', expected: null, actual: 2800 },
+        { path: 'invoiceLines[1].lineExtensionAmount.value', expected: null, actual: -1500 },
+      ]);
     })
   );
 });

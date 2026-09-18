@@ -24,6 +24,12 @@ describe('CEN-EN16931-BR-CO-15', () => {
       document.legalMonetaryTotal.taxInclusiveAmount = { ...document.legalMonetaryTotal.taxInclusiveAmount, value: 1 };
       const result = yield* validateCenEn16931BrCo15(document).pipe(Effect.result);
       assert(Result.isFailure(result));
+      assert(result.failure.fields.length > 0);
+      assert.deepStrictEqual(result.failure.fields, [
+        { path: 'legalMonetaryTotal.taxInclusiveAmount.value', expected: 1656.25, actual: 1 },
+        { path: 'legalMonetaryTotal.taxExclusiveAmount.value', expected: null, actual: 1325 },
+        { path: 'taxTotals[0].taxAmount.value', expected: null, actual: 331.25 },
+      ]);
     })
   );
 });

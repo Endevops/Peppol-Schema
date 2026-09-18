@@ -1,7 +1,7 @@
 /**
  * @description Unit tests for CEN-EN16931-BR-AG-08.
  */
-import { assert, describe, it } from '@effect/vitest';
+import { assert, describe, expect, it } from '@effect/vitest';
 import { Effect, Result } from 'effect';
 
 import { decodeBaseExample } from '#/test/test-utils.ts';
@@ -36,6 +36,13 @@ describe('CEN-EN16931-BR-AG-08', () => {
       ];
       const result = yield* validateCenEn16931BrAg08(document).pipe(Effect.result);
       assert(Result.isFailure(result));
+      if (Result.isFailure(result)) {
+        assert(result.failure.fields.length > 0);
+        expect(result.failure.fields).toEqual([
+          { path: 'taxTotals[0].taxSubtotals[0].taxableAmount.value', expected: 0, actual: 50 },
+          { path: 'taxTotals[0].taxSubtotals[0].taxCategory.percent', expected: null, actual: 0 },
+        ]);
+      }
     })
   );
 });

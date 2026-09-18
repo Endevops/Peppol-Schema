@@ -1,3 +1,4 @@
+import { Effect, Result } from 'effect';
 /**
  * @description Unit tests for the shared schematron helper functions.
  */
@@ -5,12 +6,15 @@ import { describe, expect, it } from 'vitest';
 
 import type { PeppolDocument } from '#/schemas/peppol-document-schema.ts';
 
+import { SchematronRuleError } from '#/schematron/errors.ts';
 import {
+  fieldIssue,
   getAllAllowanceCharges,
   getCustomerCountry,
   getIdentifiersWithSchemeId,
   getLineQuantity,
   getLines,
+  getLinesArrayName,
   getProfile,
   getSupplierCountry,
   getSupplierTaxIdentifiers,
@@ -23,9 +27,11 @@ import {
   isGermanSupplierAndCustomer,
   isSupplierGermany,
   round2,
+  schematronRule,
   slack,
+  sumFieldIssues,
 } from '#/schematron/helpers.ts';
-import { decodeBaseExample } from '#/test/test-utils.ts';
+import { decodeBaseExample, decodeFixture, fixtures } from '#/test/test-utils.ts';
 
 describe('schematron helpers', () => {
   describe('round2', () => {
@@ -248,6 +254,139 @@ describe('schematron helpers', () => {
       for (const identifier of identifiers) {
         expect(identifier.id.length).toBeGreaterThan(0);
         expect(identifier.schemeId.length).toBeGreaterThan(0);
+      }
+    });
+  });
+
+  describe('fieldIssue', () => {
+    it('builds an issue with the given path, expected and actual values', () => {
+      expect(fieldIssue('a.b', 1, 2)).toEqual({ path: 'a.b', expected: 1, actual: 2 });
+    });
+
+    it('accepts null expected and actual values', () => {
+      expect(fieldIssue('a', null, null)).toEqual({ path: 'a', expected: null, actual: null });
+    });
+
+    it('accepts string and boolean values', () => {
+      expect(fieldIssue('a', 'x', true)).toEqual({ path: 'a', expected: 'x', actual: true });
+    });
+  });
+
+  describe('getLinesArrayName', () => {
+    it('returns invoiceLines for an invoice', async () => {
+      const document = await decodeBaseExample();
+      expect(getLinesArrayName(document)).toEqual('invoiceLines');
+    });
+
+    it('returns creditNoteLines for a credit note', async () => {
+      const document = await decodeFixture(fixtures.creditNote);
+      expect(getLinesArrayName(document)).toEqual('creditNoteLines');
+    });
+
+    it('prefers invoiceLines when both arrays exist', async () => {
+      const document = await decodeBaseExample();
+      const both = { ...document, creditNoteLines: [] } as unknown as PeppolDocument;
+      expect(getLinesArrayName(both)).toEqual('invoiceLines');
+    });
+
+    it('returns creditNoteLines when the document carries neither array', () => {
+      expect(getLinesArrayName({} as PeppolDocument)).toEqual('creditNoteLines');
+    });
+  });
+
+  describe('sumFieldIssues', () => {
+    it('returns an empty array when the aggregate equals the component sum', () => {
+      expect(
+        sumFieldIssues({
+          aggregate: { path: 'total', actual: 100 },
+          components: [
+            { path: 'a', actual: 60 },
+            { path: 'b', actual: 40 },
+          ],
+        })
+      ).toEqual([]);
+    });
+
+    it('reports the aggregate then one issue per component when the sum differs', () => {
+      expect(
+        sumFieldIssues({
+          aggregate: { path: 'total', actual: 100 },
+          components: [
+            { path: 'a', actual: 60 },
+            { path: 'b', actual: 30 },
+          ],
+        })
+      ).toEqual([
+        { path: 'total', expected: 90, actual: 100 },
+        { path: 'a', expected: null, actual: 60 },
+        { path: 'b', expected: null, actual: 30 },
+      ]);
+    });
+
+    it('honors a custom isEqual', () => {
+      expect(
+        sumFieldIssues({
+          aggregate: { path: 'total', actual: 100 },
+          components: [{ path: 'a', actual: 98 }],
+          isEqual: (actual, expected) => Math.abs(actual - expected) < 5,
+        })
+      ).toEqual([]);
+    });
+
+    it('treats undefined contributions and actuals as zero and reports null', () => {
+      expect(
+        sumFieldIssues({
+          aggregate: { path: 'total', actual: undefined },
+          components: [
+            { path: 'a', actual: undefined },
+            { path: 'b', actual: 5, contribution: 10 },
+          ],
+        })
+      ).toEqual([
+        { path: 'total', expected: 10, actual: null },
+        { path: 'a', expected: null, actual: null },
+        { path: 'b', expected: null, actual: 5 },
+      ]);
+    });
+  });
+
+  describe('schematronRule', () => {
+    const rule = { id: 'TEST-R001', level: 'fatal', message: 'test rule' } as const;
+
+    it('passes when the predicate returns true', async () => {
+      const document = await decodeBaseExample();
+      const validator = schematronRule(rule, () => true);
+      const result = await Effect.runPromise(Effect.result(validator(document)));
+      expect(Result.isSuccess(result)).toEqual(true);
+    });
+
+    it('fails with empty fields when the predicate returns false', async () => {
+      const document = await decodeBaseExample();
+      const validator = schematronRule(rule, () => false);
+      const result = await Effect.runPromise(Effect.result(validator(document)));
+      expect(Result.isFailure(result)).toEqual(true);
+      if (Result.isFailure(result)) {
+        expect(result.failure).toBeInstanceOf(SchematronRuleError);
+        expect(result.failure.fields).toEqual([]);
+      }
+    });
+
+    it('passes when the predicate returns an empty array', async () => {
+      const document = await decodeBaseExample();
+      const validator = schematronRule(rule, () => []);
+      const result = await Effect.runPromise(Effect.result(validator(document)));
+      expect(Result.isSuccess(result)).toEqual(true);
+    });
+
+    it('fails with the returned field issues when the predicate returns a non-empty array', async () => {
+      const document = await decodeBaseExample();
+      const issues = [fieldIssue('a', 1, 2), fieldIssue('b', null, 'x')];
+      const validator = schematronRule(rule, () => issues);
+      const result = await Effect.runPromise(Effect.result(validator(document)));
+      expect(Result.isFailure(result)).toEqual(true);
+      if (Result.isFailure(result)) {
+        expect(result.failure).toBeInstanceOf(SchematronRuleError);
+        expect(result.failure.fields).toEqual(issues);
       }
     });
   });
