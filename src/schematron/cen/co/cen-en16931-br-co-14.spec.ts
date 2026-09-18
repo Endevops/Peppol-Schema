@@ -24,6 +24,11 @@ describe('CEN-EN16931-BR-CO-14', () => {
       document.taxTotals[0].taxAmount = { ...document.taxTotals[0].taxAmount, value: 1 };
       const result = yield* validateCenEn16931BrCo14(document).pipe(Effect.result);
       assert(Result.isFailure(result));
+      assert(result.failure.fields.length > 0);
+      assert.deepStrictEqual(result.failure.fields, [
+        { path: 'taxTotals[0].taxAmount.value', expected: 331.25, actual: 1 },
+        { path: 'taxTotals[0].taxSubtotals[0].taxAmount.value', expected: null, actual: 331.25 },
+      ]);
     })
   );
 });

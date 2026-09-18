@@ -34,6 +34,29 @@ describe('CEN-EN16931-BR-CO-11', () => {
       document.legalMonetaryTotal.allowanceTotalAmount = { currencyId: 'EUR', value: 5 };
       const result = yield* validateCenEn16931BrCo11(document).pipe(Effect.result);
       assert(Result.isFailure(result));
+      assert(result.failure.fields.length > 0);
+      assert.deepStrictEqual(result.failure.fields, [
+        { path: 'legalMonetaryTotal.allowanceTotalAmount.value', expected: 10, actual: 5 },
+        { path: 'allowanceCharges[0].amount.value', expected: null, actual: 10 },
+      ]);
+    })
+  );
+
+  it.effect(
+    'fails when a zero-amount allowance is present without an allowance total',
+    Effect.fn(function* () {
+      const document = yield* Effect.promise(async () => (await decodeBaseExample()) as any);
+      document.legalMonetaryTotal.allowanceTotalAmount = undefined;
+      document.allowanceCharges = [
+        { amount: { currencyId: 'EUR', value: 0 }, chargeIndicator: false, taxCategory: { id: 'S', percent: 25, taxSchemeId: { id: 'VAT' } } },
+      ];
+      const result = yield* validateCenEn16931BrCo11(document).pipe(Effect.result);
+      assert(Result.isFailure(result));
+      assert(result.failure.fields.length > 0);
+      assert.deepStrictEqual(result.failure.fields, [
+        { path: 'legalMonetaryTotal.allowanceTotalAmount.value', expected: 0, actual: null },
+        { path: 'allowanceCharges[0].amount.value', expected: null, actual: 0 },
+      ]);
     })
   );
 });

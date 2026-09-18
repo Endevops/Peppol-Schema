@@ -24,6 +24,13 @@ describe('CEN-EN16931-BR-CO-13', () => {
       document.legalMonetaryTotal.taxExclusiveAmount = { ...document.legalMonetaryTotal.taxExclusiveAmount, value: 1 };
       const result = yield* validateCenEn16931BrCo13(document).pipe(Effect.result);
       assert(Result.isFailure(result));
+      assert(result.failure.fields.length > 0);
+      assert.deepStrictEqual(result.failure.fields, [
+        { path: 'legalMonetaryTotal.taxExclusiveAmount.value', expected: 1325, actual: 1 },
+        { path: 'legalMonetaryTotal.lineExtensionAmount.value', expected: null, actual: 1300 },
+        { path: 'legalMonetaryTotal.chargeTotalAmount.value', expected: null, actual: 25 },
+        { path: 'legalMonetaryTotal.allowanceTotalAmount.value', expected: null, actual: null },
+      ]);
     })
   );
 });

@@ -1,9 +1,8 @@
 import { Effect, Predicate, String } from 'effect';
 
 import type { PeppolInvoicePeriod } from '#/schemas/fields/peppol-invoice-period-schema.ts';
-import type { PeppolTaxSubTotal } from '#/schemas/fields/peppol-tax-subtotal-schema.ts';
 import type { PeppolDocument, PeppolDocumentLine } from '#/schemas/peppol-document-schema.ts';
-import type { SchematronRuleLevel } from '#/schematron/types.ts';
+import type { SchematronFieldIssue, SchematronRuleLevel } from '#/schematron/types.ts';
 
 import { SchematronRuleError } from '#/schematron/errors.ts';
 import { chargeReasonCodesKeys } from '#/values/charge-reason-codes.generated';
@@ -40,6 +39,12 @@ export interface SchematronRule {
 export type SchematronDocumentValidator = (document: PeppolDocument) => Effect.Effect<void, SchematronRuleError>;
 
 /**
+ * @description A pure schematron predicate. Returning `true` passes the rule, `false` fails it without field details, and a non-empty array fails it while
+ * attaching the reported {@link SchematronFieldIssue} entries.
+ */
+export type SchematronRulePredicate = (document: PeppolDocument) => boolean | ReadonlyArray<SchematronFieldIssue>;
+
+/**
  * @description Builds an effectful validator from rule metadata and a pure predicate.
  *
  * @example
@@ -49,16 +54,25 @@ export type SchematronDocumentValidator = (document: PeppolDocument) => Effect.E
  *   ```;
  *
  * @param rule - The rule identifier, severity and message reported on failure.
- * @param predicate - The pure check applied to the document; returning `false` fails the rule.
+ * @param predicate - The pure check applied to the document; returning `false` fails the rule with no `fields`, while a non-empty array fails it and
+ *   is attached as `fields`.
  *
  * @returns A {@link SchematronDocumentValidator} that succeeds for a passing document and fails with a `SchematronRuleError` otherwise.
  *
  * @see {@link SchematronRule}
+ * @see {@link SchematronRulePredicate}
  */
-export function schematronRule(rule: SchematronRule, predicate: (document: PeppolDocument) => boolean): SchematronDocumentValidator {
+export function schematronRule(rule: SchematronRule, predicate: SchematronRulePredicate): SchematronDocumentValidator {
   return Effect.fn(`schematron.${rule.id}`)(function* (document: PeppolDocument) {
-    if (!predicate(document)) {
+    const result = predicate(document);
+    if (result === true) {
+      return;
+    }
+    if (result === false) {
       return yield* new SchematronRuleError({ id: rule.id, level: rule.level, message: rule.message });
+    }
+    if (result.length > 0) {
+      return yield* new SchematronRuleError({ id: rule.id, level: rule.level, message: rule.message, fields: result });
     }
   });
 }
@@ -257,6 +271,25 @@ export function getLines(document: PeppolDocument): Array<PeppolDocumentLine> {
 }
 
 /**
+ * @description Returns the name of the lines array carried by a document, mirroring the precedence of {@link getLines}.
+ *
+ * @example
+ *   ```ts
+ *   getLinesArrayName(document); // 'invoiceLines'
+ *   ```;
+ *
+ * @param document - The invoice or credit note whose lines array name is read.
+ *
+ * @returns `'invoiceLines'` when the document carries invoice lines, otherwise `'creditNoteLines'`.
+ */
+export function getLinesArrayName(document: PeppolDocument): 'creditNoteLines' | 'invoiceLines' {
+  if ('invoiceLines' in document && Array.isArray(document.invoiceLines)) {
+    return 'invoiceLines';
+  }
+  return 'creditNoteLines';
+}
+
+/**
  * @description Returns the line quantity (invoiced or credited quantity) of a line, defaulting to 1.
  *
  * @example
@@ -441,6 +474,60 @@ export function hasMaxTwoDecimals(value: number): boolean {
  */
 export function amountsEqual(a: number, b: number): boolean {
   return Math.abs(a - b) < 1e-9;
+}
+
+/**
+ * @description Builds a {@link SchematronFieldIssue} describing one field compared by a schematron rule.
+ *
+ * @example
+ *   ```ts
+ *   fieldIssue('taxTotals[0].taxAmount.value', 100, 90);
+ *   ```;
+ *
+ * @param path - Path to the field within the PeppolDocument.
+ * @param expected - The value the rule requires at `path`, or `null` when there is no single required value.
+ * @param actual - The value found at `path`, or `null` when the field is absent.
+ *
+ * @returns The field issue carrying the path, required value and found value.
+ */
+export function fieldIssue(path: string, expected: SchematronFieldIssue['expected'], actual: SchematronFieldIssue['actual']): SchematronFieldIssue {
+  return { path, expected, actual };
+}
+
+/**
+ * @description Compares an aggregate field against the sum of its component fields, reporting the aggregate and every component when they differ.
+ *
+ * @example
+ *   ```ts
+ *   sumFieldIssues({
+ *     aggregate: { path: 'legalMonetaryTotal.taxExclusiveAmount.value', actual: 100 },
+ *     components: [
+ *       { path: 'invoiceLines[0].lineExtensionAmount.value', actual: 60 },
+ *       { path: 'invoiceLines[1].lineExtensionAmount.value', actual: 30 },
+ *     ],
+ *   });
+ *   ```;
+ *
+ * @param params.aggregate - The field expected to equal the component sum.
+ * @param params.components - The operand fields summed into the expected aggregate; a component may override its contribution.
+ * @param params.isEqual - Equality check for the aggregate and the expected sum; defaults to {@link amountsEqual}.
+ *
+ * @returns An empty array when the aggregate equals the expected sum, otherwise the aggregate issue followed by one issue per component.
+ */
+export function sumFieldIssues(params: {
+  aggregate: { path: string; actual: number | undefined };
+  components: ReadonlyArray<{ path: string; actual: number | undefined; contribution?: number }>;
+  isEqual?: (actual: number, expected: number) => boolean;
+}): ReadonlyArray<SchematronFieldIssue> {
+  const isEqual = params.isEqual ?? amountsEqual;
+  const expected = params.components.reduce((sum, component) => sum + (component.contribution ?? component.actual ?? 0), 0);
+  if (isEqual(params.aggregate.actual ?? 0, expected)) {
+    return [];
+  }
+  return [
+    fieldIssue(params.aggregate.path, expected, params.aggregate.actual ?? null),
+    ...params.components.map(component => fieldIssue(component.path, null, component.actual ?? null)),
+  ];
 }
 
 /**
@@ -663,33 +750,6 @@ export function everyDocumentChargeCategoryPercent(
 }
 
 /**
- * @description Sum of invoice line net amounts (BT-131) plus document level charge amounts (BT-99) minus document level allowance amounts (BT-92) where the VAT
- * category codes (BT-151, BT-102, BT-95) equal `code`.
- *
- * @example
- *   ```ts
- *   categoryTaxableSum(document, 'S'); // 1000
- *   ```;
- *
- * @param document - The document whose lines and document level allowance/charges are summed.
- * @param code - The VAT category code (BT-151, BT-102 or BT-95) to sum.
- *
- * @returns The sum of matching invoice line net amounts plus charges minus allowances.
- */
-export function categoryTaxableSum(document: PeppolDocument, code: string): number {
-  const lineSum = getLines(document)
-    .filter(line => line.item.classifiedTaxCategory.id === code)
-    .reduce((sum, line) => sum + line.lineExtensionAmount.value, 0);
-  const chargeSum = (document.allowanceCharges ?? [])
-    .filter(ac => ac.chargeIndicator && ac.taxCategory?.id === code)
-    .reduce((sum, ac) => sum + (ac.amount?.value ?? 0), 0);
-  const allowanceSum = (document.allowanceCharges ?? [])
-    .filter(ac => !ac.chargeIndicator && ac.taxCategory?.id === code)
-    .reduce((sum, ac) => sum + (ac.amount?.value ?? 0), 0);
-  return lineSum + chargeSum - allowanceSum;
-}
-
-/**
  * @description Returns the VAT breakdown groups (BG-23) whose VAT category code (BT-118) equals `code`.
  *
  * @example
@@ -724,23 +784,6 @@ export function getTaxSubtotalsWithCode(
         },
       }))
   );
-}
-
-/**
- * @description Sum of invoice line net amounts (BT-131) plus document level charge amounts (BT-99) minus document level allowance amounts (BT-92) where the VAT
- * category codes (BT-151, BT-102, BT-95) equal `code` and the VAT rates (BT-152, BT-103, BT-96) equal `rate`.
- */
-function categoryTaxableSumAtRate(document: PeppolDocument, code: string, rate: number): number {
-  const lineSum = getLines(document)
-    .filter(line => line.item.classifiedTaxCategory.id === code && line.item.classifiedTaxCategory.percent === rate)
-    .reduce((sum, line) => sum + line.lineExtensionAmount.value, 0);
-  const chargeSum = (document.allowanceCharges ?? [])
-    .filter(ac => ac.chargeIndicator && ac.taxCategory?.id === code && ac.taxCategory.percent === rate)
-    .reduce((sum, ac) => sum + (ac.amount?.value ?? 0), 0);
-  const allowanceSum = (document.allowanceCharges ?? [])
-    .filter(ac => !ac.chargeIndicator && ac.taxCategory?.id === code && ac.taxCategory.percent === rate)
-    .reduce((sum, ac) => sum + (ac.amount?.value ?? 0), 0);
-  return lineSum + chargeSum - allowanceSum;
 }
 
 /**
@@ -939,67 +982,6 @@ export function withinSlackOne(a: number, b: number): boolean {
 }
 
 /**
- * @description Whether the VAT category tax amount (BT-117) equals the VAT category taxable amount (BT-116) multiplied by the VAT category rate (BT-119), allowing
- * for a slack of 1, mirroring BR-CO-17.
- *
- * @example
- *   ```ts
- *   vatCategoryTaxAmountMatchesRate(subtotal); // true
- *   ```;
- *
- * @param subtotal - The VAT breakdown group (BG-23) whose tax amount and rate are compared.
- *
- * @returns `true` when the tax amount (BT-117) matches the taxable amount (BT-116) times the rate (BT-119), or when both are zero for a missing or
- *   zero rate; otherwise `false`.
- */
-export function vatCategoryTaxAmountMatchesRate(subtotal: PeppolTaxSubTotal): boolean {
-  const percent = subtotal.taxCategory.percent;
-  if (percent === undefined) {
-    return Math.round(subtotal.taxAmount.value) === 0;
-  }
-  if (Math.round(percent) === 0) {
-    return Math.round(subtotal.taxAmount.value) === 0;
-  }
-  const expected = round2(Math.abs(subtotal.taxableAmount.value) * (percent / 100));
-  const actual = Math.abs(subtotal.taxAmount.value);
-  return withinSlackOne(actual, expected);
-}
-
-/**
- * @description Whether every VAT breakdown (BG-23) whose VAT category code (BT-118) is "Standard rated", "IGIC" or "IPSI" has a VAT category taxable amount
- * (BT-116) that equals the sum of invoice line net amounts (BT-131) plus document level charge amounts (BT-99) minus document level allowance amounts
- * (BT-92) at the same VAT rate, allowing a slack of 1, mirroring BR-S-08, BR-AF-08 and BR-AG-08.
- *
- * @example
- *   ```ts
- *   everyVatBreakdownTaxableMatchesRateSum(document); // true
- *   ```;
- *
- * @param document - The document whose VAT breakdown groups are checked.
- *
- * @returns `true` when every standard rated, IGIC or IPSI breakdown matches the summed line and allowance/charge amounts at its rate, otherwise
- *   `false`.
- */
-export function everyVatBreakdownTaxableMatchesRateSum(document: PeppolDocument): boolean {
-  for (const total of document.taxTotals) {
-    for (const subtotal of total.taxSubtotals ?? []) {
-      const code = subtotal.taxCategory.id;
-      if (code !== 'S' && code !== 'L' && code !== 'M') {
-        continue;
-      }
-      const rate = subtotal.taxCategory.percent;
-      if (rate === undefined) {
-        return false;
-      }
-      if (!withinSlackOne(subtotal.taxableAmount.value, categoryTaxableSumAtRate(document, code, rate))) {
-        return false;
-      }
-    }
-  }
-  return true;
-}
-
-/**
  * @description Returns all identifiers carrying a scheme identifier, used by the PEPPOL-COMMON-R* rules.
  *
  * @example
@@ -1025,4 +1007,206 @@ export function getIdentifiersWithSchemeId(document: PeppolDocument): Array<{ id
     candidates.push({ id: payeeIdentification.id, schemeId: payeeIdentification.schemeId });
   }
   return candidates.filter((candidate): candidate is { id: string; schemeId: string } => Boolean(candidate.id) && Boolean(candidate.schemeId));
+}
+
+/**
+ * @description A component operand summed into the expected taxable amount of a VAT breakdown group (BG-23), mirroring the operands of the BR-*-08 rules.
+ */
+type TaxableSumComponent = { path: string; actual: number | undefined; contribution?: number };
+
+/**
+ * @description Collects the invoice line net amount (BT-131), document level charge (BT-99) and document level allowance (BT-92) operands whose VAT category
+ * matches `matches`. Charges are collected before allowances, mirroring the operand order of the BR-*-08 rules.
+ *
+ * @param document - The document whose lines and document level allowance/charges are read.
+ * @param matches - Predicate on a VAT category code (BT-151, BT-102, BT-95) and VAT rate (BT-152, BT-103, BT-96) selecting the operands.
+ *
+ * @returns The matching component operands, with charges contributing positively and allowances negatively.
+ */
+function collectTaxableAmountComponents(
+  document: PeppolDocument,
+  matches: (categoryId: string | undefined, percent: number | undefined) => boolean
+): Array<TaxableSumComponent> {
+  const linesName = getLinesArrayName(document);
+  const components: Array<TaxableSumComponent> = [];
+
+  getLines(document).forEach((line, lineIndex) => {
+    const category = line.item.classifiedTaxCategory;
+    if (matches(category.id, category.percent)) {
+      components.push({
+        path: `${linesName}[${lineIndex}].lineExtensionAmount.value`,
+        actual: line.lineExtensionAmount.value,
+        contribution: line.lineExtensionAmount.value,
+      });
+    }
+  });
+  const allowanceCharges = document.allowanceCharges ?? [];
+  allowanceCharges.forEach((allowanceCharge, allowanceChargeIndex) => {
+    if (allowanceCharge.chargeIndicator && matches(allowanceCharge.taxCategory?.id, allowanceCharge.taxCategory?.percent)) {
+      components.push({
+        path: `allowanceCharges[${allowanceChargeIndex}].amount.value`,
+        actual: allowanceCharge.amount?.value,
+        contribution: allowanceCharge.amount?.value ?? 0,
+      });
+    }
+  });
+  allowanceCharges.forEach((allowanceCharge, allowanceChargeIndex) => {
+    if (!allowanceCharge.chargeIndicator && matches(allowanceCharge.taxCategory?.id, allowanceCharge.taxCategory?.percent)) {
+      components.push({
+        path: `allowanceCharges[${allowanceChargeIndex}].amount.value`,
+        actual: allowanceCharge.amount?.value,
+        contribution: -(allowanceCharge.amount?.value ?? 0),
+      });
+    }
+  });
+
+  return components;
+}
+
+/**
+ * @description Field issues for the code-only category taxable-sum rules (BR-Z-08, BR-E-08, BR-G-08, BR-O-08, BR-IC-08 and BR-AE-08): the VAT category taxable
+ * amount (BT-116) of each VAT breakdown (BG-23) carrying `code` must equal the sum of its matching lines and allowance/charges.
+ *
+ * @example
+ *   ```ts
+ *   categoryTaxableSumFieldIssues(document, 'Z');
+ *   ```;
+ *
+ * @param document - The document whose VAT breakdowns (BG-23), lines and allowance/charges are read.
+ * @param code - The VAT category code (BT-118) selecting the VAT breakdown groups, for example `'Z'`.
+ *
+ * @returns An empty array when every matching taxable amount equals its component sum, otherwise one issue per differing subtotal followed by its
+ *   operands.
+ */
+export function categoryTaxableSumFieldIssues(document: PeppolDocument, code: string): ReadonlyArray<SchematronFieldIssue> {
+  return document.taxTotals.flatMap((total, totalIndex) =>
+    (total.taxSubtotals ?? []).flatMap((subtotal, subtotalIndex) => {
+      if (subtotal.taxCategory.id !== code) {
+        return [];
+      }
+      return sumFieldIssues({
+        aggregate: { path: `taxTotals[${totalIndex}].taxSubtotals[${subtotalIndex}].taxableAmount.value`, actual: subtotal.taxableAmount.value },
+        components: collectTaxableAmountComponents(document, categoryId => categoryId === code),
+        isEqual: amountsEqual,
+      });
+    })
+  );
+}
+
+/**
+ * @description Field issues for the standard-rated, IGIC and IPSI taxable-sum rules (BR-S-08, BR-AF-08 and BR-AG-08): for each VAT category rate (BT-119) where
+ * the VAT category code (BT-118) is `S`, `L` or `M`, the VAT category taxable amount (BT-116) must equal the sum of its matching lines and
+ * allowance/charges at that rate.
+ *
+ * @example
+ *   ```ts
+ *   standardRatedTaxableSumFieldIssues(document);
+ *   ```;
+ *
+ * @param document - The document whose VAT breakdowns (BG-23), lines and allowance/charges are read.
+ *
+ * @returns An empty array when every matching taxable amount equals its component sum, otherwise one issue per differing subtotal followed by its
+ *   operands; a subtotal without a VAT category rate yields the taxable amount issue followed by the missing rate operand.
+ */
+export function standardRatedTaxableSumFieldIssues(document: PeppolDocument): ReadonlyArray<SchematronFieldIssue> {
+  return document.taxTotals.flatMap((total, totalIndex) =>
+    (total.taxSubtotals ?? []).flatMap((subtotal, subtotalIndex) => {
+      const code = subtotal.taxCategory.id;
+      if (code !== 'S' && code !== 'L' && code !== 'M') {
+        return [];
+      }
+      const taxablePath = `taxTotals[${totalIndex}].taxSubtotals[${subtotalIndex}].taxableAmount.value`;
+      const percentPath = `taxTotals[${totalIndex}].taxSubtotals[${subtotalIndex}].taxCategory.percent`;
+      const rate = subtotal.taxCategory.percent;
+      if (rate === undefined) {
+        return [fieldIssue(taxablePath, null, subtotal.taxableAmount.value), fieldIssue(percentPath, null, null)];
+      }
+      const components = collectTaxableAmountComponents(document, (categoryId, percent) => categoryId === code && percent === rate);
+      components.push({ path: percentPath, actual: rate, contribution: 0 });
+      return sumFieldIssues({ aggregate: { path: taxablePath, actual: subtotal.taxableAmount.value }, components, isEqual: withinSlackOne });
+    })
+  );
+}
+
+/**
+ * @description Field issues for the category tax amount rules (BR-S-09, BR-AF-09 and BR-AG-09): the VAT category tax amount (BT-117) of each VAT breakdown (BG-23)
+ * carrying `code` must equal its VAT category taxable amount (BT-116) multiplied by its VAT category rate (BT-119), within a slack of one.
+ *
+ * @example
+ *   ```ts
+ *   categoryTaxAmountFieldIssues(document, 'S');
+ *   ```;
+ *
+ * @param document - The document whose VAT breakdowns (BG-23) are read.
+ * @param code - The VAT category code (BT-118) selecting the VAT breakdown groups, for example `'S'`.
+ *
+ * @returns An empty array when every matching tax amount is within slack of the computed value, otherwise one issue per differing subtotal followed
+ *   by its taxable amount and rate operands.
+ */
+export function categoryTaxAmountFieldIssues(document: PeppolDocument, code: string): ReadonlyArray<SchematronFieldIssue> {
+  return document.taxTotals.flatMap((total, taxTotalIndex) =>
+    (total.taxSubtotals ?? []).flatMap((subtotal, taxSubtotalIndex) => {
+      if (subtotal.taxCategory.id !== code) {
+        return [];
+      }
+      const actual = subtotal.taxAmount.value;
+      const expected = round2(subtotal.taxableAmount.value * ((subtotal.taxCategory.percent ?? 0) / 100));
+      if (withinSlackOne(actual, expected)) {
+        return [];
+      }
+      const path = `taxTotals[${taxTotalIndex}].taxSubtotals[${taxSubtotalIndex}]`;
+      return [
+        fieldIssue(`${path}.taxAmount.value`, expected, actual),
+        fieldIssue(`${path}.taxableAmount.value`, null, subtotal.taxableAmount.value),
+        fieldIssue(`${path}.taxCategory.percent`, null, subtotal.taxCategory.percent ?? null),
+      ];
+    })
+  );
+}
+
+/**
+ * @description Field issues for the invoice line net amount rule (PEPPOL-EN16931-R120): each invoice line net amount (BT-131) must equal the invoiced quantity
+ * (BT-129) multiplied by the item net price (BT-146) divided by the item price base quantity (BT-149), plus the invoice line charges (BT-141) and
+ * minus the invoice line allowances (BT-136), within a slack of `0.02`.
+ *
+ * @example
+ *   ```ts
+ *   lineNetAmountFieldIssues(document);
+ *   ```;
+ *
+ * @param document - The document whose lines, prices and line allowance/charges are read.
+ *
+ * @returns An empty array when every line net amount is within slack of the computed value, otherwise one issue per differing line followed by its
+ *   quantity, price, base quantity and allowance/charge operands.
+ */
+export function lineNetAmountFieldIssues(document: PeppolDocument): ReadonlyArray<SchematronFieldIssue> {
+  const linesName = getLinesArrayName(document);
+  const issues: Array<SchematronFieldIssue> = [];
+
+  getLines(document).forEach((line, lineIndex) => {
+    const lineExtensionAmount = line.lineExtensionAmount.value;
+    const quantity = getLineQuantity(line);
+    const priceAmount = line.price.priceAmount.value;
+    const baseQuantity = line.price.baseQuantity?.value ?? 1;
+    const allowanceCharges = line.allowanceCharges ?? [];
+    const allowancesTotal = allowanceCharges.filter(ac => !ac.chargeIndicator).reduce((sum, ac) => sum + (ac.amount?.value ?? 0), 0);
+    const chargesTotal = allowanceCharges.filter(ac => ac.chargeIndicator).reduce((sum, ac) => sum + (ac.amount?.value ?? 0), 0);
+    const expected = quantity * (priceAmount / baseQuantity) + chargesTotal - allowancesTotal;
+    if (slack(expected, lineExtensionAmount, 0.02)) {
+      return;
+    }
+    const path = `${linesName}[${lineIndex}]`;
+    const quantityName = 'invoicedQuantity' in line ? 'invoicedQuantity' : 'creditedQuantity';
+    issues.push(
+      fieldIssue(`${path}.lineExtensionAmount.value`, Number.isFinite(expected) ? expected : null, lineExtensionAmount),
+      fieldIssue(`${path}.${quantityName}.value`, null, quantity),
+      fieldIssue(`${path}.price.priceAmount.value`, null, priceAmount),
+      fieldIssue(`${path}.price.baseQuantity.value`, null, line.price.baseQuantity?.value ?? null),
+      ...allowanceCharges.map((allowanceCharge, allowanceChargeIndex) =>
+        fieldIssue(`${path}.allowanceCharges[${allowanceChargeIndex}].amount.value`, null, allowanceCharge.amount?.value ?? null)
+      )
+    );
+  });
+
+  return issues;
 }

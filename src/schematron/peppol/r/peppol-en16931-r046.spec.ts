@@ -47,6 +47,22 @@ describe('PEPPOL-EN16931-R046 (item net price = gross price - allowance amount)'
       } as unknown as PeppolDocument;
       const result = yield* validatePeppolEn16931R046(altered).pipe(Effect.result);
       assert(Result.isFailure(result));
+      if (Result.isFailure(result)) {
+        const fields = result.failure.fields ?? [];
+        assert(fields.length > 0);
+        assert(fields[0]?.path === 'invoiceLines[0].price.allowanceCharge.baseAmount.value');
+        assert(fields[0]?.expected === 110);
+        assert(fields[0]?.actual === 50);
+        const operands = fields.slice(1);
+        assert(operands.length === 2);
+        for (const operand of operands) {
+          assert(operand.expected === null);
+        }
+        assert(operands[0]?.path === 'invoiceLines[0].price.priceAmount.value');
+        assert(operands[0]?.actual === 100);
+        assert(operands[1]?.path === 'invoiceLines[0].price.allowanceCharge.amount.value');
+        assert(operands[1]?.actual === 10);
+      }
     })
   );
 
