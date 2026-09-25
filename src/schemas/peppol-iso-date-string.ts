@@ -13,7 +13,7 @@ import { opaque } from '#/schemas/utils/opaque.ts';
 export class PeppolIsoDateString extends opaque<PeppolIsoDateString>()(
   Schema.String.check(Schema.isPattern(/^\d{4}-\d{2}-\d{2}Z?$/)).pipe(
     Schema.decodeTo(Schema.DateTimeUtc, {
-      decode: SchemaGetter.dateTimeUtcFromInput().map(DateTime.removeTime),
+      decode: SchemaGetter.map(SchemaGetter.dateTimeUtcFromInput(), DateTime.removeTime),
       encode: SchemaGetter.transform(DateTime.formatIsoDate),
     }),
     Schema.toStandardSchemaV1
