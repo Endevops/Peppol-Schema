@@ -1,11 +1,9 @@
 // oxlint-disable typescript/no-explicit-any
-import { XMLParser } from 'fast-xml-parser';
+import { XMLParser } from '@nodable/flexible-xml-parser';
 import { expect } from 'vitest';
 
-import { parserOptions } from '#/xml/parser-options.ts';
-
 function parseXML(content: string | Buffer) {
-  const parser = new XMLParser(parserOptions);
+  const parser = new XMLParser({ attributes: { booleanType: 'allow', prefix: '@' }, skip: { attributes: false } });
   return parser.parse(content);
 }
 

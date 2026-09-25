@@ -46,6 +46,7 @@
     // Build/generator tooling imported only from scripts/ (a configured `entry` root).
     "picocolors",
     "simple-git",
+    "buffer",
   ],
   "rules": { "circular-dependencies": "error", "unused-dependencies": "error", "private-type-leaks": "error" },
   // Test suites are not published (see package.json `files`) and the

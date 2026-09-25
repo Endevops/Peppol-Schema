@@ -3,7 +3,6 @@ node = "latest"
 pnpm = "latest"
 jq = "latest"
 tokei = "latest"
-"aqua:fallow-rs/fallow" = "latest"
 
 [env]
 _.path = ["{{config_root}}/node_modules/.bin"]
