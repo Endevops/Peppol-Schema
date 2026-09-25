@@ -224,3 +224,15 @@ export class PeppolInvoiceResponse extends opaque<PeppolInvoiceResponse>()(
     documentResponse: PeppolInvoiceResponseDocumentResponse,
   }).pipe(Schema.toStandardSchemaV1)
 ) {}
+
+/**
+ * @description Type guard that returns `true` when a decoded value is a {@link PeppolInvoiceResponse}.
+ *
+ * @example
+ *   ```ts
+ *   isPeppolInvoiceResponse(doc); // true for an invoice response ApplicationResponse
+ *   ```;
+ *
+ * @see {@link PeppolDocumentSchema}
+ */
+export const isPeppolInvoiceResponse = Schema.is(PeppolInvoiceResponse);

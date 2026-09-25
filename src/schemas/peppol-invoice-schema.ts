@@ -71,3 +71,15 @@ export class PeppolInvoice extends opaque<PeppolInvoice>()(
     projectReference: Schema.optional(PeppolProjectReference),
   }).pipe(Schema.toStandardSchemaV1)
 ) {}
+
+/**
+ * @description Type guard that returns `true` when a decoded value is a {@link PeppolInvoice}.
+ *
+ * @example
+ *   ```ts
+ *   isPeppolInvoice(doc); // true for a UBL Invoice
+ *   ```;
+ *
+ * @see {@link PeppolDocumentSchema}
+ */
+export const isPeppolInvoice = Schema.is(PeppolInvoice);

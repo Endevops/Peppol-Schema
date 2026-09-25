@@ -3,7 +3,6 @@ import type { SchemaAST } from 'effect';
 import { Effect, Predicate, Schema, SchemaGetter, SchemaIssue } from 'effect';
 import XMLBuilder from 'fast-xml-builder';
 
-import type { XmlNode } from '#/helpers/get-prop.ts';
 import type { PeppolCreditNoteLine } from '#/schemas/fields/peppol-credit-note-line-schema.ts';
 import type { PeppolInvoiceLine } from '#/schemas/fields/peppol-invoice-line-schema.ts';
 
@@ -18,10 +17,10 @@ import { encodeInvoiceResponse } from '#/decoders/encode-invoice-response.ts';
 import { encodeInvoice } from '#/decoders/encode-invoice.ts';
 import { encodeMessageLevelResponse } from '#/decoders/encode-message-level-response.ts';
 import { strOrUnd } from '#/helpers/str-or-und.ts';
-import { PeppolCreditNote } from '#/schemas/peppol-credit-note-schema.ts';
-import { PeppolInvoiceResponse } from '#/schemas/peppol-invoice-response-schema.ts';
-import { PeppolInvoice } from '#/schemas/peppol-invoice-schema.ts';
-import { PeppolMessageLevelResponse } from '#/schemas/peppol-message-level-response-schema.ts';
+import { isPeppolCreditNote, PeppolCreditNote } from '#/schemas/peppol-credit-note-schema.ts';
+import { isPeppolInvoiceResponse, PeppolInvoiceResponse } from '#/schemas/peppol-invoice-response-schema.ts';
+import { isPeppolInvoice, PeppolInvoice } from '#/schemas/peppol-invoice-schema.ts';
+import { isPeppolMessageLevelResponse, PeppolMessageLevelResponse } from '#/schemas/peppol-message-level-response-schema.ts';
 import { builderOptions } from '#/xml/builder-options.ts';
 import { parseXmlNodable } from '#/xml/nodable-parser.ts';
 
@@ -35,72 +34,28 @@ const peppolDocumentObjectSchema = Schema.Union([PeppolInvoice, PeppolCreditNote
 
 type PeppolDocumentObject = typeof peppolDocumentObjectSchema.Encoded;
 
-const parseXml = (value: string): XmlNode => parseXmlNodable(value);
-
-/**
- * @description Type guard that returns `true` when a decoded value is a {@link PeppolInvoice}.
- *
- * @example
- *   ```ts
- *   isPeppolInvoice(doc); // true for a UBL Invoice
- *   ```;
- *
- * @see {@link PeppolDocumentSchema}
- */
-export const isPeppolInvoice = Schema.is(PeppolInvoice);
-/**
- * @description Type guard that returns `true` when a decoded value is a {@link PeppolCreditNote}.
- *
- * @example
- *   ```ts
- *   isPeppolCreditNote(doc); // true for a UBL CreditNote
- *   ```;
- *
- * @see {@link PeppolDocumentSchema}
- */
-export const isPeppolCreditNote = Schema.is(PeppolCreditNote);
-/**
- * @description Type guard that returns `true` when a decoded value is a {@link PeppolMessageLevelResponse}.
- *
- * @example
- *   ```ts
- *   isPeppolMessageLevelResponse(doc); // true for an MLR ApplicationResponse
- *   ```;
- *
- * @see {@link PeppolDocumentSchema}
- */
-export const isPeppolMessageLevelResponse = Schema.is(PeppolMessageLevelResponse);
-/**
- * @description Type guard that returns `true` when a decoded value is a {@link PeppolInvoiceResponse}.
- *
- * @example
- *   ```ts
- *   isPeppolInvoiceResponse(doc); // true for an invoice response ApplicationResponse
- *   ```;
- *
- * @see {@link PeppolDocumentSchema}
- */
-export const isPeppolInvoiceResponse = Schema.is(PeppolInvoiceResponse);
-
 /**
  * @description XML string -> loose document object. Dispatches on the root element; `ApplicationResponse` is further split by its `cbc:ProfileID`.
  */
-const decodeDocumentXml = Effect.fn('decode-peppol-document-xml')(function* (value: string, options: SchemaAST.ParseOptions) {
-  const parsed = parseXml(value);
+const decodeDocumentXml = Effect.fn('decode-peppol-document-xml')(function* (
+  value: string,
+  options: SchemaAST.ParseOptions
+): Effect.fn.Return<Schema.Codec.Encoded<typeof peppolDocumentObjectSchema>, SchemaIssue.Issue> {
+  const parsed = parseXmlNodable(value);
 
   if (Predicate.isNotNullish(parsed.Invoice)) {
-    return yield* decodeInvoice(parsed);
+    return (yield* decodeInvoice(parsed)) as unknown as Schema.Codec.Encoded<typeof peppolDocumentObjectSchema>;
   }
   if (Predicate.isNotNullish(parsed.CreditNote)) {
-    return yield* decodeCreditNote(parsed);
+    return (yield* decodeCreditNote(parsed)) as unknown as Schema.Codec.Encoded<typeof peppolDocumentObjectSchema>;
   }
   if (Predicate.isNotNullish(parsed.ApplicationResponse)) {
     const profileId = yield* strOrUnd(parsed.ApplicationResponse, 'cbc:ProfileID');
     if (profileId === MESSAGE_LEVEL_RESPONSE_PROFILE_ID) {
-      return yield* decodeMessageLevelResponse(parsed);
+      return (yield* decodeMessageLevelResponse(parsed)) as unknown as Schema.Codec.Encoded<typeof peppolDocumentObjectSchema>;
     }
     if (profileId === INVOICE_RESPONSE_PROFILE_ID) {
-      return yield* decodeInvoiceResponse(parsed);
+      return (yield* decodeInvoiceResponse(parsed)) as unknown as Schema.Codec.Encoded<typeof peppolDocumentObjectSchema>;
     }
   }
 
@@ -109,28 +64,40 @@ const decodeDocumentXml = Effect.fn('decode-peppol-document-xml')(function* (val
 });
 
 /**
+ * @description Dispatch table mirroring {@link decodeDocumentXml}: each entry pairs a discriminant test with its encoder so the lookup below stays linear.
+ */
+const documentEncoders = [
+  { encode: encodeInvoice, matches: (value: PeppolDocumentObject) => isPeppolInvoice(value) || Predicate.hasProperty(value, 'invoiceLines') },
+  {
+    encode: encodeCreditNote,
+    matches: (value: PeppolDocumentObject) => isPeppolCreditNote(value) || Predicate.hasProperty(value, 'creditNoteLines'),
+  },
+  {
+    encode: encodeMessageLevelResponse,
+    matches: (value: PeppolDocumentObject) => isPeppolMessageLevelResponse(value) || value.profileId === MESSAGE_LEVEL_RESPONSE_PROFILE_ID,
+  },
+  {
+    encode: encodeInvoiceResponse,
+    matches: (value: PeppolDocumentObject) => isPeppolInvoiceResponse(value) || value.profileId === INVOICE_RESPONSE_PROFILE_ID,
+  },
+];
+
+/**
  * @description Loose document object -> XML string. Mirrors {@link decodeDocumentXml} by dispatching on the decoded discriminant.
  */
 const encodeDocumentXml = Effect.fn('encode-peppol-document-xml')(function* (value: PeppolDocumentObject, options: SchemaAST.ParseOptions) {
-  let content: unknown;
-
-  if (isPeppolInvoice(value) || Predicate.hasProperty(value, 'invoiceLines')) {
-    content = yield* encodeInvoice(value as never);
-  } else if (isPeppolCreditNote(value) || Predicate.hasProperty(value, 'creditNoteLines')) {
-    content = yield* encodeCreditNote(value as never);
-  } else if (isPeppolMessageLevelResponse(value) || value.profileId === MESSAGE_LEVEL_RESPONSE_PROFILE_ID) {
-    content = yield* encodeMessageLevelResponse(value as never);
-  } else if (isPeppolInvoiceResponse(value) || value.profileId === INVOICE_RESPONSE_PROFILE_ID) {
-    content = yield* encodeInvoiceResponse(value as never);
-  } else {
-    const rootNodes = Object.keys(value);
-    return yield* Effect.fail(
-      // oxlint-disable-next-line typescript/no-explicit-any this is safe since it is only for logging purposes
-      new SchemaIssue.InvalidValue({ message: `Unsupported document type: ${(value as any)?.profileId}\n${rootNodes.join(',')}` }, value, options)
-    );
+  for (const entry of documentEncoders) {
+    if (entry.matches(value)) {
+      const content = yield* entry.encode(value as never);
+      return new XMLBuilder(builderOptions).build(content) as string;
+    }
   }
 
-  return new XMLBuilder(builderOptions).build(content) as string;
+  const rootNodes = Object.keys(value);
+  return yield* Effect.fail(
+    // oxlint-disable-next-line typescript/no-explicit-any this is safe since it is only for logging purposes
+    new SchemaIssue.InvalidValue({ message: `Unsupported document type: ${(value as any)?.profileId}\n${rootNodes.join(',')}` }, value, options)
+  );
 });
 
 /**
@@ -176,14 +143,17 @@ export type PeppolDocumentDecoded = Schema.Schema.Type<typeof PeppolDocumentSche
  * @description This defines the types of documents that are sent/received through the peppol network.
  */
 export type PeppolDocument = PeppolInvoice | PeppolCreditNote;
+
 /**
  * @description This defines the types of message that are sent/received through the peppol network.
  */
 export type PeppolMessage = PeppolMessageLevelResponse | PeppolInvoiceResponse;
+
 /**
  * @description Every document type supported by {@link PeppolDocumentSchema}: the billing documents and the response messages.
  */
 export type PeppolAllDocuments = PeppolDocument | PeppolMessage;
+
 /**
  * @description A line from either a {@link PeppolInvoice} or a {@link PeppolCreditNote}.
  */

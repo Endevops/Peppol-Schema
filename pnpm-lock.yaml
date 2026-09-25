@@ -165,6 +165,10 @@ settings:
 importers:
 
   .:
+    dependencies:
+      buffer:
+        specifier: ^6.0.3
+        version: 6.0.3
     devDependencies:
       '@arethetypeswrong/core':
         specifier: ^0.18.5

@@ -29,3 +29,15 @@ export class PeppolCreditNote extends opaque<PeppolCreditNote>()(
     creditNoteTypeCode: PeppolCreditNoteTypeCode,
   }).pipe(Schema.toStandardSchemaV1)
 ) {}
+
+/**
+ * @description Type guard that returns `true` when a decoded value is a {@link PeppolCreditNote}.
+ *
+ * @example
+ *   ```ts
+ *   isPeppolCreditNote(doc); // true for a UBL CreditNote
+ *   ```;
+ *
+ * @see {@link PeppolDocumentSchema}
+ */
+export const isPeppolCreditNote = Schema.is(PeppolCreditNote);

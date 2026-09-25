@@ -114,3 +114,15 @@ export class PeppolMessageLevelResponse extends opaque<PeppolMessageLevelRespons
     documentResponse: PeppolMessageLevelResponseDocumentResponse,
   }).pipe(Schema.toStandardSchemaV1)
 ) {}
+
+/**
+ * @description Type guard that returns `true` when a decoded value is a {@link PeppolMessageLevelResponse}.
+ *
+ * @example
+ *   ```ts
+ *   isPeppolMessageLevelResponse(doc); // true for an MLR ApplicationResponse
+ *   ```;
+ *
+ * @see {@link PeppolDocumentSchema}
+ */
+export const isPeppolMessageLevelResponse = Schema.is(PeppolMessageLevelResponse);

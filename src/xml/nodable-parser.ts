@@ -2,11 +2,14 @@ import type { BaseOutputBuilderFactory } from '@nodable/base-output-builder';
 
 import { NumberValueParser } from '@nodable/base-output-builder';
 import { CompactBuilderFactory } from '@nodable/compact-builder';
+import { Buffer } from 'buffer';
+
+// WARNING: this must stay at the top to ensure that buffer is available in the global scope, otherwise there is no buffer available for the XML parser in the browser.
+globalThis.Buffer = globalThis.Buffer || Buffer;
+
 import { XMLParser } from '@nodable/flexible-xml-parser';
 
 import type { XmlNode } from '#/helpers/get-prop.ts';
-
-export type { XmlNode } from '#/helpers/get-prop.ts';
 
 const numberParser = new NumberValueParser({ eNotation: true, hex: false, leadingZeros: false });
 
