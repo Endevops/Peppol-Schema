@@ -1,4 +1,4 @@
-import type { XmlBuilderOptions } from 'fast-xml-builder';
+import type { XmlBuilderOptions } from '@endevops/builder';
 
 import { commonXmlOptions } from '#/xml/common-xml-options.ts';
 

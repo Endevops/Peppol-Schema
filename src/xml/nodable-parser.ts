@@ -1,23 +1,25 @@
-import type { BaseOutputBuilderFactory } from '@nodable/base-output-builder';
+import type { ParseError } from '@endevops/parser';
 
-import { NumberValueParser } from '@nodable/base-output-builder';
-import { CompactBuilderFactory } from '@nodable/compact-builder';
-import { XMLParser } from '@nodable/flexible-xml-parser';
+import { CompactBuilderFactory, makeNumberValueParser } from '@endevops/builder';
+import { XMLParser } from '@endevops/parser';
+import { Effect } from 'effect';
 
 import type { XmlNode } from '#/helpers/get-prop.ts';
 
-const numberParser = new NumberValueParser({ eNotation: true, hex: false, leadingZeros: false });
+const numberParser = makeNumberValueParser({ eNotation: true, hex: false, leadingZeros: false });
 
-const compactFactory = new CompactBuilderFactory({
-  attributes: { valueParsers: ['entity', numberParser, 'boolean'] },
-  tags: { valueParsers: ['trim', 'entity', 'boolean', numberParser] },
-});
+const nodableParser = Effect.gen(function* () {
+  const compactFactory = yield* CompactBuilderFactory.make({
+    attributes: { valueParsers: ['entity', numberParser, 'boolean'] },
+    tags: { valueParsers: ['trim', 'entity', 'boolean', numberParser] },
+  });
 
-const nodableParser = new XMLParser({
-  OutputBuilder: compactFactory as unknown as BaseOutputBuilderFactory,
-  attributes: { booleanType: 'allow', prefix: '@' },
-  skip: { attributes: false, nsPrefix: true },
-});
+  return yield* XMLParser.make({
+    OutputBuilder: compactFactory,
+    attributes: { booleanType: 'allow', prefix: '@' },
+    skip: { attributes: false, nsPrefix: true },
+  });
+}).pipe(Effect.runSync);
 
 /**
  * @description Parses an XML string into an {@link XmlNode} tree with the nodable compact builder, coercing values and removing `@xmlns`.
@@ -31,11 +33,11 @@ const nodableParser = new XMLParser({
  *
  * @returns The parsed {@link XmlNode} tree with `@xmlns` stripped.
  */
-export function parseXmlNodable(value: string): XmlNode {
-  const parsed = nodableParser.parse(value) as XmlNode;
+export const parseXmlNodable = Effect.fn(function* (value: string): Effect.fn.Return<XmlNode, ParseError> {
+  const parsed = yield* nodableParser.parse<XmlNode>(value);
   stripDefaultXmlns(parsed);
   return parsed;
-}
+});
 
 function stripDefaultXmlns(node: unknown): void {
   if (Array.isArray(node)) {

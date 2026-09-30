@@ -1,8 +1,8 @@
 // fallow-ignore-file security-sink
 // Offline codegen script: paths are repo-relative constants, no untrusted input.
-import { CompactBuilderFactory } from '@nodable/compact-builder';
-import { XMLParser } from '@nodable/flexible-xml-parser';
-import { String } from 'effect';
+import { CompactBuilderFactory } from '@endevops/builder';
+import { XMLParser } from '@endevops/parser';
+import { Effect, String } from 'effect';
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
 import pc from 'picocolors';
@@ -11,10 +11,12 @@ import { generateKeyDeclarations } from './generate-key-declarations.ts';
 import { Git } from './git.ts';
 
 const typescript = String.String.raw;
-const xmlParser = new XMLParser({
-  // @ts-ignore-error idk
-  OutputBuilder: new CompactBuilderFactory({ tags: { valueParsers: ['entity'] }, attributes: { valueParsers: ['entity'] } }),
-});
+const xmlParser = Effect.gen(function* () {
+  return yield* XMLParser.make({
+    OutputBuilder: yield* CompactBuilderFactory.make({ tags: { valueParsers: ['entity'] }, attributes: { valueParsers: ['entity'] } }),
+  });
+}).pipe(Effect.runSync);
+
 const assetsPath = path.join(import.meta.dirname, '..', '..', 'assets');
 
 function normalizeString(str: string): string {
@@ -119,7 +121,8 @@ export async function generateFromPeppol(valuePath: string) {
       console.log('Processing', pc.yellow(pc.italic(peppolFileName)), '->', pc.yellow(pc.italic(outputFileName)));
       const peppolFileContent: {
         CodeList: { Title: string; Identifier: string; Version: string | undefined; Code: Array<{ Id: string; Name: string; Description?: string }> };
-      } = xmlParser.parse(await fs.readFile(peppolFileName, { encoding: 'utf-8' }));
+        // oxlint-disable-next-line typescript/no-explicit-any
+      } = await xmlParser.parse<any>(await fs.readFile(peppolFileName, { encoding: 'utf-8' })).pipe(Effect.runPromise);
 
       const title = peppolFileContent['CodeList']['Title'];
       const identifier = peppolFileContent['CodeList']['Identifier'];

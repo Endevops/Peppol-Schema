@@ -78,14 +78,14 @@ If no release-worthy commit exists, `semantic-release` exits without releasing.
 
 ## Manual operations
 
-| Goal                    | How                                                                                                                              |
-| ----------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| Cut a patch release     | Commit `fix:` on `master` (or merge a PR with one) and push.                                                                     |
-| Cut a minor release     | Commit `feat:` on `master` and push.                                                                                             |
-| Cut a major release     | Commit with `BREAKING CHANGE:` / `feat!:` on `master` and push.                                                                  |
-| Release a beta          | Push to `develop`.                                                                                                               |
+| Goal                      | How                                                                                                                                         |
+| ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| Cut a patch release       | Commit `fix:` on `master` (or merge a PR with one) and push.                                                                                |
+| Cut a minor release       | Commit `feat:` on `master` and push.                                                                                                        |
+| Cut a major release       | Commit with `BREAKING CHANGE:` / `feat!:` on `master` and push.                                                                             |
+| Release a beta            | Push to `develop`.                                                                                                                          |
 | Release a feature preview | Push to a `feature/*` branch. Publishes `x.y.z-<feature-name>.n` to npm under the `<feature-name>` dist-tag; no git tag, no GitHub Release. |
-| Publish no version      | Use `chore:`, `docs:`, `refactor:`, etc.                                                                                         |
+| Publish no version        | Use `chore:`, `docs:`, `refactor:`, etc.                                                                                                    |
 
 Do **not** tag releases by hand. `v*` tags created manually bypass the changelog and
 provenance flow and can confuse the next analysis.
@@ -94,28 +94,28 @@ provenance flow and can confuse the next analysis.
 
 The old `GitVersion.yml` (Invoicify) maps as follows:
 
-| GitVersion concept                               | semantic-release equivalent                                              |
-| ------------------------------------------------ | ------------------------------------------------------------------------ |
-| `.NET` runtime + `gittools/actions/gitversion/*` | Node.js `semantic-release` + a workflow job                              |
-| `commit-message-incrementing: Enabled`           | Conventional Commits analysis (built-in)                                 |
-| `major-version-bump-message` regex               | `BREAKING CHANGE:` footer / `!` suffix                                   |
-| `minor-version-bump-message` (`feat`)            | `feat:` commits                                                          |
-| `patch-version-bump-message` (`fix`/`chore`/...) | `fix:`, `perf:` commits                                                  |
-| `tag-prefix: '[vV]?'`                            | `tagFormat: 'v${version}'`                                               |
-| `mode: ContinuousDeployment`                     | release on every push to a release branch                                |
-| `branches.main` (`^master$`, release)            | `master` (stable)                                                        |
-| `branches.develop` (label `beta`)                | `develop` → `prerelease: beta`                                           |
+| GitVersion concept                               | semantic-release equivalent                                                            |
+| ------------------------------------------------ | -------------------------------------------------------------------------------------- |
+| `.NET` runtime + `gittools/actions/gitversion/*` | Node.js `semantic-release` + a workflow job                                            |
+| `commit-message-incrementing: Enabled`           | Conventional Commits analysis (built-in)                                               |
+| `major-version-bump-message` regex               | `BREAKING CHANGE:` footer / `!` suffix                                                 |
+| `minor-version-bump-message` (`feat`)            | `feat:` commits                                                                        |
+| `patch-version-bump-message` (`fix`/`chore`/...) | `fix:`, `perf:` commits                                                                |
+| `tag-prefix: '[vV]?'`                            | `tagFormat: 'v${version}'`                                                             |
+| `mode: ContinuousDeployment`                     | release on every push to a release branch                                              |
+| `branches.main` (`^master$`, release)            | `master` (stable)                                                                      |
+| `branches.develop` (label `beta`)                | `develop` → `prerelease: beta`                                                         |
 | `branches.feature` (label `alpha`)               | `feature/*` → `prerelease:`/channel from sanitized branch name (npm-only, tag deleted) |
-| `branches.hotfix` (patch)                        | `hotfix/*` → `prerelease: rc`                                            |
-| `prevent-increment.when-current-commit-tagged`   | built-in: tagged commits are skipped                                     |
-| `mathieudutour/github-tag-action`                | tag created by `semantic-release` itself                                 |
-| git-cliff changelog                              | `@semantic-release/release-notes-generator` + `@semantic-release/github` |
+| `branches.hotfix` (patch)                        | `hotfix/*` → `prerelease: rc`                                                          |
+| `prevent-increment.when-current-commit-tagged`   | built-in: tagged commits are skipped                                                   |
+| `mathieudutour/github-tag-action`                | tag created by `semantic-release` itself                                               |
+| git-cliff changelog                              | `@semantic-release/release-notes-generator` + `@semantic-release/github`               |
 
 ## Configuration files
 
 | File                       | Purpose                                  |
 | -------------------------- | ---------------------------------------- |
-| `release.config.mjs`         | Branch → channel mapping and plugin list |
+| `release.config.mjs`       | Branch → channel mapping and plugin list |
 | `.github/workflows/ci.yml` | Build/test gate + `release` job          |
 | `package.json`             | `semantic-release` in `devDependencies`  |
 

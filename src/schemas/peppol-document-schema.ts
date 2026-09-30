@@ -1,7 +1,7 @@
 import type { SchemaAST } from 'effect';
 
+import { XMLBuilder } from '@endevops/builder';
 import { Effect, Predicate, Schema, SchemaGetter, SchemaIssue } from 'effect';
-import XMLBuilder from 'fast-xml-builder';
 
 import type { PeppolCreditNoteLine } from '#/schemas/fields/peppol-credit-note-line-schema.ts';
 import type { PeppolInvoiceLine } from '#/schemas/fields/peppol-invoice-line-schema.ts';
@@ -41,7 +41,7 @@ const decodeDocumentXml = Effect.fn('decode-peppol-document-xml')(function* (
   value: string,
   options: SchemaAST.ParseOptions
 ): Effect.fn.Return<Schema.Codec.Encoded<typeof peppolDocumentObjectSchema>, SchemaIssue.Issue> {
-  const parsed = parseXmlNodable(value);
+  const parsed = yield* parseXmlNodable(value).pipe(Effect.orDie);
 
   if (Predicate.isNotNullish(parsed.Invoice)) {
     return (yield* decodeInvoice(parsed)) as unknown as Schema.Codec.Encoded<typeof peppolDocumentObjectSchema>;
@@ -89,13 +89,13 @@ const encodeDocumentXml = Effect.fn('encode-peppol-document-xml')(function* (val
   for (const entry of documentEncoders) {
     if (entry.matches(value)) {
       const content = yield* entry.encode(value as never);
-      return new XMLBuilder(builderOptions).build(content) as string;
+      return yield* XMLBuilder.make(builderOptions).pipe(Effect.flatMap(builder => builder.build(content)));
     }
   }
 
   const rootNodes = Object.keys(value);
   return yield* Effect.fail(
-    // oxlint-disable-next-line typescript/no-explicit-any this is safe since it is only for logging purposes
+    // oxlint-disable-next-line typescript/no-explicit-any
     new SchemaIssue.InvalidValue({ message: `Unsupported document type: ${(value as any)?.profileId}\n${rootNodes.join(',')}` }, value, options)
   );
 });

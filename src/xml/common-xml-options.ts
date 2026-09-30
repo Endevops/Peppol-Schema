@@ -1,4 +1,4 @@
-import type { XmlBuilderOptions } from 'fast-xml-builder';
+import type { XmlBuilderOptions } from '@endevops/builder';
 
 /**
  * @description Options shared by the XML parser and builder so documents round-trip: `@` attributes, coerced values, trimmed values.
