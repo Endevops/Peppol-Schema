@@ -1,5 +1,5 @@
 import { Effect } from 'effect';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it } from 'vite-plus/test';
 
 import { decodePartiesTaxScheme } from './decode-parties-tax-scheme.ts';
 

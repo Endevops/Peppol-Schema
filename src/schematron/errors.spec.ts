@@ -2,7 +2,7 @@
  * @description Unit tests for the schematron error schemas.
  */
 import { Effect, Schema } from 'effect';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it } from 'vite-plus/test';
 
 import type { SchematronFieldIssue } from '#/schematron/types.ts';
 

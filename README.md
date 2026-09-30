@@ -84,11 +84,11 @@ invoiceTypeCodes['380']; // 'Commercial invoice'
 
 ```bash
 pnpm install
-pnpm build          # Build with tsdown
-pnpm dev            # Watch mode
-pnpm lint           # Lint (oxlint --type-aware)
-pnpm format         # Format (oxfmt)
-pnpm test           # Test (vitest run)
+pnpm build          # Build the library (vp pack)
+pnpm dev            # Watch mode (vp pack --watch)
+pnpm lint           # Lint (vp lint --type-aware)
+pnpm format         # Format (vp fmt)
+pnpm test           # Test (vp test run)
 pnpm generate       # Regenerate code lists (bun scripts/values.ts)
 tsc --noEmit        # Typecheck
 ```
@@ -115,6 +115,4 @@ See [docs/versioning.md](docs/versioning.md) for the full strategy.
 
 - [Effect](https://effect.website/) - Typed effects & Schema models
 - [fast-xml-parser](https://github.com/NaturalIntelligence/fast-xml-parser) / [fast-xml-builder](https://github.com/NaturalIntelligence/fast-xml-builder) - XML parsing
-- [tsdown](https://tsdown.dev/) - Bundling (unbundled ESM)
-- [oxlint](https://oxc.rs/) / [oxfmt](https://oxc.rs/) - Linting & formatting
-- [Vitest](https://vitest.dev/) - Testing
+- [Vite+](https://viteplus.dev/) - Unified toolchain: pack (tsdown), lint (Oxlint), format (Oxfmt), test (Vitest), staged checks

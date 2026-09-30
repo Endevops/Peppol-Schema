@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it } from 'vite-plus/test';
 
 import { CREDIT_NOTE_DOCTYPE_ID } from './credit-note-doctype-id.ts';
 import { CREDIT_NOTE_PROCESS_ID } from './credit-note-process-id.ts';

@@ -1,5 +1,5 @@
 import { Schema } from 'effect';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it } from 'vite-plus/test';
 
 import { PeppolBase64 } from './peppol-base-64-schema.ts';
 

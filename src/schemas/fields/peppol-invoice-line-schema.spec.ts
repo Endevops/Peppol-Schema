@@ -1,6 +1,6 @@
 // oxlint-disable vitest/expect-expect
 import { TestSchema } from 'effect/testing';
-import { describe, it } from 'vitest';
+import { describe, it } from 'vite-plus/test';
 
 import { PeppolInvoiceLine } from './peppol-invoice-line-schema.ts';
 

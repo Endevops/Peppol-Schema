@@ -6,6 +6,18 @@ allowBuilds:
 overrides:
   '@endevops/builder': link:../effect-xml/packages/builder
   '@endevops/common-xml': link:../effect-xml/packages/common-xml
-  '@endevops/effect-xml': link:../effect-xml
   '@endevops/effect-xml-codec': link:../effect-xml/packages/effect-xml-codec
   '@endevops/parser': link:../effect-xml/packages/parser
+  vite@*: npm:@voidzero-dev/vite-plus-core@1.0.0
+  vitest@*: 'catalog:'
+catalog:
+  vitest: 5.0.1
+  vite-plus: 1.0.0
+  '@vitest/coverage-v8': 5.0.1
+peerDependencyRules:
+  allowAny:
+    - vite
+    - vitest
+  allowedVersions:
+    vite: '*'
+    vitest: '*'

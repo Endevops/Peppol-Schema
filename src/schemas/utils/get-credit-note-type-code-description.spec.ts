@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it } from 'vite-plus/test';
 
 import { creditNoteTypeCodesKeys } from '#/values/credit-notes-type-codes.generated';
 

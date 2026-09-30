@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it } from 'vite-plus/test';
 
 import { isValidInvoiceTypeCode } from '#/schemas/utils/is-valid-invoice-type-code.ts';
 import { invoiceTypeCodesKeys } from '#/values/invoice-type-codes.generated';

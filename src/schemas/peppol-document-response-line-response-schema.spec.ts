@@ -1,5 +1,5 @@
 import { TestSchema } from 'effect/testing';
-import { describe, it } from 'vitest';
+import { describe, it } from 'vite-plus/test';
 
 // oxlint-disable vitest/expect-expect
 import { PeppolDocumentResponseLineResponse } from './peppol-document-response-line-response-schema.ts';

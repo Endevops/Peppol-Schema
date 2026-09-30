@@ -1,7 +1,7 @@
 // oxlint-disable typescript/no-explicit-any
 import { XMLParser } from '@endevops/parser';
 import { Effect } from 'effect';
-import { expect } from 'vitest';
+import { expect } from 'vite-plus/test';
 
 const parseXML = Effect.fnUntraced(function* (content: string | Buffer) {
   const parser = yield* XMLParser.make({ attributes: { booleanType: 'allow', prefix: '@' }, skip: { attributes: false } });

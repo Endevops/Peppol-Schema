@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it } from 'vite-plus/test';
 
 import { isValidMod97_0208 } from './is-valid-mod97-0208.ts';
 

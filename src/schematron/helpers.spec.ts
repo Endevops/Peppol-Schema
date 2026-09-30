@@ -2,7 +2,7 @@ import { Effect, Result } from 'effect';
 /**
  * @description Unit tests for the shared schematron helper functions.
  */
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it } from 'vite-plus/test';
 
 import type { PeppolDocument } from '#/schemas/peppol-document-schema.ts';
 

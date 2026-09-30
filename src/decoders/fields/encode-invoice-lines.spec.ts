@@ -1,5 +1,5 @@
 import { Effect } from 'effect';
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect } from 'vite-plus/test';
 
 import { encodeInvoiceLines } from './encode-invoice-lines.ts';
 

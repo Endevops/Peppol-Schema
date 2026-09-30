@@ -1,5 +1,8 @@
 node_modules
 dist
+coverage
 *.local
 .env
 .fallow/
+.vitest/
+.vite-hooks/_/

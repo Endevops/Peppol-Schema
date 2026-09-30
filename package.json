@@ -101,42 +101,35 @@
     "registry": "https://registry.npmjs.org/"
   },
   "scripts": {
-    "build": "tsdown",
-    "dev": "tsdown --watch",
-    "format": "oxfmt",
+    "build": "vp pack",
+    "dev": "vp pack --watch",
+    "format": "vp fmt",
     "generate": "bun scripts/values.ts",
-    "lint": "oxlint . --type-aware",
-    "prepack": "tsdown",
-    "prepare": "pnpm dlx husky && effect-tsgo patch --oxlint",
-    "test": "vitest run",
-    "test:coverage": "vitest run --coverage"
+    "lint": "vp lint . --type-aware",
+    "prepack": "vp pack",
+    "prepare": "effect-tsgo patch --oxlint && vp config",
+    "test": "vp test run",
+    "test:coverage": "vp test run --coverage"
   },
   "devDependencies": {
     "@arethetypeswrong/core": "^0.18.5",
-    "@effect/tsgo": "^0.45.0",
+    "@effect/tsgo": "^0.46.1",
     "@effect/vitest": "^4.0.0-rc.117",
     "@endevops/builder": "link:../effect-xml/packages/builder",
-    "@endevops/common-xml": "link:../effect-xml/packages/common-xml",
-    "@endevops/effect-xml-codec": "link:../effect-xml/packages/effect-xml-codec",
     "@endevops/parser": "link:../effect-xml/packages/parser",
     "@types/bun": "^1.4.2",
     "@types/node": "^26.6.2",
-    "@vitest/coverage-v8": "^5.0.1",
+    "@vitest/coverage-v8": "catalog:",
     "effect": "^4.0.0-rc.117",
     "fallow": "^3.28.0",
-    "husky": "^9.1.7",
-    "lint-staged": "^17.5.1",
-    "oxfmt": "^0.70.0",
-    "oxlint": "1.82.0",
-    "oxlint-tsgolint": "7.0.2001",
     "picocolors": "^1.1.1",
     "publint": "^0.3.24",
     "semantic-release": "25.0.9",
     "simple-git": "^3.36.0",
     "testcontainers": "^12.1.0",
-    "tsdown": "^0.23.0",
     "typescript": "^7.0.2",
-    "vitest": "^5.0.1"
+    "vite-plus": "catalog:",
+    "vitest": "catalog:"
   },
   "peerDependencies": {
     "@endevops/builder": "*",
@@ -144,16 +137,6 @@
     "@endevops/effect-xml-codec": "*",
     "@endevops/parser": "*",
     "effect": "^4.0.0-rc.117"
-  },
-  "lint-staged": {
-    "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx}": [
-      "oxfmt --no-error-on-unmatched-pattern",
-      "oxlint --quiet --type-aware",
-      "sh -c 'exec fallow --changed-since HEAD --type-aware --fail-on-issues'"
-    ],
-    "*.{xml,json,jsonc}": [
-      "oxfmt --no-error-on-unmatched-pattern"
-    ]
   },
   "engines": {
     "node": ">=26",

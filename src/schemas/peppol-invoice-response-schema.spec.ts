@@ -1,6 +1,6 @@
 // oxlint-disable vitest/expect-expect
 import { DateTime } from 'effect';
-import { afterAll, beforeAll, describe, it, vi } from 'vitest';
+import { afterAll, beforeAll, describe, it, vi } from 'vite-plus/test';
 
 import { decoding } from '#/test/schema-asserts.ts';
 

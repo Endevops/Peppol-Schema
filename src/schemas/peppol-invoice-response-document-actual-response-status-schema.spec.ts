@@ -1,6 +1,6 @@
 // oxlint-disable vitest/expect-expect
 import { TestSchema } from 'effect/testing';
-import { describe, it } from 'vitest';
+import { describe, it } from 'vite-plus/test';
 
 import { PeppolInvoiceResponseDocumentActualResponseStatus } from './peppol-invoice-response-document-actual-response-status-schema.ts';
 
