@@ -89,7 +89,10 @@ const encodeDocumentXml = Effect.fn('encode-peppol-document-xml')(function* (val
   for (const entry of documentEncoders) {
     if (entry.matches(value)) {
       const content = yield* entry.encode(value as never);
-      return yield* XMLBuilder.make(builderOptions).pipe(Effect.flatMap(builder => builder.build(content)));
+      return yield* XMLBuilder.make(builderOptions).pipe(
+        Effect.flatMap(builder => builder.build(content)),
+        Effect.mapError(cause => new SchemaIssue.InvalidValue({ message: `Failed to encode document to XML: ${cause.message}` }, value, options))
+      );
     }
   }
 

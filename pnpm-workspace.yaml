@@ -1,23 +1,25 @@
-allowBuilds:
-  cpu-features: true
-  msgpackr-extract: true
-  protobufjs: true
-  ssh2: true
 overrides:
-  '@endevops/builder': link:../effect-xml/packages/builder
-  '@endevops/common-xml': link:../effect-xml/packages/common-xml
-  '@endevops/effect-xml-codec': link:../effect-xml/packages/effect-xml-codec
-  '@endevops/parser': link:../effect-xml/packages/parser
+  "@endevops/builder": link:../effect-xml/packages/builder
+  "@endevops/common-xml": link:../effect-xml/packages/common-xml
+  "@endevops/effect-xml-codec": link:../effect-xml/packages/effect-xml-codec
+  "@endevops/parser": link:../effect-xml/packages/parser
   vite@*: npm:@voidzero-dev/vite-plus-core@1.0.0
-  vitest@*: 'catalog:'
+  vitest@*: "catalog:"
 catalog:
   vitest: 5.0.1
   vite-plus: 1.0.0
-  '@vitest/coverage-v8': 5.0.1
+  "@vitest/coverage-v8": 5.0.1
 peerDependencyRules:
   allowAny:
     - vite
     - vitest
   allowedVersions:
-    vite: '*'
-    vitest: '*'
+    vite: "*"
+    vitest: "*"
+allowBuilds:
+  cpu-features: true
+  protobufjs: true
+  ssh2: true
+minimumReleaseAgeExclude:
+  - effect@4.0.0
+  - '@effect/vitest@4.0.0'

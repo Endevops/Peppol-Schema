@@ -50,7 +50,7 @@ export class Schematron extends Context.Service<Schematron, SchematronShape>()('
     Schematron,
     Effect.gen(function* () {
       const run = Effect.fn('Schematron.run')(function* (document: PeppolDocument) {
-        const [errors] = yield* Effect.partition(ruleValidators, validator => validator(document));
+        const [_, errors] = yield* Effect.partition(ruleValidators, validator => validator(document));
         if (errors.length > 0) {
           return yield* new SchematronValidationError({ errors });
         }

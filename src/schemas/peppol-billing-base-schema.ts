@@ -144,7 +144,7 @@ export class PeppolBillingBase extends opaque<PeppolBillingBase>()(
      * @name `cbc:CustomizationID`
      */
     customizationId: Schema.String.pipe(Schema.withDecodingDefaultType(Effect.succeed(DEFAULT_CUSTOMIZATION_ID))).check(
-      Schema.isStartsWith('urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0', {
+      Schema.isStartingWith('urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0', {
         message:
           "PEPPOL-EN16931-R004: Specification identifier MUST have the value 'urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0'.",
       })

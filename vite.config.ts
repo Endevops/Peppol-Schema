@@ -247,7 +247,7 @@ export default defineConfig({
     '*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx}': [
       'vp fmt --no-error-on-unmatched-pattern',
       'vp lint --quiet --type-aware',
-      "sh -c 'exec fallow --changed-since HEAD --type-aware --fail-on-issues'",
+      'fallow --changed-since HEAD --type-aware --fail-on-issues',
     ],
     '*.{xml,json,jsonc}': ['vp fmt --no-error-on-unmatched-pattern'],
   },

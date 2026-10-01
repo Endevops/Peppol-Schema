@@ -1,5 +1,5 @@
-import { describe, expect, it } from '@effect/vitest';
-import { Effect, Schema } from 'effect';
+import { assert, describe, expect, it } from '@effect/vitest';
+import { Effect, Result, Schema } from 'effect';
 import { GenericContainer } from 'testcontainers';
 
 import { PeppolDocumentSchema } from '#/schemas/peppol-document-schema.ts';
@@ -11,7 +11,8 @@ describe.todo('schematron.run-all-rules', () => {
   it.effect('should validate all rules', () =>
     Effect.gen(function* () {
       const baseDocument = yield* Effect.promise(() => decodeBaseExample());
-      yield* (yield* Schematron).run(baseDocument);
+      const result = yield* Schematron.use(schematron => schematron.run(baseDocument));
+      assert(Result.isSuccess(result));
     }).pipe(Effect.provide(Schematron.layer))
   );
 
@@ -20,7 +21,7 @@ describe.todo('schematron.run-all-rules', () => {
       await using container = await new GenericContainer('theyoxy/peppol-validation:develop').withExposedPorts(8080).start();
       console.log('Container started');
       const baseDocument = await decodeBaseExample();
-      const baseDocumentXml = Effect.runSync(Schema.encodeEffect(PeppolDocumentSchema)(baseDocument as any));
+      const baseDocumentXml = Schema.encodeSync(PeppolDocumentSchema)(baseDocument);
 
       console.log('Sending validation request to', `http://${container.getHost()}:${container.getMappedPort(8080)}/validate/invoice`);
       const result = await fetch(`http://${container.getHost()}:${container.getMappedPort(8080)}/validate/invoice`, {
