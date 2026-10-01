@@ -111,6 +111,9 @@
     "test": "vp test run",
     "test:coverage": "vp test run --coverage"
   },
+  "dependencies": {
+    "@effect/platform-node": "^4.0.0"
+  },
   "devDependencies": {
     "@arethetypeswrong/core": "^0.18.5",
     "@effect/tsgo": "^0.46.1",
