@@ -41,7 +41,9 @@ const decodeDocumentXml = Effect.fn('decode-peppol-document-xml')(function* (
   value: string,
   options: SchemaAST.ParseOptions
 ): Effect.fn.Return<Schema.Codec.Encoded<typeof peppolDocumentObjectSchema>, SchemaIssue.Issue> {
-  const parsed = yield* parseXmlNodable(value).pipe(Effect.orDie);
+  const parsed = yield* parseXmlNodable(value).pipe(
+    Effect.mapError(cause => new SchemaIssue.InvalidValue({ message: `Failed to parse document XML: ${cause.code}${cause.message}` }, value, options))
+  );
 
   if (Predicate.isNotNullish(parsed.Invoice)) {
     return (yield* decodeInvoice(parsed)) as unknown as Schema.Codec.Encoded<typeof peppolDocumentObjectSchema>;

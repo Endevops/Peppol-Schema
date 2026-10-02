@@ -1,1 +1,2 @@
 vp staged
+fallow audit --changed-since HEAD --type-aware --fail-on-issues

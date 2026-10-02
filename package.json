@@ -111,15 +111,13 @@
     "test": "vp test run",
     "test:coverage": "vp test run --coverage"
   },
-  "dependencies": {
-    "@effect/platform-node": "^4.0.0"
-  },
   "devDependencies": {
     "@arethetypeswrong/core": "^0.18.5",
+    "@effect/platform-node": "^4.0.0",
     "@effect/tsgo": "^0.46.1",
     "@effect/vitest": "^4.0.0",
-    "@endevops/builder": "^0.0.1",
-    "@endevops/parser": "^0.0.1",
+    "@endevops/builder": "^1.0.0-effect.2",
+    "@endevops/parser": "^1.0.0-effect.2",
     "@types/bun": "^1.4.2",
     "@types/node": "^26.6.2",
     "@vitest/coverage-v8": "catalog:",
@@ -136,8 +134,6 @@
   },
   "peerDependencies": {
     "@endevops/builder": "*",
-    "@endevops/common-xml": "*",
-    "@endevops/effect-xml-codec": "*",
     "@endevops/parser": "*",
     "effect": "^4.0.0"
   },
@@ -145,8 +141,11 @@
     "node": ">=26",
     "pnpm": ">=12"
   },
-  "packageManager": "pnpm@12.6.0",
+  "packageManager": "pnpm@12.8.1",
   "inlinedDependencies": {
+    "@effect/platform-node": "4.0.0",
+    "@effect/platform-node-shared": "4.0.0",
+    "effect": "4.0.0",
     "picocolors": "1.1.1"
   }
 }

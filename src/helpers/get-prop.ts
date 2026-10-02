@@ -3,7 +3,8 @@ import { Effect, Predicate } from 'effect';
 // oxlint-disable-next-line typescript/no-explicit-any
 export type XmlNode = any;
 
-export const getProp = Effect.fn(function* (node: XmlNode, ...path: Array<string>): Effect.fn.Return<XmlNode> {
+// oxlint-disable-next-line require-yield
+export const getProp = Effect.fn('get-prop')(function* (node: XmlNode, ...path: Array<string>): Effect.fn.Return<XmlNode> {
   if (!Predicate.isTruthy(node)) {
     return undefined;
   }

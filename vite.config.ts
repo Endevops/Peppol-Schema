@@ -231,7 +231,7 @@ export default defineConfig({
     {
       attw,
       define,
-      deps: { onlyBundle: false },
+      deps: { onlyBundle: false, alwaysBundle: () => true },
       dts: { enabled: false },
       entry: './scripts/generate-translations.ts',
       exports,
@@ -244,11 +244,7 @@ export default defineConfig({
   ],
   resolve: { tsconfigPaths: true },
   staged: {
-    '*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx}': [
-      'vp fmt --no-error-on-unmatched-pattern',
-      'vp lint --quiet --type-aware',
-      'fallow --changed-since HEAD --type-aware --fail-on-issues',
-    ],
+    '*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx}': ['vp fmt --no-error-on-unmatched-pattern', 'vp lint --quiet --type-aware'],
     '*.{xml,json,jsonc}': ['vp fmt --no-error-on-unmatched-pattern'],
   },
   test: { coverage, projects },
