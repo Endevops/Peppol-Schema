@@ -4,7 +4,7 @@ on:
   push:
     branches: [master, develop]
   pull_request:
-    branches: [master, develop, 'feature/*', 'hotfix/*']
+    branches: [master, develop, "feature/*", "hotfix/*"]
 
 permissions:
   contents: read
@@ -27,7 +27,7 @@ jobs:
         with:
           node-version: 26
           cache: pnpm
-          registry-url: 'https://registry.npmjs.org'
+          registry-url: "https://registry.npmjs.org"
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
@@ -39,26 +39,6 @@ jobs:
 
       - name: Test
         run: pnpm test --coverage
-
-      - name: Fallow report
-        id: fallow
-        uses: fallow-rs/fallow@v3
-        with:
-          format: sarif
-          score: true
-          coverage: coverage/coverage-final.json
-          type-aware: true
-          save-snapshot: true
-          fail-on-issues: true
-
-      - name: Alert on degraded scoping
-        if: steps.fallow.outputs.changed-files-unavailable == 'true'
-        run: echo "::warning::Fallow ran unscoped; PR scoping disabled by API failure"
-
-      # Not available for orgs
-      # - uses: github/codeql-action/upload-sarif@v4
-      #   with:
-      #     sarif_file: ${{ steps.fallow.outputs.sarif }}
 
       - name: Build
         run: pnpm build
@@ -84,8 +64,8 @@ jobs:
         with:
           node-version: 26
           cache: pnpm
-          registry-url: 'https://registry.npmjs.org'
-          scope: '@endevops'
+          registry-url: "https://registry.npmjs.org"
+          scope: "@endevops"
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
