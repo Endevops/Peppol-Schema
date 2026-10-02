@@ -144,7 +144,12 @@ export class PeppolBillingBase extends opaque<PeppolBillingBase>()(
      *
      * @name `cbc:CustomizationID`
      */
-    customizationId: Schema.String.pipe(
+    customizationId: Schema.String.check(
+      Schema.isStartingWith('urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0', {
+        message:
+          "PEPPOL-EN16931-R004: Specification identifier MUST have the value 'urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0'.",
+      })
+    ).pipe(
       Schema.withDecodingDefaultType(Effect.succeed(DEFAULT_CUSTOMIZATION_ID)),
       Schema.annotate({
         xmlNamespace: CBC_NAMESPACE,
@@ -153,11 +158,6 @@ export class PeppolBillingBase extends opaque<PeppolBillingBase>()(
         description:
           'An identification of the specification containing the total set of rules regarding semantic content, cardinalities, and business rules to which the data contained in the intance document conforms.',
         title: 'Specification identifier',
-      })
-    ).check(
-      Schema.isStartingWith('urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0', {
-        message:
-          "PEPPOL-EN16931-R004: Specification identifier MUST have the value 'urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0'.",
       })
     ),
     /**
@@ -169,7 +169,12 @@ export class PeppolBillingBase extends opaque<PeppolBillingBase>()(
      *
      * @name `cbc:ProfileID`
      */
-    profileId: Schema.String.pipe(
+    profileId: Schema.String.check(
+      Schema.isPattern(/^urn:fdc:peppol.eu:2017:poacc:billing:(\d{2}):1\.0$/, {
+        message:
+          "PEPPOL-EN16931-R007: Business process MUST be in the format 'urn:fdc:peppol.eu:2017:poacc:billing:NN:1.0' where NN indicates the process number.",
+      })
+    ).pipe(
       Schema.withDecodingDefaultType(Effect.succeed(DEFAULT_PROFILE_ID)),
       Schema.annotate({
         xmlNamespace: CBC_NAMESPACE,
@@ -178,11 +183,6 @@ export class PeppolBillingBase extends opaque<PeppolBillingBase>()(
         description:
           'Identifies the business process context in which the transaction appears, to enable the Buyer to process the Invoice in an appropriate way.',
         title: 'Business process type',
-      })
-    ).check(
-      Schema.isPattern(/^urn:fdc:peppol.eu:2017:poacc:billing:(\d{2}):1\.0$/, {
-        message:
-          "PEPPOL-EN16931-R007: Business process MUST be in the format 'urn:fdc:peppol.eu:2017:poacc:billing:NN:1.0' where NN indicates the process number.",
       })
     ),
     /**

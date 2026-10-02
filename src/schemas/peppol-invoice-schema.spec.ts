@@ -1,6 +1,7 @@
-import { DateTime } from 'effect';
+import { toCodecXml } from '@endevops/effect-codec-xml';
+import { DateTime, Schema } from 'effect';
 // oxlint-disable vitest/expect-expect
-import { describe, it } from 'vite-plus/test';
+import { describe, expect, it } from 'vite-plus/test';
 
 import { decoding } from '#/test/schema-asserts.ts';
 
@@ -100,6 +101,13 @@ describe('PeppolInvoice', () => {
         },
       ],
     });
+  });
+
+  it('should not contains invalid nodes', () => {
+    const encoded = Schema.decodeSync(PeppolInvoice)(validInvoice);
+    const result = Schema.encodeSync(PeppolInvoice.pipe(toCodecXml()))(encoded);
+    expect(result).not.toContain('ubl:customizationId');
+    expect(result).not.toContain('ubl:profileId');
   });
 
   it('should apply default customizationId and profileId when omitted', async () => {

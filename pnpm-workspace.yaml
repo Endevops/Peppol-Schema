@@ -22,4 +22,4 @@ minimumReleaseAgeExclude:
   - "@effect/platform-node-shared@4.0.0"
   - "@effect/vitest@4.0.0"
   - "@endevops/common-xml@0.0.1 || 1.0.0-effect.2"
-  - "@endevops/effect-codec-xml@0.0.1"
+  - "@endevops/effect-codec-xml@0.0.1 || 0.1.0-beta.1"

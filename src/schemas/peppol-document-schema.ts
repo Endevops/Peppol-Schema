@@ -24,10 +24,10 @@ import { PeppolMessageLevelResponse } from '#/schemas/peppol-message-level-respo
  */
 export const PeppolDocumentSchema = Schema.Union(
   [
-    PeppolInvoice.pipe(toCodecXml),
-    PeppolCreditNote.pipe(toCodecXml),
-    PeppolMessageLevelResponse.pipe(toCodecXml),
-    PeppolInvoiceResponse.pipe(toCodecXml),
+    PeppolInvoice.pipe(toCodecXml()),
+    PeppolCreditNote.pipe(toCodecXml()),
+    PeppolMessageLevelResponse.pipe(toCodecXml()),
+    PeppolInvoiceResponse.pipe(toCodecXml()),
   ],
   { mode: 'oneOf' }
 );

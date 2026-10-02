@@ -1,6 +1,7 @@
-import { DateTime } from 'effect';
+import { toCodecXml } from '@endevops/effect-codec-xml';
+import { DateTime, Schema } from 'effect';
 // oxlint-disable vitest/expect-expect
-import { describe, it } from 'vite-plus/test';
+import { describe, expect, it } from 'vite-plus/test';
 
 import { PeppolCreditNote } from '#/schemas/peppol-credit-note-schema.ts';
 import { decoding } from '#/test/schema-asserts.ts';
@@ -107,6 +108,13 @@ describe('PeppolCreditNote', () => {
         },
       ],
     });
+  });
+
+  it('should not contains invalid nodes', () => {
+    const encoded = Schema.decodeUnknownSync(PeppolCreditNote)(validCreditNote);
+    const result = Schema.encodeSync(PeppolCreditNote.pipe(toCodecXml()))(encoded);
+    expect(result).not.toContain('ubl:customizationId');
+    expect(result).not.toContain('ubl:profileId');
   });
 
   it('should reject credit note without required id', async () => {

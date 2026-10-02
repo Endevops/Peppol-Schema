@@ -26,7 +26,7 @@ describe('effect/document-parser', () => {
 
         assert(Predicate.isString(xml));
 
-        const doc = yield* Schema.decodeEffect(schema.pipe(toCodecXml), { reportInput: true, errors: 'all', concurrency: 'unbounded' })(xml).pipe(
+        const doc = yield* Schema.decodeEffect(schema.pipe(toCodecXml()), { reportInput: true, errors: 'all', concurrency: 'unbounded' })(xml).pipe(
           Effect.tapError(err => {
             console.log(JSON.stringify(err.issue.input, undefined, 2));
             return Effect.void;
@@ -92,7 +92,7 @@ describe('effect/document-parser', () => {
     it.effect(
       'should parse the customer endpoint successfully',
       Effect.fn(function* () {
-        const value = yield* Schema.decodeEffect(PeppolInvoice.pipe(toCodecXml), { reportInput: true, errors: 'all', concurrency: 'unbounded' })(
+        const value = yield* Schema.decodeEffect(PeppolInvoice.pipe(toCodecXml()), { reportInput: true, errors: 'all', concurrency: 'unbounded' })(
           fileContent
         ).pipe(
           Effect.tapError(err => {
@@ -114,7 +114,7 @@ describe('effect/document-parser', () => {
     it.effect(
       'should parse the document from the filesystem',
       Effect.fn(function* () {
-        const value = yield* Schema.decodeEffect(PeppolInvoice.pipe(toCodecXml), { reportInput: true, errors: 'all', concurrency: 'unbounded' })(
+        const value = yield* Schema.decodeEffect(PeppolInvoice.pipe(toCodecXml()), { reportInput: true, errors: 'all', concurrency: 'unbounded' })(
           fileContent
         ).pipe(
           Effect.tapError(err => {
@@ -155,7 +155,7 @@ describe('effect/document-parser', () => {
     it.effect(
       'decodes every invoice line through the invoice codec directly',
       Effect.fn(function* () {
-        const value = yield* Schema.decodeEffect(PeppolInvoice.pipe(toCodecXml), { reportInput: true, errors: 'all', concurrency: 'unbounded' })(
+        const value = yield* Schema.decodeEffect(PeppolInvoice.pipe(toCodecXml()), { reportInput: true, errors: 'all', concurrency: 'unbounded' })(
           fileContent
         );
         assert(isPeppolInvoice(value));
