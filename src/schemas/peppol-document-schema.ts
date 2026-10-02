@@ -1,4 +1,4 @@
-import { toCodecXml } from '@endevops/effect-xml-codec';
+import { toCodecXml } from '@endevops/effect-codec-xml';
 import { Schema } from 'effect';
 
 import type { PeppolCreditNoteLine } from '#/schemas/fields/peppol-credit-note-line-schema.ts';

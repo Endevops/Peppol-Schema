@@ -1,6 +1,6 @@
-import { Predicate, Schema, SchemaGetter } from 'effect';
+import { Schema, SchemaGetter } from 'effect';
 
-import { CBC_NAMESPACE, CAC_NAMESPACE } from '#/schemas/namespaces.ts';
+import { CAC_NAMESPACE, CBC_NAMESPACE } from '#/schemas/namespaces.ts';
 import { PeppolIsoDateString } from '#/schemas/peppol-iso-date-string.ts';
 import { opaque } from '#/schemas/utils/opaque.ts';
 import { PeppolPaymentMeansCodeValue } from '#/schemas/values/payment-means-code-schema.ts';
@@ -288,10 +288,7 @@ const PeppolMeansCodeBaseSchema = Schema.Struct({
 export class PeppolPaymentMeansCode extends Schema.Union([
   PeppolMeansCodeBaseSchema,
   Schema.String.pipe(
-    Schema.decodeTo(PeppolMeansCodeBaseSchema, {
-      encode: SchemaGetter.forbiddenEncoding,
-      decode: SchemaGetter.transform(value => (Predicate.isString(value) ? { code: value } : value)),
-    })
+    Schema.decodeTo(PeppolMeansCodeBaseSchema, { encode: SchemaGetter.forbiddenEncoding, decode: SchemaGetter.transform(value => ({ code: value })) })
   ),
 ]).pipe(Schema.toStandardSchemaV1) {}
 

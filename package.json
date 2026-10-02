@@ -111,7 +111,7 @@
     "@effect/platform-node": "^4.0.0",
     "@effect/tsgo": "^0.46.1",
     "@effect/vitest": "^4.0.0",
-    "@endevops/effect-xml-codec": "*",
+    "@endevops/effect-codec-xml": "*",
     "@nodable/compact-builder": "^2.0.0",
     "@nodable/flexible-xml-parser": "^1.11.3",
     "@types/bun": "^1.4.2",

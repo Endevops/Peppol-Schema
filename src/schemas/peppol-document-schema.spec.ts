@@ -1,5 +1,5 @@
 import { assert, describe, expect, it } from '@effect/vitest';
-import { toCodecXml } from '@endevops/effect-xml-codec';
+import { toCodecXml } from '@endevops/effect-codec-xml';
 import { Effect, Predicate, Result, Schema } from 'effect';
 import path from 'node:path';
 
