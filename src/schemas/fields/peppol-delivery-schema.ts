@@ -1,11 +1,12 @@
 import { Schema } from 'effect';
 
+import { CAC_NAMESPACE, CBC_NAMESPACE } from '#/schemas/namespaces.ts';
 import { PeppolIsoDateString } from '#/schemas/peppol-iso-date-string.ts';
 import { opaque } from '#/schemas/utils/opaque.ts';
+import { StringIdentifierSchema } from '#/schemas/utils/string-identifier-schema.ts';
 import { PeppolIcdCode } from '#/schemas/values/icd-codes-schema.ts';
 
 import { PeppolAddress } from './peppol-address-schema.ts';
-import { PeppolIdentifier } from './peppol-identifier-schema.ts';
 
 /**
  * @description The name of the party to which the goods and services are delivered. Wraps the `cac:PartyName` element of the delivery party.
@@ -26,7 +27,7 @@ export class PeppolDeliveryPartyPartyName extends opaque<PeppolDeliveryPartyPart
      *
      * @name `cbc:Name`
      */
-    name: Schema.String,
+    name: Schema.String.pipe(Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'Name' })),
   }).pipe(Schema.toStandardSchemaV1)
 ) {}
 
@@ -47,7 +48,7 @@ export class PeppolDeliveryParty extends opaque<PeppolDeliveryParty>()(
      *
      * @name `cac:PartyName`
      */
-    partyName: PeppolDeliveryPartyPartyName,
+    partyName: PeppolDeliveryPartyPartyName.pipe(Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'PartyName' })),
   }).pipe(Schema.toStandardSchemaV1)
 ) {}
 
@@ -74,31 +75,36 @@ export class PeppolDeliveryLocation extends opaque<PeppolDeliveryLocation>()(
      *
      * @name `cbc:ID`
      */
-    id: Schema.optional(
-      PeppolIdentifier.pipe(
-        Schema.fieldsAssign({
-          /**
-           * @description An identifier for the location at which the goods and services are delivered.
-           *
-           * @example
-           *   `83745498753497`;
-           *
-           * @summary Deliver to location identifier
-           *
-           * @name `#text`
-           */
-          id: Schema.String,
-          /**
-           * @description The identification scheme identifier of the Deliver to location identifier.
-           *
-           * @summary Deliver to location identifier identification scheme identifier
-           *
-           * @name `@schemeID`
-           */
-          schemeId: Schema.optional(PeppolIcdCode),
-        })
-      )
-    ),
+    id: StringIdentifierSchema(
+      Schema.Struct({
+        /**
+         * @description An identifier for the location at which the goods and services are delivered.
+         *
+         * @example
+         *   `83745498753497`;
+         *
+         * @summary Deliver to location identifier
+         *
+         * @name `#text`
+         */
+        id: Schema.String.pipe(Schema.annotate({ xmlValue: true })),
+        /**
+         * @description The identification scheme identifier of the Deliver to location identifier.
+         *
+         * @summary Deliver to location identifier identification scheme identifier
+         *
+         * @name `@schemeID`
+         */
+        schemeId: Schema.optional(PeppolIcdCode).pipe(
+          Schema.annotate({
+            xmlAttribute: true,
+            xmlName: 'schemeID',
+            description: 'The identification scheme identifier of the Deliver to location identifier.',
+            title: 'Deliver to location identifier identification scheme identifier',
+          })
+        ),
+      })
+    ).pipe(Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'ID' }), Schema.optional),
     /**
      * @description A groupd of business terms providing infomation about the address to which goods and services invoiced were or are delivered.
      *
@@ -106,7 +112,7 @@ export class PeppolDeliveryLocation extends opaque<PeppolDeliveryLocation>()(
      *
      * @name `cac:Address`
      */
-    address: Schema.optional(PeppolAddress),
+    address: PeppolAddress.pipe(Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'Address' }), Schema.optional),
   }).pipe(Schema.toStandardSchemaV1)
 ) {}
 
@@ -135,17 +141,36 @@ export class PeppolDelivery extends opaque<PeppolDelivery>()(
      *
      * @name cbc:ActualDeliveryDate
      */
-    actualDeliveryDate: Schema.optional(PeppolIsoDateString),
+    actualDeliveryDate: PeppolIsoDateString.pipe(
+      Schema.annotate({
+        xmlNamespace: CBC_NAMESPACE,
+        xmlPrefix: 'cbc',
+        xmlName: 'ActualDeliveryDate',
+        description: 'Th edate on which the supply of goods or services was made or completed.',
+        title: 'Actual delivery date',
+        examples: ['2017 - 12 - 01'] as unknown as ReadonlyArray<never>,
+      }),
+      Schema.optional
+    ),
     /**
      * @name `cac:DeliveryLocation`
      */
-    deliveryLocation: Schema.optional(PeppolDeliveryLocation),
+    deliveryLocation: PeppolDeliveryLocation.pipe(
+      Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'DeliveryLocation' }),
+      Schema.optional
+    ),
 
     /**
      * @summary Delivery party
      *
      * @name `cac:DeliveryParty`
      */
-    deliveryParty: Schema.optional(PeppolDeliveryParty),
-  }).pipe(Schema.toStandardSchemaV1)
+    deliveryParty: PeppolDeliveryParty.pipe(
+      Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'DeliveryParty' }),
+      Schema.optional
+    ),
+  }).pipe(
+    Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'Delivery', description: 'DELIVERY INFORMATION.' }),
+    Schema.toStandardSchemaV1
+  )
 ) {}

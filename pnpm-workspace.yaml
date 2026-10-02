@@ -1,8 +1,5 @@
 overrides:
-  # "@endevops/builder": link:../effect-xml/packages/builder
-  # "@endevops/common-xml": link:../effect-xml/packages/common-xml
-  # "@endevops/effect-xml-codec": link:../effect-xml/packages/effect-xml-codec
-  # "@endevops/parser": link:../effect-xml/packages/parser
+  '@endevops/effect-xml-codec': link:../effect-xml/packages/effect-xml-codec
   vite@*: npm:@voidzero-dev/vite-plus-core@1.0.0
   vitest@*: 'catalog:'
 catalog:
@@ -25,7 +22,5 @@ minimumReleaseAgeExclude:
   - '@effect/platform-node@4.0.0'
   - '@effect/platform-node-shared@4.0.0'
   - '@effect/vitest@4.0.0'
-  - '@endevops/builder@0.0.1 || 1.0.0-effect.2'
   - '@endevops/common-xml@0.0.1 || 1.0.0-effect.2'
   - '@endevops/effect-xml-codec@0.0.1'
-  - '@endevops/parser@0.0.1 || 1.0.0-effect.2'

@@ -1,12 +1,11 @@
-// oxlint-disable typescript/no-explicit-any
-import { XMLParser } from '@endevops/parser';
-import { Effect } from 'effect';
+import { XMLParser } from '@nodable/flexible-xml-parser';
+import { Predicate } from 'effect';
 import { expect } from 'vite-plus/test';
 
-const parseXML = Effect.fnUntraced(function* (content: string | Buffer) {
-  const parser = yield* XMLParser.make({ attributes: { booleanType: 'allow', prefix: '@' }, skip: { attributes: false } });
-  return yield* parser.parse(content);
-});
+const parseXML = function (content: string | Buffer) {
+  const parser = new XMLParser({ attributes: { booleanType: 'allow', prefix: '@' }, skip: { attributes: false } });
+  return parser.parse(content);
+};
 
 interface CustomMatchers<T = string> {
   /**
@@ -21,7 +20,7 @@ declare module 'vitest' {
   interface Matchers<R extends void | Promise<void> = void | Promise<void>, T = unknown> extends CustomMatchers<T> {}
 }
 
-function removeUncesessaryAttributes(obj: any) {
+function removeUncesessaryAttributes(obj: Record<string, unknown>) {
   for (const key of Object.keys(obj).filter(key => key.startsWith('@'))) {
     delete obj[key];
   }
@@ -29,18 +28,20 @@ function removeUncesessaryAttributes(obj: any) {
 
 const ROOT_ELEMENTS = ['Invoice', 'CreditNote', 'ApplicationResponse'] as const;
 
-function stripRootAttributes(expectedXML: Record<string, any>, root: (typeof ROOT_ELEMENTS)[number]) {
-  if (root in expectedXML) {
-    removeUncesessaryAttributes(expectedXML[root]);
+function stripRootAttributes(expectedXML: Record<string, unknown>, root: (typeof ROOT_ELEMENTS)[number]) {
+  if (Predicate.hasProperty(expectedXML, root)) {
+    removeUncesessaryAttributes(expectedXML[root] as Record<string, unknown>);
   }
 }
 
 expect.extend({
   toMatchXML(actual: string, expected: string) {
     const { isNot } = this;
-    const [actualXML, expectedXML] = Effect.all([parseXML(actual), parseXML(expected)]).pipe(Effect.runSync);
+    const actualXML = parseXML(actual);
+    const expectedXML = parseXML(expected);
+
     for (const root of ROOT_ELEMENTS) {
-      stripRootAttributes(expectedXML as Record<string, any>, root);
+      stripRootAttributes(expectedXML as Record<string, unknown>, root);
     }
 
     let pass: boolean;

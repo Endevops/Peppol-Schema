@@ -1,6 +1,7 @@
 import { Schema } from 'effect';
 
 import { PeppolAmount } from '#/schemas/fields/peppol-amount-schema.ts';
+import { CBC_NAMESPACE } from '#/schemas/namespaces.ts';
 import { opaque } from '#/schemas/utils/opaque.ts';
 
 /**
@@ -21,20 +22,26 @@ class PriceAllowanceCharge extends opaque<PriceAllowanceCharge>()(
      *
      * @name cbc:Amount (+ @currencyID)
      */
-    amount: PeppolAmount,
+    amount: PeppolAmount.pipe(
+      Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'Amount', examples: ['200'] as unknown as ReadonlyArray<never> })
+    ),
     /**
      * @example
-     *   1000;
+     *   ```
+     *  1000
+     *  ```;
      *
      * @name cbc:BaseAmount (+ @currencyID)
      */
-    baseAmount: Schema.optional(PeppolAmount),
+    baseAmount: Schema.optional(PeppolAmount).pipe(
+      Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'BaseAmount', examples: ['1000'] as unknown as ReadonlyArray<never> })
+    ),
     /**
      * @name cbc:ChargeIndicator
      *
      * @value false
      */
-    chargeIndicator: Schema.Boolean,
+    chargeIndicator: Schema.Boolean.pipe(Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'ChargeIndicator' })),
   }).pipe(Schema.toStandardSchemaV1)
 ) {}
 
@@ -52,6 +59,9 @@ export class PeppolLinePriceAllowanceCharge extends opaque<PeppolLinePriceAllowa
   PriceAllowanceCharge.pipe(
     Schema.fieldsAssign({
       chargeIndicator: Schema.Literal(false).annotate({
+        xmlNamespace: CBC_NAMESPACE,
+        xmlPrefix: 'cbc',
+        xmlName: 'ChargeIndicator',
         message: "PEPPOL-EN16931-R044: Charge on price level is NOT allowed. Only value 'false' allowed.",
       }),
     }),

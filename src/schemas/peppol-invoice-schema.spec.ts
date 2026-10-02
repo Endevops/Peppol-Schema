@@ -16,14 +16,18 @@ const invoiceLine = {
 
 const validInvoice = {
   accountingCustomerParty: {
-    endpointId: { id: '9876543210', schemeId: '0088' },
-    partyLegalEntity: { registrationName: 'Buyer Company SA' },
-    postalAddress: { cityName: 'Paris', countryCode: { identificationCode: 'FR' } },
+    party: {
+      endpointId: { id: '9876543210', schemeId: '0088' },
+      partyLegalEntity: { registrationName: 'Buyer Company SA' },
+      postalAddress: { cityName: 'Paris', countryCode: { identificationCode: 'FR' } },
+    },
   },
   accountingSupplierParty: {
-    endpointId: { id: '1234567890', schemeId: '0088' },
-    partyLegalEntity: { registrationName: 'Seller Company Ltd' },
-    postalAddress: { cityName: 'London', countryCode: { identificationCode: 'GB' }, postalZone: 'W1G 8LZ', streetName: 'Main Street 1' },
+    party: {
+      endpointId: { id: '1234567890', schemeId: '0088' },
+      partyLegalEntity: { registrationName: 'Seller Company Ltd' },
+      postalAddress: { cityName: 'London', countryCode: { identificationCode: 'GB' }, postalZone: 'W1G 8LZ', streetName: 'Main Street 1' },
+    },
   },
   customizationId: 'urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0',
   documentCurrencyCode: 'EUR',
@@ -54,18 +58,21 @@ const validInvoice = {
 
 describe('PeppolInvoice', () => {
   const decode = decoding(PeppolInvoice);
-
   it('should decode a valid invoice', async () => {
     await decode.succeed(validInvoice, {
       accountingCustomerParty: {
-        endpointId: { id: '9876543210', schemeId: '0088' },
-        partyLegalEntity: { registrationName: 'Buyer Company SA' },
-        postalAddress: { cityName: 'Paris', countryCode: { identificationCode: 'FR' } },
+        party: {
+          endpointId: { id: '9876543210', schemeId: '0088' },
+          partyLegalEntity: { registrationName: 'Buyer Company SA' },
+          postalAddress: { cityName: 'Paris', countryCode: { identificationCode: 'FR' } },
+        },
       },
       accountingSupplierParty: {
-        endpointId: { id: '1234567890', schemeId: '0088' },
-        partyLegalEntity: { registrationName: 'Seller Company Ltd' },
-        postalAddress: { cityName: 'London', countryCode: { identificationCode: 'GB' }, postalZone: 'W1G 8LZ', streetName: 'Main Street 1' },
+        party: {
+          endpointId: { id: '1234567890', schemeId: '0088' },
+          partyLegalEntity: { registrationName: 'Seller Company Ltd' },
+          postalAddress: { cityName: 'London', countryCode: { identificationCode: 'GB' }, postalZone: 'W1G 8LZ', streetName: 'Main Street 1' },
+        },
       },
       customizationId: 'urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0',
       documentCurrencyCode: 'EUR',
@@ -99,14 +106,18 @@ describe('PeppolInvoice', () => {
     const { customizationId: _cid, profileId: _pid, ...withoutDefaults } = validInvoice;
     await decode.succeed(withoutDefaults, {
       accountingCustomerParty: {
-        endpointId: { id: '9876543210', schemeId: '0088' },
-        partyLegalEntity: { registrationName: 'Buyer Company SA' },
-        postalAddress: { cityName: 'Paris', countryCode: { identificationCode: 'FR' } },
+        party: {
+          endpointId: { id: '9876543210', schemeId: '0088' },
+          partyLegalEntity: { registrationName: 'Buyer Company SA' },
+          postalAddress: { cityName: 'Paris', countryCode: { identificationCode: 'FR' } },
+        },
       },
       accountingSupplierParty: {
-        endpointId: { id: '1234567890', schemeId: '0088' },
-        partyLegalEntity: { registrationName: 'Seller Company Ltd' },
-        postalAddress: { cityName: 'London', countryCode: { identificationCode: 'GB' }, postalZone: 'W1G 8LZ', streetName: 'Main Street 1' },
+        party: {
+          endpointId: { id: '1234567890', schemeId: '0088' },
+          partyLegalEntity: { registrationName: 'Seller Company Ltd' },
+          postalAddress: { cityName: 'London', countryCode: { identificationCode: 'GB' }, postalZone: 'W1G 8LZ', streetName: 'Main Street 1' },
+        },
       },
       customizationId: 'urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0',
       documentCurrencyCode: 'EUR',
@@ -166,14 +177,18 @@ describe('PeppolInvoice', () => {
       { ...validInvoice, dueDate: '2024-02-15', projectReference: { id: 'PRJ-1' } },
       {
         accountingCustomerParty: {
-          endpointId: { id: '9876543210', schemeId: '0088' },
-          partyLegalEntity: { registrationName: 'Buyer Company SA' },
-          postalAddress: { cityName: 'Paris', countryCode: { identificationCode: 'FR' } },
+          party: {
+            endpointId: { id: '9876543210', schemeId: '0088' },
+            partyLegalEntity: { registrationName: 'Buyer Company SA' },
+            postalAddress: { cityName: 'Paris', countryCode: { identificationCode: 'FR' } },
+          },
         },
         accountingSupplierParty: {
-          endpointId: { id: '1234567890', schemeId: '0088' },
-          partyLegalEntity: { registrationName: 'Seller Company Ltd' },
-          postalAddress: { cityName: 'London', countryCode: { identificationCode: 'GB' }, postalZone: 'W1G 8LZ', streetName: 'Main Street 1' },
+          party: {
+            endpointId: { id: '1234567890', schemeId: '0088' },
+            partyLegalEntity: { registrationName: 'Seller Company Ltd' },
+            postalAddress: { cityName: 'London', countryCode: { identificationCode: 'GB' }, postalZone: 'W1G 8LZ', streetName: 'Main Street 1' },
+          },
         },
         customizationId: 'urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0',
         documentCurrencyCode: 'EUR',

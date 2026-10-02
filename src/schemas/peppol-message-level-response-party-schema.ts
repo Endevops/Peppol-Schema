@@ -1,6 +1,7 @@
 import { Schema } from 'effect';
 
 import { PeppolIdentifier } from '#/schemas/fields/peppol-identifier-schema.ts';
+import { CBC_NAMESPACE } from '#/schemas/namespaces.ts';
 import { opaque } from '#/schemas/utils/opaque.ts';
 
 /**
@@ -25,6 +26,6 @@ export class PeppolMessageLevelResponseParty extends opaque<PeppolMessageLevelRe
      *
      * @name `cbc:EndpointID (+ @schemeID)`
      */
-    endpointId: Schema.optional(PeppolIdentifier),
+    endpointId: Schema.optional(PeppolIdentifier).pipe(Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'EndpointID' })),
   }).pipe(Schema.toStandardSchemaV1)
 ) {}

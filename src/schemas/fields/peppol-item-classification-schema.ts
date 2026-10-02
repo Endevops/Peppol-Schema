@@ -1,5 +1,6 @@
 import { Schema } from 'effect';
 
+import { CBC_NAMESPACE } from '#/schemas/namespaces.ts';
 import { opaque } from '#/schemas/utils/opaque.ts';
 import { PeppolItemClassificationCode } from '#/schemas/values/item-classification-codes-schema.ts';
 
@@ -22,7 +23,7 @@ export class PeppolItemClassification extends opaque<PeppolItemClassification>()
      *
      * @name `#text`
      */
-    id: Schema.String,
+    id: Schema.String.pipe(Schema.annotate({ xmlValue: true })),
     /**
      * @description The identification scheme identifier of the item classification identifier.
      *
@@ -30,7 +31,14 @@ export class PeppolItemClassification extends opaque<PeppolItemClassification>()
      *
      * @name `@listID`
      */
-    listId: PeppolItemClassificationCode,
+    listId: PeppolItemClassificationCode.pipe(
+      Schema.annotate({
+        xmlAttribute: true,
+        xmlName: 'listID',
+        description: 'The identification scheme identifier of the item classification identifier.',
+        title: 'Item classification identifier identification scheme identifier',
+      })
+    ),
     /**
      * @description The identification scheme version identifier of the Item classification identifier.
      *
@@ -41,6 +49,13 @@ export class PeppolItemClassification extends opaque<PeppolItemClassification>()
      *
      * @name `@listVersionID`
      */
-    listVersionId: Schema.optional(Schema.String),
-  }).pipe(Schema.toStandardSchemaV1)
+    listVersionId: Schema.optional(Schema.String).pipe(
+      Schema.annotate({
+        xmlAttribute: true,
+        xmlName: 'listVersionID',
+        description: 'The identification scheme version identifier of the Item classification identifier.',
+        title: 'Item classification identifier version identification scheme identifier',
+      })
+    ),
+  }).pipe(Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'ItemClassificationCode' }), Schema.toStandardSchemaV1)
 ) {}

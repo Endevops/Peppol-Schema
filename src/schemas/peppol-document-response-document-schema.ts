@@ -1,5 +1,6 @@
 import { Schema } from 'effect';
 
+import { CBC_NAMESPACE, CAC_NAMESPACE } from '#/schemas/namespaces.ts';
 import { opaque } from '#/schemas/utils/opaque.ts';
 import { PeppolApplicationResponseTypeCode } from '#/schemas/values/application-response-type-code-schema.ts';
 
@@ -27,12 +28,12 @@ export class PeppolDocumentResponseDocument extends opaque<PeppolDocumentRespons
      *
      * @name `cbc:ResponseCode`
      */
-    responseCode: PeppolApplicationResponseTypeCode,
+    responseCode: PeppolApplicationResponseTypeCode.pipe(Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'ResponseCode' })),
     /**
      * @description Used to meake any comments or instructions relevant to the response. The use of this element requires manual assessment by the receiver.
      *
      * @summary Response textual notes
      */
-    description: Schema.optional(Schema.String),
-  }).pipe(Schema.toStandardSchemaV1)
+    description: Schema.String.pipe(Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'Description' }), Schema.optional),
+  }).pipe(Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'Response' }), Schema.toStandardSchemaV1)
 ) {}

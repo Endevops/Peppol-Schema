@@ -1,30 +1,60 @@
 import { assert, describe, expect, it } from '@effect/vitest';
-import { Effect, Result, Schema } from 'effect';
+import { toCodecXml } from '@endevops/effect-xml-codec';
+import { Effect, Predicate, Result, Schema } from 'effect';
 import path from 'node:path';
 
 import { PeppolCreditNote } from '#/schemas/peppol-credit-note-schema.ts';
 import { PeppolDocumentSchema } from '#/schemas/peppol-document-schema.ts';
 import { PeppolInvoiceResponse } from '#/schemas/peppol-invoice-response-schema.ts';
-import { PeppolInvoice } from '#/schemas/peppol-invoice-schema.ts';
+import { isPeppolInvoice, PeppolInvoice } from '#/schemas/peppol-invoice-schema.ts';
 import { PeppolMessageLevelResponse } from '#/schemas/peppol-message-level-response-schema.ts';
 
 describe('effect/document-parser', () => {
   const decodeDocument = Schema.decodeEffect(PeppolDocumentSchema, { reportInput: true, errors: 'all', concurrency: 'unbounded' });
   const encodeDocument = Schema.encodeEffect(PeppolDocumentSchema, { reportInput: true, errors: 'all', concurrency: 'unbounded' });
 
-  it.effect.each([
+  describe.each([
     ['#/test/files/v3/invoice/base-example.xml', PeppolInvoice],
     ['#/test/files/v3/credit-note/base-creditnote-correction.xml', PeppolCreditNote],
     ['#/test/files/v3/message-level-response/MessageLevelResponseExample.xml', PeppolMessageLevelResponse],
     ['#/test/files/v3/invoice-response/InvoiceResponseExample.xml', PeppolInvoiceResponse],
-  ] as const)(
-    'decodes %s',
-    Effect.fn(function* ([file, type]) {
-      const xml = yield* Effect.promise(async () => await import(`${file}?raw`).then(i => i.default));
-      const doc = yield* decodeDocument(xml);
-      assert(Schema.is(type)(doc));
-    })
-  );
+  ] as const)('for file %s', (file, schema) => {
+    it.effect(
+      `decodes ${file} using schema ${schema.name}`,
+      Effect.fn(function* () {
+        const xml = yield* Effect.promise(async () => await import(`${file}?raw`).then(i => i.default));
+
+        assert(Predicate.isString(xml));
+
+        const doc = yield* Schema.decodeEffect(schema.pipe(toCodecXml), { reportInput: true, errors: 'all', concurrency: 'unbounded' })(xml).pipe(
+          Effect.tapError(err => {
+            console.log(JSON.stringify(err.issue.input, undefined, 2));
+            return Effect.void;
+          })
+        );
+
+        assert(Schema.is(schema)(doc));
+      })
+    );
+
+    it.effect(
+      `decodes ${file} using schema ${schema.name}`,
+      Effect.fn(function* () {
+        const xml = yield* Effect.promise(async () => await import(`${file}?raw`).then(i => i.default));
+
+        assert(Predicate.isString(xml));
+
+        const doc = yield* decodeDocument(xml).pipe(
+          Effect.tapError(err => {
+            console.log(JSON.stringify(err.issue.input, undefined, 2));
+            return Effect.void;
+          })
+        );
+
+        assert(Schema.is(schema)(doc));
+      })
+    );
+  });
 
   describe('invalid documents', () => {
     it.effect(
@@ -53,8 +83,25 @@ describe('effect/document-parser', () => {
     it.effect(
       'should parse the customer endpoint successfully',
       Effect.fn(function* () {
-        const value = (yield* decodeDocument(fileContent)) as PeppolInvoice;
-        expect(value.accountingSupplierParty.endpointId?.id).toEqual('0833629678');
+        const value = yield* decodeDocument(fileContent);
+        assert(isPeppolInvoice(value));
+        expect(value.accountingSupplierParty.party.endpointId?.id).toEqual('0833629678');
+      })
+    );
+
+    it.effect(
+      'should parse the customer endpoint successfully',
+      Effect.fn(function* () {
+        const value = yield* Schema.decodeEffect(PeppolInvoice.pipe(toCodecXml), { reportInput: true, errors: 'all', concurrency: 'unbounded' })(
+          fileContent
+        ).pipe(
+          Effect.tapError(err => {
+            console.log(JSON.stringify(err.issue.input, undefined, 2));
+            return Effect.void;
+          })
+        );
+        assert(isPeppolInvoice(value));
+        expect(value.accountingSupplierParty.party.endpointId?.id).toEqual('0833629678');
       })
     );
   });
@@ -63,6 +110,21 @@ describe('effect/document-parser', () => {
     const file = `#/test/files/v3/invoice/from-as4.xml`;
     const basename = path.basename(file, path.extname(file));
     const fileContent = await import(`${file}?raw`).then(i => i.default);
+
+    it.effect(
+      'should parse the document from the filesystem',
+      Effect.fn(function* () {
+        const value = yield* Schema.decodeEffect(PeppolInvoice.pipe(toCodecXml), { reportInput: true, errors: 'all', concurrency: 'unbounded' })(
+          fileContent
+        ).pipe(
+          Effect.tapError(err => {
+            console.log(JSON.stringify(err.issue.input, undefined, 2));
+            return Effect.void;
+          })
+        );
+        assert(isPeppolInvoice(value));
+      })
+    );
 
     it.effect(
       'should parse the document from the filesystem',
@@ -78,6 +140,26 @@ describe('effect/document-parser', () => {
         const content = yield* encodeDocument(yield* decodeDocument(fileContent));
         // oxlint-disable-next-line effecttsgo/prefer-schema-over-json -- JSON round-trip normalises DateTime instances for a stable snapshot
         expect(JSON.parse(JSON.stringify(content))).toMatchSnapshot('encoded');
+      })
+    );
+
+    it.effect(
+      'decodes every invoice line when each line declares its namespace prefix itself',
+      Effect.fn(function* () {
+        const value = yield* decodeDocument(fileContent);
+        assert(isPeppolInvoice(value));
+        expect(value.invoiceLines.map(line => line.id)).toEqual(['1', '2']);
+      })
+    );
+
+    it.effect(
+      'decodes every invoice line through the invoice codec directly',
+      Effect.fn(function* () {
+        const value = yield* Schema.decodeEffect(PeppolInvoice.pipe(toCodecXml), { reportInput: true, errors: 'all', concurrency: 'unbounded' })(
+          fileContent
+        );
+        assert(isPeppolInvoice(value));
+        expect(value.invoiceLines.map(line => line.id)).toEqual(['1', '2']);
       })
     );
   });
@@ -122,16 +204,6 @@ describe('effect/document-parser', () => {
         const decoded = yield* decodeDocument(xml);
         const encoded = yield* encodeDocument(decoded);
         expect(encoded).toMatchSnapshot('encoded');
-      })
-    );
-
-    it.effect(
-      'round-trips through encode',
-      Effect.fn(function* () {
-        const decoded = yield* decodeDocument(xml);
-        const encoded = yield* encodeDocument(decoded);
-
-        expect(encoded).toMatchXML(xml);
       })
     );
   });

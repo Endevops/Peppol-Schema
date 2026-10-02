@@ -8,14 +8,18 @@ import { PeppolBillingBase } from './peppol-billing-base-schema.ts';
 
 const validBillingBase = {
   accountingCustomerParty: {
-    endpointId: { id: '9876543210', schemeId: '0088' },
-    partyLegalEntity: { registrationName: 'Buyer Company SA' },
-    postalAddress: { cityName: 'Paris', countryCode: { identificationCode: 'FR' } },
+    party: {
+      endpointId: { id: '9876543210', schemeId: '0088' },
+      partyLegalEntity: { registrationName: 'Buyer Company SA' },
+      postalAddress: { cityName: 'Paris', countryCode: { identificationCode: 'FR' } },
+    },
   },
   accountingSupplierParty: {
-    endpointId: { id: '1234567890', schemeId: '0088' },
-    partyLegalEntity: { registrationName: 'Seller Company Ltd' },
-    postalAddress: { cityName: 'London', countryCode: { identificationCode: 'GB' }, postalZone: 'W1G 8LZ', streetName: 'Main Street 1' },
+    party: {
+      endpointId: { id: '1234567890', schemeId: '0088' },
+      partyLegalEntity: { registrationName: 'Seller Company Ltd' },
+      postalAddress: { cityName: 'London', countryCode: { identificationCode: 'GB' }, postalZone: 'W1G 8LZ', streetName: 'Main Street 1' },
+    },
   },
   customizationId: 'urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0',
   documentCurrencyCode: 'EUR',
@@ -48,14 +52,18 @@ describe('PeppolBillingBase', () => {
   it('should decode a valid billing base', async () => {
     await decode.succeed(validBillingBase, {
       accountingCustomerParty: {
-        endpointId: { id: '9876543210', schemeId: '0088' },
-        partyLegalEntity: { registrationName: 'Buyer Company SA' },
-        postalAddress: { cityName: 'Paris', countryCode: { identificationCode: 'FR' } },
+        party: {
+          endpointId: { id: '9876543210', schemeId: '0088' },
+          partyLegalEntity: { registrationName: 'Buyer Company SA' },
+          postalAddress: { cityName: 'Paris', countryCode: { identificationCode: 'FR' } },
+        },
       },
       accountingSupplierParty: {
-        endpointId: { id: '1234567890', schemeId: '0088' },
-        partyLegalEntity: { registrationName: 'Seller Company Ltd' },
-        postalAddress: { cityName: 'London', countryCode: { identificationCode: 'GB' }, postalZone: 'W1G 8LZ', streetName: 'Main Street 1' },
+        party: {
+          endpointId: { id: '1234567890', schemeId: '0088' },
+          partyLegalEntity: { registrationName: 'Seller Company Ltd' },
+          postalAddress: { cityName: 'London', countryCode: { identificationCode: 'GB' }, postalZone: 'W1G 8LZ', streetName: 'Main Street 1' },
+        },
       },
       customizationId: 'urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0',
       documentCurrencyCode: 'EUR',
@@ -117,14 +125,18 @@ describe('PeppolBillingBase', () => {
     const { customizationId: _cid, profileId: _pid, ...withoutDefaults } = validBillingBase;
     await decode.succeed(withoutDefaults, {
       accountingCustomerParty: {
-        endpointId: { id: '9876543210', schemeId: '0088' },
-        partyLegalEntity: { registrationName: 'Buyer Company SA' },
-        postalAddress: { cityName: 'Paris', countryCode: { identificationCode: 'FR' } },
+        party: {
+          endpointId: { id: '9876543210', schemeId: '0088' },
+          partyLegalEntity: { registrationName: 'Buyer Company SA' },
+          postalAddress: { cityName: 'Paris', countryCode: { identificationCode: 'FR' } },
+        },
       },
       accountingSupplierParty: {
-        endpointId: { id: '1234567890', schemeId: '0088' },
-        partyLegalEntity: { registrationName: 'Seller Company Ltd' },
-        postalAddress: { cityName: 'London', countryCode: { identificationCode: 'GB' }, postalZone: 'W1G 8LZ', streetName: 'Main Street 1' },
+        party: {
+          endpointId: { id: '1234567890', schemeId: '0088' },
+          partyLegalEntity: { registrationName: 'Seller Company Ltd' },
+          postalAddress: { cityName: 'London', countryCode: { identificationCode: 'GB' }, postalZone: 'W1G 8LZ', streetName: 'Main Street 1' },
+        },
       },
       customizationId: 'urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0',
       documentCurrencyCode: 'EUR',

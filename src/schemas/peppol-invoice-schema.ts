@@ -1,6 +1,7 @@
 import { Schema } from 'effect';
 
 import { PeppolInvoiceLine } from '#/schemas/fields/peppol-invoice-line-schema.ts';
+import { CAC_NAMESPACE, CBC_NAMESPACE, INVOICE_NAMESPACE } from '#/schemas/namespaces.ts';
 import { PeppolBillingBase } from '#/schemas/peppol-billing-base-schema.ts';
 import { PeppolIsoDateString } from '#/schemas/peppol-iso-date-string.ts';
 import { opaque } from '#/schemas/utils/opaque.ts';
@@ -16,7 +17,14 @@ import { PeppolInvoiceTypeCode } from '#/schemas/values/invoice-type-code-schema
  *
  * @see {@link PeppolInvoice}
  */
-export class PeppolProjectReference extends opaque<PeppolProjectReference>()(Schema.Struct({ id: Schema.String }).pipe(Schema.toStandardSchemaV1)) {}
+export class PeppolProjectReference extends opaque<PeppolProjectReference>()(
+  Schema.Struct({
+    /**
+     * @name `cbc:ID`
+     */
+    id: Schema.String.pipe(Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'ID' })),
+  }).pipe(Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'ProjectReference' }), Schema.toStandardSchemaV1)
+) {}
 
 /**
  * @description UBL `Invoice` for PEPPOL BIS Billing 3.0. Extends {@link PeppolBillingBase} with the due date, type code, lines and project reference.
@@ -36,7 +44,7 @@ export class PeppolProjectReference extends opaque<PeppolProjectReference>()(Sch
  * @see {@link PeppolBillingBase}
  * @see {@link PeppolCreditNote}
  */
-export class PeppolInvoice extends opaque<PeppolInvoice>()(
+export class PeppolInvoice extends Schema.Opaque<PeppolInvoice>()(
   Schema.Struct({
     ...PeppolBillingBase.fields,
     /**
@@ -47,13 +55,17 @@ export class PeppolInvoice extends opaque<PeppolInvoice>()(
      *
      * @name cbc:DueDate
      */
-    dueDate: Schema.optional(PeppolIsoDateString),
+    dueDate: Schema.optional(PeppolIsoDateString).pipe(
+      Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'DueDate', title: 'Payment due date' })
+    ),
     /**
      * @summary INVOICE LINE
      *
      * @name cac:InvoiceLine
      */
-    invoiceLines: Schema.Array(PeppolInvoiceLine).check(Schema.isMinLength(1)),
+    invoiceLines: Schema.Array(PeppolInvoiceLine)
+      .check(Schema.isMinLength(1))
+      .pipe(Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'InvoiceLine', title: 'INVOICE LINE' })),
     /**
      * @example
      *   `380`;
@@ -62,14 +74,24 @@ export class PeppolInvoice extends opaque<PeppolInvoice>()(
      *
      * @name cbc:InvoiceTypeCode
      */
-    invoiceTypeCode: PeppolInvoiceTypeCode,
+    invoiceTypeCode: PeppolInvoiceTypeCode.pipe(
+      Schema.annotate({
+        xmlNamespace: CBC_NAMESPACE,
+        xmlPrefix: 'cbc',
+        xmlName: 'InvoiceTypeCode',
+        title: 'Invoice type code',
+        examples: ['380`'] as unknown as ReadonlyArray<never>,
+      })
+    ),
     /**
      * @summary PROJECT REFERENCE
      *
      * @name cac:ProjectReference
      */
-    projectReference: Schema.optional(PeppolProjectReference),
-  }).pipe(Schema.toStandardSchemaV1)
+    projectReference: Schema.optional(PeppolProjectReference).pipe(
+      Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'ProjectReference', title: 'PROJECT REFERENCE' })
+    ),
+  }).pipe(Schema.annotate({ xmlNamespace: INVOICE_NAMESPACE, xmlPrefix: 'ubl', xmlName: 'Invoice' }), Schema.toStandardSchemaV1)
 ) {}
 
 /**

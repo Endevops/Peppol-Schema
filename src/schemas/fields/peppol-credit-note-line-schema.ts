@@ -2,6 +2,7 @@ import { Schema } from 'effect';
 
 import { PeppolBaseLine } from '#/schemas/fields/peppol-base-line-schema.ts';
 import { PeppolQuantity } from '#/schemas/fields/peppol-quantity-schema.ts';
+import { CBC_NAMESPACE } from '#/schemas/namespaces.ts';
 import { opaque } from '#/schemas/utils/opaque.ts';
 import { PeppolQuantityUnitCode } from '#/schemas/values/quantity-unit-codes-schema.ts';
 
@@ -19,23 +20,31 @@ export class PeppolCreditNoteLine extends opaque<PeppolCreditNoteLine>()(
        *
        * @name cbc:CreditedQuantity (+ @unitCode)
        */
-      creditedQuantity: PeppolQuantity.pipe(
-        Schema.fieldsAssign({
-          /**
-           * @description The unit of measure that applies to the invoiced quantity. Codes for unit of packaging from UNECE Recommendation No. 21 can be used in
-           * accordance with the descriptions in the "Intro" section of UN/ECE Recommendation 20, Revision 11 (2015): The 2 character alphanumeric
-           * code values in UNECE Recommendation 21 shall be used. To avoid duplication with existing code values in UNECE Recommendation No. 20, each
-           * code value from UNECE Recommendation 21 shall be prefixed with an “X”, resulting in a 3 alphanumeric code when used as a unit of
-           * measure.
-           *
-           * @example
-           *   `C62`;
-           *
-           * @summary Invoiced quantity unit of measure
-           *
-           * @see {@link quantityUnitCodes}
-           */
-          unitCode: PeppolQuantityUnitCode,
+      creditedQuantity: Schema.Struct({
+        ...PeppolQuantity.fields,
+        /**
+         * @description The unit of measure that applies to the invoiced quantity. Codes for unit of packaging from UNECE Recommendation No. 21 can be used in
+         * accordance with the descriptions in the "Intro" section of UN/ECE Recommendation 20, Revision 11 (2015): The 2 character alphanumeric code
+         * values in UNECE Recommendation 21 shall be used. To avoid duplication with existing code values in UNECE Recommendation No. 20, each code
+         * value from UNECE Recommendation 21 shall be prefixed with an “X”, resulting in a 3 alphanumeric code when used as a unit of measure.
+         *
+         * @example
+         *   `C62`;
+         *
+         * @summary Invoiced quantity unit of measure
+         *
+         * @see {@link quantityUnitCodes}
+         */
+        unitCode: PeppolQuantityUnitCode.pipe(
+          Schema.annotate({ xmlName: 'unitCode', xmlAttribute: true, description: 'The unit of measure that applies to the invoiced quantity.' })
+        ),
+      }).pipe(
+        Schema.annotate({
+          xmlNamespace: CBC_NAMESPACE,
+          xmlPrefix: 'cbc',
+          xmlName: 'CreditedQuantity',
+          description: 'Invoiced/Credited quantity.',
+          examples: ['{ value: 40, unitCode: "C62" }'] as unknown as ReadonlyArray<never>,
         })
       ),
     }),

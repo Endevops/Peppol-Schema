@@ -1,5 +1,6 @@
 import { Schema } from 'effect';
 
+import { CAC_NAMESPACE, CBC_NAMESPACE } from '#/schemas/namespaces.ts';
 import { opaque } from '#/schemas/utils/opaque.ts';
 
 /**
@@ -18,14 +19,16 @@ export class PeppolContact extends opaque<PeppolContact>()(
     /**
      * @name cbc:ElectronicMail
      */
-    electronicMail: Schema.optional(Schema.String),
+    electronicMail: Schema.optional(Schema.String).pipe(
+      Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'ElectronicMail' })
+    ),
     /**
      * @name cbc:Name
      */
-    name: Schema.optional(Schema.String),
+    name: Schema.String.pipe(Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'Name' }), Schema.optional),
     /**
      * @name cbc:Telephone
      */
-    telephone: Schema.optional(Schema.String),
-  }).pipe(Schema.toStandardSchemaV1)
+    telephone: Schema.String.pipe(Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'Telephone' }), Schema.optional),
+  }).pipe(Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'Contact' }), Schema.toStandardSchemaV1)
 ) {}

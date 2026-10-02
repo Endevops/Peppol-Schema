@@ -2,6 +2,7 @@ import { Schema } from 'effect';
 
 import { invoiceResponseCodeNeedsSchema } from '#/invoice-response-codes/invoice-response-code-needs-schema.ts';
 import { invoiceResponseCodeNotNeedsSchema } from '#/invoice-response-codes/invoice-response-code-not-needs-schema.ts';
+import { CBC_NAMESPACE, CAC_NAMESPACE } from '#/schemas/namespaces.ts';
 import { PeppolInvoiceResponseDocumentActualResponseStatus } from '#/schemas/peppol-invoice-response-document-actual-response-status-schema.ts';
 import { PeppolIsoDateString } from '#/schemas/peppol-iso-date-string.ts';
 import { opaque } from '#/schemas/utils/opaque.ts';
@@ -47,7 +48,7 @@ export class PeppolInvoiceResponseDocumentActualResponseWithoutStatus extends op
      *
      * @name `cbc:ResponseCode`
      */
-    responseCode: withoutStatusCodes,
+    responseCode: withoutStatusCodes.pipe(Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'ResponseCode' })),
     /**
      * @description The date when the status became effective.
      *
@@ -58,7 +59,9 @@ export class PeppolInvoiceResponseDocumentActualResponseWithoutStatus extends op
      *
      * @name `cbc:EffectiveDate`
      */
-    effectiveDate: Schema.optional(PeppolIsoDateString),
+    effectiveDate: Schema.optional(PeppolIsoDateString).pipe(
+      Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'EffectiveDate' })
+    ),
     /**
      * @description Clarification is mendatory when the status is UQ-`under query`,RE-`rejected` and `CA`-Conditionally accepted. Clarification may be given as a
      * code, a description or both. If both are used, they must indicate the same clarification.
@@ -67,7 +70,9 @@ export class PeppolInvoiceResponseDocumentActualResponseWithoutStatus extends op
      *
      * @name `cac:Status`
      */
-    status: Schema.optional(Schema.Array(PeppolInvoiceResponseDocumentActualResponseStatus)),
+    status: Schema.optional(Schema.Array(PeppolInvoiceResponseDocumentActualResponseStatus)).pipe(
+      Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'Status' })
+    ),
   }).pipe(Schema.toStandardSchemaV1)
 ) {}
 
@@ -91,7 +96,7 @@ export class PeppolInvoiceResponseDocumentActualResponseWithStatus extends opaqu
      *
      * @name `cbc:ResponseCode`
      */
-    responseCode: withStatusCodes,
+    responseCode: withStatusCodes.pipe(Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'ResponseCode' })),
     /**
      * @description The date when the status became effective.
      *
@@ -102,7 +107,10 @@ export class PeppolInvoiceResponseDocumentActualResponseWithStatus extends opaqu
      *
      * @name `cbc:EffectiveDate`
      */
-    effectiveDate: Schema.optional(PeppolIsoDateString),
+    effectiveDate: PeppolIsoDateString.pipe(
+      Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'EffectiveDate' }),
+      Schema.optional
+    ),
     /**
      * @description Clarification is mendatory when the status is UQ-`under query`,RE-`rejected` and `CA`-Conditionally accepted. Clarification may be given as a
      * code, a description or both. If both are used, they must indicate the same clarification.
@@ -111,7 +119,9 @@ export class PeppolInvoiceResponseDocumentActualResponseWithStatus extends opaqu
      *
      * @name `cac:Status`
      */
-    status: Schema.Array(PeppolInvoiceResponseDocumentActualResponseStatus).check(Schema.isMinLength(1)),
+    status: Schema.Array(PeppolInvoiceResponseDocumentActualResponseStatus)
+      .check(Schema.isMinLength(1))
+      .pipe(Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'Status' })),
   }).pipe(Schema.toStandardSchemaV1)
 ) {}
 

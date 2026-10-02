@@ -2,6 +2,7 @@ import { Schema } from 'effect';
 
 import { PeppolAmount } from '#/schemas/fields/peppol-amount-schema.ts';
 import { PeppolTaxSubTotal } from '#/schemas/fields/peppol-tax-subtotal-schema.ts';
+import { CBC_NAMESPACE, CAC_NAMESPACE } from '#/schemas/namespaces.ts';
 import { opaque } from '#/schemas/utils/opaque.ts';
 
 /**
@@ -19,10 +20,14 @@ export class PeppolTaxTotal extends opaque<PeppolTaxTotal>()(
      *
      * @name cbc:TaxAmount (+ @currencyID)
      */
-    taxAmount: PeppolAmount,
+    taxAmount: PeppolAmount.pipe(
+      Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'TaxAmount', examples: ['200'] as unknown as ReadonlyArray<never> })
+    ),
     /**
      * @name cac:TaxSubtotal (0..n)
      */
-    taxSubtotals: Schema.optional(Schema.Array(PeppolTaxSubTotal)),
-  }).pipe(Schema.toStandardSchemaV1)
+    taxSubtotals: Schema.optional(Schema.Array(PeppolTaxSubTotal)).pipe(
+      Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'TaxSubtotal' })
+    ),
+  }).pipe(Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'TaxTotal' }), Schema.toStandardSchemaV1)
 ) {}

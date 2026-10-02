@@ -1,5 +1,6 @@
 import { Schema } from 'effect';
 
+import { CAC_NAMESPACE, CBC_NAMESPACE } from '#/schemas/namespaces.ts';
 import { PeppolDocumentResponseLineResponseContent } from '#/schemas/peppol-document-response-line-response-content-schema.ts';
 import { opaque } from '#/schemas/utils/opaque.ts';
 
@@ -26,7 +27,7 @@ export class PeppolLineReference extends opaque<PeppolLineReference>()(
      *
      * @summary Section identifier
      */
-    lineId: Schema.String,
+    lineId: Schema.String.pipe(Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'LineID' })),
   }).pipe(Schema.toStandardSchemaV1)
 ) {}
 
@@ -52,10 +53,10 @@ export class PeppolDocumentResponseLineResponse extends opaque<PeppolDocumentRes
      *
      * @name `cac:LineReference`
      */
-    lineReference: PeppolLineReference,
+    lineReference: PeppolLineReference.pipe(Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'LineReference' })),
     /**
      * @summary Line response information
      */
-    response: PeppolDocumentResponseLineResponseContent,
+    response: PeppolDocumentResponseLineResponseContent.pipe(Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'Response' })),
   }).pipe(Schema.toStandardSchemaV1)
 ) {}

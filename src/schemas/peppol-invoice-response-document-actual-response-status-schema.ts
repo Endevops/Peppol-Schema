@@ -1,5 +1,6 @@
 import { Schema } from 'effect';
 
+import { CBC_NAMESPACE, CAC_NAMESPACE } from '#/schemas/namespaces.ts';
 import { PeppolInvoiceResponseStatusReasonCode } from '#/schemas/peppol-invoice-response-status-reason-code-schema.ts';
 import { opaque } from '#/schemas/utils/opaque.ts';
 
@@ -23,9 +24,9 @@ export class PeppolInvoiceResponseCondition extends opaque<PeppolInvoiceResponse
      *
      * @summary Detail type code
      *
-     * @name `cbc:AttributeId`
+     * @name `cbc:AttributeID`
      */
-    attributeId: Schema.String,
+    attributeId: Schema.String.pipe(Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'AttributeID' })),
     /**
      * @description The value of the detail.
      *
@@ -36,7 +37,7 @@ export class PeppolInvoiceResponseCondition extends opaque<PeppolInvoiceResponse
      *
      * @name `cbc:Description`
      */
-    description: Schema.optional(Schema.String),
+    description: Schema.String.pipe(Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'Description' }), Schema.optional),
   }).pipe(Schema.toStandardSchemaV1)
 ) {}
 
@@ -59,7 +60,10 @@ export class PeppolInvoiceResponseDocumentActualResponseStatus extends opaque<Pe
      *
      * @name `cbc:StatusReasonCode`
      */
-    statusReasonCode: Schema.optional(PeppolInvoiceResponseStatusReasonCode),
+    statusReasonCode: PeppolInvoiceResponseStatusReasonCode.pipe(
+      Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'StatusReasonCode' }),
+      Schema.optional
+    ),
     /**
      * @description The description of the clarification given for the invoice status.
      *
@@ -70,12 +74,15 @@ export class PeppolInvoiceResponseDocumentActualResponseStatus extends opaque<Pe
      *
      * @name `cbc:StatusReason
      */
-    statusReason: Schema.optional(Schema.String),
+    statusReason: Schema.String.pipe(Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'StatusReason' }), Schema.optional),
     /**
      * @summary Condition
      *
      * @name `cac:Condition`
      */
-    condition: Schema.optional(Schema.Array(PeppolInvoiceResponseCondition)),
+    condition: Schema.Array(PeppolInvoiceResponseCondition).pipe(
+      Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'Condition' }),
+      Schema.optional
+    ),
   }).pipe(Schema.toStandardSchemaV1)
 ) {}

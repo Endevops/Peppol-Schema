@@ -57,8 +57,7 @@ exports[`encodeInvoiceResponse > should encode an invoice response > invoice-res
       "cac:Contact": undefined,
       "cac:PartyIdentification": {
         "cbc:ID": {
-          "#text": "987654325",
-          "@schemeID": "0192",
+          "id": "987654325",
         },
       },
       "cac:PartyLegalEntity": {
@@ -80,8 +79,7 @@ exports[`encodeInvoiceResponse > should encode an invoice response > invoice-res
       },
       "cac:PartyIdentification": {
         "cbc:ID": {
-          "#text": "DK88776655",
-          "@schemeID": "0184",
+          "id": "DK88776655",
         },
       },
       "cac:PartyLegalEntity": {

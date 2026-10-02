@@ -7,14 +7,18 @@ import { decoding } from '#/test/schema-asserts.ts';
 
 const validCreditNote = {
   accountingCustomerParty: {
-    endpointId: { id: '9876543210', schemeId: '0088' },
-    partyLegalEntity: { registrationName: 'Buyer Company SA' },
-    postalAddress: { cityName: 'Paris', countryCode: { identificationCode: 'FR' } },
+    party: {
+      endpointId: { id: '9876543210', schemeId: '0088' },
+      partyLegalEntity: { registrationName: 'Buyer Company SA' },
+      postalAddress: { cityName: 'Paris', countryCode: { identificationCode: 'FR' } },
+    },
   },
   accountingSupplierParty: {
-    endpointId: { id: '1234567890', schemeId: '0088' },
-    partyLegalEntity: { registrationName: 'Seller Company Ltd' },
-    postalAddress: { cityName: 'London', countryCode: { identificationCode: 'GB' }, postalZone: 'W1G 8LZ', streetName: 'Main Street 1' },
+    party: {
+      endpointId: { id: '1234567890', schemeId: '0088' },
+      partyLegalEntity: { registrationName: 'Seller Company Ltd' },
+      postalAddress: { cityName: 'London', countryCode: { identificationCode: 'GB' }, postalZone: 'W1G 8LZ', streetName: 'Main Street 1' },
+    },
   },
   creditNoteLines: [
     {
@@ -56,14 +60,18 @@ describe('PeppolCreditNote', () => {
   it('should parse valid credit note', async () => {
     await decode.succeed(validCreditNote, {
       accountingCustomerParty: {
-        endpointId: { id: '9876543210', schemeId: '0088' },
-        partyLegalEntity: { registrationName: 'Buyer Company SA' },
-        postalAddress: { cityName: 'Paris', countryCode: { identificationCode: 'FR' } },
+        party: {
+          endpointId: { id: '9876543210', schemeId: '0088' },
+          partyLegalEntity: { registrationName: 'Buyer Company SA' },
+          postalAddress: { cityName: 'Paris', countryCode: { identificationCode: 'FR' } },
+        },
       },
       accountingSupplierParty: {
-        endpointId: { id: '1234567890', schemeId: '0088' },
-        partyLegalEntity: { registrationName: 'Seller Company Ltd' },
-        postalAddress: { cityName: 'London', countryCode: { identificationCode: 'GB' }, postalZone: 'W1G 8LZ', streetName: 'Main Street 1' },
+        party: {
+          endpointId: { id: '1234567890', schemeId: '0088' },
+          partyLegalEntity: { registrationName: 'Seller Company Ltd' },
+          postalAddress: { cityName: 'London', countryCode: { identificationCode: 'GB' }, postalZone: 'W1G 8LZ', streetName: 'Main Street 1' },
+        },
       },
       creditNoteLines: [
         {
@@ -126,14 +134,18 @@ describe('PeppolCreditNote', () => {
       { ...validCreditNote, note: 'Credit note for returned goods', buyerReference: 'ref-001', orderReference: { id: 'PO-001' } },
       {
         accountingCustomerParty: {
-          endpointId: { id: '9876543210', schemeId: '0088' },
-          partyLegalEntity: { registrationName: 'Buyer Company SA' },
-          postalAddress: { cityName: 'Paris', countryCode: { identificationCode: 'FR' } },
+          party: {
+            endpointId: { id: '9876543210', schemeId: '0088' },
+            partyLegalEntity: { registrationName: 'Buyer Company SA' },
+            postalAddress: { cityName: 'Paris', countryCode: { identificationCode: 'FR' } },
+          },
         },
         accountingSupplierParty: {
-          endpointId: { id: '1234567890', schemeId: '0088' },
-          partyLegalEntity: { registrationName: 'Seller Company Ltd' },
-          postalAddress: { cityName: 'London', countryCode: { identificationCode: 'GB' }, postalZone: 'W1G 8LZ', streetName: 'Main Street 1' },
+          party: {
+            endpointId: { id: '1234567890', schemeId: '0088' },
+            partyLegalEntity: { registrationName: 'Seller Company Ltd' },
+            postalAddress: { cityName: 'London', countryCode: { identificationCode: 'GB' }, postalZone: 'W1G 8LZ', streetName: 'Main Street 1' },
+          },
         },
         buyerReference: 'ref-001',
         creditNoteLines: [
@@ -179,14 +191,18 @@ describe('PeppolCreditNote', () => {
     const { customizationId: _cid, ...noCustomization } = validCreditNote;
     await decode.succeed(noCustomization, {
       accountingCustomerParty: {
-        endpointId: { id: '9876543210', schemeId: '0088' },
-        partyLegalEntity: { registrationName: 'Buyer Company SA' },
-        postalAddress: { cityName: 'Paris', countryCode: { identificationCode: 'FR' } },
+        party: {
+          endpointId: { id: '9876543210', schemeId: '0088' },
+          partyLegalEntity: { registrationName: 'Buyer Company SA' },
+          postalAddress: { cityName: 'Paris', countryCode: { identificationCode: 'FR' } },
+        },
       },
       accountingSupplierParty: {
-        endpointId: { id: '1234567890', schemeId: '0088' },
-        partyLegalEntity: { registrationName: 'Seller Company Ltd' },
-        postalAddress: { cityName: 'London', countryCode: { identificationCode: 'GB' }, postalZone: 'W1G 8LZ', streetName: 'Main Street 1' },
+        party: {
+          endpointId: { id: '1234567890', schemeId: '0088' },
+          partyLegalEntity: { registrationName: 'Seller Company Ltd' },
+          postalAddress: { cityName: 'London', countryCode: { identificationCode: 'GB' }, postalZone: 'W1G 8LZ', streetName: 'Main Street 1' },
+        },
       },
       creditNoteLines: [
         {

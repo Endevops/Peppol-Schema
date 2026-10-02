@@ -1,6 +1,7 @@
 import { Schema } from 'effect';
 
 import { PeppolAmount } from '#/schemas/fields/peppol-amount-schema.ts';
+import { CBC_NAMESPACE, CAC_NAMESPACE } from '#/schemas/namespaces.ts';
 import { opaque } from '#/schemas/utils/opaque.ts';
 
 /**
@@ -25,7 +26,10 @@ export class PeppolLegalMonetaryTotal extends opaque<PeppolLegalMonetaryTotal>()
      *
      * @name `cbc:AllowanceTotalAmount (+ @currencyID)`
      */
-    allowanceTotalAmount: Schema.optional(PeppolAmount),
+    allowanceTotalAmount: PeppolAmount.pipe(
+      Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'AllowanceTotalAmount' }),
+      Schema.optional
+    ),
     /**
      * @description Sum of all charges on document level in the Invoice.
      *
@@ -39,7 +43,10 @@ export class PeppolLegalMonetaryTotal extends opaque<PeppolLegalMonetaryTotal>()
      *
      * @name `cbc:ChargeTotalAmount (+ @currencyID)`
      */
-    chargeTotalAmount: Schema.optional(PeppolAmount),
+    chargeTotalAmount: PeppolAmount.pipe(
+      Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'ChargeTotalAmount' }),
+      Schema.optional
+    ),
     /**
      * @description Sum of all Invoice line net amounts in the Invoice.
      *
@@ -53,7 +60,7 @@ export class PeppolLegalMonetaryTotal extends opaque<PeppolLegalMonetaryTotal>()
      *
      * @name `cbc:LineExtensionAmount (+ @currencyID)`
      */
-    lineExtensionAmount: PeppolAmount,
+    lineExtensionAmount: PeppolAmount.pipe(Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'LineExtensionAmount' })),
     /**
      * @description The amount due for payment on the Invoice, after accounting for all allowances, charges, prepayments, and rounding adjustments.
      *
@@ -67,7 +74,7 @@ export class PeppolLegalMonetaryTotal extends opaque<PeppolLegalMonetaryTotal>()
      *
      * @name `cbc:PayableAmount (+ @currencyID)`
      */
-    payableAmount: PeppolAmount,
+    payableAmount: PeppolAmount.pipe(Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'PayableAmount' })),
     /**
      * @description The rounding amount applied to the Invoice total.
      *
@@ -81,7 +88,10 @@ export class PeppolLegalMonetaryTotal extends opaque<PeppolLegalMonetaryTotal>()
      *
      * @name `cbc:PayableRoundingAmount (+ @currencyID)`
      */
-    payableRoundingAmount: Schema.optional(PeppolAmount),
+    payableRoundingAmount: PeppolAmount.pipe(
+      Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'PayableRoundingAmount' }),
+      Schema.optional
+    ),
     /**
      * @description The sum of amounts which have been paid in advances.
      *
@@ -95,7 +105,7 @@ export class PeppolLegalMonetaryTotal extends opaque<PeppolLegalMonetaryTotal>()
      *
      * @name `cbc:PrepaidAmount (+ @currencyID)`
      */
-    prepaidAmount: Schema.optional(PeppolAmount),
+    prepaidAmount: PeppolAmount.pipe(Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'PrepaidAmount' }), Schema.optional),
     /**
      * @description The total amount of the Invoice without VAT.
      *
@@ -109,7 +119,7 @@ export class PeppolLegalMonetaryTotal extends opaque<PeppolLegalMonetaryTotal>()
      *
      * @name `cbc:TaxExclusiveAmount (+ @currencyID)`
      */
-    taxExclusiveAmount: PeppolAmount,
+    taxExclusiveAmount: PeppolAmount.pipe(Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'TaxExclusiveAmount' })),
     /**
      * @description The total amount of the Invoice with VAT.
      *
@@ -122,6 +132,6 @@ export class PeppolLegalMonetaryTotal extends opaque<PeppolLegalMonetaryTotal>()
      *
      * @name `cbc:TaxInclusiveAmount (+ @currencyID)`
      */
-    taxInclusiveAmount: PeppolAmount,
-  }).pipe(Schema.toStandardSchemaV1)
+    taxInclusiveAmount: PeppolAmount.pipe(Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'TaxInclusiveAmount' })),
+  }).pipe(Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'LegalMonetaryTotal' }), Schema.toStandardSchemaV1)
 ) {}

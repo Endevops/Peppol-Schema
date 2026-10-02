@@ -30,13 +30,13 @@ const validInvoiceResponse = {
   profileId: 'urn:fdc:peppol.eu:poacc:bis:invoice_response:3',
   receiverParty: {
     endpointId: { id: '7330001000000', schemeId: '0088' },
-    partyIdentification: { id: '987654325', schemeId: '0192' },
+    partyIdentification: { id: { id: '987654325', schemeId: '0192' } },
     partyLegalEntity: { registrationName: 'Seller company' },
   },
   senderParty: {
     contact: { electronicMail: 'jj@test-company.dk', name: 'Jens Jensen', telephone: '23232323' },
     endpointId: { id: '5798000012349', schemeId: '0088' },
-    partyIdentification: { id: 'DK88776655', schemeId: '0184' },
+    partyIdentification: { id: { id: 'DK88776655', schemeId: '0184' } },
     partyLegalEntity: { registrationName: 'Buyer organization' },
   },
 } as const;
@@ -77,13 +77,13 @@ describe('PeppolInvoiceResponse', () => {
       profileId: 'urn:fdc:peppol.eu:poacc:bis:invoice_response:3',
       receiverParty: {
         endpointId: { id: '7330001000000', schemeId: '0088' },
-        partyIdentification: { id: '987654325', schemeId: '0192' },
+        partyIdentification: { id: { id: '987654325', schemeId: '0192' } },
         partyLegalEntity: { registrationName: 'Seller company' },
       },
       senderParty: {
         contact: { electronicMail: 'jj@test-company.dk', name: 'Jens Jensen', telephone: '23232323' },
         endpointId: { id: '5798000012349', schemeId: '0088' },
-        partyIdentification: { id: 'DK88776655', schemeId: '0184' },
+        partyIdentification: { id: { id: 'DK88776655', schemeId: '0184' } },
         partyLegalEntity: { registrationName: 'Buyer organization' },
       },
     });
@@ -113,13 +113,13 @@ describe('PeppolInvoiceResponse', () => {
       profileId: 'urn:fdc:peppol.eu:poacc:bis:invoice_response:3',
       receiverParty: {
         endpointId: { id: '7330001000000', schemeId: '0088' },
-        partyIdentification: { id: '987654325', schemeId: '0192' },
+        partyIdentification: { id: { id: '987654325', schemeId: '0192' } },
         partyLegalEntity: { registrationName: 'Seller company' },
       },
       senderParty: {
         contact: { electronicMail: 'jj@test-company.dk', name: 'Jens Jensen', telephone: '23232323' },
         endpointId: { id: '5798000012349', schemeId: '0088' },
-        partyIdentification: { id: 'DK88776655', schemeId: '0184' },
+        partyIdentification: { id: { id: 'DK88776655', schemeId: '0184' } },
         partyLegalEntity: { registrationName: 'Buyer organization' },
       },
     });

@@ -1,5 +1,6 @@
 import { Schema } from 'effect';
 
+import { CAC_NAMESPACE } from '#/schemas/namespaces.ts';
 import { PeppolDocumentResponseDocumentReference } from '#/schemas/peppol-document-response-document-reference-schema.ts';
 import { PeppolDocumentResponseDocument } from '#/schemas/peppol-document-response-document-schema.ts';
 import { PeppolDocumentResponseLineResponse } from '#/schemas/peppol-document-response-line-response-schema.ts';
@@ -24,7 +25,7 @@ export class PeppolMessageLevelResponseDocumentResponse extends opaque<PeppolMes
      *
      * @cardinality (1..1)
      */
-    response: PeppolDocumentResponseDocument,
+    response: PeppolDocumentResponseDocument.pipe(Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'Response' })),
     /**
      * @description The document reference is used to provide a reference to the envelope of the business document on which the message level response is based.
      * The message level response message may only cover exactly one business document. The element
@@ -33,13 +34,17 @@ export class PeppolMessageLevelResponseDocumentResponse extends opaque<PeppolMes
      *
      * @summary Document reference
      */
-    documentReference: PeppolDocumentResponseDocumentReference,
+    documentReference: PeppolDocumentResponseDocumentReference.pipe(
+      Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'DocumentReference' })
+    ),
     /**
      * @description A response to a particular line in the document. If the document response is negative (code='RE'), the line response element is used to specify
      * the errors in the business document.
      *
      * @summary Line response information
      */
-    lineResponse: Schema.Array(PeppolDocumentResponseLineResponse),
+    lineResponse: Schema.Array(PeppolDocumentResponseLineResponse).pipe(
+      Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'LineResponse' })
+    ),
   }).pipe(Schema.toStandardSchemaV1)
 ) {}

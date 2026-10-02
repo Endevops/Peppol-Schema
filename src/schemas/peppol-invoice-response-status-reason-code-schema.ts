@@ -16,15 +16,17 @@ import { PeppolOpStatusReason } from '#/schemas/values/op-status-reason-schema.t
  */
 export class PeppolInvoiceResponseStatusReasonCodeReason extends opaque<PeppolInvoiceResponseStatusReasonCodeReason>()(
   Schema.Struct({
-    value: PeppolOpStatusReason,
+    value: PeppolOpStatusReason.pipe(Schema.annotate({ xmlValue: true })),
     /**
      * @description List identifier for clarification.
      *
      * @summary List identifier
      *
-     * @name `@listId`
+     * @name `@listID`
      */
-    listId: Schema.Literal('OPStatusReason'),
+    listId: Schema.Literal('OPStatusReason').pipe(
+      Schema.annotate({ xmlAttribute: true, xmlName: 'listID', description: 'List identifier for clarification.', title: 'List identifier' })
+    ),
   }).pipe(Schema.toStandardSchemaV1)
 ) {}
 
@@ -40,15 +42,17 @@ export class PeppolInvoiceResponseStatusReasonCodeReason extends opaque<PeppolIn
  */
 export class PeppolInvoiceResponseStatusReasonCodeAction extends opaque<PeppolInvoiceResponseStatusReasonCodeAction>()(
   Schema.Struct({
-    value: PeppolOpStatusAction,
+    value: PeppolOpStatusAction.pipe(Schema.annotate({ xmlValue: true })),
     /**
      * @description List identifier for clarification.
      *
      * @summary List identifier
      *
-     * @name `@listId`
+     * @name `@listID`
      */
-    listId: Schema.Literal('OPStatusAction'),
+    listId: Schema.Literal('OPStatusAction').pipe(
+      Schema.annotate({ xmlAttribute: true, xmlName: 'listID', description: 'List identifier for clarification.', title: 'List identifier' })
+    ),
   }).pipe(Schema.toStandardSchemaV1)
 ) {}
 

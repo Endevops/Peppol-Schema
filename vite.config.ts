@@ -35,7 +35,7 @@ const coverage = {
 
 const projects = [
   {
-    resolve: { tsconfigPaths: true },
+    resolve: { dedupe: ['effect'], tsconfigPaths: true },
     test: {
       exclude: [`${import.meta.dirname}/src/**/*.*.{test,spec}.{ts,tsx}`],
       fsModuleCache: true,
@@ -49,7 +49,7 @@ const projects = [
     },
   },
   {
-    resolve: { tsconfigPaths: true },
+    resolve: { dedupe: ['effect'], tsconfigPaths: true },
     test: {
       fsModuleCache: true,
       hookTimeout: 10_000,
@@ -124,7 +124,6 @@ export default defineConfig({
           './src/schemas.ts',
           './src/schemas/values/index.ts',
           './src/schemas/utils/index.ts',
-          './src/xml.ts',
           './src/values.ts',
           './src/decoders/index.ts',
           './src/peppol-validations/index.ts',
@@ -221,7 +220,6 @@ export default defineConfig({
         schematron: './src/schematron/index.ts',
         validations: './src/peppol-validations/index.ts',
         values: './src/values.ts',
-        xml: './src/xml.ts',
       },
       exports,
       platform: 'neutral',
@@ -242,7 +240,7 @@ export default defineConfig({
       sourcemap: false,
     },
   ],
-  resolve: { tsconfigPaths: true },
+  resolve: { dedupe: ['effect'], tsconfigPaths: true },
   staged: {
     '*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx}': ['vp fmt --no-error-on-unmatched-pattern', 'vp lint --quiet --type-aware'],
     '*.{xml,json,jsonc}': ['vp fmt --no-error-on-unmatched-pattern'],

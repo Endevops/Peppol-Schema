@@ -1,5 +1,6 @@
 import { Schema } from 'effect';
 
+import { CBC_NAMESPACE, CAC_NAMESPACE } from '#/schemas/namespaces.ts';
 import { opaque } from '#/schemas/utils/opaque.ts';
 import { PeppolApplicationResponseTypeCode } from '#/schemas/values/application-response-type-code-schema.ts';
 
@@ -22,7 +23,9 @@ export class PeppolStatus extends opaque<PeppolStatus>()(
      *
      * @name `cbc:StatusReasonCode`
      */
-    statusReasonCode: Schema.Literals(['BV', 'BW', 'SV']),
+    statusReasonCode: Schema.Literals(['BV', 'BW', 'SV']).pipe(
+      Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'StatusReasonCode' })
+    ),
   }).pipe(Schema.toStandardSchemaV1)
 ) {}
 
@@ -49,7 +52,7 @@ export class PeppolDocumentResponseLineResponseContent extends opaque<PeppolDocu
      *
      * @name `cbc:ResponseCode`
      */
-    responseCode: PeppolApplicationResponseTypeCode,
+    responseCode: PeppolApplicationResponseTypeCode.pipe(Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'ResponseCode' })),
     /**
      * @description The description of the issued identifier in the transaction document.
      *
@@ -60,10 +63,10 @@ export class PeppolDocumentResponseLineResponseContent extends opaque<PeppolDocu
      *
      * @name `cbc:Description`
      */
-    description: Schema.String,
+    description: Schema.String.pipe(Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'Description' })),
     /**
      * @name `cac:Status`
      */
-    status: PeppolStatus,
+    status: PeppolStatus.pipe(Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'Status' })),
   }).pipe(Schema.toStandardSchemaV1)
 ) {}

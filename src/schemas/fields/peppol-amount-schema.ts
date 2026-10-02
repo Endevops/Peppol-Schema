@@ -21,11 +21,11 @@ export class PeppolAmount extends opaque<PeppolAmount>()(
     /**
      * @name \@currencyID
      */
-    currencyId: PeppolCurrencyCode,
+    currencyId: PeppolCurrencyCode.pipe(Schema.annotate({ xmlAttribute: true, xmlName: 'currencyID' })),
     /**
      * @name #text (value)
      */
-    value: Schema.Finite,
+    value: Schema.Finite.pipe(Schema.annotate({ xmlValue: true })),
   }).pipe(Schema.toStandardSchemaV1)
 ) {}
 /**

@@ -15,10 +15,10 @@ export class PeppolQuantity extends opaque<PeppolQuantity>()(
     /**
      * @name `@unitCode`
      */
-    unitCode: Schema.optional(PeppolQuantityUnitCode),
+    unitCode: PeppolQuantityUnitCode.pipe(Schema.annotate({ xmlName: 'unitCode', xmlAttribute: true }), Schema.optional),
     /**
      * @name `#text (value)`
      */
-    value: Schema.Finite,
+    value: Schema.Finite.pipe(Schema.annotate({ xmlValue: true })),
   }).pipe(Schema.toStandardSchemaV1)
 ) {}

@@ -4,11 +4,13 @@ import { INVOICE_RESPONSE_PROFILE_ID } from '#/constants/invoice-response-profil
 import { PeppolContact } from '#/schemas/fields/peppol-contact-schema.ts';
 import { PeppolIdentifier } from '#/schemas/fields/peppol-identifier-schema.ts';
 import { PeppolPartyLegalEntity } from '#/schemas/fields/peppol-party-legal-entity-schema.ts';
+import { CAC_NAMESPACE, CBC_NAMESPACE } from '#/schemas/namespaces.ts';
 import { PeppolInvoiceResponseDocumentActualResponse } from '#/schemas/peppol-invoice-response-document-actual-response-schema.ts';
 import { PeppolIsoDateString } from '#/schemas/peppol-iso-date-string.ts';
 import { PeppolMessageLevelResponseParty } from '#/schemas/peppol-message-level-response-party-schema.ts';
 import { PeppolMessageLevelResponse } from '#/schemas/peppol-message-level-response-schema.ts';
 import { opaque } from '#/schemas/utils/opaque.ts';
+import { StringIdentifierSchema } from '#/schemas/utils/string-identifier-schema.ts';
 import { PeppolDocumentTypeCode } from '#/schemas/values/peppol-document-type-code-schema.ts';
 
 /**
@@ -31,7 +33,7 @@ export class PeppolInvoiceResponseDocumentResponsePartyName extends opaque<Peppo
      *
      * @name `cbc:Name`
      */
-    name: Schema.String,
+    name: Schema.String.pipe(Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'Name' })),
   }).pipe(Schema.toStandardSchemaV1)
 ) {}
 
@@ -51,8 +53,12 @@ export class PeppolInvoiceResponseParty extends opaque<PeppolInvoiceResponsePart
       /**
        * @summary Party partyIdentification
        */
-      partyIdentification: Schema.optional(PeppolIdentifier),
-      partyLegalEntity: PeppolPartyLegalEntity.mapFields(Struct.pick(['registrationName'])),
+      partyIdentification: Schema.Struct({
+        id: StringIdentifierSchema(PeppolIdentifier).pipe(Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'ID' })),
+      }).pipe(Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'PartyIdentification' }), Schema.optional),
+      partyLegalEntity: PeppolPartyLegalEntity.mapFields(Struct.pick(['registrationName'])).pipe(
+        Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'PartyLegalEntity' })
+      ),
     }),
     Schema.toStandardSchemaV1
   )
@@ -76,7 +82,7 @@ export class PeppolInvoiceResponseSenderParty extends opaque<PeppolInvoiceRespon
        *
        * @name `cac:Contact`
        */
-      contact: Schema.optional(PeppolContact),
+      contact: PeppolContact.pipe(Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'Contact' }), Schema.optional),
     }),
     Schema.toStandardSchemaV1
   )
@@ -97,7 +103,14 @@ export class PeppolInvoiceResponseDocumentResponseParty extends opaque<PeppolInv
      *
      * @name cac:PartyName
      */
-    partyName: PeppolInvoiceResponseDocumentResponsePartyName,
+    partyName: PeppolInvoiceResponseDocumentResponsePartyName.pipe(
+      Schema.annotate({
+        xmlNamespace: CAC_NAMESPACE,
+        xmlPrefix: 'cac',
+        xmlName: 'PartyName',
+        examples: ['Seller Business Name AS'] as unknown as ReadonlyArray<never>,
+      })
+    ),
   }).pipe(Schema.toStandardSchemaV1)
 ) {}
 
@@ -124,7 +137,7 @@ export class PeppolInvoiceResponseDocumentReference extends opaque<PeppolInvoice
      *
      * @name `cbc:ID`
      */
-    id: Schema.String,
+    id: Schema.String.pipe(Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'ID' })),
     /**
      * @description The date on which the referenced invoice was issued.
      *
@@ -135,14 +148,14 @@ export class PeppolInvoiceResponseDocumentReference extends opaque<PeppolInvoice
      *
      * @name `cbc:IssueDate`
      */
-    issueDate: Schema.optional(PeppolIsoDateString),
+    issueDate: PeppolIsoDateString.pipe(Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'IssueDate' }), Schema.optional),
     /**
      * @example
      *   `380`;
      *
      * @summary Identifier type code
      */
-    documentTypeCode: PeppolDocumentTypeCode,
+    documentTypeCode: PeppolDocumentTypeCode.pipe(Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'DocumentTypeCode' })),
   }).pipe(Schema.toStandardSchemaV1)
 ) {}
 
@@ -165,25 +178,33 @@ export class PeppolInvoiceResponseDocumentResponse extends opaque<PeppolInvoiceR
      *
      * @cardinality (1..1)
      */
-    response: PeppolInvoiceResponseDocumentActualResponse,
+    response: PeppolInvoiceResponseDocumentActualResponse.pipe(
+      Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'Response' })
+    ),
     /**
      * @summary Document reference
      *
      * @name `cac:DocumentReference`
      */
-    documentReference: PeppolInvoiceResponseDocumentReference,
+    documentReference: PeppolInvoiceResponseDocumentReference.pipe(
+      Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'DocumentReference' })
+    ),
     /**
      * @summary Seller party information
      *
      * @name `cac:IssuerParty`
      */
-    issuerParty: Schema.optional(PeppolInvoiceResponseDocumentResponseParty),
+    issuerParty: Schema.optional(PeppolInvoiceResponseDocumentResponseParty).pipe(
+      Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'IssuerParty' })
+    ),
     /**
      * @summary Buyer party information
      *
      * @name `cac:RecipientParty`
      */
-    recipientParty: Schema.optional(PeppolInvoiceResponseDocumentResponseParty),
+    recipientParty: Schema.optional(PeppolInvoiceResponseDocumentResponseParty).pipe(
+      Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'RecipientParty' })
+    ),
   }).pipe(Schema.toStandardSchemaV1)
 ) {}
 
@@ -195,20 +216,22 @@ export class PeppolInvoiceResponseDocumentResponse extends opaque<PeppolInvoiceR
 export class PeppolInvoiceResponse extends opaque<PeppolInvoiceResponse>()(
   Schema.Struct({
     ...PeppolMessageLevelResponse.fields,
-    profileId: Schema.Literal(INVOICE_RESPONSE_PROFILE_ID),
+    profileId: Schema.Literal(INVOICE_RESPONSE_PROFILE_ID).pipe(
+      Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'ProfileID' })
+    ),
     /**
      * @description The party sending an electronic message level response message back to the sending party of the business document.
      *
      * @summary Sender information
      */
-    senderParty: PeppolInvoiceResponseSenderParty,
+    senderParty: PeppolInvoiceResponseSenderParty.pipe(Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'SenderParty' })),
     /**
      * @description The party, an electronic message level response was addressed to, and who is supposed to process the message level response. This is the same
      * party as the sender of the business document.
      *
      * @summary Receiver information
      */
-    receiverParty: PeppolInvoiceResponseParty,
+    receiverParty: PeppolInvoiceResponseParty.pipe(Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'ReceiverParty' })),
     /**
      * @description General comments or instructions that are revelant to the response as a whole.
      *
@@ -217,12 +240,37 @@ export class PeppolInvoiceResponse extends opaque<PeppolInvoiceResponse>()(
      *
      * @summary Invoice response note
      */
-    note: Schema.optional(Schema.String),
+    note: Schema.String.pipe(Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'Note' }), Schema.optional),
     /**
      * @summary Document response
      */
-    documentResponse: PeppolInvoiceResponseDocumentResponse,
-  }).pipe(Schema.toStandardSchemaV1)
+    documentResponse: PeppolInvoiceResponseDocumentResponse.pipe(
+      Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'DocumentResponse' })
+    ),
+  }).pipe(
+    Schema.annotate({
+      xmlNamespace: 'urn:oasis:names:specification:ubl:schema:xsd:ApplicationResponse-2',
+      xmlPrefix: 'ubl',
+      xmlName: 'ApplicationResponse',
+      description:
+        'The invoice response is a descendant of the message level response with more fields. Effect port of `invoiceResponseSchema` (`z.extend(messageLevelResponse, ...)` → `messageLevelResponse.pipe(Schema.fieldsAssign(...))`), overriding `profileId` with `Schema.Literal(INVOICE_RESPONSE_PROFILE_ID)` plus sender/receiver/documentResponse.',
+      title: 'PEPPOL Invoice Response',
+      examples: [
+        {
+          profileId: INVOICE_RESPONSE_PROFILE_ID,
+          senderParty: { partyLegalEntity: { registrationName: 'Seller Business Name AS' } },
+          receiverParty: { partyLegalEntity: { registrationName: 'Buyer Business Name AS' } },
+          documentResponse: {
+            response: { responseCode: 'AP', effectiveDate: '2018-08-02' },
+            documentReference: { id: 'inv-99876', documentTypeCode: '380' },
+            issuerParty: { partyLegalEntity: { registrationName: 'Seller Business Name AS' } },
+            recipientParty: { partyLegalEntity: { registrationName: 'Buyer Business Name AS' } },
+          },
+        },
+      ] as unknown as ReadonlyArray<never>,
+    }),
+    Schema.toStandardSchemaV1
+  )
 ) {}
 
 /**

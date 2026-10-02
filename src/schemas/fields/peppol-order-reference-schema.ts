@@ -1,5 +1,6 @@
 import { Schema } from 'effect';
 
+import { CBC_NAMESPACE, CAC_NAMESPACE } from '#/schemas/namespaces.ts';
 import { opaque } from '#/schemas/utils/opaque.ts';
 
 /**
@@ -23,7 +24,17 @@ export class PeppolOrderReference extends opaque<PeppolOrderReference>()(
      *
      * @name `cbc:ID`
      */
-    id: Schema.String,
+    id: Schema.String.pipe(
+      Schema.annotate({
+        xmlNamespace: CBC_NAMESPACE,
+        xmlPrefix: 'cbc',
+        xmlName: 'ID',
+        description:
+          'An identifier of a referenced purchase order, issued by the Buyer. An identifier of a referenced purchase order, issued by the Buyer. An invoice must have buyer reference (BT-10) or purchase order reference. In cases where sales order reference is provided, but there\'s no purchase order reference, then use value "NA" as this element is mandatory in UBL.',
+        examples: ['98776'] as unknown as ReadonlyArray<never>,
+        title: 'Purchase order reference',
+      })
+    ),
     /**
      * @description An identifier of a referenced Sales order, issued by the Seller. In cases where sales order reference is provided, but there's no purchase
      * order reference, then set cac:OrderReference/cbc:ID to value "NA" as this element is mandatory in UBL.
@@ -35,6 +46,17 @@ export class PeppolOrderReference extends opaque<PeppolOrderReference>()(
      *
      * @name `cbc:SalesOrderID`
      */
-    salesOrderId: Schema.optional(Schema.String),
-  }).pipe(Schema.toStandardSchemaV1)
+    salesOrderId: Schema.String.pipe(
+      Schema.annotate({
+        xmlNamespace: CBC_NAMESPACE,
+        xmlPrefix: 'cbc',
+        xmlName: 'SalesOrderID',
+        description:
+          'An identifier of a referenced Sales order, issued by the Seller. In cases where sales order reference is provided, but there\'s no purchase order reference, then set cac:OrderReference/cbc:ID to value "NA" as this element is mandatory in UBL.',
+        examples: ['112233'] as unknown as ReadonlyArray<never>,
+        title: 'Sales order reference',
+      }),
+      Schema.optional
+    ),
+  }).pipe(Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'OrderReference' }), Schema.toStandardSchemaV1)
 ) {}

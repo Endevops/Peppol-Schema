@@ -15,6 +15,7 @@ import { PeppolPaymentMeans } from '#/schemas/fields/peppol-payment-means-schema
 import { PeppolPaymentTerms } from '#/schemas/fields/peppol-payment-terms-schema.ts';
 import { PeppolTaxRepresentative } from '#/schemas/fields/peppol-tax-representative-schema.ts';
 import { PeppolTaxTotal } from '#/schemas/fields/peppol-tax-totals-base-schema.ts';
+import { CBC_NAMESPACE, CAC_NAMESPACE } from '#/schemas/namespaces.ts';
 import { PeppolIsoDateString } from '#/schemas/peppol-iso-date-string.ts';
 import { opaque } from '#/schemas/utils/opaque.ts';
 import { PeppolCurrencyCode } from '#/schemas/values/currency-code-schema.ts';
@@ -41,7 +42,7 @@ export class PeppolContractDocumentReference extends opaque<PeppolContractDocume
      *
      * @name `cbc:ID`
      */
-    id: Schema.String,
+    id: Schema.String.pipe(Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'ID' })),
   }).pipe(Schema.toStandardSchemaV1)
 ) {}
 
@@ -67,7 +68,7 @@ export class PeppolOriginatorDocumentReference extends opaque<PeppolOriginatorDo
      *
      * @name `cbc:ID`
      */
-    id: Schema.String,
+    id: Schema.String.pipe(Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'ID' })),
   }).pipe(Schema.toStandardSchemaV1)
 ) {}
 
@@ -93,7 +94,7 @@ export class PeppolReceiptDocumentReference extends opaque<PeppolReceiptDocument
      *
      * @name `cbc:ID`
      */
-    id: Schema.String,
+    id: Schema.String.pipe(Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'ID' })),
   }).pipe(Schema.toStandardSchemaV1)
 ) {}
 
@@ -119,7 +120,7 @@ export class PeppolDespatchDocumentReference extends opaque<PeppolDespatchDocume
      *
      * @name `cbc:ID`
      */
-    id: Schema.String,
+    id: Schema.String.pipe(Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'ID' })),
   }).pipe(Schema.toStandardSchemaV1)
 ) {}
 
@@ -143,7 +144,17 @@ export class PeppolBillingBase extends opaque<PeppolBillingBase>()(
      *
      * @name `cbc:CustomizationID`
      */
-    customizationId: Schema.String.pipe(Schema.withDecodingDefaultType(Effect.succeed(DEFAULT_CUSTOMIZATION_ID))).check(
+    customizationId: Schema.String.pipe(
+      Schema.withDecodingDefaultType(Effect.succeed(DEFAULT_CUSTOMIZATION_ID)),
+      Schema.annotate({
+        xmlNamespace: CBC_NAMESPACE,
+        xmlPrefix: 'cbc',
+        xmlName: 'CustomizationID',
+        description:
+          'An identification of the specification containing the total set of rules regarding semantic content, cardinalities, and business rules to which the data contained in the intance document conforms.',
+        title: 'Specification identifier',
+      })
+    ).check(
       Schema.isStartingWith('urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0', {
         message:
           "PEPPOL-EN16931-R004: Specification identifier MUST have the value 'urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0'.",
@@ -158,7 +169,17 @@ export class PeppolBillingBase extends opaque<PeppolBillingBase>()(
      *
      * @name `cbc:ProfileID`
      */
-    profileId: Schema.String.pipe(Schema.withDecodingDefaultType(Effect.succeed(DEFAULT_PROFILE_ID))).check(
+    profileId: Schema.String.pipe(
+      Schema.withDecodingDefaultType(Effect.succeed(DEFAULT_PROFILE_ID)),
+      Schema.annotate({
+        xmlNamespace: CBC_NAMESPACE,
+        xmlPrefix: 'cbc',
+        xmlName: 'ProfileID',
+        description:
+          'Identifies the business process context in which the transaction appears, to enable the Buyer to process the Invoice in an appropriate way.',
+        title: 'Business process type',
+      })
+    ).check(
       Schema.isPattern(/^urn:fdc:peppol.eu:2017:poacc:billing:(\d{2}):1\.0$/, {
         message:
           "PEPPOL-EN16931-R007: Business process MUST be in the format 'urn:fdc:peppol.eu:2017:poacc:billing:NN:1.0' where NN indicates the process number.",
@@ -175,7 +196,16 @@ export class PeppolBillingBase extends opaque<PeppolBillingBase>()(
      *
      * @name `cbc:ID`
      */
-    id: Schema.String,
+    id: Schema.String.pipe(
+      Schema.annotate({
+        xmlNamespace: CBC_NAMESPACE,
+        xmlPrefix: 'cbc',
+        xmlName: 'ID',
+        description:
+          'A using identification of the Invoice. The sequential number required in Article 226(2) of the directive 2006/112/EC [2], to uniquely identify the Invoice within the business context, time-frame, operating systems and records of the Seller. No identification scheme is to be used.',
+        title: 'Invoice number',
+      })
+    ),
     /**
      * @description The date when the invoice was issued.
      *
@@ -188,7 +218,16 @@ export class PeppolBillingBase extends opaque<PeppolBillingBase>()(
      *
      * @name `cbc:IssueDate`
      */
-    issueDate: PeppolIsoDateString,
+    issueDate: PeppolIsoDateString.pipe(
+      Schema.annotate({
+        xmlNamespace: CBC_NAMESPACE,
+        xmlPrefix: 'cbc',
+        xmlName: 'IssueDate',
+        description: 'The date when the invoice was issued.',
+        examples: ['2017-11-01'] as unknown as ReadonlyArray<never>,
+        title: 'Invoice issue date',
+      })
+    ),
     /**
      * @description Invoice note A textual note that gives unstructured information that is relevant to the Credit Note as a whole.
      *
@@ -197,7 +236,15 @@ export class PeppolBillingBase extends opaque<PeppolBillingBase>()(
      *
      * @name `cbc:Note`
      */
-    note: Schema.optional(Schema.String),
+    note: Schema.optional(Schema.String).pipe(
+      Schema.annotate({
+        xmlNamespace: CBC_NAMESPACE,
+        xmlPrefix: 'cbc',
+        xmlName: 'Note',
+        description: 'Invoice note A textual note that gives unstructured information that is relevant to the Credit Note as a whole.',
+        title: 'Invoice note',
+      })
+    ),
     /**
      * @description The date when the VAT becomes accountable for the Seller and for the Buyer in so far as that date can be determined and differs from the date
      * of issue of the invoice, according to the VAT directive.This element is required if the Value added tax point date is different from the
@@ -210,7 +257,17 @@ export class PeppolBillingBase extends opaque<PeppolBillingBase>()(
      *
      * @name `cbc:TaxPointDate`
      */
-    taxPointDate: Schema.optional(PeppolIsoDateString),
+    taxPointDate: PeppolIsoDateString.pipe(
+      Schema.annotate({
+        xmlNamespace: CBC_NAMESPACE,
+        xmlPrefix: 'cbc',
+        xmlName: 'TaxPointDate',
+        description:
+          'The date when the VAT becomes accountable for the Seller and for the Buyer in so far as that date can be determined and differs from the date of issue of the invoice, according to the VAT directive.This element is required if the Value added tax point date is different from the Invoice issue date.',
+        title: 'Value added tax point date',
+      }),
+      Schema.optional
+    ),
     /**
      * @description The currency in which all Invoice amounts are given, except for the Total VAT amount in accounting currency. Only one currency shall be used in
      * the Invoice, except for the VAT accounting currency code (BT-6) and the invoice total VAT amount in accounting currency (BT-111).
@@ -222,7 +279,17 @@ export class PeppolBillingBase extends opaque<PeppolBillingBase>()(
      *
      * @name `cbc:DocumentCurrencyCode`
      */
-    documentCurrencyCode: PeppolCurrencyCode,
+    documentCurrencyCode: PeppolCurrencyCode.pipe(
+      Schema.annotate({
+        xmlNamespace: CBC_NAMESPACE,
+        xmlPrefix: 'cbc',
+        xmlName: 'DocumentCurrencyCode',
+        description:
+          'The currency in which all Invoice amounts are given, except for the Total VAT amount in accounting currency. Only one currency shall be used in the Invoice, except for the VAT accounting currency code (BT-6) and the invoice total VAT amount in accounting currency (BT-111).',
+        examples: ['EUR'] as unknown as ReadonlyArray<never>,
+        title: 'Invoice currency code',
+      })
+    ),
     /**
      * @description The currency used for VAT accounting and reporting purposes as accepted or required in the country of the Seller. Shall be used in combination
      * with the Invoice total VAT amount in accounting currency (BT-111), when the VAT accounting currency code differs from the Invoice currency
@@ -235,7 +302,18 @@ export class PeppolBillingBase extends opaque<PeppolBillingBase>()(
      *
      * @name `cbc:TaxCurrencyCode`
      */
-    taxCurrencyCode: Schema.optional(PeppolCurrencyCode),
+    taxCurrencyCode: PeppolCurrencyCode.pipe(
+      Schema.annotate({
+        xmlNamespace: CBC_NAMESPACE,
+        xmlPrefix: 'cbc',
+        xmlName: 'TaxCurrencyCode',
+        description:
+          'The currency used for VAT accounting and reporting purposes as accepted or required in the country of the Seller. Shall be used in combination with the Invoice total VAT amount in accounting currency (BT-111), when the VAT accounting currency code differs from the Invoice currency code.',
+        examples: ['SEK'] as unknown as ReadonlyArray<never>,
+        title: 'VAT accounting currency code',
+      }),
+      Schema.optional
+    ),
     /**
      * @description A textual value that specifies where to book the relevant data into the Buyer's financial accounts.
      *
@@ -246,7 +324,17 @@ export class PeppolBillingBase extends opaque<PeppolBillingBase>()(
      *
      * @name `cbc:AccountingCost`
      */
-    accountingCost: Schema.optional(Schema.String),
+    accountingCost: Schema.String.pipe(
+      Schema.annotate({
+        xmlNamespace: CBC_NAMESPACE,
+        xmlPrefix: 'cbc',
+        xmlName: 'AccountingCost',
+        description: "A textual value that specifies where to book the relevant data into the Buyer's financial accounts.",
+        examples: ['4217:2323:2323'] as unknown as ReadonlyArray<never>,
+        title: 'Buyer accounting reference',
+      }),
+      Schema.optional
+    ),
     /**
      * @description An identifier assigned by the Buyer used for internal routing purposes. An invoice must have buyer reference or purchase order reference
      * (BT-13).
@@ -258,7 +346,18 @@ export class PeppolBillingBase extends opaque<PeppolBillingBase>()(
      *
      * @name `cbc:BuyerReference`
      */
-    buyerReference: Schema.optional(Schema.String),
+    buyerReference: Schema.String.pipe(
+      Schema.annotate({
+        xmlNamespace: CBC_NAMESPACE,
+        xmlPrefix: 'cbc',
+        xmlName: 'BuyerReference',
+        description:
+          'An identifier assigned by the Buyer used for internal routing purposes. An invoice must have buyer reference or purchase order reference (BT-13).',
+        examples: ['abs1234'] as unknown as ReadonlyArray<never>,
+        title: 'Buyer reference',
+      }),
+      Schema.optional
+    ),
     /**
      * @description A group of business terms providing information on the invoice period. Also called delivery period. If the group is used, the invoiceing period
      * start date and/or end date must be used.
@@ -267,44 +366,61 @@ export class PeppolBillingBase extends opaque<PeppolBillingBase>()(
      *
      * @name `cac:InvoicePeriod`
      */
-    invoicePeriod: Schema.optional(PeppolInvoicePeriod),
+    invoicePeriod: PeppolInvoicePeriod.pipe(
+      Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'InvoicePeriod' }),
+      Schema.optional
+    ),
     /**
      * @summary ORDER AND SALES ORDER REFERENCE
      *
      * @name `cac:OrderReference`
      */
-    orderReference: Schema.optional(PeppolOrderReference),
+    orderReference: PeppolOrderReference.pipe(
+      Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'OrderReference' }),
+      Schema.optional
+    ),
     /**
      * @summary PRECEDING INVOICE REFERENCE (0..n)
      *
      * @name `cac:BillingReference`
      */
-    billingReferences: Schema.optional(Schema.Array(PeppolBillingReference)),
+    billingReferences: Schema.Array(PeppolBillingReference).pipe(
+      Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'BillingReference' }),
+      Schema.optional
+    ),
     /**
      * @summary DESPATCH ADVICE REFERENCE
      *
      * @name `cac:DespatchDocumentReference`
      */
-    despatchDocumentReference: Schema.optional(PeppolDespatchDocumentReference),
+    despatchDocumentReference: Schema.optional(PeppolDespatchDocumentReference).pipe(
+      Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'DespatchDocumentReference' })
+    ),
     /**
      * @summary RECEIPT ADVICE REFERENCE
      *
      * @name `cac:ReceiptDocumentReference`
      */
-    receiptDocumentReference: Schema.optional(PeppolReceiptDocumentReference),
+    receiptDocumentReference: Schema.optional(PeppolReceiptDocumentReference).pipe(
+      Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'ReceiptDocumentReference' })
+    ),
     /**
      * @summary TENDER OR LOT REFERENCE
      *
      * @name `cac:OriginatorDocumentReference`
      */
-    originatorDocumentReference: Schema.optional(PeppolOriginatorDocumentReference),
+    originatorDocumentReference: Schema.optional(PeppolOriginatorDocumentReference).pipe(
+      Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'OriginatorDocumentReference' })
+    ),
 
     /**
      * @summary CONTRACT REFERENCE
      *
      * @name `cac:ContractDocumentReference`
      */
-    contractDocumentReference: Schema.optional(PeppolContractDocumentReference),
+    contractDocumentReference: Schema.optional(PeppolContractDocumentReference).pipe(
+      Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'ContractDocumentReference' })
+    ),
 
     /**
      * @description A group of business terms providing information about additional supporting documents substantiating the claims made in the Invoice. The
@@ -315,7 +431,9 @@ export class PeppolBillingBase extends opaque<PeppolBillingBase>()(
      *
      * @name `cac:AdditionalDocumentReference`
      */
-    additionalDocumentReferences: Schema.optional(Schema.Array(PeppolAdditionalDocumentReference)),
+    additionalDocumentReferences: Schema.optional(Schema.Array(PeppolAdditionalDocumentReference)).pipe(
+      Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'AdditionalDocumentReference' })
+    ),
 
     /**
      * @description A group of business terms providing information about the seller.
@@ -324,7 +442,9 @@ export class PeppolBillingBase extends opaque<PeppolBillingBase>()(
      *
      * @name `cac:AccountingSupplierParty`
      */
-    accountingSupplierParty: PeppolPartySchema,
+    accountingSupplierParty: PeppolPartySchema.pipe(
+      Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'AccountingSupplierParty' })
+    ),
 
     /**
      * @description A group of business terms providing information about the Buyer.
@@ -333,7 +453,9 @@ export class PeppolBillingBase extends opaque<PeppolBillingBase>()(
      *
      * @name `cac:AccountingCustomerParty`
      */
-    accountingCustomerParty: PeppolPartySchema,
+    accountingCustomerParty: PeppolPartySchema.pipe(
+      Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'AccountingCustomerParty' })
+    ),
 
     /**
      * @description A group of business terms providing information about the Payee, i.e. the role that received the payment. Shall be used wwhen the payee is
@@ -343,21 +465,31 @@ export class PeppolBillingBase extends opaque<PeppolBillingBase>()(
      *
      * @name cac:PayeeParty
      */
-    payeeParty: Schema.optional(PeppolPayeeParty),
+    payeeParty: PeppolPayeeParty.pipe(
+      Schema.annotate({
+        xmlNamespace: CAC_NAMESPACE,
+        xmlPrefix: 'cac',
+        xmlName: 'PayeeParty',
+        description:
+          'A group of business terms providing information about the Payee, i.e. the role that received the payment. Shall be used wwhen the payee is different from the seller.',
+        title: 'PAYEE',
+      }),
+      Schema.optional
+    ),
 
     /**
      * @description SELLER TAX REPRESENTATIVE PARTY.
      *
      * @name cac:TaxRepresentativeParty
      */
-    taxRepresentativeParty: Schema.optional(PeppolTaxRepresentative),
+    taxRepresentativeParty: PeppolTaxRepresentative.pipe(Schema.optional),
 
     /**
      * @description DELIVERY INFORMATION.
      *
      * @name cac:Delivery
      */
-    delivery: Schema.optional(PeppolDelivery),
+    delivery: PeppolDelivery.pipe(Schema.optional),
 
     /**
      * @summary PAYMENT INSTRUCTIONS
@@ -365,7 +497,15 @@ export class PeppolBillingBase extends opaque<PeppolBillingBase>()(
      *
      * @name cac:PaymentMeans
      */
-    paymentMeans: Schema.optional(Schema.Array(PeppolPaymentMeans)),
+    paymentMeans: Schema.Array(PeppolPaymentMeans).pipe(
+      Schema.annotate({
+        xmlNamespace: CAC_NAMESPACE,
+        xmlPrefix: 'cac',
+        xmlName: 'PaymentMeans',
+        title: 'PAYMENT INSTRUCTIONS A group of business terms providing information about the payment.',
+      }),
+      Schema.optional
+    ),
 
     /**
      * @example
@@ -375,7 +515,7 @@ export class PeppolBillingBase extends opaque<PeppolBillingBase>()(
      *
      * @name cac:PaymentTerms
      */
-    paymentTerms: Schema.optional(PeppolPaymentTerms),
+    paymentTerms: PeppolPaymentTerms.pipe(Schema.optional),
 
     /**
      * @description A group of business terms providing information about allowances applicable to the Invoice as a whole. A group of business terms providing
@@ -385,7 +525,10 @@ export class PeppolBillingBase extends opaque<PeppolBillingBase>()(
      *
      * @name cac:AllowanceCharge
      */
-    allowanceCharges: Schema.optional(Schema.Array(PeppolAllowanceCharge)),
+    allowanceCharges: Schema.Array(PeppolAllowanceCharge).pipe(
+      Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'AllowanceCharge', message: 'unable to decode allowance charge' }),
+      Schema.optional
+    ),
 
     /**
      * @description When tax currency code is provided, two instances of the tax total must be present, but only one with tax subtotal.
@@ -394,13 +537,25 @@ export class PeppolBillingBase extends opaque<PeppolBillingBase>()(
      *
      * @name cac:TaxTotal
      */
-    taxTotals: Schema.Array(PeppolTaxTotal).check(Schema.isMinLength(1), Schema.isMaxLength(2)),
+    taxTotals: Schema.Array(PeppolTaxTotal)
+      .check(Schema.isMinLength(1), Schema.isMaxLength(2))
+      .pipe(
+        Schema.annotate({
+          xmlNamespace: CAC_NAMESPACE,
+          xmlPrefix: 'cac',
+          xmlName: 'TaxTotal',
+          description: 'When tax currency code is provided, two instances of the tax total must be present, but only one with tax subtotal.',
+          title: 'TAX TOTAL',
+        })
+      ),
 
     /**
      * @summary DOCUMENT TOTALS
      *
      * @name cac:LegalMonetaryTotal
      */
-    legalMonetaryTotal: PeppolLegalMonetaryTotal,
+    legalMonetaryTotal: PeppolLegalMonetaryTotal.pipe(
+      Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'LegalMonetaryTotal', title: 'DOCUMENT TOTALS' })
+    ),
   }).pipe(Schema.toStandardSchemaV1)
 ) {}

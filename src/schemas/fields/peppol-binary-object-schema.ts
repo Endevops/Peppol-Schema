@@ -1,5 +1,6 @@
 import { Schema } from 'effect';
 
+import { CBC_NAMESPACE } from '#/schemas/namespaces.ts';
 import { opaque } from '#/schemas/utils/opaque.ts';
 import { PeppolBase64 } from '#/schemas/utils/peppol-base-64-schema.ts';
 import { PeppolMimeCode } from '#/schemas/values/mime-codes-schema.ts';
@@ -33,7 +34,7 @@ export class PeppolBinaryObject extends opaque<PeppolBinaryObject>()(
      *
      * @name `#text` (Base64 content)
      */
-    content: Schema.Union([PeppolBase64, base64UrlSchema]),
+    content: Schema.Union([PeppolBase64, base64UrlSchema]).pipe(Schema.annotate({ xmlValue: true })),
     /**
      * @description The mime code of the attached document.
      *
@@ -44,7 +45,7 @@ export class PeppolBinaryObject extends opaque<PeppolBinaryObject>()(
      *
      * @name `@mimeCode`
      */
-    mimeCode: PeppolMimeCode,
+    mimeCode: PeppolMimeCode.pipe(Schema.annotate({ xmlAttribute: true, xmlName: 'mimeCode' })),
     /**
      * @description The file name of the attached document.
      *
@@ -55,6 +56,6 @@ export class PeppolBinaryObject extends opaque<PeppolBinaryObject>()(
      *
      * @name `@filename`
      */
-    filename: Schema.String,
-  }).pipe(Schema.toStandardSchemaV1)
+    filename: Schema.String.pipe(Schema.annotate({ xmlAttribute: true, xmlName: 'filename' })),
+  }).pipe(Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'EmbeddedDocumentBinaryObject' }), Schema.toStandardSchemaV1)
 ) {}

@@ -1,6 +1,7 @@
 import { Schema } from 'effect';
 
 import { PeppolInvoiceLinePeriod } from '#/schemas/fields/peppol-invoice-line-period-schema.ts';
+import { CBC_NAMESPACE, CAC_NAMESPACE } from '#/schemas/namespaces.ts';
 import { opaque } from '#/schemas/utils/opaque.ts';
 import { PeppolVatDateCode } from '#/schemas/values/vat-date-code-schema.ts';
 
@@ -25,8 +26,19 @@ export class PeppolInvoicePeriod extends opaque<PeppolInvoicePeriod>()(
        *
        * @name `cbc:DescriptionCode`
        */
-      descriptionCode: Schema.optional(PeppolVatDateCode),
+      descriptionCode: PeppolVatDateCode.pipe(
+        Schema.annotate({
+          xmlNamespace: CBC_NAMESPACE,
+          xmlPrefix: 'cbc',
+          xmlName: 'DescriptionCode',
+          description: 'The code of the date when the VAT becomes acccountable for the Seller and the Buyer.',
+          examples: ['35'] as unknown as ReadonlyArray<never>,
+          title: 'Value added tax point date code',
+        }),
+        Schema.optional
+      ),
     }),
+    Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'InvoicePeriod' }),
     Schema.toStandardSchemaV1
   )
 ) {}

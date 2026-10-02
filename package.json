@@ -75,10 +75,6 @@
       "development": "./src/values.ts",
       "default": "./dist/values.js"
     },
-    "./xml": {
-      "development": "./src/xml.ts",
-      "default": "./dist/xml.js"
-    },
     "./package.json": "./package.json"
   },
   "publishConfig": {
@@ -93,7 +89,6 @@
       "./schematron": "./dist/schematron.js",
       "./validations": "./dist/validations.js",
       "./values": "./dist/values.js",
-      "./xml": "./dist/xml.js",
       "./package.json": "./package.json"
     },
     "access": "public",
@@ -116,8 +111,9 @@
     "@effect/platform-node": "^4.0.0",
     "@effect/tsgo": "^0.46.1",
     "@effect/vitest": "^4.0.0",
-    "@endevops/builder": "^1.0.0-effect.2",
-    "@endevops/parser": "^1.0.0-effect.2",
+    "@endevops/effect-xml-codec": "*",
+    "@nodable/compact-builder": "^2.0.0",
+    "@nodable/flexible-xml-parser": "^1.11.3",
     "@types/bun": "^1.4.2",
     "@types/node": "^26.6.2",
     "@vitest/coverage-v8": "catalog:",
@@ -133,8 +129,6 @@
     "vitest": "catalog:"
   },
   "peerDependencies": {
-    "@endevops/builder": "*",
-    "@endevops/parser": "*",
     "effect": "^4.0.0"
   },
   "engines": {

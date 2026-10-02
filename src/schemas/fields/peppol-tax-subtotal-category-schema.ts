@@ -1,6 +1,7 @@
 import { Schema } from 'effect';
 
 import { PeppolTaxCategory } from '#/schemas/fields/peppol-tax-category-schema.ts';
+import { CBC_NAMESPACE, CAC_NAMESPACE } from '#/schemas/namespaces.ts';
 import { opaque } from '#/schemas/utils/opaque.ts';
 
 /**
@@ -18,14 +19,28 @@ export class PeppolTaxSubTotalCategory extends opaque<PeppolTaxSubTotalCategory>
      *
      * @name cbc:TaxExemptionReason
      */
-    taxExemptionReason: Schema.optional(Schema.String),
+    taxExemptionReason: Schema.optional(Schema.String).pipe(
+      Schema.annotate({
+        xmlNamespace: CBC_NAMESPACE,
+        xmlPrefix: 'cbc',
+        xmlName: 'TaxExemptionReason',
+        description: 'The reason for the tax exemption.',
+      })
+    ),
     /**
      * @description The code for the reason of the tax exemption.
      *
      * @name cbc:TaxExemptionReasonCode
      */
-    taxExemptionReasonCode: Schema.optional(Schema.String),
-  }).pipe(Schema.toStandardSchemaV1)
+    taxExemptionReasonCode: Schema.optional(Schema.String).pipe(
+      Schema.annotate({
+        xmlNamespace: CBC_NAMESPACE,
+        xmlPrefix: 'cbc',
+        xmlName: 'TaxExemptionReasonCode',
+        description: 'The code for the reason of the tax exemption.',
+      })
+    ),
+  }).pipe(Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'TaxCategory' }), Schema.toStandardSchemaV1)
 ) {}
 
 /**

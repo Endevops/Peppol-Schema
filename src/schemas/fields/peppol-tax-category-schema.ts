@@ -1,5 +1,6 @@
 import { Effect, Schema } from 'effect';
 
+import { CBC_NAMESPACE, CAC_NAMESPACE } from '#/schemas/namespaces.ts';
 import { opaque } from '#/schemas/utils/opaque.ts';
 import { PeppolDutyTaxFeeCategoryCode } from '#/schemas/values/duty-tax-fee-category-schema.ts';
 
@@ -18,7 +19,10 @@ export class PeppolTaxSchemeId extends opaque<PeppolTaxSchemeId>()(
     /**
      * @name `cbc:ID`
      */
-    id: Schema.String.pipe(Schema.withDecodingDefaultType(Effect.succeed('VAT'))),
+    id: Schema.String.pipe(
+      Schema.withDecodingDefaultType(Effect.succeed('VAT')),
+      Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'ID' })
+    ),
   }).pipe(Schema.toStandardSchemaV1)
 ) {}
 
@@ -38,7 +42,7 @@ export class PeppolTaxCategory extends opaque<PeppolTaxCategory>()(
      *
      * @name `cbc:ID`
      */
-    id: PeppolDutyTaxFeeCategoryCode,
+    id: PeppolDutyTaxFeeCategoryCode.pipe(Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'ID' })),
     /**
      * @description The VAT rate, represented as percentage that applies to the invoiced item.
      *
@@ -46,12 +50,12 @@ export class PeppolTaxCategory extends opaque<PeppolTaxCategory>()(
      *
      * @name `cbc:Percent`
      */
-    percent: Schema.optional(Schema.Finite),
+    percent: Schema.optional(Schema.Finite).pipe(Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'Percent' })),
     /**
      * @default VAT
      *
      * @name `cac:TaxScheme`
      */
-    taxSchemeId: PeppolTaxSchemeId,
-  }).pipe(Schema.toStandardSchemaV1)
+    taxSchemeId: PeppolTaxSchemeId.pipe(Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'TaxScheme' })),
+  }).pipe(Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'TaxCategory' }), Schema.toStandardSchemaV1)
 ) {}

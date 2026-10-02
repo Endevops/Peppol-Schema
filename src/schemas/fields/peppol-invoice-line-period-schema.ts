@@ -1,5 +1,6 @@
 import { Schema } from 'effect';
 
+import { CBC_NAMESPACE } from '#/schemas/namespaces.ts';
 import { PeppolIsoDateString } from '#/schemas/peppol-iso-date-string.ts';
 import { opaque } from '#/schemas/utils/opaque.ts';
 
@@ -28,7 +29,7 @@ export class PeppolInvoiceLinePeriod extends opaque<PeppolInvoiceLinePeriod>()(
      *
      * @name `cbc:EndDate`
      */
-    endDate: Schema.optional(PeppolIsoDateString),
+    endDate: Schema.optional(PeppolIsoDateString).pipe(Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'EndDate' })),
     /**
      * @description The date when the Invoice period for this Invoice line starts.
      *
@@ -41,6 +42,6 @@ export class PeppolInvoiceLinePeriod extends opaque<PeppolInvoiceLinePeriod>()(
      *
      * @name `cbc:StartDate`
      */
-    startDate: Schema.optional(PeppolIsoDateString),
+    startDate: Schema.optional(PeppolIsoDateString).pipe(Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'StartDate' })),
   }).pipe(Schema.toStandardSchemaV1)
 ) {}

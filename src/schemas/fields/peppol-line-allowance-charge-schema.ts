@@ -1,6 +1,7 @@
 import { Schema } from 'effect';
 
 import { PriceAllowanceCharge } from '#/schemas/fields/peppol-line-price-allowance-charge-schema.ts';
+import { CAC_NAMESPACE, CBC_NAMESPACE } from '#/schemas/namespaces.ts';
 import { opaque } from '#/schemas/utils/opaque.ts';
 import { PeppolAllowanceChargeReasonCode } from '#/schemas/values/allowance-charge-reason-code-schema.ts';
 import { PeppolChargeReasonCode } from '#/schemas/values/charge-reason-code-schema.ts';
@@ -24,14 +25,29 @@ export class BaseLineAllowanceCharge extends opaque<BaseLineAllowanceCharge>()(
      *
      * @name cbc:AllowanceChargeReason
      */,
-    allowanceChargeReason: Schema.optional(Schema.String),
+    allowanceChargeReason: Schema.String.pipe(
+      Schema.annotate({
+        xmlNamespace: CBC_NAMESPACE,
+        xmlPrefix: 'cbc',
+        xmlName: 'AllowanceChargeReason',
+        examples: ['Discount'] as unknown as ReadonlyArray<never>,
+      }),
+      Schema.optional
+    ),
     /**
      * @example
      *   20;
      *
      * @name cbc:MultiplierFactorNumeric
      */
-    multiplierFactorNumeric: Schema.optional(Schema.Finite),
+    multiplierFactorNumeric: Schema.optional(Schema.Finite).pipe(
+      Schema.annotate({
+        xmlNamespace: CBC_NAMESPACE,
+        xmlPrefix: 'cbc',
+        xmlName: 'MultiplierFactorNumeric',
+        examples: ['20'] as unknown as ReadonlyArray<never>,
+      })
+    ),
   }).pipe(Schema.toStandardSchemaV1)
 ) {}
 
@@ -52,15 +68,17 @@ export class PeppolLineAllowance extends opaque<PeppolLineAllowance>()(
     /**
      * @name cbc:AllowanceChargeReasonCode
      */
-    allowanceChargeReasonCode: Schema.optional(PeppolAllowanceChargeReasonCode),
+    allowanceChargeReasonCode: Schema.optional(PeppolAllowanceChargeReasonCode).pipe(
+      Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'AllowanceChargeReasonCode' })
+    ),
     /**
      * @name cbc:ChargeIndicator
      *
      * @value `false`
      */
-    chargeIndicator: Schema.Literal(false).annotate({
-      message: "PEPPOL-EN16931-R043: Allowance/charge ChargeIndicator value MUST equal 'true' or 'false'",
-    }),
+    chargeIndicator: Schema.Literal(false)
+      .annotate({ message: "PEPPOL-EN16931-R043: Allowance/charge ChargeIndicator value MUST equal 'true' or 'false'" })
+      .pipe(Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'ChargeIndicator' })),
   }).pipe(Schema.toStandardSchemaV1)
 ) {}
 
@@ -81,15 +99,17 @@ export class PeppolLineCharge extends opaque<PeppolLineCharge>()(
     /**
      * @name cbc:AllowanceChargeReasonCode
      */
-    allowanceChargeReasonCode: Schema.optional(PeppolChargeReasonCode),
+    allowanceChargeReasonCode: Schema.optional(PeppolChargeReasonCode).pipe(
+      Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'AllowanceChargeReasonCode' })
+    ),
     /**
      * @name cbc:ChargeIndicator
      *
      * @value `true`
      */
-    chargeIndicator: Schema.Literal(true).annotate({
-      message: "PEPPOL-EN16931-R043: Allowance/charge ChargeIndicator value MUST equal 'true' or 'false'",
-    }),
+    chargeIndicator: Schema.Literal(true)
+      .annotate({ message: "PEPPOL-EN16931-R043: Allowance/charge ChargeIndicator value MUST equal 'true' or 'false'" })
+      .pipe(Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'ChargeIndicator' })),
   }).pipe(Schema.toStandardSchemaV1)
 ) {}
 
@@ -104,9 +124,17 @@ export class PeppolLineCharge extends opaque<PeppolLineCharge>()(
  *
  * @see {@link PeppolLineAllowance}
  */
-export const PeppolLineAllowanceCharge = Schema.Union([PeppolLineAllowance, PeppolLineCharge])
-  .annotate({ message: 'unable to decode line allowance charge' })
-  .pipe(Schema.toStandardSchemaV1);
+export const PeppolLineAllowanceCharge = Schema.Union([PeppolLineAllowance, PeppolLineCharge]).pipe(
+  Schema.annotate({
+    message: 'unable to decode line allowance charge',
+    xmlNamespace: CAC_NAMESPACE,
+    xmlPrefix: 'cac',
+    xmlName: 'AllowanceCharge',
+    description: 'A group of business terms providing information about allowances or charges applicable to the individual Invoice line.',
+    title: 'Invoice line allowances or charges',
+  }),
+  Schema.toStandardSchemaV1
+);
 
 /**
  * @description Decoded form of {@link PeppolLineAllowanceCharge}: a line level allowance or charge.

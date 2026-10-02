@@ -3,6 +3,7 @@ import { Schema } from 'effect';
 import { PeppolIdentifier } from '#/schemas/fields/peppol-identifier-schema.ts';
 import { PeppolItemClassification } from '#/schemas/fields/peppol-item-classification-schema.ts';
 import { PeppolTaxCategory } from '#/schemas/fields/peppol-tax-category-schema.ts';
+import { CAC_NAMESPACE, CBC_NAMESPACE } from '#/schemas/namespaces.ts';
 import { opaque } from '#/schemas/utils/opaque.ts';
 import { PeppolIcdCode } from '#/schemas/values/icd-codes-schema.ts';
 import { PeppolCountryCodeValue } from '#/schemas/values/peppol-country-code-schema.ts';
@@ -26,7 +27,15 @@ export class PeppolAdditionalItemProperties extends opaque<PeppolAdditionalItemP
      *
      * @name cbc:Name
      */
-    name: Schema.String,
+    name: Schema.String.pipe(
+      Schema.annotate({
+        xmlNamespace: CBC_NAMESPACE,
+        xmlPrefix: 'cbc',
+        xmlName: 'Name',
+        description: 'The name of the attribute or property of the item.',
+        title: 'Item attribute name',
+      })
+    ),
     /**
      * @description The value of the attribute or property of the item.
      *
@@ -34,7 +43,15 @@ export class PeppolAdditionalItemProperties extends opaque<PeppolAdditionalItemP
      *
      * @name cbc:Value
      */
-    value: Schema.String,
+    value: Schema.String.pipe(
+      Schema.annotate({
+        xmlNamespace: CBC_NAMESPACE,
+        xmlPrefix: 'cbc',
+        xmlName: 'Value',
+        description: 'The value of the attribute or property of the item.',
+        title: 'Item attribute value',
+      })
+    ),
   }).pipe(Schema.toStandardSchemaV1)
 ) {}
 
@@ -60,7 +77,9 @@ export class PeppolCommodityClassifications extends opaque<PeppolCommodityClassi
      *
      * @name `cbc:ItemClassificationCode`
      */
-    itemClassification: PeppolItemClassification,
+    itemClassification: PeppolItemClassification.pipe(
+      Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'ItemClassificationCode' })
+    ),
   }).pipe(Schema.toStandardSchemaV1)
 ) {}
 
@@ -83,7 +102,9 @@ export class PeppolOriginCountryCode extends opaque<PeppolOriginCountryCode>()(
      *
      * @name `cbc:IdentificationCode`
      */
-    identificationCode: PeppolCountryCodeValue,
+    identificationCode: PeppolCountryCodeValue.pipe(
+      Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'IdentificationCode' })
+    ),
   }).pipe(Schema.toStandardSchemaV1)
 ) {}
 
@@ -115,7 +136,7 @@ export class PeppolStandardItemIdentification extends opaque<PeppolStandardItemI
          *
          * @name `#text`
          */
-        id: Schema.String,
+        id: Schema.String.pipe(Schema.annotate({ xmlValue: true })),
         /**
          * @description The identification scheme identifier of the Item standard identifier.
          *
@@ -123,8 +144,16 @@ export class PeppolStandardItemIdentification extends opaque<PeppolStandardItemI
          *
          * @name `@schemeID`
          */
-        schemeId: PeppolIcdCode,
-      })
+        schemeId: PeppolIcdCode.pipe(
+          Schema.annotate({
+            xmlAttribute: true,
+            xmlName: 'schemeID',
+            description: 'The identification scheme identifier of the Item standard identifier.',
+            title: 'Item standard identifier identification scheme identifier',
+          })
+        ),
+      }),
+      Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'ID' })
     ),
   }).pipe(Schema.toStandardSchemaV1)
 ) {}
@@ -151,7 +180,7 @@ export class PeppolSellersItemIdentification extends opaque<PeppolSellersItemIde
      *
      * @name `cbc:ID`
      */
-    id: Schema.String,
+    id: Schema.String.pipe(Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'ID' })),
   }).pipe(Schema.toStandardSchemaV1)
 ) {}
 
@@ -177,7 +206,7 @@ export class PeppolBuyersItemIdentification extends opaque<PeppolBuyersItemIdent
      *
      * @name `cbc:ID`
      */
-    id: Schema.String,
+    id: Schema.String.pipe(Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'ID' })),
   }).pipe(Schema.toStandardSchemaV1)
 ) {}
 
@@ -197,7 +226,16 @@ export class PeppolLineItem extends opaque<PeppolLineItem>()(
      *
      * @name cbc:Description
      */
-    description: Schema.optional(Schema.String),
+    description: Schema.optional(Schema.String).pipe(
+      Schema.annotate({
+        xmlNamespace: CBC_NAMESPACE,
+        xmlPrefix: 'cbc',
+        xmlName: 'Description',
+        description:
+          'A description for an item. The item description allows for descibing the item and its features in more detail than the item name.',
+        title: 'Item description',
+      })
+    ),
     /**
      * @description A name for an item.
      *
@@ -205,37 +243,49 @@ export class PeppolLineItem extends opaque<PeppolLineItem>()(
      *
      * @name cbc:Name
      */
-    name: Schema.String,
+    name: Schema.String.pipe(
+      Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'Name', description: 'A name for an item.', title: 'Item name' })
+    ),
     /**
      * @summary BUYERS ITEM IDENTIFICATION
      *
      * @name cac:BuyersItemIdentification
      */
-    buyersItemIdentification: Schema.optional(PeppolBuyersItemIdentification),
+    buyersItemIdentification: Schema.optional(PeppolBuyersItemIdentification).pipe(
+      Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'BuyersItemIdentification', title: 'BUYERS ITEM IDENTIFICATION' })
+    ),
     /**
      * @summary Sellers item identification
      *
      * @name cac:SellersItemIdentification
      */
-    sellersItemIdentification: Schema.optional(PeppolSellersItemIdentification),
+    sellersItemIdentification: Schema.optional(PeppolSellersItemIdentification).pipe(
+      Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'SellersItemIdentification', title: 'Sellers item identification' })
+    ),
     /**
      * @summary Standard item identification
      *
      * @name cac:StandardItemIdentification
      */
-    standardItemIdentification: Schema.optional(PeppolStandardItemIdentification),
+    standardItemIdentification: Schema.optional(PeppolStandardItemIdentification).pipe(
+      Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'StandardItemIdentification', title: 'Standard item identification' })
+    ),
     /**
      * @summary ORIGIN COUNTRY
      *
      * @name `cac:OriginCountry`
      */
-    originCountryCode: Schema.optional(PeppolOriginCountryCode),
+    originCountryCode: Schema.optional(PeppolOriginCountryCode).pipe(
+      Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'OriginCountry' })
+    ),
     /**
      * @summary COMMODITY CLASSIFICATION
      *
      * @name cac:CommodityClassification (0..n)
      */
-    commodityClassifications: Schema.optional(Schema.Array(PeppolCommodityClassifications)),
+    commodityClassifications: Schema.optional(Schema.Array(PeppolCommodityClassifications)).pipe(
+      Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'CommodityClassification', title: 'COMMODITY CLASSIFICATION' })
+    ),
     /**
      * @description A group of business terms providing information about the VAT applicable for the goods and services invoiced on the Invoice line.
      *
@@ -243,7 +293,16 @@ export class PeppolLineItem extends opaque<PeppolLineItem>()(
      *
      * @name cac:ClassifiedTaxCategory
      */
-    classifiedTaxCategory: PeppolTaxCategory,
+    classifiedTaxCategory: PeppolTaxCategory.pipe(
+      Schema.annotate({
+        xmlNamespace: CAC_NAMESPACE,
+        xmlPrefix: 'cac',
+        xmlName: 'ClassifiedTaxCategory',
+        description:
+          'A group of business terms providing information about the VAT applicable for the goods and services invoiced on the Invoice line.',
+        title: 'LINE VAT INFORMATION',
+      })
+    ),
     /**
      * @description A group of business terms providing information about properties of the goods and services invoiced.
      *
@@ -251,6 +310,14 @@ export class PeppolLineItem extends opaque<PeppolLineItem>()(
      *
      * @name cac:AdditionalItemProperty
      */
-    additionalItemProperties: Schema.optional(Schema.Array(PeppolAdditionalItemProperties)),
-  }).pipe(Schema.toStandardSchemaV1)
+    additionalItemProperties: Schema.optional(Schema.Array(PeppolAdditionalItemProperties)).pipe(
+      Schema.annotate({
+        xmlNamespace: CAC_NAMESPACE,
+        xmlPrefix: 'cac',
+        xmlName: 'AdditionalItemProperty',
+        description: 'A group of business terms providing information about properties of the goods and services invoiced.',
+        title: 'ITEM ATTRIBUTES',
+      })
+    ),
+  }).pipe(Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'Item' }), Schema.toStandardSchemaV1)
 ) {}

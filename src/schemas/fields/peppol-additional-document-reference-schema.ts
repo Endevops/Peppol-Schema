@@ -2,7 +2,9 @@ import { Schema } from 'effect';
 
 import { PeppolBinaryObject } from '#/schemas/fields/peppol-binary-object-schema.ts';
 import { PeppolIdentifier } from '#/schemas/fields/peppol-identifier-schema.ts';
+import { CAC_NAMESPACE, CBC_NAMESPACE } from '#/schemas/namespaces.ts';
 import { opaque } from '#/schemas/utils/opaque.ts';
+import { StringIdentifierSchema } from '#/schemas/utils/string-identifier-schema.ts';
 import { PeppolAdditionalDocumentReferenceCode } from '#/schemas/values/additional-document-reference-code-schema.ts';
 
 /**
@@ -29,7 +31,7 @@ export class PeppolAttachmentExternalReference extends opaque<PeppolAttachmentEx
      *
      * @name `cbc:URI`
      */
-    uri: Schema.String,
+    uri: Schema.String.pipe(Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'URI' })),
   }).pipe(Schema.toStandardSchemaV1)
 ) {}
 
@@ -64,14 +66,20 @@ export class PeppolAttachment extends opaque<PeppolAttachment>()(
      *
      * @name `cbc:EmbeddedDocumentBinaryObject`
      */
-    embeddedDocumentBinaryObject: Schema.optional(PeppolBinaryObject),
+    embeddedDocumentBinaryObject: PeppolBinaryObject.pipe(
+      Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'EmbeddedDocumentBinaryObject' }),
+      Schema.optional
+    ),
     /**
      * @summary EXTERNAL REFERENCE
      *
      * @name `cac:ExternalReference`
      */
-    externalReference: Schema.optional(PeppolAttachmentExternalReference),
-  }).pipe(Schema.toStandardSchemaV1)
+    externalReference: PeppolAttachmentExternalReference.pipe(
+      Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'ExternalReference' }),
+      Schema.optional
+    ),
+  }).pipe(Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'Attachment' }), Schema.toStandardSchemaV1)
 ) {}
 
 /**
@@ -85,7 +93,7 @@ export class PeppolAttachment extends opaque<PeppolAttachment>()(
  *
  * @see {@link PeppolAdditionalDocumentReference}
  */
-export class PeppolId extends opaque<PeppolId>()(
+export class PeppolAdditionalDocumentReferenceIdentifier extends opaque<PeppolAdditionalDocumentReferenceIdentifier>()(
   PeppolIdentifier.pipe(
     Schema.fieldsAssign({
       /**
@@ -96,7 +104,7 @@ export class PeppolId extends opaque<PeppolId>()(
        *
        * @name `#text`
        */
-      id: Schema.String,
+      id: Schema.String.pipe(Schema.annotate({ xmlValue: true })),
       /**
        * @description The identification scheme identifier of the Invoiced object identifier.
        *
@@ -104,7 +112,15 @@ export class PeppolId extends opaque<PeppolId>()(
        *
        * @name `@schemeID`
        */
-      schemeId: Schema.optional(PeppolAdditionalDocumentReferenceCode),
+      schemeId: PeppolAdditionalDocumentReferenceCode.pipe(
+        Schema.annotate({
+          xmlAttribute: true,
+          xmlName: 'schemeID',
+          description: 'The identification scheme identifier of the Invoiced object identifier.',
+          title: 'Scheme identifier',
+        }),
+        Schema.optional
+      ),
     }),
     Schema.toStandardSchemaV1
   )
@@ -120,47 +136,52 @@ export class PeppolId extends opaque<PeppolId>()(
  * @name `cac:AdditionalDocumentReference`
  */
 export class PeppolAdditionalDocumentReference extends opaque<PeppolAdditionalDocumentReference>()(
-  PeppolIdentifier.pipe(
-    Schema.fieldsAssign({
-      /**
-       * @description An identifier for an object on which the invoice is based (with DocumentTypeCode=130), given by the Seller, the identifier for the supporting
-       * document or the project reference identifier (DocumentTypeCode=50).
-       *
-       * @summary Invoiced object identifier, Supporting document reference or project reference
-       *
-       * @name `cbc:ID`
-       */
-      id: PeppolId,
-      /**
-       * @remarks
-       *   Code "130" MUST be used to indicate an invoice object reference and code "50" for project reference. Element is not used for other
-       *   additional documents.
-       *
-       * @default 130
-       *
-       * @summary Document type code
-       *
-       * @name `cbc:DocumentTypeCode`
-       */
-      documentTypeCode: Schema.optional(Schema.String),
-      /**
-       * @description A description of the supporting document, such as timesheet, usage report, etc.
-       *
-       * @example
-       *   Time list
-       *
-       * @summary Supporting document description
-       *
-       * @name `cbc:DocumentDescription`
-       */
-      documentDescription: Schema.optional(Schema.String),
-      /**
-       * @summary Attachment
-       *
-       * @name `cac:Attachment`
-       */
-      attachment: Schema.optional(PeppolAttachment),
-    }),
-    Schema.toStandardSchemaV1
-  )
+  Schema.Struct({
+    /**
+     * @description An identifier for an object on which the invoice is based (with DocumentTypeCode=130), given by the Seller, the identifier for the supporting
+     * document or the project reference identifier (DocumentTypeCode=50).
+     *
+     * @summary Invoiced object identifier, Supporting document reference or project reference
+     *
+     * @name `cbc:ID`
+     */
+    id: StringIdentifierSchema(PeppolAdditionalDocumentReferenceIdentifier).pipe(
+      Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'ID' })
+    ),
+    /**
+     * @remarks
+     *   Code "130" MUST be used to indicate an invoice object reference and code "50" for project reference. Element is not used for other additional
+     *   documents.
+     *
+     * @default 130
+     *
+     * @summary Document type code
+     *
+     * @name `cbc:DocumentTypeCode`
+     */
+    documentTypeCode: Schema.String.pipe(
+      Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'DocumentTypeCode' }),
+      Schema.optional
+    ),
+    /**
+     * @description A description of the supporting document, such as timesheet, usage report, etc.
+     *
+     * @example
+     *   Time list
+     *
+     * @summary Supporting document description
+     *
+     * @name `cbc:DocumentDescription`
+     */
+    documentDescription: Schema.String.pipe(
+      Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'DocumentDescription' }),
+      Schema.optional
+    ),
+    /**
+     * @summary Attachment
+     *
+     * @name `cac:Attachment`
+     */
+    attachment: PeppolAttachment.pipe(Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'Attachment' }), Schema.optional),
+  }).pipe(Schema.toStandardSchemaV1)
 ) {}

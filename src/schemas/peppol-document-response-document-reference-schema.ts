@@ -1,5 +1,6 @@
 import { Schema } from 'effect';
 
+import { CBC_NAMESPACE } from '#/schemas/namespaces.ts';
 import { opaque } from '#/schemas/utils/opaque.ts';
 import { PeppolDocumentTypeCode } from '#/schemas/values/peppol-document-type-code-schema.ts';
 
@@ -25,7 +26,7 @@ export class PeppolDocumentResponseDocumentReference extends opaque<PeppolDocume
      *
      * @name `cbc:ID`
      */
-    id: Schema.String,
+    id: Schema.String.pipe(Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'ID' })),
     /**
      * @description The type of the document being referred to, expressed as a code.
      *
@@ -33,7 +34,10 @@ export class PeppolDocumentResponseDocumentReference extends opaque<PeppolDocume
      *
      * @name `cbc:DocumentTypeCode`
      */
-    documentTypeCode: Schema.optional(PeppolDocumentTypeCode),
+    documentTypeCode: PeppolDocumentTypeCode.pipe(
+      Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'DocumentTypeCode' }),
+      Schema.optional
+    ),
     /**
      * @description The version of the document that has been identifier with the document identifier.
      *
@@ -44,6 +48,6 @@ export class PeppolDocumentResponseDocumentReference extends opaque<PeppolDocume
      *
      * @name `cbc:VersionID`
      */
-    versionId: Schema.optional(Schema.String),
+    versionId: Schema.String.pipe(Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'VersionID' }), Schema.optional),
   }).pipe(Schema.toStandardSchemaV1)
 ) {}

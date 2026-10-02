@@ -1,5 +1,6 @@
 import { Schema } from 'effect';
 
+import { CBC_NAMESPACE, CAC_NAMESPACE } from '#/schemas/namespaces.ts';
 import { PeppolIsoDateString } from '#/schemas/peppol-iso-date-string.ts';
 import { opaque } from '#/schemas/utils/opaque.ts';
 
@@ -26,7 +27,16 @@ export class PeppolInvoiceDocumentReference extends opaque<PeppolInvoiceDocument
      *
      * @name `cbc:ID`
      */
-    id: Schema.String,
+    id: Schema.String.pipe(
+      Schema.annotate({
+        xmlNamespace: CBC_NAMESPACE,
+        xmlPrefix: 'cbc',
+        xmlName: 'ID',
+        description: 'The identification of an Invoice that was previously sent by the seller.',
+        examples: ['inv123'] as unknown as ReadonlyArray<never>,
+        title: 'Preceding invoice number',
+      })
+    ),
     /**
      * @description The date when the preceding invoice was issued. Shall be provided in case the preceding invoice identifier is not unique.
      *
@@ -39,7 +49,16 @@ export class PeppolInvoiceDocumentReference extends opaque<PeppolInvoiceDocument
      *
      * @name `cbc:IssueDate`
      */
-    issueDate: Schema.optional(PeppolIsoDateString),
+    issueDate: Schema.optional(PeppolIsoDateString).pipe(
+      Schema.annotate({
+        xmlNamespace: CBC_NAMESPACE,
+        xmlPrefix: 'cbc',
+        xmlName: 'IssueDate',
+        description: 'The date when the preceding invoice was issued. Shall be provided in case the preceding invoice identifier is not unique.',
+        examples: ['2017-09-15'] as unknown as ReadonlyArray<never>,
+        title: 'Preceding invoice issue date',
+      })
+    ),
   }).pipe(Schema.toStandardSchemaV1)
 ) {}
 
@@ -60,6 +79,8 @@ export class PeppolBillingReference extends opaque<PeppolBillingReference>()(
      *
      * @name `cac:InvoiceDocumentReference`
      */
-    invoiceDocumentReference: PeppolInvoiceDocumentReference,
-  }).pipe(Schema.toStandardSchemaV1)
+    invoiceDocumentReference: PeppolInvoiceDocumentReference.pipe(
+      Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'InvoiceDocumentReference' })
+    ),
+  }).pipe(Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'BillingReference' }), Schema.toStandardSchemaV1)
 ) {}

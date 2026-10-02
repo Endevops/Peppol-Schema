@@ -1,5 +1,6 @@
 import { Effect, Schema } from 'effect';
 
+import { CBC_NAMESPACE, CAC_NAMESPACE } from '#/schemas/namespaces.ts';
 import { opaque } from '#/schemas/utils/opaque.ts';
 
 export class PeppolPartyTaxSchemeId extends opaque<PeppolPartyTaxSchemeId>()(
@@ -9,7 +10,16 @@ export class PeppolPartyTaxSchemeId extends opaque<PeppolPartyTaxSchemeId>()(
      *
      * @name cbc:ID
      */
-    id: Schema.String.pipe(Schema.withDecodingDefaultType(Effect.succeed('VAT'))),
+    id: Schema.String.pipe(
+      Schema.withDecodingDefaultType(Effect.succeed('VAT')),
+      Schema.annotate({
+        xmlNamespace: CBC_NAMESPACE,
+        xmlPrefix: 'cbc',
+        xmlName: 'ID',
+        description:
+          'Mandatory element. For Seller VAT identifier (BT-31), use value “VAT”, for the seller tax registration identifier (BT-32), use != "VAT"',
+      })
+    ),
   }).pipe(Schema.toStandardSchemaV1)
 ) {}
 
@@ -30,12 +40,12 @@ export class PeppolPartyTaxScheme extends opaque<PeppolPartyTaxScheme>()(
      *
      * @name `cbc:CompanyID`
      */
-    companyId: Schema.String,
+    companyId: Schema.String.pipe(Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'CompanyID' })),
     /**
      * @description Mandatory element. For Seller VAT identifier (BT-31), use value “VAT”, for the seller tax registration identifier (BT-32), use != "VAT"
      *
      * @name `cac:TaxScheme`
      */
-    taxSchemeId: PeppolPartyTaxSchemeId,
-  }).pipe(Schema.toStandardSchemaV1)
+    taxSchemeId: PeppolPartyTaxSchemeId.pipe(Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'TaxScheme' })),
+  }).pipe(Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'PartyTaxScheme' }), Schema.toStandardSchemaV1)
 ) {}

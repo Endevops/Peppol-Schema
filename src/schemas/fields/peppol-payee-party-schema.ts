@@ -1,10 +1,15 @@
 import { Schema } from 'effect';
 
 import { PeppolIdentifier } from '#/schemas/fields/peppol-identifier-schema.ts';
+import { CAC_NAMESPACE, CBC_NAMESPACE } from '#/schemas/namespaces.ts';
 import { opaque } from '#/schemas/utils/opaque.ts';
 import { PeppolIcdCode } from '#/schemas/values/icd-codes-schema.ts';
 
-export class PeppolPayeePartyName extends opaque<PeppolPayeePartyName>()(Schema.Struct({ name: Schema.String }).pipe(Schema.toStandardSchemaV1)) {}
+export class PeppolPayeePartyName extends opaque<PeppolPayeePartyName>()(
+  Schema.Struct({ name: Schema.String.pipe(Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'Name' })) }).pipe(
+    Schema.toStandardSchemaV1
+  )
+) {}
 
 export class PeppolPayeePartyLegalEntity extends opaque<PeppolPayeePartyLegalEntity>()(
   Schema.Struct({
@@ -31,7 +36,7 @@ export class PeppolPayeePartyLegalEntity extends opaque<PeppolPayeePartyLegalEnt
            *
            * @name `#text`
            */
-          id: Schema.String,
+          id: Schema.String.pipe(Schema.annotate({ xmlValue: true })),
           /**
            * @description The identification scheme identifier of the Payee legal registration identifier.
            *
@@ -39,10 +44,17 @@ export class PeppolPayeePartyLegalEntity extends opaque<PeppolPayeePartyLegalEnt
            *
            * @name `@schemeID`
            */
-          schemeId: Schema.optional(PeppolIcdCode),
+          schemeId: Schema.optional(PeppolIcdCode).pipe(
+            Schema.annotate({
+              xmlAttribute: true,
+              xmlName: 'schemeID',
+              description: 'The identification scheme identifier of the Payee legal registration identifier.',
+              title: 'Payee legal registration identifier identification scheme identifier',
+            })
+          ),
         })
       )
-    ),
+    ).pipe(Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'CompanyID' })),
   }).pipe(Schema.toStandardSchemaV1)
 ) {}
 
@@ -67,7 +79,7 @@ export class PeppolPayeePartyIdentification extends opaque<PeppolPayeePartyIdent
            *
            * @name `#text`
            */
-          id: Schema.String,
+          id: Schema.String.pipe(Schema.annotate({ xmlValue: true })),
           /**
            * @description The identification scheme identifier of the payee identifier. For bank assigned creditor identifier (BT-90), value MUST be "SEPA"
            *
@@ -75,10 +87,18 @@ export class PeppolPayeePartyIdentification extends opaque<PeppolPayeePartyIdent
            *
            * @name `@schemeID`
            */
-          schemeId: Schema.optional(Schema.String),
+          schemeId: Schema.optional(Schema.String).pipe(
+            Schema.annotate({
+              xmlAttribute: true,
+              xmlName: 'schemeID',
+              description:
+                'The identification scheme identifier of the payee identifier. For bank assigned creditor identifier (BT-90), value MUST be "SEPA"',
+              title: 'Payee or bank assigned creditor identifier identification scheme identifier',
+            })
+          ),
         })
       )
-    ),
+    ).pipe(Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'ID' })),
   }).pipe(Schema.toStandardSchemaV1)
 ) {}
 
@@ -97,13 +117,17 @@ export class PeppolPayeeParty extends opaque<PeppolPayeeParty>()(
      *
      * @name `cac:PartyIdentification`
      */
-    partyIdentification: Schema.optional(PeppolPayeePartyIdentification),
+    partyIdentification: Schema.optional(PeppolPayeePartyIdentification).pipe(
+      Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'PartyIdentification' })
+    ),
     /**
      * @summary PARTY LEGAL ENTITY
      *
      * @name `cac:PartyLegalEntity`
      */
-    partyLegalEntity: Schema.optional(PeppolPayeePartyLegalEntity),
+    partyLegalEntity: Schema.optional(PeppolPayeePartyLegalEntity).pipe(
+      Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'PartyLegalEntity' })
+    ),
     /**
      * @description The name of the payee.
      *
@@ -114,6 +138,6 @@ export class PeppolPayeeParty extends opaque<PeppolPayeeParty>()(
      *
      * @name `cac:PartyName`
      */
-    partyName: PeppolPayeePartyName,
-  }).pipe(Schema.toStandardSchemaV1)
+    partyName: PeppolPayeePartyName.pipe(Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'PartyName' })),
+  }).pipe(Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'PayeeParty' }), Schema.toStandardSchemaV1)
 ) {}

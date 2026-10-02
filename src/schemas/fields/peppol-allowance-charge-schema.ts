@@ -2,6 +2,7 @@ import { Effect, Schema } from 'effect';
 
 import { BaseLineAllowanceCharge } from '#/schemas/fields/peppol-line-allowance-charge-schema.ts';
 import { PeppolTaxCategory } from '#/schemas/fields/peppol-tax-category-schema.ts';
+import { CBC_NAMESPACE, CAC_NAMESPACE } from '#/schemas/namespaces.ts';
 import { opaque } from '#/schemas/utils/opaque.ts';
 import { PeppolAllowanceChargeReasonCode } from '#/schemas/values/allowance-charge-reason-code-schema.ts';
 import { PeppolChargeReasonCode } from '#/schemas/values/charge-reason-code-schema.ts';
@@ -24,7 +25,10 @@ export class PeppolTaxCategoryTaxSchemeId extends opaque<PeppolTaxCategoryTaxSch
      *
      * @name `cbc:ID`
      */
-    id: Schema.String.pipe(Schema.withDecodingDefaultType(Effect.succeed('VAT'))),
+    id: Schema.String.pipe(
+      Schema.withDecodingDefaultType(Effect.succeed('VAT')),
+      Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'ID' })
+    ),
   }).pipe(Schema.toStandardSchemaV1)
 ) {}
 
@@ -62,7 +66,7 @@ export class BaseAllowanceCharge extends opaque<BaseAllowanceCharge>()(
            *
            * @name `cbc:ID`
            */
-          id: PeppolDutyTaxFeeCategoryCode,
+          id: PeppolDutyTaxFeeCategoryCode.pipe(Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'ID' })),
           /**
            * @description The VAT rate, represented as percentage that applies to the document level allowance or charge.
            *
@@ -70,16 +74,16 @@ export class BaseAllowanceCharge extends opaque<BaseAllowanceCharge>()(
            *
            * @name `cbc:Percent`
            */
-          percent: Schema.optional(Schema.Finite),
+          percent: Schema.optional(Schema.Finite).pipe(Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'Percent' })),
           /**
            * @default VAT
            *
            * @name `cac:TaxScheme`
            */
-          taxSchemeId: PeppolTaxCategoryTaxSchemeId,
+          taxSchemeId: PeppolTaxCategoryTaxSchemeId.pipe(Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'TaxScheme' })),
         })
       )
-    ),
+    ).pipe(Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'TaxCategory', title: 'TAX CATEGORY' })),
   }).pipe(Schema.toStandardSchemaV1)
 ) {}
 
@@ -100,16 +104,27 @@ export class PeppolAllowance extends opaque<PeppolAllowance>()(
     /**
      * @name cbc:AllowanceChargeReasonCode
      */
-    allowanceChargeReasonCode: Schema.optional(PeppolAllowanceChargeReasonCode),
+    allowanceChargeReasonCode: Schema.optional(PeppolAllowanceChargeReasonCode).pipe(
+      Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'AllowanceChargeReasonCode' })
+    ),
     /**
      * @name cbc:ChargeIndicator
      *
      * @value `false`
      */
-    chargeIndicator: Schema.Literal(false).annotate({
-      message: "PEPPOL-EN16931-R043: Allowance/charge ChargeIndicator value MUST equal 'true' or 'false'",
+    chargeIndicator: Schema.Literal(false)
+      .annotate({ message: "PEPPOL-EN16931-R043: Allowance/charge ChargeIndicator value MUST equal 'true' or 'false'" })
+      .pipe(Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'ChargeIndicator' })),
+  }).pipe(
+    Schema.annotate({
+      xmlNamespace: CAC_NAMESPACE,
+      xmlPrefix: 'cac',
+      xmlName: 'AllowanceCharge',
+      description:
+        'A document level allowance, marked by a `cbc:ChargeIndicator` of `false`. Adds an allowance reason code to the shared document level allowance and charge fields.',
     }),
-  }).pipe(Schema.toStandardSchemaV1)
+    Schema.toStandardSchemaV1
+  )
 ) {}
 
 /**
@@ -129,15 +144,17 @@ export class PeppolCharge extends opaque<PeppolCharge>()(
     /**
      * @name cbc:AllowanceChargeReasonCode
      */
-    allowanceChargeReasonCode: Schema.optional(PeppolChargeReasonCode),
+    allowanceChargeReasonCode: Schema.optional(PeppolChargeReasonCode).pipe(
+      Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'AllowanceChargeReasonCode' })
+    ),
     /**
      * @name cbc:ChargeIndicator
      *
      * @value `true`
      */
-    chargeIndicator: Schema.Literal(true).annotate({
-      message: "PEPPOL-EN16931-R043: Allowance/charge ChargeIndicator value MUST equal 'true' or 'false'",
-    }),
+    chargeIndicator: Schema.Literal(true)
+      .annotate({ message: "PEPPOL-EN16931-R043: Allowance/charge ChargeIndicator value MUST equal 'true' or 'false'" })
+      .pipe(Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'ChargeIndicator' })),
   }).pipe(Schema.toStandardSchemaV1)
 ) {}
 
@@ -148,9 +165,10 @@ export class PeppolCharge extends opaque<PeppolCharge>()(
  *
  * @name cac:AllowanceCharge
  */
-export const PeppolAllowanceCharge = Schema.Union([PeppolAllowance, PeppolCharge])
-  .annotate({ message: 'unable to decode allowance charge' })
-  .pipe(Schema.toStandardSchemaV1);
+export const PeppolAllowanceCharge = Schema.Union([PeppolAllowance, PeppolCharge]).pipe(
+  Schema.annotate({ message: 'unable to decode allowance charge' }),
+  Schema.toStandardSchemaV1
+);
 
 /**
  * @description Decoded form of {@link PeppolAllowanceCharge}: a document level allowance or charge.

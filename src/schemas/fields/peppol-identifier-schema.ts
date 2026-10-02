@@ -1,5 +1,6 @@
 import { Schema } from 'effect';
 
+import { CBC_NAMESPACE } from '#/schemas/namespaces.ts';
 import { opaque } from '#/schemas/utils/opaque.ts';
 
 /**
@@ -20,10 +21,10 @@ export class PeppolIdentifier extends opaque<PeppolIdentifier>()(
     /**
      * @name cbc:ID
      */
-    id: Schema.String,
+    id: Schema.String.pipe(Schema.annotate({ xmlValue: true })),
     /**
      * @name `@schemeID`
      */
-    schemeId: Schema.optional(Schema.String),
-  }).pipe(Schema.toStandardSchemaV1)
+    schemeId: Schema.optional(Schema.String).pipe(Schema.annotate({ xmlName: 'schemeID', xmlAttribute: true })),
+  }).pipe(Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'ID' }), Schema.toStandardSchemaV1)
 ) {}
