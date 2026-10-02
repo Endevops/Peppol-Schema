@@ -20,14 +20,18 @@ async function withCountry(
   return {
     ...document,
     accountingSupplierParty: {
-      ...document.accountingSupplierParty,
-      partyTaxSchemes: [{ companyId: supplierVatPrefix, taxSchemeId: { id: 'VAT' } }],
-      postalAddress: { ...document.accountingSupplierParty.postalAddress, countryCode: { identificationCode: supplierCountry } },
+      party: {
+        ...document.accountingSupplierParty.party,
+        partyTaxSchemes: [{ companyId: supplierVatPrefix, taxSchemeId: { id: 'VAT' } }],
+        postalAddress: { ...document.accountingSupplierParty.party.postalAddress, countryCode: { identificationCode: supplierCountry } },
+      },
     },
     accountingCustomerParty: {
-      ...document.accountingCustomerParty,
-      partyTaxSchemes: [{ companyId: customerVatPrefix, taxSchemeId: { id: 'VAT' } }],
-      postalAddress: { ...document.accountingCustomerParty.postalAddress, countryCode: { identificationCode: customerCountry } },
+      party: {
+        ...document.accountingCustomerParty.party,
+        partyTaxSchemes: [{ companyId: customerVatPrefix, taxSchemeId: { id: 'VAT' } }],
+        postalAddress: { ...document.accountingCustomerParty.party.postalAddress, countryCode: { identificationCode: customerCountry } },
+      },
     },
   } as unknown as PeppolDocument;
 }
@@ -47,7 +51,7 @@ describe('GR-R-002 (Greek supplier full name)', () => {
       const document = yield* Effect.promise(async () => withCountry(await decodeBaseExample(), 'GR', 'BE'));
       const altered = {
         ...document,
-        accountingSupplierParty: { ...document.accountingSupplierParty, partyName: undefined },
+        accountingSupplierParty: { party: { ...document.accountingSupplierParty.party, partyName: undefined } },
       } as unknown as PeppolDocument;
       const result = yield* validateGrR002(altered).pipe(Effect.result);
       assert(Result.isFailure(result));

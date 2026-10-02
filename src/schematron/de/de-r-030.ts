@@ -18,7 +18,7 @@ function evaluateDeR030(document: PeppolDocument): boolean {
     return true;
   }
   const hasSepaCreditorId =
-    document.accountingSupplierParty.partyIdentification?.id?.schemeId === 'SEPA' ||
+    document.accountingSupplierParty.party.partyIdentification?.id?.schemeId === 'SEPA' ||
     document.payeeParty?.partyIdentification?.id?.schemeId === 'SEPA';
   return hasSepaCreditorId;
 }

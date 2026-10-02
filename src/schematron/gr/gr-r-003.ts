@@ -14,7 +14,7 @@ function evaluateGrR003(document: PeppolDocument): boolean {
   if (getSupplierCountry(document) !== 'GR' && getSupplierCountry(document) !== 'EL') {
     return true;
   }
-  const vatCompanyId = document.accountingSupplierParty.partyTaxSchemes?.find(
+  const vatCompanyId = document.accountingSupplierParty.party.partyTaxSchemes?.find(
     scheme => scheme.taxSchemeId.id.trim().toUpperCase() === 'VAT'
   )?.companyId;
   if (!vatCompanyId) {

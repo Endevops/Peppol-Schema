@@ -14,14 +14,18 @@ async function asIcelandic(document: PeppolDocument): Promise<PeppolDocument> {
   return {
     ...document,
     accountingSupplierParty: {
-      ...document.accountingSupplierParty,
-      partyTaxSchemes: [{ companyId: 'IS123456789', taxSchemeId: { id: 'VAT' } }],
-      postalAddress: { ...document.accountingSupplierParty.postalAddress, countryCode: { identificationCode: 'IS' } },
+      party: {
+        ...document.accountingSupplierParty.party,
+        partyTaxSchemes: [{ companyId: 'IS123456789', taxSchemeId: { id: 'VAT' } }],
+        postalAddress: { ...document.accountingSupplierParty.party.postalAddress, countryCode: { identificationCode: 'IS' } },
+      },
     },
     accountingCustomerParty: {
-      ...document.accountingCustomerParty,
-      partyTaxSchemes: [{ companyId: 'IS987654321', taxSchemeId: { id: 'VAT' } }],
-      postalAddress: { ...document.accountingCustomerParty.postalAddress, countryCode: { identificationCode: 'IS' } },
+      party: {
+        ...document.accountingCustomerParty.party,
+        partyTaxSchemes: [{ companyId: 'IS987654321', taxSchemeId: { id: 'VAT' } }],
+        postalAddress: { ...document.accountingCustomerParty.party.postalAddress, countryCode: { identificationCode: 'IS' } },
+      },
     },
   } as unknown as PeppolDocument;
 }
@@ -42,8 +46,10 @@ describe('IS-R-004 (buyer legal id scheme 0196)', () => {
       const altered = {
         ...document,
         accountingCustomerParty: {
-          ...document.accountingCustomerParty,
-          partyLegalEntity: { ...document.accountingCustomerParty.partyLegalEntity, companyId: undefined },
+          party: {
+            ...document.accountingCustomerParty.party,
+            partyLegalEntity: { ...document.accountingCustomerParty.party.partyLegalEntity, companyId: undefined },
+          },
         },
       } as unknown as PeppolDocument;
       const result = yield* validateIsR004(altered).pipe(Effect.result);
@@ -58,8 +64,10 @@ describe('IS-R-004 (buyer legal id scheme 0196)', () => {
       const altered = {
         ...document,
         accountingCustomerParty: {
-          ...document.accountingCustomerParty,
-          partyLegalEntity: { ...document.accountingCustomerParty.partyLegalEntity, companyId: { id: '1234567890', schemeId: '0196' } },
+          party: {
+            ...document.accountingCustomerParty.party,
+            partyLegalEntity: { ...document.accountingCustomerParty.party.partyLegalEntity, companyId: { id: '1234567890', schemeId: '0196' } },
+          },
         },
       } as unknown as PeppolDocument;
       yield* validateIsR004(altered);

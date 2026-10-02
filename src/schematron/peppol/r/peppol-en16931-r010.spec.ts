@@ -25,7 +25,7 @@ describe('PEPPOL-EN16931-R010 (buyer electronic address)', () => {
       const document = yield* Effect.promise(async () => decodeBaseExample());
       const altered = {
         ...document,
-        accountingCustomerParty: { ...document.accountingCustomerParty, endpointId: undefined },
+        accountingCustomerParty: { party: { ...document.accountingCustomerParty.party, endpointId: undefined } },
       } as unknown as PeppolDocument;
       const result = yield* validatePeppolEn16931R010(altered).pipe(Effect.result);
       assert(Result.isFailure(result));
@@ -38,7 +38,7 @@ describe('PEPPOL-EN16931-R010 (buyer electronic address)', () => {
       const document = yield* Effect.promise(async () => decodeBaseExample());
       const altered = {
         ...document,
-        accountingCustomerParty: { ...document.accountingCustomerParty, endpointId: { id: '  ', schemeId: '0088' } },
+        accountingCustomerParty: { party: { ...document.accountingCustomerParty.party, endpointId: { id: '  ', schemeId: '0088' } } },
       } as unknown as PeppolDocument;
       const result = yield* validatePeppolEn16931R010(altered).pipe(Effect.result);
       assert(Result.isFailure(result));

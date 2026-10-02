@@ -9,7 +9,7 @@ function evaluateDeR002(document: PeppolDocument): boolean {
   if (!isGermanSupplierAndCustomer(document)) {
     return true;
   }
-  return Boolean(document.accountingSupplierParty.contact);
+  return Boolean(document.accountingSupplierParty.party.contact);
 }
 
 export const validateDeR002 = schematronRule(rule, evaluateDeR002);

@@ -14,7 +14,7 @@ function evaluateDkR013(document: PeppolDocument): boolean {
   if (!isDanishSupplierAndCustomer(document)) {
     return true;
   }
-  const parties = [document.accountingSupplierParty, document.accountingCustomerParty];
+  const parties = [document.accountingSupplierParty.party, document.accountingCustomerParty.party];
   const passed = parties.every(party => {
     const id = party.partyIdentification?.id;
     return !id?.id || (typeof id.schemeId === 'string' && id.schemeId.trim() !== '');

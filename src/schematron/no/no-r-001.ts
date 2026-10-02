@@ -15,7 +15,7 @@ function evaluateNoR001(document: PeppolDocument): boolean {
   if (getSupplierCountry(document) !== 'NO') {
     return true;
   }
-  const vatCompanyId = document.accountingSupplierParty.partyTaxSchemes?.find(scheme => scheme.taxSchemeId.id === 'VAT')?.companyId;
+  const vatCompanyId = document.accountingSupplierParty.party.partyTaxSchemes?.find(scheme => scheme.taxSchemeId.id === 'VAT')?.companyId;
   if (!vatCompanyId || vatCompanyId.slice(0, 2) !== 'NO') {
     return true;
   }

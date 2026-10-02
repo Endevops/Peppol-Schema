@@ -9,7 +9,7 @@ function evaluateDkR002(document: PeppolDocument): boolean {
   if (getSupplierCountry(document) !== 'DK') {
     return true;
   }
-  const companyId = document.accountingSupplierParty.partyLegalEntity.companyId?.id;
+  const companyId = document.accountingSupplierParty.party.partyLegalEntity.companyId?.id;
   return typeof companyId === 'string' && companyId.trim() !== '';
 }
 

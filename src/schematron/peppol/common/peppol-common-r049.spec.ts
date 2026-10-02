@@ -11,7 +11,10 @@ import { decodeBaseExample } from '#/test/test-utils.ts';
 import { validatePeppolCommonR049 } from './peppol-common-r049.ts';
 
 async function withEndpointId(document: PeppolDocument, schemeId: string, id: string): Promise<PeppolDocument> {
-  return { ...document, accountingSupplierParty: { ...document.accountingSupplierParty, endpointId: { id, schemeId } } } as unknown as PeppolDocument;
+  return {
+    ...document,
+    accountingSupplierParty: { party: { ...document.accountingSupplierParty.party, endpointId: { id, schemeId } } },
+  } as unknown as PeppolDocument;
 }
 
 describe('PEPPOL-COMMON-R049 (Swedish org number, scheme 0007)', () => {

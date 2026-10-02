@@ -15,9 +15,11 @@ async function withSupplierCountry(document: PeppolDocument, country: string, va
   return {
     ...document,
     accountingSupplierParty: {
-      ...document.accountingSupplierParty,
-      postalAddress: { ...document.accountingSupplierParty.postalAddress, countryCode: { identificationCode: country } },
-      partyTaxSchemes: [{ companyId: vat, taxSchemeId: { id: 'VAT' } }],
+      party: {
+        ...document.accountingSupplierParty.party,
+        postalAddress: { ...document.accountingSupplierParty.party.postalAddress, countryCode: { identificationCode: country } },
+        partyTaxSchemes: [{ companyId: vat, taxSchemeId: { id: 'VAT' } }],
+      },
     },
   } as unknown as PeppolDocument;
 }
@@ -26,9 +28,11 @@ async function asItalian(document: PeppolDocument): Promise<PeppolDocument> {
   return {
     ...document,
     accountingSupplierParty: {
-      ...document.accountingSupplierParty,
-      partyTaxSchemes: [{ companyId: 'IT123456789', taxSchemeId: { id: 'VAT' } }],
-      postalAddress: { ...document.accountingSupplierParty.postalAddress, countryCode: { identificationCode: 'IT' } },
+      party: {
+        ...document.accountingSupplierParty.party,
+        partyTaxSchemes: [{ companyId: 'IT123456789', taxSchemeId: { id: 'VAT' } }],
+        postalAddress: { ...document.accountingSupplierParty.party.postalAddress, countryCode: { identificationCode: 'IT' } },
+      },
     },
   } as unknown as PeppolDocument;
 }
@@ -49,8 +53,10 @@ describe('IT-R-004 (Italian seller post code)', () => {
       const altered = {
         ...document,
         accountingSupplierParty: {
-          ...document.accountingSupplierParty,
-          postalAddress: { ...document.accountingSupplierParty.postalAddress, postalZone: undefined },
+          party: {
+            ...document.accountingSupplierParty.party,
+            postalAddress: { ...document.accountingSupplierParty.party.postalAddress, postalZone: undefined },
+          },
         },
       } as unknown as PeppolDocument;
       const result = yield* validateItR004(altered).pipe(Effect.result);
@@ -73,8 +79,10 @@ describe('IT-R-004 (Italian seller post code)', () => {
       const altered = {
         ...document,
         accountingSupplierParty: {
-          ...document.accountingSupplierParty,
-          postalAddress: { ...document.accountingSupplierParty.postalAddress, postalZone: undefined },
+          party: {
+            ...document.accountingSupplierParty.party,
+            postalAddress: { ...document.accountingSupplierParty.party.postalAddress, postalZone: undefined },
+          },
         },
       } as unknown as PeppolDocument;
       const result = yield* validateItR004(altered).pipe(Effect.result);

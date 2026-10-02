@@ -15,9 +15,11 @@ async function withSupplierCountry(document: PeppolDocument, country: string, va
   return {
     ...document,
     accountingSupplierParty: {
-      ...document.accountingSupplierParty,
-      postalAddress: { ...document.accountingSupplierParty.postalAddress, countryCode: { identificationCode: country } },
-      partyTaxSchemes: [{ companyId: vat, taxSchemeId: { id: 'VAT' } }],
+      party: {
+        ...document.accountingSupplierParty.party,
+        postalAddress: { ...document.accountingSupplierParty.party.postalAddress, countryCode: { identificationCode: country } },
+        partyTaxSchemes: [{ companyId: vat, taxSchemeId: { id: 'VAT' } }],
+      },
     },
   } as unknown as PeppolDocument;
 }
@@ -38,11 +40,13 @@ describe('IT-R-001 (Italian seller tax registration identifier length)', () => {
       const altered = {
         ...document,
         accountingSupplierParty: {
-          ...document.accountingSupplierParty,
-          partyTaxSchemes: [
-            { companyId: '1234567890', taxSchemeId: { id: 'TAX' } },
-            { companyId: 'IT123456789', taxSchemeId: { id: 'VAT' } },
-          ],
+          party: {
+            ...document.accountingSupplierParty.party,
+            partyTaxSchemes: [
+              { companyId: '1234567890', taxSchemeId: { id: 'TAX' } },
+              { companyId: 'IT123456789', taxSchemeId: { id: 'VAT' } },
+            ],
+          },
         },
       } as unknown as PeppolDocument;
       const result = yield* validateItR001(altered).pipe(Effect.result);

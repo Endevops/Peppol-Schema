@@ -11,8 +11,8 @@ const rule = {
 
 function evaluateCenEn16931Br11(document: PeppolDocument): boolean {
   const passed =
-    typeof document.accountingCustomerParty.postalAddress.countryCode.identificationCode === 'string' &&
-    document.accountingCustomerParty.postalAddress.countryCode.identificationCode.trim() !== '';
+    typeof document.accountingCustomerParty.party.postalAddress.countryCode.identificationCode === 'string' &&
+    document.accountingCustomerParty.party.postalAddress.countryCode.identificationCode.trim() !== '';
   return passed;
 }
 

@@ -14,12 +14,16 @@ async function asGerman(document: PeppolDocument): Promise<PeppolDocument> {
   return {
     ...document,
     accountingSupplierParty: {
-      ...document.accountingSupplierParty,
-      postalAddress: { ...document.accountingSupplierParty.postalAddress, countryCode: { identificationCode: 'DE' } },
+      party: {
+        ...document.accountingSupplierParty.party,
+        postalAddress: { ...document.accountingSupplierParty.party.postalAddress, countryCode: { identificationCode: 'DE' } },
+      },
     },
     accountingCustomerParty: {
-      ...document.accountingCustomerParty,
-      postalAddress: { ...document.accountingCustomerParty.postalAddress, countryCode: { identificationCode: 'DE' } },
+      party: {
+        ...document.accountingCustomerParty.party,
+        postalAddress: { ...document.accountingCustomerParty.party.postalAddress, countryCode: { identificationCode: 'DE' } },
+      },
     },
   } as unknown as PeppolDocument;
 }
@@ -52,7 +56,9 @@ describe('DE-R-030 (direct debit requires SEPA creditor id)', () => {
       const document = yield* Effect.promise(async () => asGerman(await decodeBaseExample()));
       const altered = {
         ...document,
-        accountingSupplierParty: { ...document.accountingSupplierParty, partyIdentification: { id: { id: 'SEPA-CREDITOR', schemeId: 'SEPA' } } },
+        accountingSupplierParty: {
+          party: { ...document.accountingSupplierParty.party, partyIdentification: { id: { id: 'SEPA-CREDITOR', schemeId: 'SEPA' } } },
+        },
         paymentMeans: [{ paymentMeansCode: { code: '59' }, paymentMandate: { id: 'MANDATE-1' } }],
       } as unknown as PeppolDocument;
       yield* validateDeR030(altered);

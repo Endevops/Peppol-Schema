@@ -16,7 +16,7 @@ function evaluateNlR005(document: PeppolDocument): boolean {
   if (getSupplierCountry(document) !== 'NL' || getCustomerCountry(document) !== 'NL') {
     return true;
   }
-  const companyId = document.accountingCustomerParty.partyLegalEntity.companyId;
+  const companyId = document.accountingCustomerParty.party.partyLegalEntity.companyId;
   if (!companyId?.id) {
     return true;
   }

@@ -13,7 +13,7 @@ function evaluateItR002(document: PeppolDocument): boolean {
   if (getSupplierCountry(document) !== 'IT') {
     return true;
   }
-  const streetName = document.accountingSupplierParty.postalAddress.streetName;
+  const streetName = document.accountingSupplierParty.party.postalAddress.streetName;
   return typeof streetName === 'string' && streetName.trim() !== '';
 }
 

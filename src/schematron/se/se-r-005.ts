@@ -13,7 +13,7 @@ function evaluateSeR005(document: PeppolDocument): boolean {
   if (getSupplierCountry(document) !== 'SE') {
     return true;
   }
-  const nonVatScheme = document.accountingSupplierParty.partyTaxSchemes?.find(scheme => scheme.taxSchemeId.id.toUpperCase() !== 'VAT');
+  const nonVatScheme = document.accountingSupplierParty.party.partyTaxSchemes?.find(scheme => scheme.taxSchemeId.id.toUpperCase() !== 'VAT');
   if (!nonVatScheme) {
     return true;
   }

@@ -14,14 +14,18 @@ async function asDutch(document: PeppolDocument): Promise<PeppolDocument> {
   return {
     ...document,
     accountingSupplierParty: {
-      ...document.accountingSupplierParty,
-      partyTaxSchemes: [{ companyId: 'NL123456789', taxSchemeId: { id: 'VAT' } }],
-      postalAddress: { ...document.accountingSupplierParty.postalAddress, countryCode: { identificationCode: 'NL' } },
+      party: {
+        ...document.accountingSupplierParty.party,
+        partyTaxSchemes: [{ companyId: 'NL123456789', taxSchemeId: { id: 'VAT' } }],
+        postalAddress: { ...document.accountingSupplierParty.party.postalAddress, countryCode: { identificationCode: 'NL' } },
+      },
     },
     accountingCustomerParty: {
-      ...document.accountingCustomerParty,
-      partyTaxSchemes: [{ companyId: 'NL987654321', taxSchemeId: { id: 'VAT' } }],
-      postalAddress: { ...document.accountingCustomerParty.postalAddress, countryCode: { identificationCode: 'NL' } },
+      party: {
+        ...document.accountingCustomerParty.party,
+        partyTaxSchemes: [{ companyId: 'NL987654321', taxSchemeId: { id: 'VAT' } }],
+        postalAddress: { ...document.accountingCustomerParty.party.postalAddress, countryCode: { identificationCode: 'NL' } },
+      },
     },
   } as unknown as PeppolDocument;
 }

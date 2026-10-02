@@ -15,9 +15,11 @@ async function withSupplierCountry(document: PeppolDocument, country: string, va
   return {
     ...document,
     accountingSupplierParty: {
-      ...document.accountingSupplierParty,
-      postalAddress: { ...document.accountingSupplierParty.postalAddress, countryCode: { identificationCode: country } },
-      partyTaxSchemes: [{ companyId: vat, taxSchemeId: { id: 'VAT' } }],
+      party: {
+        ...document.accountingSupplierParty.party,
+        postalAddress: { ...document.accountingSupplierParty.party.postalAddress, countryCode: { identificationCode: country } },
+        partyTaxSchemes: [{ companyId: vat, taxSchemeId: { id: 'VAT' } }],
+      },
     },
   } as unknown as PeppolDocument;
 }
@@ -38,8 +40,10 @@ describe('IT-R-002 (Italian supplier address)', () => {
       const altered = {
         ...document,
         accountingSupplierParty: {
-          ...document.accountingSupplierParty,
-          postalAddress: { ...document.accountingSupplierParty.postalAddress, streetName: undefined },
+          party: {
+            ...document.accountingSupplierParty.party,
+            postalAddress: { ...document.accountingSupplierParty.party.postalAddress, streetName: undefined },
+          },
         },
       } as unknown as PeppolDocument;
       const result = yield* validateItR002(altered).pipe(Effect.result);

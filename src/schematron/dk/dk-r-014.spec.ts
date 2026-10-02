@@ -15,9 +15,11 @@ async function withSupplierCountry(document: PeppolDocument, country: string, va
   return {
     ...document,
     accountingSupplierParty: {
-      ...document.accountingSupplierParty,
-      postalAddress: { ...document.accountingSupplierParty.postalAddress, countryCode: { identificationCode: country } },
-      partyTaxSchemes: [{ companyId: vat, taxSchemeId: { id: 'VAT' } }],
+      party: {
+        ...document.accountingSupplierParty.party,
+        postalAddress: { ...document.accountingSupplierParty.party.postalAddress, countryCode: { identificationCode: country } },
+        partyTaxSchemes: [{ companyId: vat, taxSchemeId: { id: 'VAT' } }],
+      },
     },
   } as unknown as PeppolDocument;
 }
@@ -38,8 +40,10 @@ describe('DK-R-014 (schemeID 0184 for Danish suppliers)', () => {
       const altered = {
         ...document,
         accountingSupplierParty: {
-          ...document.accountingSupplierParty,
-          partyLegalEntity: { ...document.accountingSupplierParty.partyLegalEntity, companyId: { id: '12345678', schemeId: '0190' } },
+          party: {
+            ...document.accountingSupplierParty.party,
+            partyLegalEntity: { ...document.accountingSupplierParty.party.partyLegalEntity, companyId: { id: '12345678', schemeId: '0190' } },
+          },
         },
       } as unknown as PeppolDocument;
       const result = yield* validateDkR014(altered).pipe(Effect.result);

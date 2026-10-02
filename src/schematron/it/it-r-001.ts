@@ -14,7 +14,7 @@ function evaluateItR001(document: PeppolDocument): boolean {
     return true;
   }
   const companyIds =
-    document.accountingSupplierParty.partyTaxSchemes?.filter(scheme => scheme.taxSchemeId.id !== 'VAT').map(scheme => scheme.companyId) ?? [];
+    document.accountingSupplierParty.party.partyTaxSchemes?.filter(scheme => scheme.taxSchemeId.id !== 'VAT').map(scheme => scheme.companyId) ?? [];
   const passed = companyIds.every(id => /^[A-Z0-9]{11,16}$/.test(id));
   return passed;
 }

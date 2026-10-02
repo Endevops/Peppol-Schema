@@ -10,7 +10,8 @@ const rule = {
 } as const satisfies SchematronRule;
 
 function evaluateCenEn16931Br08(document: PeppolDocument): boolean {
-  const passed = typeof document.accountingSupplierParty.postalAddress === 'object' && document.accountingSupplierParty.postalAddress !== null;
+  const passed =
+    typeof document.accountingSupplierParty.party.postalAddress === 'object' && document.accountingSupplierParty.party.postalAddress !== null;
   return passed;
 }
 

@@ -25,7 +25,7 @@ describe('PEPPOL-EN16931-CL008 (electronic address scheme)', () => {
       const document = yield* Effect.promise(async () => decodeBaseExample());
       const altered = {
         ...document,
-        accountingSupplierParty: { ...document.accountingSupplierParty, endpointId: { id: '123', schemeId: '9999' } },
+        accountingSupplierParty: { party: { ...document.accountingSupplierParty.party, endpointId: { id: '123', schemeId: '9999' } } },
       } as unknown as PeppolDocument;
       const result = yield* validatePeppolEn16931CL008(altered).pipe(Effect.result);
       assert(Result.isFailure(result));

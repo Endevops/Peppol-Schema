@@ -20,14 +20,18 @@ async function withCountry(
   return {
     ...document,
     accountingSupplierParty: {
-      ...document.accountingSupplierParty,
-      partyTaxSchemes: [{ companyId: supplierVatPrefix, taxSchemeId: { id: 'VAT' } }],
-      postalAddress: { ...document.accountingSupplierParty.postalAddress, countryCode: { identificationCode: supplierCountry } },
+      party: {
+        ...document.accountingSupplierParty.party,
+        partyTaxSchemes: [{ companyId: supplierVatPrefix, taxSchemeId: { id: 'VAT' } }],
+        postalAddress: { ...document.accountingSupplierParty.party.postalAddress, countryCode: { identificationCode: supplierCountry } },
+      },
     },
     accountingCustomerParty: {
-      ...document.accountingCustomerParty,
-      partyTaxSchemes: [{ companyId: customerVatPrefix, taxSchemeId: { id: 'VAT' } }],
-      postalAddress: { ...document.accountingCustomerParty.postalAddress, countryCode: { identificationCode: customerCountry } },
+      party: {
+        ...document.accountingCustomerParty.party,
+        partyTaxSchemes: [{ companyId: customerVatPrefix, taxSchemeId: { id: 'VAT' } }],
+        postalAddress: { ...document.accountingCustomerParty.party.postalAddress, countryCode: { identificationCode: customerCountry } },
+      },
     },
   } as unknown as PeppolDocument;
 }
@@ -48,8 +52,10 @@ describe('IS-R-003 (Icelandic seller address)', () => {
       const altered = {
         ...document,
         accountingSupplierParty: {
-          ...document.accountingSupplierParty,
-          postalAddress: { ...document.accountingSupplierParty.postalAddress, postalZone: undefined },
+          party: {
+            ...document.accountingSupplierParty.party,
+            postalAddress: { ...document.accountingSupplierParty.party.postalAddress, postalZone: undefined },
+          },
         },
       } as unknown as PeppolDocument;
       const result = yield* validateIsR003(altered).pipe(Effect.result);

@@ -13,7 +13,7 @@ function evaluateIsR005(document: PeppolDocument): boolean {
   if (getSupplierCountry(document) !== 'IS' || getCustomerCountry(document) !== 'IS') {
     return true;
   }
-  const address = document.accountingCustomerParty.postalAddress;
+  const address = document.accountingCustomerParty.party.postalAddress;
   return Boolean(address.streetName) && Boolean(address.postalZone);
 }
 

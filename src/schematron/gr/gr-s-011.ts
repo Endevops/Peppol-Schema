@@ -13,7 +13,8 @@ function evaluateGrS011(document: PeppolDocument): boolean {
   if (getSupplierCountry(document) !== 'GR' && getSupplierCountry(document) !== 'EL') {
     return true;
   }
-  const vatSchemes = document.accountingSupplierParty.partyTaxSchemes?.filter(scheme => scheme.taxSchemeId.id.trim().toUpperCase() === 'VAT') ?? [];
+  const vatSchemes =
+    document.accountingSupplierParty.party.partyTaxSchemes?.filter(scheme => scheme.taxSchemeId.id.trim().toUpperCase() === 'VAT') ?? [];
   if (vatSchemes.length !== 1) {
     return false;
   }

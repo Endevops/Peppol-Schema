@@ -13,7 +13,7 @@ function evaluateIsR002(document: PeppolDocument): boolean {
   if (getSupplierCountry(document) !== 'IS') {
     return true;
   }
-  const companyId = document.accountingSupplierParty.partyLegalEntity.companyId;
+  const companyId = document.accountingSupplierParty.party.partyLegalEntity.companyId;
   return Boolean(companyId?.id) && companyId?.schemeId === '0196';
 }
 

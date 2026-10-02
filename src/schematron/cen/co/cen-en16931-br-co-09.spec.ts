@@ -21,7 +21,7 @@ describe('CEN-EN16931-BR-CO-09', () => {
     'fails when the rule is violated',
     Effect.fn(function* () {
       const document = yield* Effect.promise(async () => (await decodeBaseExample()) as any);
-      document.accountingSupplierParty.partyTaxSchemes = [{ companyId: 'ZZ12345', taxSchemeId: { id: 'VAT' } }];
+      document.accountingSupplierParty.party.partyTaxSchemes = [{ companyId: 'ZZ12345', taxSchemeId: { id: 'VAT' } }];
       const result = yield* validateCenEn16931BrCo09(document).pipe(Effect.result);
       assert(Result.isFailure(result));
     })

@@ -13,7 +13,7 @@ function evaluateNoR002(document: PeppolDocument): boolean {
   if (getSupplierCountry(document) !== 'NO') {
     return true;
   }
-  const taxCompanyId = document.accountingSupplierParty.partyTaxSchemes?.find(scheme => scheme.taxSchemeId.id === 'TAX')?.companyId;
+  const taxCompanyId = document.accountingSupplierParty.party.partyTaxSchemes?.find(scheme => scheme.taxSchemeId.id === 'TAX')?.companyId;
   return taxCompanyId === 'Foretaksregisteret';
 }
 

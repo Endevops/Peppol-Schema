@@ -13,7 +13,7 @@ function evaluateItR004(document: PeppolDocument): boolean {
   if (getSupplierCountry(document) !== 'IT') {
     return true;
   }
-  const postalZone = document.accountingSupplierParty.postalAddress.postalZone;
+  const postalZone = document.accountingSupplierParty.party.postalAddress.postalZone;
   return typeof postalZone === 'string' && postalZone.trim() !== '';
 }
 

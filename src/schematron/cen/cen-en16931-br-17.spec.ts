@@ -22,7 +22,7 @@ describe('CEN-EN16931-BR-17', () => {
     Effect.fn(function* () {
       const document = yield* Effect.promise(async () => (await decodeBaseExample()) as any);
       document.payeeParty = {
-        partyName: { name: document.accountingSupplierParty.partyLegalEntity.registrationName },
+        partyName: { name: document.accountingSupplierParty.party.partyLegalEntity.registrationName },
         partyIdentification: undefined,
         partyLegalEntity: undefined,
       };

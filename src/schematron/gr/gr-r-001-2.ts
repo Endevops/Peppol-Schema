@@ -20,7 +20,7 @@ function evaluateGrR001_2(document: PeppolDocument): boolean {
   if (!firstSegment || firstSegment.trim().length !== 9) {
     return false;
   }
-  const supplierTin = document.accountingSupplierParty.partyTaxSchemes
+  const supplierTin = document.accountingSupplierParty.party.partyTaxSchemes
     ?.find(scheme => scheme.taxSchemeId.id.trim().toUpperCase() === 'VAT')
     ?.companyId.slice(2);
   const taxRepTin = document.taxRepresentativeParty?.partyTaxScheme.companyId.slice(2);

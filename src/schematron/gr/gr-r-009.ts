@@ -16,7 +16,7 @@ function evaluateGrR009(document: PeppolDocument): boolean {
   if (supplierCountry !== 'GR' && supplierCountry !== 'EL') {
     return true;
   }
-  const endpointId = document.accountingSupplierParty.endpointId;
+  const endpointId = document.accountingSupplierParty.party.endpointId;
   return endpointId?.schemeId === '9933' && greekTinVerification(endpointId.id);
 }
 

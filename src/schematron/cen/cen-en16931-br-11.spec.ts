@@ -21,7 +21,7 @@ describe('CEN-EN16931-BR-11', () => {
     'fails when the rule is violated',
     Effect.fn(function* () {
       const document = yield* Effect.promise(async () => (await decodeBaseExample()) as any);
-      document.accountingCustomerParty.postalAddress.countryCode.identificationCode = '';
+      document.accountingCustomerParty.party.postalAddress.countryCode.identificationCode = '';
       const result = yield* validateCenEn16931Br11(document).pipe(Effect.result);
       assert(Result.isFailure(result));
     })

@@ -11,8 +11,8 @@ const rule = {
 
 function evaluateCenEn16931Br07(document: PeppolDocument): boolean {
   const passed =
-    typeof document.accountingCustomerParty.partyLegalEntity.registrationName === 'string' &&
-    document.accountingCustomerParty.partyLegalEntity.registrationName.trim() !== '';
+    typeof document.accountingCustomerParty.party.partyLegalEntity.registrationName === 'string' &&
+    document.accountingCustomerParty.party.partyLegalEntity.registrationName.trim() !== '';
   return passed;
 }
 

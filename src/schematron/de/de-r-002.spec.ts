@@ -14,12 +14,16 @@ async function asGerman(document: PeppolDocument): Promise<PeppolDocument> {
   return {
     ...document,
     accountingSupplierParty: {
-      ...document.accountingSupplierParty,
-      postalAddress: { ...document.accountingSupplierParty.postalAddress, countryCode: { identificationCode: 'DE' } },
+      party: {
+        ...document.accountingSupplierParty.party,
+        postalAddress: { ...document.accountingSupplierParty.party.postalAddress, countryCode: { identificationCode: 'DE' } },
+      },
     },
     accountingCustomerParty: {
-      ...document.accountingCustomerParty,
-      postalAddress: { ...document.accountingCustomerParty.postalAddress, countryCode: { identificationCode: 'DE' } },
+      party: {
+        ...document.accountingCustomerParty.party,
+        postalAddress: { ...document.accountingCustomerParty.party.postalAddress, countryCode: { identificationCode: 'DE' } },
+      },
     },
   } as unknown as PeppolDocument;
 }
@@ -39,7 +43,7 @@ describe('DE-R-002 (seller contact)', () => {
       const document = yield* Effect.promise(async () => asGerman(await decodeBaseExample()));
       const altered = {
         ...document,
-        accountingSupplierParty: { ...document.accountingSupplierParty, contact: undefined },
+        accountingSupplierParty: { party: { ...document.accountingSupplierParty.party, contact: undefined } },
       } as unknown as PeppolDocument;
       const result = yield* validateDeR002(altered).pipe(Effect.result);
       assert(Result.isFailure(result));

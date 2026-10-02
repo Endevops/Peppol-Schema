@@ -25,7 +25,7 @@ function evaluateDeR016(document: PeppolDocument): boolean {
     return true;
   }
   const hasTaxRepresentative = Boolean(document.taxRepresentativeParty);
-  const hasSellerTaxId = document.accountingSupplierParty.partyTaxSchemes?.some(scheme => scheme.companyId.trim() !== '') ?? false;
+  const hasSellerTaxId = document.accountingSupplierParty.party.partyTaxSchemes?.some(scheme => scheme.companyId.trim() !== '') ?? false;
   return hasTaxRepresentative || hasSellerTaxId;
 }
 

@@ -22,8 +22,8 @@ describe('CEN-EN16931-BR-18', () => {
     Effect.fn(function* () {
       const document = yield* Effect.promise(async () => (await decodeBaseExample()) as any);
       document.taxRepresentativeParty = {
-        name: '',
-        postalAddress: document.accountingSupplierParty.postalAddress,
+        partyName: { name: '' },
+        postalAddress: document.accountingSupplierParty.party.postalAddress,
         partyTaxScheme: { companyId: 'FR123', taxSchemeId: { id: 'VAT' } },
       };
       const result = yield* validateCenEn16931Br18(document).pipe(Effect.result);

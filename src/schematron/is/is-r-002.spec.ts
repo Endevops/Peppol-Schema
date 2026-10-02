@@ -20,14 +20,18 @@ async function withCountry(
   return {
     ...document,
     accountingSupplierParty: {
-      ...document.accountingSupplierParty,
-      partyTaxSchemes: [{ companyId: supplierVatPrefix, taxSchemeId: { id: 'VAT' } }],
-      postalAddress: { ...document.accountingSupplierParty.postalAddress, countryCode: { identificationCode: supplierCountry } },
+      party: {
+        ...document.accountingSupplierParty.party,
+        partyTaxSchemes: [{ companyId: supplierVatPrefix, taxSchemeId: { id: 'VAT' } }],
+        postalAddress: { ...document.accountingSupplierParty.party.postalAddress, countryCode: { identificationCode: supplierCountry } },
+      },
     },
     accountingCustomerParty: {
-      ...document.accountingCustomerParty,
-      partyTaxSchemes: [{ companyId: customerVatPrefix, taxSchemeId: { id: 'VAT' } }],
-      postalAddress: { ...document.accountingCustomerParty.postalAddress, countryCode: { identificationCode: customerCountry } },
+      party: {
+        ...document.accountingCustomerParty.party,
+        partyTaxSchemes: [{ companyId: customerVatPrefix, taxSchemeId: { id: 'VAT' } }],
+        postalAddress: { ...document.accountingCustomerParty.party.postalAddress, countryCode: { identificationCode: customerCountry } },
+      },
     },
   } as unknown as PeppolDocument;
 }
@@ -48,8 +52,10 @@ describe('IS-R-002 (Icelandic seller legal id)', () => {
       const altered = {
         ...document,
         accountingSupplierParty: {
-          ...document.accountingSupplierParty,
-          partyLegalEntity: { ...document.accountingSupplierParty.partyLegalEntity, companyId: undefined },
+          party: {
+            ...document.accountingSupplierParty.party,
+            partyLegalEntity: { ...document.accountingSupplierParty.party.partyLegalEntity, companyId: undefined },
+          },
         },
       } as unknown as PeppolDocument;
       const result = yield* validateIsR002(altered).pipe(Effect.result);
@@ -64,8 +70,10 @@ describe('IS-R-002 (Icelandic seller legal id)', () => {
       const altered = {
         ...document,
         accountingSupplierParty: {
-          ...document.accountingSupplierParty,
-          partyLegalEntity: { ...document.accountingSupplierParty.partyLegalEntity, companyId: { id: '1234567890', schemeId: '0196' } },
+          party: {
+            ...document.accountingSupplierParty.party,
+            partyLegalEntity: { ...document.accountingSupplierParty.party.partyLegalEntity, companyId: { id: '1234567890', schemeId: '0196' } },
+          },
         },
       } as unknown as PeppolDocument;
       yield* validateIsR002(altered);

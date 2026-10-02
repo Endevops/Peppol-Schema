@@ -9,7 +9,7 @@ function evaluateGrR005(document: PeppolDocument): boolean {
   if (getSupplierCountry(document) !== 'GR' && getSupplierCountry(document) !== 'EL') {
     return true;
   }
-  const partyName = document.accountingCustomerParty.partyName?.name;
+  const partyName = document.accountingCustomerParty.party.partyName?.name;
   return typeof partyName === 'string' && partyName.length > 0;
 }
 

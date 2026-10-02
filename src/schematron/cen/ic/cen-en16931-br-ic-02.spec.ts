@@ -22,10 +22,10 @@ describe('CEN-EN16931-BR-IC-02', () => {
     Effect.fn(function* () {
       const document = yield* Effect.promise(async () => (await decodeBaseExample()) as any);
       document.invoiceLines[0].item.classifiedTaxCategory.id = 'K';
-      document.accountingSupplierParty.partyTaxSchemes = undefined;
+      document.accountingSupplierParty.party.partyTaxSchemes = undefined;
       document.taxRepresentativeParty = undefined;
-      document.accountingCustomerParty.partyTaxSchemes = undefined;
-      document.accountingCustomerParty.partyLegalEntity.companyId = undefined;
+      document.accountingCustomerParty.party.partyTaxSchemes = undefined;
+      document.accountingCustomerParty.party.partyLegalEntity.companyId = undefined;
       const result = yield* validateCenEn16931BrIc02(document).pipe(Effect.result);
       assert(Result.isFailure(result));
     })

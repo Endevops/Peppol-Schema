@@ -15,9 +15,11 @@ async function withSupplierCountry(document: PeppolDocument, country: string, va
   return {
     ...document,
     accountingSupplierParty: {
-      ...document.accountingSupplierParty,
-      postalAddress: { ...document.accountingSupplierParty.postalAddress, countryCode: { identificationCode: country } },
-      partyTaxSchemes: [{ companyId: vat, taxSchemeId: { id: 'VAT' } }],
+      party: {
+        ...document.accountingSupplierParty.party,
+        postalAddress: { ...document.accountingSupplierParty.party.postalAddress, countryCode: { identificationCode: country } },
+        partyTaxSchemes: [{ companyId: vat, taxSchemeId: { id: 'VAT' } }],
+      },
     },
   } as unknown as PeppolDocument;
 }
@@ -26,14 +28,18 @@ async function asSwedish(document: PeppolDocument): Promise<PeppolDocument> {
   return {
     ...document,
     accountingSupplierParty: {
-      ...document.accountingSupplierParty,
-      partyTaxSchemes: [{ companyId: 'SE556123456701', taxSchemeId: { id: 'VAT' } }],
-      postalAddress: { ...document.accountingSupplierParty.postalAddress, countryCode: { identificationCode: 'SE' } },
+      party: {
+        ...document.accountingSupplierParty.party,
+        partyTaxSchemes: [{ companyId: 'SE556123456701', taxSchemeId: { id: 'VAT' } }],
+        postalAddress: { ...document.accountingSupplierParty.party.postalAddress, countryCode: { identificationCode: 'SE' } },
+      },
     },
     accountingCustomerParty: {
-      ...document.accountingCustomerParty,
-      partyTaxSchemes: [{ companyId: 'SE556123456701', taxSchemeId: { id: 'VAT' } }],
-      postalAddress: { ...document.accountingCustomerParty.postalAddress, countryCode: { identificationCode: 'SE' } },
+      party: {
+        ...document.accountingCustomerParty.party,
+        partyTaxSchemes: [{ companyId: 'SE556123456701', taxSchemeId: { id: 'VAT' } }],
+        postalAddress: { ...document.accountingCustomerParty.party.postalAddress, countryCode: { identificationCode: 'SE' } },
+      },
     },
   } as unknown as PeppolDocument;
 }
@@ -54,8 +60,10 @@ describe('SE-R-004 (Swedish organisation numbers 10 characters)', () => {
       const altered = {
         ...document,
         accountingSupplierParty: {
-          ...document.accountingSupplierParty,
-          partyLegalEntity: { ...document.accountingSupplierParty.partyLegalEntity, companyId: { id: 'ABC', schemeId: '0007' } },
+          party: {
+            ...document.accountingSupplierParty.party,
+            partyLegalEntity: { ...document.accountingSupplierParty.party.partyLegalEntity, companyId: { id: 'ABC', schemeId: '0007' } },
+          },
         },
       } as unknown as PeppolDocument;
       const result = yield* validateSeR004(altered).pipe(Effect.result);
@@ -70,8 +78,10 @@ describe('SE-R-004 (Swedish organisation numbers 10 characters)', () => {
       const altered = {
         ...document,
         accountingSupplierParty: {
-          ...document.accountingSupplierParty,
-          partyLegalEntity: { ...document.accountingSupplierParty.partyLegalEntity, companyId: { id: 'ABC', schemeId: '0007' } },
+          party: {
+            ...document.accountingSupplierParty.party,
+            partyLegalEntity: { ...document.accountingSupplierParty.party.partyLegalEntity, companyId: { id: 'ABC', schemeId: '0007' } },
+          },
         },
       } as unknown as PeppolDocument;
       const result = yield* validateSeR004(altered).pipe(Effect.result);
@@ -94,8 +104,10 @@ describe('SE-R-004 (Swedish organisation numbers 10 characters)', () => {
       const altered = {
         ...document,
         accountingSupplierParty: {
-          ...document.accountingSupplierParty,
-          partyLegalEntity: { ...document.accountingSupplierParty.partyLegalEntity, companyId: { id: '123', schemeId: '0007' } },
+          party: {
+            ...document.accountingSupplierParty.party,
+            partyLegalEntity: { ...document.accountingSupplierParty.party.partyLegalEntity, companyId: { id: '123', schemeId: '0007' } },
+          },
         },
       } as unknown as PeppolDocument;
       const result = yield* validateSeR004(altered).pipe(Effect.result);
@@ -110,8 +122,10 @@ describe('SE-R-004 (Swedish organisation numbers 10 characters)', () => {
       const altered = {
         ...document,
         accountingSupplierParty: {
-          ...document.accountingSupplierParty,
-          partyLegalEntity: { ...document.accountingSupplierParty.partyLegalEntity, companyId: { id: '5561234567', schemeId: '0007' } },
+          party: {
+            ...document.accountingSupplierParty.party,
+            partyLegalEntity: { ...document.accountingSupplierParty.party.partyLegalEntity, companyId: { id: '5561234567', schemeId: '0007' } },
+          },
         },
       } as unknown as PeppolDocument;
       yield* validateSeR004(altered);

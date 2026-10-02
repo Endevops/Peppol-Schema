@@ -14,12 +14,16 @@ async function asGerman(document: PeppolDocument): Promise<PeppolDocument> {
   return {
     ...document,
     accountingSupplierParty: {
-      ...document.accountingSupplierParty,
-      postalAddress: { ...document.accountingSupplierParty.postalAddress, countryCode: { identificationCode: 'DE' } },
+      party: {
+        ...document.accountingSupplierParty.party,
+        postalAddress: { ...document.accountingSupplierParty.party.postalAddress, countryCode: { identificationCode: 'DE' } },
+      },
     },
     accountingCustomerParty: {
-      ...document.accountingCustomerParty,
-      postalAddress: { ...document.accountingCustomerParty.postalAddress, countryCode: { identificationCode: 'DE' } },
+      party: {
+        ...document.accountingCustomerParty.party,
+        postalAddress: { ...document.accountingCustomerParty.party.postalAddress, countryCode: { identificationCode: 'DE' } },
+      },
     },
   } as unknown as PeppolDocument;
 }
@@ -39,7 +43,7 @@ describe('DE-R-016 (VAT codes require seller tax id)', () => {
       const document = yield* Effect.promise(async () => asGerman(await decodeBaseExample()));
       const altered = {
         ...document,
-        accountingSupplierParty: { ...document.accountingSupplierParty, partyTaxSchemes: undefined },
+        accountingSupplierParty: { party: { ...document.accountingSupplierParty.party, partyTaxSchemes: undefined } },
       } as unknown as PeppolDocument;
       const result = yield* validateDeR016(altered).pipe(Effect.result);
       assert(Result.isFailure(result));
@@ -52,7 +56,9 @@ describe('DE-R-016 (VAT codes require seller tax id)', () => {
       const document = yield* Effect.promise(async () => asGerman(await decodeBaseExample()));
       const altered = {
         ...document,
-        accountingSupplierParty: { ...document.accountingSupplierParty, partyTaxSchemes: [{ companyId: 'DE123456789', taxSchemeId: { id: 'VAT' } }] },
+        accountingSupplierParty: {
+          party: { ...document.accountingSupplierParty.party, partyTaxSchemes: [{ companyId: 'DE123456789', taxSchemeId: { id: 'VAT' } }] },
+        },
       } as unknown as PeppolDocument;
       yield* validateDeR016(altered);
     })

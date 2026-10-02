@@ -14,7 +14,7 @@ function evaluateDkR017(document: PeppolDocument): boolean {
   if (!isDanishSupplierAndCustomer(document)) {
     return true;
   }
-  const companyId = document.accountingCustomerParty.partyLegalEntity.companyId;
+  const companyId = document.accountingCustomerParty.party.partyLegalEntity.companyId;
   const passed = !companyId?.id || companyId.schemeId === '0184';
   return passed;
 }

@@ -14,7 +14,7 @@ function evaluateNlR004(document: PeppolDocument): boolean {
   if (getSupplierCountry(document) !== 'NL' || getCustomerCountry(document) !== 'NL') {
     return true;
   }
-  const address = document.accountingCustomerParty.postalAddress;
+  const address = document.accountingCustomerParty.party.postalAddress;
   return Boolean(address.streetName) && Boolean(address.cityName) && Boolean(address.postalZone);
 }
 

@@ -9,7 +9,7 @@ function evaluateSeR004(document: PeppolDocument): boolean {
   if (getSupplierCountry(document) !== 'SE') {
     return true;
   }
-  const companyId = document.accountingSupplierParty.partyLegalEntity.companyId;
+  const companyId = document.accountingSupplierParty.party.partyLegalEntity.companyId;
   return companyId === undefined || companyId.id.trim().length === 10;
 }
 

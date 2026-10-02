@@ -9,7 +9,7 @@ function evaluateDeR003(document: PeppolDocument): boolean {
   if (!isGermanSupplierAndCustomer(document)) {
     return true;
   }
-  const cityName = document.accountingSupplierParty.postalAddress.cityName;
+  const cityName = document.accountingSupplierParty.party.postalAddress.cityName;
   return typeof cityName === 'string' && cityName.trim() !== '';
 }
 

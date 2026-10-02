@@ -11,7 +11,10 @@ import { decodeBaseExample } from '#/test/test-utils.ts';
 import { validatePeppolCommonR043 } from './peppol-common-r043.ts';
 
 async function withEndpointId(document: PeppolDocument, schemeId: string, id: string): Promise<PeppolDocument> {
-  return { ...document, accountingSupplierParty: { ...document.accountingSupplierParty, endpointId: { id, schemeId } } } as unknown as PeppolDocument;
+  return {
+    ...document,
+    accountingSupplierParty: { party: { ...document.accountingSupplierParty.party, endpointId: { id, schemeId } } },
+  } as unknown as PeppolDocument;
 }
 
 describe('PEPPOL-COMMON-R043 (Belgian enterprise number, scheme 0208)', () => {

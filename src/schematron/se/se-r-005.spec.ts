@@ -14,14 +14,18 @@ async function asSwedish(document: PeppolDocument): Promise<PeppolDocument> {
   return {
     ...document,
     accountingSupplierParty: {
-      ...document.accountingSupplierParty,
-      partyTaxSchemes: [{ companyId: 'SE556123456701', taxSchemeId: { id: 'VAT' } }],
-      postalAddress: { ...document.accountingSupplierParty.postalAddress, countryCode: { identificationCode: 'SE' } },
+      party: {
+        ...document.accountingSupplierParty.party,
+        partyTaxSchemes: [{ companyId: 'SE556123456701', taxSchemeId: { id: 'VAT' } }],
+        postalAddress: { ...document.accountingSupplierParty.party.postalAddress, countryCode: { identificationCode: 'SE' } },
+      },
     },
     accountingCustomerParty: {
-      ...document.accountingCustomerParty,
-      partyTaxSchemes: [{ companyId: 'SE556123456701', taxSchemeId: { id: 'VAT' } }],
-      postalAddress: { ...document.accountingCustomerParty.postalAddress, countryCode: { identificationCode: 'SE' } },
+      party: {
+        ...document.accountingCustomerParty.party,
+        partyTaxSchemes: [{ companyId: 'SE556123456701', taxSchemeId: { id: 'VAT' } }],
+        postalAddress: { ...document.accountingCustomerParty.party.postalAddress, countryCode: { identificationCode: 'SE' } },
+      },
     },
   } as unknown as PeppolDocument;
 }
@@ -42,11 +46,13 @@ describe('SE-R-005 (seller tax registration identifier)', () => {
       const altered = {
         ...document,
         accountingSupplierParty: {
-          ...document.accountingSupplierParty,
-          partyTaxSchemes: [
-            { companyId: 'SE556123456701', taxSchemeId: { id: 'VAT' } },
-            { companyId: 'SomethingElse', taxSchemeId: { id: 'TAX' } },
-          ],
+          party: {
+            ...document.accountingSupplierParty.party,
+            partyTaxSchemes: [
+              { companyId: 'SE556123456701', taxSchemeId: { id: 'VAT' } },
+              { companyId: 'SomethingElse', taxSchemeId: { id: 'TAX' } },
+            ],
+          },
         },
       } as unknown as PeppolDocument;
       const result = yield* validateSeR005(altered).pipe(Effect.result);
@@ -61,11 +67,13 @@ describe('SE-R-005 (seller tax registration identifier)', () => {
       const altered = {
         ...document,
         accountingSupplierParty: {
-          ...document.accountingSupplierParty,
-          partyTaxSchemes: [
-            { companyId: 'SE556123456701', taxSchemeId: { id: 'VAT' } },
-            { companyId: 'GODKÄND FÖR F-SKATT', taxSchemeId: { id: 'TAX' } },
-          ],
+          party: {
+            ...document.accountingSupplierParty.party,
+            partyTaxSchemes: [
+              { companyId: 'SE556123456701', taxSchemeId: { id: 'VAT' } },
+              { companyId: 'GODKÄND FÖR F-SKATT', taxSchemeId: { id: 'TAX' } },
+            ],
+          },
         },
       } as unknown as PeppolDocument;
       yield* validateSeR005(altered);

@@ -20,14 +20,18 @@ async function withCountry(
   return {
     ...document,
     accountingSupplierParty: {
-      ...document.accountingSupplierParty,
-      partyTaxSchemes: [{ companyId: supplierVatPrefix, taxSchemeId: { id: 'VAT' } }],
-      postalAddress: { ...document.accountingSupplierParty.postalAddress, countryCode: { identificationCode: supplierCountry } },
+      party: {
+        ...document.accountingSupplierParty.party,
+        partyTaxSchemes: [{ companyId: supplierVatPrefix, taxSchemeId: { id: 'VAT' } }],
+        postalAddress: { ...document.accountingSupplierParty.party.postalAddress, countryCode: { identificationCode: supplierCountry } },
+      },
     },
     accountingCustomerParty: {
-      ...document.accountingCustomerParty,
-      partyTaxSchemes: [{ companyId: customerVatPrefix, taxSchemeId: { id: 'VAT' } }],
-      postalAddress: { ...document.accountingCustomerParty.postalAddress, countryCode: { identificationCode: customerCountry } },
+      party: {
+        ...document.accountingCustomerParty.party,
+        partyTaxSchemes: [{ companyId: customerVatPrefix, taxSchemeId: { id: 'VAT' } }],
+        postalAddress: { ...document.accountingCustomerParty.party.postalAddress, countryCode: { identificationCode: customerCountry } },
+      },
     },
   } as unknown as PeppolDocument;
 }
@@ -48,8 +52,10 @@ describe('NL-R-004 (Dutch customer address)', () => {
       const altered = {
         ...document,
         accountingCustomerParty: {
-          ...document.accountingCustomerParty,
-          postalAddress: { ...document.accountingCustomerParty.postalAddress, streetName: undefined },
+          party: {
+            ...document.accountingCustomerParty.party,
+            postalAddress: { ...document.accountingCustomerParty.party.postalAddress, streetName: undefined },
+          },
         },
       } as unknown as PeppolDocument;
       const result = yield* validateNlR004(altered).pipe(Effect.result);

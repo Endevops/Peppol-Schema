@@ -14,14 +14,18 @@ async function asDanish(document: PeppolDocument): Promise<PeppolDocument> {
   return {
     ...document,
     accountingSupplierParty: {
-      ...document.accountingSupplierParty,
-      partyTaxSchemes: [{ companyId: 'DK12345678', taxSchemeId: { id: 'VAT' } }],
-      postalAddress: { ...document.accountingSupplierParty.postalAddress, countryCode: { identificationCode: 'DK' } },
+      party: {
+        ...document.accountingSupplierParty.party,
+        partyTaxSchemes: [{ companyId: 'DK12345678', taxSchemeId: { id: 'VAT' } }],
+        postalAddress: { ...document.accountingSupplierParty.party.postalAddress, countryCode: { identificationCode: 'DK' } },
+      },
     },
     accountingCustomerParty: {
-      ...document.accountingCustomerParty,
-      partyTaxSchemes: [{ companyId: 'DK87654321', taxSchemeId: { id: 'VAT' } }],
-      postalAddress: { ...document.accountingCustomerParty.postalAddress, countryCode: { identificationCode: 'DK' } },
+      party: {
+        ...document.accountingCustomerParty.party,
+        partyTaxSchemes: [{ companyId: 'DK87654321', taxSchemeId: { id: 'VAT' } }],
+        postalAddress: { ...document.accountingCustomerParty.party.postalAddress, countryCode: { identificationCode: 'DK' } },
+      },
     },
   } as unknown as PeppolDocument;
 }
@@ -42,8 +46,10 @@ describe('DK-R-017 (customer legal entity scheme 0184)', () => {
       const altered = {
         ...document,
         accountingCustomerParty: {
-          ...document.accountingCustomerParty,
-          partyLegalEntity: { ...document.accountingCustomerParty.partyLegalEntity, companyId: { id: '12345678', schemeId: '0190' } },
+          party: {
+            ...document.accountingCustomerParty.party,
+            partyLegalEntity: { ...document.accountingCustomerParty.party.partyLegalEntity, companyId: { id: '12345678', schemeId: '0190' } },
+          },
         },
       } as unknown as PeppolDocument;
       const result = yield* validateDkR017(altered).pipe(Effect.result);
@@ -58,8 +64,10 @@ describe('DK-R-017 (customer legal entity scheme 0184)', () => {
       const altered = {
         ...document,
         accountingCustomerParty: {
-          ...document.accountingCustomerParty,
-          partyLegalEntity: { ...document.accountingCustomerParty.partyLegalEntity, companyId: { id: '12345678', schemeId: '0184' } },
+          party: {
+            ...document.accountingCustomerParty.party,
+            partyLegalEntity: { ...document.accountingCustomerParty.party.partyLegalEntity, companyId: { id: '12345678', schemeId: '0184' } },
+          },
         },
       } as unknown as PeppolDocument;
       yield* validateDkR017(altered);

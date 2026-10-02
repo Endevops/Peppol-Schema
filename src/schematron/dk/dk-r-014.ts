@@ -14,7 +14,7 @@ function evaluateDkR014(document: PeppolDocument): boolean {
   if (getSupplierCountry(document) !== 'DK') {
     return true;
   }
-  const companyId = document.accountingSupplierParty.partyLegalEntity.companyId;
+  const companyId = document.accountingSupplierParty.party.partyLegalEntity.companyId;
   const passed = !companyId?.id || companyId.schemeId === '0184';
   return passed;
 }

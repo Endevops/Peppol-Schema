@@ -14,14 +14,18 @@ async function asIcelandic(document: PeppolDocument): Promise<PeppolDocument> {
   return {
     ...document,
     accountingSupplierParty: {
-      ...document.accountingSupplierParty,
-      partyTaxSchemes: [{ companyId: 'IS123456789', taxSchemeId: { id: 'VAT' } }],
-      postalAddress: { ...document.accountingSupplierParty.postalAddress, countryCode: { identificationCode: 'IS' } },
+      party: {
+        ...document.accountingSupplierParty.party,
+        partyTaxSchemes: [{ companyId: 'IS123456789', taxSchemeId: { id: 'VAT' } }],
+        postalAddress: { ...document.accountingSupplierParty.party.postalAddress, countryCode: { identificationCode: 'IS' } },
+      },
     },
     accountingCustomerParty: {
-      ...document.accountingCustomerParty,
-      partyTaxSchemes: [{ companyId: 'IS987654321', taxSchemeId: { id: 'VAT' } }],
-      postalAddress: { ...document.accountingCustomerParty.postalAddress, countryCode: { identificationCode: 'IS' } },
+      party: {
+        ...document.accountingCustomerParty.party,
+        partyTaxSchemes: [{ companyId: 'IS987654321', taxSchemeId: { id: 'VAT' } }],
+        postalAddress: { ...document.accountingCustomerParty.party.postalAddress, countryCode: { identificationCode: 'IS' } },
+      },
     },
   } as unknown as PeppolDocument;
 }
@@ -42,8 +46,10 @@ describe('IS-R-005 (buyer address)', () => {
       const altered = {
         ...document,
         accountingCustomerParty: {
-          ...document.accountingCustomerParty,
-          postalAddress: { ...document.accountingCustomerParty.postalAddress, streetName: undefined },
+          party: {
+            ...document.accountingCustomerParty.party,
+            postalAddress: { ...document.accountingCustomerParty.party.postalAddress, streetName: undefined },
+          },
         },
       } as unknown as PeppolDocument;
       const result = yield* validateIsR005(altered).pipe(Effect.result);

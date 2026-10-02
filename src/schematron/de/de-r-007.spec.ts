@@ -14,12 +14,16 @@ async function asGerman(document: PeppolDocument): Promise<PeppolDocument> {
   return {
     ...document,
     accountingSupplierParty: {
-      ...document.accountingSupplierParty,
-      postalAddress: { ...document.accountingSupplierParty.postalAddress, countryCode: { identificationCode: 'DE' } },
+      party: {
+        ...document.accountingSupplierParty.party,
+        postalAddress: { ...document.accountingSupplierParty.party.postalAddress, countryCode: { identificationCode: 'DE' } },
+      },
     },
     accountingCustomerParty: {
-      ...document.accountingCustomerParty,
-      postalAddress: { ...document.accountingCustomerParty.postalAddress, countryCode: { identificationCode: 'DE' } },
+      party: {
+        ...document.accountingCustomerParty.party,
+        postalAddress: { ...document.accountingCustomerParty.party.postalAddress, countryCode: { identificationCode: 'DE' } },
+      },
     },
   } as unknown as PeppolDocument;
 }
@@ -40,8 +44,10 @@ describe('DE-R-007 (seller contact email)', () => {
       const altered = {
         ...document,
         accountingSupplierParty: {
-          ...document.accountingSupplierParty,
-          contact: { ...document.accountingSupplierParty.contact, electronicMail: undefined },
+          party: {
+            ...document.accountingSupplierParty.party,
+            contact: { ...document.accountingSupplierParty.party.contact, electronicMail: undefined },
+          },
         },
       } as unknown as PeppolDocument;
       const result = yield* validateDeR007(altered).pipe(Effect.result);

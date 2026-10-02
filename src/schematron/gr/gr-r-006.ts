@@ -16,7 +16,9 @@ function evaluateGrR006(document: PeppolDocument): boolean {
   if (!isGreekCountry(getSupplierCountry(document)) || !isGreekCountry(getCustomerCountry(document))) {
     return true;
   }
-  const vatSchemes = (document.accountingCustomerParty.partyTaxSchemes ?? []).filter(scheme => scheme.taxSchemeId.id.trim().toUpperCase() === 'VAT');
+  const vatSchemes = (document.accountingCustomerParty.party.partyTaxSchemes ?? []).filter(
+    scheme => scheme.taxSchemeId.id.trim().toUpperCase() === 'VAT'
+  );
   if (vatSchemes.length !== 1) {
     return false;
   }

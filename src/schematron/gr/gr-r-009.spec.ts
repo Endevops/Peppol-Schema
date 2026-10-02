@@ -14,14 +14,18 @@ async function asGreek(document: PeppolDocument): Promise<PeppolDocument> {
   return {
     ...document,
     accountingSupplierParty: {
-      ...document.accountingSupplierParty,
-      partyTaxSchemes: [{ companyId: 'EL094259216', taxSchemeId: { id: 'VAT' } }],
-      postalAddress: { ...document.accountingSupplierParty.postalAddress, countryCode: { identificationCode: 'GR' } },
+      party: {
+        ...document.accountingSupplierParty.party,
+        partyTaxSchemes: [{ companyId: 'EL094259216', taxSchemeId: { id: 'VAT' } }],
+        postalAddress: { ...document.accountingSupplierParty.party.postalAddress, countryCode: { identificationCode: 'GR' } },
+      },
     },
     accountingCustomerParty: {
-      ...document.accountingCustomerParty,
-      partyTaxSchemes: [{ companyId: 'EL094259216', taxSchemeId: { id: 'VAT' } }],
-      postalAddress: { ...document.accountingCustomerParty.postalAddress, countryCode: { identificationCode: 'GR' } },
+      party: {
+        ...document.accountingCustomerParty.party,
+        partyTaxSchemes: [{ companyId: 'EL094259216', taxSchemeId: { id: 'VAT' } }],
+        postalAddress: { ...document.accountingCustomerParty.party.postalAddress, countryCode: { identificationCode: 'GR' } },
+      },
     },
   } as unknown as PeppolDocument;
 }
@@ -50,7 +54,7 @@ describe('GR-R-009 (supplier endpoint TIN)', () => {
       const document = yield* Effect.promise(async () => asGreek(await decodeBaseExample()));
       const altered = {
         ...document,
-        accountingSupplierParty: { ...document.accountingSupplierParty, endpointId: { id: '094259216', schemeId: '9933' } },
+        accountingSupplierParty: { party: { ...document.accountingSupplierParty.party, endpointId: { id: '094259216', schemeId: '9933' } } },
       } as unknown as PeppolDocument;
       yield* validateGrR009(altered);
     })

@@ -13,7 +13,7 @@ const rule = {
 function evaluateCenEn16931Br18(document: PeppolDocument): boolean {
   const passed =
     !document.taxRepresentativeParty ||
-    (typeof document.taxRepresentativeParty.name === 'string' && document.taxRepresentativeParty.name.trim() !== '');
+    (typeof document.taxRepresentativeParty.partyName?.name === 'string' && document.taxRepresentativeParty.partyName.name.trim() !== '');
   return passed;
 }
 

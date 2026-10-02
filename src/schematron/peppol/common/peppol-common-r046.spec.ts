@@ -11,7 +11,10 @@ import { decodeBaseExample } from '#/test/test-utils.ts';
 import { validatePeppolCommonR046 } from './peppol-common-r046.ts';
 
 async function withEndpointId(document: PeppolDocument, schemeId: string, id: string): Promise<PeppolDocument> {
-  return { ...document, accountingSupplierParty: { ...document.accountingSupplierParty, endpointId: { id, schemeId } } } as unknown as PeppolDocument;
+  return {
+    ...document,
+    accountingSupplierParty: { party: { ...document.accountingSupplierParty.party, endpointId: { id, schemeId } } },
+  } as unknown as PeppolDocument;
 }
 
 describe('PEPPOL-COMMON-R046 (Codice Fiscale, scheme 9907)', () => {

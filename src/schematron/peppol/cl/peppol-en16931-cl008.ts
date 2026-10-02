@@ -12,8 +12,8 @@ const rule = {
 
 function evaluatePeppolEn16931CL008(document: PeppolDocument): boolean {
   const schemeIds: Array<string | undefined> = [
-    document.accountingSupplierParty.endpointId?.schemeId,
-    document.accountingCustomerParty.endpointId?.schemeId,
+    document.accountingSupplierParty.party.endpointId?.schemeId,
+    document.accountingCustomerParty.party.endpointId?.schemeId,
   ];
   const passed = schemeIds.every(schemeId => schemeId === undefined || (electronicAddressCodesKeys as ReadonlyArray<string>).includes(schemeId));
   return passed;

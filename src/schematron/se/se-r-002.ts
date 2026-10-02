@@ -13,7 +13,7 @@ function evaluateSeR002(document: PeppolDocument): boolean {
   if (getSupplierCountry(document) !== 'SE') {
     return true;
   }
-  const vatCompanyId = document.accountingSupplierParty.partyTaxSchemes?.find(scheme => scheme.taxSchemeId.id === 'VAT')?.companyId;
+  const vatCompanyId = document.accountingSupplierParty.party.partyTaxSchemes?.find(scheme => scheme.taxSchemeId.id === 'VAT')?.companyId;
   return vatCompanyId !== undefined && /^\d{12}$/.test(vatCompanyId.slice(2));
 }
 

@@ -21,7 +21,7 @@ describe('CEN-EN16931-BR-62', () => {
     'fails when the rule is violated',
     Effect.fn(function* () {
       const document = yield* Effect.promise(async () => (await decodeBaseExample()) as any);
-      document.accountingSupplierParty.endpointId = { ...document.accountingSupplierParty.endpointId, schemeId: undefined };
+      document.accountingSupplierParty.party.endpointId = { ...document.accountingSupplierParty.party.endpointId, schemeId: undefined };
       const result = yield* validateCenEn16931Br62(document).pipe(Effect.result);
       assert(Result.isFailure(result));
     })

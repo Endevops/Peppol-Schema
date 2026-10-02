@@ -75,8 +75,12 @@ describe('schematron helpers', () => {
       const document = await decodeBaseExample();
       const altered = {
         ...document,
-        accountingSupplierParty: { ...document.accountingSupplierParty, partyTaxSchemes: [{ companyId: 'DE123456789', taxSchemeId: { id: 'VAT' } }] },
-        accountingCustomerParty: { ...document.accountingCustomerParty, partyTaxSchemes: [{ companyId: 'FR123456789', taxSchemeId: { id: 'VAT' } }] },
+        accountingSupplierParty: {
+          party: { ...document.accountingSupplierParty.party, partyTaxSchemes: [{ companyId: 'DE123456789', taxSchemeId: { id: 'VAT' } }] },
+        },
+        accountingCustomerParty: {
+          party: { ...document.accountingCustomerParty.party, partyTaxSchemes: [{ companyId: 'FR123456789', taxSchemeId: { id: 'VAT' } }] },
+        },
       } as unknown as PeppolDocument;
       expect(getSupplierCountry(altered)).toEqual('DE');
       expect(getCustomerCountry(altered)).toEqual('FR');
@@ -87,9 +91,11 @@ describe('schematron helpers', () => {
       const altered = {
         ...document,
         accountingSupplierParty: {
-          ...document.accountingSupplierParty,
-          partyTaxSchemes: undefined,
-          postalAddress: { ...document.accountingSupplierParty.postalAddress, countryCode: { identificationCode: 'BE' } },
+          party: {
+            ...document.accountingSupplierParty.party,
+            partyTaxSchemes: undefined,
+            postalAddress: { ...document.accountingSupplierParty.party.postalAddress, countryCode: { identificationCode: 'BE' } },
+          },
         },
       } as unknown as PeppolDocument;
       expect(getSupplierCountry(altered)).toEqual('BE');
@@ -104,12 +110,16 @@ describe('schematron helpers', () => {
       const altered = {
         ...document,
         accountingSupplierParty: {
-          ...document.accountingSupplierParty,
-          postalAddress: { ...document.accountingSupplierParty.postalAddress, countryCode: { identificationCode: 'DE' } },
+          party: {
+            ...document.accountingSupplierParty.party,
+            postalAddress: { ...document.accountingSupplierParty.party.postalAddress, countryCode: { identificationCode: 'DE' } },
+          },
         },
         accountingCustomerParty: {
-          ...document.accountingCustomerParty,
-          postalAddress: { ...document.accountingCustomerParty.postalAddress, countryCode: { identificationCode: 'DE' } },
+          party: {
+            ...document.accountingCustomerParty.party,
+            postalAddress: { ...document.accountingCustomerParty.party.postalAddress, countryCode: { identificationCode: 'DE' } },
+          },
         },
       } as unknown as PeppolDocument;
       expect(isSupplierGermany(altered)).toEqual(true);
@@ -122,12 +132,10 @@ describe('schematron helpers', () => {
       ({
         ...document,
         accountingSupplierParty: {
-          ...document.accountingSupplierParty,
-          partyTaxSchemes: [{ companyId: `${supplier}12345678`, taxSchemeId: { id: 'VAT' } }],
+          party: { ...document.accountingSupplierParty.party, partyTaxSchemes: [{ companyId: `${supplier}12345678`, taxSchemeId: { id: 'VAT' } }] },
         },
         accountingCustomerParty: {
-          ...document.accountingCustomerParty,
-          partyTaxSchemes: [{ companyId: `${customer}12345678`, taxSchemeId: { id: 'VAT' } }],
+          party: { ...document.accountingCustomerParty.party, partyTaxSchemes: [{ companyId: `${customer}12345678`, taxSchemeId: { id: 'VAT' } }] },
         },
       }) as unknown as PeppolDocument;
 
@@ -135,12 +143,16 @@ describe('schematron helpers', () => {
       ({
         ...document,
         accountingSupplierParty: {
-          ...document.accountingSupplierParty,
-          postalAddress: { ...document.accountingSupplierParty.postalAddress, countryCode: { identificationCode: supplier } },
+          party: {
+            ...document.accountingSupplierParty.party,
+            postalAddress: { ...document.accountingSupplierParty.party.postalAddress, countryCode: { identificationCode: supplier } },
+          },
         },
         accountingCustomerParty: {
-          ...document.accountingCustomerParty,
-          postalAddress: { ...document.accountingCustomerParty.postalAddress, countryCode: { identificationCode: customer } },
+          party: {
+            ...document.accountingCustomerParty.party,
+            postalAddress: { ...document.accountingCustomerParty.party.postalAddress, countryCode: { identificationCode: customer } },
+          },
         },
       }) as unknown as PeppolDocument;
 
@@ -230,14 +242,18 @@ describe('schematron helpers', () => {
       const altered = {
         ...document,
         accountingSupplierParty: {
-          ...document.accountingSupplierParty,
-          partyTaxSchemes: undefined,
-          partyLegalEntity: { ...document.accountingSupplierParty.partyLegalEntity, companyId: undefined },
+          party: {
+            ...document.accountingSupplierParty.party,
+            partyTaxSchemes: undefined,
+            partyLegalEntity: { ...document.accountingSupplierParty.party.partyLegalEntity, companyId: undefined },
+          },
         },
         accountingCustomerParty: {
-          ...document.accountingCustomerParty,
-          partyTaxSchemes: undefined,
-          partyLegalEntity: { ...document.accountingCustomerParty.partyLegalEntity, companyId: undefined },
+          party: {
+            ...document.accountingCustomerParty.party,
+            partyTaxSchemes: undefined,
+            partyLegalEntity: { ...document.accountingCustomerParty.party.partyLegalEntity, companyId: undefined },
+          },
         },
       } as unknown as PeppolDocument;
       expect(getSupplierTaxIdentifiers(altered)).toEqual('');

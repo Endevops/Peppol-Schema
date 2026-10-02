@@ -14,14 +14,18 @@ async function asDanish(document: PeppolDocument): Promise<PeppolDocument> {
   return {
     ...document,
     accountingSupplierParty: {
-      ...document.accountingSupplierParty,
-      partyTaxSchemes: [{ companyId: 'DK12345678', taxSchemeId: { id: 'VAT' } }],
-      postalAddress: { ...document.accountingSupplierParty.postalAddress, countryCode: { identificationCode: 'DK' } },
+      party: {
+        ...document.accountingSupplierParty.party,
+        partyTaxSchemes: [{ companyId: 'DK12345678', taxSchemeId: { id: 'VAT' } }],
+        postalAddress: { ...document.accountingSupplierParty.party.postalAddress, countryCode: { identificationCode: 'DK' } },
+      },
     },
     accountingCustomerParty: {
-      ...document.accountingCustomerParty,
-      partyTaxSchemes: [{ companyId: 'DK87654321', taxSchemeId: { id: 'VAT' } }],
-      postalAddress: { ...document.accountingCustomerParty.postalAddress, countryCode: { identificationCode: 'DK' } },
+      party: {
+        ...document.accountingCustomerParty.party,
+        partyTaxSchemes: [{ companyId: 'DK87654321', taxSchemeId: { id: 'VAT' } }],
+        postalAddress: { ...document.accountingCustomerParty.party.postalAddress, countryCode: { identificationCode: 'DK' } },
+      },
     },
   } as unknown as PeppolDocument;
 }
@@ -41,7 +45,9 @@ describe('DK-R-013 (schemeID for party identification)', () => {
       const document = yield* Effect.promise(async () => asDanish(await decodeBaseExample()));
       const altered = {
         ...document,
-        accountingSupplierParty: { ...document.accountingSupplierParty, partyIdentification: { id: { id: '12345678', schemeId: undefined } } },
+        accountingSupplierParty: {
+          party: { ...document.accountingSupplierParty.party, partyIdentification: { id: { id: '12345678', schemeId: undefined } } },
+        },
       } as unknown as PeppolDocument;
       const result = yield* validateDkR013(altered).pipe(Effect.result);
       assert(Result.isFailure(result));
@@ -54,7 +60,9 @@ describe('DK-R-013 (schemeID for party identification)', () => {
       const document = yield* Effect.promise(async () => asDanish(await decodeBaseExample()));
       const altered = {
         ...document,
-        accountingSupplierParty: { ...document.accountingSupplierParty, partyIdentification: { id: { id: '12345678', schemeId: '0088' } } },
+        accountingSupplierParty: {
+          party: { ...document.accountingSupplierParty.party, partyIdentification: { id: { id: '12345678', schemeId: '0088' } } },
+        },
       } as unknown as PeppolDocument;
       yield* validateDkR013(altered);
     })

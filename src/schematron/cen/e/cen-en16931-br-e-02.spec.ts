@@ -22,7 +22,7 @@ describe('CEN-EN16931-BR-E-02', () => {
     Effect.fn(function* () {
       const document = yield* Effect.promise(async () => (await decodeBaseExample()) as any);
       document.invoiceLines[0].item.classifiedTaxCategory.id = 'E';
-      document.accountingSupplierParty.partyTaxSchemes = undefined;
+      document.accountingSupplierParty.party.partyTaxSchemes = undefined;
       document.taxRepresentativeParty = undefined;
       const result = yield* validateCenEn16931BrE02(document).pipe(Effect.result);
       assert(Result.isFailure(result));

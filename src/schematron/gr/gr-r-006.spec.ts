@@ -14,14 +14,18 @@ async function asGreek(document: PeppolDocument): Promise<PeppolDocument> {
   return {
     ...document,
     accountingSupplierParty: {
-      ...document.accountingSupplierParty,
-      partyTaxSchemes: [{ companyId: 'EL094259216', taxSchemeId: { id: 'VAT' } }],
-      postalAddress: { ...document.accountingSupplierParty.postalAddress, countryCode: { identificationCode: 'GR' } },
+      party: {
+        ...document.accountingSupplierParty.party,
+        partyTaxSchemes: [{ companyId: 'EL094259216', taxSchemeId: { id: 'VAT' } }],
+        postalAddress: { ...document.accountingSupplierParty.party.postalAddress, countryCode: { identificationCode: 'GR' } },
+      },
     },
     accountingCustomerParty: {
-      ...document.accountingCustomerParty,
-      partyTaxSchemes: [{ companyId: 'EL094259216', taxSchemeId: { id: 'VAT' } }],
-      postalAddress: { ...document.accountingCustomerParty.postalAddress, countryCode: { identificationCode: 'GR' } },
+      party: {
+        ...document.accountingCustomerParty.party,
+        partyTaxSchemes: [{ companyId: 'EL094259216', taxSchemeId: { id: 'VAT' } }],
+        postalAddress: { ...document.accountingCustomerParty.party.postalAddress, countryCode: { identificationCode: 'GR' } },
+      },
     },
   } as unknown as PeppolDocument;
 }
@@ -49,7 +53,9 @@ describe('GR-R-006 (buyer VAT when buyer is Greek)', () => {
       const document = yield* Effect.promise(async () => asGreek(await decodeBaseExample()));
       const altered = {
         ...document,
-        accountingCustomerParty: { ...document.accountingCustomerParty, partyTaxSchemes: [{ companyId: 'EL123456789', taxSchemeId: { id: 'VAT' } }] },
+        accountingCustomerParty: {
+          party: { ...document.accountingCustomerParty.party, partyTaxSchemes: [{ companyId: 'EL123456789', taxSchemeId: { id: 'VAT' } }] },
+        },
       } as unknown as PeppolDocument;
       const result = yield* validateGrR006(altered).pipe(Effect.result);
       assert(Result.isFailure(result));

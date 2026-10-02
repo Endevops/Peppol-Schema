@@ -31,10 +31,10 @@ describe('CEN-EN16931-BR-AE-04', () => {
           taxCategory: { id: 'AE', percent: 0, taxSchemeId: { id: 'VAT' } },
         },
       ];
-      document.accountingSupplierParty.partyTaxSchemes = undefined;
+      document.accountingSupplierParty.party.partyTaxSchemes = undefined;
       document.taxRepresentativeParty = undefined;
-      document.accountingCustomerParty.partyTaxSchemes = undefined;
-      document.accountingCustomerParty.partyLegalEntity.companyId = undefined;
+      document.accountingCustomerParty.party.partyTaxSchemes = undefined;
+      document.accountingCustomerParty.party.partyLegalEntity.companyId = undefined;
       const result = yield* validateCenEn16931BrAe04(document).pipe(Effect.result);
       assert(Result.isFailure(result));
     })

@@ -145,7 +145,7 @@ export function getProfile(document: Pick<PeppolDocument, 'profileId'>): string 
  * @returns The upper case ISO 3166-1 alpha-2 country code, defaulting to `'XX'` when neither the VAT prefix nor the postal address provides one.
  */
 export function getSupplierCountry(document: PeppolDocument): string {
-  const vatScheme = document.accountingSupplierParty.partyTaxSchemes?.find(s => s.taxSchemeId.id === 'VAT');
+  const vatScheme = document.accountingSupplierParty.party.partyTaxSchemes?.find(s => s.taxSchemeId.id === 'VAT');
   const prefix = vatScheme?.companyId?.slice(0, 2);
   if (prefix) {
     return prefix.toUpperCase();
@@ -157,7 +157,7 @@ export function getSupplierCountry(document: PeppolDocument): string {
       return taxRepPrefix.toUpperCase();
     }
   }
-  const country = document.accountingSupplierParty.postalAddress.countryCode.identificationCode;
+  const country = document.accountingSupplierParty.party.postalAddress.countryCode.identificationCode;
   return country ? String.toUpperCase(country) : 'XX';
 }
 
@@ -174,12 +174,12 @@ export function getSupplierCountry(document: PeppolDocument): string {
  * @returns The upper case ISO 3166-1 alpha-2 country code, defaulting to `'XX'` when neither the VAT prefix nor the postal address provides one.
  */
 export function getCustomerCountry(document: PeppolDocument): string {
-  const vatScheme = document.accountingCustomerParty.partyTaxSchemes?.find(s => s.taxSchemeId.id === 'VAT');
+  const vatScheme = document.accountingCustomerParty.party.partyTaxSchemes?.find(s => s.taxSchemeId.id === 'VAT');
   const prefix = vatScheme?.companyId?.slice(0, 2);
   if (prefix) {
     return prefix.toUpperCase();
   }
-  const country = document.accountingCustomerParty.postalAddress.countryCode.identificationCode;
+  const country = document.accountingCustomerParty.party.postalAddress.countryCode.identificationCode;
   return country ? String.toUpperCase(country) : 'XX';
 }
 
@@ -196,7 +196,7 @@ export function getCustomerCountry(document: PeppolDocument): string {
  * @returns `true` when the supplier postal address country code is `DE`, otherwise `false`.
  */
 export function isSupplierGermany(document: PeppolDocument): boolean {
-  return document.accountingSupplierParty.postalAddress.countryCode.identificationCode.toUpperCase() === 'DE';
+  return document.accountingSupplierParty.party.postalAddress.countryCode.identificationCode.toUpperCase() === 'DE';
 }
 
 /**
@@ -212,7 +212,7 @@ export function isSupplierGermany(document: PeppolDocument): boolean {
  * @returns `true` when the customer postal address country code is `DE`, otherwise `false`.
  */
 export function isCustomerGermany(document: PeppolDocument): boolean {
-  return document.accountingCustomerParty.postalAddress.countryCode.identificationCode.toUpperCase() === 'DE';
+  return document.accountingCustomerParty.party.postalAddress.countryCode.identificationCode.toUpperCase() === 'DE';
 }
 
 /**
@@ -401,7 +401,7 @@ export function hasVatCategoryCode(document: PeppolDocument, code: string): bool
  * @returns The comma separated supplier and tax representative identifiers, or an empty string when none is present.
  */
 export function getSupplierTaxIdentifiers(document: PeppolDocument): string {
-  const companyIds = document.accountingSupplierParty.partyTaxSchemes?.map(scheme => scheme.companyId) ?? [];
+  const companyIds = document.accountingSupplierParty.party.partyTaxSchemes?.map(scheme => scheme.companyId) ?? [];
   const taxRepCompanyId = document.taxRepresentativeParty?.partyTaxScheme.companyId;
   return [taxRepCompanyId, ...companyIds].filter((v): v is string => typeof v === 'string' && v.trim() !== '').join(',');
 }
@@ -419,7 +419,7 @@ export function getSupplierTaxIdentifiers(document: PeppolDocument): string {
  * @returns `true` when the supplier carries at least one non-empty company identifier, otherwise `false`.
  */
 export function hasSellerTaxIdentifier(document: PeppolDocument): boolean {
-  return document.accountingSupplierParty.partyTaxSchemes?.some(scheme => scheme.companyId.trim() !== '') ?? false;
+  return document.accountingSupplierParty.party.partyTaxSchemes?.some(scheme => scheme.companyId.trim() !== '') ?? false;
 }
 
 /**
@@ -435,10 +435,10 @@ export function hasSellerTaxIdentifier(document: PeppolDocument): boolean {
  * @returns `true` when the buyer carries a VAT identifier (BT-48) or a legal registration identifier (BT-47), otherwise `false`.
  */
 export function hasBuyerTaxIdentifier(document: PeppolDocument): boolean {
-  const buyerVat = document.accountingCustomerParty.partyTaxSchemes?.some(scheme => scheme.companyId.trim() !== '') ?? false;
+  const buyerVat = document.accountingCustomerParty.party.partyTaxSchemes?.some(scheme => scheme.companyId.trim() !== '') ?? false;
   const buyerLegal =
-    typeof document.accountingCustomerParty.partyLegalEntity.companyId?.id === 'string' &&
-    document.accountingCustomerParty.partyLegalEntity.companyId?.id.trim() !== '';
+    typeof document.accountingCustomerParty.party.partyLegalEntity.companyId?.id === 'string' &&
+    document.accountingCustomerParty.party.partyLegalEntity.companyId?.id.trim() !== '';
   return buyerVat || buyerLegal;
 }
 
@@ -624,7 +624,7 @@ export function hasDocumentChargeVatCategoryCode(document: PeppolDocument, code:
  */
 export function hasSellerVatCompanyId(document: PeppolDocument): boolean {
   return (
-    document.accountingSupplierParty.partyTaxSchemes?.some(
+    document.accountingSupplierParty.party.partyTaxSchemes?.some(
       scheme => scheme.taxSchemeId.id.toUpperCase() === 'VAT' && scheme.companyId.trim() !== ''
     ) ?? false
   );
@@ -644,7 +644,7 @@ export function hasSellerVatCompanyId(document: PeppolDocument): boolean {
  */
 export function hasBuyerVatCompanyId(document: PeppolDocument): boolean {
   return (
-    document.accountingCustomerParty.partyTaxSchemes?.some(
+    document.accountingCustomerParty.party.partyTaxSchemes?.some(
       scheme => scheme.taxSchemeId.id.toUpperCase() === 'VAT' && scheme.companyId.trim() !== ''
     ) ?? false
   );
@@ -683,7 +683,7 @@ export function hasTaxRepresentativeVatCompanyId(document: PeppolDocument): bool
  * @returns `true` when the buyer has a non-empty legal registration identifier (BT-47), otherwise `false`.
  */
 export function hasBuyerLegalCompanyId(document: PeppolDocument): boolean {
-  const id = document.accountingCustomerParty.partyLegalEntity.companyId?.id;
+  const id = document.accountingCustomerParty.party.partyLegalEntity.companyId?.id;
   return typeof id === 'string' && id.trim() !== '';
 }
 
@@ -799,7 +799,7 @@ export function getTaxSubtotalsWithCode(
  * @returns `true` when the supplier has a non-empty legal registration identifier (BT-30), otherwise `false`.
  */
 export function hasSellerLegalCompanyId(document: PeppolDocument): boolean {
-  const id = document.accountingSupplierParty.partyLegalEntity.companyId?.id;
+  const id = document.accountingSupplierParty.party.partyLegalEntity.companyId?.id;
   return typeof id === 'string' && id.trim() !== '';
 }
 
@@ -818,8 +818,8 @@ export function hasSellerLegalCompanyId(document: PeppolDocument): boolean {
  */
 export function everyCountryCodeIs(document: PeppolDocument, code: string): boolean {
   const codes = [
-    document.accountingSupplierParty.postalAddress.countryCode.identificationCode,
-    document.accountingCustomerParty.postalAddress.countryCode.identificationCode,
+    document.accountingSupplierParty.party.postalAddress.countryCode.identificationCode,
+    document.accountingCustomerParty.party.postalAddress.countryCode.identificationCode,
     document.taxRepresentativeParty?.postalAddress.countryCode.identificationCode,
     document.delivery?.deliveryLocation?.address?.countryCode.identificationCode,
     ...getLines(document)
@@ -850,8 +850,8 @@ export function allVatCompanyIdsHaveValidPrefix(document: PeppolDocument): boole
       }
     }
   };
-  pushVatIds(document.accountingSupplierParty.partyTaxSchemes);
-  pushVatIds(document.accountingCustomerParty.partyTaxSchemes);
+  pushVatIds(document.accountingSupplierParty.party.partyTaxSchemes);
+  pushVatIds(document.accountingCustomerParty.party.partyTaxSchemes);
   if (
     document.taxRepresentativeParty?.partyTaxScheme.taxSchemeId.id.toUpperCase() === 'VAT' &&
     document.taxRepresentativeParty.partyTaxScheme.companyId.trim() !== ''
@@ -995,7 +995,7 @@ export function withinSlackOne(a: number, b: number): boolean {
  */
 export function getIdentifiersWithSchemeId(document: PeppolDocument): Array<{ id: string; schemeId: string }> {
   const candidates: Array<{ id: string | undefined; schemeId: string | undefined }> = [];
-  for (const party of [document.accountingSupplierParty, document.accountingCustomerParty]) {
+  for (const party of [document.accountingSupplierParty.party, document.accountingCustomerParty.party]) {
     candidates.push(
       { id: party.endpointId?.id, schemeId: party.endpointId?.schemeId },
       { id: party.partyIdentification?.id?.id, schemeId: party.partyIdentification?.id?.schemeId },

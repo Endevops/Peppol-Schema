@@ -14,9 +14,9 @@ function evaluateCenEn16931Br17(document: PeppolDocument): boolean {
     !document.payeeParty ||
     (typeof document.payeeParty.partyName.name === 'string' &&
       document.payeeParty.partyName.name.trim() !== '' &&
-      document.payeeParty.partyName.name !== document.accountingSupplierParty.partyLegalEntity.registrationName &&
+      document.payeeParty.partyName.name !== document.accountingSupplierParty.party.partyLegalEntity.registrationName &&
       (document.payeeParty.partyIdentification?.id?.id === undefined ||
-        document.payeeParty.partyIdentification.id.id !== document.accountingSupplierParty.partyIdentification?.id?.id));
+        document.payeeParty.partyIdentification.id.id !== document.accountingSupplierParty.party.partyIdentification?.id?.id));
   return passed;
 }
 

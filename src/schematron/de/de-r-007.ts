@@ -13,7 +13,7 @@ function evaluateDeR007(document: PeppolDocument): boolean {
   if (!isGermanSupplierAndCustomer(document)) {
     return true;
   }
-  const email = document.accountingSupplierParty.contact?.electronicMail;
+  const email = document.accountingSupplierParty.party.contact?.electronicMail;
   return typeof email === 'string' && email.trim() !== '';
 }
 

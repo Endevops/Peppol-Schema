@@ -31,7 +31,7 @@ describe('CEN-EN16931-BR-O-04', () => {
           taxCategory: { id: 'O', percent: 0, taxSchemeId: { id: 'VAT' } },
         },
       ];
-      document.accountingSupplierParty.partyTaxSchemes = undefined;
+      document.accountingSupplierParty.party.partyTaxSchemes = undefined;
       document.taxRepresentativeParty = undefined;
       const result = yield* validateCenEn16931BrO04(document).pipe(Effect.result);
       assert(Result.isFailure(result));

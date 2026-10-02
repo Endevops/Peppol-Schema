@@ -17,7 +17,7 @@ function evaluateDeR028(document: PeppolDocument): boolean {
   if (!isGermanSupplierAndCustomer(document)) {
     return true;
   }
-  const email = document.accountingSupplierParty.contact?.electronicMail;
+  const email = document.accountingSupplierParty.party.contact?.electronicMail;
   return email === undefined || EMAIL_REGEX.test(email.trim());
 }
 

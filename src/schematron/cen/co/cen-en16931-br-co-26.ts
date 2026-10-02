@@ -13,7 +13,7 @@ const rule = {
 function evaluateCenEn16931BrCo26(document: PeppolDocument): boolean {
   const passed =
     hasSellerTaxIdentifier(document) ||
-    typeof document.accountingSupplierParty.partyIdentification?.id.id === 'string' ||
+    typeof document.accountingSupplierParty.party.partyIdentification?.id.id === 'string' ||
     hasSellerLegalCompanyId(document);
   return passed;
 }
