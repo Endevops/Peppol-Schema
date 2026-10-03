@@ -12,7 +12,7 @@ const validInvoiceResponse = {
   customizationId: 'urn:fdc:peppol.eu:poacc:trns:invoice_response:3',
   documentResponse: {
     documentReference: { documentTypeCode: '380', id: 'inv021', issueDate: '2018-09-22' },
-    issuerParty: { partyIdentification: { id: '123456785', schemeId: '0192' }, partyName: { name: 'Test Company AS' } },
+    issuerParty: { partyIdentification: { id: { id: '123456785', schemeId: '0192' } }, partyName: { name: 'Test Company AS' } },
     response: {
       effectiveDate: '2018-09-24',
       responseCode: 'RE',
@@ -59,7 +59,7 @@ describe('PeppolInvoiceResponse', () => {
       customizationId: 'urn:fdc:peppol.eu:poacc:trns:invoice_response:3',
       documentResponse: {
         documentReference: { documentTypeCode: '380', id: 'inv021', issueDate: DateTime.makeUnsafe('2018-09-22') },
-        issuerParty: { partyIdentification: { id: '123456785', schemeId: '0192' }, partyName: { name: 'Test Company AS' } },
+        issuerParty: { partyIdentification: { id: { id: '123456785', schemeId: '0192' } }, partyName: { name: 'Test Company AS' } },
         response: {
           effectiveDate: DateTime.makeUnsafe('2018-09-24'),
           responseCode: 'RE',
@@ -97,7 +97,7 @@ describe('PeppolInvoiceResponse', () => {
       customizationId: 'urn:fdc:peppol.eu:poacc:trns:invoice_response:3',
       documentResponse: {
         documentReference: { documentTypeCode: '380', id: 'inv021', issueDate: DateTime.makeUnsafe('2018-09-22') },
-        issuerParty: { partyIdentification: { id: '123456785', schemeId: '0192' }, partyName: { name: 'Test Company AS' } },
+        issuerParty: { partyIdentification: { id: { id: '123456785', schemeId: '0192' } }, partyName: { name: 'Test Company AS' } },
         response: {
           effectiveDate: DateTime.makeUnsafe('2018-09-24'),
           responseCode: 'RE',

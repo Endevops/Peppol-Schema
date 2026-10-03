@@ -223,6 +223,7 @@ const expected: Record<string, ReadonlyArray<string>> = {
     'cac:IssuerParty',
     'cac:RecipientParty',
   ],
+  './peppol-invoice-response-schema.ts#PeppolInvoiceResponseDocumentResponseParty': ['cac:PartyIdentification', 'cac:PartyName'],
   './peppol-invoice-response-schema.ts#PeppolInvoiceResponseParty': ['cbc:EndpointID', 'cac:PartyIdentification', 'cac:PartyLegalEntity'],
   './peppol-invoice-response-schema.ts#PeppolInvoiceResponseSenderParty': [
     'cbc:EndpointID',

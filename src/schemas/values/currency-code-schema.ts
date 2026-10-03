@@ -23,7 +23,7 @@ import { currencyCodesKeys } from '#/values/currency-code.generated';
  * @see https://docs.peppol.eu/poacc/billing/3.0/codelist/ISO4217/
  * @see {@link currencyCodesKeys}
  */
-export const PeppolCurrencyCode = Schema.Literals(currencyCodesKeys).pipe(Schema.toStandardSchemaV1);
+export const PeppolCurrencyCode = Schema.Literals(currencyCodesKeys).pipe(Schema.brand('PeppolCurrencyCode'), Schema.toStandardSchemaV1);
 
 /**
  * @description Decoded form of {@link PeppolCurrencyCode}.

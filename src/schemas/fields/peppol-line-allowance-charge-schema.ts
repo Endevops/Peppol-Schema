@@ -7,67 +7,6 @@ import { PeppolAllowanceChargeReasonCode } from '#/schemas/values/allowance-char
 import { PeppolChargeReasonCode } from '#/schemas/values/charge-reason-code-schema.ts';
 
 /**
- * @description Shared fields for an allowance or charge applied to an Invoice line. Extends the price level allowance and charge fields with the reason text and
- * the multiplier factor used to calculate the amount.
- *
- * @example
- *   ```ts
- *   { amount: { value: 200, currencyId: 'EUR' }, chargeIndicator: false, allowanceChargeReason: 'Discount' }
- *   ```;
- *
- * @see {@link PeppolLineAllowanceCharge}
- */
-export class BaseLineAllowanceCharge extends opaque<BaseLineAllowanceCharge>()(
-  Schema.Struct({
-    /**
-     * @name cbc:ChargeIndicator
-     *
-     * @value false
-     */
-    chargeIndicator: Schema.Boolean.pipe(Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'ChargeIndicator' })),
-
-    /**
-     * @example
-     *   200;
-     *
-     * @name cbc:Amount (+ @currencyID)
-     */
-    amount: PeppolAmount.pipe(
-      Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'Amount', examples: [{ value: 200, currencyId: 'EUR' }] })
-    ),
-    /**
-     * @example
-     *   ```
-     *  1000
-     *  ```;
-     *
-     * @name cbc:BaseAmount (+ @currencyID)
-     */
-    baseAmount: Schema.optional(PeppolAmount).pipe(
-      Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'BaseAmount', examples: [{ value: 1000, currencyId: 'EUR' }] })
-    ) /**
-     * @example
-     *   Discount;
-     *
-     * @name cbc:AllowanceChargeReason
-     */,
-    allowanceChargeReason: Schema.String.pipe(
-      Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'AllowanceChargeReason', examples: ['Discount'] }),
-      Schema.optional
-    ),
-    /**
-     * @example
-     *   20;
-     *
-     * @name cbc:MultiplierFactorNumeric
-     */
-    multiplierFactorNumeric: Schema.optional(Schema.Finite).pipe(
-      Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'MultiplierFactorNumeric', examples: [20] })
-    ),
-  }).pipe(Schema.toStandardSchemaV1)
-) {}
-
-/**
  * @description An allowance applied to an Invoice line, marked by a `cbc:ChargeIndicator` of `false`. Adds an allowance reason code to the shared line allowance
  * and charge fields.
  *

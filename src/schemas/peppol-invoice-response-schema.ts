@@ -96,7 +96,9 @@ export class PeppolInvoiceResponseDocumentResponseParty extends opaque<PeppolInv
     /**
      * @summary Party partyIdentification
      */
-    partyIdentification: Schema.optional(PeppolIdentifier),
+    partyIdentification: Schema.Struct({
+      id: StringIdentifierSchema(PeppolIdentifier).pipe(Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'ID' })),
+    }).pipe(Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'PartyIdentification' }), Schema.optional),
     /**
      * @example
      *   Seller Business Name AS
