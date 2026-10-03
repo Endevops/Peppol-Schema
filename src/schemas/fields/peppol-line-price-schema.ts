@@ -16,6 +16,18 @@ import { opaque } from '#/schemas/utils/opaque.ts';
 export class PeppolLinePrice extends opaque<PeppolLinePrice>()(
   Schema.Struct({
     /**
+     * @name cbc:PriceAmount (+ @currencyID)
+     */
+    priceAmount: PeppolAmount.pipe(Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'PriceAmount' })),
+
+    /**
+     * @name cbc:BaseQuantity (+ @unitCode)
+     *
+     * @cardinality 0..1
+     */
+    baseQuantity: PeppolQuantity.pipe(Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'BaseQuantity' }), Schema.optional),
+
+    /**
      * @name cac:AllowanceCharge
      *
      * @cardinality 0..1
@@ -24,15 +36,5 @@ export class PeppolLinePrice extends opaque<PeppolLinePrice>()(
       Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'AllowanceCharge' }),
       Schema.optional
     ),
-    /**
-     * @name cbc:BaseQuantity (+ @unitCode)
-     *
-     * @cardinality 0..1
-     */
-    baseQuantity: PeppolQuantity.pipe(Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'BaseQuantity' }), Schema.optional),
-    /**
-     * @name cbc:PriceAmount (+ @currencyID)
-     */
-    priceAmount: PeppolAmount.pipe(Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'PriceAmount' })),
   }).pipe(Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'Price' }), Schema.toStandardSchemaV1)
 ) {}

@@ -5,6 +5,7 @@ import { describe, expect, it } from 'vite-plus/test';
 
 import { PeppolCreditNote } from '#/schemas/peppol-credit-note-schema.ts';
 import { decoding } from '#/test/schema-asserts.ts';
+import { rootChildElementNames } from '#/test/xsd-sequence.ts';
 
 const validCreditNote = {
   accountingCustomerParty: {
@@ -54,7 +55,7 @@ const validCreditNote = {
       ],
     },
   ],
-};
+} as const;
 
 describe('PeppolCreditNote', () => {
   const decode = decoding(PeppolCreditNote, { parseOptions: { errors: 'all' } });
@@ -108,13 +109,6 @@ describe('PeppolCreditNote', () => {
         },
       ],
     });
-  });
-
-  it('should not contains invalid nodes', () => {
-    const encoded = Schema.decodeUnknownSync(PeppolCreditNote)(validCreditNote);
-    const result = Schema.encodeSync(PeppolCreditNote.pipe(toCodecXml()))(encoded);
-    expect(result).not.toContain('ubl:customizationId');
-    expect(result).not.toContain('ubl:profileId');
   });
 
   it('should reject credit note without required id', async () => {
@@ -245,6 +239,42 @@ describe('PeppolCreditNote', () => {
           ],
         },
       ],
+    });
+  });
+
+  it('should not contains invalid nodes', () => {
+    const encoded = Schema.decodeSync(PeppolCreditNote)(validCreditNote);
+    const result = Schema.encodeSync(PeppolCreditNote.pipe(toCodecXml()))(encoded);
+    expect(result).not.toContain('ubl:customizationId');
+    expect(result).not.toContain('ubl:profileId');
+  });
+
+  describe('xsd sequence', () => {
+    it('renders the root children in UBL CreditNote sequence order', () => {
+      const decoded = Schema.decodeSync(PeppolCreditNote)({
+        ...validCreditNote,
+        note: 'A note',
+        orderReference: { id: 'PO-001' },
+        taxPointDate: '2024-01-10',
+      });
+      const xml = Schema.encodeSync(PeppolCreditNote.pipe(toCodecXml()))(decoded);
+
+      expect(rootChildElementNames(xml)).toEqual([
+        'cbc:CustomizationID',
+        'cbc:ProfileID',
+        'cbc:ID',
+        'cbc:IssueDate',
+        'cbc:TaxPointDate',
+        'cbc:CreditNoteTypeCode',
+        'cbc:Note',
+        'cbc:DocumentCurrencyCode',
+        'cac:OrderReference',
+        'cac:AccountingSupplierParty',
+        'cac:AccountingCustomerParty',
+        'cac:TaxTotal',
+        'cac:LegalMonetaryTotal',
+        'cac:CreditNoteLine',
+      ]);
     });
   });
 });

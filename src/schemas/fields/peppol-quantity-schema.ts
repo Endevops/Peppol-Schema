@@ -13,12 +13,13 @@ import { PeppolQuantityUnitCode } from '#/schemas/values/quantity-unit-codes-sch
 export class PeppolQuantity extends opaque<PeppolQuantity>()(
   Schema.Struct({
     /**
-     * @name `@unitCode`
-     */
-    unitCode: PeppolQuantityUnitCode.pipe(Schema.annotate({ xmlName: 'unitCode', xmlAttribute: true }), Schema.optional),
-    /**
      * @name `#text (value)`
      */
-    value: Schema.Finite.pipe(Schema.annotate({ xmlValue: true })),
+    value: Schema.Finite.pipe(Schema.annotate({ xmlValue: true, examples: [10] })),
+
+    /**
+     * @name `@unitCode`
+     */
+    unitCode: PeppolQuantityUnitCode.pipe(Schema.annotate({ xmlName: 'unitCode', xmlAttribute: true, examples: ['C62' as never] }), Schema.optional),
   }).pipe(Schema.toStandardSchemaV1)
 ) {}

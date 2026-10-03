@@ -118,16 +118,9 @@ export class PeppolPayeeParty extends opaque<PeppolPayeeParty>()(
      * @name `cac:PartyIdentification`
      */
     partyIdentification: Schema.optional(PeppolPayeePartyIdentification).pipe(
-      Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'PartyIdentification' })
+      Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'PartyIdentification', title: 'Party Identification' })
     ),
-    /**
-     * @summary PARTY LEGAL ENTITY
-     *
-     * @name `cac:PartyLegalEntity`
-     */
-    partyLegalEntity: Schema.optional(PeppolPayeePartyLegalEntity).pipe(
-      Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'PartyLegalEntity' })
-    ),
+
     /**
      * @description The name of the payee.
      *
@@ -138,6 +131,24 @@ export class PeppolPayeeParty extends opaque<PeppolPayeeParty>()(
      *
      * @name `cac:PartyName`
      */
-    partyName: PeppolPayeePartyName.pipe(Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'PartyName' })),
+    partyName: PeppolPayeePartyName.pipe(
+      Schema.annotate({
+        xmlNamespace: CAC_NAMESPACE,
+        xmlPrefix: 'cac',
+        xmlName: 'PartyName',
+        title: 'Party Name',
+        description: 'The name of the payee.',
+        examples: [{ name: 'Payee Name Ltd' }],
+      })
+    ),
+
+    /**
+     * @summary PARTY LEGAL ENTITY
+     *
+     * @name `cac:PartyLegalEntity`
+     */
+    partyLegalEntity: Schema.optional(PeppolPayeePartyLegalEntity).pipe(
+      Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'PartyLegalEntity' })
+    ),
   }).pipe(Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'PayeeParty' }), Schema.toStandardSchemaV1)
 ) {}

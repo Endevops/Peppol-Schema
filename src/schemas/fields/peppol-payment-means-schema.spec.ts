@@ -50,6 +50,6 @@ describe('PeppolPaymentMeans', () => {
   });
 
   it('should reject a card account without a networkId', async () => {
-    await decode.fail({ paymentMeansCode: { code: '30' }, cardAccount: {} }, 'Missing key\n  at ["cardAccount"]["networkId"]');
+    await decode.fail({ paymentMeansCode: { code: '30' }, cardAccount: {} }, 'Missing key\n  at ["cardAccount"]["primaryAccountNumberId"]');
   });
 });

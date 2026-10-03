@@ -76,6 +76,7 @@ export class PeppolAddress extends opaque<PeppolAddress>()(
      * @name `cbc:StreetName`
      */
     streetName: Schema.String.pipe(Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'StreetName' }), Schema.optional),
+
     /**
      * @description An additional address line in an address that can be used to give further details supplementing the main line.
      *
@@ -90,6 +91,7 @@ export class PeppolAddress extends opaque<PeppolAddress>()(
       Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'AdditionalStreetName' }),
       Schema.optional
     ),
+
     /**
      * @description The common name of the city, town or village, where the address is located.
      *
@@ -101,6 +103,7 @@ export class PeppolAddress extends opaque<PeppolAddress>()(
      * @name `cbc:CityName`
      */
     cityName: Schema.String.pipe(Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'CityName' }), Schema.optional),
+
     /**
      * @description The identifier for an addressable group of properties according to the relevant postal service.
      *
@@ -112,6 +115,7 @@ export class PeppolAddress extends opaque<PeppolAddress>()(
      * @name `cbc:PostalZone`
      */
     postalZone: Schema.String.pipe(Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'PostalZone' }), Schema.optional),
+
     /**
      * @description The subdivision of a country.
      *
@@ -126,19 +130,26 @@ export class PeppolAddress extends opaque<PeppolAddress>()(
       Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'CountrySubentity' }),
       Schema.optional
     ),
-    /**
-     * @example
-     *   GB;
-     *
-     * @name `cac:Country`
-     */
-    countryCode: PeppolAddressCountryCode.pipe(Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'Country' })),
+
     /**
      * @example
      *   Building 23
      *
      * @name `cac:AddressLine`
      */
-    addressLine: PeppolAddressLine.pipe(Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'AddressLine' }), Schema.optional),
+    addressLine: PeppolAddressLine.pipe(
+      Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'AddressLine', examples: [{ line: 'Building 23' }] }),
+      Schema.optional
+    ),
+
+    /**
+     * @example
+     *   GB;
+     *
+     * @name `cac:Country`
+     */
+    countryCode: PeppolAddressCountryCode.pipe(
+      Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'Country', examples: [{ identificationCode: 'BE' }] })
+    ),
   }).pipe(Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'PostalAddress' }), Schema.toStandardSchemaV1)
 ) {}

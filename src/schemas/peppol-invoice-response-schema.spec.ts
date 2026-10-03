@@ -1,8 +1,10 @@
 // oxlint-disable vitest/expect-expect
-import { DateTime } from 'effect';
-import { afterAll, beforeAll, describe, it, vi } from 'vite-plus/test';
+import { toCodecXml } from '@endevops/effect-codec-xml';
+import { DateTime, Schema } from 'effect';
+import { afterAll, beforeAll, describe, expect, it, vi } from 'vite-plus/test';
 
 import { decoding } from '#/test/schema-asserts.ts';
+import { rootChildElementNames } from '#/test/xsd-sequence.ts';
 
 import { PeppolInvoiceResponse } from './peppol-invoice-response-schema.ts';
 
@@ -154,5 +156,24 @@ describe('PeppolInvoiceResponse', () => {
       { ...validInvoiceResponse, documentResponse: withoutDocumentReference },
       'Missing key\n  at ["documentResponse"]["documentReference"]'
     );
+  });
+
+  describe('xsd sequence', () => {
+    it('renders the root children in UBL ApplicationResponse sequence order', () => {
+      const decoded = Schema.decodeSync(PeppolInvoiceResponse)(validInvoiceResponse);
+      const xml = Schema.encodeSync(PeppolInvoiceResponse.pipe(toCodecXml()))(decoded);
+
+      expect(rootChildElementNames(xml)).toEqual([
+        'cbc:CustomizationID',
+        'cbc:ProfileID',
+        'cbc:ID',
+        'cbc:IssueDate',
+        'cbc:IssueTime',
+        'cbc:Note',
+        'cac:SenderParty',
+        'cac:ReceiverParty',
+        'cac:DocumentResponse',
+      ]);
+    });
   });
 });

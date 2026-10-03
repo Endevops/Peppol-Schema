@@ -15,11 +15,19 @@ import { opaque } from '#/schemas/utils/opaque.ts';
 export class PeppolTaxSubTotal extends opaque<PeppolTaxSubTotal>()(
   Schema.Struct({
     /**
+     * @description The taxable amount for the tax subtotal.
+     *
+     * @name `cbc:TaxableAmount (+ @currencyID)`
+     */
+    taxableAmount: PeppolAmount.pipe(Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'TaxableAmount' })),
+
+    /**
      * @description The amount of tax for the tax subtotal.
      *
      * @name `cbc:TaxAmount (+ @currencyID)`
      */
     taxAmount: PeppolAmount.pipe(Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'TaxAmount' })),
+
     /**
      * @description The tax category associated with this tax subtotal.
      *
@@ -33,11 +41,5 @@ export class PeppolTaxSubTotal extends opaque<PeppolTaxSubTotal>()(
         description: 'The tax category associated with this tax subtotal.',
       })
     ),
-    /**
-     * @description The taxable amount for the tax subtotal.
-     *
-     * @name `cbc:TaxableAmount (+ @currencyID)`
-     */
-    taxableAmount: PeppolAmount.pipe(Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'TaxableAmount' })),
   }).pipe(Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'TaxSubtotal' }), Schema.toStandardSchemaV1)
 ) {}

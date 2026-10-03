@@ -126,20 +126,6 @@ export class PeppolPayeeFinancialAccountFinancialInstitutionBranch extends opaqu
 export class PeppolPayeeFinancialAccount extends opaque<PeppolPayeeFinancialAccount>()(
   Schema.Struct({
     /**
-     * @description An identifier for the payment service provider where a payment account is located. Such as a BIC or a national clearing code where required. No
-     * identification scheme Identifier to be used.
-     *
-     * @example
-     *   `9998`;
-     *
-     * @summary Payment service provider identifier
-     *
-     * @name `cac:FinancialInstitutionBranch`
-     */
-    financialInstitutionBranch: Schema.optional(PeppolPayeeFinancialAccountFinancialInstitutionBranch).pipe(
-      Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'FinancialInstitutionBranch' })
-    ),
-    /**
      * @description A unique identifier of the financial payment account, at a payment service provider, to which payment should be made. Such as IBAN or BBAN.
      *
      * @summary Payment account identifier
@@ -172,6 +158,21 @@ export class PeppolPayeeFinancialAccount extends opaque<PeppolPayeeFinancialAcco
         title: 'Payment account name',
       })
     ),
+
+    /**
+     * @description An identifier for the payment service provider where a payment account is located. Such as a BIC or a national clearing code where required. No
+     * identification scheme Identifier to be used.
+     *
+     * @example
+     *   `9998`;
+     *
+     * @summary Payment service provider identifier
+     *
+     * @name `cac:FinancialInstitutionBranch`
+     */
+    financialInstitutionBranch: Schema.optional(PeppolPayeeFinancialAccountFinancialInstitutionBranch).pipe(
+      Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'FinancialInstitutionBranch' })
+    ),
   }).pipe(Schema.toStandardSchemaV1)
 ) {}
 
@@ -187,35 +188,6 @@ export class PeppolPayeeFinancialAccount extends opaque<PeppolPayeeFinancialAcco
  */
 export class PeppolCardAccount extends opaque<PeppolCardAccount>()(
   Schema.Struct({
-    /**
-     * @description The name of the payment card holder.
-     *
-     * @summary Payment card holder name
-     *
-     * @name cbc:HolderName
-     */
-    holderName: Schema.optional(Schema.String).pipe(
-      Schema.annotate({
-        xmlNamespace: CBC_NAMESPACE,
-        xmlPrefix: 'cbc',
-        xmlName: 'HolderName',
-        description: 'The name of the payment card holder.',
-        title: 'Payment card holder name',
-      })
-    ),
-    /**
-     * @summary Syntax required element not related to a business term.
-     *
-     * @name cbc:NetworkID
-     */
-    networkId: Schema.String.pipe(
-      Schema.annotate({
-        xmlNamespace: CBC_NAMESPACE,
-        xmlPrefix: 'cbc',
-        xmlName: 'NetworkID',
-        title: 'Syntax required element not related to a business term.',
-      })
-    ),
     /**
      * @description The Primary Account Number (PAN) of the card used for payment. In accordance with card payments security standards, an invoice should never
      * include a full card primary account number.
@@ -236,6 +208,37 @@ export class PeppolCardAccount extends opaque<PeppolCardAccount>()(
           'The Primary Account Number (PAN) of the card used for payment. In accordance with card payments security standards, an invoice should never include a full card primary account number.',
         title: 'Payment card primary account number',
         examples: ['1234`'] as unknown as ReadonlyArray<never>,
+      })
+    ),
+
+    /**
+     * @summary Syntax required element not related to a business term.
+     *
+     * @name cbc:NetworkID
+     */
+    networkId: Schema.String.pipe(
+      Schema.annotate({
+        xmlNamespace: CBC_NAMESPACE,
+        xmlPrefix: 'cbc',
+        xmlName: 'NetworkID',
+        title: 'Syntax required element not related to a business term.',
+      })
+    ),
+
+    /**
+     * @description The name of the payment card holder.
+     *
+     * @summary Payment card holder name
+     *
+     * @name cbc:HolderName
+     */
+    holderName: Schema.optional(Schema.String).pipe(
+      Schema.annotate({
+        xmlNamespace: CBC_NAMESPACE,
+        xmlPrefix: 'cbc',
+        xmlName: 'HolderName',
+        description: 'The name of the payment card holder.',
+        title: 'Payment card holder name',
       })
     ),
   }).pipe(Schema.toStandardSchemaV1)

@@ -4,6 +4,7 @@ import { DateTime, Schema } from 'effect';
 import { describe, expect, it } from 'vite-plus/test';
 
 import { decoding } from '#/test/schema-asserts.ts';
+import { rootChildElementNames } from '#/test/xsd-sequence.ts';
 
 import { PeppolInvoice } from './peppol-invoice-schema.ts';
 
@@ -227,5 +228,36 @@ describe('PeppolInvoice', () => {
         ],
       }
     );
+  });
+
+  describe('xsd sequence', () => {
+    it('renders the root children in UBL Invoice sequence order', () => {
+      const decoded = Schema.decodeSync(PeppolInvoice)({
+        ...validInvoice,
+        dueDate: '2024-02-15',
+        note: 'A note',
+        projectReference: { id: 'PRJ-1' },
+        taxPointDate: '2024-01-10',
+      });
+      const xml = Schema.encodeSync(PeppolInvoice.pipe(toCodecXml()))(decoded);
+
+      expect(rootChildElementNames(xml)).toEqual([
+        'cbc:CustomizationID',
+        'cbc:ProfileID',
+        'cbc:ID',
+        'cbc:IssueDate',
+        'cbc:DueDate',
+        'cbc:InvoiceTypeCode',
+        'cbc:Note',
+        'cbc:TaxPointDate',
+        'cbc:DocumentCurrencyCode',
+        'cac:ProjectReference',
+        'cac:AccountingSupplierParty',
+        'cac:AccountingCustomerParty',
+        'cac:TaxTotal',
+        'cac:LegalMonetaryTotal',
+        'cac:InvoiceLine',
+      ]);
+    });
   });
 });

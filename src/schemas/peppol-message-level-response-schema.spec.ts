@@ -1,8 +1,10 @@
 // oxlint-disable vitest/expect-expect
-import { DateTime } from 'effect';
-import { afterAll, beforeAll, describe, it, vi } from 'vite-plus/test';
+import { toCodecXml } from '@endevops/effect-codec-xml';
+import { DateTime, Schema } from 'effect';
+import { afterAll, beforeAll, describe, expect, it, vi } from 'vite-plus/test';
 
 import { decoding } from '#/test/schema-asserts.ts';
+import { rootChildElementNames } from '#/test/xsd-sequence.ts';
 
 import { PeppolMessageLevelResponse } from './peppol-message-level-response-schema.ts';
 
@@ -92,5 +94,23 @@ describe('PeppolMessageLevelResponse', () => {
       { ...validMessageLevelResponse, issueDate: 'not-a-date' },
       'Expected a string matching the RegExp ^\\d{4}-\\d{2}-\\d{2}Z?$\n  at ["issueDate"]'
     );
+  });
+
+  describe('xsd sequence', () => {
+    it('renders the root children in UBL ApplicationResponse sequence order', () => {
+      const decoded = Schema.decodeSync(PeppolMessageLevelResponse)(validMessageLevelResponse);
+      const xml = Schema.encodeSync(PeppolMessageLevelResponse.pipe(toCodecXml()))(decoded);
+
+      expect(rootChildElementNames(xml)).toEqual([
+        'cbc:CustomizationID',
+        'cbc:ProfileID',
+        'cbc:ID',
+        'cbc:IssueDate',
+        'cbc:IssueTime',
+        'cac:SenderParty',
+        'cac:ReceiverParty',
+        'cac:DocumentResponse',
+      ]);
+    });
   });
 });

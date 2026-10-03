@@ -17,13 +17,20 @@ import { opaque } from '#/schemas/utils/opaque.ts';
 class PriceAllowanceCharge extends opaque<PriceAllowanceCharge>()(
   Schema.Struct({
     /**
+     * @name cbc:ChargeIndicator
+     *
+     * @value false
+     */
+    chargeIndicator: Schema.Boolean.pipe(Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'ChargeIndicator' })),
+
+    /**
      * @example
      *   200;
      *
      * @name cbc:Amount (+ @currencyID)
      */
     amount: PeppolAmount.pipe(
-      Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'Amount', examples: ['200'] as unknown as ReadonlyArray<never> })
+      Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'Amount', examples: [{ value: 200, currencyId: 'EUR' }] })
     ),
     /**
      * @example
@@ -34,14 +41,8 @@ class PriceAllowanceCharge extends opaque<PriceAllowanceCharge>()(
      * @name cbc:BaseAmount (+ @currencyID)
      */
     baseAmount: Schema.optional(PeppolAmount).pipe(
-      Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'BaseAmount', examples: ['1000'] as unknown as ReadonlyArray<never> })
+      Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'BaseAmount', examples: [{ value: 1000, currencyId: 'EUR' }] })
     ),
-    /**
-     * @name cbc:ChargeIndicator
-     *
-     * @value false
-     */
-    chargeIndicator: Schema.Boolean.pipe(Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'ChargeIndicator' })),
   }).pipe(Schema.toStandardSchemaV1)
 ) {}
 

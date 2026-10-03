@@ -1,8 +1,9 @@
 import { Schema } from 'effect';
 
-import { PeppolTaxCategory } from '#/schemas/fields/peppol-tax-category-schema.ts';
-import { CBC_NAMESPACE, CAC_NAMESPACE } from '#/schemas/namespaces.ts';
+import { PeppolTaxSchemeId } from '#/schemas/fields/peppol-tax-category-schema.ts';
+import { CAC_NAMESPACE, CBC_NAMESPACE } from '#/schemas/namespaces.ts';
 import { opaque } from '#/schemas/utils/opaque.ts';
+import { PeppolDutyTaxFeeCategoryCode } from '#/schemas/values/duty-tax-fee-category-schema.ts';
 
 /**
  * @description This one is specific for TaxSubtotal since it includes more fields.
@@ -13,7 +14,38 @@ import { opaque } from '#/schemas/utils/opaque.ts';
  */
 export class PeppolTaxSubTotalCategory extends opaque<PeppolTaxSubTotalCategory>()(
   Schema.Struct({
-    ...PeppolTaxCategory.fields,
+    /**
+     * @description The VAT category code for the invoiced item.
+     *
+     * @summary Invoiced item VAT category code
+     *
+     * @name `cbc:ID`
+     */
+    id: PeppolDutyTaxFeeCategoryCode.pipe(Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'ID' })),
+
+    /**
+     * @description The VAT rate, represented as percentage that applies to the invoiced item.
+     *
+     * @summary Invoiced item VAT rate
+     *
+     * @name `cbc:Percent`
+     */
+    percent: Schema.optional(Schema.Finite).pipe(Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'Percent' })),
+
+    /**
+     * @description The code for the reason of the tax exemption.
+     *
+     * @name cbc:TaxExemptionReasonCode
+     */
+    taxExemptionReasonCode: Schema.optional(Schema.String).pipe(
+      Schema.annotate({
+        xmlNamespace: CBC_NAMESPACE,
+        xmlPrefix: 'cbc',
+        xmlName: 'TaxExemptionReasonCode',
+        description: 'The code for the reason of the tax exemption.',
+      })
+    ),
+
     /**
      * @description The reason for the tax exemption.
      *
@@ -28,18 +60,11 @@ export class PeppolTaxSubTotalCategory extends opaque<PeppolTaxSubTotalCategory>
       })
     ),
     /**
-     * @description The code for the reason of the tax exemption.
+     * @default VAT
      *
-     * @name cbc:TaxExemptionReasonCode
+     * @name `cac:TaxScheme`
      */
-    taxExemptionReasonCode: Schema.optional(Schema.String).pipe(
-      Schema.annotate({
-        xmlNamespace: CBC_NAMESPACE,
-        xmlPrefix: 'cbc',
-        xmlName: 'TaxExemptionReasonCode',
-        description: 'The code for the reason of the tax exemption.',
-      })
-    ),
+    taxSchemeId: PeppolTaxSchemeId.pipe(Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'TaxScheme' })),
   }).pipe(Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'TaxCategory' }), Schema.toStandardSchemaV1)
 ) {}
 
