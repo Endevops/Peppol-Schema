@@ -9,7 +9,7 @@ describe('PeppolAllowanceCharge', () => {
   const decode = testSchema.decoding();
 
   it('should parse a document level allowance', async () => {
-    await decode.succeed({ amount: { currencyId: 'EUR', value: 100 }, chargeIndicator: false });
+    await decode.succeed({ amount: { currencyId: 'EUR', value: 100 }, chargeIndicator: false, taxCategory: { id: 'S', taxSchemeId: { id: 'VAT' } } });
   });
 
   it('should parse a document level charge', async () => {
@@ -26,11 +26,11 @@ describe('PeppolAllowanceCharge', () => {
     });
   });
 
-  it('should reject an allowance charge without a charge indicator', async () => {
-    await decode.fail({ amount: { currencyId: 'EUR', value: 100 } }, 'unable to decode allowance charge');
+  it('should parse an allowance charge without a charge indicator as a charge', async () => {
+    await decode.succeed({ amount: { currencyId: 'EUR', value: 100 } });
   });
 
   it('should reject an allowance charge without an amount', async () => {
-    await decode.fail({ chargeIndicator: false }, 'Missing key\n  at ["amount"]');
+    await decode.fail({ chargeIndicator: false }, 'Missing key\n  at ["amount"]\nExpected true | undefined\n  at ["chargeIndicator"]');
   });
 });

@@ -149,7 +149,12 @@ export class PeppolAddress extends opaque<PeppolAddress>()(
      * @name `cac:Country`
      */
     countryCode: PeppolAddressCountryCode.pipe(
-      Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'Country', examples: [{ identificationCode: 'BE' }] })
+      Schema.annotate({
+        xmlNamespace: CAC_NAMESPACE,
+        xmlPrefix: 'cac',
+        xmlName: 'Country',
+        examples: [{ identificationCode: 'BE' as Schema.Schema.Type<typeof PeppolCountryCodeValue> }],
+      })
     ),
   }).pipe(Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'PostalAddress' }), Schema.toStandardSchemaV1)
 ) {}

@@ -196,16 +196,18 @@ export class PeppolInvoiceResponseDocumentResponse extends opaque<PeppolInvoiceR
      *
      * @name `cac:IssuerParty`
      */
-    issuerParty: Schema.optional(PeppolInvoiceResponseDocumentResponseParty).pipe(
-      Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'IssuerParty' })
+    issuerParty: PeppolInvoiceResponseDocumentResponseParty.pipe(
+      Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'IssuerParty' }),
+      Schema.optional
     ),
     /**
      * @summary Buyer party information
      *
      * @name `cac:RecipientParty`
      */
-    recipientParty: Schema.optional(PeppolInvoiceResponseDocumentResponseParty).pipe(
-      Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'RecipientParty' })
+    recipientParty: PeppolInvoiceResponseDocumentResponseParty.pipe(
+      Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'RecipientParty' }),
+      Schema.optional
     ),
   }).pipe(Schema.toStandardSchemaV1)
 ) {}

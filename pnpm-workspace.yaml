@@ -17,9 +17,4 @@ allowBuilds:
   protobufjs: true
   ssh2: true
 minimumReleaseAgeExclude:
-  - effect@4.0.0
-  - "@effect/platform-node@4.0.0"
-  - "@effect/platform-node-shared@4.0.0"
-  - "@effect/vitest@4.0.0"
-  - "@endevops/common-xml@0.0.1 || 1.0.0-effect.2"
-  - "@endevops/effect-codec-xml@0.0.1 || 0.1.0-beta.1"
+  - "@endevops/*"

@@ -4,7 +4,7 @@
     "noEmit": true,
     "module": "esnext",
     "target": "esnext",
-    "types": ["node", "bun", "vitest/importMeta"],
+    "types": ["node", "bun", "vitest/importMeta", "vite-plus/client"],
 
     // Other Outputs
     "sourceMap": true,

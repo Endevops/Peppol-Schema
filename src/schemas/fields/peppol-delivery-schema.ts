@@ -95,13 +95,14 @@ export class PeppolDeliveryLocation extends opaque<PeppolDeliveryLocation>()(
          *
          * @name `@schemeID`
          */
-        schemeId: Schema.optional(PeppolIcdCode).pipe(
+        schemeId: PeppolIcdCode.pipe(
           Schema.annotate({
             xmlAttribute: true,
             xmlName: 'schemeID',
             description: 'The identification scheme identifier of the Deliver to location identifier.',
             title: 'Deliver to location identifier identification scheme identifier',
-          })
+          }),
+          Schema.optional
         ),
       })
     ).pipe(Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'ID' }), Schema.optional),

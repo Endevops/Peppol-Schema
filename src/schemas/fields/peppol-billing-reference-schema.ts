@@ -1,4 +1,4 @@
-import { Schema } from 'effect';
+import { DateTime, Schema } from 'effect';
 
 import { CBC_NAMESPACE, CAC_NAMESPACE } from '#/schemas/namespaces.ts';
 import { PeppolIsoDateString } from '#/schemas/peppol-iso-date-string.ts';
@@ -33,7 +33,7 @@ export class PeppolInvoiceDocumentReference extends opaque<PeppolInvoiceDocument
         xmlPrefix: 'cbc',
         xmlName: 'ID',
         description: 'The identification of an Invoice that was previously sent by the seller.',
-        examples: ['inv123'] as unknown as ReadonlyArray<never>,
+        examples: ['inv123'],
         title: 'Preceding invoice number',
       })
     ),
@@ -49,15 +49,16 @@ export class PeppolInvoiceDocumentReference extends opaque<PeppolInvoiceDocument
      *
      * @name `cbc:IssueDate`
      */
-    issueDate: Schema.optional(PeppolIsoDateString).pipe(
+    issueDate: PeppolIsoDateString.pipe(
       Schema.annotate({
         xmlNamespace: CBC_NAMESPACE,
         xmlPrefix: 'cbc',
         xmlName: 'IssueDate',
         description: 'The date when the preceding invoice was issued. Shall be provided in case the preceding invoice identifier is not unique.',
-        examples: ['2017-09-15'] as unknown as ReadonlyArray<never>,
+        examples: [DateTime.makeUnsafe('2017-09-15')],
         title: 'Preceding invoice issue date',
-      })
+      }),
+      Schema.optional
     ),
   }).pipe(Schema.toStandardSchemaV1)
 ) {}

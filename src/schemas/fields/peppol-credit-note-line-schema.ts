@@ -1,10 +1,10 @@
-import { Effect, Schema } from 'effect';
+import { Schema } from 'effect';
 
 import { PeppolAmount } from '#/schemas/fields/peppol-amount-schema.ts';
 import { PeppolOrderLineReference } from '#/schemas/fields/peppol-base-line-schema.ts';
-import { PeppolIdentifier } from '#/schemas/fields/peppol-identifier-schema.ts';
 import { PeppolInvoiceLinePeriod } from '#/schemas/fields/peppol-invoice-line-period-schema.ts';
 import { PeppolLineAllowanceCharge } from '#/schemas/fields/peppol-line-allowance-charge-schema.ts';
+import { PeppolLineDocumentReference } from '#/schemas/fields/peppol-line-document-reference-schema.ts';
 import { PeppolLineItem } from '#/schemas/fields/peppol-line-item-schema.ts';
 import { PeppolLinePrice } from '#/schemas/fields/peppol-line-price-schema.ts';
 import { PeppolQuantity } from '#/schemas/fields/peppol-quantity-schema.ts';
@@ -121,7 +121,7 @@ export class PeppolCreditNoteLine extends opaque<PeppolCreditNoteLine>()(
         description:
           'The total amount of the Invoice line. The amount is “net” without VAT, i.e. inclusive of line level allowances and charges as well as other relevant taxes. Must be rounded to maximum 2 decimals.',
         title: 'Invoice line net amount',
-        examples: [{ value: 2145.0, currencyId: 'EUR' }],
+        examples: [{ value: 2145.0, currencyId: 'EUR' } as PeppolAmount],
       })
     ),
 
@@ -188,21 +188,7 @@ export class PeppolCreditNoteLine extends opaque<PeppolCreditNoteLine>()(
      *
      * @cardinality 0..1
      */
-    documentReference: Schema.Array(
-      PeppolIdentifier.pipe(
-        Schema.fieldsAssign({
-          /**
-           * @default 130
-           *
-           * @name cbc:DocumentTypeCode
-           */
-          documentTypeCode: Schema.String.pipe(
-            Schema.withDecodingDefaultType(Effect.succeed('130')),
-            Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'DocumentTypeCode' })
-          ),
-        })
-      )
-    ).pipe(
+    documentReference: Schema.Array(PeppolLineDocumentReference).pipe(
       Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'DocumentReference', title: 'Line object identifier' }),
       Schema.optional
     ),

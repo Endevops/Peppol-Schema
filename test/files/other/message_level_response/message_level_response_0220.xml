@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ns4:ApplicationResponse xmlns:ns4="urn:oasis:names:specification:ubl:schema:xsd:ApplicationResponse-2" xmlns="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" xmlns:ns2="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2" xmlns:ns3="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2">
+  <CustomizationID>urn:fdc:peppol.eu:poacc:trns:mlr:3</CustomizationID>
+  <ProfileID>urn:fdc:peppol.eu:poacc:bis:mlr:3</ProfileID>
+  <ID>REDACTED-REFERENCE</ID>
+  <IssueDate>2026-08-18</IssueDate>
+  <IssueTime>10:37:00</IssueTime>
+  <ns3:SenderParty>
+    <EndpointID schemeID="0208">REDACTED-ENDPOINT</EndpointID>
+  </ns3:SenderParty>
+  <ns3:ReceiverParty>
+    <EndpointID schemeID="0208">REDACTED-ENDPOINT</EndpointID>
+  </ns3:ReceiverParty>
+  <ns3:DocumentResponse>
+    <ns3:Response>
+      <ResponseCode>AP</ResponseCode>
+    </ns3:Response>
+    <ns3:DocumentReference>
+      <ID>REDACTED-REFERENCE</ID>
+    </ns3:DocumentReference>
+  </ns3:DocumentResponse>
+</ns4:ApplicationResponse>

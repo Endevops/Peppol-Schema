@@ -49,13 +49,14 @@ export class PeppolItemClassification extends opaque<PeppolItemClassification>()
      *
      * @name `@listVersionID`
      */
-    listVersionId: Schema.optional(Schema.String).pipe(
+    listVersionId: Schema.String.pipe(
       Schema.annotate({
         xmlAttribute: true,
         xmlName: 'listVersionID',
         description: 'The identification scheme version identifier of the Item classification identifier.',
         title: 'Item classification identifier version identification scheme identifier',
-      })
+      }),
+      Schema.optional
     ),
   }).pipe(Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'ItemClassificationCode' }), Schema.toStandardSchemaV1)
 ) {}

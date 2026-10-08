@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ApplicationResponse xmlns="urn:oasis:names:specification:ubl:schema:xsd:ApplicationResponse-2">
+  <ns0:CustomizationID xmlns:ns0="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">urn:fdc:peppol.eu:poacc:trns:invoice_response:3</ns0:CustomizationID>
+  <ns0:ProfileID xmlns:ns0="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">urn:fdc:peppol.eu:poacc:bis:invoice_response:3</ns0:ProfileID>
+  <ns0:ID xmlns:ns0="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">REDACTED-REFERENCE</ns0:ID>
+  <ns0:IssueDate xmlns:ns0="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">2026-03-18</ns0:IssueDate>
+  <ns0:SenderParty xmlns:ns0="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2">
+    <ns1:EndpointID xmlns:ns1="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" schemeID="0208">REDACTED-ENDPOINT</ns1:EndpointID>
+    <ns0:PartyIdentification>
+      <ns1:ID xmlns:ns1="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" schemeID="0208">REDACTED-PARTY-ID</ns1:ID>
+    </ns0:PartyIdentification>
+    <ns0:PartyLegalEntity>
+      <ns1:RegistrationName xmlns:ns1="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">REDACTED</ns1:RegistrationName>
+    </ns0:PartyLegalEntity>
+  </ns0:SenderParty>
+  <ns0:ReceiverParty xmlns:ns0="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2">
+    <ns1:EndpointID xmlns:ns1="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" schemeID="0208">REDACTED-ENDPOINT</ns1:EndpointID>
+    <ns0:PartyIdentification>
+      <ns1:ID xmlns:ns1="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" schemeID="0208">REDACTED-PARTY-ID</ns1:ID>
+    </ns0:PartyIdentification>
+    <ns0:PartyLegalEntity>
+      <ns1:RegistrationName xmlns:ns1="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">REDACTED</ns1:RegistrationName>
+    </ns0:PartyLegalEntity>
+  </ns0:ReceiverParty>
+  <ns0:DocumentResponse xmlns:ns0="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2">
+    <ns0:Response>
+      <ns1:ResponseCode xmlns:ns1="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" listID="UNCL4343OpSubset">AP</ns1:ResponseCode>
+    </ns0:Response>
+    <ns0:DocumentReference>
+      <ns1:ID xmlns:ns1="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">REDACTED-REFERENCE</ns1:ID>
+      <ns1:DocumentTypeCode xmlns:ns1="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" listID="UNCL1001">381</ns1:DocumentTypeCode>
+    </ns0:DocumentReference>
+  </ns0:DocumentResponse>
+</ApplicationResponse>

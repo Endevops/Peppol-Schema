@@ -107,7 +107,7 @@
     "test:coverage": "vp test run --coverage"
   },
   "dependencies": {
-    "@endevops/effect-codec-xml": "^0.1.0-beta.1"
+    "@endevops/effect-codec-xml": "0.1.0-beta.2"
   },
   "devDependencies": {
     "@arethetypeswrong/core": "^0.18.5",
@@ -137,7 +137,7 @@
     "node": ">=26",
     "pnpm": ">=12"
   },
-  "packageManager": "pnpm@12.8.1",
+  "packageManager": "pnpm@12.10.0",
   "inlinedDependencies": {
     "@effect/platform-node": "4.0.0",
     "@effect/platform-node-shared": "4.0.0",

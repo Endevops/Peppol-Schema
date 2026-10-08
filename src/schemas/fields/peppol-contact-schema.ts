@@ -49,7 +49,7 @@ export class PeppolContact extends opaque<PeppolContact>()(
     /**
      * @name cbc:ElectronicMail
      */
-    electronicMail: Schema.optional(Schema.String).pipe(
+    electronicMail: Schema.String.pipe(
       Schema.annotate({
         xmlNamespace: CBC_NAMESPACE,
         xmlPrefix: 'cbc',
@@ -57,7 +57,8 @@ export class PeppolContact extends opaque<PeppolContact>()(
         examples: ['lj@buyer.se'],
         title: 'Electronic mail address of the contact person',
         description: 'The electronic mail address of the contact person responsible for receiving the Invoice.',
-      })
+      }),
+      Schema.optional
     ),
   }).pipe(Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'Contact' }), Schema.toStandardSchemaV1)
 ) {}

@@ -61,7 +61,13 @@ export class PeppolInvoiceResponseDocumentActualResponseStatus extends opaque<Pe
      * @name `cbc:StatusReasonCode`
      */
     statusReasonCode: PeppolInvoiceResponseStatusReasonCode.pipe(
-      Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'StatusReasonCode' }),
+      Schema.annotate({
+        xmlNamespace: CBC_NAMESPACE,
+        xmlPrefix: 'cbc',
+        xmlName: 'StatusReasonCode',
+        description: 'A code defining a clarification given for the invoice status.',
+        title: 'Clarification code',
+      }),
       Schema.optional
     ),
     /**
@@ -74,14 +80,24 @@ export class PeppolInvoiceResponseDocumentActualResponseStatus extends opaque<Pe
      *
      * @name `cbc:StatusReason
      */
-    statusReason: Schema.String.pipe(Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'StatusReason' }), Schema.optional),
+    statusReason: Schema.String.pipe(
+      Schema.annotate({
+        xmlNamespace: CBC_NAMESPACE,
+        xmlPrefix: 'cbc',
+        xmlName: 'StatusReason',
+        title: 'Clarification description',
+        description: 'The description of the clarification given for the invoice status.',
+        examples: ['TAX reference not found'],
+      }),
+      Schema.optional
+    ),
     /**
      * @summary Condition
      *
      * @name `cac:Condition`
      */
     condition: Schema.Array(PeppolInvoiceResponseCondition).pipe(
-      Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'Condition' }),
+      Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'Condition', title: 'Condition' }),
       Schema.optional
     ),
   }).pipe(Schema.toStandardSchemaV1)

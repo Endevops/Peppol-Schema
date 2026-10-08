@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ApplicationResponse xmlns="urn:oasis:names:specification:ubl:schema:xsd:ApplicationResponse-2">
+  <ns0:CustomizationID xmlns:ns0="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">urn:fdc:peppol.eu:poacc:trns:mlr:3</ns0:CustomizationID>
+  <ns0:ProfileID xmlns:ns0="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">urn:fdc:peppol.eu:poacc:bis:mlr:3</ns0:ProfileID>
+  <ns0:ID xmlns:ns0="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">REDACTED-REFERENCE</ns0:ID>
+  <ns0:IssueDate xmlns:ns0="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">2026-05-08</ns0:IssueDate>
+  <ns0:IssueTime xmlns:ns0="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">07:33:56</ns0:IssueTime>
+  <ns0:SenderParty xmlns:ns0="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2">
+    <ns1:EndpointID xmlns:ns1="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" schemeID="0208">REDACTED-ENDPOINT</ns1:EndpointID>
+  </ns0:SenderParty>
+  <ns0:ReceiverParty xmlns:ns0="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2">
+    <ns1:EndpointID xmlns:ns1="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" schemeID="0208">REDACTED-ENDPOINT</ns1:EndpointID>
+  </ns0:ReceiverParty>
+  <ns0:DocumentResponse xmlns:ns0="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2">
+    <ns0:Response>
+      <ns1:ResponseCode xmlns:ns1="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">AP</ns1:ResponseCode>
+    </ns0:Response>
+    <ns0:DocumentReference>
+      <ns1:ID xmlns:ns1="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">REDACTED-REFERENCE</ns1:ID>
+    </ns0:DocumentReference>
+  </ns0:DocumentResponse>
+</ApplicationResponse>

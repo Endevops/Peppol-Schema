@@ -59,8 +59,9 @@ export class PeppolInvoiceResponseDocumentActualResponseWithoutStatus extends op
      *
      * @name `cbc:EffectiveDate`
      */
-    effectiveDate: Schema.optional(PeppolIsoDateString).pipe(
-      Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'EffectiveDate' })
+    effectiveDate: PeppolIsoDateString.pipe(
+      Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'EffectiveDate' }),
+      Schema.optional
     ),
     /**
      * @description Clarification is mendatory when the status is UQ-`under query`,RE-`rejected` and `CA`-Conditionally accepted. Clarification may be given as a
@@ -70,8 +71,9 @@ export class PeppolInvoiceResponseDocumentActualResponseWithoutStatus extends op
      *
      * @name `cac:Status`
      */
-    status: Schema.optional(Schema.Array(PeppolInvoiceResponseDocumentActualResponseStatus)).pipe(
-      Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'Status' })
+    status: Schema.Array(PeppolInvoiceResponseDocumentActualResponseStatus).pipe(
+      Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'Status' }),
+      Schema.optional
     ),
   }).pipe(Schema.toStandardSchemaV1)
 ) {}
@@ -135,7 +137,7 @@ export class PeppolInvoiceResponseDocumentActualResponseWithStatus extends opaqu
  *
  * @see {@link PeppolInvoiceResponseDocumentResponse}
  */
-export class PeppolInvoiceResponseDocumentActualResponse extends Schema.Union([
-  PeppolInvoiceResponseDocumentActualResponseWithStatus,
-  PeppolInvoiceResponseDocumentActualResponseWithoutStatus,
-]).pipe(Schema.toStandardSchemaV1) {}
+export class PeppolInvoiceResponseDocumentActualResponse extends Schema.Union(
+  [PeppolInvoiceResponseDocumentActualResponseWithStatus, PeppolInvoiceResponseDocumentActualResponseWithoutStatus],
+  { mode: 'oneOf' }
+).pipe(Schema.toStandardSchemaV1) {}

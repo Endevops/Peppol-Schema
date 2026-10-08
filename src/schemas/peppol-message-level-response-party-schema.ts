@@ -26,6 +26,6 @@ export class PeppolMessageLevelResponseParty extends opaque<PeppolMessageLevelRe
      *
      * @name `cbc:EndpointID (+ @schemeID)`
      */
-    endpointId: Schema.optional(PeppolIdentifier).pipe(Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'EndpointID' })),
+    endpointId: PeppolIdentifier.pipe(Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'EndpointID' }), Schema.optional),
   }).pipe(Schema.toStandardSchemaV1)
 ) {}

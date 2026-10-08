@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ns4:Invoice xmlns:ns4="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2" xmlns="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" xmlns:ns2="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2" xmlns:ns3="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2">
+  <UBLVersionID>2.1</UBLVersionID>
+  <CustomizationID>urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0</CustomizationID>
+  <ProfileID>urn:fdc:peppol.eu:2017:poacc:billing:01:1.0</ProfileID>
+  <ID>REDACTED-REFERENCE</ID>
+  <IssueDate>2026-06-09</IssueDate>
+  <DueDate>2026-07-09</DueDate>
+  <InvoiceTypeCode listID="UNCL1001">380</InvoiceTypeCode>
+  <DocumentCurrencyCode listID="ISO4217">EUR</DocumentCurrencyCode>
+  <ns3:OrderReference>
+    <ID>REDACTED-REFERENCE</ID>
+  </ns3:OrderReference>
+  <ns3:AdditionalDocumentReference>
+    <ID>REDACTED-REFERENCE</ID>
+    <DocumentDescription>CommercialInvoice</DocumentDescription>
+    <ns3:Attachment>
+      <EmbeddedDocumentBinaryObject mimeCode="application/pdf" filename="REDACTED">UkVEQUNURUQ=</EmbeddedDocumentBinaryObject>
+    </ns3:Attachment>
+  </ns3:AdditionalDocumentReference>
+  <ns3:AdditionalDocumentReference>
+    <ID>REDACTED-REFERENCE</ID>
+    <DocumentDescription>Adfinity 2.4.3</DocumentDescription>
+  </ns3:AdditionalDocumentReference>
+  <ns3:AccountingSupplierParty>
+    <ns3:Party>
+      <EndpointID schemeID="0208">REDACTED-ENDPOINT</EndpointID>
+      <ns3:PartyIdentification>
+        <ID>REDACTED-PARTY-ID</ID>
+      </ns3:PartyIdentification>
+      <ns3:PartyName>
+        <Name>REDACTED</Name>
+      </ns3:PartyName>
+      <ns3:PostalAddress>
+        <StreetName>REDACTED</StreetName>
+        <CityName>REDACTED</CityName>
+        <PostalZone>REDACTED</PostalZone>
+        <CountrySubentity>REDACTED</CountrySubentity>
+        <ns3:Country>
+          <IdentificationCode listID="ISO3166-1:Alpha2">BE</IdentificationCode>
+        </ns3:Country>
+      </ns3:PostalAddress>
+      <ns3:PartyTaxScheme>
+        <CompanyID>REDACTED-ID</CompanyID>
+        <ns3:TaxScheme>
+          <ID>VAT</ID>
+        </ns3:TaxScheme>
+      </ns3:PartyTaxScheme>
+      <ns3:PartyLegalEntity>
+        <RegistrationName>REDACTED</RegistrationName>
+        <CompanyID>REDACTED-ID</CompanyID>
+      </ns3:PartyLegalEntity>
+      <ns3:Contact>
+        <Name>REDACTED</Name>
+        <ElectronicMail>REDACTED</ElectronicMail>
+      </ns3:Contact>
+    </ns3:Party>
+  </ns3:AccountingSupplierParty>
+  <ns3:AccountingCustomerParty>
+    <ns3:Party>
+      <EndpointID schemeID="0208">REDACTED-ENDPOINT</EndpointID>
+      <ns3:PartyIdentification>
+        <ID>REDACTED-PARTY-ID</ID>
+      </ns3:PartyIdentification>
+      <ns3:PartyName>
+        <Name>REDACTED</Name>
+      </ns3:PartyName>
+      <ns3:PostalAddress>
+        <StreetName>REDACTED</StreetName>
+        <CityName>REDACTED</CityName>
+        <PostalZone>REDACTED</PostalZone>
+        <CountrySubentity>REDACTED</CountrySubentity>
+        <ns3:Country>
+          <IdentificationCode listID="ISO3166-1:Alpha2">BE</IdentificationCode>
+        </ns3:Country>
+      </ns3:PostalAddress>
+      <ns3:PartyTaxScheme>
+        <CompanyID>REDACTED-ID</CompanyID>
+        <ns3:TaxScheme>
+          <ID>VAT</ID>
+        </ns3:TaxScheme>
+      </ns3:PartyTaxScheme>
+      <ns3:PartyLegalEntity>
+        <RegistrationName>REDACTED</RegistrationName>
+        <CompanyID>REDACTED-ID</CompanyID>
+      </ns3:PartyLegalEntity>
+    </ns3:Party>
+  </ns3:AccountingCustomerParty>
+  <ns3:PaymentMeans>
+    <PaymentMeansCode listID="UNCL4461">42</PaymentMeansCode>
+    <PaymentID>REDACTED</PaymentID>
+    <ns3:PayeeFinancialAccount>
+      <ID schemeID="IBAN">REDACTED</ID>
+      <ns3:FinancialInstitutionBranch>
+        <ID schemeID="BIC">REDACTED</ID>
+      </ns3:FinancialInstitutionBranch>
+    </ns3:PayeeFinancialAccount>
+  </ns3:PaymentMeans>
+  <ns3:TaxTotal>
+    <TaxAmount currencyID="EUR">0</TaxAmount>
+    <ns3:TaxSubtotal>
+      <TaxableAmount currencyID="EUR">288.14</TaxableAmount>
+      <TaxAmount currencyID="EUR">0</TaxAmount>
+      <ns3:TaxCategory>
+        <ID schemeID="UNCL5305">Z</ID>
+        <Percent>0</Percent>
+        <ns3:TaxScheme>
+          <ID>VAT</ID>
+        </ns3:TaxScheme>
+      </ns3:TaxCategory>
+    </ns3:TaxSubtotal>
+    <ns3:TaxSubtotal>
+      <TaxableAmount currencyID="EUR">0</TaxableAmount>
+      <TaxAmount currencyID="EUR">0</TaxAmount>
+      <ns3:TaxCategory>
+        <ID schemeID="UNCL5305">S</ID>
+        <Percent>21</Percent>
+        <ns3:TaxScheme>
+          <ID>VAT</ID>
+        </ns3:TaxScheme>
+      </ns3:TaxCategory>
+    </ns3:TaxSubtotal>
+  </ns3:TaxTotal>
+  <ns3:LegalMonetaryTotal>
+    <LineExtensionAmount currencyID="EUR">288.14</LineExtensionAmount>
+    <TaxExclusiveAmount currencyID="EUR">288.14</TaxExclusiveAmount>
+    <TaxInclusiveAmount currencyID="EUR">288.14</TaxInclusiveAmount>
+    <PayableAmount currencyID="EUR">288.14</PayableAmount>
+  </ns3:LegalMonetaryTotal>
+  <ns3:InvoiceLine>
+    <ID>1</ID>
+    <InvoicedQuantity unitCode="EA" unitCodeListID="UNECERec20">1</InvoicedQuantity>
+    <LineExtensionAmount currencyID="EUR">288.14</LineExtensionAmount>
+    <ns3:Item>
+      <Description>REDACTED</Description>
+      <Name>REDACTED</Name>
+      <ns3:SellersItemIdentification>
+        <ID>A26/P51</ID>
+      </ns3:SellersItemIdentification>
+      <ns3:ClassifiedTaxCategory>
+        <ID schemeID="UNCL5305">Z</ID>
+        <Percent>0</Percent>
+        <ns3:TaxScheme>
+          <ID>VAT</ID>
+        </ns3:TaxScheme>
+      </ns3:ClassifiedTaxCategory>
+    </ns3:Item>
+    <ns3:Price>
+      <PriceAmount currencyID="EUR">288.14</PriceAmount>
+    </ns3:Price>
+  </ns3:InvoiceLine>
+  <ns3:InvoiceLine>
+    <ID>2</ID>
+    <InvoicedQuantity unitCode="EA" unitCodeListID="UNECERec20">0</InvoicedQuantity>
+    <LineExtensionAmount currencyID="EUR">0</LineExtensionAmount>
+    <ns3:Item>
+      <Description>REDACTED</Description>
+      <Name>REDACTED</Name>
+      <ns3:SellersItemIdentification>
+        <ID>TEXT</ID>
+      </ns3:SellersItemIdentification>
+      <ns3:ClassifiedTaxCategory>
+        <ID schemeID="UNCL5305">S</ID>
+        <Percent>21</Percent>
+        <ns3:TaxScheme>
+          <ID>VAT</ID>
+        </ns3:TaxScheme>
+      </ns3:ClassifiedTaxCategory>
+    </ns3:Item>
+    <ns3:Price>
+      <PriceAmount currencyID="EUR">0</PriceAmount>
+    </ns3:Price>
+  </ns3:InvoiceLine>
+</ns4:Invoice>

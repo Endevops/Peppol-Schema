@@ -30,20 +30,21 @@ export class PeppolTaxSubTotalCategory extends opaque<PeppolTaxSubTotalCategory>
      *
      * @name `cbc:Percent`
      */
-    percent: Schema.optional(Schema.Finite).pipe(Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'Percent' })),
+    percent: Schema.Finite.pipe(Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'Percent' }), Schema.optional),
 
     /**
      * @description The code for the reason of the tax exemption.
      *
      * @name cbc:TaxExemptionReasonCode
      */
-    taxExemptionReasonCode: Schema.optional(Schema.String).pipe(
+    taxExemptionReasonCode: Schema.String.pipe(
       Schema.annotate({
         xmlNamespace: CBC_NAMESPACE,
         xmlPrefix: 'cbc',
         xmlName: 'TaxExemptionReasonCode',
         description: 'The code for the reason of the tax exemption.',
-      })
+      }),
+      Schema.optional
     ),
 
     /**
@@ -51,13 +52,14 @@ export class PeppolTaxSubTotalCategory extends opaque<PeppolTaxSubTotalCategory>
      *
      * @name cbc:TaxExemptionReason
      */
-    taxExemptionReason: Schema.optional(Schema.String).pipe(
+    taxExemptionReason: Schema.String.pipe(
       Schema.annotate({
         xmlNamespace: CBC_NAMESPACE,
         xmlPrefix: 'cbc',
         xmlName: 'TaxExemptionReason',
         description: 'The reason for the tax exemption.',
-      })
+      }),
+      Schema.optional
     ),
     /**
      * @default VAT

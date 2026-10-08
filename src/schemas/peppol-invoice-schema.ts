@@ -172,8 +172,9 @@ export class PeppolInvoice extends Schema.Opaque<PeppolInvoice>()(
      *
      * @name cbc:DueDate
      */
-    dueDate: Schema.optional(PeppolIsoDateString).pipe(
-      Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'DueDate', title: 'Payment due date' })
+    dueDate: PeppolIsoDateString.pipe(
+      Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'DueDate', title: 'Payment due date' }),
+      Schema.optional
     ),
 
     /**
@@ -202,14 +203,15 @@ export class PeppolInvoice extends Schema.Opaque<PeppolInvoice>()(
      *
      * @name `cbc:Note`
      */
-    note: Schema.optional(Schema.String).pipe(
+    note: Schema.String.pipe(
       Schema.annotate({
         xmlNamespace: CBC_NAMESPACE,
         xmlPrefix: 'cbc',
         xmlName: 'Note',
         description: 'Invoice note A textual note that gives unstructured information that is relevant to the Credit Note as a whole.',
         title: 'Invoice note',
-      })
+      }),
+      Schema.optional
     ),
     /**
      * @description The date when the VAT becomes accountable for the Seller and for the Buyer in so far as that date can be determined and differs from the date
@@ -360,16 +362,18 @@ export class PeppolInvoice extends Schema.Opaque<PeppolInvoice>()(
      *
      * @name `cac:DespatchDocumentReference`
      */
-    despatchDocumentReference: Schema.optional(PeppolDespatchDocumentReference).pipe(
-      Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'DespatchDocumentReference' })
+    despatchDocumentReference: PeppolDespatchDocumentReference.pipe(
+      Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'DespatchDocumentReference' }),
+      Schema.optional
     ),
     /**
      * @summary RECEIPT ADVICE REFERENCE
      *
      * @name `cac:ReceiptDocumentReference`
      */
-    receiptDocumentReference: Schema.optional(PeppolReceiptDocumentReference).pipe(
-      Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'ReceiptDocumentReference' })
+    receiptDocumentReference: PeppolReceiptDocumentReference.pipe(
+      Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'ReceiptDocumentReference' }),
+      Schema.optional
     ),
 
     /**
@@ -377,8 +381,9 @@ export class PeppolInvoice extends Schema.Opaque<PeppolInvoice>()(
      *
      * @name `cac:OriginatorDocumentReference`
      */
-    originatorDocumentReference: Schema.optional(PeppolOriginatorDocumentReference).pipe(
-      Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'OriginatorDocumentReference' })
+    originatorDocumentReference: PeppolOriginatorDocumentReference.pipe(
+      Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'OriginatorDocumentReference' }),
+      Schema.optional
     ),
 
     /**
@@ -386,8 +391,9 @@ export class PeppolInvoice extends Schema.Opaque<PeppolInvoice>()(
      *
      * @name `cac:ContractDocumentReference`
      */
-    contractDocumentReference: Schema.optional(PeppolContractDocumentReference).pipe(
-      Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'ContractDocumentReference' })
+    contractDocumentReference: PeppolContractDocumentReference.pipe(
+      Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'ContractDocumentReference' }),
+      Schema.optional
     ),
 
     /**
@@ -399,14 +405,15 @@ export class PeppolInvoice extends Schema.Opaque<PeppolInvoice>()(
      *
      * @name `cac:AdditionalDocumentReference`
      */
-    additionalDocumentReferences: Schema.optional(Schema.Array(PeppolAdditionalDocumentReference)).pipe(
+    additionalDocumentReferences: Schema.Array(PeppolAdditionalDocumentReference).pipe(
       Schema.annotate({
         xmlNamespace: CAC_NAMESPACE,
         xmlPrefix: 'cac',
         xmlName: 'AdditionalDocumentReference',
         description:
           'A group of business terms providing information about additional supporting documents substantiating the claims made in the Invoice. The additional supporting documents can be used for both referencing a document number which is expected to be known by the receiver, an external document (referenced by a URL) or as an embedded document, Base64 encoded (such as a time report).',
-      })
+      }),
+      Schema.optional
     ),
 
     /**
@@ -414,8 +421,9 @@ export class PeppolInvoice extends Schema.Opaque<PeppolInvoice>()(
      *
      * @name `cac:ProjectReference`
      */
-    projectReference: Schema.optional(PeppolProjectReference).pipe(
-      Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'ProjectReference', title: 'PROJECT REFERENCE' })
+    projectReference: PeppolProjectReference.pipe(
+      Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'ProjectReference', title: 'PROJECT REFERENCE' }),
+      Schema.optional
     ),
 
     /**

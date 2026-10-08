@@ -57,8 +57,9 @@ export class PeppolAllowance extends opaque<PeppolAllowance>()(
     /**
      * @name cbc:AllowanceChargeReasonCode
      */
-    allowanceChargeReasonCode: Schema.optional(PeppolAllowanceChargeReasonCode).pipe(
-      Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'AllowanceChargeReasonCode' })
+    allowanceChargeReasonCode: PeppolAllowanceChargeReasonCode.pipe(
+      Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'AllowanceChargeReasonCode' }),
+      Schema.optional
     ),
 
     /**
@@ -78,8 +79,9 @@ export class PeppolAllowance extends opaque<PeppolAllowance>()(
      *
      * @name cbc:MultiplierFactorNumeric
      */
-    multiplierFactorNumeric: Schema.optional(Schema.Finite).pipe(
-      Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'MultiplierFactorNumeric', examples: [20] })
+    multiplierFactorNumeric: Schema.Finite.pipe(
+      Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'MultiplierFactorNumeric', examples: [20] }),
+      Schema.optional
     ),
 
     /**
@@ -89,7 +91,12 @@ export class PeppolAllowance extends opaque<PeppolAllowance>()(
      * @name cbc:Amount (+ @currencyID)
      */
     amount: PeppolAmount.pipe(
-      Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'Amount', examples: [{ value: 200, currencyId: 'EUR' }] })
+      Schema.annotate({
+        xmlNamespace: CBC_NAMESPACE,
+        xmlPrefix: 'cbc',
+        xmlName: 'Amount',
+        examples: [{ value: 200, currencyId: 'EUR' } as PeppolAmount],
+      })
     ),
 
     /**
@@ -100,8 +107,14 @@ export class PeppolAllowance extends opaque<PeppolAllowance>()(
      *
      * @name cbc:BaseAmount (+ @currencyID)
      */
-    baseAmount: Schema.optional(PeppolAmount).pipe(
-      Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'BaseAmount', examples: [{ value: 1000, currencyId: 'EUR' }] })
+    baseAmount: PeppolAmount.pipe(
+      Schema.annotate({
+        xmlNamespace: CBC_NAMESPACE,
+        xmlPrefix: 'cbc',
+        xmlName: 'BaseAmount',
+        examples: [{ value: 1000, currencyId: 'EUR' } as PeppolAmount],
+      }),
+      Schema.optional
     ),
 
     /**
@@ -109,33 +122,15 @@ export class PeppolAllowance extends opaque<PeppolAllowance>()(
      *
      * @name cac:TaxCategory
      */
-    taxCategory: Schema.optional(
-      PeppolTaxCategory.pipe(
-        Schema.fieldsAssign({
-          /**
-           * @description A coded identification of what VAT category applies to the document level allowance or charge.
-           *
-           * @summary Document level allowance or charge VAT category code
-           *
-           * @name `cbc:ID`
-           */
-          id: PeppolDutyTaxFeeCategoryCode.pipe(Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'ID' })),
-          /**
-           * @description The VAT rate, represented as percentage that applies to the document level allowance or charge.
-           *
-           * @summary Document level allowance or charge VAT rate
-           *
-           * @name `cbc:Percent`
-           */
-          percent: Schema.optional(Schema.Finite).pipe(Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'Percent' })),
-          /**
-           * @default VAT
-           *
-           * @name `cac:TaxScheme`
-           */
-          taxSchemeId: PeppolTaxCategoryTaxSchemeId.pipe(Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'TaxScheme' })),
-        })
-      )
+    taxCategory: PeppolTaxCategory.pipe(
+      Schema.fieldsAssign({
+        /**
+         * @default VAT
+         *
+         * @name `cac:TaxScheme`
+         */
+        taxSchemeId: PeppolTaxCategoryTaxSchemeId.pipe(Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'TaxScheme' })),
+      })
     ).pipe(Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'TaxCategory', title: 'TAX CATEGORY' })),
   }).pipe(
     Schema.annotate({
@@ -169,13 +164,14 @@ export class PeppolCharge extends opaque<PeppolCharge>()(
      */
     chargeIndicator: Schema.Literal(true)
       .annotate({ message: "PEPPOL-EN16931-R043: Allowance/charge ChargeIndicator value MUST equal 'true' or 'false'" })
-      .pipe(Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'ChargeIndicator' })),
+      .pipe(Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'ChargeIndicator' }), Schema.optional),
 
     /**
      * @name cbc:AllowanceChargeReasonCode
      */
-    allowanceChargeReasonCode: Schema.optional(PeppolChargeReasonCode).pipe(
-      Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'AllowanceChargeReasonCode' })
+    allowanceChargeReasonCode: PeppolChargeReasonCode.pipe(
+      Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'AllowanceChargeReasonCode' }),
+      Schema.optional
     ),
 
     /**
@@ -195,8 +191,9 @@ export class PeppolCharge extends opaque<PeppolCharge>()(
      *
      * @name cbc:MultiplierFactorNumeric
      */
-    multiplierFactorNumeric: Schema.optional(Schema.Finite).pipe(
-      Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'MultiplierFactorNumeric', examples: [20] })
+    multiplierFactorNumeric: Schema.Finite.pipe(
+      Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'MultiplierFactorNumeric', examples: [20] }),
+      Schema.optional
     ),
 
     /**
@@ -206,7 +203,12 @@ export class PeppolCharge extends opaque<PeppolCharge>()(
      * @name cbc:Amount (+ @currencyID)
      */
     amount: PeppolAmount.pipe(
-      Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'Amount', examples: [{ value: 200, currencyId: 'EUR' }] })
+      Schema.annotate({
+        xmlNamespace: CBC_NAMESPACE,
+        xmlPrefix: 'cbc',
+        xmlName: 'Amount',
+        examples: [{ value: 200, currencyId: 'EUR' } as PeppolAmount],
+      })
     ),
 
     /**
@@ -217,8 +219,14 @@ export class PeppolCharge extends opaque<PeppolCharge>()(
      *
      * @name cbc:BaseAmount (+ @currencyID)
      */
-    baseAmount: Schema.optional(PeppolAmount).pipe(
-      Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'BaseAmount', examples: [{ value: 1000, currencyId: 'EUR' }] })
+    baseAmount: PeppolAmount.pipe(
+      Schema.annotate({
+        xmlNamespace: CBC_NAMESPACE,
+        xmlPrefix: 'cbc',
+        xmlName: 'BaseAmount',
+        examples: [{ value: 1000, currencyId: 'EUR' } as PeppolAmount],
+      }),
+      Schema.optional
     ),
 
     /**
@@ -226,34 +234,32 @@ export class PeppolCharge extends opaque<PeppolCharge>()(
      *
      * @name cac:TaxCategory
      */
-    taxCategory: Schema.optional(
-      PeppolTaxCategory.pipe(
-        Schema.fieldsAssign({
-          /**
-           * @description A coded identification of what VAT category applies to the document level allowance or charge.
-           *
-           * @summary Document level allowance or charge VAT category code
-           *
-           * @name `cbc:ID`
-           */
-          id: PeppolDutyTaxFeeCategoryCode.pipe(Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'ID' })),
-          /**
-           * @description The VAT rate, represented as percentage that applies to the document level allowance or charge.
-           *
-           * @summary Document level allowance or charge VAT rate
-           *
-           * @name `cbc:Percent`
-           */
-          percent: Schema.optional(Schema.Finite).pipe(Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'Percent' })),
-          /**
-           * @default VAT
-           *
-           * @name `cac:TaxScheme`
-           */
-          taxSchemeId: PeppolTaxCategoryTaxSchemeId.pipe(Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'TaxScheme' })),
-        })
-      )
-    ).pipe(Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'TaxCategory', title: 'TAX CATEGORY' })),
+    taxCategory: PeppolTaxCategory.pipe(
+      Schema.fieldsAssign({
+        /**
+         * @description A coded identification of what VAT category applies to the document level allowance or charge.
+         *
+         * @summary Document level allowance or charge VAT category code
+         *
+         * @name `cbc:ID`
+         */
+        id: PeppolDutyTaxFeeCategoryCode.pipe(Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'ID' })),
+        /**
+         * @description The VAT rate, represented as percentage that applies to the document level allowance or charge.
+         *
+         * @summary Document level allowance or charge VAT rate
+         *
+         * @name `cbc:Percent`
+         */
+        percent: Schema.Finite.pipe(Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'Percent' }), Schema.optional),
+        /**
+         * @default VAT
+         *
+         * @name `cac:TaxScheme`
+         */
+        taxSchemeId: PeppolTaxCategoryTaxSchemeId.pipe(Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'TaxScheme' })),
+      })
+    ).pipe(Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'TaxCategory', title: 'TAX CATEGORY' }), Schema.optional),
   }).pipe(Schema.toStandardSchemaV1)
 ) {}
 
@@ -264,7 +270,7 @@ export class PeppolCharge extends opaque<PeppolCharge>()(
  *
  * @name cac:AllowanceCharge
  */
-export const PeppolAllowanceCharge = Schema.Union([PeppolAllowance, PeppolCharge]).pipe(
+export const PeppolAllowanceCharge = Schema.Union([PeppolAllowance, PeppolCharge], { mode: 'oneOf' }).pipe(
   Schema.annotate({ message: 'unable to decode allowance charge' }),
   Schema.toStandardSchemaV1
 );

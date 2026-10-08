@@ -30,7 +30,12 @@ class PriceAllowanceCharge extends opaque<PriceAllowanceCharge>()(
      * @name cbc:Amount (+ @currencyID)
      */
     amount: PeppolAmount.pipe(
-      Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'Amount', examples: [{ value: 200, currencyId: 'EUR' }] })
+      Schema.annotate({
+        xmlNamespace: CBC_NAMESPACE,
+        xmlPrefix: 'cbc',
+        xmlName: 'Amount',
+        examples: [{ value: 200, currencyId: 'EUR' } as PeppolAmount],
+      })
     ),
     /**
      * @example
@@ -40,8 +45,14 @@ class PriceAllowanceCharge extends opaque<PriceAllowanceCharge>()(
      *
      * @name cbc:BaseAmount (+ @currencyID)
      */
-    baseAmount: Schema.optional(PeppolAmount).pipe(
-      Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'BaseAmount', examples: [{ value: 1000, currencyId: 'EUR' }] })
+    baseAmount: PeppolAmount.pipe(
+      Schema.annotate({
+        xmlNamespace: CBC_NAMESPACE,
+        xmlPrefix: 'cbc',
+        xmlName: 'BaseAmount',
+        examples: [{ value: 1000, currencyId: 'EUR' } as PeppolAmount],
+      }),
+      Schema.optional
     ),
   }).pipe(Schema.toStandardSchemaV1)
 ) {}

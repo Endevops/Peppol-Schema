@@ -26,8 +26,9 @@ export class PeppolTaxTotal extends opaque<PeppolTaxTotal>()(
     /**
      * @name cac:TaxSubtotal (0..n)
      */
-    taxSubtotals: Schema.optional(Schema.Array(PeppolTaxSubTotal)).pipe(
-      Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'TaxSubtotal' })
+    taxSubtotals: Schema.Array(PeppolTaxSubTotal).pipe(
+      Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'TaxSubtotal' }),
+      Schema.optional
     ),
   }).pipe(Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'TaxTotal' }), Schema.toStandardSchemaV1)
 ) {}

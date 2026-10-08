@@ -1,0 +1,374 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Invoice xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">
+  <ext:UBLExtensions xmlns:ext="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2">
+    <ext:UBLExtension>
+      <ext:ExtensionContent>
+        <rou:InvoiceMandates xmlns:rou="routty.io">
+          <rou:General>
+            <rou:ProfileID>urn:fdc:peppol.eu:2017:poacc:billing:01:1.0</rou:ProfileID>
+          </rou:General>
+        </rou:InvoiceMandates>
+      </ext:ExtensionContent>
+    </ext:UBLExtension>
+  </ext:UBLExtensions>
+  <cbc:UBLVersionID>2.1</cbc:UBLVersionID>
+  <cbc:CustomizationID>urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0</cbc:CustomizationID>
+  <cbc:ProfileID>urn:fdc:peppol.eu:2017:poacc:billing:01:1.0</cbc:ProfileID>
+  <cbc:ID>REDACTED-REFERENCE</cbc:ID>
+  <cbc:IssueDate>2026-09-30</cbc:IssueDate>
+  <cbc:InvoiceTypeCode listID="UNCL1001">380</cbc:InvoiceTypeCode>
+  <cbc:TaxPointDate>2026-09-30</cbc:TaxPointDate>
+  <cbc:DocumentCurrencyCode>EUR</cbc:DocumentCurrencyCode>
+  <cbc:BuyerReference>REDACTED</cbc:BuyerReference>
+  <cac:AdditionalDocumentReference>
+    <cbc:ID>REDACTED-REFERENCE</cbc:ID>
+    <cac:Attachment>
+      <cbc:EmbeddedDocumentBinaryObject mimeCode="application/pdf" filename="REDACTED">UkVEQUNURUQ=</cbc:EmbeddedDocumentBinaryObject>
+    </cac:Attachment>
+  </cac:AdditionalDocumentReference>
+  <cac:AccountingSupplierParty>
+    <cac:Party>
+      <cbc:EndpointID schemeID="0208">REDACTED-ENDPOINT</cbc:EndpointID>
+      <cac:PartyIdentification>
+        <cbc:ID>REDACTED-PARTY-ID</cbc:ID>
+      </cac:PartyIdentification>
+      <cac:PartyName>
+        <cbc:Name>REDACTED</cbc:Name>
+      </cac:PartyName>
+      <cac:PostalAddress>
+        <cbc:StreetName>REDACTED</cbc:StreetName>
+        <cbc:CityName>REDACTED</cbc:CityName>
+        <cbc:PostalZone>REDACTED</cbc:PostalZone>
+        <cac:Country>
+          <cbc:IdentificationCode>BE</cbc:IdentificationCode>
+        </cac:Country>
+      </cac:PostalAddress>
+      <cac:PartyTaxScheme>
+        <cbc:CompanyID>REDACTED-ID</cbc:CompanyID>
+        <cac:TaxScheme>
+          <cbc:ID>VAT</cbc:ID>
+          <cbc:TaxTypeCode>VAT</cbc:TaxTypeCode>
+        </cac:TaxScheme>
+      </cac:PartyTaxScheme>
+      <cac:PartyLegalEntity>
+        <cbc:RegistrationName>REDACTED</cbc:RegistrationName>
+        <cbc:CompanyID schemeID="0193">REDACTED-ID</cbc:CompanyID>
+        <cbc:CompanyLegalForm>SRL</cbc:CompanyLegalForm>
+      </cac:PartyLegalEntity>
+      <cac:Contact>
+        <cbc:ElectronicMail>REDACTED</cbc:ElectronicMail>
+      </cac:Contact>
+    </cac:Party>
+  </cac:AccountingSupplierParty>
+  <cac:AccountingCustomerParty>
+    <cac:Party>
+      <cbc:EndpointID schemeID="0208">REDACTED-ENDPOINT</cbc:EndpointID>
+      <cac:PartyIdentification>
+        <cbc:ID>REDACTED-PARTY-ID</cbc:ID>
+      </cac:PartyIdentification>
+      <cac:PartyName>
+        <cbc:Name>REDACTED</cbc:Name>
+      </cac:PartyName>
+      <cac:PostalAddress>
+        <cbc:StreetName>REDACTED</cbc:StreetName>
+        <cbc:CityName>REDACTED</cbc:CityName>
+        <cbc:PostalZone>REDACTED</cbc:PostalZone>
+        <cac:Country>
+          <cbc:IdentificationCode>BE</cbc:IdentificationCode>
+        </cac:Country>
+      </cac:PostalAddress>
+      <cac:PartyTaxScheme>
+        <cbc:CompanyID>REDACTED-ID</cbc:CompanyID>
+        <cac:TaxScheme>
+          <cbc:ID>VAT</cbc:ID>
+          <cbc:TaxTypeCode>VAT</cbc:TaxTypeCode>
+        </cac:TaxScheme>
+      </cac:PartyTaxScheme>
+      <cac:PartyLegalEntity>
+        <cbc:RegistrationName>REDACTED</cbc:RegistrationName>
+        <cbc:CompanyID schemeID="0193">REDACTED-ID</cbc:CompanyID>
+        <cbc:CompanyLegalForm>ONBEKEND</cbc:CompanyLegalForm>
+      </cac:PartyLegalEntity>
+      <cac:Contact>
+        <cbc:Name>REDACTED</cbc:Name>
+        <cbc:Telephone>REDACTED</cbc:Telephone>
+        <cbc:ElectronicMail>REDACTED</cbc:ElectronicMail>
+      </cac:Contact>
+    </cac:Party>
+  </cac:AccountingCustomerParty>
+  <cac:PaymentMeans>
+    <cbc:PaymentMeansCode listID="UN/ECE 4461" listName="Payment Means" listURI="http://docs.oasis-open.org/ubl/os-UBL-2.0-update/cl/gc/default/PaymentMeansCode-2.0.gc">30</cbc:PaymentMeansCode>
+    <cbc:PaymentDueDate>2026-10-31</cbc:PaymentDueDate>
+    <cbc:InstructionID>889714692719</cbc:InstructionID>
+    <cbc:InstructionNote>REDACTED</cbc:InstructionNote>
+    <cbc:PaymentID>REDACTED</cbc:PaymentID>
+    <cac:PayeeFinancialAccount>
+      <cbc:ID>REDACTED</cbc:ID>
+      <cbc:Name>REDACTED</cbc:Name>
+      <cac:FinancialInstitutionBranch>
+        <cbc:ID>REDACTED</cbc:ID>
+      </cac:FinancialInstitutionBranch>
+    </cac:PayeeFinancialAccount>
+  </cac:PaymentMeans>
+  <cac:PaymentTerms>
+    <cbc:Note>REDACTED</cbc:Note>
+  </cac:PaymentTerms>
+  <cac:TaxTotal>
+    <cbc:TaxAmount currencyID="EUR">77.01</cbc:TaxAmount>
+    <cac:TaxSubtotal>
+      <cbc:TaxableAmount currencyID="EUR">366.70</cbc:TaxableAmount>
+      <cbc:TaxAmount currencyID="EUR">77.01</cbc:TaxAmount>
+      <cac:TaxCategory>
+        <cbc:ID schemeID="UNCL5305" schemeName="Duty or tax or fee category">S</cbc:ID>
+        <cbc:Name>REDACTED</cbc:Name>
+        <cbc:Percent>21.00</cbc:Percent>
+        <cac:TaxScheme>
+          <cbc:ID>VAT</cbc:ID>
+          <cbc:TaxTypeCode>VAT</cbc:TaxTypeCode>
+        </cac:TaxScheme>
+      </cac:TaxCategory>
+    </cac:TaxSubtotal>
+  </cac:TaxTotal>
+  <cac:LegalMonetaryTotal>
+    <cbc:LineExtensionAmount currencyID="EUR">366.70</cbc:LineExtensionAmount>
+    <cbc:TaxExclusiveAmount currencyID="EUR">366.70</cbc:TaxExclusiveAmount>
+    <cbc:TaxInclusiveAmount currencyID="EUR">443.71</cbc:TaxInclusiveAmount>
+    <cbc:PayableAmount currencyID="EUR">443.71</cbc:PayableAmount>
+  </cac:LegalMonetaryTotal>
+  <cac:InvoiceLine>
+    <cbc:ID>1723666</cbc:ID>
+    <cbc:Note>REDACTED</cbc:Note>
+    <cbc:InvoicedQuantity unitCode="C62">0.00</cbc:InvoicedQuantity>
+    <cbc:LineExtensionAmount currencyID="EUR">0.00</cbc:LineExtensionAmount>
+    <cac:Item>
+      <cbc:Description>REDACTED</cbc:Description>
+      <cbc:Name>REDACTED</cbc:Name>
+      <cac:SellersItemIdentification>
+        <cbc:ID>1723666</cbc:ID>
+      </cac:SellersItemIdentification>
+      <cac:ClassifiedTaxCategory>
+        <cbc:ID schemeID="UNCL5305" schemeName="Duty or tax or fee category">S</cbc:ID>
+        <cbc:Name>REDACTED</cbc:Name>
+        <cbc:Percent>21.00</cbc:Percent>
+        <cac:TaxScheme>
+          <cbc:ID>VAT</cbc:ID>
+          <cbc:TaxTypeCode>VAT</cbc:TaxTypeCode>
+        </cac:TaxScheme>
+      </cac:ClassifiedTaxCategory>
+    </cac:Item>
+    <cac:Price>
+      <cbc:PriceAmount currencyID="EUR">0.00</cbc:PriceAmount>
+      <cbc:BaseQuantity unitCode="C62">1</cbc:BaseQuantity>
+    </cac:Price>
+  </cac:InvoiceLine>
+  <cac:InvoiceLine>
+    <cbc:ID>1723667</cbc:ID>
+    <cbc:Note>REDACTED</cbc:Note>
+    <cbc:InvoicedQuantity unitCode="C62">1</cbc:InvoicedQuantity>
+    <cbc:LineExtensionAmount currencyID="EUR">159.00</cbc:LineExtensionAmount>
+    <cac:TaxTotal>
+      <cbc:TaxAmount currencyID="EUR">33.39</cbc:TaxAmount>
+      <cac:TaxSubtotal>
+        <cbc:TaxableAmount currencyID="EUR">159.00</cbc:TaxableAmount>
+        <cbc:TaxAmount currencyID="EUR">33.39</cbc:TaxAmount>
+        <cac:TaxCategory>
+          <cbc:ID schemeID="UNCL5305" schemeName="Duty or tax or fee category">S</cbc:ID>
+          <cbc:Name>REDACTED</cbc:Name>
+          <cbc:Percent>21.00</cbc:Percent>
+          <cac:TaxScheme>
+            <cbc:ID>VAT</cbc:ID>
+            <cbc:TaxTypeCode>VAT</cbc:TaxTypeCode>
+          </cac:TaxScheme>
+        </cac:TaxCategory>
+      </cac:TaxSubtotal>
+    </cac:TaxTotal>
+    <cac:Item>
+      <cbc:Description>REDACTED</cbc:Description>
+      <cbc:Name>REDACTED</cbc:Name>
+      <cac:SellersItemIdentification>
+        <cbc:ID>1723667</cbc:ID>
+      </cac:SellersItemIdentification>
+      <cac:ClassifiedTaxCategory>
+        <cbc:ID schemeID="UNCL5305" schemeName="Duty or tax or fee category">S</cbc:ID>
+        <cbc:Name>REDACTED</cbc:Name>
+        <cbc:Percent>21.00</cbc:Percent>
+        <cac:TaxScheme>
+          <cbc:ID>VAT</cbc:ID>
+          <cbc:TaxTypeCode>VAT</cbc:TaxTypeCode>
+        </cac:TaxScheme>
+      </cac:ClassifiedTaxCategory>
+    </cac:Item>
+    <cac:Price>
+      <cbc:PriceAmount currencyID="EUR">159</cbc:PriceAmount>
+      <cbc:BaseQuantity unitCode="C62">1</cbc:BaseQuantity>
+    </cac:Price>
+  </cac:InvoiceLine>
+  <cac:InvoiceLine>
+    <cbc:ID>1723668</cbc:ID>
+    <cbc:Note>REDACTED</cbc:Note>
+    <cbc:InvoicedQuantity unitCode="C62">1</cbc:InvoicedQuantity>
+    <cbc:LineExtensionAmount currencyID="EUR">54.50</cbc:LineExtensionAmount>
+    <cac:TaxTotal>
+      <cbc:TaxAmount currencyID="EUR">11.45</cbc:TaxAmount>
+      <cac:TaxSubtotal>
+        <cbc:TaxableAmount currencyID="EUR">54.50</cbc:TaxableAmount>
+        <cbc:TaxAmount currencyID="EUR">11.45</cbc:TaxAmount>
+        <cac:TaxCategory>
+          <cbc:ID schemeID="UNCL5305" schemeName="Duty or tax or fee category">S</cbc:ID>
+          <cbc:Name>REDACTED</cbc:Name>
+          <cbc:Percent>21.00</cbc:Percent>
+          <cac:TaxScheme>
+            <cbc:ID>VAT</cbc:ID>
+            <cbc:TaxTypeCode>VAT</cbc:TaxTypeCode>
+          </cac:TaxScheme>
+        </cac:TaxCategory>
+      </cac:TaxSubtotal>
+    </cac:TaxTotal>
+    <cac:Item>
+      <cbc:Description>REDACTED</cbc:Description>
+      <cbc:Name>REDACTED</cbc:Name>
+      <cac:SellersItemIdentification>
+        <cbc:ID>1723668</cbc:ID>
+      </cac:SellersItemIdentification>
+      <cac:ClassifiedTaxCategory>
+        <cbc:ID schemeID="UNCL5305" schemeName="Duty or tax or fee category">S</cbc:ID>
+        <cbc:Name>REDACTED</cbc:Name>
+        <cbc:Percent>21.00</cbc:Percent>
+        <cac:TaxScheme>
+          <cbc:ID>VAT</cbc:ID>
+          <cbc:TaxTypeCode>VAT</cbc:TaxTypeCode>
+        </cac:TaxScheme>
+      </cac:ClassifiedTaxCategory>
+    </cac:Item>
+    <cac:Price>
+      <cbc:PriceAmount currencyID="EUR">54.5</cbc:PriceAmount>
+      <cbc:BaseQuantity unitCode="C62">1</cbc:BaseQuantity>
+    </cac:Price>
+  </cac:InvoiceLine>
+  <cac:InvoiceLine>
+    <cbc:ID>1723669</cbc:ID>
+    <cbc:Note>REDACTED</cbc:Note>
+    <cbc:InvoicedQuantity unitCode="C62">1</cbc:InvoicedQuantity>
+    <cbc:LineExtensionAmount currencyID="EUR">39.84</cbc:LineExtensionAmount>
+    <cac:TaxTotal>
+      <cbc:TaxAmount currencyID="EUR">8.37</cbc:TaxAmount>
+      <cac:TaxSubtotal>
+        <cbc:TaxableAmount currencyID="EUR">39.84</cbc:TaxableAmount>
+        <cbc:TaxAmount currencyID="EUR">8.37</cbc:TaxAmount>
+        <cac:TaxCategory>
+          <cbc:ID schemeID="UNCL5305" schemeName="Duty or tax or fee category">S</cbc:ID>
+          <cbc:Name>REDACTED</cbc:Name>
+          <cbc:Percent>21.00</cbc:Percent>
+          <cac:TaxScheme>
+            <cbc:ID>VAT</cbc:ID>
+            <cbc:TaxTypeCode>VAT</cbc:TaxTypeCode>
+          </cac:TaxScheme>
+        </cac:TaxCategory>
+      </cac:TaxSubtotal>
+    </cac:TaxTotal>
+    <cac:Item>
+      <cbc:Description>REDACTED</cbc:Description>
+      <cbc:Name>REDACTED</cbc:Name>
+      <cac:SellersItemIdentification>
+        <cbc:ID>1723669</cbc:ID>
+      </cac:SellersItemIdentification>
+      <cac:ClassifiedTaxCategory>
+        <cbc:ID schemeID="UNCL5305" schemeName="Duty or tax or fee category">S</cbc:ID>
+        <cbc:Name>REDACTED</cbc:Name>
+        <cbc:Percent>21.00</cbc:Percent>
+        <cac:TaxScheme>
+          <cbc:ID>VAT</cbc:ID>
+          <cbc:TaxTypeCode>VAT</cbc:TaxTypeCode>
+        </cac:TaxScheme>
+      </cac:ClassifiedTaxCategory>
+    </cac:Item>
+    <cac:Price>
+      <cbc:PriceAmount currencyID="EUR">39.84</cbc:PriceAmount>
+      <cbc:BaseQuantity unitCode="C62">1</cbc:BaseQuantity>
+    </cac:Price>
+  </cac:InvoiceLine>
+  <cac:InvoiceLine>
+    <cbc:ID>1723670</cbc:ID>
+    <cbc:Note>REDACTED</cbc:Note>
+    <cbc:InvoicedQuantity unitCode="C62">1</cbc:InvoicedQuantity>
+    <cbc:LineExtensionAmount currencyID="EUR">31.62</cbc:LineExtensionAmount>
+    <cac:TaxTotal>
+      <cbc:TaxAmount currencyID="EUR">6.64</cbc:TaxAmount>
+      <cac:TaxSubtotal>
+        <cbc:TaxableAmount currencyID="EUR">31.62</cbc:TaxableAmount>
+        <cbc:TaxAmount currencyID="EUR">6.64</cbc:TaxAmount>
+        <cac:TaxCategory>
+          <cbc:ID schemeID="UNCL5305" schemeName="Duty or tax or fee category">S</cbc:ID>
+          <cbc:Name>REDACTED</cbc:Name>
+          <cbc:Percent>21.00</cbc:Percent>
+          <cac:TaxScheme>
+            <cbc:ID>VAT</cbc:ID>
+            <cbc:TaxTypeCode>VAT</cbc:TaxTypeCode>
+          </cac:TaxScheme>
+        </cac:TaxCategory>
+      </cac:TaxSubtotal>
+    </cac:TaxTotal>
+    <cac:Item>
+      <cbc:Description>REDACTED</cbc:Description>
+      <cbc:Name>REDACTED</cbc:Name>
+      <cac:SellersItemIdentification>
+        <cbc:ID>1723670</cbc:ID>
+      </cac:SellersItemIdentification>
+      <cac:ClassifiedTaxCategory>
+        <cbc:ID schemeID="UNCL5305" schemeName="Duty or tax or fee category">S</cbc:ID>
+        <cbc:Name>REDACTED</cbc:Name>
+        <cbc:Percent>21.00</cbc:Percent>
+        <cac:TaxScheme>
+          <cbc:ID>VAT</cbc:ID>
+          <cbc:TaxTypeCode>VAT</cbc:TaxTypeCode>
+        </cac:TaxScheme>
+      </cac:ClassifiedTaxCategory>
+    </cac:Item>
+    <cac:Price>
+      <cbc:PriceAmount currencyID="EUR">31.62</cbc:PriceAmount>
+      <cbc:BaseQuantity unitCode="C62">1</cbc:BaseQuantity>
+    </cac:Price>
+  </cac:InvoiceLine>
+  <cac:InvoiceLine>
+    <cbc:ID>1723671</cbc:ID>
+    <cbc:Note>REDACTED</cbc:Note>
+    <cbc:InvoicedQuantity unitCode="C62">2</cbc:InvoicedQuantity>
+    <cbc:LineExtensionAmount currencyID="EUR">81.74</cbc:LineExtensionAmount>
+    <cac:TaxTotal>
+      <cbc:TaxAmount currencyID="EUR">17.17</cbc:TaxAmount>
+      <cac:TaxSubtotal>
+        <cbc:TaxableAmount currencyID="EUR">81.74</cbc:TaxableAmount>
+        <cbc:TaxAmount currencyID="EUR">17.17</cbc:TaxAmount>
+        <cac:TaxCategory>
+          <cbc:ID schemeID="UNCL5305" schemeName="Duty or tax or fee category">S</cbc:ID>
+          <cbc:Name>REDACTED</cbc:Name>
+          <cbc:Percent>21.00</cbc:Percent>
+          <cac:TaxScheme>
+            <cbc:ID>VAT</cbc:ID>
+            <cbc:TaxTypeCode>VAT</cbc:TaxTypeCode>
+          </cac:TaxScheme>
+        </cac:TaxCategory>
+      </cac:TaxSubtotal>
+    </cac:TaxTotal>
+    <cac:Item>
+      <cbc:Description>REDACTED</cbc:Description>
+      <cbc:Name>REDACTED</cbc:Name>
+      <cac:SellersItemIdentification>
+        <cbc:ID>1723671</cbc:ID>
+      </cac:SellersItemIdentification>
+      <cac:ClassifiedTaxCategory>
+        <cbc:ID schemeID="UNCL5305" schemeName="Duty or tax or fee category">S</cbc:ID>
+        <cbc:Name>REDACTED</cbc:Name>
+        <cbc:Percent>21.00</cbc:Percent>
+        <cac:TaxScheme>
+          <cbc:ID>VAT</cbc:ID>
+          <cbc:TaxTypeCode>VAT</cbc:TaxTypeCode>
+        </cac:TaxScheme>
+      </cac:ClassifiedTaxCategory>
+    </cac:Item>
+    <cac:Price>
+      <cbc:PriceAmount currencyID="EUR">40.87</cbc:PriceAmount>
+      <cbc:BaseQuantity unitCode="C62">1</cbc:BaseQuantity>
+    </cac:Price>
+  </cac:InvoiceLine>
+</Invoice>

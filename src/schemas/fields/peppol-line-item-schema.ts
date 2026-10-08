@@ -226,7 +226,7 @@ export class PeppolLineItem extends opaque<PeppolLineItem>()(
      *
      * @name cbc:Description
      */
-    description: Schema.optional(Schema.String).pipe(
+    description: Schema.String.pipe(
       Schema.annotate({
         xmlNamespace: CBC_NAMESPACE,
         xmlPrefix: 'cbc',
@@ -234,7 +234,8 @@ export class PeppolLineItem extends opaque<PeppolLineItem>()(
         description:
           'A description for an item. The item description allows for descibing the item and its features in more detail than the item name.',
         title: 'Item description',
-      })
+      }),
+      Schema.optional
     ),
     /**
      * @description A name for an item.
@@ -251,40 +252,50 @@ export class PeppolLineItem extends opaque<PeppolLineItem>()(
      *
      * @name cac:BuyersItemIdentification
      */
-    buyersItemIdentification: Schema.optional(PeppolBuyersItemIdentification).pipe(
-      Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'BuyersItemIdentification', title: 'BUYERS ITEM IDENTIFICATION' })
+    buyersItemIdentification: PeppolBuyersItemIdentification.pipe(
+      Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'BuyersItemIdentification', title: 'BUYERS ITEM IDENTIFICATION' }),
+      Schema.optional
     ),
     /**
      * @summary Sellers item identification
      *
      * @name cac:SellersItemIdentification
      */
-    sellersItemIdentification: Schema.optional(PeppolSellersItemIdentification).pipe(
-      Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'SellersItemIdentification', title: 'Sellers item identification' })
+    sellersItemIdentification: PeppolSellersItemIdentification.pipe(
+      Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'SellersItemIdentification', title: 'Sellers item identification' }),
+      Schema.optional
     ),
     /**
      * @summary Standard item identification
      *
      * @name cac:StandardItemIdentification
      */
-    standardItemIdentification: Schema.optional(PeppolStandardItemIdentification).pipe(
-      Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'StandardItemIdentification', title: 'Standard item identification' })
+    standardItemIdentification: PeppolStandardItemIdentification.pipe(
+      Schema.annotate({
+        xmlNamespace: CAC_NAMESPACE,
+        xmlPrefix: 'cac',
+        xmlName: 'StandardItemIdentification',
+        title: 'Standard item identification',
+      }),
+      Schema.optional
     ),
     /**
      * @summary ORIGIN COUNTRY
      *
      * @name `cac:OriginCountry`
      */
-    originCountryCode: Schema.optional(PeppolOriginCountryCode).pipe(
-      Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'OriginCountry' })
+    originCountryCode: PeppolOriginCountryCode.pipe(
+      Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'OriginCountry' }),
+      Schema.optional
     ),
     /**
      * @summary COMMODITY CLASSIFICATION
      *
      * @name cac:CommodityClassification (0..n)
      */
-    commodityClassifications: Schema.optional(Schema.Array(PeppolCommodityClassifications)).pipe(
-      Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'CommodityClassification', title: 'COMMODITY CLASSIFICATION' })
+    commodityClassifications: Schema.Array(PeppolCommodityClassifications).pipe(
+      Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'CommodityClassification', title: 'COMMODITY CLASSIFICATION' }),
+      Schema.optional
     ),
     /**
      * @description A group of business terms providing information about the VAT applicable for the goods and services invoiced on the Invoice line.
@@ -310,14 +321,15 @@ export class PeppolLineItem extends opaque<PeppolLineItem>()(
      *
      * @name cac:AdditionalItemProperty
      */
-    additionalItemProperties: Schema.optional(Schema.Array(PeppolAdditionalItemProperties)).pipe(
+    additionalItemProperties: Schema.Array(PeppolAdditionalItemProperties).pipe(
       Schema.annotate({
         xmlNamespace: CAC_NAMESPACE,
         xmlPrefix: 'cac',
         xmlName: 'AdditionalItemProperty',
         description: 'A group of business terms providing information about properties of the goods and services invoiced.',
         title: 'ITEM ATTRIBUTES',
-      })
+      }),
+      Schema.optional
     ),
   }).pipe(Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'Item' }), Schema.toStandardSchemaV1)
 ) {}

@@ -50,7 +50,7 @@ export class PeppolTaxCategory extends opaque<PeppolTaxCategory>()(
      *
      * @name `cbc:Percent`
      */
-    percent: Schema.optional(Schema.Finite).pipe(Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'Percent' })),
+    percent: Schema.Finite.pipe(Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'Percent' }), Schema.optional),
     /**
      * @default VAT
      *

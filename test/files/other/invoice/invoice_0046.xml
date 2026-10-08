@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Invoice xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2">
+  <ns0:UBLVersionID xmlns:ns0="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">2.1</ns0:UBLVersionID>
+  <ns0:CustomizationID xmlns:ns0="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0</ns0:CustomizationID>
+  <ns0:ProfileID xmlns:ns0="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">urn:fdc:peppol.eu:2017:poacc:billing:01:1.0</ns0:ProfileID>
+  <ns0:ID xmlns:ns0="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">REDACTED-REFERENCE</ns0:ID>
+  <ns0:IssueDate xmlns:ns0="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">2026-04-02</ns0:IssueDate>
+  <ns0:DueDate xmlns:ns0="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">2026-04-12</ns0:DueDate>
+  <ns0:InvoiceTypeCode xmlns:ns0="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" listAgencyID="6" listID="UNCL1001">380</ns0:InvoiceTypeCode>
+  <ns0:Note xmlns:ns0="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">REDACTED</ns0:Note>
+  <ns0:DocumentCurrencyCode xmlns:ns0="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" listAgencyID="6" listID="ISO4217">EUR</ns0:DocumentCurrencyCode>
+  <ns0:InvoicePeriod xmlns:ns0="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2">
+    <ns1:StartDate xmlns:ns1="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">2026-04-01</ns1:StartDate>
+    <ns1:EndDate xmlns:ns1="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">2026-04-30</ns1:EndDate>
+  </ns0:InvoicePeriod>
+  <ns0:OrderReference xmlns:ns0="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2">
+    <ns1:ID xmlns:ns1="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">REDACTED-REFERENCE</ns1:ID>
+    <ns1:SalesOrderID xmlns:ns1="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">20260470</ns1:SalesOrderID>
+  </ns0:OrderReference>
+  <ns0:AdditionalDocumentReference xmlns:ns0="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2">
+    <ns1:ID xmlns:ns1="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">REDACTED-REFERENCE</ns1:ID>
+    <ns0:Attachment>
+      <ns1:EmbeddedDocumentBinaryObject xmlns:ns1="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" characterSetCode="ASCII" encodingCode="Base64" mimeCode="application/pdf" filename="REDACTED">UkVEQUNURUQ=</ns1:EmbeddedDocumentBinaryObject>
+    </ns0:Attachment>
+  </ns0:AdditionalDocumentReference>
+  <ns0:AccountingSupplierParty xmlns:ns0="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2">
+    <ns0:Party>
+      <ns1:EndpointID xmlns:ns1="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" schemeID="0208">REDACTED-ENDPOINT</ns1:EndpointID>
+      <ns0:PartyIdentification>
+        <ns1:ID xmlns:ns1="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" schemeAgencyID="ZZZ" schemeID="0208">REDACTED-PARTY-ID</ns1:ID>
+      </ns0:PartyIdentification>
+      <ns0:PartyName>
+        <ns1:Name xmlns:ns1="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">REDACTED</ns1:Name>
+      </ns0:PartyName>
+      <ns0:PostalAddress>
+        <ns1:StreetName xmlns:ns1="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">REDACTED</ns1:StreetName>
+        <ns1:CityName xmlns:ns1="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">REDACTED</ns1:CityName>
+        <ns1:PostalZone xmlns:ns1="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">REDACTED</ns1:PostalZone>
+        <ns0:Country>
+          <ns1:IdentificationCode xmlns:ns1="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" listAgencyID="6" listID="ISO3166-1:Alpha2">BE</ns1:IdentificationCode>
+        </ns0:Country>
+      </ns0:PostalAddress>
+      <ns0:PartyTaxScheme>
+        <ns1:CompanyID xmlns:ns1="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" schemeAgencyID="ZZZ" schemeID="9925">REDACTED-ID</ns1:CompanyID>
+        <ns0:TaxScheme>
+          <ns1:ID xmlns:ns1="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" schemeAgencyID="6" schemeID="UN/ECE 5153">VAT</ns1:ID>
+        </ns0:TaxScheme>
+      </ns0:PartyTaxScheme>
+      <ns0:PartyLegalEntity>
+        <ns1:RegistrationName xmlns:ns1="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">REDACTED</ns1:RegistrationName>
+        <ns1:CompanyID xmlns:ns1="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" schemeAgencyID="ZZZ" schemeID="0208">REDACTED-ID</ns1:CompanyID>
+      </ns0:PartyLegalEntity>
+      <ns0:Contact>
+        <ns1:Telephone xmlns:ns1="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">REDACTED</ns1:Telephone>
+        <ns1:ElectronicMail xmlns:ns1="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">REDACTED</ns1:ElectronicMail>
+      </ns0:Contact>
+    </ns0:Party>
+  </ns0:AccountingSupplierParty>
+  <ns0:AccountingCustomerParty xmlns:ns0="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2">
+    <ns0:Party>
+      <ns1:EndpointID xmlns:ns1="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" schemeID="0208">REDACTED-ENDPOINT</ns1:EndpointID>
+      <ns0:PartyIdentification>
+        <ns1:ID xmlns:ns1="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" schemeAgencyID="ZZZ" schemeID="0208">REDACTED-PARTY-ID</ns1:ID>
+      </ns0:PartyIdentification>
+      <ns0:PartyName>
+        <ns1:Name xmlns:ns1="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">REDACTED</ns1:Name>
+      </ns0:PartyName>
+      <ns0:PostalAddress>
+        <ns1:StreetName xmlns:ns1="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">REDACTED</ns1:StreetName>
+        <ns1:CityName xmlns:ns1="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">REDACTED</ns1:CityName>
+        <ns1:PostalZone xmlns:ns1="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">REDACTED</ns1:PostalZone>
+        <ns0:Country>
+          <ns1:IdentificationCode xmlns:ns1="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" listAgencyID="6" listID="ISO3166-1:Alpha2">BE</ns1:IdentificationCode>
+        </ns0:Country>
+      </ns0:PostalAddress>
+      <ns0:PartyLegalEntity>
+        <ns1:RegistrationName xmlns:ns1="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">REDACTED</ns1:RegistrationName>
+        <ns1:CompanyID xmlns:ns1="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" schemeAgencyID="ZZZ" schemeID="0208">REDACTED-ID</ns1:CompanyID>
+      </ns0:PartyLegalEntity>
+    </ns0:Party>
+  </ns0:AccountingCustomerParty>
+  <ns0:PaymentMeans xmlns:ns0="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2">
+    <ns1:PaymentMeansCode xmlns:ns1="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">30</ns1:PaymentMeansCode>
+    <ns1:PaymentID xmlns:ns1="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">REDACTED</ns1:PaymentID>
+    <ns0:PayeeFinancialAccount>
+      <ns1:ID xmlns:ns1="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">REDACTED</ns1:ID>
+    </ns0:PayeeFinancialAccount>
+  </ns0:PaymentMeans>
+  <ns0:PaymentTerms xmlns:ns0="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2">
+    <ns1:Note xmlns:ns1="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">REDACTED</ns1:Note>
+  </ns0:PaymentTerms>
+  <ns0:TaxTotal xmlns:ns0="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2">
+    <ns1:TaxAmount xmlns:ns1="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" currencyID="EUR">66.15</ns1:TaxAmount>
+    <ns0:TaxSubtotal>
+      <ns1:TaxableAmount xmlns:ns1="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" currencyID="EUR">315.00</ns1:TaxableAmount>
+      <ns1:TaxAmount xmlns:ns1="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" currencyID="EUR">66.15</ns1:TaxAmount>
+      <ns0:TaxCategory>
+        <ns1:ID xmlns:ns1="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" schemeAgencyID="6" schemeID="UNCL5305">S</ns1:ID>
+        <ns1:Percent xmlns:ns1="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">21.0</ns1:Percent>
+        <ns0:TaxScheme>
+          <ns1:ID xmlns:ns1="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" schemeAgencyID="6" schemeID="UN/ECE 5153">VAT</ns1:ID>
+        </ns0:TaxScheme>
+      </ns0:TaxCategory>
+    </ns0:TaxSubtotal>
+  </ns0:TaxTotal>
+  <ns0:LegalMonetaryTotal xmlns:ns0="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2">
+    <ns1:LineExtensionAmount xmlns:ns1="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" currencyID="EUR">315.00</ns1:LineExtensionAmount>
+    <ns1:TaxExclusiveAmount xmlns:ns1="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" currencyID="EUR">315.00</ns1:TaxExclusiveAmount>
+    <ns1:TaxInclusiveAmount xmlns:ns1="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" currencyID="EUR">381.15</ns1:TaxInclusiveAmount>
+    <ns1:PayableAmount xmlns:ns1="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" currencyID="EUR">381.15</ns1:PayableAmount>
+  </ns0:LegalMonetaryTotal>
+  <ns0:InvoiceLine xmlns:ns0="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2">
+    <ns1:ID xmlns:ns1="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">1</ns1:ID>
+    <ns1:InvoicedQuantity xmlns:ns1="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" unitCode="C62" unitCodeListID="UNECERec20">1.0</ns1:InvoicedQuantity>
+    <ns1:LineExtensionAmount xmlns:ns1="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" currencyID="EUR">268.00</ns1:LineExtensionAmount>
+    <ns0:InvoicePeriod>
+      <ns1:StartDate xmlns:ns1="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">2026-04-01</ns1:StartDate>
+      <ns1:EndDate xmlns:ns1="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">2026-04-30</ns1:EndDate>
+    </ns0:InvoicePeriod>
+    <ns0:Item>
+      <ns1:Description xmlns:ns1="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">REDACTED</ns1:Description>
+      <ns1:Name xmlns:ns1="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">REDACTED</ns1:Name>
+      <ns0:ClassifiedTaxCategory>
+        <ns1:ID xmlns:ns1="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" schemeAgencyID="6" schemeID="UNCL5305">S</ns1:ID>
+        <ns1:Percent xmlns:ns1="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">21.0</ns1:Percent>
+        <ns0:TaxScheme>
+          <ns1:ID xmlns:ns1="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" schemeAgencyID="6" schemeID="UN/ECE 5153">VAT</ns1:ID>
+        </ns0:TaxScheme>
+      </ns0:ClassifiedTaxCategory>
+    </ns0:Item>
+    <ns0:Price>
+      <ns1:PriceAmount xmlns:ns1="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" currencyID="EUR">268.00</ns1:PriceAmount>
+      <ns1:BaseQuantity xmlns:ns1="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" unitCode="C62" unitCodeListID="UNECERec20">1.0</ns1:BaseQuantity>
+    </ns0:Price>
+  </ns0:InvoiceLine>
+  <ns0:InvoiceLine xmlns:ns0="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2">
+    <ns1:ID xmlns:ns1="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">2</ns1:ID>
+    <ns1:InvoicedQuantity xmlns:ns1="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" unitCode="C62" unitCodeListID="UNECERec20">1.0</ns1:InvoicedQuantity>
+    <ns1:LineExtensionAmount xmlns:ns1="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" currencyID="EUR">10.00</ns1:LineExtensionAmount>
+    <ns0:Item>
+      <ns1:Description xmlns:ns1="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">REDACTED</ns1:Description>
+      <ns1:Name xmlns:ns1="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">REDACTED</ns1:Name>
+      <ns0:ClassifiedTaxCategory>
+        <ns1:ID xmlns:ns1="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" schemeAgencyID="6" schemeID="UNCL5305">S</ns1:ID>
+        <ns1:Percent xmlns:ns1="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">21.0</ns1:Percent>
+        <ns0:TaxScheme>
+          <ns1:ID xmlns:ns1="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" schemeAgencyID="6" schemeID="UN/ECE 5153">VAT</ns1:ID>
+        </ns0:TaxScheme>
+      </ns0:ClassifiedTaxCategory>
+    </ns0:Item>
+    <ns0:Price>
+      <ns1:PriceAmount xmlns:ns1="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" currencyID="EUR">10.00</ns1:PriceAmount>
+      <ns1:BaseQuantity xmlns:ns1="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" unitCode="C62" unitCodeListID="UNECERec20">1.0</ns1:BaseQuantity>
+    </ns0:Price>
+  </ns0:InvoiceLine>
+  <ns0:InvoiceLine xmlns:ns0="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2">
+    <ns1:ID xmlns:ns1="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">3</ns1:ID>
+    <ns1:InvoicedQuantity xmlns:ns1="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" unitCode="C62" unitCodeListID="UNECERec20">1.0</ns1:InvoicedQuantity>
+    <ns1:LineExtensionAmount xmlns:ns1="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" currencyID="EUR">14.00</ns1:LineExtensionAmount>
+    <ns0:Item>
+      <ns1:Description xmlns:ns1="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">REDACTED</ns1:Description>
+      <ns1:Name xmlns:ns1="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">REDACTED</ns1:Name>
+      <ns0:ClassifiedTaxCategory>
+        <ns1:ID xmlns:ns1="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" schemeAgencyID="6" schemeID="UNCL5305">S</ns1:ID>
+        <ns1:Percent xmlns:ns1="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">21.0</ns1:Percent>
+        <ns0:TaxScheme>
+          <ns1:ID xmlns:ns1="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" schemeAgencyID="6" schemeID="UN/ECE 5153">VAT</ns1:ID>
+        </ns0:TaxScheme>
+      </ns0:ClassifiedTaxCategory>
+    </ns0:Item>
+    <ns0:Price>
+      <ns1:PriceAmount xmlns:ns1="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" currencyID="EUR">14.00</ns1:PriceAmount>
+      <ns1:BaseQuantity xmlns:ns1="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" unitCode="C62" unitCodeListID="UNECERec20">1.0</ns1:BaseQuantity>
+    </ns0:Price>
+  </ns0:InvoiceLine>
+  <ns0:InvoiceLine xmlns:ns0="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2">
+    <ns1:ID xmlns:ns1="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">4</ns1:ID>
+    <ns1:InvoicedQuantity xmlns:ns1="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" unitCode="C62" unitCodeListID="UNECERec20">1.0</ns1:InvoicedQuantity>
+    <ns1:LineExtensionAmount xmlns:ns1="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" currencyID="EUR">23.00</ns1:LineExtensionAmount>
+    <ns0:Item>
+      <ns1:Description xmlns:ns1="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">REDACTED</ns1:Description>
+      <ns1:Name xmlns:ns1="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">REDACTED</ns1:Name>
+      <ns0:ClassifiedTaxCategory>
+        <ns1:ID xmlns:ns1="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" schemeAgencyID="6" schemeID="UNCL5305">S</ns1:ID>
+        <ns1:Percent xmlns:ns1="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">21.0</ns1:Percent>
+        <ns0:TaxScheme>
+          <ns1:ID xmlns:ns1="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" schemeAgencyID="6" schemeID="UN/ECE 5153">VAT</ns1:ID>
+        </ns0:TaxScheme>
+      </ns0:ClassifiedTaxCategory>
+    </ns0:Item>
+    <ns0:Price>
+      <ns1:PriceAmount xmlns:ns1="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" currencyID="EUR">23.00</ns1:PriceAmount>
+      <ns1:BaseQuantity xmlns:ns1="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" unitCode="C62" unitCodeListID="UNECERec20">1.0</ns1:BaseQuantity>
+    </ns0:Price>
+  </ns0:InvoiceLine>
+</Invoice>

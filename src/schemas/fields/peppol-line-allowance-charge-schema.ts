@@ -31,8 +31,9 @@ export class PeppolLineAllowance extends opaque<PeppolLineAllowance>()(
     /**
      * @name cbc:AllowanceChargeReasonCode
      */
-    allowanceChargeReasonCode: Schema.optional(PeppolAllowanceChargeReasonCode).pipe(
-      Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'AllowanceChargeReasonCode' })
+    allowanceChargeReasonCode: PeppolAllowanceChargeReasonCode.pipe(
+      Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'AllowanceChargeReasonCode' }),
+      Schema.optional
     ),
 
     /**
@@ -52,8 +53,9 @@ export class PeppolLineAllowance extends opaque<PeppolLineAllowance>()(
      *
      * @name cbc:MultiplierFactorNumeric
      */
-    multiplierFactorNumeric: Schema.optional(Schema.Finite).pipe(
-      Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'MultiplierFactorNumeric', examples: [20] })
+    multiplierFactorNumeric: Schema.Finite.pipe(
+      Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'MultiplierFactorNumeric', examples: [20] }),
+      Schema.optional
     ),
 
     /**
@@ -63,7 +65,12 @@ export class PeppolLineAllowance extends opaque<PeppolLineAllowance>()(
      * @name cbc:Amount (+ @currencyID)
      */
     amount: PeppolAmount.pipe(
-      Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'Amount', examples: [{ value: 200, currencyId: 'EUR' }] })
+      Schema.annotate({
+        xmlNamespace: CBC_NAMESPACE,
+        xmlPrefix: 'cbc',
+        xmlName: 'Amount',
+        examples: [{ value: 200, currencyId: 'EUR' } as PeppolAmount],
+      })
     ),
 
     /**
@@ -74,8 +81,14 @@ export class PeppolLineAllowance extends opaque<PeppolLineAllowance>()(
      *
      * @name cbc:BaseAmount (+ @currencyID)
      */
-    baseAmount: Schema.optional(PeppolAmount).pipe(
-      Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'BaseAmount', examples: [{ value: 1000, currencyId: 'EUR' }] })
+    baseAmount: PeppolAmount.pipe(
+      Schema.annotate({
+        xmlNamespace: CBC_NAMESPACE,
+        xmlPrefix: 'cbc',
+        xmlName: 'BaseAmount',
+        examples: [{ value: 1000, currencyId: 'EUR' } as PeppolAmount],
+      }),
+      Schema.optional
     ),
   }).pipe(Schema.toStandardSchemaV1)
 ) {}
@@ -105,8 +118,9 @@ export class PeppolLineCharge extends opaque<PeppolLineCharge>()(
     /**
      * @name cbc:AllowanceChargeReasonCode
      */
-    allowanceChargeReasonCode: Schema.optional(PeppolChargeReasonCode).pipe(
-      Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'AllowanceChargeReasonCode' })
+    allowanceChargeReasonCode: PeppolChargeReasonCode.pipe(
+      Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'AllowanceChargeReasonCode' }),
+      Schema.optional
     ),
 
     /**
@@ -126,8 +140,9 @@ export class PeppolLineCharge extends opaque<PeppolLineCharge>()(
      *
      * @name cbc:MultiplierFactorNumeric
      */
-    multiplierFactorNumeric: Schema.optional(Schema.Finite).pipe(
-      Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'MultiplierFactorNumeric', examples: [20] })
+    multiplierFactorNumeric: Schema.Finite.pipe(
+      Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'MultiplierFactorNumeric', examples: [20] }),
+      Schema.optional
     ),
 
     /**
@@ -137,7 +152,12 @@ export class PeppolLineCharge extends opaque<PeppolLineCharge>()(
      * @name cbc:Amount (+ @currencyID)
      */
     amount: PeppolAmount.pipe(
-      Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'Amount', examples: [{ value: 200, currencyId: 'EUR' }] })
+      Schema.annotate({
+        xmlNamespace: CBC_NAMESPACE,
+        xmlPrefix: 'cbc',
+        xmlName: 'Amount',
+        examples: [{ value: 200, currencyId: 'EUR' } as PeppolAmount],
+      })
     ),
 
     /**
@@ -148,8 +168,14 @@ export class PeppolLineCharge extends opaque<PeppolLineCharge>()(
      *
      * @name cbc:BaseAmount (+ @currencyID)
      */
-    baseAmount: Schema.optional(PeppolAmount).pipe(
-      Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'BaseAmount', examples: [{ value: 1000, currencyId: 'EUR' }] })
+    baseAmount: PeppolAmount.pipe(
+      Schema.annotate({
+        xmlNamespace: CBC_NAMESPACE,
+        xmlPrefix: 'cbc',
+        xmlName: 'BaseAmount',
+        examples: [{ value: 1000, currencyId: 'EUR' } as PeppolAmount],
+      }),
+      Schema.optional
     ),
   }).pipe(Schema.toStandardSchemaV1)
 ) {}

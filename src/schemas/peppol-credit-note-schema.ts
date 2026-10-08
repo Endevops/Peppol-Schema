@@ -181,14 +181,15 @@ export class PeppolCreditNote extends opaque<PeppolCreditNote>()(
      *
      * @name `cbc:Note`
      */
-    note: Schema.optional(Schema.String).pipe(
+    note: Schema.String.pipe(
       Schema.annotate({
         xmlNamespace: CBC_NAMESPACE,
         xmlPrefix: 'cbc',
         xmlName: 'Note',
         description: 'Invoice note A textual note that gives unstructured information that is relevant to the Credit Note as a whole.',
         title: 'Invoice note',
-      })
+      }),
+      Schema.optional
     ),
 
     /**
@@ -321,8 +322,9 @@ export class PeppolCreditNote extends opaque<PeppolCreditNote>()(
      *
      * @name `cac:DespatchDocumentReference`
      */
-    despatchDocumentReference: Schema.optional(PeppolDespatchDocumentReference).pipe(
-      Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'DespatchDocumentReference' })
+    despatchDocumentReference: PeppolDespatchDocumentReference.pipe(
+      Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'DespatchDocumentReference' }),
+      Schema.optional
     ),
 
     /**
@@ -330,8 +332,9 @@ export class PeppolCreditNote extends opaque<PeppolCreditNote>()(
      *
      * @name `cac:ReceiptDocumentReference`
      */
-    receiptDocumentReference: Schema.optional(PeppolReceiptDocumentReference).pipe(
-      Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'ReceiptDocumentReference' })
+    receiptDocumentReference: PeppolReceiptDocumentReference.pipe(
+      Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'ReceiptDocumentReference' }),
+      Schema.optional
     ),
 
     /**
@@ -339,8 +342,9 @@ export class PeppolCreditNote extends opaque<PeppolCreditNote>()(
      *
      * @name `cac:ContractDocumentReference`
      */
-    contractDocumentReference: Schema.optional(PeppolContractDocumentReference).pipe(
-      Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'ContractDocumentReference' })
+    contractDocumentReference: PeppolContractDocumentReference.pipe(
+      Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'ContractDocumentReference' }),
+      Schema.optional
     ),
 
     /**
@@ -352,8 +356,9 @@ export class PeppolCreditNote extends opaque<PeppolCreditNote>()(
      *
      * @name `cac:AdditionalDocumentReference`
      */
-    additionalDocumentReferences: Schema.optional(Schema.Array(PeppolAdditionalDocumentReference)).pipe(
-      Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'AdditionalDocumentReference' })
+    additionalDocumentReferences: Schema.Array(PeppolAdditionalDocumentReference).pipe(
+      Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'AdditionalDocumentReference' }),
+      Schema.optional
     ),
 
     /**
@@ -361,8 +366,9 @@ export class PeppolCreditNote extends opaque<PeppolCreditNote>()(
      *
      * @name `cac:OriginatorDocumentReference`
      */
-    originatorDocumentReference: Schema.optional(PeppolOriginatorDocumentReference).pipe(
-      Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'OriginatorDocumentReference' })
+    originatorDocumentReference: PeppolOriginatorDocumentReference.pipe(
+      Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'OriginatorDocumentReference' }),
+      Schema.optional
     ),
 
     /**

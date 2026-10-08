@@ -25,6 +25,6 @@ export class PeppolIdentifier extends opaque<PeppolIdentifier>()(
     /**
      * @name `@schemeID`
      */
-    schemeId: Schema.optional(Schema.String).pipe(Schema.annotate({ xmlName: 'schemeID', xmlAttribute: true })),
+    schemeId: Schema.String.pipe(Schema.annotate({ xmlName: 'schemeID', xmlAttribute: true }), Schema.optional),
   }).pipe(Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'ID' }), Schema.toStandardSchemaV1)
 ) {}

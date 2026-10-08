@@ -28,9 +28,9 @@ describe('PeppolMessageLevelResponseDocumentResponse', () => {
     await decode.fail(noResponse, 'Missing key\n  at ["response"]');
   });
 
-  it('should reject a document response without a line response array', async () => {
+  it('should decode a document response without a line response array', async () => {
     const { lineResponse: _lineResponse, ...noLineResponse } = validDocumentResponse;
-    await decode.fail(noLineResponse, 'Missing key\n  at ["lineResponse"]');
+    await decode.succeed(noLineResponse);
   });
 
   it('should decode a document response with no line responses', async () => {

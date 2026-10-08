@@ -44,7 +44,8 @@ export class PeppolMessageLevelResponseDocumentResponse extends opaque<PeppolMes
      * @summary Line response information
      */
     lineResponse: Schema.Array(PeppolDocumentResponseLineResponse).pipe(
-      Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'LineResponse' })
+      Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'LineResponse' }),
+      Schema.optional
     ),
   }).pipe(Schema.toStandardSchemaV1)
 ) {}

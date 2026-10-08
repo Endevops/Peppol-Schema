@@ -1,5 +1,6 @@
 import { Schema, SchemaGetter } from 'effect';
 
+import { PeppolIdentifier } from '#/schemas/fields/peppol-identifier-schema.ts';
 import { CAC_NAMESPACE, CBC_NAMESPACE } from '#/schemas/namespaces.ts';
 import { PeppolIsoDateString } from '#/schemas/peppol-iso-date-string.ts';
 import { opaque } from '#/schemas/utils/opaque.ts';
@@ -50,7 +51,7 @@ export class PeppolPaymentMandate extends opaque<PeppolPaymentMandate>()(
      *
      * @name cbc:ID
      */
-    id: Schema.optional(Schema.String).pipe(
+    id: Schema.String.pipe(
       Schema.annotate({
         xmlNamespace: CBC_NAMESPACE,
         xmlPrefix: 'cbc',
@@ -58,7 +59,8 @@ export class PeppolPaymentMandate extends opaque<PeppolPaymentMandate>()(
         description:
           'Unique identifier assigned by the Payee for referencing the direct debit mandate. Used in order to pre-notify the Buyer of a SEPA direct debit.',
         title: 'Mandate reference identifier',
-      })
+      }),
+      Schema.optional
     ),
     /**
      * @description The account to be debited by the direct debit.
@@ -70,14 +72,44 @@ export class PeppolPaymentMandate extends opaque<PeppolPaymentMandate>()(
      *
      * @name `cac:PayerFinancialAccount`
      */
-    payerFinancialAccountId: Schema.optional(PeppolPaymentMandatePayerFinancialAccountId).pipe(
-      Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'PayerFinancialAccount' })
+    payerFinancialAccountId: PeppolPaymentMandatePayerFinancialAccountId.pipe(
+      Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'PayerFinancialAccount' }),
+      Schema.optional
     ),
   }).pipe(Schema.toStandardSchemaV1)
 ) {}
 
 /**
- * @description The payment service provider where the payee payment account is held, such as a BIC or national clearing code.
+ * @description The financial institution a payment account is held at, when a sender nests it under the branch element. Wraps the `cac:FinancialInstitution`
+ * element.
+ *
+ * @example
+ *   ```ts
+ *   { id: { id: 'BIC324098', schemeId: 'BIC' } }
+ *   ```;
+ *
+ * @see {@link PeppolPayeeFinancialAccountFinancialInstitutionBranch}
+ */
+export class PeppolPayeeFinancialAccountFinancialInstitution extends opaque<PeppolPayeeFinancialAccountFinancialInstitution>()(
+  Schema.Struct({
+    /**
+     * @summary Payment service provider identifier
+     *
+     * @name `cbc:ID`
+     */
+    id: PeppolIdentifier.pipe(Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'ID' }), Schema.optional),
+    /**
+     * @summary Payment service provider name
+     *
+     * @name `cbc:Name`
+     */
+    name: Schema.String.pipe(Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'Name' }), Schema.optional),
+  }).pipe(Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'FinancialInstitution' }), Schema.toStandardSchemaV1)
+) {}
+
+/**
+ * @description The payment service provider where the payee payment account is held, such as a BIC or national clearing code. The identifier is either the branch
+ * element's own `cbc:ID` or, when a document nests it, the `cac:FinancialInstitution/cbc:ID`.
  *
  * @example
  *   ```ts
@@ -108,7 +140,19 @@ export class PeppolPayeeFinancialAccountFinancialInstitutionBranch extends opaqu
         xmlName: 'ID',
         description:
           ' An identifier for the payment service provider where a payment account is located. Such as a BIC or a national clearing code where required. No identification scheme Identifier to be used.',
-      })
+      }),
+      Schema.optional
+    ),
+    /**
+     * @description The financial institution the branch belongs to, when the identifier is nested rather than carried directly on the branch element.
+     *
+     * @summary Financial institution
+     *
+     * @name `cac:FinancialInstitution`
+     */
+    financialInstitution: PeppolPayeeFinancialAccountFinancialInstitution.pipe(
+      Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'FinancialInstitution' }),
+      Schema.optional
     ),
   }).pipe(Schema.toStandardSchemaV1)
 ) {}
@@ -149,14 +193,15 @@ export class PeppolPayeeFinancialAccount extends opaque<PeppolPayeeFinancialAcco
      *
      * @name cbc:Name
      */
-    name: Schema.optional(Schema.String).pipe(
+    name: Schema.String.pipe(
       Schema.annotate({
         xmlNamespace: CBC_NAMESPACE,
         xmlPrefix: 'cbc',
         xmlName: 'Name',
         description: 'The name of the payment account, at a payment service provider, to which payment should be made.',
         title: 'Payment account name',
-      })
+      }),
+      Schema.optional
     ),
 
     /**
@@ -170,8 +215,9 @@ export class PeppolPayeeFinancialAccount extends opaque<PeppolPayeeFinancialAcco
      *
      * @name `cac:FinancialInstitutionBranch`
      */
-    financialInstitutionBranch: Schema.optional(PeppolPayeeFinancialAccountFinancialInstitutionBranch).pipe(
-      Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'FinancialInstitutionBranch' })
+    financialInstitutionBranch: PeppolPayeeFinancialAccountFinancialInstitutionBranch.pipe(
+      Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'FinancialInstitutionBranch' }),
+      Schema.optional
     ),
   }).pipe(Schema.toStandardSchemaV1)
 ) {}
@@ -232,14 +278,15 @@ export class PeppolCardAccount extends opaque<PeppolCardAccount>()(
      *
      * @name cbc:HolderName
      */
-    holderName: Schema.optional(Schema.String).pipe(
+    holderName: Schema.String.pipe(
       Schema.annotate({
         xmlNamespace: CBC_NAMESPACE,
         xmlPrefix: 'cbc',
         xmlName: 'HolderName',
         description: 'The name of the payment card holder.',
         title: 'Payment card holder name',
-      })
+      }),
+      Schema.optional
     ),
   }).pipe(Schema.toStandardSchemaV1)
 ) {}
@@ -326,8 +373,9 @@ export class PeppolPaymentMeans extends opaque<PeppolPaymentMeans>()(
      *
      * @name `cbc:PaymentDueDate`
      */
-    paymentDueDate: Schema.optional(PeppolIsoDateString).pipe(
-      Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'PaymentDueDate' })
+    paymentDueDate: PeppolIsoDateString.pipe(
+      Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'PaymentDueDate' }),
+      Schema.optional
     ),
     /**
      * @description A textual value used to establish a link between the payment and the Invoice, issued by the Seller. Used for creditor's critical reconciliation
@@ -340,7 +388,7 @@ export class PeppolPaymentMeans extends opaque<PeppolPaymentMeans>()(
      *
      * @name cbc:PaymentID
      */
-    paymentId: Schema.optional(Schema.String).pipe(
+    paymentId: Schema.String.pipe(
       Schema.annotate({
         xmlNamespace: CBC_NAMESPACE,
         xmlPrefix: 'cbc',
@@ -349,7 +397,8 @@ export class PeppolPaymentMeans extends opaque<PeppolPaymentMeans>()(
           "A textual value used to establish a link between the payment and the Invoice, issued by the Seller. Used for creditor's critical reconciliation information. This information element helps the Seller to assign an incoming payment to the relevant payment process.",
         title: 'Remittance information',
         examples: ['432948234234234`'] as unknown as ReadonlyArray<never>,
-      })
+      }),
+      Schema.optional
     ),
     /**
      * @description A group of business terms providing information about card used for payment contemporaneous with invoice issuance.
@@ -358,14 +407,15 @@ export class PeppolPaymentMeans extends opaque<PeppolPaymentMeans>()(
      *
      * @name cac:CardAccount
      */
-    cardAccount: Schema.optional(PeppolCardAccount).pipe(
+    cardAccount: PeppolCardAccount.pipe(
       Schema.annotate({
         xmlNamespace: CAC_NAMESPACE,
         xmlPrefix: 'cac',
         xmlName: 'CardAccount',
         description: 'A group of business terms providing information about card used for payment contemporaneous with invoice issuance.',
         title: 'PAYMENT CARD INFORMATION',
-      })
+      }),
+      Schema.optional
     ),
     /**
      * @description A group of business terms to specify credit transfer payments.
@@ -374,14 +424,15 @@ export class PeppolPaymentMeans extends opaque<PeppolPaymentMeans>()(
      *
      * @name cac:PayeeFinancialAccount
      */
-    payeeFinancialAccount: Schema.optional(PeppolPayeeFinancialAccount).pipe(
+    payeeFinancialAccount: PeppolPayeeFinancialAccount.pipe(
       Schema.annotate({
         xmlNamespace: CAC_NAMESPACE,
         xmlPrefix: 'cac',
         xmlName: 'PayeeFinancialAccount',
         description: 'A group of business terms to specify credit transfer payments.',
         title: 'CREDIT TRANSFER',
-      })
+      }),
+      Schema.optional
     ),
     /**
      * @description A group of business terms to specify a direct debit.
@@ -390,14 +441,15 @@ export class PeppolPaymentMeans extends opaque<PeppolPaymentMeans>()(
      *
      * @name cac:PaymentMandate
      */
-    paymentMandate: Schema.optional(PeppolPaymentMandate).pipe(
+    paymentMandate: PeppolPaymentMandate.pipe(
       Schema.annotate({
         xmlNamespace: CAC_NAMESPACE,
         xmlPrefix: 'cac',
         xmlName: 'PaymentMandate',
         description: 'A group of business terms to specify a direct debit.',
         title: 'DIRECT DEBIT',
-      })
+      }),
+      Schema.optional
     ),
   }).pipe(
     Schema.annotate({

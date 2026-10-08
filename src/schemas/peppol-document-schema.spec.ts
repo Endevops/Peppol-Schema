@@ -1,6 +1,6 @@
 import { assert, describe, expect, it } from '@effect/vitest';
 import { toCodecXml } from '@endevops/effect-codec-xml';
-import { Effect, Predicate, Result, Schema } from 'effect';
+import { Effect, Predicate, Record, Result, Schema } from 'effect';
 import path from 'node:path';
 
 import { PeppolCreditNote } from '#/schemas/peppol-credit-note-schema.ts';
@@ -10,6 +10,19 @@ import { isPeppolInvoice, PeppolInvoice } from '#/schemas/peppol-invoice-schema.
 import { PeppolMessageLevelResponse } from '#/schemas/peppol-message-level-response-schema.ts';
 
 describe('effect/document-parser', () => {
+  const decodeInvoice = Schema.decodeEffect(PeppolInvoice.pipe(toCodecXml()), { reportInput: true, errors: 'all', concurrency: 'unbounded' });
+  const decodeCreditNote = Schema.decodeEffect(PeppolCreditNote.pipe(toCodecXml()), { reportInput: true, errors: 'all', concurrency: 'unbounded' });
+  const decodeMessageLevelResponse = Schema.decodeEffect(PeppolMessageLevelResponse.pipe(toCodecXml()), {
+    reportInput: true,
+    errors: 'all',
+    concurrency: 'unbounded',
+  });
+  const decodeInvoiceResponse = Schema.decodeEffect(PeppolInvoiceResponse.pipe(toCodecXml()), {
+    reportInput: true,
+    errors: 'all',
+    concurrency: 'unbounded',
+  });
+
   const decodeDocument = Schema.decodeEffect(PeppolDocumentSchema, { reportInput: true, errors: 'all', concurrency: 'unbounded' });
   const encodeDocument = Schema.encodeEffect(PeppolDocumentSchema, { reportInput: true, errors: 'all', concurrency: 'unbounded' });
 
@@ -160,6 +173,69 @@ describe('effect/document-parser', () => {
         );
         assert(isPeppolInvoice(value));
         expect(value.invoiceLines.map(line => line.id)).toEqual(['1', '2']);
+      })
+    );
+  });
+
+  describe.each(
+    Record.toEntries(
+      import.meta.glob(['#/test/files/other/invoice/*.xml'], { query: 'raw', import: 'default' }) as Record<string, () => Promise<string>>
+    )
+  )('for file %s', async (_file, xmlContent) => {
+    it.effect(
+      'should decode the xml without errors',
+      Effect.fn(function* () {
+        const xml = yield* Effect.promise(async () => await xmlContent());
+        const result = yield* decodeInvoice(xml).pipe(Effect.result);
+        assert(Result.isSuccess(result));
+      })
+    );
+  });
+
+  describe.each(
+    Record.toEntries(
+      import.meta.glob(['#/test/files/other/credit_note/*.xml'], { query: 'raw', import: 'default' }) as Record<string, () => Promise<string>>
+    )
+  )('for file %s', async (_file, xmlContent) => {
+    it.effect(
+      'should decode the xml without errors',
+      Effect.fn(function* () {
+        const xml = yield* Effect.promise(async () => await xmlContent());
+        const result = yield* decodeCreditNote(xml).pipe(Effect.result);
+        assert(Result.isSuccess(result));
+      })
+    );
+  });
+
+  describe.each(
+    Record.toEntries(
+      import.meta.glob(['#/test/files/other/invoice_response/*.xml'], { query: 'raw', import: 'default' }) as Record<string, () => Promise<string>>
+    )
+  )('for file %s', async (_file, xmlContent) => {
+    it.effect(
+      'should decode the xml without errors',
+      Effect.fn(function* () {
+        const xml = yield* Effect.promise(async () => await xmlContent());
+        const result = yield* decodeInvoiceResponse(xml).pipe(Effect.result);
+        assert(Result.isSuccess(result));
+      })
+    );
+  });
+
+  describe.each(
+    Record.toEntries(
+      import.meta.glob(['#/test/files/other/message_level_response/*.xml'], { query: 'raw', import: 'default' }) as Record<
+        string,
+        () => Promise<string>
+      >
+    )
+  )('for file %s', async (_file, xmlContent) => {
+    it.effect(
+      'should decode the xml without errors',
+      Effect.fn(function* () {
+        const xml = yield* Effect.promise(async () => await xmlContent());
+        const result = yield* decodeMessageLevelResponse(xml).pipe(Effect.result);
+        assert(Result.isSuccess(result));
       })
     );
   });
