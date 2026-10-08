@@ -112,6 +112,7 @@ export default defineConfig({
     jsPlugins: [{ name: 'vite-plus', specifier: 'vite-plus/oxlint-plugin' }],
     options: { reportUnusedDisableDirectives: 'warn', typeAware: true },
     overrides: [
+      { files: ['release.config.mjs'], rules: { 'effecttsgo/node-builtin-import': 'allow' } },
       { files: ['**/*.spec.ts'], rules: { 'typescript/no-explicit-any': 'off' } },
       {
         files: ['**/{effect,schemas,decoders}/**/*.ts'],
@@ -163,6 +164,7 @@ export default defineConfig({
       'effecttsgo/redundant-schema-tag-identifier': 'allow', // NOTE: this rule is allowed for now to reduce noise
       'effecttsgo/unnecessary-fail-yieldable-error': 'warn',
       'effecttsgo/unsafe-effect-type-assertion': 'warn',
+      'effecttsgo/unstable-api-usage': 'off',
       'import/consistent-type-specifier-style': 'error',
       'import/newline-after-import': 'warn',
       'import/no-relative-parent-imports': 'error',

@@ -1,20 +1,20 @@
 overrides:
   vite@*: npm:@voidzero-dev/vite-plus-core@1.0.0
-  vitest@*: "catalog:"
+  vitest@*: 'catalog:'
 catalog:
-  vitest: 5.0.1
+  vitest: 5.0.3
   vite-plus: 1.0.0
-  "@vitest/coverage-v8": 5.0.1
+  '@vitest/coverage-v8': 5.0.3
 peerDependencyRules:
   allowAny:
     - vite
     - vitest
   allowedVersions:
-    vite: "*"
-    vitest: "*"
+    vite: '*'
+    vitest: '*'
 allowBuilds:
   cpu-features: true
   protobufjs: true
   ssh2: true
 minimumReleaseAgeExclude:
-  - "@endevops/*"
+  - '@endevops/*'

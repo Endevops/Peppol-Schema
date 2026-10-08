@@ -130,8 +130,9 @@ export class PeppolAllowance extends opaque<PeppolAllowance>()(
          * @name `cac:TaxScheme`
          */
         taxSchemeId: PeppolTaxCategoryTaxSchemeId.pipe(Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'TaxScheme' })),
-      })
-    ).pipe(Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'TaxCategory', title: 'TAX CATEGORY' })),
+      }),
+      Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'TaxCategory', title: 'TAX CATEGORY' })
+    ),
   }).pipe(
     Schema.annotate({
       xmlNamespace: CAC_NAMESPACE,
@@ -258,8 +259,10 @@ export class PeppolCharge extends opaque<PeppolCharge>()(
          * @name `cac:TaxScheme`
          */
         taxSchemeId: PeppolTaxCategoryTaxSchemeId.pipe(Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'TaxScheme' })),
-      })
-    ).pipe(Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'TaxCategory', title: 'TAX CATEGORY' }), Schema.optional),
+      }),
+      Schema.annotate({ xmlNamespace: CAC_NAMESPACE, xmlPrefix: 'cac', xmlName: 'TaxCategory', title: 'TAX CATEGORY' }),
+      Schema.optional
+    ),
   }).pipe(Schema.toStandardSchemaV1)
 ) {}
 

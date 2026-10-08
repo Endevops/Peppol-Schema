@@ -52,8 +52,10 @@ export class PeppolPayeePartyLegalEntity extends opaque<PeppolPayeePartyLegalEnt
           }),
           Schema.optional
         ),
-      })
-    ).pipe(Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'CompanyID' }), Schema.optional),
+      }),
+      Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'CompanyID' }),
+      Schema.optional
+    ),
   }).pipe(Schema.toStandardSchemaV1)
 ) {}
 
@@ -96,8 +98,9 @@ export class PeppolPayeePartyIdentification extends opaque<PeppolPayeePartyIdent
           Schema.optional
         ),
       }),
-      Schema.optional
-    ).pipe(Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'ID' })),
+      Schema.optional,
+      Schema.annotate({ xmlNamespace: CBC_NAMESPACE, xmlPrefix: 'cbc', xmlName: 'ID' })
+    ),
   }).pipe(Schema.toStandardSchemaV1)
 ) {}
 
