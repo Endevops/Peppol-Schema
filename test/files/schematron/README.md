@@ -1,0 +1,212 @@
+# Schematron failure fixtures
+
+One XML fixture per PEPPOL BIS Billing 3.0 rule, named after the rule it must at least trigger.
+`src/schematron/schematron-failure.int.spec.ts` decodes each file and asserts `Schematron.run` reports that rule.
+
+## Provenance
+
+Derived from the official per-rule unit tests in:
+
+- `OpenPEPPOL/peppol-bis-invoice-3` (`rules/unit-UBL-*`), commit `261c458474e27d58a25be629cccac28883171c92`
+- `ConnectingEurope/eInvoicing-EN16931` (`test/*-unit-UBL`), commit `b6c9e06a59812fb1a83585da40923b3678a649ad`
+
+Each upstream `testSet` carries a `<success>` and (usually) an `<error>` document for a rule. The difference between the two
+is applied to a full, valid base document (`test/files/v3/invoice/base-example.xml` or `.../credit-note/base-creditnote-correction.xml`)
+and kept only when the result decodes and the target rule fires.
+
+## Coverage: 174/360
+
+The remaining rules below cannot be produced this way: the upstream fragments are minimal schematron snippets, and either the
+decoder already rejects the document (code list / required field / date pattern checks mirror the rule) or the fragment does not
+express a change to a complete document. Cover them with objects-level mutation tests (as in `schematron.spec.ts`) or hand-written fixtures.
+
+<details><summary>Uncovered rules</summary>
+
+- CEN-EN16931-BR-01
+- CEN-EN16931-BR-03
+- CEN-EN16931-BR-04
+- CEN-EN16931-BR-05
+- CEN-EN16931-BR-06
+- CEN-EN16931-BR-07
+- CEN-EN16931-BR-08
+- CEN-EN16931-BR-09
+- CEN-EN16931-BR-10
+- CEN-EN16931-BR-11
+- CEN-EN16931-BR-12
+- CEN-EN16931-BR-13
+- CEN-EN16931-BR-14
+- CEN-EN16931-BR-15
+- CEN-EN16931-BR-16
+- CEN-EN16931-BR-17
+- CEN-EN16931-BR-18
+- CEN-EN16931-BR-19
+- CEN-EN16931-BR-20
+- CEN-EN16931-BR-22
+- CEN-EN16931-BR-23
+- CEN-EN16931-BR-24
+- CEN-EN16931-BR-26
+- CEN-EN16931-BR-28
+- CEN-EN16931-BR-31
+- CEN-EN16931-BR-32
+- CEN-EN16931-BR-36
+- CEN-EN16931-BR-41
+- CEN-EN16931-BR-42
+- CEN-EN16931-BR-43
+- CEN-EN16931-BR-44
+- CEN-EN16931-BR-45
+- CEN-EN16931-BR-46
+- CEN-EN16931-BR-47
+- CEN-EN16931-BR-49
+- CEN-EN16931-BR-51
+- CEN-EN16931-BR-52
+- CEN-EN16931-BR-54
+- CEN-EN16931-BR-56
+- CEN-EN16931-BR-57
+- CEN-EN16931-BR-62
+- CEN-EN16931-BR-63
+- CEN-EN16931-BR-64
+- CEN-EN16931-BR-65
+- CEN-EN16931-BR-AF-01
+- CEN-EN16931-BR-AF-02
+- CEN-EN16931-BR-AF-03
+- CEN-EN16931-BR-AF-04
+- CEN-EN16931-BR-AG-01
+- CEN-EN16931-BR-AG-02
+- CEN-EN16931-BR-B-01
+- CEN-EN16931-BR-B-02
+- CEN-EN16931-BR-CL-08
+- CEN-EN16931-BR-CO-03
+- CEN-EN16931-BR-CO-04
+- CEN-EN16931-BR-CO-05
+- CEN-EN16931-BR-CO-06
+- CEN-EN16931-BR-CO-07
+- CEN-EN16931-BR-CO-08
+- CEN-EN16931-BR-CO-09
+- CEN-EN16931-BR-CO-12
+- CEN-EN16931-BR-CO-13
+- CEN-EN16931-BR-CO-25
+- CEN-EN16931-BR-CO-26
+- CEN-EN16931-BR-DEC-01
+- CEN-EN16931-BR-DEC-02
+- CEN-EN16931-BR-DEC-05
+- CEN-EN16931-BR-DEC-06
+- CEN-EN16931-BR-DEC-09
+- CEN-EN16931-BR-DEC-10
+- CEN-EN16931-BR-DEC-11
+- CEN-EN16931-BR-DEC-12
+- CEN-EN16931-BR-DEC-13
+- CEN-EN16931-BR-DEC-14
+- CEN-EN16931-BR-DEC-15
+- CEN-EN16931-BR-DEC-16
+- CEN-EN16931-BR-DEC-17
+- CEN-EN16931-BR-DEC-18
+- CEN-EN16931-BR-DEC-19
+- CEN-EN16931-BR-DEC-20
+- CEN-EN16931-BR-DEC-23
+- CEN-EN16931-BR-DEC-24
+- CEN-EN16931-BR-DEC-25
+- CEN-EN16931-BR-DEC-27
+- CEN-EN16931-BR-DEC-28
+- CEN-EN16931-BR-E-01
+- CEN-EN16931-BR-E-02
+- CEN-EN16931-BR-E-03
+- CEN-EN16931-BR-E-04
+- CEN-EN16931-BR-G-02
+- CEN-EN16931-BR-IC-10
+- CEN-EN16931-BR-IC-11
+- CEN-EN16931-BR-IC-12
+- CEN-EN16931-BR-O-01
+- CEN-EN16931-BR-O-02
+- CEN-EN16931-BR-O-11
+- CEN-EN16931-BR-S-01
+- CEN-EN16931-BR-S-02
+- CEN-EN16931-BR-S-03
+- CEN-EN16931-BR-S-04
+- CEN-EN16931-BR-Z-01
+- CEN-EN16931-BR-Z-02
+- CEN-EN16931-BR-Z-03
+- CEN-EN16931-BR-Z-04
+- CEN-EN16931-BR-Z-10
+- DE-R-003
+- DE-R-004
+- DE-R-005
+- DE-R-006
+- DE-R-007
+- DE-R-008
+- DE-R-009
+- DE-R-010
+- DE-R-014
+- DE-R-017
+- DE-R-018
+- DE-R-019
+- DE-R-020
+- DE-R-022
+- DE-R-025-1
+- DE-R-025-2
+- DE-R-026
+- DE-R-027
+- DE-R-028
+- DE-R-031
+- DK-R-002
+- DK-R-003
+- DK-R-006
+- DK-R-013
+- DK-R-016
+- DK-R-017
+- GR-R-001-7
+- GR-R-004-1
+- GR-R-008-2
+- GR-R-008-3
+- GR-S-008-1
+- GR-S-011
+- IS-R-001
+- IS-R-002
+- IS-R-003
+- IS-R-004
+- IS-R-005
+- IS-R-006
+- IS-R-007
+- IS-R-008
+- IS-R-009
+- IS-R-010
+- NO-R-002
+- PEPPOL-COMMON-R041
+- PEPPOL-COMMON-R042
+- PEPPOL-COMMON-R044
+- PEPPOL-COMMON-R045
+- PEPPOL-COMMON-R046
+- PEPPOL-COMMON-R047
+- PEPPOL-COMMON-R052
+- PEPPOL-COMMON-R053
+- PEPPOL-EN16931-CL001
+- PEPPOL-EN16931-CL002
+- PEPPOL-EN16931-CL003
+- PEPPOL-EN16931-CL006
+- PEPPOL-EN16931-CL007
+- PEPPOL-EN16931-CL008
+- PEPPOL-EN16931-F001
+- PEPPOL-EN16931-P0100
+- PEPPOL-EN16931-P0101
+- PEPPOL-EN16931-P0112
+- PEPPOL-EN16931-R001
+- PEPPOL-EN16931-R002
+- PEPPOL-EN16931-R004
+- PEPPOL-EN16931-R007
+- PEPPOL-EN16931-R008
+- PEPPOL-EN16931-R010
+- PEPPOL-EN16931-R020
+- PEPPOL-EN16931-R043
+- PEPPOL-EN16931-R044
+- PEPPOL-EN16931-R046
+- PEPPOL-EN16931-R100
+- PEPPOL-EN16931-R101
+- SE-R-005
+- SE-R-006
+- SE-R-007
+- SE-R-008
+- SE-R-009
+- SE-R-010
+- SE-R-011
+- SE-R-012
+
+</details>
