@@ -106,21 +106,19 @@
     "test": "vp test run",
     "test:coverage": "vp test run --coverage"
   },
-  "dependencies": {
-    "@endevops/effect-codec-xml": "0.1.0-beta.2"
-  },
   "devDependencies": {
     "@arethetypeswrong/core": "^0.18.5",
-    "@effect/platform-node": "^4.0.1",
-    "@effect/tsgo": "^0.48.1",
-    "@effect/vitest": "^4.0.1",
+    "@effect/platform-node": "^4.0.2",
+    "@effect/tsgo": "^0.51.1",
+    "@effect/vitest": "^4.0.2",
+    "@endevops/effect-codec-xml": "^0.1.1",
     "@nodable/compact-builder": "^2.0.0",
     "@nodable/flexible-xml-parser": "^1.11.3",
     "@types/bun": "^1.4.2",
     "@types/node": "^26.6.4",
     "@vitest/coverage-v8": "catalog:",
-    "effect": "^4.0.1",
-    "fallow": "^3.31.0",
+    "effect": "^4.0.2",
+    "fallow": "^3.32.0",
     "picocolors": "^1.1.1",
     "publint": "^0.3.25",
     "semantic-release": "25.0.9",
@@ -131,6 +129,7 @@
     "vitest": "catalog:"
   },
   "peerDependencies": {
+    "@endevops/effect-codec-xml": "^0.1.0",
     "effect": "^4.0.0"
   },
   "engines": {
@@ -139,9 +138,9 @@
   },
   "packageManager": "pnpm@12.10.0",
   "inlinedDependencies": {
-    "@effect/platform-node": "4.0.0",
-    "@effect/platform-node-shared": "4.0.0",
-    "effect": "4.0.0",
+    "@effect/platform-node": "4.0.1",
+    "@effect/platform-node-shared": "4.0.1",
+    "effect": "4.0.1",
     "picocolors": "1.1.1"
   }
 }
