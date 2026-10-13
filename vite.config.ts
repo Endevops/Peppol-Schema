@@ -33,6 +33,8 @@ const coverage = {
   reportOnFailure: true,
 } as const satisfies (ViteUserConfig['test'] & {})['coverage'];
 
+const deps = { inline: ['@effect/vitest'] } as const;
+
 const projects = [
   {
     resolve: { dedupe: ['effect'], tsconfigPaths: true },
@@ -43,6 +45,7 @@ const projects = [
       include: [`${import.meta.dirname}/src/**/*.{test,spec}.{ts,tsx}`],
       isolate: false,
       name: `${name} - unit`,
+      server: { deps },
       setupFiles: [`${import.meta.dirname}/test/custom-matchers.ts`],
       tags: [{ description: 'All the unit test', name: 'unit' }],
       testTimeout,
@@ -56,6 +59,7 @@ const projects = [
       include: [`${import.meta.dirname}/src/**/*.int.{test,spec}.{ts,tsx}`],
       isolate: false,
       name: `${name} - integration`,
+      server: { deps },
       setupFiles: [`${import.meta.dirname}/test/custom-matchers.ts`],
       testTimeout: 30_000,
     },
